@@ -1,6 +1,0 @@
-#include,Wordlists\_globalWordLists\_global.txt
-#include,Wordlists\TscShellContainerClass\_global.txt
-; SourceCode_RAW_Files_17-11-11_02-00 - [C:\blue line\SourceCode_RAW_Files_17-11-11_02-00] - ...\BAWVerwaltung_BAWODBC.bas - PyCharm Community Edition 2017.2.4 ; = activeTitle 17-08-10_16-04
-; #include,Wordlists\_globalWordLists\examplesForBeginners.txt
-___open class library|rr||ahk|run,..\.\Wordlists\TscShellContainerClass\_global.txt
-___open window library |rr||ahk|run,..\.\Wordlists\TscShellContainerClass\BAWVerwaltung_BAWODBC_bas_PyCharm_Community_Edition_2017_2_4.txt

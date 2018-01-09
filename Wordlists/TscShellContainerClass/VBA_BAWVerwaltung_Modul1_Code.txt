@@ -1,5 +1,0 @@
-; 'Microsoft Visual Basic - BAWVerwaltung - [Modul1 (Code)] ' = at  
- ;  (line:74) 
-;  ; = activeTitle 17-08-10_16-03
-; #include,Wordlists\_globalWordLists\examplesForBeginners.txt
-___your library open|rr||ahk|run,..\.\Wordlists\TscShellContainerClass\VBA_BAWVerwaltung_Modul1_Code.txt 

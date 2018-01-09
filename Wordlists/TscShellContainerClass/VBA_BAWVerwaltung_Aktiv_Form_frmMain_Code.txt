@@ -1,5 +1,0 @@
-; 'Microsoft Visual Basic - BAWVerwaltung [Aktiv] - [Form_frmMain (Code)] ' = at  
- ;  (line:74) 
-;  ; = activeTitle 17-08-10_16-03
-; #include,Wordlists\_globalWordLists\examplesForBeginners.txt
-___your library open|rr||ahk|run,..\.\Wordlists\TscShellContainerClass\VBA_BAWVerwaltung_Aktiv_Form_frmMain_Code.txt 

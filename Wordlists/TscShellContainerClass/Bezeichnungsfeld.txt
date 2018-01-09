@@ -1,6 +1,0 @@
-#include,Wordlists\_globalWordLists\_global.txt
-#include,Wordlists\TscShellContainerClass\_global.txt
-; Textfeld: Text86 ; = activeTitle 17-08-10_16-04
-; #include,Wordlists\_globalWordLists\examplesForBeginners.txt
-___open class library|rr||ahk|run,..\.\Wordlists\TscShellContainerClass\_global.txt
-___open window library |rr||ahk|run,..\.\Wordlists\TscShellContainerClass\Textfeld_Text86.txt

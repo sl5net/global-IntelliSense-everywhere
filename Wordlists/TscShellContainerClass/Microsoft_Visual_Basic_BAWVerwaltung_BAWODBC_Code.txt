@@ -1,6 +1,0 @@
-#include,Wordlists\_globalWordLists\_global.txt
-#include,Wordlists\TscShellContainerClass\_global.txt
-; Microsoft Visual Basic - BAWVerwaltung - [BAWODBC (Code)] ; = activeTitle 17-08-10_16-04
-; #include,Wordlists\_globalWordLists\examplesForBeginners.txt
-___open class library|rr||ahk|run,..\.\Wordlists\TscShellContainerClass\_global.txt
-___open window library |rr||ahk|run,..\.\Wordlists\TscShellContainerClass\Microsoft_Visual_Basic_BAWVerwaltung_BAWODBC_Code.txt
