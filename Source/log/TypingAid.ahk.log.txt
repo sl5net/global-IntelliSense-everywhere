@@ -1,0 +1,4386 @@
+09:40:04   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+09:49:13   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+09:50:00   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+09:57:09   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+10:03:13   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+10:06:48   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+10:25:29   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+10:25:31   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+10:51:50   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+10:51:53   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:24:27   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:36:05   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:36:06   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:36:08   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:36:11   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:40:18   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:40:19   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:42:29   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:44:16   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:44:20   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:44:38   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:46:49   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:46:52   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:46:53   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:47:07   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:47:09   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:47:13   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:47:16   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:57:18   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+11:57:18   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:33:18   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:44:02   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:44:42   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:44:59   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:45:00   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:45:13   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:01:26   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:17:23   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:47:11   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:00:05   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:02:35   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+14:16:45   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:16:46   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:46:17   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+14:46:28   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+14:46:32   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:47:29   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+16:00:38   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+16:02:08   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+16:02:23   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+16:28:41   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+16:29:53   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+16:34:22   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+16:44:35   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+16:44:36   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+16:44:43   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+18:02:18   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+18:02:20   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+18:03:39   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+19:04:28   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+19:05:42   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+19:14:40   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+19:18:26   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+19:19:14   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+19:20:44   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+19:21:07   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+19:46:41   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+19:52:54   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+19:52:55   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+19:53:00   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+20:33:31   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+20:33:31   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+20:33:43   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+20:34:23   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+20:34:27   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+20:35:31   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+20:37:27   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+20:37:28   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+20:59:46   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+20:59:48   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:20:19   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:20:22   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:42:37   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:42:37   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:44:45   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:47:10   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:47:10   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:48:51   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:48:53   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:48:53   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:48:53   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:48:54   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:48:55   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:48:56   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:48:57   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:55:19   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+22:03:22   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+22:03:25   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+22:06:21   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+22:11:07   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+22:11:21   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+22:11:21   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+22:12:00   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+22:12:16   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+22:12:38   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+22:12:41   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+22:12:42   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+22:13:00   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+22:13:08   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+22:13:15   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+22:13:15   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+22:13:29   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+22:14:25   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+22:14:25   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+22:14:30   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+22:15:09   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+22:15:10   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+22:15:14   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+22:15:31   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+22:15:49   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+22:16:45   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+22:16:45   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+22:16:45   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+22:32:24   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+22:32:54   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+08:58:53   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+08:59:44   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+09:00:08   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+09:00:10   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+09:04:52   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+09:11:13   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+09:13:23   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+09:14:09   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+09:14:14   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+09:14:18   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+09:14:20   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+09:14:23   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+09:14:27   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+09:14:30   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+09:14:36   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+09:14:45   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+09:14:49   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+09:14:50   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+09:14:52   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+09:15:07   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+09:15:07   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+09:15:14   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+09:15:22   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+09:15:35   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+09:15:39   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+09:15:44   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+09:15:46   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+09:16:35   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+09:16:36   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+09:16:36   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+09:16:42   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+09:16:55   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+10:02:51   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+10:18:46   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+10:21:03   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+10:21:10   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+10:41:20   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+10:54:05   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+10:54:08   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+10:54:11   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+10:56:55   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+10:56:58   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+10:57:03   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+10:57:05   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:31:50   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:38:26   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:38:31   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:05:44   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:05:45   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:05:47   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:05:54   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+12:24:24   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:24:26   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:39:00   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+12:39:54   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:40:00   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:40:02   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:40:09   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:40:10   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:41:41   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:41:42   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:24:01   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:24:03   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:26:30   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:26:31   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:29:17   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:29:17   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:29:35   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:29:35   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:29:43   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:32:28   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:35:10   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:36:48   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:36:54   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:39:03   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:39:06   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:00:09   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:21:38   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:21:39   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:31:12   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:31:20   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:31:56   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:32:00   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:32:31   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:32:35   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:49:09   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:58:40   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:58:41   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:58:51   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:58:55   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:58:56   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:17:50   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:23:01   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:23:34   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:23:53   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+16:07:48   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+16:09:51   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+17:43:09   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+17:43:10   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+18:28:30   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+18:28:30   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+18:30:17   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+18:30:19   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+18:30:19   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+18:30:38   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+18:30:42   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+18:30:44   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+18:52:57   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+19:06:19   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+19:06:22   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+19:25:52   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+19:25:55   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+19:26:48   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+19:26:50   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+19:29:16   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+19:29:18   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+19:29:19   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+22:25:56   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+08:09:49   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+08:09:57   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+08:16:22   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+08:19:16   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+08:19:16   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+08:19:18   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+08:35:43   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+08:37:10   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+08:37:10   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+08:49:49   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+08:49:53   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+08:54:32   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+08:54:36   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+08:57:14   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:05:03   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:06:36   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:06:54   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:23:42   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+12:24:33   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+12:53:31   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+12:53:31   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:54:38   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:54:42   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:19:38   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:19:40   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:24:37   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+13:37:02   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:37:16   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:37:22   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:04:27   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:04:29   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:04:56   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:36:45   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:36:47   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:36:49   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+16:28:50   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+16:28:54   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+16:29:56   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+16:47:56   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+16:47:57   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+16:50:40   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+16:51:22   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+16:54:13   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+16:54:14   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+16:54:21   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+16:54:22   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+17:07:44   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+17:11:42   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+17:11:43   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+17:11:45   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+17:11:47   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+17:11:49   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+17:14:42   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+17:14:43   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+17:23:51   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+17:28:15   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+17:35:31   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+17:35:34   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+17:36:47   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+17:42:50   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+17:42:52   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+17:43:10   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+17:43:14   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:03:35   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:03:37   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:05:02   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:20:27   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:21:52   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:53:15   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:53:16   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+22:02:46   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+22:03:27   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+22:03:28   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+22:06:59   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+22:07:46   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+22:07:52   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+22:44:43   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+22:44:47   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+22:53:08   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+06:40:23   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+06:40:24   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+06:40:26   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+06:40:39   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+06:40:42   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+06:42:02   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+06:42:06   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+06:43:36   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+06:43:40   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+06:55:25   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+06:55:29   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+06:57:07   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+06:57:10   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+07:01:38   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+07:01:58   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+07:01:58   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+07:01:58   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+07:01:59   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+07:01:59   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+07:23:30   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+07:23:33   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+07:28:41   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+07:31:37   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+07:31:40   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+07:32:38   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+07:33:24   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+07:33:55   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+07:36:49   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+07:37:39   TypingAid.ahk>9
+ InactivateAll() 17-08-04_16-19b
+
+07:37:50   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+07:38:11   TypingAid.ahk>9
+ InactivateAll() 17-08-04_16-19b
+
+07:38:32   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+07:40:35   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+07:40:36   TypingAid.ahk>9
+ InactivateAll() 17-08-04_16-19b
+
+07:40:40   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+08:00:32   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+08:00:33   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+08:00:33   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+08:10:15   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+08:10:20   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+08:10:21   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+08:10:25   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+08:10:28   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+08:27:23   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+08:27:27   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+08:28:08   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+08:52:54   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+08:58:57   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+08:59:13   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+08:59:14   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+09:18:38   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+09:24:58   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+09:46:28   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+09:46:30   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+09:51:47   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+09:52:06   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+10:33:40   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:41:13   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:23:02   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:27:44   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:49:18   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:49:18   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:49:35   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:49:37   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:50:50   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:50:51   12:53:11   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:53:12   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:53:20   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:53:22   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:53:26   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:55:32   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:55:36   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:47:55   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:31:12   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:31:12   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:38:19   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:38:20   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:39:07   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:47:35   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:04:47   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+15:12:59   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:13:01   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:13:08   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:13:10   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:13:12   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:13:18   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:16:27   TypingAid.ahk>9
+ InactivateAll() 17-08-04_16-19b
+
+15:16:32   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:16:59   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:16:59   TypingAid.ahk>9
+ InactivateAll() 17-08-04_16-19b
+
+15:17:07   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:17:59   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:22:06   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:22:55   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:23:14   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:56:50   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:56:50   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:56:51   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:57:22   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:57:24   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:57:51   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:57:52   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+16:28:35   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+16:28:38   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+16:28:44   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+16:28:53   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+16:28:58   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+16:30:54   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+16:35:42   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+17:37:07   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+17:37:07   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+17:37:23   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+17:37:45   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+17:38:06   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+17:38:27   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+17:38:49   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+17:39:01   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+17:39:23   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+17:39:44   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+17:40:05   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+17:40:27   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+17:40:28   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+17:50:58   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+17:50:59   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+17:50:59   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+17:59:49   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+18:00:05   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+18:00:16   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+18:00:36   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+18:02:33   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+18:03:54   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+18:15:09   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+18:15:29   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+18:15:50   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+18:16:04   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+18:16:25   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+18:16:46   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+18:17:07   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+18:17:29   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+18:17:50   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+18:18:04   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+18:18:25   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+18:18:46   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+18:19:07   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+18:19:28   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+18:19:49   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+18:20:03   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+18:59:58   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+19:00:24   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+20:02:58   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:08:24   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:12:49   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:17:05   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:19:43   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:20:16   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:20:17   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:20:19   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:21:54   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:24:07   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:24:07   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:43:50   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:43:50   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:44:22   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:44:23   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:44:23   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:44:25   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:44:27   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:45:06   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:45:11   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+05:38:20   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+05:38:29   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+05:43:20   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+06:03:26   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+06:28:13   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:45:14   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:45:16   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:46:00   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:46:15   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:46:46   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:46:57   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:47:06   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:47:08   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:47:08   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:48:12   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+13:48:14   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+13:51:45   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:51:57   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:52:40   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:52:47   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:52:52   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:52:52   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:53:01   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:53:15   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:53:17   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+13:53:32   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:53:44   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:53:45   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+13:53:47   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:54:22   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:54:23   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+13:54:24   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:54:35   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:55:50   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:55:57   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:00:34   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+14:04:54   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:04:58   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:16:41   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+14:19:33   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:19:34   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:20:52   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:26:27   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+14:28:37   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:29:25   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:30:53   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:30:53   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:30:59   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:31:50   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+14:32:25   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:32:37   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:32:41   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:32:43   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+20:31:32   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+20:31:44   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+20:50:15   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:25:23   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:30:35   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+21:45:33   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+22:45:19   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+22:45:20   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+22:45:38   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+22:45:52   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+23:14:59   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+23:15:04   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+23:24:14   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+23:24:15   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+23:24:30   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+23:24:34   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+23:24:44   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+23:27:49   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+23:27:51   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+23:27:51   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+23:27:51   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+23:34:33   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+23:34:34   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+23:50:40   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+23:50:47   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+23:52:24   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+23:52:25   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+23:52:53   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+23:52:55   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+23:53:47   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+23:56:20   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+23:57:28   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+23:57:53   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+23:57:53   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+23:57:53   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+23:59:15   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+23:59:16   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:00:59   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:01:45   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+00:01:47   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+00:01:47   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:02:06   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:02:27   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:02:48   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:03:03   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:03:24   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:03:45   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:04:06   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:04:27   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:04:48   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:05:02   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:05:23   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:05:44   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:06:05   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:06:26   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:06:48   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:07:02   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:07:23   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:07:44   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:08:05   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:08:26   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:08:47   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:09:08   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:09:29   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:09:50   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:10:04   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:10:26   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:10:47   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:11:08   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:11:29   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:11:50   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:12:04   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:12:25   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:12:46   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:13:07   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:13:29   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:13:50   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:14:04   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:14:25   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:14:46   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:15:07   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:15:28   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:15:49   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:16:03   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:16:24   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:16:46   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:17:07   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:17:28   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:17:49   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:18:03   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:18:24   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:18:45   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:19:06   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:19:27   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:19:48   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:20:03   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:20:24   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:20:45   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:21:06   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:21:27   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:21:48   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:22:02   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:22:23   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:22:44   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:23:06   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:23:27   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:23:48   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:24:02   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:24:19   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+00:25:13   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:25:15   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:34:47   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:36:14   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:36:28   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+00:41:15   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:41:27   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+08:02:51   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+08:03:03   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+08:03:05   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+08:05:47   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+08:16:55   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+08:17:43   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+08:18:03   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+08:19:34   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+08:31:08   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+08:31:11   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+08:31:13   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+08:39:09   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+08:39:36   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+08:39:38   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+08:39:55   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+08:45:12   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+08:45:23   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+08:50:53   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+08:50:58   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+10:19:14   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+10:28:44   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+10:58:34   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:01:44   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:02:01   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:08:01   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+11:23:27   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:42:03   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:42:09   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:42:12   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:48:25   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+11:53:37   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:57:27   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:57:31   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:57:36   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:32:43   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:08:43   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:36:05   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+16:18:53   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+16:33:52   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+16:41:27   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+16:57:45   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+16:57:52   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+17:13:36   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+17:14:50   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+17:16:27   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+17:21:03   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+17:30:52   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+18:04:01   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+18:04:01   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+18:11:46   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+18:11:52   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:08:42   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+13:34:07   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:39:37   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:39:40   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:39:48   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:39:48   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:39:51   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:41:03   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:01:42   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:01:43   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:01:51   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:38:34   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:38:51   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:46:15   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:23:02   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:23:02   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:29:15   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+16:26:52   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+16:40:20   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+16:59:11   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+17:10:02   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+17:14:18   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+18:13:05   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+18:13:05   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+18:13:09   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+18:39:23   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+19:03:56   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+09:43:34   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+09:43:36   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+09:43:56   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+09:44:03   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+09:44:24   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+09:44:45   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+09:45:07   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+09:45:29   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+09:45:49   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+09:46:04   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+09:46:25   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+09:46:46   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+09:47:07   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+09:47:28   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+09:47:49   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+09:48:03   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+09:48:24   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+09:48:46   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+09:49:07   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+09:49:28   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+09:49:49   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+09:50:03   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+09:50:24   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+09:50:45   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+09:51:06   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+09:51:27   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+09:51:49   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+09:52:03   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+09:52:24   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+09:52:45   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+09:53:06   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+09:53:27   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+09:53:48   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+09:54:02   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+09:54:23   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+09:54:44   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+09:55:06   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+09:55:27   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+09:55:48   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+09:56:02   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+09:56:23   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+09:56:43   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+09:57:04   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+09:57:26   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+09:57:47   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+09:58:02   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+09:58:23   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+09:58:43   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+09:59:05   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+09:59:26   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+09:59:47   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+10:00:08   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+10:00:29   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+10:00:50   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+10:01:05   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+10:01:26   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+10:01:47   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+10:02:08   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+10:02:29   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+10:02:50   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+10:03:04   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+10:03:25   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+10:03:46   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+10:04:07   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+10:04:29   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+10:04:50   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+10:05:04   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+10:05:25   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+10:05:46   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+10:06:37   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+10:06:37   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+10:06:38   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+10:08:56   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+10:09:03   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+10:09:04   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+10:09:11   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+10:09:12   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+10:21:35   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+19:51:50   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+19:51:52   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+19:52:05   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+19:52:26   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+19:52:49   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+19:53:03   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+19:53:25   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+19:53:46   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+19:54:07   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+19:54:28   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+19:54:49   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+19:55:04   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+19:55:24   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+19:55:45   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+19:56:07   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+19:56:27   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+19:56:49   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+19:57:03   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+19:57:24   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+19:57:45   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+19:58:07   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+19:58:28   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+19:59:31   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+19:59:33   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:05:56   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:05:56   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:06:03   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:06:08   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+00:06:40   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+01:15:01   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+10:42:32   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+10:42:51   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+10:43:05   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+10:43:26   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+10:43:47   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+10:44:02   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+10:44:23   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+10:44:45   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+10:45:06   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+10:45:27   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+10:45:47   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+10:46:02   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+10:46:23   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+10:46:44   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+10:47:05   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+10:47:26   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+10:47:48   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+10:48:02   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+10:48:23   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+10:48:44   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+10:49:05   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+10:49:26   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+10:49:47   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+10:50:01   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+10:50:22   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+10:50:43   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+10:51:05   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+10:51:26   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+10:51:47   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+10:52:08   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+10:52:29   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+10:52:50   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+10:53:04   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+10:53:25   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+10:54:04   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+10:54:06   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:40:07   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:25:30   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:25:50   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:26:04   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:26:25   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:26:46   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:27:08   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:27:29   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:27:50   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:28:04   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:28:25   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:28:46   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:29:07   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:29:28   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:29:49   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:30:04   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:30:25   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:30:46   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:31:07   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:31:28   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:31:49   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:32:03   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:32:24   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:32:45   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:33:06   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:33:28   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:33:49   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:34:03   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:34:24   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:34:45   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:35:06   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:35:27   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:35:48   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:36:03   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:36:24   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:36:45   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:37:06   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:37:27   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:37:48   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:38:02   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:38:23   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:38:44   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:39:05   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:39:27   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:39:48   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:40:02   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:40:23   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:40:44   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:41:05   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:41:26   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:41:47   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:42:01   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:42:23   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:42:44   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:43:04   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:43:25   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:43:56   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:44:03   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:44:25   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:44:46   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:45:07   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:45:28   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:45:49   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:46:03   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:46:24   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:46:45   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:47:06   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:47:27   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:47:49   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:48:03   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:48:24   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:48:45   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:49:06   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:49:27   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:49:48   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:50:02   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:50:23   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:50:44   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:51:05   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:51:27   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:51:48   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:52:02   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:52:23   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:52:44   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:53:05   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:53:26   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:53:47   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:54:01   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:54:23   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:54:44   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:55:05   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:55:26   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:55:47   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:56:08   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:56:29   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:56:50   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:57:04   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:57:25   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:57:46   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:58:08   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:58:29   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:58:50   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:59:04   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:59:25   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:59:46   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:00:07   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:00:28   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:00:49   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:01:04   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:01:25   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:01:46   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:02:07   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:02:28   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:02:49   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:03:03   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:03:24   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:03:45   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:04:06   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:04:27   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:04:49   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:05:03   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:05:24   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:05:45   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:06:06   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:06:27   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:06:48   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:07:02   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:07:23   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:07:45   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:08:06   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:08:27   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:08:48   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:09:02   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:09:23   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:09:44   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:10:05   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:10:26   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:10:47   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:11:02   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:11:23   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:11:44   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:12:05   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:12:26   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:12:47   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:13:08   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:13:29   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:13:50   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:14:04   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:14:26   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:14:47   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:15:08   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:15:29   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:15:50   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:16:04   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:16:25   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:16:46   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:17:07   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:17:28   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:17:49   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:18:04   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:18:25   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:18:46   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:19:07   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:19:28   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:19:49   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:20:03   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:20:24   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:20:45   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:21:07   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:21:27   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:21:49   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:22:03   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:22:24   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:22:45   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:23:06   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:23:27   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:23:48   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:24:02   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:24:23   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:24:44   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:25:06   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:25:27   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:25:48   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:26:02   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:26:23   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:26:44   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:27:05   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:27:26   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:27:47   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:28:01   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:28:23   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:28:44   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:29:05   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:29:26   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:29:47   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:30:08   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:30:29   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:30:50   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:31:04   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:31:25   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:31:46   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:32:08   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:32:29   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:32:50   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:33:04   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:33:25   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:33:46   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:34:07   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:34:28   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:34:49   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:35:03   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:35:25   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:35:46   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:36:07   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:36:28   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:36:49   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:37:03   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:37:24   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:37:45   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:38:06   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:38:28   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:38:49   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:39:03   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:39:24   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:39:45   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:40:06   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:40:27   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:40:48   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:41:02   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:41:23   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:41:44   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:42:06   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:42:27   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:42:48   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:43:02   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:43:23   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:43:44   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:44:05   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:44:26   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:44:47   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:45:02   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:45:23   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:45:44   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:46:05   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:46:26   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:46:47   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:47:08   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:47:29   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:47:50   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:48:04   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:48:26   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:48:47   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:49:08   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:49:29   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:49:50   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:50:04   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:50:25   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:50:47   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:51:07   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:51:29   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:51:50   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:52:04   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:52:25   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:52:46   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:53:07   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:53:28   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:53:49   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:54:03   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:54:25   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:54:46   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:55:07   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:55:28   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:55:49   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:56:03   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:56:24   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:56:45   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:57:07   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:57:28   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:57:49   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:58:03   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:58:24   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:58:45   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:59:06   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:59:27   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:59:48   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:00:02   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:00:24   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:00:45   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:01:06   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:01:27   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:01:48   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:02:02   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:02:23   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:02:44   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:03:06   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:03:27   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:03:48   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:04:02   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:04:23   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:04:44   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:05:05   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:05:26   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:05:47   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:06:01   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:06:23   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:06:44   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:07:05   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:07:26   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:07:47   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:08:08   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:08:29   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:08:50   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:09:04   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:09:26   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:09:47   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:10:08   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:10:29   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:10:50   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:11:04   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:11:25   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:11:46   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:12:07   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:12:29   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:12:50   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:13:04   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:13:25   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:13:46   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:14:07   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:14:28   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:14:49   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:15:03   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:15:24   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:15:46   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:16:07   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:16:28   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:16:49   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:17:03   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:17:24   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:17:45   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:18:06   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:18:27   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:18:48   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:19:03   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:19:24   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:19:26   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:19:53   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:24:02   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:24:03   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:24:03   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+15:24:03   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:24:18   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:24:53   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:24:58   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:25:00   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:31:05   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:31:07   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:31:23   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+15:31:23   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+15:31:32   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:31:35   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:38:26   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:39:25   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:39:35   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:42:04   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:44:56   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:44:57   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:45:50   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:47:17   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:55:43   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:57:26   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+15:59:51   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+16:09:49   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+16:09:59   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+16:10:01   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+17:09:50   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+17:15:50   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+17:16:32   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+17:16:34   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+17:30:52   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+17:37:27   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+17:37:30   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+18:02:44   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+18:19:02   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+18:19:45   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+19:27:34   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+19:27:38   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+19:36:37   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+19:37:09   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+19:37:13   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+19:37:15   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+19:37:15   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+19:37:26   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+19:37:35   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+19:37:44   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+19:42:20   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+19:42:25   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+19:57:24   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+20:20:08   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+20:20:15   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+20:20:17   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+20:21:26   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+20:27:41   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+20:27:42   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+20:31:38   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+20:31:41   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+20:50:47   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+20:55:06   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:06:00   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:06:05   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:06:48   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:06:50   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:07:17   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:10:19   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:20:36   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:20:36   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:21:05   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:21:05   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:21:09   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:22:06   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:22:24   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:25:48   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:26:18   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:26:27   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:26:37   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+21:26:43   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:26:43   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:26:50   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:26:50   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:26:58   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:26:58   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:56:14   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+21:56:14   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+22:30:13   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+22:30:14   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+22:43:58   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+23:07:22   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+23:10:17   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+23:14:43   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+23:18:55   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+23:18:57   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+07:43:33   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+07:54:13   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+08:37:02   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+08:37:17   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+08:42:33   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+08:42:34   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+08:48:43   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+08:48:43   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+08:56:35   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+09:19:11   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+09:19:13   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+09:31:24   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+09:59:11   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+09:59:11   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+09:59:15   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+10:08:02   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+10:09:12   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+10:09:20   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+10:09:28   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+10:09:31   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+10:12:18   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+10:12:23   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+10:18:31   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+10:23:04   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+10:24:32   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+10:29:26   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:07:01   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:07:02   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:07:04   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:07:05   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:07:31   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:07:33   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:07:35   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:07:38   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:07:41   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:07:44   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:07:45   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:09:54   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:10:09   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:29:56   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:34:52   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:34:56   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:34:59   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:35:18   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:35:23   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:52:08   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:52:09   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:55:29   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:55:29   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:55:33   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:55:33   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:55:35   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:55:38   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:57:55   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:59:17   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:59:57   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+11:59:57   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:04:51   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:39:41   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+12:39:48   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:33:32   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:37:11   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:37:13   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:50:55   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:51:02   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:51:10   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+13:51:23   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:20:43   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:23:03   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:25:59   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+14:26:01   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+14:26:03   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+14:27:12   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:27:13   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:28:52   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:28:57   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:29:13   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:29:35   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:29:38   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:30:03   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:30:05   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:30:25   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:30:26   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:30:30   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:30:31   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:30:40   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:30:42   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:31:31   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:31:36   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:31:37   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:32:29   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:32:31   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:33:14   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:33:16   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:33:18   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:33:22   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+14:34:49   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:34:50   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:35:25   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:35:26   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:36:33   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:36:37   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:36:41   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:39:31   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:40:11   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:40:13   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+14:59:37   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:01:02   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:01:20   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:01:24   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:03:18   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:23:46   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:32:26   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:41:39   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:41:40   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:41:43   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:45:42   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:45:45   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:45:51   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:47:12   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:48:25   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:48:30   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:54:04   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:57:03   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+15:57:04   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+16:00:24   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+16:00:39   TypingAid.ahk>204
+ InactivateAll() 17-08-04_16-19c
+
+16:05:39   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+16:05:46   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+16:05:51   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+16:05:53   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+16:06:27   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+
+16:06:30   TypingAid.ahk>220
+GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a
+

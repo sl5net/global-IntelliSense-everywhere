@@ -1,0 +1,36 @@
+13:53:02   ToolTipSec.inc.ahk>43
+ToolTip4sec
+
+13:53:02   ToolTipSec.inc.ahk>59
+ToolTipSec
+
+13:53:02   ToolTipSec.inc.ahk>64
+
+
+13:53:18   ToolTipSec.inc.ahk>43
+ToolTip4sec
+
+13:53:18   ToolTipSec.inc.ahk>59
+ToolTipSec
+
+13:53:18   ToolTipSec.inc.ahk>64
+
+
+13:54:35   ToolTipSec.inc.ahk>43
+ToolTip4sec
+
+13:54:35   ToolTipSec.inc.ahk>59
+ToolTipSec
+
+13:54:36   ToolTipSec.inc.ahk>64
+
+
+13:55:51   ToolTipSec.inc.ahk>43
+ToolTip4sec
+
+13:55:51   ToolTipSec.inc.ahk>59
+ToolTipSec
+
+13:55:51   ToolTipSec.inc.ahk>64
+
+

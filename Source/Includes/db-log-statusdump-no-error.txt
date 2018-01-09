@@ -1,0 +1,119 @@
+Script lines most recently executed (oldest first).  Press [F5] to refresh.  The seconds elapsed between a line and the one after it is in parentheses to the right (if not 0).  The bottommost line's elapsed time is the number of seconds since it executed.
+
+---- E:\fre\private\HtmlDevelop\AutoHotKey\tools\TypingAid-master\Source\Includes\Sending.ahk
+358: _ := "uint"
+358: @ := "Ptr"
+---- E:\fre\private\HtmlDevelop\AutoHotKey\tools\TypingAid-master\Source\Lib\Base.ahk
+093: metaProps := ["base","__New","__Get","__Set","__Class"]
+---- E:\fre\private\HtmlDevelop\AutoHotKey\tools\TypingAid-master\Source\Lib\ArchLogger.ahk
+005: gDBA_ArchLogger.Logger := new _ArchLoggerFile()
+034: this.logpath := A_ScriptDir "\" A_ScriptName ".log"
+000: }
+---- E:\fre\private\HtmlDevelop\AutoHotKey\tools\TypingAid-master\Source\Lib\MemoryBuffer.ahk
+007: MemoryBuffer.HEAP_NO_SERIALIZE := 0x00000001
+008: MemoryBuffer.HEAP_GENERATE_EXCEPTIONS := 0x00000004
+009: MemoryBuffer.HEAP_ZERO_MEMORY := 0x00000008
+010: MemoryBuffer.HEAP_CREATE_ENABLE_EXECUTE := 0x00040000
+012: MemoryBuffer.Heap := 0
+055: CryptStringToBinary := "Crypt32.dll\CryptStringToBinary" (A_IsUnicode ? "W" : "A")
+056: CRYPT_STRING_BASE64 := 0x00000001
+114: CryptBinaryToString := "Crypt32.dll\CryptBinaryToString" (A_IsUnicode ? "W" : "A")
+115: CRYPT_STRING_BASE64 := 0x00000001
+115: CRYPT_STRING_BASE64 := 0x00000001
+---- E:\fre\private\HtmlDevelop\AutoHotKey\tools\TypingAid-master\Source\Lib\ADO.ahk
+013: gDBA_ADO.CursorType.adOpenUnspecified := -1
+014: gDBA_ADO.CursorType.adOpenForwardOnly := 0
+015: gDBA_ADO.CursorType.adOpenKeyset := 1
+016: gDBA_ADO.CursorType.adOpenDynamic := 2
+017: gDBA_ADO.CursorType.adOpenStatic := 3
+022: gDBA_ADO.LockType.adLockUnspecified := -1
+023: gDBA_ADO.LockType.adLockReadOnly := 1
+024: gDBA_ADO.LockType.adLockPessimistic := 2
+025: gDBA_ADO.LockType.adLockOptimistic := 3
+026: gDBA_ADO.LockType.adLockBatchOptimistic := 4
+031: gDBA_ADO.CommandType.adCmdUnspecified := -1
+032: gDBA_ADO.CommandType.adCmdText := 1
+033: gDBA_ADO.CommandType.adCmdTable := 2
+034: gDBA_ADO.CommandType.adCmdStoredProc := 4
+035: gDBA_ADO.CommandType.adCmdUnknown := 8
+036: gDBA_ADO.CommandType.adCmdFile := 256
+037: gDBA_ADO.CommandType.adCmdTableDirect := 512
+042: gDBA_ADO.AffectEnum.adAffectCurrent := 1
+043: gDBA_ADO.AffectEnum.adAffectGroup := 2
+048: gDBA_ADO.ObjectStateEnum.adStateClosed := 0
+049: gDBA_ADO.ObjectStateEnum.adStateOpen := 1
+050: gDBA_ADO.ObjectStateEnum.adStateConnecting := 2
+051: gDBA_ADO.ObjectStateEnum.adStateExecuting := 4
+052: gDBA_ADO.ObjectStateEnum.adStateFetching := 8
+---- E:\fre\private\HtmlDevelop\AutoHotKey\tools\TypingAid-master\Source\Lib\SQLite_L.ahk
+091: gDBA_SQLiteDataType.SQLITE_INTEGER := 1
+092: gDBA_SQLiteDataType.SQLITE_FLOAT := 2
+093: gDBA_SQLiteDataType.SQLITE_BLOB := 4
+094: gDBA_SQLiteDataType.SQLITE_NULL := 5
+095: gDBA_SQLiteDataType.SQLITE_TEXT := 3
+100: MinVersion := "35"
+141: SQLITE_OPEN_READONLY := 0x01
+142: SQLITE_OPEN_READWRITE := 0x02
+143: SQLITE_OPEN_CREATE := 0x04
+358: fn := "SQLite3\sqlite3_bind_text" (A_IsUnicode ? "16" : "")
+584: InputFile := "~SQLINP.TXT"
+585: OutputFile := "~SQLOUT.TXT"
+824: LastError := ""
+840: DLLPath := ""
+841: dllname := "SQLite3.dll"
+871: EXEPath := ""
+912: ModuleHandle := ""
+922: CurrentDB := 0
+932: ValidHandles := {}
+954: CurrentQuery := 0
+964: ValidQueries := {}
+986: RCTXT := { SQLITE_OK: 0, SQLITE_ERROR: 1, SQLITE_INTERNAL: 2, SQLITE_PERM: 3, SQLITE_ABORT: 4, SQLITE_BUSY: 5, SQLITE_LOCKED: 6, SQLITE_NOMEM: 7, SQLITE_READONLY: 8, SQLITE_INTERRUPT: 9, SQLIT
+---- E:\fre\private\HtmlDevelop\AutoHotKey\tools\TypingAid-master\Source\Lib\mySQL.ahk
+062: DLLPath := ""
+063: dllname := "libmySQL.dll"
+---- E:\fre\private\HtmlDevelop\AutoHotKey\tools\TypingAid-master\Source\Lib\DataBaseFactory.ahk
+003: DBA.DataBaseFactory.AvailableTypes := ["SQLite", "MySQL", "ADO"]
+---- E:\fre\private\HtmlDevelop\AutoHotKey\tools\TypingAid-master\Source\Lib\DataBaseAbstract.ahk
+162: DBA.DataBase.NULL := Object()
+163: DBA.DataBase.TRUE := Object()
+164: DBA.DataBase.FALSE := Object()
+---- E:\fre\private\HtmlDevelop\AutoHotKey\tools\TypingAid-master\Source\Lib\DataBaseSQLLite.ahk
+312: RCODE := {SQLITE_OK: 0, SQLITE_ERROR: 1, SQLITE_INTERNAL: 2, SQLITE_PERM: 3, SQLITE_ABORT: 4, SQLITE_BUSY: 5, SQLITE_LOCKED: 6, SQLITE_NOMEM: 7, SQLITE_READONLY: 8, SQLITE_INTERRUPT: 9, SQLITE
+---- E:\fre\private\HtmlDevelop\AutoHotKey\tools\TypingAid-master\Source\Lib\DataBaseADO.ahk
+042: ObjectStateEnum_adStateClosed := 0
+---- E:\fre\private\HtmlDevelop\AutoHotKey\tools\TypingAid-master\Source\Lib\RecordSetSqlLite.ahk
+058: EOR := -1
+---- E:\fre\private\HtmlDevelop\AutoHotKey\tools\TypingAid-master\Source\Lib\RecordSetMySQL.ahk
+056: EOR := -1
+---- E:\fre\private\HtmlDevelop\AutoHotKey\tools\TypingAid-master\Source\Lib\sizeof.ahk
+023: _types__ := ",ATOM:2,LANGID:2,WCHAR:2,WORD:2,PTR:" A_PtrSize ",UPTR:" A_PtrSize ",SHORT:2,USHORT:2,INT:4,UINT:4,INT64:8,UINT64:8,DOUBLE:8,FLOAT:4,CHAR:1,UCHAR:1,__int64:8,TBYTE:" (A_IsUnicode?
+035: _types_ := _types__ ",HGDIOBJ:" A_PtrSize ",HGLOBAL:" A_PtrSize ",HHOOK:" A_PtrSize ",HICON:" A_PtrSize ",HINSTANCE:" A_PtrSize ",HKEY:" A_PtrSize ",HKL:" A_PtrSize ",HLOCAL:" A_PtrSize ",HMEN
+191: _types__ := ",ATOM:2,LANGID:2,WCHAR:2,WORD:2,PTR:" A_PtrSize ",UPTR:" A_PtrSize ",SHORT:2,USHORT:2,INT:4,UINT:4,INT64:8,UINT64:8,DOUBLE:8,FLOAT:4,CHAR:1,UCHAR:1,__int64:8,TBYTE:" (A_IsUnicode?
+203: _types_ := _types__ ",HGDIOBJ:" A_PtrSize ",HGLOBAL:" A_PtrSize ",HHOOK:" A_PtrSize ",HICON:" A_PtrSize ",HINSTANCE:" A_PtrSize ",HKEY:" A_PtrSize ",HKL:" A_PtrSize ",HLOCAL:" A_PtrSize ",HMEN
+---- E:\fre\private\HtmlDevelop\AutoHotKey\tools\TypingAid-master\Source\Lib\_Struct.ahk
+044: _Struct.PTR := A_PtrSize, _Struct.UPTR := A_PtrSize, _Struct.SHORT := 2, _Struct.USHORT := 2, _Struct.INT := 4, _Struct.UINT := 4, _Struct.__int64 := 8, _Struct.INT64 := 8, _Struct.UINT64 := 8
+053: _Struct.HGDIOBJ := A_PtrSize, _Struct.HGLOBAL := A_PtrSize, _Struct.HHOOK := A_PtrSize, _Struct.HICON := A_PtrSize, _Struct.HINSTANCE := A_PtrSize, _Struct.HKEY := A_PtrSize, _Struct.HKL := A_
+065: _Struct._PTR := "PTR", _Struct._UPTR := "UPTR", _Struct._SHORT := "Short", _Struct._USHORT := "UShort", _Struct._INT := "Int", _Struct._UINT := "UInt", _Struct._INT64 := "Int64", _Struct._UINT
+076: _Struct._HENHMETAFILE := "UPTR", _Struct._HFONT := "UPTR", _Struct._HGDIOBJ := "UPTR", _Struct._HGLOBAL := "UPTR", _Struct._HHOOK := "UPTR", _Struct._HICON := "UPTR", _Struct._HINSTANCE := "UP
+086: _Struct._SIZE_T := "UPTR", _Struct._UINT_PTR := "UPTR", _Struct._ULONG_PTR := "UPTR", _Struct._ATOM := "Ushort", _Struct._LANGID := "Ushort", _Struct._WCHAR := "Ushort", _Struct._WORD := "USho
+091: _prefixes_ := {offset:"",isptr:"
+",AHKType:"
+",type:"	",encoding:"",memory:"",arrsize:" "}
+091: _testtype_ := {offset:"integer",isptr:"integer",AHKType:"string",type:"string",encoding:"string",arrsize:"integer"}
+091: _default_ := {offset:0,isptr:0,AHKType:"UInt",type:"UINT",encoding:"CP0",memory:"",arrsize:1}
+129: _base_ := {__GET:_Struct.___GET,__SET:_Struct.___SET,__SETPTR:_Struct.___SETPTR,__Clone:_Struct.___Clone,__NEW:_Struct.___NEW,IsPointer:_Struct.IsPointer,Offset:_Struct.Offset,Type:_Struct.Typ
+402: _base_ := {__GET:_Struct.___GET,__SET:_Struct.___SET,__SETPTR:_Struct.___SETPTR,__Clone:_Struct.___Clone,__NEW:_Struct.___NEW,IsPointer:_Struct.IsPointer,Offset:_Struct.Offset,Type:_Struct.Typ
+---- E:\fre\private\HtmlDevelop\AutoHotKey\tools\TypingAid-master\Source\TypingAid.ahk
+002: s := 1000
+003: s5 := 5000
+004: s10 := 10000
+005: s15 := 15000
+006: s20 := 20000
+007: m := 60*s
+008: m5 := m*5
+010: minLinesOfCode4length1 := 900
+012: SetTimer,reloadWordlost,%s5%
+013: SetTimer,reloadThis,%m%
+042: Suspend,On (12.00)
+
+Press [F5] to refresh.

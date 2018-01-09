@@ -1,0 +1,5 @@
+; 'Textfeld: Text86 ' = at  
+ ;  (line:74) 
+;  ; = activeTitle 17-08-10_16-03
+; #include,Wordlists\_globalWordLists\examplesForBeginners.txt
+___your library open|rr||ahk|run,..\.\Wordlists\TscShellContainerClass\Textfeld_ 
