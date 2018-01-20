@@ -143,7 +143,7 @@ SetTitleMatchMode,2  ; if this is 1 it does not find the tool in tray bar 27.04.
 
 
 IfWinNotExist,Could not close the previous instance of this script_autoCloser.ahk
-run,%A_ScriptDir%\..\..\..\Could not close the previous instance of this script_autoCloser.ahk
+run,%A_ScriptDir%\Could not close the previous instance of this script_autoCloser.ahk
 
 
 ;WinClose,keysEveryWhere.ahk ahk_class AutoHotkey ; thats working. thats the way you could close ahk running scripts.
@@ -169,7 +169,7 @@ g_nextCriticalCommandString := "104:Suspend, On"
 Suspend, On ; wieder (10.07.2017 11:47) auskommentiert weils mir zu oft auf suspand on war. wehr oft wenn ich auf skype gewecheelt habe. hoffe die anderen bugFix haben den Seiteneffekt das ich dieses nicht mehr brauche.
 ;WinSetTitle, TypingAid - Active, , TypingAid - Active wait4sec
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-f=problemHandler104SuspendOn.ahk
+f:= "problemHandler104SuspendOn.ahk"
 ff := A_ScriptDir . "\" . f
 DetectHiddenWindows,On
 if( !WinExist(f) )
@@ -646,7 +646,7 @@ Return
 
 ;------------------------------------------------------------------------
 
-CheckForCaretMove(MouseButtonClick, UpdatePosition = false)
+CheckForCaretMove(MouseButtonClick, UpdatePosition := false)
 {
    global g_LastInput_Id
    global g_MouseWin_Id
@@ -1846,9 +1846,9 @@ setLength(ParseWordsCount, maxLinesOfCode4length1){
 ;MsgBox, %A_ScriptDir% = A_ScriptDir
 
 
-; # Include ..\inc_ahk\functions_global.inc.ahk
-; # Include *i ..\inc_ahk\UPDATEDSCRIPT_global.inc.ahk
-; # Include ..\inc_ahk\functions_global_dateiende.inc.ahk ; A_ScriptDir
+; # Include *i inc_ahk\functions_global.inc.ahk
+; # Include *i inc_ahk\UPDATEDSCRIPT_global.inc.ahk
+; # Include *i inc_ahk\functions_global_dateiende.inc.ahk ; A_ScriptDir
 ; # Include ..\inc_ahk\Typing_Aid_everywhere_multi_clone.inc.ahk
 
 
@@ -2026,10 +2026,10 @@ if(ActiveTitleOLD <> ActiveTitle){
 return
 
 
-#Include %A_ScriptDir%\..\inc_ahk\copy2clipBoard.functions.inc.ahk
-#Include %A_ScriptDir%\..\inc_ahk\functions_global.inc.ahk
-#Include %A_ScriptDir%\..\inc_ahk\ToolTipSec_RemoveToolTip.inc.ahk
-#Include %A_ScriptDir%\..\inc_ahk\ToolTipSec.inc.ahk
-#Include %A_ScriptDir%\..\inc_ahk\functions_global_dateiende.inc.ahk
+#Include %A_ScriptDir%\inc_ahk\copy2clipBoard.functions.inc.ahk
+#Include %A_ScriptDir%\inc_ahk\functions_global.inc.ahk
+#Include %A_ScriptDir%\inc_ahk\ToolTipSec_RemoveToolTip.inc.ahk
+#Include %A_ScriptDir%\inc_ahk\ToolTipSec.inc.ahk
+#Include %A_ScriptDir%\inc_ahk\functions_global_dateiende.inc.ahk
 
 

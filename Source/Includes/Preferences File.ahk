@@ -15,7 +15,7 @@ MaybeWriteHelperWindowPos()
 
 ;------------------------------------------------------------------------
 
-ReadPreferences(RestoreDefaults = false,RestorePreferences = false)
+ReadPreferences(RestoreDefaults := false,RestorePreferences := false)
 {
    global dft_IncludeProgramExecutables
    global dft_IncludeProgramTitles

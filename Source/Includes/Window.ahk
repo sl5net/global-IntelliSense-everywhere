@@ -56,14 +56,14 @@ WinChanged(hWinEventHook, event, wchwnd, idObject, idChild, dwEventThread, dwmsE
       return
    }
    
-   if (g_ManualActivate = true)
+   if (g_ManualActivate := true)
    {
       ; ignore activations we've set up manually and clear the flag
       g_ManualActivate = 
       return
    }      
    
-   if (g_inSettings = true )
+   if (g_inSettings := true )
    {
       return
    }

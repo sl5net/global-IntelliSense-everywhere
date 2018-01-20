@@ -97,9 +97,9 @@ ToolTip, i FOUND :-) myself yeaah `n not a totally idiot :) `n ( %A_ScriptName% 
 return
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-#Include %A_ScriptDir%\..\inc_ahk\copy2clipBoard.functions.inc.ahk
-#Include %A_ScriptDir%\..\inc_ahk\ToolTipSec_RemoveToolTip.inc.ahk
-#Include %A_ScriptDir%\..\inc_ahk\ToolTipSec.inc.ahk
-#Include %A_ScriptDir%\..\inc_ahk\functions_global.inc.ahk
+#Include %A_ScriptDir%\inc_ahk\copy2clipBoard.functions.inc.ahk
+#Include %A_ScriptDir%\inc_ahk\ToolTipSec_RemoveToolTip.inc.ahk
+#Include %A_ScriptDir%\inc_ahk\ToolTipSec.inc.ahk
+#Include %A_ScriptDir%\inc_ahk\functions_global.inc.ahk
 
-#Include %A_ScriptDir%\..\inc_ahk\functions_global_dateiende.inc.ahk
+#Include %A_ScriptDir%\inc_ahk\functions_global_dateiende.inc.ahk

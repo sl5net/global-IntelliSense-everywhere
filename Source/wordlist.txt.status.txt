@@ -1,13 +1,7 @@
-E:\fre\private\HtmlDevelop\AutoHotKey\tools\TypingAid-master\.\Wordlists\_globalWordListsGenerated\_global.txt
+C:\temp\global-IntelliSense-everywhere-master\Source\.\..\Wordlists\_globalWordListsGenerated\..\_globalWordListsGenerated\_global.txt
 _globalWordListsGenerated
 _global
-wordlistNEWarchivePath = .\Wordlists\_globalWordListsGenerated\_global.txt
+wordlistNEWarchivePath = .\..\Wordlists\_globalWordListsGenerated\..\_globalWordListsGenerated\_global.txt
 activeClass  = _globalWordListsGenerated
 activeTitle = _global
-; FileReadLine,wordlistNEWarchivePath ,wordlist.txt, 1E:\fre\private\HtmlDevelop\AutoHotKey\tools\TypingAid-master\.\Wordlists\FreeCommanderXESingleInst1\..\_globalWordLists\pfade.txt
-FreeCommanderXESingleInst1
-TypingAid-master - FreeCommander XE
-wordlistNEWarchivePath = .\Wordlists\FreeCommanderXESingleInst1\..\_globalWordLists\pfade.txt
-activeClass  = FreeCommanderXESingleInst1
-activeTitle = TypingAid-master - FreeCommander XE
 ; FileReadLine,wordlistNEWarchivePath ,wordlist.txt, 1

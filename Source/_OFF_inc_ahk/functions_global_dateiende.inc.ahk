@@ -207,7 +207,7 @@ preParser(AScriptDir, AScriptName, AScriptFullPath)
       line:=RTrim(line)
       FileAppend, %line% `n ,%temFile%            
   }               
-  if(isPreparsedChanged = true )          
+  if(isPreparsedChanged := true )
     FileCopy, %temFile%, %AScriptFullPath%,1            
   return
 }
@@ -240,7 +240,7 @@ bToolTip(s)
   temp := temp1  
   temp := temp2  
   
-  s := temp . "`nif(isDevellopperMode=true)`n ToolTip3sec(temp) `; MsgBox,%temp% "      
+  s := temp . "`nif(isDevellopperMode:= true)`n ToolTip3sec(temp) `; MsgBox,%temp% "
   ;s := "ToolTip3sec(" . temp . " )"      
   ;MsgBox,%s%      
   ;exit      
@@ -266,7 +266,7 @@ bStringProzentNotation(s)
   temp2:= " %fromline% � %A_LineNumber%: ``n``n " . s2 ; . SubStr(s2 , 4, StrLen(s2) - 4)  
   temp2 := "temp = " . temp2
   temp := temp2  
-  s := temp . "`nif(isDevellopperMode=true)`nMsgBox,%temp% `; ToolTip3sec(temp) "      
+  s := temp . "`nif(isDevellopperMode:= true)`nMsgBox,%temp% `; ToolTip3sec(temp) "
   return s            
 }
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

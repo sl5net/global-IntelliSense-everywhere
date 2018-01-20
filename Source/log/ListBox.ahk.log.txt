@@ -16066,3 +16066,15 @@ EnableKeyboardHotKeys()
 15:49:25   ListBox.ahk>216
 DisableKeyboardHotKeys()
 
+17:20:40   ListBox.ahk>692
+EnableKeyboardHotKeys()
+
+17:20:42   ListBox.ahk>216
+DisableKeyboardHotKeys()
+
+17:24:23   ListBox.ahk>692
+EnableKeyboardHotKeys()
+
+17:24:25   ListBox.ahk>216
+DisableKeyboardHotKeys()
+

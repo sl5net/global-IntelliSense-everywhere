@@ -61,17 +61,17 @@ ifWinNotExist,TypingAid
 )
 
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-if(! FileExist( A_WorkingDir . "\..\inc_ahk\copy2clipBoard.functions.inc.ahk" ) ) {
-    lll(A_LineNumber, "Wordlist.ahk", "52 :-( if(!fileExist(A_WorkingDir . \..\inc_ahk\copy2clipBoard.functions.inc.ahk)) ==> exitApp 17-07-18_20-24")
-     msg=NOT Exist %A_WorkingDir% . "\..\inc_ahk\copy2clipBoard.functions.inc.ahk" ) ==> exitapp `n (%A_ScriptName%~%A_LineNumber%)
+if(! FileExist( A_WorkingDir . "\inc_ahk\copy2clipBoard.functions.inc.ahk" ) ) {
+    lll(A_LineNumber, "Wordlist.ahk", "52 :-( if(!fileExist(A_WorkingDir . \inc_ahk\copy2clipBoard.functions.inc.ahk)) ==> exitApp 17-07-18_20-24")
+     msg=NOT Exist %A_WorkingDir% . "\inc_ahk\copy2clipBoard.functions.inc.ahk" ) ==> exitapp `n (%A_ScriptName%~%A_LineNumber%)
      feedbackMsgBox(msg,msg,1,1)
     exitApp
 }
-ahkCloseERRERmsg .= "`n#" . "Include " .  A_WorkingDir . "\..\inc_ahk\copy2clipBoard.functions.inc.ahk"
-ahkCloseERRERmsg .= "`n#" . "Include " .  A_WorkingDir . "\..\inc_ahk\functions_global.inc.ahk"
-ahkCloseERRERmsg .= "`n#" . "Include " .  A_WorkingDir . "\..\inc_ahk\ToolTipSec_RemoveToolTip.inc.ahk"
-ahkCloseERRERmsg .= "`n#" . "Include " .  A_WorkingDir . "\..\inc_ahk\ToolTipSec.inc.ahk"
-ahkCloseERRERmsg .= "`n#" . "Include " .  A_WorkingDir . "\..\inc_ahk\functions_global_dateiende.inc.ahk"
+ahkCloseERRERmsg .= "`n#" . "Include " .  A_WorkingDir . "\inc_ahk\copy2clipBoard.functions.inc.ahk"
+ahkCloseERRERmsg .= "`n#" . "Include " .  A_WorkingDir . "\inc_ahk\functions_global.inc.ahk"
+ahkCloseERRERmsg .= "`n#" . "Include " .  A_WorkingDir . "\inc_ahk\ToolTipSec_RemoveToolTip.inc.ahk"
+ahkCloseERRERmsg .= "`n#" . "Include " .  A_WorkingDir . "\inc_ahk\ToolTipSec.inc.ahk"
+ahkCloseERRERmsg .= "`n#" . "Include " .  A_WorkingDir . "\inc_ahk\functions_global_dateiende.inc.ahk"
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 ahkCloseERRERmsg2 =
@@ -101,11 +101,11 @@ run,log\Wordlist.ahk.log.txt
     ; its strange. sometimes the error toggles. so i need both path to run it. 04.04.2017 17:57 17-04-04_17-57
 }
 )
-ahkCloseERRERmsg2 .= "`n#" . "Include " .  A_WorkingDir . "\..\inc_ahk\copy2clipBoard.functions.inc.ahk"
-ahkCloseERRERmsg2 .= "`n#" . "Include " .  A_WorkingDir . "\..\inc_ahk\functions_global.inc.ahk"
-ahkCloseERRERmsg2 .= "`n#" . "Include " .  A_WorkingDir . "\..\inc_ahk\ToolTipSec_RemoveToolTip.inc.ahk"
-ahkCloseERRERmsg2 .= "`n#" . "Include " .  A_WorkingDir . "\..\inc_ahk\ToolTipSec.inc.ahk"
-ahkCloseERRERmsg2 .= "`n#" . "Include " .  A_WorkingDir . "\..\inc_ahk\functions_global_dateiende.inc.ahk"
+ahkCloseERRERmsg2 .= "`n#" . "Include " .  A_WorkingDir . "\inc_ahk\copy2clipBoard.functions.inc.ahk"
+ahkCloseERRERmsg2 .= "`n#" . "Include " .  A_WorkingDir . "\inc_ahk\functions_global.inc.ahk"
+ahkCloseERRERmsg2 .= "`n#" . "Include " .  A_WorkingDir . "\inc_ahk\ToolTipSec_RemoveToolTip.inc.ahk"
+ahkCloseERRERmsg2 .= "`n#" . "Include " .  A_WorkingDir . "\inc_ahk\ToolTipSec.inc.ahk"
+ahkCloseERRERmsg2 .= "`n#" . "Include " .  A_WorkingDir . "\inc_ahk\functions_global_dateiende.inc.ahk"
 
 
 
@@ -141,11 +141,11 @@ run,log\Wordlist.ahk.log.txt
        ; its strange. sometimes the error toggles. so i need both path to run it. 04.04.2017 17:57 17-04-04_17-57
 }
 )
-ahkCloseERRERmsg3 .= "`n#" . "Include " .  A_WorkingDir . "\..\inc_ahk\copy2clipBoard.functions.inc.ahk"
-ahkCloseERRERmsg3 .= "`n#" . "Include " .  A_WorkingDir . "\..\inc_ahk\functions_global.inc.ahk"
-ahkCloseERRERmsg3 .= "`n#" . "Include " .  A_WorkingDir . "\..\inc_ahk\ToolTipSec_RemoveToolTip.inc.ahk"
-ahkCloseERRERmsg3 .= "`n#" . "Include " .  A_WorkingDir . "\..\inc_ahk\ToolTipSec.inc.ahk"
-ahkCloseERRERmsg3 .= "`n#" . "Include " .  A_WorkingDir . "\..\inc_ahk\functions_global_dateiende.inc.ahk"
+ahkCloseERRERmsg3 .= "`n#" . "Include " .  A_WorkingDir . "\inc_ahk\copy2clipBoard.functions.inc.ahk"
+ahkCloseERRERmsg3 .= "`n#" . "Include " .  A_WorkingDir . "\inc_ahk\functions_global.inc.ahk"
+ahkCloseERRERmsg3 .= "`n#" . "Include " .  A_WorkingDir . "\inc_ahk\ToolTipSec_RemoveToolTip.inc.ahk"
+ahkCloseERRERmsg3 .= "`n#" . "Include " .  A_WorkingDir . "\inc_ahk\ToolTipSec.inc.ahk"
+ahkCloseERRERmsg3 .= "`n#" . "Include " .  A_WorkingDir . "\inc_ahk\functions_global_dateiende.inc.ahk"
 
 
 ahkReStartOnClose =
@@ -167,11 +167,11 @@ run,log\Wordlist.ahk.log.txt
 }
 
 )
-ahkReStartOnClose .= "`n#" . "Include " .  A_WorkingDir . "\..\inc_ahk\copy2clipBoard.functions.inc.ahk"
-ahkReStartOnClose .= "`n#" . "Include " .  A_WorkingDir . "\..\inc_ahk\functions_global.inc.ahk"
-ahkReStartOnClose .= "`n#" . "Include " .  A_WorkingDir . "\..\inc_ahk\ToolTipSec_RemoveToolTip.inc.ahk"
-ahkReStartOnClose .= "`n#" . "Include " .  A_WorkingDir . "\..\inc_ahk\ToolTipSec.inc.ahk"
-ahkReStartOnClose .= "`n#" . "Include " .  A_WorkingDir . "\..\inc_ahk\functions_global_dateiende.inc.ahk"
+ahkReStartOnClose .= "`n#" . "Include " .  A_WorkingDir . "\inc_ahk\copy2clipBoard.functions.inc.ahk"
+ahkReStartOnClose .= "`n#" . "Include " .  A_WorkingDir . "\inc_ahk\functions_global.inc.ahk"
+ahkReStartOnClose .= "`n#" . "Include " .  A_WorkingDir . "\inc_ahk\ToolTipSec_RemoveToolTip.inc.ahk"
+ahkReStartOnClose .= "`n#" . "Include " .  A_WorkingDir . "\inc_ahk\ToolTipSec.inc.ahk"
+ahkReStartOnClose .= "`n#" . "Include " .  A_WorkingDir . "\inc_ahk\functions_global_dateiende.inc.ahk"
 
 DynaRun("#" . "NoTrayIcon `n" . ahkCloseERRERmsg) ; cant fix this error. so fix the error message :D 02.04.2017 14:35 17-04-02_14-35 http://SL5.net
 DynaRun("#" . "NoTrayIcon `n" . ahkCloseERRERmsg2) ; cant fix this error. so fix the error message :D 18.04.2017 15:53 http://SL5.net
@@ -193,7 +193,7 @@ g_WordListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", A_ScriptDir . "\Wordl
 errorLog =
 (
 02.04.2017 13:43 17-04-02_13-43
-PRAGMAjournal_mode = TRUNCATE;
+PRAGMAjournal_mode := "TRUNCATE;"
 Child Exception:
 SQLite_Exec
 ERROR: Invalid database handle 10222256 Return Code: 1
@@ -307,7 +307,7 @@ temp := "___open library (Wordlist.ahk~" . A_LineNumber . "|rr||ahk|FileReadLine
       } ; end of loop
       if(false && !foundOpenLibLine){
             temp := "___open library|rr||ahk|FileReadLine,WordlistFileAdress, wordlist.txt.status.txt, 1 `n WordlistFileAdress := RegExReplace(WordlistFileAdress, ""\._Generated\.txt\s*$"", """") `n run,% WordlistFileAdress"
-            ; AddWordToList(AddWord,ForceCountNewOnly,ForceLearn=false, ByRef LearnedWordsCount = false) {
+            ; AddWordToList(AddWord,ForceCountNewOnly,ForceLearn:= false, ByRef LearnedWordsCount := false) {
             AddWordToList(temp,1,"ForceLearn") ; works but AHK is not succedet :( 12.08.2017 22:28
         }
       DynaRun("#" . "NoTrayIcon `n  Tooltip,.SL5. `n Sleep,2300")
@@ -454,7 +454,7 @@ ReverseWordNums(LearnedWordsCount)
 
 ;------------------------------------------------------------------------
 
-AddWordToList(AddWord,ForceCountNewOnly,ForceLearn=false, ByRef LearnedWordsCount = false) {
+AddWordToList(AddWord,ForceCountNewOnly,ForceLearn:= false, ByRef LearnedWordsCount := false) {
    ;AddWord = Word to add to the list
    ;ForceCountNewOnly = force this word to be permanently learned even if learnmode is off
    ;ForceLearn = disables some checks in CheckValid
@@ -583,7 +583,7 @@ AddWordToList(AddWord,ForceCountNewOnly,ForceLearn=false, ByRef LearnedWordsCoun
    Return
 }
 
-CheckValid(Word,ForceLearn=false)
+CheckValid(Word,ForceLearn:= false)
 {
    
    Ifequal, Word,  ;If we have no word to add, skip out.

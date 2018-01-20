@@ -1,10 +1,8 @@
-
-
-
-
 #Include *i %A_ScriptDir%\inc_ahk\init_global.init.inc.ahk
-
 #Include *i %A_ScriptDir%\inc_ahk\copy2clipBoard.functions.inc.ahk
+
+global g_CaretX_Old
+global g_CaretY_Old
 
 
 ; lll(A_LineNumber, "functions_global.inc.ahk")
@@ -14,8 +12,31 @@ isInteger(var) {
 }
  
 
-
-
+getCaretPos(activedoProtectOutOfWindowPos:=true){
+   global g_CaretX_Old
+   global g_CaretY_Old
+   CaretX := A_CaretX 
+   CaretY := A_CaretY 
+   if(activedoProtectOutOfWindowPos){
+	   WinGetPos,wX,wY,wW,wH,A
+	   if(CaretX < wX || CaretY < wY || CaretX > (wX+wH) || CaretY > (wX+wH)){
+		  ToolTip5sec(A_LineNumber . " " . A_ScriptName . " (copy2clipBoard.functions.inc.ahk : 47)" )
+		  CaretX := g_CaretX_Old 
+		  CaretY := g_CaretY_Old 
+	   }
+   if(CaretX < wX || CaretY < wY || CaretX > (wX+wH) || CaretY > (wX+wH)){
+		msg=line29 :( thats out. `n Caret = (%CaretX%,%CaretY%) `n
+		ToolTip5sec(msg . A_LineNumber . " " . A_ScriptName . " " . A_ThisFunc ,0,0 )
+      return
+   }
+	}
+   g_CaretX_Old := CaretX
+   g_CaretY_Old := CaretY
+	msg=line35: Caret = (%CaretX%,%CaretY%) `n
+	ToolTip5sec(msg . A_LineNumber . " " . A_ScriptName . " " . A_ThisFunc ,0,0 )
+	p := {x:CaretX, y:CaretY}
+	return p
+}
 
 
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -86,7 +107,7 @@ isInteger(var) {
 		MsgBox, functions_global.inc.ahk `n ln=%ln% `n  scriptName = %scriptName% `n parameter FILE must not be empty `n `n you find this now inside your clipboard : %Clipboard% `n `n move to line %ln% and fix the bug. `n `n or let run the SL5_AHK_preparser.ahk
 		return -1
 	}
-	;~ tipp: use notepadd++ , diverses> ohne rückfraen aktuallisieren
+	;~ tipp: use notepadd++ , diverses> ohne rï¿½ckfraen aktuallisieren
 	;~ tipp: use notepadd++ , diverses> nach aktuallisierung zum ende springen
 	msg:=""
 	;~ msg.= ";<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<`n"
@@ -142,6 +163,52 @@ isInteger(var) {
 	return
 }
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+;<<<<<<<< sendClipboard <<<< 180111182313 <<<< 11.01.2018 18:23:13 <<<<
+sendClipboard(c){
+	SetTitleMatchMode,3 ;3: A window's title must exactly match WinTitle to be a match.
+	WinGetActiveTitle,at
+	SetKeyDelay,-1 ; By contrast, a delay of -1 will never sleep. For better reliability, 0 is recommended as an alternative to -1.
+	Suspend,On
+	if(c == Clipboard){
+		Clipboard := Clipboard . " " ; sollte anfangs schon ein bisschen unterschiedlich sein 11.01.2018 18:31
+	}
+	if(c == Clipboard){
+		isError := true
+		Msgbox,:( Oops `n c == Clipboard (%A_ScriptName%~%A_LineNumber%) 
+		return
+	}
+
+	ClipboardBackup := Clipboard
+	Clipboard := c
+	IfWinActive,% at
+	{
+		Clipboard := c
+		Send,^v
+	}else{
+		isError := true
+		Msgbox,:( Oops `n NOTActive %at% (%A_ScriptName%~%A_LineNumber%) 
+	}
+	if(c <> Clipboard){
+		isError := true
+		Msgbox,:( Oops `n c <> Clipboard (%A_ScriptName%~%A_LineNumber%) 
+	}
+	Suspend,Off
+	if(InStr(Clipboard,"~token:")){
+		Clipboard := ClipboardBackup
+		send,^z^z
+		Msgbox,:( Mist token inside :( `n (%A_ScriptName%~%A_LineNumber%) 
+	}
+	Clipboard := ClipboardBackup
+	if(ClipboardBackup <> Clipboard){
+		isError := true
+		l1 := StrLen(ClipboardBackup)
+		l2 := StrLen(Clipboard)
+		Msgbox,:( Oops `n l1=%l1%`n l2=%l2% `n ClipboardBackup == Clipboard (%A_ScriptName%~%A_LineNumber%) 
+	}
+	return
+}
+;>>>>>>> sendClipboard >>>> 180111182318 >>>> 11.01.2018 18:23:18 >>>>
 
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 changeAllIncludeDir_and_copy2dir(used_ahk,preFix,copy2dir){
@@ -218,7 +285,7 @@ return 1
 }
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-;~ whats shift + f5 ?ßß?ß
+;~ whats shift + f5 ?ï¿½ï¿½?ï¿½
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 changeAllIncludeDir(f,preFix)
 { 
@@ -407,7 +474,7 @@ contextHelp(HardDriveLetter){
 	WinGetActiveTitle, ActiveTitle
 	ActiveTitle2:=ActiveTitle
 
-	wText=dummy ; wText abzufragen wäre vermutlich zu übertrieben.
+	wText=dummy ; wText abzufragen wï¿½re vermutlich zu ï¿½bertrieben.
 	wText2:=wText
 	;WinGetText, wText, %ActiveTitle%
 
@@ -423,8 +490,8 @@ contextHelp(HardDriveLetter){
 ;###############################
 	temp := RegExReplace(ActiveClass, "\W+", "", ReplacementCount)  ;
 
-  ; nur anfangsbuchstaben des titells, maximal begrentzt stück
-  ; nur anfangsbuchstaben des titells, maximal begrentzt stück
+  ; nur anfangsbuchstaben des titells, maximal begrentzt stï¿½ck
+  ; nur anfangsbuchstaben des titells, maximal begrentzt stï¿½ck
 	temT := SubStr( RegExReplace(ActiveTitle, "([\d\w])\w*\W*", "$1", ReplacementCount) , 1 , 6 ) 
 
 	ToolTip3sec(temT )
@@ -493,7 +560,7 @@ Return
 runCopyQ_Ctrl_Shift_v(){
 	;~ MsgBox,Ctrl Shift v `n  dont work actually. `n please use Ctrl Shift 1. `n Sorry about that. thanks. 15.06.2015
 	;~ return
-	; „<LEER> - CopyQ ahk_cl!A_ScriptDir!A_ScriptDir!A_ScriptDiraA_ScriptDirA_ScriptDirss QWidget...“ (3 Zeilen) - CopyQ ahk_class1`11`n`n`n
+	; ï¿½<LEER> - CopyQ ahk_cl!A_ScriptDir!A_ScriptDir!A_ScriptDiraA_ScriptDirA_ScriptDirss QWidget...ï¿½ (3 Zeilen) - CopyQ ahk_class1`11`n`n`n
 		SetTitleMatchMode,2
 		DetectHiddenWindows,on
 	IfWinNotExist,CopyQ ahk_class QWidget
@@ -627,7 +694,7 @@ runContextHelpFile(fNameContextHelp, HardDriveLetter, ActiveClass, ActiveTitle)
     FileCreateDir, %HardDriveLetter%:\fre\private
   IfNotExist, %path%
     FileCreateDir, %path%
-		FileAppend, `n`n`n%ActiveClass%-%ActiveTitle% - ShortCut-Notizen und ähnliches:`n`;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<`n%path%, %fAdressContextHelp%
+		FileAppend, `n`n`n%ActiveClass%-%ActiveTitle% - ShortCut-Notizen und ï¿½hnliches:`n`;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<`n%path%, %fAdressContextHelp%
   }
 	Run,%fAdressContextHelp%
 	Sleep,100
@@ -683,7 +750,7 @@ sendStrgC(trycount = 10)
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 
-ternaryOperator( bool , t = true, f = false)
+ternaryOperator( bool , t := true, f := false)
 {
 	if(bool)
 		return t
@@ -1023,7 +1090,7 @@ IfWinNotExist, 1:
 {
     ExitApp
 }
-}
+} ; END Of feedbackMsgBox
 return
 
 OnExi1883(){
@@ -1040,7 +1107,7 @@ OnExi1883(){
 WinGetActiveTitle,at
 ToolTip4sec(A_LineNumber . " " . A_ScriptName . " `n" . at)
 ; AHKcode .= "#" . "include E:\fre\private\HtmlDevelop\AutoHotKey\inc_ahk\scrollBox.inc.ahk"
-; DynaRun(AHKcode)
+DynaRun(AHKcode)
 sleep,800
 loop,3
 {
@@ -1165,11 +1232,32 @@ setSearchAreaToWinTitleArea(winTitle){
 }
 ;>>>>>>>> setSearchAreaToWinTitleArea >>>> 171024094739 >>>> 24.10.2017 09:47:39 >>>>
 
-
+DynaRun(TempScript, pipename=""){
+   static _:="uint",@:="Ptr"
+   If pipename =
+      name := "AHK" A_TickCount
+   Else
+      name := pipename
+   __PIPE_GA_ := DllCall("CreateNamedPipe","str","\\.\pipe\" name,_,2,_,0,_,255,_,0,_,0,@,0,@,0)
+   __PIPE_    := DllCall("CreateNamedPipe","str","\\.\pipe\" name,_,2,_,0,_,255,_,0,_,0,@,0,@,0)
+   if (__PIPE_=-1 or __PIPE_GA_=-1)
+      Return 0
+   Run, %A_AhkPath% "\\.\pipe\%name%",,UseErrorLevel HIDE, PID
+   If ErrorLevel
+      MsgBox, 262144, ERROR,% "Could not open file:`n" __AHK_EXE_ """\\.\pipe\" name """"
+   DllCall("ConnectNamedPipe",@,__PIPE_GA_,@,0)
+   DllCall("CloseHandle",@,__PIPE_GA_)
+   DllCall("ConnectNamedPipe",@,__PIPE_,@,0)
+   script := (A_IsUnicode ? chr(0xfeff) : (chr(239) . chr(187) . chr(191))) TempScript
+   if !DllCall("WriteFile",@,__PIPE_,"str",script,_,(StrLen(script)+1)*(A_IsUnicode ? 2 : 1),_ "*",0,@,0)
+        Return A_LastError,DllCall("CloseHandle",@,__PIPE_)
+   DllCall("CloseHandle",@,__PIPE_)
+   Return PID
+}
 
 
 ; lll(A_LineNumber, "inc_ahk\functions_global.inc.ahk")
-; #Include %A_ScriptDir%\inc_ahk\ToolTipSec.inc.ahk
+#Include %A_ScriptDir%\inc_ahk\ToolTipSec.inc.ahk
 ; lll(A_LineNumber, "inc_ahk\functions_global.inc.ahk")
 #Include *i %A_ScriptDir%\inc_ahk\UPDATEDSCRIPT_global.inc.ahk
 ; lll(A_LineNumber, "inc_ahk\functions_global.inc.ahk")

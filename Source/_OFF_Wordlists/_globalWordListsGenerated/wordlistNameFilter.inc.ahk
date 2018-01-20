@@ -1,6 +1,6 @@
 #SingleInstance, force
 ; dontDeleteThisPlaceholder
-#Include .\..\Wordlists\_globalWordListsGenerated\..\wordlistNameFilter.inc.ahk ; global wordlist . pleas dont delete this line! 17-03-06_10-59
+#Include .\Wordlists\_globalWordListsGenerated\..\wordlistNameFilter.inc.ahk ; global wordlist . pleas dont delete this line! 17-03-06_10-59
 wordlistFilterPath = .\Wordlists\_globalWordListsGenerated\wordlistNameFilter.inc.ahk 
  ; (line:%A_LineNumber%) 
 

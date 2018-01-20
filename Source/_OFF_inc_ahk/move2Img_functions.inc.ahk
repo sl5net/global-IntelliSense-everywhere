@@ -1,6 +1,6 @@
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ;~ please use this ! as first line in every script before all includes! :)
-isDevellopperMode=true ; enthällt auch update script.
+isDevellopperMode:= true ; enthällt auch update script.
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 #Include *i init_global.init.inc.ahk
  
@@ -21,7 +21,7 @@ move2ImgORImg(i, i2 , textInfo, mm, variation := 85){
    ;~ ImageSearch, XPos, YPos, 0, 0, A_ScreenWidth, A_ScreenHeight, *10 %i%
    ; 	 number between 0 and 255 (inclusive) to indicate the allowed number of shades of variation 
    MsgBox, repair... buggy .... move2ImgORImg
-   ImageSearch, XPos, YPos1, 0, mm["left"] , mm["top"] , mm["left"] + mm["width"] , mm["top"] + mm["height"] , *%variation% %i%
+   ImageSearch, XPos, YPos1,  0, mm["left"] , mm["top"] , mm["left"] + mm["width"] , mm["top"] + mm["height"] , *%variation% %i%
    ImageSearch, XPos, YPos1, 0, mm["left"] , mm["top"] , mm["width"] , mm["height"] , *%variation% %i%
 
    
@@ -353,7 +353,7 @@ getAktuellesVerzeichnis(AktuellesVerzeichnisPNG){
    }
  
 
-moveFilesAndFolders(SourcePattern, DestinationFolder, DoOverwrite = false)
+moveFilesAndFolders(SourcePattern, DestinationFolder, DoOverwrite := false)
 ; Moves all files and folders matching SourcePattern into the folder named DestinationFolder and
 ; returns the number of files/folders that could not be moved. This function requires v1.0.38+
 ; because it uses FileMoveDir's mode 2.
@@ -442,7 +442,7 @@ errorCount_files := ErrorCount . " files/folders could not be moved. `n `n  (lin
       MsgBox,,:( no download, download image was was not searches suggessful `n  (line:%A_LineNumber%) `n  , 4
       ;~ MsgBox,,
    ; reload view completly. thats deselects all. we dont need search up/down pages
-   webFtpPNG = E:\fre\private\office\job\Kunden\SugarPool\mittwald.de\webFtp_downloader\image\2015-08-09 23_23_11-Kundencenter.png
+   webFtpPNG = E:\....\2015-08-09 23_23_11-Kundencenter.png
    clickImg(webFtpPNG,"webFtpPNG",mm)
    
 
@@ -454,7 +454,7 @@ errorCount_files := ErrorCount . " files/folders could not be moved. `n `n  (lin
 scrollToTop(AktuellesVerzeichnisPNG){
 
 winWaitCorrectWindow() 
-WebFTPManagerPNG = E:\fre\private\office\job\Kunden\SugarPool\mittwald.de\webFtp_downloader\image\2015-08-08 23_05_08-.png
+WebFTPManagerPNG = E:\fre\private\office\j...image\2015-08-08 23_05_08-.png
 loop,5
 {
    res := clickImg(WebFTPManagerPNG,"WebFTPManagerPNG",mm) 
@@ -465,7 +465,7 @@ loop,5
    if(!res ) {
       MsgBox, , Oops ,:( Oops %WebFTPManagerPNG% = WebFTPManagerPNG (line:%A_LineNumber%) `n , 4
       
-   webFtpPNG = E:\fre\private\office\job\Kunden\SugarPool\mittwald.de\webFtp_downloader\image\2015-08-09 23_23_11-Kundencenter.png
+   webFtpPNG = E:\fre\priva...ader\image\2015-08-09 23_23_11-Kundencenter.png
    clickImg(webFtpPNG,"webFtpPNG",mm)
 
    }
@@ -503,7 +503,7 @@ getNextNotSelectedAbsDir_localNotExist( openFoderPNG, mm, dirLocal ){
          return ""
       ToolTip ,%dir% = dir
       ;~ Sleep,1000
-      if( SubStr(dir,1,1)=="." || dir == "www"   || dir == "etc"  || dir == "dev"  || dir == "files"  || dir == "logs"  || dir == "fetchmail" || dir == "tmp" || dir == "bullets" || dir == "buttons" || dir == "emoticons" || dir == "flags" || dir  ==  "logos" ||  (  InStr(  dirLocal , "\html\panmobil.de\media") > 0 && dir == "frames" )  ||  dir == "backup"  )
+      if( SubStr(dir,1,1)=="." || dir == "www"   || dir == "etc"  || dir == "dev"  || dir == "files"  || dir == "logs"  || dir == "fetchmail" || dir == "tmp" || dir == "bullets" || dir == "buttons" || dir == "emoticons" || dir == "flags" || dir  ==  "logos" ||  (  InStr(  dirLocal , "\html\...edia") > 0 && dir == "frames" )  ||  dir == "backup"  )
       {
          ToolTip, dont use %dir% = dir (line:%A_LineNumber%) `n 
          continue
@@ -717,12 +717,9 @@ mouseMove( p, speed = 0 ) {
    MouseMove,p["x"], p["y"] , speed
 }
 
-getMousePos()
-{
-	CoordMode, Mouse, Screen 
-
+getMousePos(){
+	CoordMode, Mouse, Screen
 	MouseGetPos,x , y, id, control
-    
 if(StrLen(x) < 1  )
 {
    MsgBox, ERROR : '%x%' = x (line:%A_LineNumber%) `n 

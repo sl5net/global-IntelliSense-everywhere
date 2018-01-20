@@ -4,7 +4,7 @@ FileGetTime, ModiTime, %A_ScriptFullPath%, M
 inc17032207130:= SubStr(A_ScriptName,1,strlen(A_ScriptName)-4) . ".inc.ahk"
 ; Msgbox,%inc17032207130% `n (from: %A_ScriptName%~%A_LineNumber%) 17-11-13_16-29
 if(FileExist(inc17032207130)){
-;Msgbox,%inc17032207130% `n (from: %A_ScriptName%~%A_LineNumber%)
+Msgbox,%inc17032207130% `n (from: %A_ScriptName%~%A_LineNumber%)
     FileGetTime, incModiTime, %inc17032207130%, M
     incModiTime_OLD:=incModiTime
 }

@@ -38,7 +38,7 @@ wordlistDir  := "..\Wordlists\SciTEWindow"
 ;ToolTip,`n (%A_ScriptName%~%A_LineNumber%) 
 ;Sleep,2000
 
-#Include,.\Wordlists\activeClassManipulation.inc.ahk
+#Include,.\..\Wordlists\activeClassManipulation.inc.ahk
 
 
 if (!wordlistNEW && false){
@@ -62,7 +62,7 @@ wordlistNEW := getWordlistNEW173129addFileExtension(wordlistNEW )
 ToolTipSlowMotion(wordlistNEW, A_LineNumber)
 
 
-#Include,Wordlists\activeClassManipulation.inc.ahk
+#Include,.\..\Wordlists\activeClassManipulation.inc.ahk
 
 
 getWordlistNEW173129( activeTitle, ActiveClass, wordlistNEW, wordlistDir ) {
@@ -287,10 +287,10 @@ maybeSuperglobalWordList(wordlistNEW, wordlistNEW_time_between , ActiveClass, ac
 
 contend =
 (
-#include,Wordlists\_globalWordLists\_global.txt
-#include,Wordlists\%ActiveClass%\_global.txt
+#Include,.\..\Wordlists\_globalWordLists\_global.txt
+#Include,.\..\Wordlists\%ActiveClass%\_global.txt
 ; %activeTitle% ; = activeTitle 17-08-10_16-04
-; #include,Wordlists\_globalWordLists\examplesForBeginners.txt
+; #Include,.\..\Wordlists\_globalWordLists\examplesForBeginners.txt
 ___open class library|rr||ahk|run,..\.\Wordlists\%ActiveClass%\_global.txt
 ___open window library |rr||ahk|run,..\.\Wordlists\%ActiveClass%\%wordlistNEW%
 )

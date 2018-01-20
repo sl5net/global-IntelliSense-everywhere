@@ -1026,7 +1026,7 @@ HandleSettingsMessage( p_w, p_l, p_m, p_hw )
 					h_cursor_help := DllCall( "LoadImage", "Ptr", g_NULL, "Uint", g_IDC_HELP , "Uint", g_IMAGE_CURSOR, "Int", g_NULL, "Int", g_NULL, "Uint", g_LR_SHARED ) 
 				}
 				old_cursor := DllCall( "SetCursor", "Uint", h_cursor_help )
-				Help_Hover = true
+				Help_Hover := true
 				URL_Hover = 
 				Gui, MenuGui:Font, cBlue        ;;; xyz
 				GuiControl, MenuGui:Font, %A_GuiControl% ;;; xyz
@@ -1036,7 +1036,7 @@ HandleSettingsMessage( p_w, p_l, p_m, p_hw )
 			if !(URL_Hover)
 			{
 				old_cursor := DllCall( "SetCursor", "uint", g_cursor_hand )
-				URL_Hover = true
+				URL_Hover := true
 				Help_Hover =
 				Gui, MenuGui:Font, cBlue        ;;; xyz
 				GuiControl, MenuGui:Font, %A_GuiControl% ;;; xyz

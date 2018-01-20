@@ -1,8 +1,8 @@
 ; scriptDirOfAutoHotKey := RegExReplace( A_ScriptDir, "(\\AutoHotKey).*" , "$1") ; maybe file is started from subfolder. 18.04.2017 12:18
 
 ;<<<<<<<< IncludeI <<<< 171103161518 <<<< 03.11.2017 16:15:18 <<<<
-#Include *i Wordlists\activeClassManipulation.inc.ahk
-; ^- obiges funktioniert (weil funktion später ausgeführt) bei `normalem` Aufruf. z.B. click von atuoload.ahk und darin ein:
+#Include *i ..\Wordlists\activeClassManipulation.inc.ahk
+; ^- obiges funktioniert (weil funktion spï¿½ter ausgefï¿½hrt) bei `normalem` Aufruf. z.B. click von atuoload.ahk und darin ein:
 ; workingDir := HardDriveLetter . ":\fre\private\HtmlDevelop\AutoHotKey\tools\TypingAid-master\"
 ;  run, Typing_Aid_everywhere_multi_clone.ahk, %workingDir%
 ; #Include *i ..\Wordlists\activeClassManipulation.inc.ahk
@@ -12,8 +12,8 @@ global g_doSaveLogFiles := true
 global g_doSaveLogFiles := false
 g_doRunLogFiles := false
 
-lll_if_g_doSaveLogFiles(A_LineNumber, A_ThisFunc,  "____________________________________________")
-lll_if_g_doSaveLogFiles(A_LineNumber, A_ThisFunc,  "STARTED :) . If you change sourcCode it will automatically relloadet.")
+;lll_if_g_doSaveLogFiles(A_LineNumber, A_ThisFunc,  "____________________________________________")
+;lll_if_g_doSaveLogFiles(A_LineNumber, A_ThisFunc,  "STARTED :) . If you change sourcCode it will automatically relloadet.")
 
 
 SetTitleMatchMode , 1 ; 1: A window's title must start with the specified WinTitle to be a match.
@@ -124,11 +124,13 @@ if(!FileExist(sourceDir)){
     sourceDir :=""
 }
 typingAidSourcePath := sourceDir . "\Source"
-wordlistDirBase = %sourceDir%\Wordlists
-wordlistDirBase = %sourceDir%\Wordlists
+typingAidSourcePath := "\"
+wordlistDirBase = %sourceDir%\..\Wordlists
+wordlistDirBase = %sourceDir%\..\Wordlists
 typingAidAHK := typingAidSourcePath  . "\TypingAid.ahk"
+wordlistActive := wordlistDirBase . "\wordlist.txt"
 wordlistActive := "wordlist.txt"
-wordlistOLD:=""  
+wordlistOLD:=""
 
 checkFilePathExistens1704291222(wordlistDirBase, destinDir, sourceDir, typingAidAHK)
 
@@ -648,7 +650,8 @@ varInjects := mvarInjects(wordlistDir, wordlistNEW, activeClass, activeTitle)
 ahkCode := RegExReplace( ahkCodeInsideFile , "`;\s*dontDeleteThisPlaceholder" , varInjects )  ; dontDeleteThisPlaceholder is definde since 17-03-06_10-25 inside the global filter
 
  ClipboardBackup = 17-03-05_17-17
- ClipboardBackup = %Clipboard%
+ ; ClipboardBackup = %Clipboard% ; old destrois eventually bin clipboards
+ ClipboardBackup := ClipboardAll
  if(ClipboardBackup  == "17-03-05_17-17")
    MsgBox, :(  (line:%A_LineNumber%)  17-04-02_14-52
    
@@ -948,7 +951,7 @@ f12::
    
    ; folgende geht wohl gerade nicht, aber versuchen kann ichs ja trotzdem
    run,E:\fre\private\HtmlDevelop\AutoHotKey\tools\TypingAid-master\Source\TypingAid.ahk,E:\fre\private\HtmlDevelop\AutoHotKey\tools\TypingAid-master ; strange if i use this it will cloesed in seconds strange 16.11.2017 09:41
-   ; vielleich is es ja auch einfach nur blöd wenn die so schnell hintereinander augerufen werden ?????????????????? 16.11.2017 09:59
+   ; vielleich is es ja auch einfach nur blï¿½d wenn die so schnell hintereinander augerufen werden ?????????????????? 16.11.2017 09:59
    Sleep,2000
    
    ; MsgBox,reload `n (from: %A_ScriptName%~%A_LineNumber%) 

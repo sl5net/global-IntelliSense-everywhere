@@ -1,0 +1,36 @@
+17:15:58   Wordlist.ahk>65
+52 :-( if(!fileExist(A_WorkingDir . \..\inc_ahk\copy2clipBoard.functions.inc.ahk)) ==> exitApp 17-07-18_20-24
+
+17:16:08   Wordlist.ahk>65
+52 :-( if(!fileExist(A_WorkingDir . \..\inc_ahk\copy2clipBoard.functions.inc.ahk)) ==> exitApp 17-07-18_20-24
+
+17:16:24   Wordlist.ahk>65
+52 :-( if(!fileExist(A_WorkingDir . \..\inc_ahk\copy2clipBoard.functions.inc.ahk)) ==> exitApp 17-07-18_20-24
+
+17:16:39   Wordlist.ahk>65
+52 :-( if(!fileExist(A_WorkingDir . \..\inc_ahk\copy2clipBoard.functions.inc.ahk)) ==> exitApp 17-07-18_20-24
+
+17:16:47   Wordlist.ahk>65
+52 :-( if(!fileExist(A_WorkingDir . \..\inc_ahk\copy2clipBoard.functions.inc.ahk)) ==> exitApp 17-07-18_20-24
+
+17:17:01   Wordlist.ahk>65
+52 :-( if(!fileExist(A_WorkingDir . \..\inc_ahk\copy2clipBoard.functions.inc.ahk)) ==> exitApp 17-07-18_20-24
+
+17:17:10   Wordlist.ahk>65
+52 :-( if(!fileExist(A_WorkingDir . \..\inc_ahk\copy2clipBoard.functions.inc.ahk)) ==> exitApp 17-07-18_20-24
+
+17:17:32   Wordlist.ahk>65
+52 :-( if(!fileExist(A_WorkingDir . \..\inc_ahk\copy2clipBoard.functions.inc.ahk)) ==> exitApp 17-07-18_20-24
+
+17:17:48   Wordlist.ahk>65
+52 :-( if(!fileExist(A_WorkingDir . \..\inc_ahk\copy2clipBoard.functions.inc.ahk)) ==> exitApp 17-07-18_20-24
+
+17:18:02   Wordlist.ahk>65
+52 :-( if(!fileExist(A_WorkingDir . \..\inc_ahk\copy2clipBoard.functions.inc.ahk)) ==> exitApp 17-07-18_20-24
+
+17:18:09   Wordlist.ahk>65
+52 :-( if(!fileExist(A_WorkingDir . \..\inc_ahk\copy2clipBoard.functions.inc.ahk)) ==> exitApp 17-07-18_20-24
+
+17:18:20   Wordlist.ahk>65
+52 :-( if(!fileExist(A_WorkingDir . \..\inc_ahk\copy2clipBoard.functions.inc.ahk)) ==> exitApp 17-07-18_20-24
+

@@ -72,7 +72,7 @@ SetTimer,UPDATEDSCRIPT,4000
 
 ;MsgBox,17-11-13_16-47 `n A_ScriptDir=%A_ScriptDir% `n HardDriveLetter=%HardDriveLetter% `n
 
-; #Include *i %A_ScriptDir%\inc_ahk\UPDATEDSCRIPT_global.inc.ahk ; do temporary comment it.
+#Include *i %A_ScriptDir%\inc_ahk\UPDATEDSCRIPT_global.inc.ahk ; do temporary comment it.
 
 ;MsgBox,17-11-13_16-48 `n A_ScriptDir=%A_ScriptDir% `n HardDriveLetter=%HardDriveLetter% `n
 

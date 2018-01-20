@@ -673,3 +673,483 @@ SendCompatible(SendValue,ForceSendForInput)
  SendValue ={Down} 
  17-07-16_15-01
 
+16:37:14   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:17   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:17   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:18   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:34   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Down} 
+ 17-07-16_15-01
+
+16:37:34   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Down} 
+ 17-07-16_15-01
+
+16:37:34   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Down} 
+ 17-07-16_15-01
+
+16:37:35   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Down} 
+ 17-07-16_15-01
+
+16:37:37   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Down} 
+ 17-07-16_15-01
+
+16:37:37   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Down} 
+ 17-07-16_15-01
+
+16:37:37   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Down} 
+ 17-07-16_15-01
+
+16:37:37   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Down} 
+ 17-07-16_15-01
+
+16:37:39   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Down} 
+ 17-07-16_15-01
+
+16:37:40   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Down} 
+ 17-07-16_15-01
+
+16:37:40   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Down} 
+ 17-07-16_15-01
+
+16:37:40   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:41   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:41   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:41   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:41   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:41   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:41   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:41   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:41   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:41   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:41   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:41   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:41   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:41   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:41   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:41   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:41   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:41   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:41   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:41   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:41   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:41   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:41   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:42   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:42   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:42   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:42   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:42   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:42   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:42   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:42   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:42   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:42   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:42   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:42   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:42   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:42   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:42   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:42   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:42   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:42   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:42   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:42   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:42   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:42   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:42   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:42   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:42   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:42   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:42   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:42   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:42   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:42   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:42   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:43   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:43   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:43   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:43   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:43   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:43   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:43   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:43   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:43   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:43   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:43   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:43   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:43   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:43   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:43   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:49   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Down} 
+ 17-07-16_15-01
+
+16:37:50   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:50   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:55   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:56   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:57   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:57   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:59   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:37:59   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Up} 
+ 17-07-16_15-01
+
+16:38:02   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Enter} 
+ 17-07-16_15-01
+
+17:17:50   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Down} 
+ 17-07-16_15-01
+
+17:25:33   Sending.ahk>684
+SendCompatible(SendValue,ForceSendForInput) 
+ SendValue ={Right} 
+ 17-07-16_15-01
+
