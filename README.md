@@ -1,3 +1,10 @@
+becouse of bug you only could edit actually:
+global-IntelliSense-everywhere-master\Source\wordlist.txt
+ thanks
+ 20.01.2018 19:33
+ 
+ 
+
 # global-IntelliSense-everywhere
 global IntelliSense everywhere for windows with autohotkey
 Video: https://www.youtube.com/watch?v=elLsl8lj0K8
