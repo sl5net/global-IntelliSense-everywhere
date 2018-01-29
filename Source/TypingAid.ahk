@@ -1,6 +1,8 @@
 ; Sleep,2500 ; may typing_ ... needs fist a litle time to put the wordlist at the right place ?????????? 16.11.2017 10:01
 ; no wrong try 16.11.2017 10:03
 
+
+
 global g_sending_is_buggy := true ; 29.07.2017 11:21 inside the adminsistraor account only the |ahk| script feature is working. lets try/test some. number ar not recognazed also SendPlay may have no effect if the script is running as Administrator 29.07.2017 12:34 17-07-29_12-34
 global g_sending_is_buggy := false ; Solved: SendPlay. 29.07.2017 11:21 inside the adminsistraor account only the |ahk| script feature is working. lets try/test some. number ar not recognazed also SendPlay may have no effect if the script is running as Administrator 29.07.2017 12:34 17-07-29_12-34
 
@@ -139,7 +141,6 @@ Menu, Tray, Tip, %g_ScriptTitle% - Inactive ; make it visible again
 WinShow,%g_ScriptTitle%
 DetectHiddenWindows,On ; if this is off it does not find the tool in tray bar 27.04.2017 12:04
 SetTitleMatchMode,2  ; if this is 1 it does not find the tool in tray bar 27.04.2017 12:04
-; E:\fre\private\HtmlDevelop\AutoHotKey\tools\TypingAid-master\Typing_Aid_everywhere_multi_clone.ahk - AutoHotkey v1.1.25.00 ahk_class AutoHotkey
 
 
 IfWinNotExist,Could not close the previous instance of this script_autoCloser.ahk
@@ -148,6 +149,9 @@ run,%A_ScriptDir%\Could not close the previous instance of this script_autoClose
 
 ;WinClose,keysEveryWhere.ahk ahk_class AutoHotkey ; thats working. thats the way you could close ahk running scripts.
 ;Msgbox,WinClose keysEveryWhere.ahk ahk_class AutoHotkey (%A_ScriptName%~%A_LineNumber%)
+
+
+
 
 WinWait,Typing_Aid_everywhere_multi_clone.ahk ahk_class AutoHotkey
 ;IfWinNotExist,Typing_Aid
@@ -162,6 +166,8 @@ lll(A_LineNumber, A_ScriptName, ":-( exit. becouse: IfWinNotExist,Typing_Aid_eve
    ; this was happend during looking videos. tv- mediathek oder sometimes youtube.
 }
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
 
 
 g_nextCriticalCommandString := "104:Suspend, On"
@@ -221,6 +227,7 @@ SuspendOn()  ; wieder (10.07.2017 11:51) auskommentiert weils mir zu oft auf sus
 g_nextCriticalCommandString := ""
 
 Gosub, setWordlistFileUpdatedTime ; 29.04.2017 14:03
+
 
 BuildTrayMenu()      
 
@@ -344,6 +351,9 @@ MainLoop()
       ProcessKey(InputChar,EndKey)
    }
 }
+
+
+
 
 ProcessKey(InputChar,EndKey) {
 
@@ -811,6 +821,8 @@ lll(A_LineNumber, A_ScriptName, "DisableKeyboardHotKeys() { ... 17-07-16_13-31 "
    Return
 }
    
+
+   
 ;------------------------------------------------------------------------
 
 #MaxThreadsPerHotkey 1 
@@ -976,6 +988,8 @@ lll(A_LineNumber, A_ScriptName, "Send,%Key% `n 17-07-29_11-58")
 global g_doSaveLogFiles
  if(g_doSaveLogFiles)
 lll(A_LineNumber, A_ScriptName,msg )
+
+
 
 
 
@@ -1776,6 +1790,8 @@ lll(A_LineNumber, A_ScriptName,  "Goto, doReload `n reason for being carefully w
 }
 return
 
+
+
 reloadThis:
 ;~ ReadWordList()
 ;~ ToolTip, % A_TickCount
@@ -1840,16 +1856,16 @@ setLength(ParseWordsCount, maxLinesOfCode4length1){
    return prefs_Length
 }
 
-; # Include ..\inc_ahk\functions_global.inc.ahk
+; # Include inc_ahk\functions_global.inc.ahk
 
 ;SetWorkingDir, %scriptDirOfAutoHotKey% ; A_ScriptDir
 ;MsgBox, %A_ScriptDir% = A_ScriptDir
 
 
-; # Include *i inc_ahk\functions_global.inc.ahk
+; # Include inc_ahk\functions_global.inc.ahk
 ; # Include *i inc_ahk\UPDATEDSCRIPT_global.inc.ahk
-; # Include *i inc_ahk\functions_global_dateiende.inc.ahk ; A_ScriptDir
-; # Include ..\inc_ahk\Typing_Aid_everywhere_multi_clone.inc.ahk
+; # Include inc_ahk\functions_global_dateiende.inc.ahk ; A_ScriptDir
+; # Include inc_ahk\Typing_Aid_everywhere_multi_clone.inc.ahk
 
 
 

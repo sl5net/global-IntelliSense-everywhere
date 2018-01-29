@@ -1,6 +1,6 @@
 ; GLOBAL FILTER / ROUTING
 ; this file was generated 20170308151813 by: 
-;  E:\fre\private\HtmlDevelop\AutoHotKey\Typing_Aid_everywhere_multi_clone.ahk
+;  Typing_Aid_everywhere_multi_clone.ahk
 ; if you want you could update it by yourself. it will not overwritten by Typing_Aid_everywhere_multi_clone.ahk
 ; if you delete it it will be generated again.
 ; you could use it as a global filter/routing called from your special .../className/wordlistNameFilter.inc.ahk
@@ -69,12 +69,12 @@ getWordlistNEW173129( activeTitle, ActiveClass, wordlistNEW, wordlistDir ) {
 
 
  ; 'Q-Dir 6.49.7 [3]' = at  
- ; Bild öffnen ahk_class #32770 
+ ; Bild ï¿½ffnen ahk_class #32770 
  ; Exportieren ahk_class #32770 aus openoffice zu pdf 01.07.2017 20:22
  ; Select Path SunAwtDialog
  ; Open File or Project ahk_class SunAwtDialog
  ; Anhang speichern ahk_class #32770
-if ( RegExMatch( activeTitle , "(FreeCommander|Q-Dir \d|Bild öffnen|Anhang speichern|Datei speichern|Speichern unter|ffnen|Dateien/Ordner suchen|Exportieren|Dokument speichern|Select Path|Open File or Project)" ) ) 
+if ( RegExMatch( activeTitle , "(FreeCommander|Q-Dir \d|Bild ï¿½ffnen|Anhang speichern|Datei speichern|Speichern unter|ffnen|Dateien/Ordner suchen|Exportieren|Dokument speichern|Select Path|Open File or Project)" ) ) 
       return "..\_globalWordLists\pfade"
 
 if ( RegExMatch( activeTitle , "Anlage-EKS|EKS|Erstattung" ) ) {
@@ -142,7 +142,7 @@ if(false){
             ExitApp
       }
       ;FileCopy,% scriptDIR . "\_global.txt", % wl
-      f = E:\fre\private\HtmlDevelop\AutoHotKey\foundFunctionsWordList.txt 
+      f = foundFunctionsWordList.txt
       Fileread,fileContent2, % f
       Sleep,100
       if(!fileContent2){
@@ -153,8 +153,7 @@ if(false){
       Sleep, 300
     }
 ;    Msgbox,%wl% `n (from: %A_ScriptName%~%A_LineNumber%) 
-;    Exitapp  E:\fre\private\HtmlDevelop\AutoHotKey\tools\TypingAid-master\Wordlists\SciTEWindow\_global.txt
-;    Msgbox,%wlRelative% `n (from: %A_ScriptName%~%A_LineNumber%) 
+;    Msgbox,%wlRelative% `n (from: %A_ScriptName%~%A_LineNumber%)
 ;    Exitapp
       return ,% wlRelative
   }

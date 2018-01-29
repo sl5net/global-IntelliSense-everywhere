@@ -129,7 +129,8 @@ wordlistDirBase = %sourceDir%\..\Wordlists
 wordlistDirBase = %sourceDir%\..\Wordlists
 typingAidAHK := typingAidSourcePath  . "\TypingAid.ahk"
 typingAidAHK := typingAidSourcePath  . "TypingAid.ahk"
-wordlistActive := sourceDir . "\wordlist.txt"
+wordlistActive := wordlistDirBase . "\wordlist.txt"
+wordlistActive := "wordlist.txt"
 wordlistOLD:=""
 
 checkFilePathExistens1704291222(wordlistDirBase, destinDir, sourceDir, typingAidAHK)

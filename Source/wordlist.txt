@@ -3,3 +3,15 @@
 ;  ; = activeTitle 17-08-10_16-03
 ; #include,Wordlists\_globalWordLists\examplesForBeginners.txt
 ___your library open|rr||ahk|run,..\.\Wordlists\_globalWordListsGenerated\..\_globalWordListsGenerated\_global.txt 
+
+test
+mich
+
+mimich mich
+
+birnbaum
+
+____
+
+www
+katz katzenklo

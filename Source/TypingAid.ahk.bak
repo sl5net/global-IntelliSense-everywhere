@@ -1,4 +1,5 @@
-Sleep,2500 ; may typing_ ... needs fist a litle time to put the wordlist at the right place ?????????? 16.11.2017 10:01
+; Sleep,2500 ; may typing_ ... needs fist a litle time to put the wordlist at the right place ?????????? 16.11.2017 10:01
+; no wrong try 16.11.2017 10:03
 
 global g_sending_is_buggy := true ; 29.07.2017 11:21 inside the adminsistraor account only the |ahk| script feature is working. lets try/test some. number ar not recognazed also SendPlay may have no effect if the script is running as Administrator 29.07.2017 12:34 17-07-29_12-34
 global g_sending_is_buggy := false ; Solved: SendPlay. 29.07.2017 11:21 inside the adminsistraor account only the |ahk| script feature is working. lets try/test some. number ar not recognazed also SendPlay may have no effect if the script is running as Administrator 29.07.2017 12:34 17-07-29_12-34
@@ -123,7 +124,7 @@ scriptName := SubStr( A_ScriptName , 1 , Strlen(A_ScriptName)-4)
 ;IfWinExist, % scriptName . " - Active" ; maybe  work 26.04.2017 15:28
 ;IfWinExist, % g_ScriptTitle 
 ;IfWinExist, %g_ScriptTitle% - Active ; maybe  work 26.04.2017 15:28
-#NoTrayIcon ; make it unvisible #NoTrayIcon ; make it unvisible Wozu???????????? darüber kanne es erkennen ob nicht schon eine andere instanz läuft... es würde sonst denken eine andere läuft schon???? 16.11.2017 09:06 17-11-16_09-06
+#NoTrayIcon ; make it unvisible #NoTrayIcon ; make it unvisible Wozu???????????? darï¿½ber kanne es erkennen ob nicht schon eine andere instanz lï¿½uft... es wï¿½rde sonst denken eine andere lï¿½uft schon???? 16.11.2017 09:06 17-11-16_09-06
 
 IfWinExist, %scriptName% - Active ; maybe  work 26.04.2017 15:28
 {
@@ -138,11 +139,10 @@ Menu, Tray, Tip, %g_ScriptTitle% - Inactive ; make it visible again
 WinShow,%g_ScriptTitle%
 DetectHiddenWindows,On ; if this is off it does not find the tool in tray bar 27.04.2017 12:04
 SetTitleMatchMode,2  ; if this is 1 it does not find the tool in tray bar 27.04.2017 12:04
-; E:\fre\private\HtmlDevelop\AutoHotKey\tools\TypingAid-master\Typing_Aid_everywhere_multi_clone.ahk - AutoHotkey v1.1.25.00 ahk_class AutoHotkey
 
 
 IfWinNotExist,Could not close the previous instance of this script_autoCloser.ahk
-run,%A_ScriptDir%\..\..\..\Could not close the previous instance of this script_autoCloser.ahk
+run,%A_ScriptDir%\Could not close the previous instance of this script_autoCloser.ahk
 
 
 ;WinClose,keysEveryWhere.ahk ahk_class AutoHotkey ; thats working. thats the way you could close ahk running scripts.
@@ -168,7 +168,7 @@ g_nextCriticalCommandString := "104:Suspend, On"
 Suspend, On ; wieder (10.07.2017 11:47) auskommentiert weils mir zu oft auf suspand on war. wehr oft wenn ich auf skype gewecheelt habe. hoffe die anderen bugFix haben den Seiteneffekt das ich dieses nicht mehr brauche.
 ;WinSetTitle, TypingAid - Active, , TypingAid - Active wait4sec
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-f=problemHandler104SuspendOn.ahk
+f:= "problemHandler104SuspendOn.ahk"
 ff := A_ScriptDir . "\" . f
 DetectHiddenWindows,On
 if( !WinExist(f) )
@@ -645,7 +645,7 @@ Return
 
 ;------------------------------------------------------------------------
 
-CheckForCaretMove(MouseButtonClick, UpdatePosition = false)
+CheckForCaretMove(MouseButtonClick, UpdatePosition := false)
 {
    global g_LastInput_Id
    global g_MouseWin_Id
@@ -732,7 +732,7 @@ InitializeHotKeys() {
    }
    
    HotKey, $^+c, On
-   
+
    IfEqual, prefs_ArrowKeyMethod, Off
    {
       Hotkey, $^Enter, Off
@@ -747,6 +747,9 @@ InitializeHotKeys() {
       Hotkey, $NumpadEnter, Off
    } else {
       g_EnabledKeyboardHotKeys .= "$Up" . g_DelimiterChar
+
+      Hotkey, $Down, Off ; 21.11.2017 15:23 17-11-21_15-23 let it OFF. deaktivated from sl5net  . it not helps using google adress bar or so.
+
 
 global g_doSaveLogFiles
  if(g_doSaveLogFiles)
@@ -1530,6 +1533,7 @@ SuspendOff()
 
 BuildTrayMenu()
 {
+;feedbackMsgBox("BuildTrayMenu test 17-11-22_13-52","test 17-11-22_13-52",1,1)
 
    Menu, Tray, DeleteAll
    Menu, Tray, NoStandard

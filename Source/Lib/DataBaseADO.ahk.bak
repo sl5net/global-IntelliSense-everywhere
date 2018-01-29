@@ -84,7 +84,7 @@ class DataBaseADO extends DBA.DataBase
 	/*
 		Querys the DB and returns a RecordSet
 	*/
-	OpenRecordSet(sql, editable := false){
+	OpenRecordSet(sql, editable = false){
 		return new DBA.RecordSetADO(sql, this._connection, editable)
 	}
 	

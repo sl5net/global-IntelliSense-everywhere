@@ -8,7 +8,7 @@ class RecordSetADO extends DBA.RecordSet
 {
 	_adoRS := 0 ; ado recordset
 
-	__New(sql, adoConnection, editable := false){
+	__New(sql, adoConnection, editable = false){
 		this._adoRS := ComObjCreate("ADODB.Recordset")
 
 		if(editable)

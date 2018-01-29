@@ -1,3 +1,10 @@
+
+
+
+
+
+
+; <td class="col1" style="color: transparent">Schule</td>
 ; These functions and labels are related to sending the word to the program
 
 SendKey(Key)
@@ -26,11 +33,11 @@ getLineOfWord(word) {
   ;~ global g_SingleMatch
   ;~ global g_SingleMatchReplacement
 
-;~ erste zeile mit eintrag im wörterbuch: g_SingleMatch[1] 10.07.2017 12:13
-;~ letzte zeile mit eintrag im wörterbuch: g_SingleMatch[1] 10.07.2017 12:13
+;~ erste zeile mit eintrag im wï¿½rterbuch: g_SingleMatch[1] 10.07.2017 12:13
+;~ letzte zeile mit eintrag im wï¿½rterbuch: g_SingleMatch[1] 10.07.2017 12:13
 
   global WordlistFileName
-  WordlistFileName = E:\fre\private\HtmlDevelop\AutoHotKey\tools\TypingAid-master\Source\wordlist.txt
+  WordlistFileName = wordlist.txt
   if(!FileExist(WordlistFileName))
   msgbox, :( 17-07-10_13-48
     Loop,9999
@@ -143,11 +150,11 @@ SendWord(WordIndex){
    global g_SingleMatch
    global g_SingleMatchReplacement
 
+disableCopyQ() ; enableCopyQ() ;
    ; getWordIndex("__")
 
    ;Send the word
-   if (g_SingleMatchReplacement[WordIndex])
-   {
+   if (g_SingleMatchReplacement[WordIndex]){
       sending := g_SingleMatchReplacement[WordIndex]
       sending := g_SingleMatchReplacement[WordIndex]
       ForceBackspace := true
@@ -156,38 +163,7 @@ SendWord(WordIndex){
       ForceBackspace := false
    }
 
-sending := RegExReplace( sending , "i)Ã¼", Chr(252) ) ; ue http://slayeroffice.com/tools/ascii/
-sending := RegExReplace( sending , "Ãœ", Chr(220) ) ; UE http://slayeroffice.com/tools/ascii/ Ãœbrigens
-sending := RegExReplace( sending , "ueber", "" . Chr(252) .  "ber" ) ; ue http://slayeroffice.com/tools/ascii/
-sending := RegExReplace( sending , "i)\bfÃ¼r\b","f" . Chr(252) . "r") ; ue http://slayeroffice.com/tools/ascii/
-sending := RegExReplace( sending , "i)\bgrÃ¼nd","gr" . Chr(252) . "nd") ; ue http://slayeroffice.com/tools/ascii/
-sending := RegExReplace( sending , "i)\bmuendl.\b","m" . Chr(252) . "uendl.") ; ue http://slayeroffice.com/tools/ascii/
-
-sending := RegExReplace( sending , "Ã¶", Chr(246) ) ; oe zB hÃ¶ren http://slayeroffice.com/tools/ascii/
-sending := RegExReplace( sending , "oe", Chr(246) ) ; oe zB hÃ¶ren http://slayeroffice.com/tools/ascii/
-
-
-; weiÃŸ
-sending := RegExReplace( sending , "ÃŸ","" . Chr(223) . "") ; ss http://slayeroffice.com/tools/ascii/
-sending := RegExReplace( sending , "i)\bgroÃŸ","gro" . Chr(223) . "") ; ss http://slayeroffice.com/tools/ascii/
-sending := RegExReplace( sending , "i)lieÃŸlich\b","lie" . Chr(223) . "lich") ; scharfess http://slayeroffice.com/tools/ascii/ ausschlieÃŸlich
-; sending := RegExReplace( sending , "i)ss", Chr(223) ) ; scharfess http://slayeroffice.com/tools/ascii/ Ausnahmen professionell
-
-sending := RegExReplace( sending , "i)Ã¤", Chr(228) ) ; ae http://slayeroffice.com/tools/ascii/ ausschlieÃŸlich
-sending := RegExReplace( sending , "Ã„", "" . Chr(196) . "" ) ; AE http://slayeroffice.com/tools/ascii/
-sending := RegExReplace( sending , "u.Ã„.", "u." . Chr(196) . "." ) ; AE http://slayeroffice.com/tools/ascii/
-sending := RegExReplace( sending , "i)beschÃ¤ftigte","besch" . Chr(228) . "ftigte ") ; ae http://slayeroffice.com/tools/ascii/ ausschlieÃŸlich
-sending := RegExReplace( sending , "i)AuftrÃ¤ge","Auftr" . Chr(228) . "ge") ; ae http://slayeroffice.com/tools/ascii/ ausschlieÃŸlich
-
-foundPos := RegExMatch( sending , "i)Ã" )
-;~ foundPos := RegExMatch( "str" , "i)fÃ¼r" )
-if(foundPos){
-msgbox,17-05-23_17-09 :( '%sending%' = sending  (line:%A_LineNumber%) n )
-}
-
-
-
-
+sending := getCorrectedStringUAOSS( sending  ) 
 ; ein eineins|rr|zwei|ahk|autohotkey source code
 ; eins|rr|zwei|ahk|autohotkey source code
 ; thats great :) here we find the complete line :) inside sending 17.03.2017 18:23 17-03-17_18-23
@@ -235,8 +211,8 @@ regIsAHKcode := "^([^\|\n]+?)\|rr\|([^\n]*?)\|ahk\|([^\n]*?)$" ; works in phpsto
 
 ; indirect3 hello :-) 10.07.2017 14:27
 
-   if( RegExMatch( AHKcode , "^\s*q=\s*(.+)\s*$" ,  m ) ) {
-        line := getLineOfWord( m1 ) ; that works :) 10.07.2017 14:18
+   if( RegExMatch( AHKcode , "^\s*q=\s*(.+)\s*$" ,  m ) ) { ; q=
+        line := getCorrectedStringUAOSS( getLineOfWord( m1 )) ; that works :) 10.07.2017 14:18
         isAHKcode := false
         if(RegExMatch( line , regIsAHKcode ,  m )) { ; repeat / overwrite last regex 10.07.2017 14:24
          isAHKcode := true
@@ -306,6 +282,20 @@ if(false){
    AHKcode2 := ""
 AHKcode2 .= "#" . "NoTrayIcon `n SetKeyDelay, -1, -1 `n "
 AHKcode2 .= "SetWorkingDir, " . A_ScriptDir . "`n" ; doesent work has no effect ScriptDir|rr||ahk|send, % A_ScriptDir ; \\.\pipe 03.04.2017 11:17 17-04-03_11-17
+
+AHKcode2 .= "#" . "NoTrayIcon `n SetKeyDelay, -1, -1 `n "
+
+;>>>>>>>> DynaRun >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+FileRead,dynaRunFunctionImplementationSource,dynaRunFunctionImplementationSource.inc.ahk
+AHKcode2 .= dynaRunFunctionImplementationSource  . "`n"
+;>>>>>>>>>> DynaRun >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+if(0){
+AHKcode2 .= "wordlist = , " . wordlistNEW . "`n" ; i cant do this :D becouse the script cant know this :D 12.08.2017 11:12
+Msgbox,% AHKcode2 . "`n`n = AHKcode2 `n (%A_ScriptName%~%A_LineNumber%)"
+}
+; doesent work has no effect ScriptDir|rr||ahk|send, % A_ScriptDir ; \\.\pipe 03.04.2017 11:17 17-04-03_11-17
 ; AHKcode2 .= "d := """ . a_scriptDir . """`n"
 
 startPos := 1
@@ -329,6 +319,8 @@ AHKcode := RegExReplace(AHKcode, "#include[ ]*,[ ]*([\.]{1,2}\\\w)", "#include "
 ; AHKcode := RegExReplace(AHKcode, "#include[ ]*,[ ]*(\w)", "#include \\$1" ) ; dayTimeHello|rr||ahk|#include,incDynAhk\sendDayTimeHello.ahk
 ; AHKcode := RegExReplace(AHKcode, "#include[ ]*,[ ]*[\.]{0,2}\\(\w)", "#include \\$1" ) ; dayTimeHello|rr||ahk|#include,incDynAhk\sendDayTimeHello.ahk
 StringReplace, AHKcode, AHKcode, `%A_ScriptDir`%, %A_ScriptDir%, All
+StringReplace, AHKcode, AHKcode, `%A_WorkingDir`%, %A_WorkingDir%, All ; in some context its not neccasarry becouse its set ... 12.08.2017 11:22
+; A_ScriptDir == A_WorkingDir is proably the same !! should be in this case :) 12.08.2017 11:26
 
 StringReplace, AHKcode, AHKcode, #incDynAhk, #include %A_ScriptDir%\incDynAhk, All ; dayTimeHello|rr||ahk|#incDynAhk\sendDayTimeHello.ahk
 
@@ -345,6 +337,10 @@ AHKcode2 .= RegExReplace(AHKcode, "([^``])``n", "$1`n") ; ; thats we really need
 ; msgbox, % AHKcode2n
 
 send,{blind}
+       global g_sending_is_buggy
+       if( g_sending_is_buggy )
+           lll(A_LineNumber, "Sending.ahk", "send,{blind} `n 17-07-29_11-47")
+
        DynaRun(AHKcode2)
    }
 
@@ -374,18 +370,21 @@ send,{blind}
 
 ;
    ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+   enableCopyQ() ;
    Return
 }  
 ;------------------------------------------------------------------------
             
-SendFull(SendValue,ForceBackspace=false)
+SendFull(SendValue,ForceBackspace:= false)
 {
    global g_Active_Id
    global g_Word
    global prefs_AutoSpace
    global prefs_NoBackSpace
    global prefs_SendMethod
-   
+
+   global g_doUseSendPlay
+
    SwitchOffListBoxIfActive()
    
    BackSpaceLen := StrLen(g_Word)
@@ -395,6 +394,10 @@ SendFull(SendValue,ForceBackspace=false)
    }
     ;  BackSpaceWord := false ; test 27.04.2017 18:40
 
+;<<<<< Capitalize := false 13.08.2017 14:05 17-08-13_14-05 sl5 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+if("Capitalize := false")
+    Capitalize := false
+else {
    ; match case on first letter if we are forcing a backspace AND CaseCorrection is off
    if (ForceBackspace && !(prefs_NoBackspace = "Off")) {
       IfEqual, A_IsUnicode, 1
@@ -403,10 +406,12 @@ SendFull(SendValue,ForceBackspace=false)
          {
             Capitalize := true
          }
-      } else if ( RegExMatch(Substr(g_Word, 1, 1), "S)[A-ZÀ-ÖØ-ß]") > 0 )
+      } else if ( RegExMatch(Substr(g_Word, 1, 1), "S)[A-Zï¿½-ï¿½ï¿½-ï¿½]") > 0 )
       {
          Capitalize := true
       }
+}
+;>>>>>>>>>>>>>>>>>>>>  Capitalize := false 13.08.2017 14:05 17-08-13_14-05 sl5  >>>>>>>>>>>>>>>>>>>>>>>>>>
       
       StringLeft, FirstLetter, SendValue, 1
          StringTrimLeft, SendValue, SendValue, 1
@@ -492,17 +497,55 @@ SendFull(SendValue,ForceBackspace=false)
    IfEqual, prefs_SendMethod, 1
    {
       ; Shift key hits are here to account for an occassional bug which misses the first keys in SendPlay
-      sending = {Shift Down}{Shift Up}{Shift Down}{Shift Up}      
+        if(g_doUseSendPlay)
+          sending = {Shift Down}{Shift Up}{Shift Down}{Shift Up}
       if (BackSpaceWord)
       {
-         sending .= "{BS " . BackSpaceLen . "}"
+          if(g_doUseSendPlay)
+             sending .= "{BS " . BackSpaceLen . "}"
+         else
+             Send,{Backspace %BackSpaceLen%} ; workaround :) 29.07.2017 12:51 17-07-29_12-51 by sl5net
       }
-      sending .= "{Raw}" . SendValue
+      if(!g_doUseSendPlay)
+          sending .= SendValue
+      else
+          sending .= "{Raw}" . SendValue
 
+if(!g_doUseSendPlay){
+    SendRaw, %sending%
+}else{
+       SendPlay, %sending% ; First do the backspaces, Then send word (Raw because we want the string exactly as in wordlist.txt)
+}
 
-      SendPlay, %sending% ; First do the backspaces, Then send word (Raw because we want the string exactly as in wordlist.txt)
+             global g_sending_is_buggy
+             if( g_sending_is_buggy )
+                 lll(A_LineNumber, "Sending.ahk", "SendPlay, %sending% `n >" . sending . "<  `n 17-07-29_11-48")
+
+if(false && g_sending_is_buggy){
+lll(A_LineNumber, "Sending.ahk", "let test sending with differenct methods `n SendValue =" . SendValue . " `n 17-07-29_12-23")
+;
+SendEvent, 1SendEvent = %sending% `n
+SendInput, 2SendInput = %sending% `n
+SendPlay, 3SendPlay = %sending% `n
+SendRaw, 4SendRaw = %sending% `n
+}
+
       Return
    }
+
+
+;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+;
+; reg1SendEvenfoundPos := RegExMatch( "str" , "i)" )
+; 2SendInpufoundPos := RegExMatch( "str" , "i)" )
+; 4SendRaw = {Shift Down}{Shift Up}{Shift Down}{Shift Up}{BS 4}{
+;
+;
+
+
+
+;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
 
 
 ; ms17-03-18_16-13
@@ -515,7 +558,10 @@ SendFull(SendValue,ForceBackspace=false)
 ; Msgbox, ```n  ``n `n  (line:%A_LineNumber%)
 
 ; Sleep,1000
-if(false){
+global g_sending_is_buggy
+if(fals && g_sending_is_buggy){
+lll(A_LineNumber, "Sending.ahk", "let test sending with differenct methods `n SendValue =" . SendValue . " `n 29.07.2017 11:06 17-07-29_11-07")
+;
 SendEvent, 1SendEvent = %SendValue% `n
 SendInput, 2SendInput = %SendValue% `n
 SendPlay, 3SendPlay = %SendValue% `n
@@ -524,6 +570,10 @@ SendRaw, 4SendRaw = %SendValue% `n
 ; sleep,2000
 ; reload
 
+; i typed regex :
+; 1SendEvenewStr := RegExReplace("abc", "i)")
+; 2SendInpnewStr := RegExReplace("abc", "i)")
+; 4SendRaw = {Shift Down}{Shift Up}{Shift Down}{Shift Up}{}
 
    if (BackSpaceWord)
    {
@@ -541,23 +591,43 @@ if(WinActive("PhpStorm", "", ".ahk") || WinActive("New File ahk_class SunAwtDial
     if(true){
         global g_Word ; thats the beginning of the word user alreaddy typed. 27.04.2017 18:52
         AHKcode := getRealisticDelayDynamicSendAHKcode(g_Word,SendValue)
-        send,{blind}
+global g_sending_is_buggy
+if( g_sending_is_buggy )
+    lll(A_LineNumber, "Sending.ahk", " send,{blind} ")
+send,{blind}
                DynaRun(AHKcode)
                } else {
     SetKeyDelay, -1, -1 ; PressDuration: Use -1 for no delay at all (default) and 0 for the smallest possible delay ; Play applies the above settings to the SendPlay mode
     Send, %sending% ; it doesent work with SendInput in slow motion  04.04.2017 21:50 17-04-04_21-50
+
+global g_sending_is_buggy
+if( g_sending_is_buggy )
+    lll(A_LineNumber, "Sending.ahk", " Send, %sending% `n >" . sending . "<  `n 17-07-29_11-38")
+
     }
    Return
 }
+
+;
+
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
       SendInput, %sending% ; First do the backspaces, Then send word (Raw because we want the string exactly as in wordlist.txt)
  ;Msgbox, '%SendValue%' = SendValue  `n `n '%sending%' = sending `n (line:%A_LineNumber%) n
+
+ global g_sending_is_buggy
+ if( g_sending_is_buggy )
+     lll(A_LineNumber, "Sending.ahk", "SendInput, %sending% `n >" . sending . "<  `n 17-07-29_11-42")
+
       Return
    }
 
    IfEqual, prefs_SendMethod, 3
    {
+   global g_sending_is_buggy
+   if( g_sending_is_buggy )
+       lll(A_LineNumber, "Sending.ahk", " SendEvent, %sending% ")
+
       SendEvent, %sending% ; First do the backspaces, Then send word (Raw because we want the string exactly as in wordlist.txt)
  ;Msgbox, '%SendValue%' = SendValue  `n `n '%sending%' = sending `n (line:%A_LineNumber%) n
       Return
@@ -580,12 +650,24 @@ if(WinActive("PhpStorm", "", ".ahk") || WinActive("New File ahk_class SunAwtDial
    {
       sending := "{Shift Down}{Shift Up}{Shift Down}{Shift Up}" . sending
       SendPlay, %sending% ; First do the backspaces, Then send word via clipboard
+      global g_sending_is_buggy
+      if( g_sending_is_buggy )
+          lll(A_LineNumber, "Sending.ahk", "SendPlay, %sending% `n >" . sending . "<  `n 17-07-29_11-41")
+
    } else IfEqual, prefs_SendMethod, 2C
    {
       SendInput, %sending% ; First do the backspaces, Then send word via clipboard
+ global g_sending_is_buggy
+ if( g_sending_is_buggy )
+     lll(A_LineNumber, "Sending.ahk", "SendInput, %sending% `n >" . sending . "<  `n 17-07-29_11-43")
+
    } else IfEqual, prefs_SendMethod, 3C
    {
       SendEvent, %sending% ; First do the backspaces, Then send word via clipboard
+       global g_sending_is_buggy
+       if( g_sending_is_buggy )
+           lll(A_LineNumber, "Sending.ahk", "SendEvent, %sending% `n >" . sending . "<  `n 17-07-29_11-44")
+
    } else {
       ControlGetFocus, ActiveControl, ahk_id %g_Active_Id%
       IfNotEqual, ActiveControl,
@@ -598,11 +680,19 @@ if(WinActive("PhpStorm", "", ".ahk") || WinActive("New File ahk_class SunAwtDial
 
 ;------------------------------------------------------------------------
 SendCompatible(SendValue,ForceSendForInput) {
+
+    lll(A_LineNumber, "Sending.ahk", "SendCompatible(SendValue,ForceSendForInput) `n SendValue =" . SendValue . " `n 17-07-16_15-01")
+
    global g_IgnoreSend
    global prefs_SendMethod
    ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
        SetKeyDelay, 200, 20, Play ; PressDuration: Use -1 for no delay at all (default) and 0 for the smallest possible delay ; Play applies the above settings to the SendPlay mode
        Send, %SendValue%
+
+        global g_sending_is_buggy
+        if( g_sending_is_buggy )
+            lll(A_LineNumber, "Sending.ahk", " Send, %SendValue% `n Send, %" . SendValue . "% `n 17-07-29_12-10")
+; regeregregreg
       Return
       ; GetKeyState, LshiftState, Lshift, P; 96+ lines in autocopy.ahk
    ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -611,6 +701,12 @@ SendCompatible(SendValue,ForceSendForInput) {
    {
       g_IgnoreSend = 
       SendEvent, %SendValue%
+
+       global g_sending_is_buggy
+       if( g_sending_is_buggy )
+           lll(A_LineNumber, "Sending.ahk", "SendEvent, %SendValue% `n >" . SendValue . "<  `n 17-07-29_11-45")
+
+
       Return
    }
    
@@ -618,6 +714,11 @@ SendCompatible(SendValue,ForceSendForInput) {
    IF ( ( SendMethodLocal = 1 ) || ( SendMethodLocal = 2 ) )
    {
       SendInput, %SendValue%
+
+       global g_sending_is_buggy
+       if( g_sending_is_buggy )
+           lll(A_LineNumber, "Sending.ahk", "SendInput, %SendValue% `n >" . SendValue . "<  `n 17-07-29_11-46")
+
       Return
    }
 
@@ -625,17 +726,27 @@ SendCompatible(SendValue,ForceSendForInput) {
    {
       g_IgnoreSend = 1
       SendEvent, %SendValue%
+             global g_sending_is_buggy
+             if( g_sending_is_buggy )
+                 lll(A_LineNumber, "Sending.ahk", "SendInput, %SendValue% `n >" . SendValue . "<  `n 17-07-29_11-46")
+
       Return
    }
+
+   ; reg
    
-   SendInput, %SendValue%   
+   SendInput, %SendValue%
+             global g_sending_is_buggy
+             if( g_sending_is_buggy )
+                 lll(A_LineNumber, "Sending.ahk", "SendInput, %SendValue% `n >" . SendValue . "<  `n 17-07-29_11-46")
+
    Return
 }
 
 ;------------------------------------------------------------------------
 
-;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-DynaRun(TempScript, pipename=""){
+;>>>>>>>> DynaRun >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+DynaRunEXITOFFdeprecated(TempScript, pipename=""){
    static _:="uint",@:="Ptr"
    If pipename =
       name := "AHK" A_TickCount
@@ -645,6 +756,7 @@ DynaRun(TempScript, pipename=""){
    __PIPE_    := DllCall("CreateNamedPipe","str","\\.\pipe\" name,_,2,_,0,_,255,_,0,_,0,@,0,@,0)
    if (__PIPE_=-1 or __PIPE_GA_=-1)
       Return 0
+   ;gosub,couldIfindMyself
    Run, %A_AhkPath% "\\.\pipe\%name%",,UseErrorLevel HIDE, PID
    If ErrorLevel
       MsgBox, 262144, ERROR,% "Could not open file:`n" __AHK_EXE_ """\\.\pipe\" name """"
@@ -657,7 +769,7 @@ DynaRun(TempScript, pipename=""){
    DllCall("CloseHandle",@,__PIPE_)
    Return PID
 }
-;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+;>>>>>>>>>> DynaRun >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
@@ -688,7 +800,7 @@ time2keyPressLog[" v"] := 203
 time2keyPressLog[" w"] := 125
 time2keyPressLog[" y"] := 203
 time2keyPressLog[" z"] := 219
-time2keyPressLog[" ä"] := 312
+time2keyPressLog[" ï¿½"] := 312
 time2keyPressLog["''"] := 203
 time2keyPressLog[", "] := 109
 time2keyPressLog["-A"] := 344
@@ -922,7 +1034,7 @@ time2keyPressLog["hn"] := 156
 time2keyPressLog["ho"] := 93
 time2keyPressLog["hr"] := 234
 time2keyPressLog["ht"] := 109
-time2keyPressLog["hä"] := 109
+time2keyPressLog["hï¿½"] := 109
 time2keyPressLog["ia"] := 281
 time2keyPressLog["ib"] := 78
 time2keyPressLog["ic"] := 109
@@ -958,9 +1070,9 @@ time2keyPressLog["ln"] := 109
 time2keyPressLog["lo"] := 203
 time2keyPressLog["lt"] := 109
 time2keyPressLog["lu"] := 171
-time2keyPressLog["lä"] := 156
-time2keyPressLog["Lö"] := 187
-time2keyPressLog["lü"] := 234
+time2keyPressLog["lï¿½"] := 156
+time2keyPressLog["Lï¿½"] := 187
+time2keyPressLog["lï¿½"] := 234
 time2keyPressLog["m "] := 125
 time2keyPressLog["m-"] := 296
 time2keyPressLog["ma"] := 109
@@ -1063,7 +1175,7 @@ time2keyPressLog["Tu"] := 187
 time2keyPressLog["tw"] := 125
 time2keyPressLog["ty"] := 218
 time2keyPressLog["tz"] := 47
-time2keyPressLog["tä"] := 140
+time2keyPressLog["tï¿½"] := 140
 time2keyPressLog["u "] := 125
 time2keyPressLog["uc"] := 109
 time2keyPressLog["ue"] := 93
@@ -1090,15 +1202,15 @@ time2keyPressLog["ze"] := 109
 time2keyPressLog["zm"] := 359
 time2keyPressLog["Zu"] := 140
 time2keyPressLog["zw"] := 187
-time2keyPressLog["ß "] := 343
-time2keyPressLog["ße"] := 375
-time2keyPressLog["äf"] := 141
-time2keyPressLog["än"] := 172
-time2keyPressLog["är"] := 203
-time2keyPressLog["äs"] := 187
-time2keyPressLog["ät"] := 110
-time2keyPressLog["ös"] := 156
-time2keyPressLog["üc"] := 219
+time2keyPressLog["ï¿½ "] := 343
+time2keyPressLog["ï¿½e"] := 375
+time2keyPressLog["ï¿½f"] := 141
+time2keyPressLog["ï¿½n"] := 172
+time2keyPressLog["ï¿½r"] := 203
+time2keyPressLog["ï¿½s"] := 187
+time2keyPressLog["ï¿½t"] := 110
+time2keyPressLog["ï¿½s"] := 156
+time2keyPressLog["ï¿½c"] := 219
 if( time2keyPressLog[key] )
   r :=  time2keyPressLog[key]
 Else {
@@ -1147,8 +1259,8 @@ getRealisticDelayDynamicSendAHKcode(g_Word,AHKcode){
  ; while( RegExMatch( AHKcode , "P)([\w ])([\w ])" , m , startPos ) ) { ; used till 10.04.2017 20:31 works
 
  ; quick and dirty repair: kind of encodeing. lets decode later.
-  StringReplace, AHKcode , AHKcode ,``,´,, All ; its only for prevent errors. 27.04.2017 15:55 for eg if you want write ... thats working. it better then noting :) ... its not correct bad not so a big false. you could correct it manually easily
-  ;~ StringReplace, AHKcode , AHKcode , ``, ´ ,, All ; its only for prevent errors. 27.04.2017 15:55 for eg if you want write ... thats working. it better then noting :) ... its not correct bad not so a big false. you could correct it manually easily
+  StringReplace, AHKcode , AHKcode ,``,ï¿½,, All ; its only for prevent errors. 27.04.2017 15:55 for eg if you want write ... thats working. it better then noting :) ... its not correct bad not so a big false. you could correct it manually easily
+  ;~ StringReplace, AHKcode , AHKcode , ``, ï¿½ ,, All ; its only for prevent errors. 27.04.2017 15:55 for eg if you want write ... thats working. it better then noting :) ... its not correct bad not so a big false. you could correct it manually easily
      ;~ StringReplace, AHKcode , AHKcode , ``, ````,, All ; its only for prevent errors. 27.04.2017 15:55 for eg if you want write
  ;~ tooltip,'%AHKcode%' = AHKcode  n (line:%A_LineNumber%) n
  ;~ sleep,2000
@@ -1246,7 +1358,7 @@ AHKcode := "`nSend," . AHKcode
 ; AHKcode
 
 ; deencodeing. the space becouse they key is wainting without using key. thats quick and dirty and good working workaround. 27.04.2017 18:22:
- StringReplace, AHKcode , AHKcode ,´,````{SPACE},, All
+ StringReplace, AHKcode , AHKcode ,ï¿½,````{SPACE},, All
 ; Msgbox,'%AHKcode%' = AHKcode  `n (%A_ScriptName%~%A_LineNumber%)
 return AHKcode
 }
@@ -1255,3 +1367,39 @@ return AHKcode
 ;clipboard := AHKcode
  ; (literal semicolon). Note: This is necessary only if a semicolon has a space or tab to its left. If it does not, it will be recognized correctly without being escaped.
 ; AHKcode := RegExReplace(AHKcode, "`;", "X")
+
+
+getCorrectedStringUAOSS( sending  ) {
+sending := RegExReplace( sending , "i)Ã¼", Chr(252) ) ; ue http://slayeroffice.com/tools/ascii/
+sending := RegExReplace( sending , "Ãœ", Chr(220) ) ; UE http://slayeroffice.com/tools/ascii/ Ãœbrigens
+sending := RegExReplace( sending , "ueber", "" . Chr(252) .  "ber" ) ; ue http://slayeroffice.com/tools/ascii/
+sending := RegExReplace( sending , "i)\bfÃ¼r\b","f" . Chr(252) . "r") ; ue http://slayeroffice.com/tools/ascii/
+sending := RegExReplace( sending , "i)\bgrÃ¼nd","gr" . Chr(252) . "nd") ; ue http://slayeroffice.com/tools/ascii/
+sending := RegExReplace( sending , "i)\bmuendl.\b","m" . Chr(252) . "uendl.") ; ue http://slayeroffice.com/tools/ascii/
+
+sending := RegExReplace( sending , "Ã¶", Chr(246) ) ; oe zB hÃ¶ren http://slayeroffice.com/tools/ascii/
+sending := RegExReplace( sending , "oe", Chr(246) ) ; oe zB hÃ¶ren http://slayeroffice.com/tools/ascii/
+
+
+; weiÃŸ
+sending := RegExReplace( sending , "ÃŸ","" . Chr(223) . "") ; ss http://slayeroffice.com/tools/ascii/
+sending := RegExReplace( sending , "i)\bgroÃŸ","gro" . Chr(223) . "") ; ss http://slayeroffice.com/tools/ascii/
+sending := RegExReplace( sending , "i)lieÃŸlich\b","lie" . Chr(223) . "lich") ; scharfess http://slayeroffice.com/tools/ascii/ ausschlieÃŸlich
+; sending := RegExReplace( sending , "i)ss", Chr(223) ) ; scharfess http://slayeroffice.com/tools/ascii/ Ausnahmen professionell
+
+sending := RegExReplace( sending , "i)Ã¤", Chr(228) ) ; ae http://slayeroffice.com/tools/ascii/ ausschlieÃŸlich
+sending := RegExReplace( sending , "Ã„", "" . Chr(196) . "" ) ; AE http://slayeroffice.com/tools/ascii/
+sending := RegExReplace( sending , "u.Ã„.", "u." . Chr(196) . "." ) ; AE http://slayeroffice.com/tools/ascii/
+sending := RegExReplace( sending , "i)beschÃ¤ftigte","besch" . Chr(228) . "ftigte ") ; ae http://slayeroffice.com/tools/ascii/ ausschlieÃŸlich
+sending := RegExReplace( sending , "i)AuftrÃ¤ge","Auftr" . Chr(228) . "ge") ; ae http://slayeroffice.com/tools/ascii/ ausschlieÃŸlich
+
+foundPos := RegExMatch( sending , "i)ï¿½" )
+;~ foundPos := RegExMatch( "str" , "i)fÃ¼r" )
+if(foundPos){
+msgbox,17-05-23_17-09 :( '%sending%' = sending  (line:%A_LineNumber%) n )
+}
+
+
+return sending  
+}
+

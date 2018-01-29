@@ -193,7 +193,7 @@ g_WordListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", A_ScriptDir . "\Wordl
 errorLog =
 (
 02.04.2017 13:43 17-04-02_13-43
-PRAGMAjournal_mode := "TRUNCATE;"
+PRAGMAjournal_mode := "TRUNCATE"
 Child Exception:
 SQLite_Exec
 ERROR: Invalid database handle 10222256 Return Code: 1

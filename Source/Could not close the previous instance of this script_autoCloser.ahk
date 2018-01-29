@@ -1,6 +1,3 @@
-; E:\fre\private\HtmlDevelop\AutoHotKey\tools\TypingAid-master\problems\Could not close the previous instance of this script 2017-07-12 20_13_25_TypingAid-master.png
-; https://autohotkey.com/board/topic/96235-auf-prozessende-warten-und-dann-herunterfahren/
-
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ;~ please use this ! as first line in every script before all includes! :)
 isDevellopperMode=true ; enth�llt auch update script.

@@ -2,7 +2,7 @@
 ;~ please use this ! as first line in every script before all includes! :)
 isDevellopperMode=true ; enthï¿½llt auch update script.
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-#Include *i inc_ahk\init_global.init.inc.ahk
+#Include *i %A_ScriptDir%\inc_ahk\init_global.init.inc.ahk
 
 #SingleInstance,force
 
@@ -41,7 +41,7 @@ IfWinExist, TypingAid - Inactive
       ExitApp 
    
    FileRead,TypingAidContentStatus, TypingAid_programmCounter_LineAndTime.txt
-   TypingAidTimestamp := RegExReplace(TypingAidContentStatus, ".*?(\d+)$", "$1") ; Gibt "abc123xyz" zurück, weil durch $ eine Übereinstimmung nur am Ende vorkommen darf. 
+   TypingAidTimestamp := RegExReplace(TypingAidContentStatus, ".*?(\d+)$", "$1") ; Gibt "abc123xyz" zurï¿½ck, weil durch $ eine ï¿½bereinstimmung nur am Ende vorkommen darf. 
    
    FormatTime, timestampyyMMddHHmmss, %A_now%,yyMMddHHmmss
    secondsProgrammIsNotMoving := timestampyyMMddHHmmss - TypingAidTimestamp
@@ -97,9 +97,9 @@ ToolTip, i FOUND :-) myself yeaah `n not a totally idiot :) `n ( %A_ScriptName% 
 return
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-#Include %A_ScriptDir%\..\inc_ahk\copy2clipBoard.functions.inc.ahk
-#Include %A_ScriptDir%\..\inc_ahk\ToolTipSec_RemoveToolTip.inc.ahk
-#Include %A_ScriptDir%\..\inc_ahk\ToolTipSec.inc.ahk
-#Include %A_ScriptDir%\..\inc_ahk\functions_global.inc.ahk
+#Include %A_ScriptDir%\inc_ahk\copy2clipBoard.functions.inc.ahk
+#Include %A_ScriptDir%\inc_ahk\ToolTipSec_RemoveToolTip.inc.ahk
+#Include %A_ScriptDir%\inc_ahk\ToolTipSec.inc.ahk
+#Include %A_ScriptDir%\inc_ahk\functions_global.inc.ahk
 
-#Include %A_ScriptDir%\..inc_ahk\inc_ahk\functions_global_dateiende.inc.ahk
+#Include %A_ScriptDir%\inc_ahk\functions_global_dateiende.inc.ahk

@@ -1,7 +1,8 @@
 ; These functions and labels are related maintenance of the wordlist
 
-ReadWordList()
-{
+
+;<<<<<<<<<<<<<< ReadWordList <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+ReadWordList() {
 global g_LegacyLearnedWords
    global g_ScriptTitle
    global g_WordListDone
@@ -11,8 +12,12 @@ global g_LegacyLearnedWords
    g_WordListDone = 0
 
 
-   WordlistFileName = wordlist.txt
-   
+  WordlistFileName = wordlist.txt
+   ; FileReadLine,WordlistFileName  ,wordlist.txt, 1
+   ; FileReadLine,activeClass ,wordlist.txt, 2
+   ; FileReadLine,activeTitle ,wordlist.txt, 3
+
+   ; WordlistFileAdress := RegExReplace("\._Generated.txt\s*$", "")
    Wordlist = %A_ScriptDir%\%WordlistFileName%
    WordlistLearned = %A_ScriptDir%\WordlistLearned.txt
    
@@ -31,22 +36,23 @@ IfWinNotExist,TypingAid.ahk,database is locked
     ExitApp
 WinClose,TypingAid.ahk,database is locked
 DetectHiddenWindows, On
-WinClose,TypingAid ahk_class AutoHotkey
-WinWaitClose,TypingAid ahk_class AutoHotkey,,1
-ifWinNotExist,TypingAid ahk_class AutoHotkey
+; WinClose,TypingAid ahk_class AutoHotkey
+; WinWaitClose,TypingAid ahk_class AutoHotkey,,1
+; TitleMatchMode=slow
+ifWinNotExist,TypingAid
 {
     if(FileExist("%A_WorkingDir%\TypingAid.ahk")) {
-        lll(A_LineNumber, "Wordlist.ahk", "39: Run, %A_WorkingDir%\TypingAid.ahk 17-08-04_15-47")
+        lll(A_LineNumber, "Wordlist.ahk", "39: Run, %A_WorkingDir%\TypingAid.ahk 17-08-04_15-47 inside ahkCloseERRERmsg")
 
 
-        run,log\Wordlist.ahk.log.txt
+        run, %A_WorkingDir%\log\Wordlist.ahk.log.txt
 
         run , %A_WorkingDir%\TypingAid.ahk , %A_WorkingDir% ; is not working : source is twice:  %A_WorkingDir%\Source\TypingAid.ahk, , min
         ; lll doesent work becouse som inc are not includet here :( 20.04.2017 19:23
     } else{
         ;gosub,couldIfindMyself
-        lll(A_LineNumber, "Wordlist.ahk", "Run, %A_WorkingDir%\Source\TypingAid.ahk")
-        run,log\Wordlist.ahk.log.txt
+        lll(A_LineNumber, "Wordlist.ahk", "Run, %A_WorkingDir%\Source\TypingAid.ahk 17-08-04_16-08  inside ahkCloseERRERmsg")
+        run, %A_WorkingDir%\log\Wordlist.ahk.log.txt
         run, %A_WorkingDir%\Source\TypingAid.ahk , %A_WorkingDir%\Source ; is not working : source is
         ; lll(A_LineNumber, "Wordlist.ahk", "Run, %A_WorkingDir%\Source\TypingAid.ahk")
         ; lll doesent work becouse som inc are not includet here :( 20.04.2017 19:23
@@ -55,15 +61,17 @@ ifWinNotExist,TypingAid ahk_class AutoHotkey
 )
 
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-if(! FileExist( A_WorkingDir . "\..\inc_ahk\copy2clipBoard.functions.inc.ahk" ) ) {
-    lll(A_LineNumber, "Wordlist.ahk", "52 :-( if(!fileExist(A_WorkingDir . \..\inc_ahk\copy2clipBoard.functions.inc.ahk)) ==> exitApp 17-07-18_20-24")
+if(! FileExist( A_WorkingDir . "\inc_ahk\copy2clipBoard.functions.inc.ahk" ) ) {
+    lll(A_LineNumber, "Wordlist.ahk", "52 :-( if(!fileExist(A_WorkingDir . \inc_ahk\copy2clipBoard.functions.inc.ahk)) ==> exitApp 17-07-18_20-24")
+     msg=NOT Exist %A_WorkingDir% . "\inc_ahk\copy2clipBoard.functions.inc.ahk" ) ==> exitapp `n (%A_ScriptName%~%A_LineNumber%)
+     feedbackMsgBox(msg,msg,1,1)
     exitApp
 }
-ahkCloseERRERmsg .= "`n#" . "Include " .  A_WorkingDir . "\..\inc_ahk\copy2clipBoard.functions.inc.ahk"
-ahkCloseERRERmsg .= "`n#" . "Include " .  A_WorkingDir . "\..\inc_ahk\functions_global.inc.ahk"
-ahkCloseERRERmsg .= "`n#" . "Include " .  A_WorkingDir . "\..\inc_ahk\ToolTipSec_RemoveToolTip.inc.ahk"
-ahkCloseERRERmsg .= "`n#" . "Include " .  A_WorkingDir . "\..\inc_ahk\ToolTipSec.inc.ahk"
-ahkCloseERRERmsg .= "`n#" . "Include " .  A_WorkingDir . "\..\inc_ahk\functions_global_dateiende.inc.ahk"
+ahkCloseERRERmsg .= "`n#" . "Include " .  A_WorkingDir . "\inc_ahk\copy2clipBoard.functions.inc.ahk"
+ahkCloseERRERmsg .= "`n#" . "Include " .  A_WorkingDir . "\inc_ahk\functions_global.inc.ahk"
+ahkCloseERRERmsg .= "`n#" . "Include " .  A_WorkingDir . "\inc_ahk\ToolTipSec_RemoveToolTip.inc.ahk"
+ahkCloseERRERmsg .= "`n#" . "Include " .  A_WorkingDir . "\inc_ahk\ToolTipSec.inc.ahk"
+ahkCloseERRERmsg .= "`n#" . "Include " .  A_WorkingDir . "\inc_ahk\functions_global_dateiende.inc.ahk"
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 ahkCloseERRERmsg2 =
@@ -84,18 +92,20 @@ if(FileExist("%A_WorkingDir%\TypingAid.ahk")){
     run , %A_WorkingDir%\TypingAid.ahk ; is not working : source is twice:  %A_WorkingDir%\Source\TypingAid.ahk
 }else{
         lll(A_LineNumber, "Wordlist.ahk", "Run, %A_WorkingDir%\Source\TypingAid.ahk")
-        run,log\Wordlist.ahk.log.txt
+global g_doRunLogFiles
+ if(g_doRunLogFiles)
+run,log\Wordlist.ahk.log.txt
 
     run , %A_WorkingDir%\Source\TypingAid.ahk ; is not working : source is twice:  %A_WorkingDir%\Source\TypingAid.ahk
 }
     ; its strange. sometimes the error toggles. so i need both path to run it. 04.04.2017 17:57 17-04-04_17-57
 }
 )
-ahkCloseERRERmsg2 .= "`n#" . "Include " .  A_WorkingDir . "\..\inc_ahk\copy2clipBoard.functions.inc.ahk"
-ahkCloseERRERmsg2 .= "`n#" . "Include " .  A_WorkingDir . "\..\inc_ahk\functions_global.inc.ahk"
-ahkCloseERRERmsg2 .= "`n#" . "Include " .  A_WorkingDir . "\..\inc_ahk\ToolTipSec_RemoveToolTip.inc.ahk"
-ahkCloseERRERmsg2 .= "`n#" . "Include " .  A_WorkingDir . "\..\inc_ahk\ToolTipSec.inc.ahk"
-ahkCloseERRERmsg2 .= "`n#" . "Include " .  A_WorkingDir . "\..\inc_ahk\functions_global_dateiende.inc.ahk"
+ahkCloseERRERmsg2 .= "`n#" . "Include " .  A_WorkingDir . "\inc_ahk\copy2clipBoard.functions.inc.ahk"
+ahkCloseERRERmsg2 .= "`n#" . "Include " .  A_WorkingDir . "\inc_ahk\functions_global.inc.ahk"
+ahkCloseERRERmsg2 .= "`n#" . "Include " .  A_WorkingDir . "\inc_ahk\ToolTipSec_RemoveToolTip.inc.ahk"
+ahkCloseERRERmsg2 .= "`n#" . "Include " .  A_WorkingDir . "\inc_ahk\ToolTipSec.inc.ahk"
+ahkCloseERRERmsg2 .= "`n#" . "Include " .  A_WorkingDir . "\inc_ahk\functions_global_dateiende.inc.ahk"
 
 
 
@@ -115,23 +125,27 @@ ifWinNotExist,TypingAid
 {
    if(FileExist("%A_WorkingDir%\TypingAid.ahk")){
               lll(A_LineNumber, "Wordlist.ahk", "Run, %A_WorkingDir%\Source\TypingAid.ahk 17-08-04_15-46")
-              run,log\Wordlist.ahk.log.txt
+global g_doRunLogFiles
+ if(g_doRunLogFiles)
+run,log\Wordlist.ahk.log.txt
 
        run , %A_WorkingDir%\TypingAid.ahk ; is not working : source is twice:  %A_WorkingDir%\Source\TypingAid.ahk, , min
    } else{
            lll(A_LineNumber, "Wordlist.ahk", "Run, %A_WorkingDir%\Source\TypingAid.ahk")
-           run,log\Wordlist.ahk.log.txt
+global g_doRunLogFiles
+ if(g_doRunLogFiles)
+run,log\Wordlist.ahk.log.txt
 
        run , %A_WorkingDir%\Source\TypingAid.ahk ; is not working : source is twice:  %A_WorkingDir%\Source\TypingAid.ahk, , min
    }
        ; its strange. sometimes the error toggles. so i need both path to run it. 04.04.2017 17:57 17-04-04_17-57
 }
 )
-ahkCloseERRERmsg3 .= "`n#" . "Include " .  A_WorkingDir . "\..\inc_ahk\copy2clipBoard.functions.inc.ahk"
-ahkCloseERRERmsg3 .= "`n#" . "Include " .  A_WorkingDir . "\..\inc_ahk\functions_global.inc.ahk"
-ahkCloseERRERmsg3 .= "`n#" . "Include " .  A_WorkingDir . "\..\inc_ahk\ToolTipSec_RemoveToolTip.inc.ahk"
-ahkCloseERRERmsg3 .= "`n#" . "Include " .  A_WorkingDir . "\..\inc_ahk\ToolTipSec.inc.ahk"
-ahkCloseERRERmsg3 .= "`n#" . "Include " .  A_WorkingDir . "\..\inc_ahk\functions_global_dateiende.inc.ahk"
+ahkCloseERRERmsg3 .= "`n#" . "Include " .  A_WorkingDir . "\inc_ahk\copy2clipBoard.functions.inc.ahk"
+ahkCloseERRERmsg3 .= "`n#" . "Include " .  A_WorkingDir . "\inc_ahk\functions_global.inc.ahk"
+ahkCloseERRERmsg3 .= "`n#" . "Include " .  A_WorkingDir . "\inc_ahk\ToolTipSec_RemoveToolTip.inc.ahk"
+ahkCloseERRERmsg3 .= "`n#" . "Include " .  A_WorkingDir . "\inc_ahk\ToolTipSec.inc.ahk"
+ahkCloseERRERmsg3 .= "`n#" . "Include " .  A_WorkingDir . "\inc_ahk\functions_global_dateiende.inc.ahk"
 
 
 ahkReStartOnClose =
@@ -145,17 +159,19 @@ ifWinNotExist , Typing_Aid_everywhere_multi_clone.ahk
    fexist := FileExist ("%A_WorkingDir%\Typing_Aid_everywhere_multi_clone.ahk" )
    if( !fexist ){
         lll(A_LineNumber, "Wordlist.ahk", "Run, %A_WorkingDir%\Source\TypingAid.ahk 17-08-04_15-46")
-        run,log\Wordlist.ahk.log.txt
+global g_doRunLogFiles
+ if(g_doRunLogFiles)
+run,log\Wordlist.ahk.log.txt
        run , %A_WorkingDir%\Typing_Aid_everywhere_multi_clone.ahk , %A_WorkingDir%
    }
 }
 
 )
-ahkReStartOnClose .= "`n#" . "Include " .  A_WorkingDir . "\..\inc_ahk\copy2clipBoard.functions.inc.ahk"
-ahkReStartOnClose .= "`n#" . "Include " .  A_WorkingDir . "\..\inc_ahk\functions_global.inc.ahk"
-ahkReStartOnClose .= "`n#" . "Include " .  A_WorkingDir . "\..\inc_ahk\ToolTipSec_RemoveToolTip.inc.ahk"
-ahkReStartOnClose .= "`n#" . "Include " .  A_WorkingDir . "\..\inc_ahk\ToolTipSec.inc.ahk"
-ahkReStartOnClose .= "`n#" . "Include " .  A_WorkingDir . "\..\inc_ahk\functions_global_dateiende.inc.ahk"
+ahkReStartOnClose .= "`n#" . "Include " .  A_WorkingDir . "\inc_ahk\copy2clipBoard.functions.inc.ahk"
+ahkReStartOnClose .= "`n#" . "Include " .  A_WorkingDir . "\inc_ahk\functions_global.inc.ahk"
+ahkReStartOnClose .= "`n#" . "Include " .  A_WorkingDir . "\inc_ahk\ToolTipSec_RemoveToolTip.inc.ahk"
+ahkReStartOnClose .= "`n#" . "Include " .  A_WorkingDir . "\inc_ahk\ToolTipSec.inc.ahk"
+ahkReStartOnClose .= "`n#" . "Include " .  A_WorkingDir . "\inc_ahk\functions_global_dateiende.inc.ahk"
 
 DynaRun("#" . "NoTrayIcon `n" . ahkCloseERRERmsg) ; cant fix this error. so fix the error message :D 02.04.2017 14:35 17-04-02_14-35 http://SL5.net
 DynaRun("#" . "NoTrayIcon `n" . ahkCloseERRERmsg2) ; cant fix this error. so fix the error message :D 18.04.2017 15:53 http://SL5.net
@@ -168,19 +184,21 @@ g_WordListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", A_ScriptDir . "\Wordl
    if (!g_WordListDB )
    {
       tooltip, Problem opening database '%A_ScriptDir%\WordlistLearned.db' - fatal error...
+      lll(A_LineNumber, "Wordlist.ahk",Last_A_This . " sleep,15000 ")
       sleep,15000
       ; exitapp
+      lll(A_LineNumber, "Wordlist.ahk",Last_A_This . " reload ")
       reload ; 02.04.2017 12:47 17-04-02_12-47 Http://SL5.net
    }
 errorLog =
 (
 02.04.2017 13:43 17-04-02_13-43
-PRAGMAjournal_mode = TRUNCATE;
+PRAGMAjournal_mode := "TRUNCATE;"
 Child Exception:
 SQLite_Exec
 ERROR: Invalid database handle 10222256 Return Code: 1
 
-02.04.2017 14:06 , 17-04-02_14-06
+02.04.2017 14:06 , 17-04-02_14-02
 Cannot Create Words Table - fatal error: 5 - database is locked
 OK
 ==> there was two TypingAid runniing. how could thats be?
@@ -198,24 +216,38 @@ OK
          
    FileGetSize, WordlistSize, %Wordlist%
 
-   if(!WordlistSize) {
-          m = !WordlistSize: Oops i am triggered :D 17-04-02_13-52 (from: %A_ScriptName%~%A_LineNumber%)
+   if(false && !WordlistSize) {
+          m = !WordlistSize: Oops i am triggered :D 17-04-02_13-52 (from: Wordlist.ahk~%A_LineNumber%)
         Sleep,2500
 
- lll(A_LineNumber, "Wordlist.ahk",Last_A_This . " reload " . m)
-        run,log\%A_ScriptName%.log.txt
+ ;lll(A_LineNumber, "Wordlist.ahk",Last_A_This . " reload " )
+global g_doRunLogFiles
+ if(g_doRunLogFiles)
+run,log\%A_ScriptName%.log.txt
+        lll(A_LineNumber, "Wordlist.ahk",Last_A_This . " reload ")
         Reload
           MsgBox,5 ,!WordlistSize ,Oops i am triggered :D 17-04-02_13-52 (from: %A_ScriptName%~%A_LineNumber%), 5
           ; that is very seldom triggerend. 18.04.2017 20:17
    }
    FileGetTime, WordlistModified, %Wordlist%, M
-   if(!WordlistModified)
-          msgbox,Oops i am triggered :D 17-04-04_17-32 !WordlistModified
    FormatTime, WordlistModified, %WordlistModified%, yyyy-MM-dd HH:mm:ss
+   ;tooltip,FileGetTime %WordlistModified% %Wordlist%, M
+   if(!WordlistModified){
+        msg =
+(
+%Wordlist% = Wordlist
+%WordlistModified% = WordlistModified
 
+from: Wordlist.ahk~%A_LineNumber%
+)
+        msgbox,Oops i am triggered :D 17-04-04_17-32 `n `n %msg%
+        exitApp
+  }
+; regex
    if (!DatabaseRebuilt) {
+      ; LearnedWordsTable := g_WordListDB.Query("SELECT wordlistmodified, wordlistsize FROM Wordlists WHERE wordlist = 'wordlist.txt';")
       LearnedWordsTable := g_WordListDB.Query("SELECT wordlistmodified, wordlistsize FROM Wordlists WHERE wordlist = '" . WordlistFileName . "';")
-      
+
       LoadWordlist := "Insert"
       
       For each, row in LearnedWordsTable.Rows
@@ -234,19 +266,51 @@ OK
    } else {
       LoadWordlist := "Insert"
    }
-   
+
+
    if (LoadWordlist) {
       ; Progress, M, Please wait..., Loading wordlist, %g_ScriptTitle%
       g_WordListDB.BeginTransaction()
       ;reads list of words from file 
       FileRead, ParseWords, %Wordlist%
+
+;<<<<<<<<<<<<<<<<< library open ADD <<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+; thats a way how you could add wordlist lines vocabularies inside onlive 12.08.2017 23:24
+; if you may destroy your path to your config file, thats a way to find it again.
+;                        foundOpenLibLine := 0
+                        pattern := "m)^\s*__+[^`n]*open[^`n]*\|rr\|\|ahk\|"
+;                        foundOpenLibLine  := RegExMatch(A_LoopField, pattern )
+                        ParseWords432indes := SubSTr( ParseWords , 1 , 432 ) ; we dont wann search the complete file. takes to much time :) 12.08.2017 23:02 17-08-12_23-02
+                        if( !RegExMatch(ParseWords432indes, pattern ) ){
+temp := "___open library (Wordlist.ahk~" . A_LineNumber . "|rr||ahk|FileReadLine,WordlistFileAdress, wordlist.txt.status.txt, 1 ``n WordlistFileAdress := RegExReplace(WordlistFileAdress, ""\._Generated\.txt\s*$"", """") ``n run,% WordlistFileAdress"
+    ParseWords .= "`n" . temp ; thats not performantly. :/ but works 12.08.2017 22:31 sl5.net todo:
+
+; info := SubSTr( ParseWords , 1 , 150 ) ;     tooltip,%info% ... `n (%A_ScriptName%~%A_LineNumber%) `
+}
+;>>>>>>>>>>>>>>>>> library open ADD >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
       len:=Strlen(ParseWords)
+      foundOpenLibLine := 0
       Loop, Parse, ParseWords, `n, `r
       {
          ParseWordsCount++
-      }
 
-      DynaRun("#" . "NoTrayIcon `n Sleep,1500 `n Tooltip,|SL5| `n Sleep,2300")
+
+         if(false && !foundOpenLibLine){
+                  pattern := "^\s*__+open[^`n]*\|rr\|\|ahk\|"
+                  foundOpenLibLine  := RegExMatch(A_LoopField, pattern )
+                  if( foundOpenLibLine ){
+                      Tooltip, %A_LoopField% `n found :) `n (from: %A_ScriptName%~%A_LineNumber%)
+                  }
+          }
+
+      } ; end of loop
+      if(false && !foundOpenLibLine){
+            temp := "___open library|rr||ahk|FileReadLine,WordlistFileAdress, wordlist.txt.status.txt, 1 `n WordlistFileAdress := RegExReplace(WordlistFileAdress, ""\._Generated\.txt\s*$"", """") `n run,% WordlistFileAdress"
+            ; AddWordToList(AddWord,ForceCountNewOnly,ForceLearn:= false, ByRef LearnedWordsCount := false) {
+            AddWordToList(temp,1,"ForceLearn") ; works but AHK is not succedet :( 12.08.2017 22:28
+        }
+      DynaRun("#" . "NoTrayIcon `n  Tooltip,.SL5. `n Sleep,2300")
       ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 
@@ -265,6 +329,8 @@ global do_tooltipReadWordList
 
       Loop, Parse, ParseWords, `n, `r1
       {
+
+         ; Tooltip,%A_LoopField% `n (from: %A_ScriptName%~%A_LineNumber%)
          ParseWordsSubCount++
          ProgressPercent := Round(ParseWordsSubCount/ParseWordsCount * 100)
          if (ProgressPercent <> OldProgressPercent)
@@ -282,7 +348,13 @@ global do_tooltipReadWordList
                break
             }
          } else {
-            AddWordToList(A_LoopField,0,"ForceLearn",LearnedWordsCount)
+                 ;Parse  := RegExReplace(pattern, "^\s+" , "" ) ; anfangs leerzeichen raus 06.11.2017 18:28
+
+                 ALoopField := A_LoopField
+                 ALoopField  := RegExReplace(ALoopField, "^\s+" , "" ) ; anfangs leerzeichen raus 06.11.2017 18:28
+                ; msgbox, %ALoopField% 06.11.2017 18:34
+
+            AddWordToList(ALoopField,0,"ForceLearn",LearnedWordsCount)
          }
       }
     if(false && ParseWordsCount>0)
@@ -326,9 +398,9 @@ global do_tooltipReadWordList
 if(false && ParseWordsCount>0)
     Msgbox, %ParseWordsCount%  (line:%A_LineNumber%)
 
+; ___open library|rr||ahk|FileReadLine,WordlistFileAdress, wordlist.txt.status.txt, 1 `n WordlistFileAdress := RegExReplace(WordlistFileAdress, "\._Generated\.txt\s*$", "") `n run,% WordlistFileAdress
       Loop, Parse, ParseWords, `n, `r
       {
-         
          AddWordToList(A_LoopField,0,"ForceLearn",LearnedWordsCount)
       }
       ParseWords =
@@ -348,10 +420,12 @@ if(false && ParseWordsCount>0)
 
    ;mark the wordlist as completed
    g_WordlistDone = 1
+   DynaRun("#" . "NoTrayIcon `n Tooltip,|SL5|`n Sleep,2300")
    ; tooltip,%ParseWordsCount%`n (from: %A_ScriptName%~%A_LineNumber%)
    Return ParseWordsCount
 }
-
+;>>>>>>>>>>>>>>>>>>  ReadWordList >>>>>>>>>>>>>>>>>>>>>>>>>>>>
+;
 ;------------------------------------------------------------------------
 
 ReverseWordNums(LearnedWordsCount)
@@ -380,8 +454,7 @@ ReverseWordNums(LearnedWordsCount)
 
 ;------------------------------------------------------------------------
 
-AddWordToList(AddWord,ForceCountNewOnly,ForceLearn=false, ByRef LearnedWordsCount = false)
-{
+AddWordToList(AddWord,ForceCountNewOnly,ForceLearn:= false, ByRef LearnedWordsCount := false) {
    ;AddWord = Word to add to the list
    ;ForceCountNewOnly = force this word to be permanently learned even if learnmode is off
    ;ForceLearn = disables some checks in CheckValid
@@ -510,7 +583,7 @@ AddWordToList(AddWord,ForceCountNewOnly,ForceLearn=false, ByRef LearnedWordsCoun
    Return
 }
 
-CheckValid(Word,ForceLearn=false)
+CheckValid(Word,ForceLearn:= false)
 {
    
    Ifequal, Word,  ;If we have no word to add, skip out.

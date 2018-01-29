@@ -1,6 +1,6 @@
 
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-; hier wird das active überschrieben: 12.07.2017 21:33
+; hier wird das active ï¿½berschrieben: 12.07.2017 21:33
 wordlistNEWactivate( wordlistDir , wordlistNEW, wordlistActive , typingAidSourcePath, activeClass := "" , activeTitle := "" ) {
 ; return, 1 ; return spielt keine rolle, quasi void 30.07.2017 12:52 17-07-30_12-52
 
@@ -38,9 +38,10 @@ if(Instr(wordlistNEWarchivePath,"\EVERYTHING\")){
 if(!wordlistNEWarchivePath)
     Msgbox,Oops !wordlistNEWarchivePath `n (Typing_Aid_everywhere_multi_clone.inc.ahk~%A_ThisFunc%~%A_`LineNumber%) `
 
-   wordlistActivePath := typingAidSourcePath .  "\" . wordlistActive
+   ; wordlistActivePath := typingAidSourcePath .  "\" . wordlistActive
+   wordlistActivePath := A_ScriptDir . "\" . wordlistActive
    if(!FileExist(wordlistActivePath))
-      MsgBox, :( '%wordlistActivePath%' = wordlistActivePath  `n (line:%A_LineNumber%) `n
+      MsgBox, :( '%wordlistActivePath%' = wordlistActivePath  `n (line:%A_LineNumber%) `n 18-01-20_17-12
 ; The active path, that the complete address of the file inc dir, has to be always present. if not then that is an error. 12.07.2017 21:10
 
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -637,7 +638,7 @@ MsgBox, 17-03-10_08-04
 }
 ;>>>>>>>>>>>>> FileDeleteAsyncDynaRun >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-DynaRun(TempScript, pipename="") {
+DynaRunENDaï¿½sldkjfaï¿½sldkjfl(TempScript, pipename="") {
  global g_lineNumberFeedback
  g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
 
@@ -802,7 +803,7 @@ ahkCodeInsideFile =
 (
 #SingleInstance, force
 `; dontDeleteThisPlaceholder
-#Include %wordlistDir%\..\wordlistNameFilter.inc.ahk `; global wordlist . pleas dont delete this line! 17-03-06_10-59
+#Include %wordlistDir%\wordlistNameFilter.inc.ahk `; global wordlist . pleas dont delete this line! 17-03-06_10-59
 wordlistFilterPath = %wordlistFilterPath% `n ; (line:`%A_LineNumber`%) `n
 
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<

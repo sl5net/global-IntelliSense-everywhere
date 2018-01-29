@@ -75,7 +75,6 @@ SetWorkingDir, % scriptDir ; thats not worked. Line later A_ScriptDir was not ch
 
   ; if(FileExist( A_ScriptDir . "\SaveLast5_to_BackupSL5.ahk" )
 ;  fileAHKabs = %ScriptDir% ; \SaveLast5_to_BackupSL5.ahk
-  ; E:\fre\private\HtmlDevelop\AutoHotKey\tools\TypingAid-master\Typing_Aid_everywhere_multi_clone.ahk
  ;   run, %A_ScriptDir%\SaveLast5_to_BackupSL5.ahk "%ScriptFullPath%"
  
  ;<<<<<<<< SaveLast5_to_BackupSL5 <<<< 171003084729 <<<< 03.10.2017 08:47:29 <<<<
@@ -83,7 +82,6 @@ SetWorkingDir, % scriptDir ; thats not worked. Line later A_ScriptDir was not ch
 ToolTip2sec("RunWait `n `n `n " . A_LineNumber . " " . A_ScriptName . " " . Last_A_This) 
 RunWait, %scriptDir%\SaveLast5_to_BackupSL5.ahk "%ScriptFullPath%", %scriptDir%
 RunWait, %scriptDir%\SaveLast5_to_BackupSL5.ahk "%ScriptFullPath%" "c:/fre/private/Google_Drive/fax.sl5net/backup", %scriptDir%
-; run, E:\fre\private\HtmlDevelop\AutoHotKey\SaveLast5_to_BackupSL5.ahk "%ScriptFullPath%" , %A_ScriptDir%
 ;>>>>>>>> SaveLast5_to_BackupSL5 >>>> 171003084736 >>>> 03.10.2017 08.47:36 >>>>
   
     Reload

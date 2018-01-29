@@ -1,11 +1,19 @@
-becouse of bug you only could edit actually:
-global-IntelliSense-everywhere-master\Source\wordlist.txt
- thanks
- 20.01.2018 19:33
- 
  
 
 # global-IntelliSense-everywhere
+
+because of a bug you only could edit actually:
+global-IntelliSense-everywhere-master\Source\wordlist.txt
+or better
+Wordlists\_globalWordListsGenerated\..\_globalWordListsGenerated\_global.txt 
+ thanks
+ 20.01.2018 19:33
+ 
+download: https://github.com/sl5net/global-IntelliSense-everywhere
+ 
+examples: https://github.com/sl5net/global-IntelliSense-everywhere/blob/master/Wordlists/_globalWordLists/examplesForBeginners.txt
+
+
 global IntelliSense everywhere for windows with autohotkey
 Video: https://www.youtube.com/watch?v=elLsl8lj0K8
 

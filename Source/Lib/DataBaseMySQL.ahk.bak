@@ -73,7 +73,7 @@ class DataBaseMySQL extends DBA.DataBase
 	/*
 		Querys the DB and returns a RecordSet
 	*/
-	OpenRecordSet(sql, editable := false){
+	OpenRecordSet(sql, editable = false){
 		
 		result := MySQL_Query(this._handleDB, sql)
 		
@@ -166,7 +166,7 @@ class DataBaseMySQL extends DBA.DataBase
 		return this.InsertMany(records, tableName)
 	}
 	
-	Update(fields, constraints, tableName, safe := True) {
+	Update(fields, constraints, tableName, safe = True) {
 		if (safe) ;limitation: information_schema doesn't work with temp tables
 			for k, row in this.Query("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE COLUMN_KEY = 'PRI' AND TABLE_NAME = " this.ToSqlLiteral(tableName)).Rows
 				if (!constraints.HasKey(row[1]))

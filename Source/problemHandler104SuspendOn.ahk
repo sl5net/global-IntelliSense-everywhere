@@ -1,6 +1,6 @@
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ;~ please use this ! as first line in every script before all includes! :)
-isDevellopperMode=true ; enth�llt auch update script.
+isDevellopperMode:= true ; enth�llt auch update script.
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 #Include *i %A_ScriptDir%\inc_ahk\init_global.init.inc.ahk
 

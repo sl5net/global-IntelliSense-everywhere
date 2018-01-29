@@ -5,12 +5,8 @@ fileExtension=php,ahk,js,csv,htm,html,txt,mdb,bas
 
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ; this is using this script without parameter !!! please use it wieth attribute ! 17.04.2017 16:36
-;fullfile = E:\fre\private\HtmlDevelop\AutoHotKey\tools\TypingAid-master\Typing_Aid_everywhere_multi_clone.ahk
-;fullfile := A_ScriptFullPath
-
 ; optonallli you could use a second parameter:
 ; example:
-; E:\fre\private\HtmlDevelop\AutoHotKey>SaveLast5_to_BackupSL5.ahk E:\fre\blblabal.ahk c:\fre\private\Google_Drive\asldkf\backup
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 ; Msgbox,%A_ScriptFullPath% = `n%A_ScriptFullPath%  `n fullfile=%fullfile% `n `n (from: %A_ScriptName%~%A_LineNumber%) 

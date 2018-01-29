@@ -189,7 +189,7 @@ class DataBase
 		return myrow
 	}
 	
-	OpenRecordSet(sql, editable := false){
+	OpenRecordSet(sql, editable = false){
 		throw gDBA_Exceptions.MustOverride(this.__Class "." A_ThisFunc)
 	}
 	
@@ -233,7 +233,7 @@ class DataBase
 		throw gDBA_Exceptions.MustOverride(this.__Class "." A_ThisFunc)
 	}
 	
-	Update(fields, constraints, tableName, safe := True){
+	Update(fields, constraints, tableName, safe = True){
 		throw gDBA_Exceptions.MustOverride(this.__Class "." A_ThisFunc)
 	}
 	
