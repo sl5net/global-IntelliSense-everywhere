@@ -11,12 +11,13 @@ ___open libraries Folder|rr||ahk|run,% A_WorkingDir . "\..\Wordlists\" ; works 1
 ; ___library name|r|%wordlistNEW%
 
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-; folgende #include befehle funktionieren nur am Dateianfang.
-; folgender inclodiert die gesamte datei:
+; the following #include commands work only at the beginning of the file.
+; following includes the entire file:
 #include,Wordlists\_globalWordLists\pfade.txt
-; includiert alles aus der datei was aufss reg-suchmuster passst:
+; includes everything from the file that fits on your reg search pattern:
 #include,Wordlists\_globalWordLists\pfade.txt | i)^[ab]+
 ; includiert alles aus der datei was NICHT aufs reg-suchmuster passst:
+; includes everything from the file which does NOT fit the reg-search pattern:
 #include,Wordlists\_globalWordLists\pfade.txt ! i)^[ab]+
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
