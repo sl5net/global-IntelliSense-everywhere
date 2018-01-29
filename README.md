@@ -2,16 +2,15 @@
 
 # global-IntelliSense-everywhere
 
-because of a bug you only could edit actually:
-global-IntelliSense-everywhere-master\Source\wordlist.txt
-or better
-Wordlists\_globalWordListsGenerated\..\_globalWordListsGenerated\_global.txt 
- thanks
- 20.01.2018 19:33
- 
 download: https://github.com/sl5net/global-IntelliSense-everywhere
  
 examples: https://github.com/sl5net/global-IntelliSense-everywhere/blob/master/Wordlists/_globalWordLists/examplesForBeginners.txt
+
+using:
+start the both script linked in the root directory. physically they are into the source folder.
+
+scheduled features for the next update: it will load much faster
+
 
 
 global IntelliSense everywhere for windows with autohotkey
