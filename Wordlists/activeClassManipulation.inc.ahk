@@ -32,6 +32,7 @@ activeClassManipulation(ActiveClass, activeTitle := ""){
       else if(ActiveClass == "CabinetWClass")
             ActiveClass := "ChromeWidgetWin1" ; thats also found inside google chrome
 
+;E:\fre\private\HtmlDevelop\AutoHotKey\tools\TypingAid-master\Wordlists\ATL000000014013EB90
       else if(InStr(activeTitle,"Q-Dir" ) || ActiveClass == "ATL000000014013EB90")
             ActiveClass := "Q-Dir" 
 

@@ -1,6 +1,6 @@
 ; GLOBAL FILTER / ROUTING
 ; this file was generated 20170308151813 by: 
-;  Typing_Aid_everywhere_multi_clone.ahk
+;  E:\fre\private\HtmlDevelop\AutoHotKey\Typing_Aid_everywhere_multi_clone.ahk
 ; if you want you could update it by yourself. it will not overwritten by Typing_Aid_everywhere_multi_clone.ahk
 ; if you delete it it will be generated again.
 ; you could use it as a global filter/routing called from your special .../className/wordlistNameFilter.inc.ahk
@@ -69,12 +69,12 @@ getWordlistNEW173129( activeTitle, ActiveClass, wordlistNEW, wordlistDir ) {
 
 
  ; 'Q-Dir 6.49.7 [3]' = at  
- ; Bild ï¿½ffnen ahk_class #32770 
+ ; Bild öffnen ahk_class #32770 
  ; Exportieren ahk_class #32770 aus openoffice zu pdf 01.07.2017 20:22
  ; Select Path SunAwtDialog
  ; Open File or Project ahk_class SunAwtDialog
  ; Anhang speichern ahk_class #32770
-if ( RegExMatch( activeTitle , "(FreeCommander|Q-Dir \d|Bild ï¿½ffnen|Anhang speichern|Datei speichern|Speichern unter|ffnen|Dateien/Ordner suchen|Exportieren|Dokument speichern|Select Path|Open File or Project)" ) ) 
+if ( RegExMatch( activeTitle , "(FreeCommander|Q-Dir \d|Bild öffnen|Anhang speichern|Datei speichern|Speichern unter|ffnen|Dateien/Ordner suchen|Exportieren|Dokument speichern|Select Path|Open File or Project)" ) ) 
       return "..\_globalWordLists\pfade"
 
 if ( RegExMatch( activeTitle , "Anlage-EKS|EKS|Erstattung" ) ) {
@@ -142,7 +142,7 @@ if(false){
             ExitApp
       }
       ;FileCopy,% scriptDIR . "\_global.txt", % wl
-      f = foundFunctionsWordList.txt
+      f = E:\fre\private\HtmlDevelop\AutoHotKey\foundFunctionsWordList.txt 
       Fileread,fileContent2, % f
       Sleep,100
       if(!fileContent2){
@@ -265,10 +265,10 @@ return s
 maybeSuperglobalWordList(wordlistNEW, wordlistNEW_time_between , ActiveClass, activeTitle := "" ){
      if(wordlistNEW <> wordlistNEW_time_between)
           return, % wordlistNEW 
-     if(FileExist( "Wordlists\" . ActiveClass . "\" . wordlistNEW ))
+     if(FileExist( "..\Wordlists\" . ActiveClass . "\" . wordlistNEW ))
           return, % wordlistNEW 
-     
-     if(!FileExist("Wordlists\" . ActiveClass . "\_create_own_project.flag"))
+     ;
+     if(!FileExist("..\Wordlists\" . ActiveClass . "\_create_own_project.flag"))
           return, % "..\_globalWordListsGenerated\_global.txt"
           
           ; created token=17-08-10_16-17
@@ -281,21 +281,21 @@ maybeSuperglobalWordList(wordlistNEW, wordlistNEW_time_between , ActiveClass, ac
       Reload
       return
     }
-     
-     FileDelete, % "Wordlists\" . ActiveClass . "\_create_own_project.flag"
+
+     FileDelete, % "..\Wordlists\" . ActiveClass . "\_create_own_project.flag"
 
 contend =
 (
-#Include,.\..\Wordlists\_globalWordLists\_global.txt
-#Include,.\..\Wordlists\%ActiveClass%\_global.txt
+#Include .\..\Wordlists\_globalWordLists\_global.txt
+#Include .\..\Wordlists\%ActiveClass%\_global.txt
 ; %activeTitle% ; = activeTitle 17-08-10_16-04
-; #Include,.\..\Wordlists\_globalWordLists\examplesForBeginners.txt
+; #Include .\..\Wordlists\_globalWordLists\examplesForBeginners.txt
 ___open class library|rr||ahk|run,..\.\Wordlists\%ActiveClass%\_global.txt
 ___open window library |rr||ahk|run,..\.\Wordlists\%ActiveClass%\%wordlistNEW%
 )
-     FileAppend,% contend,   % "Wordlists\" . ActiveClass . "\" . wordlistNEW 
+     FileAppend,% contend,   % "..\Wordlists\" . ActiveClass . "\" . wordlistNEW
      Sleep,100
-     run,                    % "Wordlists\" . ActiveClass . "\" . wordlistNEW 
+     run,                    % "..\Wordlists\" . ActiveClass . "\" . wordlistNEW
 
      return, % wordlistNEW 
 }
