@@ -123,6 +123,7 @@ if(!FileExist(sourceDir)){
     baseDir := ""
     sourceDir :=""
 }
+
 typingAidSourcePath := sourceDir . "\Source"
 typingAidSourcePath := ""
 wordlistDirBase = %sourceDir%\..\Wordlists
@@ -142,7 +143,6 @@ checkFilePathExistens1704291222(wordlistDirBase, destinDir, sourceDir, typingAid
 activeTitle:=""
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 while(true) {
-
 SetTitleMatchMode,1
 ; IfWinNotExist,TypingAid - Active
 DetectHiddenWindows,On ; if this is off it does not find in tray 27.04.2017
@@ -163,10 +163,30 @@ lll(A_LineNumber, A_ScriptName, "Debuggging!  NOT Run % typingAidAHK " ) ; 18-01
 SetTitleMatchMode,2 ; thats my default. do i need it later ? 08.07.2017 14:12
 
 
-KeyWait, LButton  ; Wait for the left mouse button to be pressed released. ; Seems helpful by moving windows around. Seems there was a side effect by moving the win tastbar 02.04.2017 15:08 17-04-02_15-08 sl5
-; 07.07.2017 16:23 delete folder ...Wordlists\MultitaskingViewFrame solfed problem. all bugs are gune :D
+;If (A_TimeIdle < 50 || GetKeyState("ctrl", "P") || GetKeyState("Alt", "P") || GetKeyState("Shift", "P") || GetKeyState("LWin", "P") || GetKeyState("RWin", "P")  || GetKeyState("LButton", "P") ){
+If (true){
+    if(GetKeyState("ctrl", "P"))
+        KeyWait, ctrl
 
-KeyWait, Control  ; Wartet darauf, dass sowohl STRG als auch ALT losgelassen wird. Seems there was a side effect  07.07.2017 16:13
+    if(GetKeyState("Alt", "P"))
+        KeyWait, Alt
+
+    if(GetKeyState("Shift", "P"))
+        KeyWait, Shift
+
+    if(GetKeyState("LWin", "P"))
+        KeyWait, RButton
+
+    if(GetKeyState("RWin", "P"))
+        KeyWait, RWin
+
+        if(GetKeyState("LButton", "P"))
+            KeyWait, LButton
+
+        if(GetKeyState("RButton", "P"))
+            KeyWait, RButton
+}
+
 
 global g_lineNumberFeedback
  g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
