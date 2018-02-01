@@ -803,7 +803,7 @@ ahkCodeInsideFile =
 (
 #SingleInstance, force
 `; dontDeleteThisPlaceholder
-#Include %wordlistDir%\wordlistNameFilter.inc.ahk `; global wordlist . pleas dont delete this line! 17-03-06_10-59
+#Include %wordlistDir%\..\wordlistNameFilter.inc.ahk `; global wordlist . pleas dont delete this line! 17-03-06_10-59
 wordlistFilterPath = %wordlistFilterPath% `n ; (line:`%A_LineNumber`%) `n
 
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
