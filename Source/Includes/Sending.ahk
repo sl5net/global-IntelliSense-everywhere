@@ -33,8 +33,8 @@ getLineOfWord(word) {
   ;~ global g_SingleMatch
   ;~ global g_SingleMatchReplacement
 
-;~ erste zeile mit eintrag im wörterbuch: g_SingleMatch[1] 10.07.2017 12:13
-;~ letzte zeile mit eintrag im wörterbuch: g_SingleMatch[1] 10.07.2017 12:13
+;~ erste zeile mit eintrag im w�rterbuch: g_SingleMatch[1] 10.07.2017 12:13
+;~ letzte zeile mit eintrag im w�rterbuch: g_SingleMatch[1] 10.07.2017 12:13
 
   global WordlistFileName
   WordlistFileName = wordlist.txt
@@ -406,7 +406,7 @@ else {
          {
             Capitalize := true
          }
-      } else if ( RegExMatch(Substr(g_Word, 1, 1), "S)[A-ZÀ-ÖØ-ß]") > 0 )
+      } else if ( RegExMatch(Substr(g_Word, 1, 1), "S)[A-Z�-��-�]") > 0 )
       {
          Capitalize := true
       }
@@ -776,7 +776,7 @@ time2keyPressLog[" v"] := 203
 time2keyPressLog[" w"] := 125
 time2keyPressLog[" y"] := 203
 time2keyPressLog[" z"] := 219
-time2keyPressLog[" ä"] := 312
+time2keyPressLog[" �"] := 312
 time2keyPressLog["''"] := 203
 time2keyPressLog[", "] := 109
 time2keyPressLog["-A"] := 344
@@ -1010,7 +1010,7 @@ time2keyPressLog["hn"] := 156
 time2keyPressLog["ho"] := 93
 time2keyPressLog["hr"] := 234
 time2keyPressLog["ht"] := 109
-time2keyPressLog["hä"] := 109
+time2keyPressLog["h�"] := 109
 time2keyPressLog["ia"] := 281
 time2keyPressLog["ib"] := 78
 time2keyPressLog["ic"] := 109
@@ -1046,9 +1046,9 @@ time2keyPressLog["ln"] := 109
 time2keyPressLog["lo"] := 203
 time2keyPressLog["lt"] := 109
 time2keyPressLog["lu"] := 171
-time2keyPressLog["lä"] := 156
-time2keyPressLog["Lö"] := 187
-time2keyPressLog["lü"] := 234
+time2keyPressLog["l�"] := 156
+time2keyPressLog["L�"] := 187
+time2keyPressLog["l�"] := 234
 time2keyPressLog["m "] := 125
 time2keyPressLog["m-"] := 296
 time2keyPressLog["ma"] := 109
@@ -1151,7 +1151,7 @@ time2keyPressLog["Tu"] := 187
 time2keyPressLog["tw"] := 125
 time2keyPressLog["ty"] := 218
 time2keyPressLog["tz"] := 47
-time2keyPressLog["tä"] := 140
+time2keyPressLog["t�"] := 140
 time2keyPressLog["u "] := 125
 time2keyPressLog["uc"] := 109
 time2keyPressLog["ue"] := 93
@@ -1178,15 +1178,15 @@ time2keyPressLog["ze"] := 109
 time2keyPressLog["zm"] := 359
 time2keyPressLog["Zu"] := 140
 time2keyPressLog["zw"] := 187
-time2keyPressLog["ß "] := 343
-time2keyPressLog["ße"] := 375
-time2keyPressLog["äf"] := 141
-time2keyPressLog["än"] := 172
-time2keyPressLog["är"] := 203
-time2keyPressLog["äs"] := 187
-time2keyPressLog["ät"] := 110
-time2keyPressLog["ös"] := 156
-time2keyPressLog["üc"] := 219
+time2keyPressLog["� "] := 343
+time2keyPressLog["�e"] := 375
+time2keyPressLog["�f"] := 141
+time2keyPressLog["�n"] := 172
+time2keyPressLog["�r"] := 203
+time2keyPressLog["�s"] := 187
+time2keyPressLog["�t"] := 110
+time2keyPressLog["�s"] := 156
+time2keyPressLog["�c"] := 219
 if( time2keyPressLog[key] )
   r :=  time2keyPressLog[key]
 Else {
@@ -1235,8 +1235,8 @@ getRealisticDelayDynamicSendAHKcode(g_Word,AHKcode){
  ; while( RegExMatch( AHKcode , "P)([\w ])([\w ])" , m , startPos ) ) { ; used till 10.04.2017 20:31 works
 
  ; quick and dirty repair: kind of encodeing. lets decode later.
-  StringReplace, AHKcode , AHKcode ,``,´,, All ; its only for prevent errors. 27.04.2017 15:55 for eg if you want write ... thats working. it better then noting :) ... its not correct bad not so a big false. you could correct it manually easily
-  ;~ StringReplace, AHKcode , AHKcode , ``, ´ ,, All ; its only for prevent errors. 27.04.2017 15:55 for eg if you want write ... thats working. it better then noting :) ... its not correct bad not so a big false. you could correct it manually easily
+  StringReplace, AHKcode , AHKcode ,``,�,, All ; its only for prevent errors. 27.04.2017 15:55 for eg if you want write ... thats working. it better then noting :) ... its not correct bad not so a big false. you could correct it manually easily
+  ;~ StringReplace, AHKcode , AHKcode , ``, � ,, All ; its only for prevent errors. 27.04.2017 15:55 for eg if you want write ... thats working. it better then noting :) ... its not correct bad not so a big false. you could correct it manually easily
      ;~ StringReplace, AHKcode , AHKcode , ``, ````,, All ; its only for prevent errors. 27.04.2017 15:55 for eg if you want write
  ;~ tooltip,'%AHKcode%' = AHKcode  n (line:%A_LineNumber%) n
  ;~ sleep,2000
@@ -1334,7 +1334,7 @@ AHKcode := "`nSend," . AHKcode
 ; AHKcode
 
 ; deencodeing. the space becouse they key is wainting without using key. thats quick and dirty and good working workaround. 27.04.2017 18:22:
- StringReplace, AHKcode , AHKcode ,´,````{SPACE},, All
+ StringReplace, AHKcode , AHKcode ,�,````{SPACE},, All
 ; Msgbox,'%AHKcode%' = AHKcode  `n (%A_ScriptName%~%A_LineNumber%)
 return AHKcode
 }
@@ -1346,31 +1346,31 @@ return AHKcode
 
 
 getCorrectedStringUAOSS( sending  ) {
-sending := RegExReplace( sending , "i)Ã¼", Chr(252) ) ; ue http://slayeroffice.com/tools/ascii/
-sending := RegExReplace( sending , "Ãœ", Chr(220) ) ; UE http://slayeroffice.com/tools/ascii/ Ãœbrigens
+sending := RegExReplace( sending , "i)ü", Chr(252) ) ; ue http://slayeroffice.com/tools/ascii/
+sending := RegExReplace( sending , "Ü", Chr(220) ) ; UE http://slayeroffice.com/tools/ascii/ Übrigens
 sending := RegExReplace( sending , "ueber", "" . Chr(252) .  "ber" ) ; ue http://slayeroffice.com/tools/ascii/
-sending := RegExReplace( sending , "i)\bfÃ¼r\b","f" . Chr(252) . "r") ; ue http://slayeroffice.com/tools/ascii/
-sending := RegExReplace( sending , "i)\bgrÃ¼nd","gr" . Chr(252) . "nd") ; ue http://slayeroffice.com/tools/ascii/
+sending := RegExReplace( sending , "i)\bfür\b","f" . Chr(252) . "r") ; ue http://slayeroffice.com/tools/ascii/
+sending := RegExReplace( sending , "i)\bgründ","gr" . Chr(252) . "nd") ; ue http://slayeroffice.com/tools/ascii/
 sending := RegExReplace( sending , "i)\bmuendl.\b","m" . Chr(252) . "uendl.") ; ue http://slayeroffice.com/tools/ascii/
 
-sending := RegExReplace( sending , "Ã¶", Chr(246) ) ; oe zB hÃ¶ren http://slayeroffice.com/tools/ascii/
-sending := RegExReplace( sending , "oe", Chr(246) ) ; oe zB hÃ¶ren http://slayeroffice.com/tools/ascii/
+sending := RegExReplace( sending , "ö", Chr(246) ) ; oe zB hören http://slayeroffice.com/tools/ascii/
+sending := RegExReplace( sending , "oe", Chr(246) ) ; oe zB hören http://slayeroffice.com/tools/ascii/
 
 
-; weiÃŸ
-sending := RegExReplace( sending , "ÃŸ","" . Chr(223) . "") ; ss http://slayeroffice.com/tools/ascii/
-sending := RegExReplace( sending , "i)\bgroÃŸ","gro" . Chr(223) . "") ; ss http://slayeroffice.com/tools/ascii/
-sending := RegExReplace( sending , "i)lieÃŸlich\b","lie" . Chr(223) . "lich") ; scharfess http://slayeroffice.com/tools/ascii/ ausschlieÃŸlich
+; weiß
+sending := RegExReplace( sending , "ß","" . Chr(223) . "") ; ss http://slayeroffice.com/tools/ascii/
+sending := RegExReplace( sending , "i)\bgroß","gro" . Chr(223) . "") ; ss http://slayeroffice.com/tools/ascii/
+sending := RegExReplace( sending , "i)ließlich\b","lie" . Chr(223) . "lich") ; scharfess http://slayeroffice.com/tools/ascii/ ausschließlich
 ; sending := RegExReplace( sending , "i)ss", Chr(223) ) ; scharfess http://slayeroffice.com/tools/ascii/ Ausnahmen professionell
 
-sending := RegExReplace( sending , "i)Ã¤", Chr(228) ) ; ae http://slayeroffice.com/tools/ascii/ ausschlieÃŸlich
-sending := RegExReplace( sending , "Ã„", "" . Chr(196) . "" ) ; AE http://slayeroffice.com/tools/ascii/
-sending := RegExReplace( sending , "u.Ã„.", "u." . Chr(196) . "." ) ; AE http://slayeroffice.com/tools/ascii/
-sending := RegExReplace( sending , "i)beschÃ¤ftigte","besch" . Chr(228) . "ftigte ") ; ae http://slayeroffice.com/tools/ascii/ ausschlieÃŸlich
-sending := RegExReplace( sending , "i)AuftrÃ¤ge","Auftr" . Chr(228) . "ge") ; ae http://slayeroffice.com/tools/ascii/ ausschlieÃŸlich
+sending := RegExReplace( sending , "i)ä", Chr(228) ) ; ae http://slayeroffice.com/tools/ascii/ ausschließlich
+sending := RegExReplace( sending , "Ä", "" . Chr(196) . "" ) ; AE http://slayeroffice.com/tools/ascii/
+sending := RegExReplace( sending , "u.Ä.", "u." . Chr(196) . "." ) ; AE http://slayeroffice.com/tools/ascii/
+sending := RegExReplace( sending , "i)beschäftigte","besch" . Chr(228) . "ftigte ") ; ae http://slayeroffice.com/tools/ascii/ ausschließlich
+sending := RegExReplace( sending , "i)Aufträge","Auftr" . Chr(228) . "ge") ; ae http://slayeroffice.com/tools/ascii/ ausschließlich
 
-foundPos := RegExMatch( sending , "i)Ã" )
-;~ foundPos := RegExMatch( "str" , "i)fÃ¼r" )
+foundPos := RegExMatch( sending , "i)�" )
+;~ foundPos := RegExMatch( "str" , "i)für" )
 if(foundPos){
 msgbox,17-05-23_17-09 :( '%sending%' = sending  (line:%A_LineNumber%) n )
 }

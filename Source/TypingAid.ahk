@@ -1,7 +1,7 @@
 ; Sleep,2500 ; may typing_ ... needs fist a litle time to put the wordlist at the right place ?????????? 16.11.2017 10:01
 ; no wrong try 16.11.2017 10:03
 
-
+#Include *i %A_ScriptDir%\inc_ahk\init_global.init.inc.ahk
 
 global g_sending_is_buggy := true ; 29.07.2017 11:21 inside the adminsistraor account only the |ahk| script feature is working. lets try/test some. number ar not recognazed also SendPlay may have no effect if the script is running as Administrator 29.07.2017 12:34 17-07-29_12-34
 global g_sending_is_buggy := false ; Solved: SendPlay. 29.07.2017 11:21 inside the adminsistraor account only the |ahk| script feature is working. lets try/test some. number ar not recognazed also SendPlay may have no effect if the script is running as Administrator 29.07.2017 12:34 17-07-29_12-34
@@ -127,6 +127,7 @@ scriptName := SubStr( A_ScriptName , 1 , Strlen(A_ScriptName)-4)
 ;IfWinExist, % g_ScriptTitle 
 ;IfWinExist, %g_ScriptTitle% - Active ; maybe  work 26.04.2017 15:28
 #NoTrayIcon ; make it unvisible #NoTrayIcon ; make it unvisible Wozu???????????? dar�ber kanne es erkennen ob nicht schon eine andere instanz l�uft... es w�rde sonst denken eine andere l�uft schon???? 16.11.2017 09:06 17-11-16_09-06
+
 
 IfWinExist, %scriptName% - Active ; maybe  work 26.04.2017 15:28
 {
@@ -2048,4 +2049,5 @@ return
 #Include %A_ScriptDir%\inc_ahk\ToolTipSec.inc.ahk
 #Include %A_ScriptDir%\inc_ahk\functions_global_dateiende.inc.ahk
 
+#Include *i %A_ScriptDir%\inc_ahk\UPDATEDSCRIPT_global.inc.ahk
 

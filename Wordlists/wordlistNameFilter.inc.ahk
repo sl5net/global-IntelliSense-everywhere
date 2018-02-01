@@ -261,7 +261,7 @@ return s
 }
 
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-; this days i have to many files into hiere... i want first to activate the superglobal 10.08.2017 09:29
+; this days i have to many files into here... i want first to activate the superglobal 10.08.2017 09:29
 maybeSuperglobalWordList(wordlistNEW, wordlistNEW_time_between , ActiveClass, activeTitle := "" ){
      if(wordlistNEW <> wordlistNEW_time_between)
           return, % wordlistNEW 
