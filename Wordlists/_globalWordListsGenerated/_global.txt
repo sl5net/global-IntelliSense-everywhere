@@ -2,4 +2,17 @@
  ;  (line:74) 
 ;  ; = activeTitle 17-08-10_16-03
 ; #include,Wordlists\_globalWordLists\examplesForBeginners.txt
-___your library open|rr||ahk|run,..\.\Wordlists\_globalWordListsGenerated\..\_globalWordListsGenerated\_global.txt 
+
+
+; !! importand: never delte this line or this file! with this line you are able to usa a special project configuaratioin 09.08.2017 20:07 17-08-09_20-07
+___create own project dir or this|rr||ahk|#Include,%A_ScriptDir%\..\Wordlists\activeClassManipulation.inc.ahk `n activeClass := RegExReplace( activeClass, "[\W_]+", "") `n d1 = %A_ScriptDir%\..\Wordlists\%activeClass% `n  FileCreateDir, %d1% `n sleep,99 `n  FileAppend,"temporary empty file. if exist next view dont use the super _global.txt", %d1%\_create_own_project.flag `n MsgBox,0,created token=17-08-10_16-17,token=17-08-10_16-17,1 `n 
+
+___create own project dir or this|rr||ahk|WinGetClass,activeClass, A `n activeClass := RegExReplace( activeClass, "[\W_]+", "") `n d1 = %A_ScriptDir%\..\Wordlists\%activeClass% `n  FileCreateDir, %d1% `n sleep,99 `n  FileAppend,"temporary empty file. if exist next view dont use the super _global.txt", %d1%\_create_own_project.flag `n MsgBox,0,created token=17-08-10_16-17,token=17-08-10_16-17,1 `n 
+
+___info project dir|rr||ahk|WinGetClass,activeClass, A `n activeClass := RegExReplace( activeClass, "[\W_]+", "") `n d1 = %A_ScriptDir%\..\Wordlists\%activeClass% `n send, %d1% 
+
+
+; ___create own project dir or this|rr||ahk|WinGetClass,activeClass, A `n activeClass := RegExReplace( activeClass, "[\W_]+", "") `n d1 = %A_ScriptDir%\..\Wordlists\%activeClass% `n  FileCreateDir, %d1% `n run, %d1% 
+
+___global generated open|rr||ahk|run,..\Wordlists\_globalWordListsGenerated\_global.txt
+
