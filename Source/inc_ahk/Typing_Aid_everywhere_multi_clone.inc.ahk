@@ -213,7 +213,7 @@ if(includeFileSContentWillBeNeedsSaved )
 
 lll_if_g_doSaveLogFiles(A_LineNumber, A_ThisFunc,  "'" . wordlistGeneratedPath . "' = wordlistGeneratedPath `n'" . wordlistNEWarchivePath . " = wordlistNEWarchivePath " )
 
-        if(isIncludeFileInside){
+        if(isIncludeFileInside && wordlistGeneratedPath){
            wordlistNEWarchivePath := wordlistGeneratedPath ; that it will be used as your wordllist with all sugestions :) 12.07.2017 22:58
 
             ExitAPP_if_NOT_wordlistGeneratedPath (A_LineNumber, A_ThisFunc, wordlistNEWarchivePath, wordlistGeneratedPath , wordlistNEW)
