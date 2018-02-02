@@ -290,9 +290,11 @@ contend =
 #Include .\..\Wordlists\%ActiveClass%\_global.txt
 ; %activeTitle% ; = activeTitle 17-08-10_16-04
 ; #Include .\..\Wordlists\_globalWordLists\examplesForBeginners.txt
+___open global library|rr||ahk|run,..\.\Wordlists\_global.txt
 ___open class library|rr||ahk|run,..\.\Wordlists\%ActiveClass%\_global.txt
 ___open window library |rr||ahk|run,..\.\Wordlists\%ActiveClass%\%wordlistNEW%
 )
+     FileAppend,% "",   % "..\Wordlists\" . ActiveClass . "\_global.txt"
      FileAppend,% contend,   % "..\Wordlists\" . ActiveClass . "\" . wordlistNEW
      Sleep,100
      run,                    % "..\Wordlists\" . ActiveClass . "\" . wordlistNEW
