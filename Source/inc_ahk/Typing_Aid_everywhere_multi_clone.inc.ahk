@@ -95,11 +95,17 @@ else {
 
 lll_if_g_doSaveLogFiles(A_LineNumber, A_ThisFunc,  "'" . wordlistGeneratedPath . "' = wordlistGeneratedPath `n'" . wordlistNEWarchivePath . " = wordlistNEWarchivePath " )
 
+; Msgbox,'%wordlistNEWarchivePath%' = wordlistNEWarchivePath `n '%includeFilePath%' = includeFilePath  `n (line:%A_LineNumber%) n
 
 Loop, read, % wordlistNEWarchivePath
        {
-           regEx := "i)^\s*#include\s*,\s*([^|!]+)\s*(?:((\||\!))\s*(.+))?\s*"
+           ; Beispiel:
+; #Include .\..\Wordlists\Notepad\_global.txt
+;           regEx := "i)^\s*#include\s*,\s*([^|!]+)\s*(?:((\||\!))\s*(.+))?\s*"
+; include[ ]*(?:,|\s)[ ]*([^|!\n]+)[ ]*(?:((\||\!))[ ]*([^\n]+))?[ ]*
+           regEx := "i)^[ ]*#include[ ]*(?:,|\s)[ ]*([^|!\n]+)[ ]*(?:((\||\!))[ ]*([^\n]+))?[ ]*"
            foundPos := RegexMatch( A_LoopReadLine, regEx, matchs)
+; Msgbox,'%wordlistNEWarchivePath%' = wordlistNEWarchivePath `n '%includeFilePath%' = includeFilePath  `n (line:%A_LineNumber%) n
            if(foundPos){
             isIncludeFileInside := true
             includeFilePath     := matchs1
@@ -110,6 +116,7 @@ Loop, read, % wordlistNEWarchivePath
             ;Msgbox,'%lineInRegEx%' = lineInRegEx  n (line:%A_LineNumber%) n
             lineInRegExArray.Insert(lineInRegEx)
             exist_includeFilePath := (FileExist(includeFilePath)) ? 1 : 0
+            ;Msgbox,'%exist_includeFilePath%' = exist_includeFilePath `n '%includeFilePath%' = includeFilePath  `n (line:%A_LineNumber%) n
             if(!exist_includeFilePath){
               msg =:-( ERROR %exist_includeFilePath% = exist_includeFilePath `n %includeFilePath% `n  >%wordlistNEWarchivePath%< = wordlistNEWarchivePath (from: %A_ScriptName%~%A_LineNumber%)
               Tooltip,%msg%
