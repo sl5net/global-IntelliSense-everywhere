@@ -12,7 +12,6 @@ typical start (english):
 5. open your win-app, for e.g. notepad++ or a website etc.
 6. start typing ...
 7. if deeper interest:
-7. If deeper interest
 - https://github.com/sl5net/global-IntelliSense-everywhere/blob/master/Wordlists/_globalWordLists/examplesForBeginners.txt
 - https://www.youtube.com/watch?v=elLsl8lj0K8
 - Read this README file
@@ -25,7 +24,7 @@ typischer Start (german/deutsch):
 4. Drücke "1" (erster Listeneintrag) und bearbeite die Wortliste
 5. Öffne ein Windows-Prograamm, z.B. notepad++ oder eine Webseite usw.
 6. Beginne irgendetwas zu schreiben ...
-7. Falls tieferem Interesse
+7. Falls tieferem Interesse:
 - https://github.com/sl5net/global-IntelliSense-everywhere/blob/master/Wordlists/_globalWordLists/examplesForBeginners.txt
 - https://www.youtube.com/watch?v=elLsl8lj0K8
 - Lese diese README Datei
