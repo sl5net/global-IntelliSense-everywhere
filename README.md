@@ -6,10 +6,10 @@ download: https://github.com/sl5net/global-IntelliSense-everywhere
  
 typical start (english): 
 1. start start.ahk
-2. open your win-app, for e.g. notepad++ or a website etc.
-3. hit "_" and wait seconds
-4. hit "3" (first list entry) and edit wordlist
-5. open your win-app, for e.g. notepad++ or a website etc.
+2. open your win-app, for e.g. notepad++ or a website etc. and wait seconds
+3. hit "_" 
+4. hit "1" (create own project dir) and edit wordlist and save
+5. open your win-app, for e.g. notepad++ or a website etc. and wait seconds
 6. start typing ...
 7. if deeper interest:
 - https://github.com/sl5net/global-IntelliSense-everywhere/blob/master/Wordlists/_globalWordLists/examplesForBeginners.txt
@@ -21,8 +21,8 @@ typischer Start (german/deutsch):
 1. starte start.ahk
 2. Öffne ein Windows-Prograamm, z.B. notepad++ oder eine Webseite usw.
 3. Drücke "_" und warte Sekunden
-4. Drücke "3" (erster Listeneintrag) und bearbeite die Wortliste
-5. Öffne ein Windows-Prograamm, z.B. notepad++ oder eine Webseite usw.
+4. Drücke "1" (create own project dir) und bearbeite die Wortliste
+5. Öffne ein Windows-Prograamm, z.B. notepad++ oder eine Webseite usw. und warte Sekunden
 6. Beginne irgendetwas zu schreiben ...
 7. Falls tieferem Interesse:
 - https://github.com/sl5net/global-IntelliSense-everywhere/blob/master/Wordlists/_globalWordLists/examplesForBeginners.txt
