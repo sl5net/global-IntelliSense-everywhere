@@ -53,7 +53,7 @@ Please handle the globals wordlistNameFilter.inc.ahk carefully, as it could be s
 The first steps will probably be that you only edit the Wordlists / YourNewClass / yourNewTitle.txt. The simplest change is just to add one line of text.
 
 
-[!global IntelliSense everywhere examples windows autohotkey(https://img.youtube.com/vi/elLsl8lj0K8/0.jpg)](https://www.youtube.com/watch?v=elLsl8lj0K8)
+[![global IntelliSense everywhere examples windows autohotkey](https://img.youtube.com/vi/elLsl8lj0K8/0.jpg)](https://www.youtube.com/watch?v=elLsl8lj0K8)
 
 
 scheduled features for the next update: it will load much faster (loading is actully little slow with big wordlists)
