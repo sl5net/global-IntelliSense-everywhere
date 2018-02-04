@@ -8,8 +8,14 @@ examples: https://github.com/sl5net/global-IntelliSense-everywhere/blob/master/W
 
 start: start.ahk
 
-please configure wordlist by hit _ key.
-and you may wanna edit the wordlistNameFilter.inc.ahk inside the same folder.
+Please configure wordlist by hit _ key.
+and you may wanna edit the wordlistNameFilter.inc.ahk inside your new folder ( Wordlists/YourNewClass/wordlistNameFilter.inc.ahk ).
+There is also a global 
+/Wordlists/wordlistNameFilter.inc.ahk
+you may wanna edit ( Wordlists/YourNewClass/wordlistNameFilter.inc.ahk ).
+The wordlistNameFilter.inc.ahk files are meant to be redirected to wordlists (superglobal, global or local, ...) if you do not have the normal configuration.
+Please handle the globals wordlistNameFilter.inc.ahk carefully, as it could be sinst that the whole script does not work anymore.
+
 
 scheduled features for the next update: it will load much faster (loading is actully little slow with big wordlists)
 
