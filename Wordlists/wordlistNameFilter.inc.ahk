@@ -1,6 +1,5 @@
 ; GLOBAL FILTER / ROUTING
 ; this file was generated 20170308151813 by: 
-;  E:\fre\private\HtmlDevelop\AutoHotKey\Typing_Aid_everywhere_multi_clone.ahk
 ; if you want you could update it by yourself. it will not overwritten by Typing_Aid_everywhere_multi_clone.ahk
 ; if you delete it it will be generated again.
 ; you could use it as a global filter/routing called from your special .../className/wordlistNameFilter.inc.ahk
@@ -157,7 +156,6 @@ if(false){
 ;    Exitapp
       return ,% wlRelative
   }
-;      return "..\SciTEWindow\_global" REG_BNARY E:\fre\private\HtmlDvelop\AutoHoKey\tOols\TypingAid-master\Wordliss\iTEwindow\_global.txt
 
  if(!RegExMatch(wordlistNEW,"_global$")) {
    wordlistNEW := RegExReplace( wordlistNEW, "^[_-]+" , "")

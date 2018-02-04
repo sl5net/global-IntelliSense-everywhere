@@ -258,10 +258,6 @@ setChromeDefaultZoom(kundencenter_Googl, errorLogMetho=""){
 deselectAllSelectedHtmlFiles(mm)
 {
 
-   htmlSelectedPNG = E:\fre\private\office\job\Kunden\SugarPool\mittwald.de\webFtp_downloader\image\2015-08-09 23_04_19-Kundencenter.png
-   phpSelectedPNG = E:\fre\private\office\job\Kunden\SugarPool\mittwald.de\webFtp_downloader\image\2015-08-09 22_13_09-Kundencenter.png
-   selectedUserNumber = E:\fre\private\office\job\Kunden\SugarPool\mittwald.de\webFtp_downloader\image\2015-08-09 22_36_55-Kundencenter.png
-   orangeArea = E:\fre\private\office\job\Kunden\SugarPool\mittwald.de\webFtp_downloader\image\2015-08-09 22_29_57-Kundencenter.png
    SetMouseDelay,50
    SetMouseDelay, 80 ; needet. if its to fast clicks ar not recognized
    MouseGetPos,mX,mY
@@ -386,7 +382,7 @@ isDirEmpty(Dir){
 downloadSelected( downloadPNG, AktuellesVerzeichnisPNG, dirLocal ){
    sleepTime:=150
    ;~ MsgBox,%countDownload% = countDownload (line:%A_LineNumber%) `n 
-   downloadPNG = E:\fre\private\office\job\Kunden\SugarPool\mittwald.de\webFtp_downloader\image\2015-08-10 02_45_04-Greenshot capture form.png
+   downloadPNG =
    ToolTip,clickDownloadButtton
    FileCreateDir,% dirLocal
    Sleep,% sleepTime
@@ -442,7 +438,7 @@ errorCount_files := ErrorCount . " files/folders could not be moved. `n `n  (lin
       MsgBox,,:( no download, download image was was not searches suggessful `n  (line:%A_LineNumber%) `n  , 4
       ;~ MsgBox,,
    ; reload view completly. thats deselects all. we dont need search up/down pages
-   webFtpPNG = E:\....\2015-08-09 23_23_11-Kundencenter.png
+   webFtpPNG =
    clickImg(webFtpPNG,"webFtpPNG",mm)
    
 
@@ -465,7 +461,7 @@ loop,5
    if(!res ) {
       MsgBox, , Oops ,:( Oops %WebFTPManagerPNG% = WebFTPManagerPNG (line:%A_LineNumber%) `n , 4
       
-   webFtpPNG = E:\fre\priva...ader\image\2015-08-09 23_23_11-Kundencenter.png
+   webFtpPNG =
    clickImg(webFtpPNG,"webFtpPNG",mm)
 
    }

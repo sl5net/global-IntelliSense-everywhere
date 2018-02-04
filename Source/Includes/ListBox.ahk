@@ -606,7 +606,6 @@ if(0){
       ListBoxPosY := -541
        ; x=395,y=19,t=0x380c6a
 
-;      climber-1 - [E:\fre\private\HtmlDevelop\Angular-HeroTut\modiziert\climber\workingArea_0-6\climber-1] - ...\src\app\climber.ts - PhpStorm 2016.3.3 ahk_class SunAwtFrame
        ; w=1278,
        ; x=603,y=16,t=0x380c6a
 }

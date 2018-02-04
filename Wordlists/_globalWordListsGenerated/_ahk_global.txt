@@ -1144,8 +1144,7 @@ _MaxThreadsPerHotkey|r|_MaxThreadsPerHotkey
 _NoTrayIcon|r|_NoTrayIcon 
 _Persistent|r|_Persistent 
 _WinActivateForce|r|_WinActivateForce 
-; E:\fre\private\HtmlDevelop\AutoHotKey\foundFunctionsWordList.txt 
-getLineNumberFromScite() ; 15+ lines in 1.ahk|rr|getLineNumberFromScite(); 15+ lines in 1.ahk|ahk|lf:=24 `n lc:=20 `n send,{left %lc%}{shift down}{left %lf%}{shift up} 
+getLineNumberFromScite() ; 15+ lines in 1.ahk|rr|getLineNumberFromScite(); 15+ lines in 1.ahk|ahk|lf:=24 `n lc:=20 `n send,{left %lc%}{shift down}{left %lf%}{shift up}
 backup(fpathFr, fpathTo, fname, tstamp, tstamp_pre) ; 184+ lines in 1_minutes_again.ahk|rr|backup(fpathFr, fpathTo, fname, tstamp, tstamp_pre); 184+ lines in 1_minutes_again.ahk|ahk|lf:=51 `n lc:=35 `n send,{left %lc%}{shift down}{left %lf%}{shift up} 
 minus_1(x) ; 184+ lines in 1_minutes_again.ahk|rr|minus_1(x); 184+ lines in 1_minutes_again.ahk|ahk|lf:=10 `n lc:=35 `n send,{left %lc%}{shift down}{left %lf%}{shift up} 
 debug(debug,text:="",mSec:=800) ; 184+ lines in 1_minutes_again.ahk|rr|debug(debug,text:="",mSec:=800); 184+ lines in 1_minutes_again.ahk|ahk|lf:=31 `n lc:=35 `n send,{left %lc%}{shift down}{left %lf%}{shift up} 
