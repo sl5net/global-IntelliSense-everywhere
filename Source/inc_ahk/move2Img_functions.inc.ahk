@@ -342,8 +342,7 @@ getAktuellesVerzeichnis(AktuellesVerzeichnisPNG){
    ;~ MsgBox,%c% = c (line:%A_LineNumber%) `n 
    c := RegExReplace( c  ,"/+","\")
    ;~ StringReplace,c,c,/,\,All
-   c=E:\xampp568\htdocs\SugarPool\mittwald.de\_AHK_TEST_%c%
-   
+
    }
    return c
    }
@@ -420,7 +419,7 @@ errorCount_files := ErrorCount . " files/folders could not be moved. `n `n  (lin
    } 
    
    ; reload view completly. thats deselects all. we dont need search up/down pages
-   webFtpPNG = E:\fre\private\office\job\Kunden\SugarPool\mittwald.de\webFtp_downloader\image\2015-08-09 23_23_11-Kundencenter.png
+   webFtpPNG =
    clickImg(webFtpPNG,"webFtpPNG",mm)
    
    return 

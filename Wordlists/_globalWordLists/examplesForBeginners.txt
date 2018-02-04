@@ -34,7 +34,7 @@ activeTitle|rr||ahk|FileReadLine,activeTitle, wordlist.txt.status.txt, 3 `n send
 
 
 ScriptDir|rr||ahk|send, % A_ScriptDir ; \\.\pipe 12.08.2017 10:29
-WorkingDir|rr||ahk|send, % A_WorkingDir ; E:\... \TypingAid-master\Source :-) yeaaaaah 12.08.2017 10:36
+WorkingDir|rr||ahk|send, % A_WorkingDir
 libraries Folder|rr||ahk|send, % A_WorkingDir . "\..\Wordlists\" 
 
 dir of your wordlist OPEN|rr||ahk|#Include,%A_ScriptDir%\..\Wordlists\activeClassManipulation.inc.ahk `n d1 = %A_ScriptDir%\..\Wordlists\%activeClass% `n run, % d1 . " === d1" ; .....\Wordlists\Notepad === d1

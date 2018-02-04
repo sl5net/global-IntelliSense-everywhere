@@ -141,7 +141,7 @@ if(false){
             ExitApp
       }
       ;FileCopy,% scriptDIR . "\_global.txt", % wl
-      f = E:\fre\private\HtmlDevelop\AutoHotKey\foundFunctionsWordList.txt 
+      f = ..\..\foundFunctionsWordList.txt
       Fileread,fileContent2, % f
       Sleep,100
       if(!fileContent2){
