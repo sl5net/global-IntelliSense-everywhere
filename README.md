@@ -6,8 +6,7 @@ download: https://github.com/sl5net/global-IntelliSense-everywhere
  
 examples: https://github.com/sl5net/global-IntelliSense-everywhere/blob/master/Wordlists/_globalWordLists/examplesForBeginners.txt
 
-using:
-start the both script: Typing_Aid_everywhere_multi_clone.ahk
+start: start.ahk
 
 please configure wordlist by hit _ key.
 and you may wanna edit the wordlistNameFilter.inc.ahk inside the same folder.
