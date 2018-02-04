@@ -14,7 +14,11 @@ There is also a global
 /Wordlists/wordlistNameFilter.inc.ahk
 you may wanna edit ( Wordlists/YourNewClass/wordlistNameFilter.inc.ahk ).
 The wordlistNameFilter.inc.ahk files are meant to be redirected to wordlists (superglobal, global or local, ...) if you do not have the normal configuration.
+<<<<<<< HEAD
 Please handle the global wordlistNameFilter.inc.ahk carefully, as it could be sinst that the whole script does not work anymore.
+=======
+Please handle the globals wordlistNameFilter.inc.ahk carefully, as it could be sinst that the whole script does not work anymore.
+>>>>>>> f64c9f17c1a6f12a2dbd989040ef7414d24bc3b5
 The first steps will probably be that you only edit the Wordlists / YourNewClass / yourNewTitle.txt. The simplest change is just to add one line of text.
 
 
