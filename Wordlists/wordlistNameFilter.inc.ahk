@@ -84,14 +84,9 @@ if ( RegExMatch( activeTitle , "Anlage-EKS|EKS|Erstattung" ) ) {
 
        return "..\_globalWordLists\PDF\Anlage_EKS\EKS.txt"
        
-; D:\fre\private\office\bank\postbank\Alle Gutschriften Einnahmen - mit Jahr in jeder Zeile\abschliesende EKS wegen Ausgaben anschauen.txt
 }
 
-; 22.02.2017 - 31.08.2017 abschliesende Anlage-EKS-Erklaerung-Einkommen-Selbstaendiger_von_hartziv.org - PDF-XChange Editor ahk_class PXE:{C5309AD3-73E4-4707-B1E1-2940D8AF3B9D}
-; D:\fre\private\office\bank\postbank\Alle Gutschriften Einnahmen - mit Jahr in jeder Zeile\abschliesende EKS wegen Ausgaben anschauen.txt
-
-; Formular BerH_Beratungsschein des Amtsgericht.pdf - Foxit Reader ahk_class classFoxitReader 
-if ( RegExMatch( activeTitle , "Formular.*\.pdf\b" ) ) 
+if ( RegExMatch( activeTitle , "Formular.*\.pdf\b" ) )
       return "..\_globalWordLists\Formular_Daten"
 
 SetTitleMatchMode,2 ; 2: A window's title can contain WinTitle anywhere inside it to be a match.
