@@ -1,7 +1,0 @@
-C:\temp\global-IntelliSense-everywhere-master\Source\.\..\Wordlists\_globalWordListsGenerated\..\_globalWordListsGenerated\_global.txt
-_globalWordListsGenerated
-_global
-wordlistNEWarchivePath = .\..\Wordlists\_globalWordListsGenerated\..\_globalWordListsGenerated\_global.txt
-activeClass  = _globalWordListsGenerated
-activeTitle = _global
-; FileReadLine,wordlistNEWarchivePath ,wordlist.txt, 1
