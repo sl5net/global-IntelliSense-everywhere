@@ -2,8 +2,14 @@
 
 # global-IntelliSense-everywhere
 
+install AHK (i use this Version: 1.1.26.01)
+from:
+https://www.heise.de/download/product/autohotkey-20763
+or: https://autohotkey.com/ 
+
 download: https://github.com/sl5net/global-IntelliSense-everywhere
- 
+
+
 typical start (english): 
 1. start start.ahk
 2. open your win-app, for e.g. notepad++ or a website etc. and wait seconds
