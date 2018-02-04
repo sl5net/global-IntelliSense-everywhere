@@ -4,8 +4,6 @@
 
 download: https://github.com/sl5net/global-IntelliSense-everywhere
  
-examples: https://github.com/sl5net/global-IntelliSense-everywhere/blob/master/Wordlists/_globalWordLists/examplesForBeginners.txt
-
 typical start (english): 
 1. start start.ahk
 2. open your win-app, for e.g. notepad++ or a website etc.
@@ -32,7 +30,7 @@ typischer Start (german/deutsch):
 - https://www.youtube.com/watch?v=elLsl8lj0K8
 - Lese diese README Datei
 (Verbesserungsvorschläge, Kritik, Fragen sind ausdrücklich erwünscht. Vielen Dank.)
- 
+
 
 Please configure wordlist by hit _ key.
 and you may wanna edit the wordlistNameFilter.inc.ahk inside your new folder ( Wordlists/YourNewClass/wordlistNameFilter.inc.ahk ).
