@@ -1553,7 +1553,7 @@ BuildTrayMenu()
 
    Menu, Tray, DeleteAll
    Menu, Tray, NoStandard
-   Menu, Tray, add, Settings, Configuration
+   ; Menu, Tray, add, Settings, Configuration
    Menu, Tray, add, Pause, PauseResumeScript
    IF (A_IsCompiled) ; A_IsCompiled	Contains 1 if the script is running as a compiled EXE and an empty string (which is considered false) if it is not.
    {
@@ -1561,7 +1561,7 @@ BuildTrayMenu()
    } else {
       Menu, Tray, Standard
    }
-   Menu, Tray, Default, Settings
+   ; Menu, Tray, Default, Settings
    ;Initialize Tray Icon
    Menu, Tray, Icon
 }
