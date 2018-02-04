@@ -76,24 +76,12 @@ getWordlistNEW173129( activeTitle, ActiveClass, wordlistNEW, wordlistDir ) {
 if ( RegExMatch( activeTitle , "(FreeCommander|Q-Dir \d|Bild öffnen|Anhang speichern|Datei speichern|Speichern unter|ffnen|Dateien/Ordner suchen|Exportieren|Dokument speichern|Select Path|Open File or Project)" ) ) 
       return "..\_globalWordLists\pfade"
 
-if ( RegExMatch( activeTitle , "Anlage-EKS|EKS|Erstattung" ) ) {
-    ;  Msgbox,`n (%A_ScriptName%~%A_LineNumber%) 
-
-      Last_A_This:=A_ThisFunc . A_ThisLabel
-      ToolTip1sec(A_LineNumber . " " . A_ScriptName . " " . Last_A_This)
-
-       return "..\_globalWordLists\PDF\Anlage_EKS\EKS.txt"
-       
-}
-
 if ( RegExMatch( activeTitle , "Formular.*\.pdf\b" ) )
       return "..\_globalWordLists\Formular_Daten"
 
 SetTitleMatchMode,2 ; 2: A window's title can contain WinTitle anywhere inside it to be a match.
 
 if( RegExMatch( activeTitle  , "i)(\.ahk)" ) || instr( activeTitle , "\TypingAid-master\Wordlists\")  ) {
-
-; smsgbox,77: %activeTitle% ( 17-06-26_14-47 )
 
 if(false){
       msgbox,wordlistDir_backupTopOfTempAHL = %wordlistDir_backupTopOfTempAHL%
@@ -115,7 +103,6 @@ if(false){
       FileAppend, _____global generated lib|r|%wl%`n , % wl
       FileAppend, _____global generated lib|rr||ahk|run,%wl%`n, % wl
       FileAppend, _____global generated lib|rr||ahk|run,..\Wordlists\_globalWordListsGenerated\_ahk_global.txt`n, % wl
-      ; _____global generated lib|rr||ahk|run,..\Wordlists\_globalWordListsGenerated\_ahk_global.txt
 
       Sleep, 100
       
@@ -146,9 +133,6 @@ if(false){
       FileAppend, % fileContent1 . fileContent2  ,% wl
       Sleep, 300
     }
-;    Msgbox,%wl% `n (from: %A_ScriptName%~%A_LineNumber%) 
-;    Msgbox,%wlRelative% `n (from: %A_ScriptName%~%A_LineNumber%)
-;    Exitapp
       return ,% wlRelative
   }
 
