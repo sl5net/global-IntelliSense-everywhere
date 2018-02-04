@@ -1,13 +1,1 @@
-uint8_t halloWelt(uint8_t id, uint8_t rw_flag, char *result_buffer, size_t len){
-	if(rw_flag  == DB_WRITE){
-		return 1;
-	}else if(rw_flag  == DB_READ){
-		result_buffer[0] = '\0';
-		sniprintf(result_buffer,128,"Hallo Welt");
-	}
-	return 0;
-};
-// GET(1,HalloWelt)
-DB_CS_ENTRY	(	READONLY	,	STATUS_TAB	,"0013",	halloWelt	,	"HalloWelt"	,"Hallo Welt",	FR_R|FR_RCL	,	2004	,	0	,	RW_RF	,	0	,	0	,0,"","")	,
-.sync
-E:\fre\private\office\amt\arge_harz\Anlage_EKS\Anlage-EKS-Erklaerung-Einkommen-Selbstaendiger_von_hartziv.org.pdf
+
