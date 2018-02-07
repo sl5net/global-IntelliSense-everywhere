@@ -206,7 +206,6 @@ RecomputeMatches(){
    } else {
       LimitTotalMatches = 200
    }
-   
    StringUpper, WordMatchOriginal, g_Word
    
    WordMatch := StrUnmark(WordMatchOriginal)

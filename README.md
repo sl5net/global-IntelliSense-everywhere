@@ -3,16 +3,17 @@
 English: If you can not imagine what this is, watch this video or ask a friend what an intellisense is.
 
 German: Wenn du dir nicht vorstellen kannst was dies ist, schaue dir dieses Video an oder Frage einen Freund was eine intellisense ist.
-[![global IntelliSense everywhere examples windows autohotkey](https://img.youtube.com/vi/elLsl8lj0K8/0.jpg)](https://www.youtube.com/watch?v=elLsl8lj0K8)
 
+[![global IntelliSense everywhere examples windows autohotkey](https://img.youtube.com/vi/elLsl8lj0K8/0.jpg)](https://www.youtube.com/watch?v=elLsl8lj0K8)
+  
 typical start (english): 
 1. Start your computer, start your Windows.
-install AHK (i use this Version: 1.1.26.01)
+- install AHK (i use this Version: 1.1.26.01)
 from:
 https://www.heise.de/download/product/autohotkey-20763
 or: https://autohotkey.com/ 
-download: https://github.com/sl5net/global-IntelliSense-everywhere
-Start start.ahk
+- download: https://github.com/sl5net/global-IntelliSense-everywhere
+- Start start.ahk
 2. open your win-app, for e.g. notepad++ or a website etc. and wait seconds
 3. Press "_" two or three times (if no list appears, try again in a few seconds)
 4. hit "1" (create own project dir) and edit wordlist and save
@@ -26,11 +27,12 @@ Start start.ahk
 
 typischer Start (german/deutsch):
 1. Kaufe dir einen Computer oder zwei, starte dein Windows.
-Installiere AHK (ich benutze gerade diese Version: 1.1.26.01)
+- Installiere AHK (ich benutze gerade diese Version: 1.1.26.01)
 von:
 https://www.heise.de/download/product/autohotkey-20763
 oder: https://autohotkey.com/
-Starte start.ahk
+- download: https://github.com/sl5net/global-IntelliSense-everywhere
+- Starte start.ahk
 2. Öffne ein Windows-Prograamm, z.B. notepad++ oder eine Webseite usw.
 3. Drücke "_" zwei oder dreimal (wenn keine Liste erscheint probiere es in wenigen Sekunden noch einmal)
 4. Wähle dann aus der Liste den ersten Eintrag via Taste "1" (create own project dir) und bearbeite die Wortliste
