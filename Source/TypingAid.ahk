@@ -1,4 +1,5 @@
 #Include *i %A_ScriptDir%\inc_ahk\init_global.init.inc.ahk
+
 global g_sending_is_buggy := false ; Solved: SendPlay. 29.07.2017 11:21
 global g_doSaveLogFiles := false
 global g_doRunLogFiles := false
@@ -95,7 +96,6 @@ Gosub, setWordlistFileUpdatedTime ; 29.04.2017 14:03
 
 BuildTrayMenu()      
 
-OnExit, SaveScript
 
 ;Change the setup performance speed
 SetBatchLines, 20ms
@@ -303,32 +303,8 @@ Return
 ExitScript:
 ExitApp
 Return
-
-SaveScript:
-global g_doSaveLogFiles
- if(g_doSaveLogFiles)
-lll(A_LineNumber, A_ScriptName, "OnExit => SaveScript => CloseListBox()")
-
-CloseListBox() ; Close the ListBox if it's open
-SuspendOn()
-;Change the cleanup performance speed
-SetBatchLines, 20ms
-Process, Priority,,Normal
-
-;Grab the Helper Window Position if open
-MaybeSaveHelperWindowPos()
-
-;Write the Helper Window Position to the Preferences File
-MaybeWriteHelperWindowPos()
-
-ExitApp
-
+; 
 #Include %A_ScriptDir%\Includes\TypingAid.inc.ahk
-
-
-MaybeUpdateWordlist:
-; MaybeUpdateWordlist()
-return
 
 reloadWordlost:
 ParseWordsCount := ReadWordList()
