@@ -11,65 +11,7 @@ global g_doSaveLogFiles := true
 global g_doSaveLogFiles := false
 g_doRunLogFiles := false
 
-;lll_if_g_doSaveLogFiles(A_LineNumber, A_ThisFunc,  "____________________________________________")
-;lll_if_g_doSaveLogFiles(A_LineNumber, A_ThisFunc,  "STARTED :) . If you change sourcCode it will automatically relloadet.")
 
-
-SetTitleMatchMode , 1 ; 1: A window's title must start with the specified WinTitle to be a match.
-IfWinExist, AHK1
-{
-   ; i dont wann hardreboot my laptop becouse of thosends of running AHK script.
-   ; i protect hard for that. 20.04.2017 18:14
-   ; for e.g. AHK19893606
-   ; functions_global.inc.ahk
-global g_doSaveLogFiles
- if(g_doSaveLogFiles)
-lll(A_LineNumber, A_ScriptName, "pause becouse of found somthing like: for e.g. AHK19893606")
-   Pause
-/*
-AHK19893606
-Script file not found: \\.\pipe\AHK19893606
-*/
-}
-
-
-tempOnlyAnodeNotiz =
-(
-Script file not found:
-\\.\pipe\AHK36312352
-)
-
-ahkScriptFileNotFoundClose =
-(
-  sleep,1000
-
-  SetTitleMatchMode, 1
-  WinWait,AHK , \\.\pipe\AHK, 5
-  ifWinExist, AHK , \\.\pipe\AHK
-  {
-      winclose,AHK , \\.\pipe\AHK,
-  }
-)
-DynaRun("#" . "NoTrayIcon `n" . ahkScriptFileNotFoundClose ) ; cant fix this error. so fix the error message :D 27.04.2017 22:05 17-04-02_14-35 http://SL5.net
-
-
-
-
-
-; Video of this: 27.03.2017 https://www.youtube.com/watch?v=elLsl8lj0K8
-
-; %SystemRoot%\system32\SHELL32.dll
-#Include *i %A_ScriptDir%\inc_ahk\init_global.init.inc.ahk
-
-; switch it pm of you are searching a icon 25.04.2017 16:33
-loop,0
-{
-; http://help4windows.com/windows_7_shell32_dll.shtml
-Menu, Tray, Icon, shell32.dll, % A_Index
-Tooltip, %A_Index% `n (from: %A_ScriptName%~%A_LineNumber%) 
-Sleep, 100 ; 1 Sekunde
- 
-}
 ; Menu, Tray, Icon, shell32.dll, 144
  Menu, Tray, Icon, shell32.dll, 107
 ; Menu, Tray, Icon, shell32.dll, 164
@@ -110,7 +52,7 @@ global g_lineNumberFeedback
    msg := getWelcomeMsg()
    MsgBox,% msg
 } ;
-isInternMsgTransportIsClipboard := false ; false. then using fileSystem: readfile, include copyfile 
+isInternMsgTransportIsClipboard := false ; false. then using fileSystem: readfile, include copyfile
 debugIt := true
 debugIt := false   ;
 ; test_getNextLetterName(start,stop); 282+ lines in wavetanzen.eu.login.php.functions.inc.ahk

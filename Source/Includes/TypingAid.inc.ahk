@@ -1276,13 +1276,19 @@ run,log\%A_ScriptName%.log.txt
    ; g_nextCriticalCommandTimeIdle := A_TimeIdle
 }
 
+#Include %A_ScriptDir%\..\Wordlists\activeClassManipulation.inc.ahk
+
+
 #Include %A_ScriptDir%\inc_ahk\copy2clipBoard.functions.inc.ahk
 #Include %A_ScriptDir%\inc_ahk\functions_global.inc.ahk
 #Include %A_ScriptDir%\inc_ahk\ToolTipSec_RemoveToolTip.inc.ahk
 #Include %A_ScriptDir%\inc_ahk\ToolTipSec.inc.ahk
 #Include %A_ScriptDir%\inc_ahk\functions_global_dateiende.inc.ahk
 
-#Include *i %A_ScriptDir%\inc_ahk\UPDATEDSCRIPT_global.inc.ahk
+; #Include %A_ScriptDir%\inc_ahk\Typing_Aid_everywhere_multi_clone.inc.ahk
+
+
+; #Include *i %A_ScriptDir%\inc_ahk\UPDATEDSCRIPT_global.inc.ahk
 
 #Include %A_ScriptDir%\Includes\Conversions.ahk
 #Include %A_ScriptDir%\Includes\Helper.ahk
