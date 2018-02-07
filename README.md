@@ -11,9 +11,9 @@ download: https://github.com/sl5net/global-IntelliSense-everywhere
 
 
 typical start (english): 
-1. start start.ahk
+1. Start your computer, start your Windows, start start.ahk
 2. open your win-app, for e.g. notepad++ or a website etc. and wait seconds
-3. hit "_" 
+3. Press "_" two or three times (if no list appears, try again in a few seconds)
 4. hit "1" (create own project dir) and edit wordlist and save
 5. open your win-app, for e.g. notepad++ or a website etc. and wait seconds
 6. start typing ...
@@ -24,10 +24,10 @@ typical start (english):
 (Suggestions for improvement, criticism, questions are expressly desired. Many Thanks.)
 
 typischer Start (german/deutsch):
-1. starte start.ahk
+1. Starte deinen Computer, starte dein Windows, starte start.ahk
 2. Öffne ein Windows-Prograamm, z.B. notepad++ oder eine Webseite usw.
-3. Drücke "_" und warte Sekunden
-4. Drücke "1" (create own project dir) und bearbeite die Wortliste
+3. Drücke "_" zwei oder dreimal (wenn keine Liste erscheint probiere es in wenigen Sekunden noch einmal)
+4. Wähle dann aus der Liste den ersten Eintrag via Taste "1" (create own project dir) und bearbeite die Wortliste
 5. Öffne ein Windows-Prograamm, z.B. notepad++ oder eine Webseite usw. und warte Sekunden
 6. Beginne irgendetwas zu schreiben ...
 7. Falls tieferem Interesse:
