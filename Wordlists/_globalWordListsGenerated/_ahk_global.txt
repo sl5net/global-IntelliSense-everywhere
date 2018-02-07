@@ -1,4 +1,6 @@
 
+regEx remove some lines in wordlist|r|^((?!(ToolTipSec|init_global|functions_global_dateiende|move2Img_functions|functions_global|copy2clipBoard.functions)).)*$
+
 regEx find AHK functios definitions|r|^[ ]*?\w[\w\d_]{5,}\s*\([^()+<>]+\)[\s\S]{0,5}?\{
 
     EnvAdd, lcs, 1 ; 660+ lines in functions_global.inc.ahk|rr|EnvAdd, lcs, 1; 660+ lines in functions_global.inc.ahk|ahk|lc:=40 `n Send, {shift down}{left %lc%}{shift up}
