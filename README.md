@@ -1,17 +1,17 @@
- 
-
 # global-IntelliSense-everywhere
 
+If you can not imagine what this is, watch this video or ask a friend what an intellisense is.
+Wenn du dir nicht vorstellen kannst was dies ist, schaue dir dieses Video an oder Frage einen Freund was eine intellisense ist.
+[![global IntelliSense everywhere examples windows autohotkey](https://img.youtube.com/vi/elLsl8lj0K8/0.jpg)](https://www.youtube.com/watch?v=elLsl8lj0K8)
+
+typical start (english): 
+1. Start your computer, start your Windows.
 install AHK (i use this Version: 1.1.26.01)
 from:
 https://www.heise.de/download/product/autohotkey-20763
 or: https://autohotkey.com/ 
-
 download: https://github.com/sl5net/global-IntelliSense-everywhere
-
-
-typical start (english): 
-1. Start your computer, start your Windows, start start.ahk
+Start start.ahk
 2. open your win-app, for e.g. notepad++ or a website etc. and wait seconds
 3. Press "_" two or three times (if no list appears, try again in a few seconds)
 4. hit "1" (create own project dir) and edit wordlist and save
@@ -24,7 +24,12 @@ typical start (english):
 (Suggestions for improvement, criticism, questions are expressly desired. Many Thanks.)
 
 typischer Start (german/deutsch):
-1. Starte deinen Computer, starte dein Windows, starte start.ahk
+1. Starte deinen Computer, starte dein Windows.
+Installiere AHK (ich benutze diese Version: 1.1.26.01)
+von:
+https://www.heise.de/download/product/autohotkey-20763
+oder: https://autohotkey.com/
+Starte start.ahk
 2. Öffne ein Windows-Prograamm, z.B. notepad++ oder eine Webseite usw.
 3. Drücke "_" zwei oder dreimal (wenn keine Liste erscheint probiere es in wenigen Sekunden noch einmal)
 4. Wähle dann aus der Liste den ersten Eintrag via Taste "1" (create own project dir) und bearbeite die Wortliste
@@ -51,9 +56,6 @@ Please handle the global wordlistNameFilter.inc.ahk carefully, as it could be si
 Please handle the globals wordlistNameFilter.inc.ahk carefully, as it could be sinst that the whole script does not work anymore.
 
 The first steps will probably be that you only edit the Wordlists / YourNewClass / yourNewTitle.txt. The simplest change is just to add one line of text.
-
-
-[![global IntelliSense everywhere examples windows autohotkey](https://img.youtube.com/vi/elLsl8lj0K8/0.jpg)](https://www.youtube.com/watch?v=elLsl8lj0K8)
 
 
 scheduled features for the next update: it will load much faster (loading is actully little slow with big wordlists)
