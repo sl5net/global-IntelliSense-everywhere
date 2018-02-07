@@ -2,4 +2,7 @@
 ___your library open|rr||ahk|run,..\Wordlists\_globalWordLists\_global.txt
 
 now|rr||ahk|Send,% A_NOw
+test superglobal halllo :)
+
+
 

@@ -1,4 +1,3 @@
-; scriptDirOfAutoHotKey := RegExReplace( A_ScriptDir, "(\\AutoHotKey).*" , "$1") ; maybe file is started from subfolder. 18.04.2017 12:18
 
 ;<<<<<<<< IncludeI <<<< 171103161518 <<<< 03.11.2017 16:15:18 <<<<
 #Include *i ..\Wordlists\activeClassManipulation.inc.ahk

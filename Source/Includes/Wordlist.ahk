@@ -702,8 +702,8 @@ CleanupWordList(LearnedWordsOnly := false)
 
 ;------------------------------------------------------------------------
 
-MaybeUpdateWordlist()
-{
+MaybeUpdateWordlist(){
+   return ; learnd words. dont need 07.02.2018 17:10
    global g_LegacyLearnedWords
    global g_WordListDB
    global g_WordListDone
@@ -747,7 +747,7 @@ MaybeUpdateWordlist()
    
    g_WordListDB.Close(),
    
-}
+} ; EndOf: MaybeUpdateWordlist
 
 ;------------------------------------------------------------------------
 
