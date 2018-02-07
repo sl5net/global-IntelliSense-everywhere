@@ -24,8 +24,8 @@ Start start.ahk
 (Suggestions for improvement, criticism, questions are expressly desired. Many Thanks.)
 
 typischer Start (german/deutsch):
-1. Starte deinen Computer, starte dein Windows.
-Installiere AHK (ich benutze diese Version: 1.1.26.01)
+1. Kaufe dir einen Computer oder zwei, starte dein Windows.
+Installiere AHK (ich benutze gerade diese Version: 1.1.26.01)
 von:
 https://www.heise.de/download/product/autohotkey-20763
 oder: https://autohotkey.com/
