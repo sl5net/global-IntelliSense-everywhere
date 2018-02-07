@@ -1,3 +1,11 @@
+ReadInTheWordList(){ ;Read in the WordList
+   global ParseWordsCount
+   global prefs_Length
+   ParseWordsCount := ReadWordList()
+   prefs_Length := setLength(ParseWordsCount, maxLinesOfCode4length1)
+   return
+}
+
 MainLoop(){
    global g_TerminatingEndKeys
    Loop 

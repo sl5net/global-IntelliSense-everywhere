@@ -163,9 +163,7 @@ DisableKeyboardHotKeys()
 ;Change the Running performance speed (Priority changed to High in GetIncludedActiveWindow)
 SetBatchLines, -1
 
-;Read in the WordList
-ParseWordsCount := ReadWordList()
-prefs_Length := setLength(ParseWordsCount, maxLinesOfCode4length1)
+ReadInTheWordList()
 
 
 g_WinChangedCallback := RegisterCallback("WinChanged")
@@ -323,9 +321,6 @@ MaybeSaveHelperWindowPos()
 ;Write the Helper Window Position to the Preferences File
 MaybeWriteHelperWindowPos()
 
-; Update the Learned Words
-; MaybeUpdateWordlist()
-
 ExitApp
 
 #Include %A_ScriptDir%\Includes\TypingAid.inc.ahk
@@ -336,12 +331,11 @@ MaybeUpdateWordlist:
 return
 
 reloadWordlost:
-; Update the Learned Words
-;~ MaybeUpdateWordlist()
-;ReadWordList() ; prefs_Length
 ParseWordsCount := ReadWordList()
 prefs_Length := setLength(ParseWordsCount, maxLinesOfCode4length1)
+ ;feedbackMsgBox("reloadWordlost:",A_LineNumber . " " .  A_ScriptName,1,1)
 
+; ToolTipSec(t,x=123,y=321,sec=1000); 75+ lines in Live Edit Live_Edit Pseudo Live Edit for Chrome Firefox PhpStorm.ahk
 
 ActiveTitleOLD := ActiveTitle
 WinGetActiveTitle, ActiveTitle
@@ -362,52 +356,15 @@ if(ActiveTitleOLD && ActiveTitleOLD <> ActiveTitle ){
 global g_doSaveLogFiles
  if(g_doSaveLogFiles)
 lll(A_LineNumber, A_ScriptName,  "Goto, doReload `n reason for being carefully with reload `;) https://youtu.be/2a_AsYubzvE " )
- Goto, doReload
 ;~ ToolTip, % A_TickCount
 }
 return
 
 
 
-reloadThis:
-settitlematchmode,1
-IfWinExist,TypingAid Help
-   return
-ifwinexist,TypingAid Settings ; A window's title must start with the specified WinTitle to be a match.
-   return
-global g_doSaveLogFiles
-if(g_doSaveLogFiles)
-    lll(A_LineNumber, A_ScriptName, "Goto, doReload")
-Goto, doReload
-return
-
-; 
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 doReload:
-
 return ; reload is deaktivated today :D 29.07.2017 14:51 17-07-29_14-51 . i using it from the Administrator user
-
-if(A_TimeIdle < 2000)
-    return
-SetTitleMatchMode, 2
-DetectHiddenText, Off
-DetectHiddenWindows, Off
-
-
-if( A_TimeIdle > 500 && !WinExist("Open library? (id=1703171452)") && !WinExist("TypingAid Help") && !WinExist("TypingAid Settings") ){
-   global g_ListBox_Id
-   ; Msgbox, '%g_ListBox_Id%' = g_ListBox_Id  n (line:%A_LineNumber%) `n  (line:%A_LineNumber%)
-   IfEqual, g_ListBox_Id, ; if g_ListBox_Id is empty listBox is not open, we could reload. else we will wait. 17-03-17_17-10 17.03.2017 17:10
-global g_doSaveLogFiles
- if(g_doSaveLogFiles)
-lll(A_LineNumber, A_ScriptName, "Reload")
-global g_doRunLogFiles
- if(g_doRunLogFiles)
-run,log\%A_ScriptName%.log.txt
-   Reload
-}
-
-return
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 setWordlistFileUpdatedTime:
@@ -463,7 +420,8 @@ lll(A_LineNumber, A_ScriptName, "Title changed, Wordlist(modiTime) NOT changed s
 global g_doSaveLogFiles
  if(g_doSaveLogFiles)
 lll(A_LineNumber, A_ScriptName, "`n Sleep,100 `n" . msg . "`n ==> Goto, doReload")
-            GoSub, doReload
+           ;feedbackMsgBox("ReadInTheWordList",A_LineNumber . " , " . A_ScriptName,1,1)
+            ReadInTheWordList() ; 07.02.2018 17:28
          }
     }
     ;Msgbox, wordlist was changed (%A_ScriptName%~%A_LineNumber%)
@@ -472,7 +430,7 @@ lll(A_LineNumber, A_ScriptName, "`n Sleep,100 `n" . msg . "`n ==> Goto, doReload
    ; lll(A_LineNumber, A_ScriptName, "doReloadIfScriptDontMoveThisLine()")
 
     doReloadIfScriptDontMoveThisLine()
-
+;
 Return
 
 saveIamAllive:
