@@ -4,6 +4,9 @@
 global g_CaretX_Old
 global g_CaretY_Old
 
+global feedbackMsgBox1PosBackup_x
+global feedbackMsgBox1PosBackup_y
+
 
 ; lll(A_LineNumber, "functions_global.inc.ahk")
 
@@ -967,6 +970,11 @@ feedbackMsgBoxCloseAllWindows(){
 ; DetectHiddenWindows,On
 settitlematchmode,1
 if(WinExist("1:")){
+	winGetPos,x,y
+	global feedbackMsgBox1PosBackup_x
+	global feedbackMsgBox1PosBackup_y
+	feedbackMsgBox1PosBackup_x := x
+	feedbackMsgBox1PosBackup_y := y
     WinClose,1:
     WInWaitClose,1:
     Sleep, 1000
@@ -1022,6 +1030,16 @@ if(feedbackMsgBoxNrPre > 10 || feedbackMsgBoxNr > 10){
     return
 }
 g_feedbackMsgBoxNr := feedbackMsgBoxNr
+
+global feedbackMsgBox1PosBackup_x
+global feedbackMsgBox1PosBackup_y
+if(feedbackMsgBoxNr == 1){
+if(feedbackMsgBox1PosBackup_x && feedbackMsgBox1PosBackup_y && x==1  && y==1 ){
+	x := feedbackMsgBox1PosBackup_x
+	y := feedbackMsgBox1PosBackup_y
+	;msgbox,%feedbackMsgBoxNr% %feedbackMsgBox1PosBackup_x%,%feedbackMsgBox1PosBackup_y% %x%,%y%
+}}
+
 
 ;<<<<<<<< AHKcode <<<< 170814212731 <<<< 14.08.2017 21:27:31 <<<<
 AHKcode=
@@ -1119,7 +1137,7 @@ OnExi1883(){
 ;If(!WinExist(feedbackMsgBoxNr . ":")) ; shuld never happens
 SetTitleMatchMode,1
 while(0 && WinExist(feedbackMsgBoxNr . ":")){
-	WinClose,% feedbackMsgBoxNr . ":"
+	WinClose,% feedbackMsgBoxNr . ":"_
 	WinWaitClose,% feedbackMsgBoxNr . ":",, 1
 }
 
@@ -1128,6 +1146,7 @@ If(!WinExist(feedbackMsgBoxNr . ":")) ; shuld never happens 10.02.2018 12:51
 else
 	feedbackMsgBoxNr(tit,text,x,y)
 WinWait,% feedbackMsgBoxNr . ":"
+WinMove, % feedbackMsgBoxNr . ":" , , % x , % y ; whay again? bugdif 10.02.2018 14:49
 sleep,100 ; we need this small wait becouse of the stupid focus ;) it needs little time after exist to catch the focus ;) 10.02.2018 13:40
 if(at && !RegExMatch(at, "^(\d:|temp\.ahk)")){ ; check for probably wrong title. dont know why its happens sometimes. :(
 	;feedbackMsgBox("at= >" . at . "<","at= >" . at . "<`n" . A_ScriptName . "~" . A_LineNumber)
@@ -1147,7 +1166,7 @@ if(at && !RegExMatch(at, "^(\d:|temp\.ahk)")){ ; check for probably wrong title.
 }
 return, feedbackMsgBoxNr
 }
-;>>>>>>>> feedbackMsgBox >>>> 170814121755 >>>> 14.08.2017 12:17:55 >>>>
+;>>>>>>>> feedbackMsgBox >>>> 170814121755 >>>> 14.08.2017 12:17:55 >>>> 
 
 
 
