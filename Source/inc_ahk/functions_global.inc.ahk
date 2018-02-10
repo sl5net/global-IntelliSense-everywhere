@@ -1146,7 +1146,8 @@ If(!WinExist(feedbackMsgBoxNr . ":")) ; shuld never happens 10.02.2018 12:51
 else
 	feedbackMsgBoxNr(tit,text,x,y)
 WinWait,% feedbackMsgBoxNr . ":"
-WinMove, % feedbackMsgBoxNr . ":" , , % x , % y ; whay again? bugdif 10.02.2018 14:49
+if(feedbackMsgBoxNr ==1)
+	WinMove, % feedbackMsgBoxNr . ":" , , % x , % y ; whay again? bugdif 10.02.2018 14:49
 sleep,100 ; we need this small wait becouse of the stupid focus ;) it needs little time after exist to catch the focus ;) 10.02.2018 13:40
 if(at && !RegExMatch(at, "^(\d:|temp\.ahk)")){ ; check for probably wrong title. dont know why its happens sometimes. :(
 	;feedbackMsgBox("at= >" . at . "<","at= >" . at . "<`n" . A_ScriptName . "~" . A_LineNumber)
