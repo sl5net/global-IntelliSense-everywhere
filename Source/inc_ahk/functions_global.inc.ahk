@@ -277,7 +277,7 @@ exist_newFileAdress:=FileExist(newFileAdress)
 if(!exist_newFileAdress)
 {
 	Clipboard=%newFileAdress%
-	MsgBox,%A_LineNumber%: ERROR  (!exist_newFileAdress)  newFileAdress=%newFileAdress% `n copy2dir=%copy2dir% `n f=%f% `n StrLen_source=%StrLen_source% `n
+	MsgBox,%A_LineNumber%: ERROR=>Reload  (!exist_newFileAdress)  newFileAdress=%newFileAdress% `n copy2dir=%copy2dir% `n f=%f% `n StrLen_source=%StrLen_source% `n
 	Reload
 }
 
@@ -976,11 +976,14 @@ if(WinExist("1:")){
 
 ;<<<<<<<< feedbackMsgBox <<<< 170814121750 <<<< 14.08.2017 12:17:50 <<<<
 feedbackMsgBoxNr(tit := "",text := "" ,x:=1,y:=1){
-
-Tooltip, next try pls write feedbackMsgBox NOT feedbackMsgBoxNr `n (from: %A_ScriptName%~%A_LineNumber%) `
+;Tooltip, next try pls write feedbackMsgBox NOT feedbackMsgBoxNr `n (from: %A_ScriptName%~%A_LineNumber%) `
     return feedbackMsgBox(tit ,text ,x,y)
 }
 feedbackMsgBox(tit := "",text := "" ,x:=1,y:=1){
+	WinGetActiveTitle,at
+	if(!at || RegExMatch(at, "^(\d:|temp\.ahk)")){ ; check for probably wrong title. dont know why its happens sometimes. :(
+		return
+	}
 
 tit := RegExReplace(tit,"i)[\s,]+", " ")
 text := "" . RegExReplace(text,"i)[ ,]+", " ") . ""
@@ -994,7 +997,7 @@ if(!feedbackMsgBoxNr && g_feedbackMsgBoxNr)
     feedbackMsgBoxNr  := g_feedbackMsgBoxNr
 
 feedbackMsgBoxNrPre := feedbackMsgBoxNr
-tooltip, % feedbackMsgBoxNrPre
+;tooltip, % feedbackMsgBoxNrPre
 
 settitlematchmode,1
 settitlematchmode,slow
@@ -1006,12 +1009,19 @@ while(feedbackMsgBoxNrPre > 0 && !winexist(feedbackMsgBoxNrPre . ":"))
 if(!feedbackMsgBoxNrPre)
     feedbackMsgBoxNrPre := 0
 feedbackMsgBoxNr := feedbackMsgBoxNrPre + 1
-g_feedbackMsgBoxNr := feedbackMsgBoxNr
 
-if(feedbackMsgBoxNr>70){
-	TOolTip5sec(":( Oops `n feedbackMsgBoxNr>MAX `n " . A_LineNumber . " " . A_ScriptName . " " . Last_A_This) 
+if(feedbackMsgBoxNrPre > 10 || feedbackMsgBoxNr > 10){
+	TOolTip5sec(":( Oops `n feedbackMsgBoxNr>MAX `n " . A_LineNumber . " " . A_ScriptName . " " . Last_A_This,1,1) 
+	; for some reasion sometimes there anyway to many windows. therfor this dirty-bugFix:
+	SetTitleMatchMode,1
+	DetectHiddenWindows,Off
+	WinClose,%feedbackMsgBoxNr%:
+	;WinClose,%feedbackMsgBoxNrPre%:
+	; and slow down
+	sleep,1500
     return
 }
+g_feedbackMsgBoxNr := feedbackMsgBoxNr
 
 ;<<<<<<<< AHKcode <<<< 170814212731 <<<< 14.08.2017 21:27:31 <<<<
 AHKcode=
@@ -1051,6 +1061,7 @@ WinSet, Bottom,,%feedbackMsgBoxNr%
 tooltip, `% at
 maxTryes:=1
 while(!winactive(at)){ ; :( no effect 14.08.2017 18:56
+	tooltip, while(!winactive(`%at`%))
     sleep,100
     WinActivate,`% at
     if(--maxTryes<1)
@@ -1104,23 +1115,41 @@ OnExi1883(){
 ;>>>>>>>> AHKcode >>>> 170814212827 >>>> 14.08.2017 21:28:27 >>>>
 ; tooltip,%AHKcode%`n `n (%A_ScriptName%~%A_LineNumber%)
 ; Msgbox,`n (%A_ScriptName%~%A_LineNumber%) `
-WinGetActiveTitle,at
-ToolTip4sec(A_LineNumber . " " . A_ScriptName . " `n" . at)
-DynaRun(AHKcode)
-sleep,800
-loop,3
-{
-maxTryes:=150
-while(!WinActive(at)){ ; works :)  14.08.2017 19:34
-    sleep,100
-    WinActivate,% at
-    if(--maxTryes<1)
-        break
+;ToolTip4sec(A_LineNumber . " " . A_ScriptName . " `n" . at)
+;If(!WinExist(feedbackMsgBoxNr . ":")) ; shuld never happens
+SetTitleMatchMode,1
+while(0 && WinExist(feedbackMsgBoxNr . ":")){
+	WinClose,% feedbackMsgBoxNr . ":"
+	WinWaitClose,% feedbackMsgBoxNr . ":",, 1
 }
+
+If(!WinExist(feedbackMsgBoxNr . ":")) ; shuld never happens 10.02.2018 12:51
+	DynaRun(AHKcode)
+else
+	feedbackMsgBoxNr(tit,text,x,y)
+WinWait,% feedbackMsgBoxNr . ":"
+sleep,100 ; we need this small wait becouse of the stupid focus ;) it needs little time after exist to catch the focus ;) 10.02.2018 13:40
+if(at && !RegExMatch(at, "^(\d:|temp\.ahk)")){ ; check for probably wrong title. dont know why its happens sometimes. :(
+	;feedbackMsgBox("at= >" . at . "<","at= >" . at . "<`n" . A_ScriptName . "~" . A_LineNumber)
+	loop,30
+	{
+		maxTryes:=350
+		while(!WinActive(at)){ ; works :)  14.08.2017 19:34
+			sleep,10
+			tooltip,WinActivate %at%
+			WinActivate,% at
+			if(--maxTryes<1)
+				break
+		}
+	}
+	if(!WinActive(at))
+		feedbackMsgBox(":( ups !WinActive(at)", A_ScriptName . "~" . A_LineNumber)
 }
 return, feedbackMsgBoxNr
 }
 ;>>>>>>>> feedbackMsgBox >>>> 170814121755 >>>> 14.08.2017 12:17:55 >>>>
+
+
 
 
 
@@ -1233,6 +1262,8 @@ setSearchAreaToWinTitleArea(winTitle){
 
 DynaRun(TempScript, pipename=""){
    static _:="uint",@:="Ptr"
+try  ; i dont want disturbing error messages
+{
    If pipename =
       name := "AHK" A_TickCount
    Else
@@ -1251,6 +1282,9 @@ DynaRun(TempScript, pipename=""){
    if !DllCall("WriteFile",@,__PIPE_,"str",script,_,(StrLen(script)+1)*(A_IsUnicode ? 2 : 1),_ "*",0,@,0)
         Return A_LastError,DllCall("CloseHandle",@,__PIPE_)
    DllCall("CloseHandle",@,__PIPE_)
+}
+catch e  ; Handles the first error/exception raised by the block above.
+{}
    Return PID
 }
 
