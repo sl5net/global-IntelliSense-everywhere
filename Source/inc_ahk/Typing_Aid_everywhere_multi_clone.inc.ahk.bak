@@ -2,7 +2,7 @@
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ; hier wird das active �berschrieben: 12.07.2017 21:33
 wordlistNEWactivate( wordlistDir , wordlistNEW, wordlistActive , typingAidSourcePath, activeClass := "" , activeTitle := "" ) {
- return, 1 ; return spielt keine rolle, quasi void 30.07.2017 12:52 17-07-30_12-52
+; return, 1 ; return spielt keine rolle, quasi void 30.07.2017 12:52 17-07-30_12-52
 
 
   if(1)
@@ -25,6 +25,19 @@ lll(A_LineNumber, "Typing_Aid_everywhere_multi_clone.inc.ahk", ":) _____________
    ; From here we only use wordlistNEWarchivePath
    ; Next time this variable is used here: simplifyNameOfWordlistNEWstep1( wordlistNEW ) {  in line 256   12.07.2017 21:07
 
+if(0 && !WinExist("1:" )){
+    msg =
+(
+wordlistNEWarchivePath = '%wordlistNEWarchivePath%'
+wordlistDir = '%wordlistDir%'
+'%A_LineNumber%' = A_LineNumber
+'%A_ScriptDir%' = A_ScriptDir
+'%A_ScriptName%' = A_ScriptName
+'%A_ThisFunc%' = A_ThisFunc
+)
+    feedbackMsgBox(msg,msg,1,1)
+}
+
 
 global g_doSaveLogFiles
 if(Instr(wordlistNEWarchivePath,"\EVERYTHING\")){
@@ -34,12 +47,12 @@ if(Instr(wordlistNEWarchivePath,"\EVERYTHING\")){
     g_doRunLogFiles := false
 }
 
+
 if(!wordlistNEWarchivePath)
     Msgbox,Oops !wordlistNEWarchivePath `n (Typing_Aid_everywhere_multi_clone.inc.ahk~%A_ThisFunc%~%A_`LineNumber%) `
 
    ; wordlistActivePath := typingAidSourcePath .  "\" . wordlistActive
-   ; wordlistActivePath := A_ScriptDir . "\" . wordlistActive
-   wordlistActivePath := wordlistActive
+   wordlistActivePath := A_ScriptDir . "\" . wordlistActive
    if(!FileExist(wordlistActivePath))
       MsgBox, :( '%wordlistActivePath%' = wordlistActivePath  `n (line:%A_LineNumber%) `n 18-01-20_17-12
 ; The active path, that the complete address of the file inc dir, has to be always present. if not then that is an error. 12.07.2017 21:10
@@ -74,12 +87,12 @@ if(!wordlistNEWarchivePath)
 
       FileAppend, `; '%at%' = at  `n `;  (line:%A_LineNumber%) `n%initialWordList% `n, % wordlistNEWarchivePath
    Sleep,500
-} ; End of: if(!FileExist(wordlistNEWarchivePath))
 
-; Now the new examples-template is saved inside of this file: wordlistNEWarchivePath
-;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+   ; End of: if(!FileExist(wordlistNEWarchivePath))
 
-else {
+    ; Now the new examples-template is saved inside of this file: wordlistNEWarchivePath
+    ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+} else {
     ; No example template was used. The content is already there. Inside on this file. And don't need to be generated. 12.07.2017 21:36
     lll_if_g_doSaveLogFiles(A_LineNumber, A_ThisFunc,   "startREADING: >" . wordlistNEWarchivePath . "< = wordlistNEWarchivePath" )
 
@@ -95,7 +108,19 @@ else {
 
 lll_if_g_doSaveLogFiles(A_LineNumber, A_ThisFunc,  "'" . wordlistGeneratedPath . "' = wordlistGeneratedPath `n'" . wordlistNEWarchivePath . " = wordlistNEWarchivePath " )
 
-; Msgbox,'%wordlistNEWarchivePath%' = wordlistNEWarchivePath `n '%includeFilePath%' = includeFilePath  `n (line:%A_LineNumber%) n
+if(0 && !WinExist("1:" )){
+msg =
+(
+wordlistNEWarchivePath = '%wordlistNEWarchivePath%'
+wordlistDir = '%wordlistDir%'
+'%A_LineNumber%' = A_LineNumber
+'%A_ScriptDir%' = A_ScriptDir
+'%A_ScriptName%' = A_ScriptName
+'%A_ThisFunc%' = A_ThisFunc
+)
+feedbackMsgBox(msg,msg,1,1)
+}
+
 
 Loop, read, % wordlistNEWarchivePath
        {
@@ -116,7 +141,6 @@ Loop, read, % wordlistNEWarchivePath
             ;Msgbox,'%lineInRegEx%' = lineInRegEx  n (line:%A_LineNumber%) n
             lineInRegExArray.Insert(lineInRegEx)
             exist_includeFilePath := (FileExist(includeFilePath)) ? 1 : 0
-            ;Msgbox,'%exist_includeFilePath%' = exist_includeFilePath `n '%includeFilePath%' = includeFilePath  `n (line:%A_LineNumber%) n
             if(!exist_includeFilePath){
               msg =:-( ERROR %exist_includeFilePath% = exist_includeFilePath `n %includeFilePath% `n  >%wordlistNEWarchivePath%< = wordlistNEWarchivePath (from: %A_ScriptName%~%A_LineNumber%)
               Tooltip,%msg%
@@ -244,20 +268,15 @@ content =
 wordlistNEWarchivePath = %wordlistNEWarchivePath%
 activeClass  = %activeClass%
 activeTitle = %activeTitle%
+; FileReadLine,wordlistNEWarchivePath ,wordlist.txt, 1
 )
+; FileReadLine,activeClass ,wordlist.txt, 2
+; FileReadLine,activeTitle ,wordlist.txt, 3
   FileAppend, % content, % timestampyyMMddHHmmss
   FileCopy, % timestampyyMMddHHmmss, % wordlistActivePath . ".status.txt" , 1
   FileDeleteAsyncDynaRun(timestampyyMMddHHmmss , 1000)
   }
   FileCopy, % wordlistNEWarchivePath, % wordlistActivePath  , 1
-
-  clipboad:="1802101032dudi"
-  msg=FileCopy, %wordlistNEWarchivePath%, %wordlistActivePath%  1802101032dudi
-  ; feedbackMsgBox(msg, msg . "`n" . A_LineNumber . " " .  A_ScriptName,1,1)
-
-;RegWrite, REG_SZ, HKEY_LOCAL_MACHINE, SOFTWARE\sl5net\global-IntelliSense-everywhere, wordlistNEWarchivePath, %wordlistNEWarchivePath%
-RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlistNEWarchivePath, %wordlistNEWarchivePath%
-
   return, 1
 } ; EndOf function wordlistNEWactivate( wordlistDir , wordlistNEW, wordlistActive , typingAidSourcePath )
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -320,8 +339,6 @@ wordlistOLDdisable( typingAidSourcePath, wordlistActive){
    return 1
 } 
 runTypingAidAHKifNotExist( typingAidAHK ){
-    return ; 18-02-10_11-47 dont need it anymore
-   SetTitleMatchMode,1
    DetectHiddenWindows,on
    SetTitleMatchMode,2
     IfWinNotExist,TypingAid.ahk
@@ -364,7 +381,7 @@ lll(A_LineNumber, "Typing_Aid_everywhere_multi_clone.inc.ahk", "IfWinNotExist,Ty
     return
 }
 checkFilePathExistens1704291222(wordlistDir, destinDir, sourceDir, typingAidAHK ){
-return
+
 
  global g_lineNumberFeedback
  g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
@@ -374,21 +391,16 @@ return
 IfWinNotExist,TypingAid.ahk
 {
  g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
-    SetTitleMatchMode,1
-    DetectHiddenWindows,on
    IfWinNotExist,TypingAid
    {
     g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
 
 ;   MsgBox,,TypingAid  is running, :( `n are you sure TypingAid  is running? `n  IfWinNotExist TypingAid  `n (line:%A_LineNumber%) `n lets try start it automatically, 2
 ; lets wait and try again. maybe its reload its self and needs only a second
-    Sleep, 2000 
-    SetTitleMatchMode,1
-    DetectHiddenWindows,On
+    Sleep, 2000 ; 1 Sekunde
     IfWinNotExist,TypingAid
     {
         ; gosub,couldIfindMyself
-        feedbackMsgBox("Run, typingAidAHK", A_ScriptName . "~" . A_LineNumber)
         Run, % typingAidAHK
 ;        lll(A_LineNumber, "Typing_Aid_everywhere_multi_clone.inc.ahk", "Run, % typingAidAHK")
 global g_doSaveLogFiles
@@ -704,7 +716,7 @@ FileWriteAndRun(sayHelloCode, sayHelloFunctionInc){
       isFileExist := true
       break
    }
-   ;Sleep,20  ____test
+   Sleep,20
    }
    
    ;gosub,couldIfindMyself
@@ -713,12 +725,12 @@ FileWriteAndRun(sayHelloCode, sayHelloFunctionInc){
 ;   MsgBox, '%sayHelloFunctionInc%' = sayHelloFunctionInc  `n (line:%A_LineNumber%) `n 
     return isFileExist 
 }
-
 FileWrite(sayHelloCode, sayHelloFunctionInc){
  global g_lineNumberFeedback
  g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+
    if(FileExist(sayHelloFunctionInc))
-    FileDelete, % sayHelloFunctionInc
+   FileDelete, % sayHelloFunctionInc
    Sleep,100
    FileAppend, % sayHelloCode, % sayHelloFunctionInc
    return 1
@@ -1088,261 +1100,3 @@ lll_if_g_doSaveLogFiles(ALineNumber, AThisFunc,  ";>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 }
 return
 }
-
-
-
-;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-getWordlistNEWfromPluginIfExist(wordlistDir, wordlistNEW, activeClass, activeTitle   ) {
-global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
-   m = '%wordlistNEW%' = wordlistNEW  `n '%wordlistDir%' = wordlistDir  `n  '%activeTitle%' = activeTitle  `n 
-global g_doSaveLogFiles
- if(g_doSaveLogFiles)
-lll(A_LineNumber, "Typing_Aid_everywhere_multi_clone.ahk" ,m)
-
-   lineB := "<<<<<<<<<<<<<<<<<<<<<<`n"
-   lineE := ";>>>>>>>>>>>>>>>>>>>>>>`n"
-
- wordlistFilterPath := wordlistDir . "\wordlistNameFilter.inc.ahk"
- if(!fileExist(wordlistFilterPath)) {
-   ahkCodeInsideFile := getAhkCodeInsideFile(wordlistDir, wordlistFilterPath )
-   FileAppend,  % ahkCodeInsideFile , % wordlistFilterPath ; wordlistNameFilter.inc.ahk
-   if(!FileExist(wordlistFilterPath))
-      MsgBox, :-( `n !FileExist(wordlistFilterPath)) `n  (line:%A_LineNumber%)  '%wordlistFilterPath%' = wordlistFilterPath  `n (line:%A_LineNumber%) `n 
-} else
-   FileRead, ahkCodeInsideFile, % wordlistFilterPath
-; ahkCode := encodeAHKchars(ahkCode)
-varInjects := mvarInjects(wordlistDir, wordlistNEW, activeClass, activeTitle)
-ahkCode := RegExReplace( ahkCodeInsideFile , "`;\s*dontDeleteThisPlaceholder" , varInjects )  ; dontDeleteThisPlaceholder is definde since 17-03-06_10-25 inside the global filter
-
- ClipboardBackup = 17-03-05_17-17
- ; ClipboardBackup = %Clipboard% ; old destrois eventually bin clipboards
- ClipboardBackup := ClipboardAll
- if(ClipboardBackup  == "17-03-05_17-17")
-   MsgBox, :(  (line:%A_LineNumber%)  17-04-02_14-52
-   
-   m = '%wordlistNEW%' = wordlistNEW  `n '%activeTitle%' = activeTitle  `n 
-global g_doSaveLogFiles
- if(g_doSaveLogFiles)
-lll(A_LineNumber, "Typing_Aid_everywhere_multi_clone.ahk" , "`n" . m)
-wordlistNEW := DynaRunGetClipboard(ahkCode)
-   m = '%wordlistNEW%' = wordlistNEW  `n '%activeTitle%' = activeTitle  `n 
-global g_doSaveLogFiles
- if(g_doSaveLogFiles)
-lll(A_LineNumber, "Typing_Aid_everywhere_multi_clone.ahk" , "`n" . m)
-
-worlistExtension := SubStr(wordlistNEW, -3)
-if( worlistExtension  <> ".txt" ) {
-global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
-   m = '%wordlistNEW%' = wordlistNEW  `n 
-      ToolTip5sec(A_LineNumber . "THATS VERY QUICK AND DIRTY AND MAYBEEEE IT HALPS NOT!!!! " . A_ScriptName . " " . m) ;
-; return,  "superSimple.txt"
-      ; ################################################
-      ; ################################################
-      ; ################################################
-      ; ################################################
-
-   ClipboardBackup1703052115 = %Clipboard%
-   ;~ clipboard := wordlistFilterPath
-   disableCopyQ() ; enableCopyQ() ;
-   clipboard := varInjects
-   
-   msg = a bug in your  `n %wordlistFilterPath%  `n this path is now copied to your Clipboard (line:%A_LineNumber%) `n ? `n '%ClipboardBackup%' = ClipboardBackup  `n 
-   if( ClipboardBackup == wordlistNEW)
-      m2 = ClipboardBackup == wordlistNEW == '%wordlistNEW%'  <=== thats bad :-( `n 
-   m3 := " StrLen(wordlistNEW)=" . StrLen(wordlistNEW) . "`n"
-   MsgBox, :-( ERROR: (line:%A_LineNumber%)  `n%m2% %m3% worlistExtension != .txt ='%worlistExtension%' `n wordlistNEW='%wordlistNEW%'   `n`ncode=`n %lineB%%ahkCode% `n%lineE%  `n  %msg% `n (line:%A_LineNumber%) 
-   Clipboard = %ClipboardBackup1703052115%
-   enableCopyQ() ; enableCopyQ() ;
-}
-
-if(false)
-Loop,20
- {
-global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
-Clipboard = %ClipboardBackup%
-cExtension := SubStr(Clipboard, -3)
-if( worlistExtension  <> ".txt" )
-   break
-if( Clipboard == ClipboardBackup )
-   break
-Sleep,50
-}
-
-
-
-; Clipboard := wordlistFilterPath
-; MsgBox, '%ahkCode%' = ahkCode  `n  `n '%ahkCodeInsideFile%' = ahkCodeInsideFile  `n  `n  '%wordlistNEW%' = wordlistNEW  `n (line:%A_LineNumber%) `n 
-; MsgBox, '%ahkCode%' = ahkCode  `n  `n '%ahkCodeInsideFile%' = ahkCodeInsideFile  `n  `n  '%wordlistNEW%' = wordlistNEW  `n (line:%A_LineNumber%) `n 
-;~ ToolTip, %ahkCode% , 10,10
-;~ Sleep,1000
-return wordlistNEW
-}
-
-createEmptyFilterInNewDir(wordlistDir, wordlistFilterPath,ahkCode, isInternMsgTransportIsClipboard){
-global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
-if(!FileExist(wordlistDir)){
-global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
-   FileCreateDir, % wordlistDir
-   ;~ FileAppend, , % wordlistFilterPath
-}
-;~ if(!isInternMsgTransportIsClipboard) 
-   if(!FileExist( wordlistFilterPath ) ){
-      g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
-      FileAppend, % ahkCode , % wordlistFilterPath
-    }
-return true
-}
-   
-
-;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-
-
-AbsolutePath(AbsolutPath, RelativePath, s="\") {
-    ; its actually not used inside of this script 24.03.2017 05:27 ,
-    return
-    len := InStr(AbsolutPath, s, "", InStr(AbsolutPath, s . s) + 2) - 1   ;get server or drive string length
-    pr := SubStr(AbsolutPath, 1, len)                                     ;get server or drive name
-    AbsolutPath := SubStr(AbsolutPath, len + 1)                           ;remove server or drive from AbsolutPath
-    If InStr(AbsolutPath, s, "", 0) = StrLen(AbsolutPath)                 ;remove last \ from AbsolutPath if any
-        StringTrimRight, AbsolutPath, AbsolutPath, 1
-    If InStr(RelativePath, s, "", 0) = StrLen(RelativePath)               ;remove last \ from RelativePath if any
-        StringTrimRight, RelativePath, RelativePath, 1
-    If InStr(RelativePath, s) = 1                                         ;when first char is \ go to AbsolutPath of server or drive
-        AbsolutPath := "", RelativePath := SubStr(RelativePath, 2)            ;set AbsolutPath to nothing and remove one char from RelativePath
-    Else If InStr(RelativePath,"." s) = 1                                 ;when first two chars are .\ add to current AbsolutPath directory
-        RelativePath := SubStr(RelativePath, 3)                               ;remove two chars from RelativePath
-    Else {                                                                ;otherwise
-        StringReplace, RelativePath, RelativePath, ..%s%, , UseErrorLevel     ;remove all ..\ from RelativePath
-        Loop, %ErrorLevel%                                                    ;for all ..\
-            AbsolutPath := SubStr(AbsolutPath, 1, InStr(AbsolutPath, s, "", 0) - 1)  ;remove one folder from AbsolutPath
-      }
-    Return, pr . AbsolutPath . s . RelativePath                             ;concatenate server + AbsolutPath + separator + RelativePath
-  }
-
-
-  ListGlobalVars()  {
-        ; its actually not used inside of this script 24.03.2017 05:27 ,
-    return
-
-      static hwndEdit, pSFW, pSW, bkpSFW, bkpSW
-; https://autohotkey.com/board/topic/20925-listvars/#entry156570
-      if !hwndEdit
-      {
-          dhw := A_DetectHiddenWindows
-          DetectHiddenWindows, On
-          Process, Exist
-          ControlGet, hwndEdit, Hwnd,, Edit1, ahk_class AutoHotkey ahk_pid %ErrorLevel%
-          DetectHiddenWindows, %dhw%
-
-          astr := A_IsUnicode ? "astr":"str"
-          ptr := A_PtrSize=8 ? "ptr":"uint"
-          hmod := DllCall("GetModuleHandle", "str", "user32.dll", ptr)
-          pSFW := DllCall("GetProcAddress", ptr, hmod, astr, "SetForegroundWindow", ptr)
-          pSW := DllCall("GetProcAddress", ptr, hmod, astr, "ShowWindow", ptr)
-          DllCall("VirtualProtect", ptr, pSFW, ptr, 8, "uint", 0x40, "uint*", 0)
-          DllCall("VirtualProtect", ptr, pSW, ptr, 8, "uint", 0x40, "uint*", 0)
-          bkpSFW := NumGet(pSFW+0, 0, "int64")
-          bkpSW := NumGet(pSW+0, 0, "int64")
-      }
-
-      if (A_PtrSize=8) {
-          NumPut(0x0000C300000001B8, pSFW+0, 0, "int64")  ; return TRUE
-          NumPut(0x0000C300000001B8, pSW+0, 0, "int64")   ; return TRUE
-      } else {
-          NumPut(0x0004C200000001B8, pSFW+0, 0, "int64")  ; return TRUE
-          NumPut(0x0008C200000001B8, pSW+0, 0, "int64")   ; return TRUE
-      }
-
-      ListVars
-
-      NumPut(bkpSFW, pSFW+0, 0, "int64")
-      NumPut(bkpSW, pSW+0, 0, "int64")
-
-      ControlGetText, text,, ahk_id %hwndEdit%
-
-      RegExMatch(text, "sm)(?<=^Global Variables \(alphabetical\)`r`n-{50}`r`n).*", text)
-      return text
-  }
-
-checkCriticalCommandLbl:
-    checkCriticalCommand()
-Return
-
-
-;<<<<<<<< checkCriticalCommand <<<< 180210005522 <<<< 10.02.2018 00:55:22 <<<<
-;<<<<<<<< checkCriticalCommand <<<< 180210005522 <<<< 10.02.2018 00:55:22 <<<<
-;<<<<<<<< checkCriticalCommand <<<< 180210005522 <<<< 10.02.2018 00:55:22 <<<<
-checkCriticalCommand(sec := 2 ){
-return
-
-global g_nextCriticalCommandString
-;        g_nextCriticalCommandString :="327:WinWaitNotActive, %activeTitle%" ; checkCriticalCommand()
-        global g_nextCriticalCommandTimeIdle ; checkCriticalCommand() WinWaitNotActive, %activeTitle% %activeClass%
-
-if(0){ ; check if this is arrived 30.04.2017 09:43
-    Msgbox,n (%A_ScriptName%~%A_LineNumber%) :-)
-    ExitApp
-}
-    ; is this function triggerd evver onee time? i dont know if setinterval works if the script stucks. may we cant do anything then from inside the script. needs temp ahk. 30.04.2017 09:25
-    global g_nextCriticalCommandString ; checkCriticalCommand()
-    global g_nextCriticalCommandTimeIdle ; checkCriticalCommand()
-    ; g_nextCriticalCommandString := "104:SuspendOn()"
-
-    if(g_nextCriticalCommandString == "327:WinWaitNotActive, %activeTitle%"){
-        if(!g_nextCriticalCommandTimeIdle || g_nextCriticalCommandTimeIdle < 1)
-            g_nextCriticalCommandTimeIdle := A_TimeIdle
-        else if (g_nextCriticalCommandTimeIdle * 1000 > sec)
-        {
-             global activeTitleOLD
-             global activeTitle
-             global activeClassOLD
-             global activeClass
-
-
-             if( activeTitle == activeTitleOLD && activeClass <> activeClassOLD ){
-                 ; if this ever happend ? of is this function ovsolete? 30.04.2017 09:59 :D i dont knew
-                 ; Msgbox, title is the same but class differs. a new wordlist shod be used. (%A_ScriptName%~%A_LineNumber%)
-
-                 if ( 0) {
-                 ; yeeeaaahhh now it happens first time 30.04.2017 10:54 :)
-                 ; for testing i created this code:
-                     WinSetTitle,main.ts.txt - Editor,, main.ts
-                     WinSetTitle,main.ts.txt - WordPad,, main.ts
-                    global g_doSaveLogFiles
-                     if(g_doSaveLogFiles)
-                    lll(A_LineNumber, A_ScriptName, "ExitApp")
-                     ExitApp
-                 }
-                if(g_doSaveLogFiles){
-                    lll(A_LineNumber, A_ScriptName, "reload 17-08-04_14-42")
-                    run,log\%A_ScriptName%.log.txt
-                }
-                msgbox,reload 123456789
-                 Reload
-             }
-             if( 0 ) ; fo debugging really useful.
-            tooltip,%activeTitle%`n ?= `n%activeTitleOLD% `n `n  %g_nextCriticalCommandTimeIdle% = g_nextCriticalCommandTimeIdle `n (%A_ScriptName%~%A_LineNumber%)
-        }
-    } else
-        g_nextCriticalCommandTimeIdle := 0
-    return
-
-; g_nextCriticalCommandString := "120:SuspendOn()"
-; g_nextCriticalCommandTimeIdle := A_TimeIdle
-}
-;>>>>>>>> checkCriticalCommand >>>> 180210005538 >>>> 10.02.2018 00:55:38 >>>>
-;>>>>>>>> checkCriticalCommand >>>> 180210005538 >>>> 10.02.2018 00:55:38 >>>>
-;>>>>>>>> checkCriticalCommand >>>> 180210005538 >>>> 10.02.2018 00:55:38 >>>>
-

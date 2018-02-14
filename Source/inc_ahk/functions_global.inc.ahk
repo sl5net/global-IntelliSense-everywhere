@@ -948,14 +948,17 @@ isUrlAvailable(URL){
 
 ;<<<<<<<< disableCopyQ <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 disableCopyQ(){
-  run,"C:\Program Files (x86)\_\CopyQ\copyq.exe" disable, C:\Program Files (x86)\_\CopyQ\
+	if(fileExist("C:\Program Files (x86)\_\CopyQ\copyq.exe"))
+  		run,"C:\Program Files (x86)\_\CopyQ\copyq.exe" disable, C:\Program Files (x86)\_\CopyQ\
   return
 }
 enableCopyQ(){
+if(fileExist("C:\Program Files (x86)\_\CopyQ\copyq.exe"))
   run,"C:\Program Files (x86)\_\CopyQ\copyq.exe" enable, C:\Program Files (x86)\_\CopyQ\
   return
 }
 runCopyQ(){
+if(fileExist("C:\Program Files (x86)\_\CopyQ\copyq.exe"))
   run,"C:\Program Files (x86)\_\CopyQ\copyq.exe", C:\Program Files (x86)\_\CopyQ\
   return
 }

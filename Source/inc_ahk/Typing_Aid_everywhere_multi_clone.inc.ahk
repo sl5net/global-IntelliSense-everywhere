@@ -357,6 +357,7 @@ runTypingAidAHKifNotExist( typingAidAHK ){
                 ; gosub,couldIfindMyself
                 msg := "Run, typingAidAHK"
                 ; Run, % typingAidAHK
+MsgBox, run TypingAid `n  `n (%A_ScriptName%~%A_LineNumber%)
                 RunAs,Administrator, % typingAidAHK
 
                 tooltip, '%msg%' = msg  `n (line:%A_LineNumber%)

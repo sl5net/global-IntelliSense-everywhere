@@ -858,6 +858,7 @@ lll(A_LineNumber, A_ScriptName, "reload 17-08-04_14-42")
 global g_doRunLogFiles
  if(g_doRunLogFiles)
 run,log\%A_ScriptName%.log.txt
+                MsgBox, =>Reload  `n  `n (%A_ScriptName%~%A_LineNumber%)
                  Reload
              }
              if( 0 ) ; fo debugging really useful.

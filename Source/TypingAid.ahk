@@ -62,11 +62,13 @@ if( !WinExist(f) )
    run,%ff% 
 WinWait,%f% ,,1
 if( !WinExist(ff) ){
-   Tooltip,%ff% NOTfound => ExitApp `n (from. %A_ScriptName%~%A_LineNumber%) 
+   msg=%ff% NOTfound => ExitApp `n (from. %A_ScriptName%~%A_LineNumber%)
+    tooltip,% msg
+    feedbackMsgBox(msg,msg,1,1)
    Sleep,3000
 global g_doSaveLogFiles
  if(g_doSaveLogFiles)
-lll(A_LineNumber, A_ScriptName, "Sleep,3000")
+    lll(A_LineNumber, A_ScriptName, "Sleep,3000")
    ExitApp 
 }
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
