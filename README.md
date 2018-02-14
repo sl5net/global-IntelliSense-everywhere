@@ -8,7 +8,7 @@ German: Wenn du dir nicht vorstellen kannst was dies ist, schaue dir dieses Vide
   
 typical start (english): 
 1. Start your computer, start your Windows.
-- install AHK (i use this Version: 1.1.26.01)
+- install AHK (pls use version: v1.1.28.00 - February 11, 2018 or later)
 from:
 https://www.heise.de/download/product/autohotkey-20763
 or: https://autohotkey.com/ 
