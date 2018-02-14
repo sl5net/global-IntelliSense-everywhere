@@ -25,6 +25,19 @@ lll(A_LineNumber, "Typing_Aid_everywhere_multi_clone.inc.ahk", ":) _____________
    ; From here we only use wordlistNEWarchivePath
    ; Next time this variable is used here: simplifyNameOfWordlistNEWstep1( wordlistNEW ) {  in line 256   12.07.2017 21:07
 
+if(0 && !WinExist("1:" )){
+    msg =
+(
+wordlistNEWarchivePath = '%wordlistNEWarchivePath%'
+wordlistDir = '%wordlistDir%'
+'%A_LineNumber%' = A_LineNumber
+'%A_ScriptDir%' = A_ScriptDir
+'%A_ScriptName%' = A_ScriptName
+'%A_ThisFunc%' = A_ThisFunc
+)
+    feedbackMsgBox(msg,msg,1,1)
+}
+
 
 global g_doSaveLogFiles
 if(Instr(wordlistNEWarchivePath,"\EVERYTHING\")){
@@ -74,12 +87,12 @@ if(!wordlistNEWarchivePath)
 
       FileAppend, `; '%at%' = at  `n `;  (line:%A_LineNumber%) `n%initialWordList% `n, % wordlistNEWarchivePath
    Sleep,500
-} ; End of: if(!FileExist(wordlistNEWarchivePath))
 
-; Now the new examples-template is saved inside of this file: wordlistNEWarchivePath
-;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+   ; End of: if(!FileExist(wordlistNEWarchivePath))
 
-else {
+    ; Now the new examples-template is saved inside of this file: wordlistNEWarchivePath
+    ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+} else {
     ; No example template was used. The content is already there. Inside on this file. And don't need to be generated. 12.07.2017 21:36
     lll_if_g_doSaveLogFiles(A_LineNumber, A_ThisFunc,   "startREADING: >" . wordlistNEWarchivePath . "< = wordlistNEWarchivePath" )
 
@@ -95,7 +108,19 @@ else {
 
 lll_if_g_doSaveLogFiles(A_LineNumber, A_ThisFunc,  "'" . wordlistGeneratedPath . "' = wordlistGeneratedPath `n'" . wordlistNEWarchivePath . " = wordlistNEWarchivePath " )
 
-; Msgbox,'%wordlistNEWarchivePath%' = wordlistNEWarchivePath `n '%includeFilePath%' = includeFilePath  `n (line:%A_LineNumber%) n
+if(0 && !WinExist("1:" )){
+msg =
+(
+wordlistNEWarchivePath = '%wordlistNEWarchivePath%'
+wordlistDir = '%wordlistDir%'
+'%A_LineNumber%' = A_LineNumber
+'%A_ScriptDir%' = A_ScriptDir
+'%A_ScriptName%' = A_ScriptName
+'%A_ThisFunc%' = A_ThisFunc
+)
+feedbackMsgBox(msg,msg,1,1)
+}
+
 
 Loop, read, % wordlistNEWarchivePath
        {
@@ -116,7 +141,6 @@ Loop, read, % wordlistNEWarchivePath
             ;Msgbox,'%lineInRegEx%' = lineInRegEx  n (line:%A_LineNumber%) n
             lineInRegExArray.Insert(lineInRegEx)
             exist_includeFilePath := (FileExist(includeFilePath)) ? 1 : 0
-            ;Msgbox,'%exist_includeFilePath%' = exist_includeFilePath `n '%includeFilePath%' = includeFilePath  `n (line:%A_LineNumber%) n
             if(!exist_includeFilePath){
               msg =:-( ERROR %exist_includeFilePath% = exist_includeFilePath `n %includeFilePath% `n  >%wordlistNEWarchivePath%< = wordlistNEWarchivePath (from: %A_ScriptName%~%A_LineNumber%)
               Tooltip,%msg%
@@ -227,7 +251,8 @@ lll_if_g_doSaveLogFiles(A_LineNumber, A_ThisFunc,  "'" . wordlistGeneratedPath .
             ;ExitAPP_if_NOT_wordlistNEWarchivePath_and_NOT_wordlistNEW(A_LineNumber, A_ThisFunc, wordlistNEWarchivePath, wordlistGeneratedPath , wordlistNEW)
         }
 ;>>>>>>>>>>>>>>>>>> includeFileSContentWillBeNeedsSaved >>>>>>>>>>>>>>>>>>>>>>>>>>>
-}
+} ; EndOf: Loop, read, % wordlistNEWarchivePath
+
 lll_if_g_doSaveLogFiles(A_LineNumber, A_ThisFunc,  "'" . wordlistGeneratedPath . "' = wordlistGeneratedPath `n'" . wordlistNEWarchivePath . " = wordlistNEWarchivePath " )
 
   ; All we have to do know is to  use this file. therefore we only copying it to the active used file. it will be overwritten. 12.07.2017 21:31
@@ -330,7 +355,7 @@ runTypingAidAHKifNotExist( typingAidAHK ){
             {
 
                 ; gosub,couldIfindMyself
-                msg := "Run, % typingAidAHK"
+                msg := "Run, typingAidAHK"
                 ; Run, % typingAidAHK
                 RunAs,Administrator, % typingAidAHK
 
@@ -426,7 +451,7 @@ IfWinNotExist,TypingAid
    `n '%wordlistDir%' = wordlistDir  `n (line:%A_LineNumber%) `n 
    do not exist.
    )
-   MsgBox, :(  `n  ! Exist(wordlistDir) %msg%
+   MsgBox, :( =>Reload  `n  ! Exist(wordlistDir) %msg%
    Reload
    }
    if(! FileExist(sourceDir) )
@@ -677,26 +702,28 @@ FileWriteAndRun(sayHelloCode, sayHelloFunctionInc){
  g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
 
    isFileExist := false
+   ;feedbackMsgBox(sayHelloCode . "`n`n`n" . sayHelloFunctionInc,A_LineNumber . " Typing_Aid_everywhere_multi_clone.inc.ahk")
    FileWrite(sayHelloCode, sayHelloFunctionInc)
-   Loop,99 
+   Loop,200 ;  
    {
  g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
 
-   IfExist  , % sayHelloFunctionInc
-   {
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+   if(GetKeyState("Ctrl", "P"))
+    KeyWait Control  ; Wartet darauf, dass sowohl STRG als auch ALT losgelassen wird.
 
+   if(FileExist(sayHelloFunctionInc)){
+    g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
       isFileExist := true
       break
    }
    Sleep,20
    }
    
-KeyWait Control  ; Wartet darauf, dass sowohl STRG als auch ALT losgelassen wird.
    ;gosub,couldIfindMyself
-   run, % sayHelloFunctionInc
+   if(FileExist(sayHelloFunctionInc))
+    run, % sayHelloFunctionInc
 ;   MsgBox, '%sayHelloFunctionInc%' = sayHelloFunctionInc  `n (line:%A_LineNumber%) `n 
-return isFileExist 
+    return isFileExist 
 }
 FileWrite(sayHelloCode, sayHelloFunctionInc){
  global g_lineNumberFeedback

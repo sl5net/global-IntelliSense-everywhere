@@ -68,12 +68,12 @@ getWordlistNEW173129( activeTitle, ActiveClass, wordlistNEW, wordlistDir ) {
 
 
  ; 'Q-Dir 6.49.7 [3]' = at  
- ; Bild öffnen ahk_class #32770 
+ ; Bild ï¿½ffnen ahk_class #32770 
  ; Exportieren ahk_class #32770 aus openoffice zu pdf 01.07.2017 20:22
  ; Select Path SunAwtDialog
  ; Open File or Project ahk_class SunAwtDialog
  ; Anhang speichern ahk_class #32770
-if ( RegExMatch( activeTitle , "(FreeCommander|Q-Dir \d|Bild öffnen|Anhang speichern|Datei speichern|Speichern unter|ffnen|Dateien/Ordner suchen|Exportieren|Dokument speichern|Select Path|Open File or Project)" ) ) 
+if ( RegExMatch( activeTitle , "(FreeCommander|Q-Dir \d|Bild ï¿½ffnen|Anhang speichern|Datei speichern|Speichern unter|ffnen|Dateien/Ordner suchen|Exportieren|Dokument speichern|Select Path|Open File or Project)" ) ) 
       return "..\_globalWordLists\pfade"
 
 if ( RegExMatch( activeTitle , "Formular.*\.pdf\b" ) )
@@ -255,6 +255,7 @@ maybeSuperglobalWordList(wordlistNEW, wordlistNEW_time_between , ActiveClass, ac
       ToolTip,%msg% 17-08-10_16-33
       SetTitleMatchMode, 2
       WinWaitNotActive,% activeTitle
+      msgbox,reload
       Reload
       return
     }

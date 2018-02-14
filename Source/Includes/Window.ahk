@@ -217,7 +217,7 @@ GetIncludedActiveWindowGuts() {
          Break
       
       CurrentWindowIsActive := false
-                   lll(A_LineNumber, A_ScriptName, "GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 17-08-04_16-19a")
+                   lll(A_LineNumber, A_ScriptName, "GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 18-02-10_09-44")
                   ; run,\.\log\%A_ScriptName%.log.txt
 
       InactivateAll()

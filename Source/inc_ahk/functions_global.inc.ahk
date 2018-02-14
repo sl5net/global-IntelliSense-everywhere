@@ -1151,7 +1151,7 @@ if(feedbackMsgBoxNr ==1)
 sleep,100 ; we need this small wait becouse of the stupid focus ;) it needs little time after exist to catch the focus ;) 10.02.2018 13:40
 if(at && !RegExMatch(at, "^(\d:|temp\.ahk)")){ ; check for probably wrong title. dont know why its happens sometimes. :(
 	;feedbackMsgBox("at= >" . at . "<","at= >" . at . "<`n" . A_ScriptName . "~" . A_LineNumber)
-	loop,30
+	loop,10
 	{
 		maxTryes:=350
 		while(!WinActive(at)){ ; works :)  14.08.2017 19:34

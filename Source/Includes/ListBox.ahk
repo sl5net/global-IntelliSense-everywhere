@@ -21,6 +21,8 @@ InitializeListBox()
 
    Loop, %prefs_ListBoxRows%
    {
+      ;msg= 1: vg_ListBox%A_Index% ,2: R%A_Index% X0 Y0 ,3: T%prefs_ListBoxFontSize% T32 ,4: hwndg_ListBoxHwnd%A_Index%
+      ;feedbackMsgBox(g_ListBox%A_Index%,A_LineNumber . " ListBox.ahk")
       GuiControl, ListBoxGui:-Redraw, g_ListBox%A_Index%
       ;can't use a g-label here as windows sometimes passes the click message when spamming the scrollbar arrows
       Gui, ListBoxGui: Add, ListBox, vg_ListBox%A_Index% R%A_Index% X0 Y0 T%prefs_ListBoxFontSize% T32 hwndg_ListBoxHwnd%A_Index%

@@ -45,7 +45,7 @@ msg:=A_LineNumber . ": " . A_ScriptName . " (greetings from init script) "
 ToolTip,%msg%
 ToolTip1sec%blank%(msg)
 
-msg:=A_LineNumber . ", " . A_ScriptName
+msg:=A_LineNumber . ", " . A_ScriptName . " (greetings from init script) "
 ToolTip,%msg%
 lll%blank%(msg)
 
@@ -58,7 +58,7 @@ StartTime := A_TickCount
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 
-msg:=A_LineNumber . ", " . A_ScriptName
+msg:=A_LineNumber . ", " . A_ScriptName . " (greetings from init script) "
 ToolTip,%msg%
 lll%blank%(msg)
 
@@ -67,14 +67,15 @@ HardDriveLetter := SubStr(A_ScriptDir, 1 , 1)
 #Include %A_ScriptDir%\inc_ahk\ScriptNameLetterIcon.inc.ahk
 
 
-
-msg:=A_LineNumber . ", " . A_ScriptName
+msg:=A_LineNumber . ", " . A_ScriptName . " (greetings from init script) "
 ToolTip,%msg%
 lll%blank%(msg)
 
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ; do temporary comment it. if you want test the initpart seperate. cant in the init part. sorry. you cant test the init part bye this. you need do reload manually during developing.
-SetTimer,UPDATEDSCRIPT,4000
+SetTimer,UPDATEDSCRIPT,2000
+;feedbackMsgBox("SetTimer,UPDATEDSCRIPT",A_LineNumber . " " .  A_ScriptName,1,1)
+
 ;~ #Include *i %A_ScriptDir%\inc_ahk\UPDATEDSCRIPT_global.inc.ahk ; do temporary comment it.
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 

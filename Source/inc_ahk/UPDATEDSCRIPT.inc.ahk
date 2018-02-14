@@ -8,6 +8,6 @@ UPDATEDSCRIPT:
     FileSetAttrib,-A,%A_ScriptFullPath%
     SplashTextOn,,,Updated script,
     Sleep,500
-    Reload      ; Script wird neu geladen,neu ausgeföhrt
+    Reload      ; Script wird neu geladen,neu ausgefÃ¶hrt
   }
 Return

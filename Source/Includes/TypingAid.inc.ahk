@@ -1,3 +1,60 @@
+global g_lineNumberFeedback
+global wordlistDirBase
+global wordlistActive
+global wordlistOLD
+global baseDir
+global sourceDir
+global activeTitleOLD
+global activeTitle
+global activeClassOLD
+global activeClass
+
+
+Receive_WM_COPYDATA(wParam, lParam)
+{
+    StringAddress := NumGet(lParam + 2*A_PtrSize)  ; Retrieves the CopyDataStruct's lpData member.
+    CopyOfData := StrGet(StringAddress)  ; Copy the string out of the structure.
+    ; Show it with ToolTip vs. MsgBox so we can return in a timely fashion:
+    ;msgbox, %A_ScriptName%`nReceived:`n%CopyOfData%
+    RegRead, wordlistActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, CopyOfData
+
+    global wordlistOLD
+    global wordlist
+
+;    wordlistNEWarchivePath := CopyOfData
+;    wordlistActivePath  := CopyOfData
+;    wordlistNEW := CopyOfData
+    wordlist := CopyOfData
+    tooltip,'%wordlistNEW%' = wordlistNEW `n ( %A_ScriptName%(inc)~%A_LineNumber% ) `n
+
+
+    if( 1 && wordlistOLD <> wordlist){
+        feedbackMsgBox("wordlistOLD <> wordlist",wordlistOLD . " <> " . wordlist . "`n" . A_ScriptName . "(inc)~" . A_LineNumber)
+        ;setGlobalWordlist(wordlistActive)
+        ;InitializeListBox()
+        ;BlockInput, Send ; Send:  The user's keyboard and mouse input is ignored while a Send or SendRaw is in progress
+        InitializeHotKeys()
+        DisableKeyboardHotKeys()
+        SetBatchLines, -1 ;Change the Running performance speed (Priority changed to High in GetIncludedActiveWindow)
+        ;feedbackMsgBox("ReadInTheWordList()",wordlist . "`n" . activeTitle . " = activeTitle  `n " .  A_ScriptName . "(inc)~" . A_LineNumber)
+        ReadInTheWordList()
+        ;prefs_Length := setLength(ParseWordsCount, maxLinesOfCode4length1)
+        wordlistOLD:=wordlist
+        ;MainLoop()
+    }
+    ; MainLoop()
+    ; goto, MainLoopLabel
+
+;InitializeListBox()
+;BlockInput, Send ; Send: The user's keyboard and mouse input is ignored while a Send or SendRaw is in progress
+;InitializeHotKeys()
+;DisableKeyboardHotKeys()
+;SetBatchLines, -1 ;Change the Running performance speed (Priority changed to High in GetIncludedActiveWindow)
+;ReadInTheWordList()
+MainLoop()
+    return true  ; Returning 1 (true) is the traditional way to acknowledge this message.
+}
+; 
 ReadInTheWordList(){ ;Read in the WordList
    global ParseWordsCount
    global prefs_Length
@@ -6,6 +63,17 @@ ReadInTheWordList(){ ;Read in the WordList
    return
 }
 
+
+
+
+
+
+
+;<<<<<<<< MainLoop <<<< 180208192114 <<<< 08.02.2018 19:21:14 <<<<
+;<<<<<<<< MainLoop <<<< 180208192114 <<<< 08.02.2018 19:21:14 <<<<
+;<<<<<<<< MainLoop <<<< 180208192114 <<<< 08.02.2018 19:21:14 <<<<
+;<<<<<<<< MainLoop <<<< 180208192114 <<<< 08.02.2018 19:21:14 <<<<
+;<<<<<<<< MainLoop <<<< 180208192114 <<<< 08.02.2018 19:21:14 <<<<
 MainLoop(){
    global g_TerminatingEndKeys
    Loop 
@@ -94,8 +162,7 @@ ProcessKey(InputChar,EndKey) {
       ifequal, g_OldCaretY,
          g_OldCaretY := HCaretY()
          
-      if ( g_OldCaretY != HCaretY() )
-      {
+      if ( g_OldCaretY != HCaretY() ){
          ;Don't do anything if we aren't in the original window and aren't starting a new word
          IfNotEqual, g_LastInput_Id, %g_Active_Id%
             Return
@@ -126,8 +193,7 @@ ProcessKey(InputChar,EndKey) {
       {
          StringTrimRight, g_Word, g_Word, 1
       }
-   } else if ( ( EndKey == "Max" ) && !(InStr(g_TerminatingCharactersParsed, InputChar)) )
-   {
+   } else if ( ( EndKey == "Max" ) && !(InStr(g_TerminatingCharactersParsed, InputChar)) ){
       ; If active window has different window ID from the last input,
       ;learn and blank word, then assign number pressed to the word
       IfNotEqual, g_LastInput_Id, %g_Active_Id%
@@ -206,6 +272,7 @@ RecomputeMatches(){
    } else {
       LimitTotalMatches = 200
    }
+   
    StringUpper, WordMatchOriginal, g_Word
    
    WordMatch := StrUnmark(WordMatchOriginal)
@@ -1021,7 +1088,9 @@ global g_doSaveLogFiles
  if(g_doSaveLogFiles)
 lll(A_LineNumber, A_ScriptName, "Run, %" . ScriptPath64 . "%, %" . A_WorkingDir . "%")
                Run, %ScriptPath64%, %A_WorkingDir%
-               ExitApp
+                feedbackMsgBox(ExitApp , A_LineNumber . " TypingAid.inc.ahk")
+                ExitApp
+               
             }
          }
       }
@@ -1088,7 +1157,8 @@ SuspendOff(){
       Menu, tray, Icon, %A_ScriptDir%\%g_ScriptTitle%-Active.ico, ,1
 ; we dont need it. sometimes it could not be loadet. so forget it. 03.05.2017 16:31
    }
-}   
+   DynaRun("#" . "NoTrayIcon `n Tooltip,||SL5||`n Sleep,2300")
+}
 
 
 BuildTrayMenu(){
@@ -1276,19 +1346,13 @@ run,log\%A_ScriptName%.log.txt
    ; g_nextCriticalCommandTimeIdle := A_TimeIdle
 }
 
-#Include %A_ScriptDir%\..\Wordlists\activeClassManipulation.inc.ahk
-
-
 #Include %A_ScriptDir%\inc_ahk\copy2clipBoard.functions.inc.ahk
 #Include %A_ScriptDir%\inc_ahk\functions_global.inc.ahk
 #Include %A_ScriptDir%\inc_ahk\ToolTipSec_RemoveToolTip.inc.ahk
 #Include %A_ScriptDir%\inc_ahk\ToolTipSec.inc.ahk
 #Include %A_ScriptDir%\inc_ahk\functions_global_dateiende.inc.ahk
 
-; #Include %A_ScriptDir%\inc_ahk\Typing_Aid_everywhere_multi_clone.inc.ahk
-
-
-; #Include *i %A_ScriptDir%\inc_ahk\UPDATEDSCRIPT_global.inc.ahk
+#Include *i %A_ScriptDir%\inc_ahk\UPDATEDSCRIPT_global.inc.ahk
 
 #Include %A_ScriptDir%\Includes\Conversions.ahk
 #Include %A_ScriptDir%\Includes\Helper.ahk

@@ -16,7 +16,7 @@ Es gibt keine Konfligte mit irgendwelchen Hotkeys, da das Script keine Hotkeys v
 
 Das bedeutet du kannst gleichzeitig mehrere IntelliSense verwenden (die von deinem Lieblings-Editor und deine eigene zusätlich). Vielleicht möchtest du nur ein paar spezielle Einträge deinem Lieblingseditor hinzufügen.
 
-Es funktioniert überall. Du kannst Wortlisten einfach wiederverwenden indem du diese includest oder Deine Filter-Regeln anpasst (für Experten).
+Es funktioniert überall. Du kannst Wortlisten einfach wiederverwenden indem du diese includest (RegEx dort auch möglich) oder Deine Filter-Regeln anpasst (für Experten).
 
 Das erstellen von Wordlisten ist sehr einfach. Es reicht wenn du Text kopierst (z.B. aus Wikipedia). Allerdings ollte jeder Eintrag in einer Zeile stehen. Nicht mehrere Einträge in einer Zeile.
 Du kannst komplizierte Einträge machen (für Experten) in dem du ganz normalen Autohotkey Quelltext dort ausführen lässt (für Experten).

@@ -18,7 +18,11 @@ if(FileExist(inc17032207130)){
     incModiTime_OLD:=incModiTime
 }
 ModiTime_OLD:=ModiTime
+
+;<<<<<<<< UPDATEDSCRIPT <<<< 180208165803 <<<< 08.02.2018 16:58:03 <<<<
 UPDATEDSCRIPT:
+;feedbackMsgBox("ModiTime:=f1703220615",A_LineNumber . " " .  A_ScriptName,1,1)
+
 DetectHiddenWindows,on
 SetTitleMatchMode,2
 IfWinExist,hideAllAhkTray.ahk
@@ -42,10 +46,14 @@ msg:="A_LineNumber . "" "" . A_ScriptName . "" (token37) "" . Last_A_This `nA_Sc
 
 ToolTip1sec%blank%(A_ScriptFullPath)
 
+;feedbackMsgBox("ModiTime:=f1703220615",A_LineNumber . " " .  A_ScriptName,1,1)
+
+;ToolTip,51: ModiTime = %ModiTime%
 ModiTime:=f1703220615(ModiTime_OLD, ModiTime, A_ScriptDir, A_ScriptName, A_ScriptFullPath)
 ModiTime_OLD:=ModiTime
 if(SubStr(A_ScriptName,1,-7)<>".inc.ahk"){
     inc1703220730:= SubStr(A_ScriptName,1,strlen(A_ScriptName)-4) . ".inc.ahk"
+    
     if(FileExist(inc1703220730)){
         incModiTime := f1703220615(incModiTime_OLD, incModiTime, A_ScriptDir, inc1703220730, A_ScriptDir . "\" . inc1703220730)
         incModiTime_OLD:=incModiTime
@@ -56,6 +64,7 @@ Return
 
 f1703220615(ModiTime_OLD, ModiTime, ScriptDir, ScriptName, ScriptFullPath){
     FileGetTime, ModiTime, %ScriptFullPath%, M
+   ; ToolTip,ModiTime = %ModiTime%
   if(ModiTime_OLD > 0 AND ModiTime > ModiTime_OLD){
     temp:=LineNumber . " " . ScriptName . " " . Last_A_This . "`n" . ModiTime_OLD . ":=" . ModiTime
     ToolTip,%temp%
@@ -70,6 +79,8 @@ f1703220615(ModiTime_OLD, ModiTime, ScriptDir, ScriptName, ScriptFullPath){
   SplashTextOff,%UpdaSplashTit%
 
 scriptDir := RegExReplace( A_ScriptDir, "(\\AutoHotKey).*" , "$1") ; maybe file is started from subfolder. 18.04.2017 12:18
+;feedbackMsgBox(scriptDir = "scriptDir",A_LineNumber . " " .  A_ScriptName,1,1)
+ 
 SetWorkingDir, % scriptDir ; thats not worked. Line later A_ScriptDir was not changed. so SetWorkingDir is probably buggy 18.04.2017 13:23
 ; Msgbox,%scriptDir% ?= `n%A_ScriptDir% `n`n (from: %A_ScriptName%~%A_LineNumber%)
 

@@ -1,15 +1,19 @@
 #Include *i %A_ScriptDir%\inc_ahk\init_global.init.inc.ahk
 
+OnMessage(0x4a, "Receive_WM_COPYDATA")  ; 0x4a is WM_COPYDATA
+
+
 global g_sending_is_buggy := false ; Solved: SendPlay. 29.07.2017 11:21
 global g_doSaveLogFiles := false
 global g_doRunLogFiles := false
 
-if(A_UserName == "Administrator"){
-    msg :="SendPlay may have no effect if the script is running as Administrator 29.07.2017 12:34 17-07-29_12-34"
-    if(g_doSaveLogFiles)
-        lll("`n" . A_LineNumber, A_ScriptName, msg )
-    global g_doUseSendPlay := false
-}
+global Wordlist
+global WordlistOLD
+global activeTitle:=""
+
+wordlist:=wordlistActive
+
+feedbackMsgBoxCloseAllWindows()
 
 temp := "___________________________________`n"
 global g_doSaveLogFiles
@@ -25,7 +29,7 @@ SetTimer, saveIamAllive, 8000
 DetectHiddenWindows,Off
 SetTitleMatchMode,1
 scriptName := SubStr( A_ScriptName , 1 , Strlen(A_ScriptName)-4)
-#NoTrayIcon ; make it unvisible #NoTrayIcon ; make it unvisible Wozu???????????? darï¿½ber kanne es erkennen ob nicht schon eine andere instanz lï¿½uft... es wï¿½rde sonst denken eine andere lï¿½uft schon???? 16.11.2017 09:06 17-11-16_09-06
+#NoTrayIcon ; make it unvisible #NoTrayIcon ; make it unvisible Wozu???????????? dar?ber kanne es erkennen ob nicht schon eine andere instanz l?uft... es w?rde sonst denken eine andere l?uft schon???? 16.11.2017 09:06 17-11-16_09-06
 
 IfWinExist, %scriptName% - Active ; maybe  work 26.04.2017 15:28
 {
@@ -168,21 +172,16 @@ ReadInTheWordList()
 
 g_WinChangedCallback := RegisterCallback("WinChanged")
 g_ListBoxScrollCallback := RegisterCallback("ListBoxScroll")
-
-if !(g_WinChangedCallback)
-{
+if !(g_WinChangedCallback){
    MsgBox, Failed to register callback function
    ExitApp
 }
-
-if !(g_ListBoxScrollCallback)
-{
+if !(g_ListBoxScrollCallback){
    MsgBox, Failed to register ListBox Scroll callback function
    ExitApp
 }
    
-;Find the ID of the window we are using
-GetIncludedActiveWindow()
+GetIncludedActiveWindow() ;Find the ID of the window we are using
 
 MainLoop()
 
@@ -210,7 +209,7 @@ CheckWord("$2")
 return
 
 ;~ $3::
-; $Â§:: ; problem with the paragraph sign. probably becouse of the document format. i dont need it so much. lets deactivate it. 21.04.2017 12:02
+; $§:: ; problem with the paragraph sign. probably becouse of the document format. i dont need it so much. lets deactivate it. 21.04.2017 12:02
 $Numpad3::
 CheckWord("$3")
 return
@@ -306,6 +305,7 @@ Return
 ; 
 #Include %A_ScriptDir%\Includes\TypingAid.inc.ahk
 
+;<<<<<<<< reloadWordlost <<<< 180208163147 <<<< 08.02.2018 16:31:47 <<<<
 reloadWordlost:
 ParseWordsCount := ReadWordList()
 prefs_Length := setLength(ParseWordsCount, maxLinesOfCode4length1)
@@ -331,10 +331,11 @@ settitlematchmode,1
 if(ActiveTitleOLD && ActiveTitleOLD <> ActiveTitle ){
 global g_doSaveLogFiles
  if(g_doSaveLogFiles)
-lll(A_LineNumber, A_ScriptName,  "Goto, doReload `n reason for being carefully with reload `;) https://youtu.be/2a_AsYubzvE " )
-;~ ToolTip, % A_TickCount
+    lll(A_LineNumber, A_ScriptName,  "Goto, doReload `n reason for being carefully with reload `;) https://youtu.be/2a_AsYubzvE " )
+    ;~ ToolTip, % A_TickCount
 }
 return
+;>>>>>>>> reloadWordlost >>>> 180208163153 >>>> 08.02.2018 16:31:53 >>>>
 
 
 

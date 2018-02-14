@@ -2,11 +2,7 @@ ScriptNameLetter := SubStr(A_ScriptName, 1 , 1)
 ScriptNameLetter2 := SubStr(A_ScriptName, 1 , 2)
 ;~ tatam
 if(!iconAdress)
-  iconAdress=%HardDriveLetter%:\fre\public\Graf-Bilder\icon\abc123\%ScriptNameLetter2%.ico
-
-if(!FileExist(iconAdress))
-    iconAdress=%HardDriveLetter%:\fre\public\Graf-Bilder\icon\abc123\%ScriptNameLetter%.ico
-; C:\fre\public\Graf-Bilder\icon\abc123
+  iconAdress=%A_ScriptDir%\icon\abc123\%ScriptNameLetter2%.ico
 
 ; Checks for the existence of a file or folder.
 ifexist,%iconAdress%
@@ -17,7 +13,7 @@ else
   ; probably very good icon programm: http://www.mitec.cz/iconex.html
   
   ;~ May useful : http://antifavicon.com/
-  ; http://www.grsites.com/generate/group/9000/ hübsch? aber sicher?
+  ; http://www.grsites.com/generate/group/9000/ hÃ¼bsch? aber sicher?
   ; batch pix to icon http://www.axialis.com/tutorials/tutorial-iw001.html
 
 ;~ http://pcwizkidstechtalk.com/index.php/win7-icons.html
