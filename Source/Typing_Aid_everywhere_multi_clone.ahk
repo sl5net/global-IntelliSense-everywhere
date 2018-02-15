@@ -337,7 +337,10 @@ temp =
 (
 TargetScriptTitle = TypingAid - Active ahk_class AutoHotkey
 stringToSend := (InStr(wordlistNEW,"\")) ? wordlistNEW : wordlistDir . "\" . wordlistNEW
-result := Send_WM_COPYDATA`(stringToSend, TargetScriptTitle`)
+; result := Send_WM_COPYDATA`(stringToSend, TargetScriptTitle`)
+y := ComObjActive("{93C04B39-0465-4460-8CA0-7BFFF481FF98}")
+y.callFunction( "Receive_wordlistAddress", stringToSend ) ;will call the function of the other script
+
 Send_WM_COPYDATA(ByRef StringToSend, ByRef TargetScriptTitle)  ; ByRef saves a little memory in this case.
 ; This function sends the specified string to the specified window and returns the reply.
 ; The reply is 1 if the target window processed the message, or 0 if it ignored it.

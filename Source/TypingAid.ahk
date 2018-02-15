@@ -1,7 +1,14 @@
 #Include *i %A_ScriptDir%\inc_ahk\init_global.init.inc.ahk
 
-OnMessage(0x4a, "Receive_WM_COPYDATA")  ; 0x4a is WM_COPYDATA
-
+; OnMessage(0x4a, "Receive_WM_COPYDATA")  ; 0x4a is WM_COPYDATA  ; deprecated 15.02.2018 10:26
+ObjRegisterActive(Stuff, "{93C04B39-0465-4460-8CA0-7BFFF481FF98}")
+class Stuff{
+    static abc := 1
+    callFunction( name, p* ) { ;allows you to call any function in this script
+        abc := func( name )
+       %abc%( p* )
+    }
+}
 
 global g_sending_is_buggy := false ; Solved: SendPlay. 29.07.2017 11:21
 global g_doSaveLogFiles := false
@@ -56,12 +63,14 @@ Suspend, On ; wieder (10.07.2017 11:47) auskommentiert weils mir zu oft auf susp
 ;WinSetTitle, TypingAid - Active, , TypingAid - Active wait4sec
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 f:= "problemHandler104SuspendOn.ahk"
+f:= "problemHandler104SuspendOn.ahk"
 ff := A_ScriptDir . "\" . f
 DetectHiddenWindows,On
-if( !WinExist(f) )
+if( !WinExist(f) ){
    run,%ff% 
-WinWait,%f% ,,1
-if( !WinExist(ff) ){
+    WinWait,%f% ,,1
+} ;
+if( !WinExist(f) ){
    msg=%ff% NOTfound => ExitApp `n (from. %A_ScriptName%~%A_LineNumber%)
     tooltip,% msg
     feedbackMsgBox(msg,msg,1,1)
@@ -487,3 +496,44 @@ return
 
 
 
+/*
+    ObjRegisterActive(Object, CLSID, Flags:=0)
+    
+        Registers an object as the active object for a given class ID.
+        Requires AutoHotkey v1.1.17+; may crash earlier versions.
+    
+    Object:
+            Any AutoHotkey object.
+    CLSID:
+            A GUID or ProgID of your own making.
+            Pass an empty string to revoke (unregister) the object.
+    Flags:
+            One of the following values:
+              0 (ACTIVEOBJECT_STRONG)
+              1 (ACTIVEOBJECT_WEAK)
+            Defaults to 0.
+    
+    Related:
+        http://goo.gl/KJS4Dp - RegisterActiveObject
+        http://goo.gl/no6XAS - ProgID
+        http://goo.gl/obfmDc - CreateGUID()
+*/
+ObjRegisterActive(Object, CLSID, Flags:=0) {
+    static cookieJar := {}
+    if (!CLSID) {
+        if (cookie := cookieJar.Remove(Object)) != ""
+            DllCall("oleaut32\RevokeActiveObject", "uint", cookie, "ptr", 0)
+        return
+    }
+    if cookieJar[Object]
+        throw Exception("Object is already registered", -1)
+    VarSetCapacity(_clsid, 16, 0)
+    if (hr := DllCall("ole32\CLSIDFromString", "wstr", CLSID, "ptr", &_clsid)) < 0
+        throw Exception("Invalid CLSID", -1, CLSID)
+    hr := DllCall("oleaut32\RegisterActiveObject"
+        , "ptr", &Object, "ptr", &_clsid, "uint", Flags, "uint*", cookie
+        , "uint")
+    if hr < 0
+        throw Exception(format("Error 0x{:x}", hr), -1)
+    cookieJar[Object] := cookie
+}
