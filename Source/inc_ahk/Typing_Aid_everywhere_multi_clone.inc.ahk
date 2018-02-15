@@ -685,9 +685,11 @@ DynaRunENDa�sldkjfa�sldkjfl(TempScript, pipename="") {
    if (__PIPE_=-1 or __PIPE_GA_=-1)
       Return 0
    ; gosub,couldIfindMyself
+;IfNotExist, %A_AhkPath% "\\.\pipe\%name%"
+;    Return 0
    Run, %A_AhkPath% "\\.\pipe\%name%",,UseErrorLevel HIDE, PID
    If ErrorLevel
-      MsgBox, 262144, ERROR,% "Could not open file:`n" __AHK_EXE_ """\\.\pipe\" name """"
+      tooltip, % "Could not open file:`n" __AHK_EXE_ """\\.\pipe\" name """"
    DllCall("ConnectNamedPipe",@,__PIPE_GA_,@,0)
    DllCall("CloseHandle",@,__PIPE_GA_)
    DllCall("ConnectNamedPipe",@,__PIPE_,@,0)

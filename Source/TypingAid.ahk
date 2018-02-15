@@ -1,3 +1,5 @@
+#ErrorStdOut
+
 #Include *i %A_ScriptDir%\inc_ahk\init_global.init.inc.ahk
 
 fnReceive_wordlistAddress := Func("Receive_wordlistAddress").Bind(1)

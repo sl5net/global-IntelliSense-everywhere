@@ -1,5 +1,6 @@
 DynaRun(TempScript, pipename=""){
-   static _:="uint",@:="Ptr"
+   TempScript := "#" . "ErrorStdOut`n" . TempScript
+static _:="uint",@:="Ptr"
    If pipename =
       name := "AHK" A_TickCount
    Else
@@ -9,7 +10,9 @@ DynaRun(TempScript, pipename=""){
    if (__PIPE_=-1 or __PIPE_GA_=-1)
       Return 0
    ;gosub,couldIfindMyself
-   try{
+;IfNotExist, %A_AhkPath% "\\.\pipe\%name%"
+;   Return 0
+try{
       Run, %A_AhkPath% "\\.\pipe\%name%",,UseErrorLevel HIDE, PID
    } catch e{
       ;throw Exception("Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line, -1)
@@ -19,10 +22,10 @@ DynaRun(TempScript, pipename=""){
 
    If ErrorLevel
    {
-      tooltip, 262144, ERROR,% "Could not open file:`n" __AHK_EXE_ """\\.\pipe\" name """"
+      tooltip, % "Could not open file:`n" __AHK_EXE_ """\\.\pipe\" name """"
       return false
    }
-
+;
    try{
       DllCall("ConnectNamedPipe",@,__PIPE_GA_,@,0)
       DllCall("CloseHandle",@,__PIPE_GA_)

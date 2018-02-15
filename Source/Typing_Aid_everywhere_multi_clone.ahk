@@ -1,4 +1,5 @@
-
+#ErrorStdOut
+;
 ;<<<<<<<< IncludeI <<<< 171103161518 <<<< 03.11.2017 16:15:18 <<<<
 #Include *i ..\Wordlists\activeClassManipulation.inc.ahk
 ; ^- obiges funktioniert (weil funktion sp�ter ausgef�hrt) bei `normalem` Aufruf. z.B. click von atuoload.ahk und darin ein:
@@ -276,10 +277,12 @@ lll( A_LineNumber, A_ScriptName, msg . "`n 17-07-29_14-18 ")
         }
 
 ;<<<<<<<<<<<<< demoData =  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+activeTitle := RegExReplace(activeTitle, "m)\n.*", "") ; title should never is multioline. this proof is hoprefulle redundatnd. 15.02.2018
+wordlistOLD := RegExReplace(wordlistOLD, "m)\n.*", "") ; never is multioline. this proof is hoprefulle redundatnd. 15.02.2018
     demoData =
 (
 SetTitleMatchMode, 1
-activeTitle := RegExReplace`(activeTitle, Chr`(37`) . ".*", ""`) ; should be easy to include variable later. some websites have suche long title with the procent in it. dont like it. simplify it. 16.03.2017 18:39
+activeTitle := RegExReplace`(activeTitle, Chr`(37`) . ".*", ""`) ; delete prozent. should be easy to include variable later. some websites have suche long title with the procent in it. dont like it. simplify it. 16.03.2017
 global g_lineNumberFeedback
 g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
 wordlistDir = %wordlistDir%

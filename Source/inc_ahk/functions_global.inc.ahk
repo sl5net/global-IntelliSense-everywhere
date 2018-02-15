@@ -1021,7 +1021,7 @@ if(!feedbackMsgBoxNrPre)
     feedbackMsgBoxNrPre := 0
 feedbackMsgBoxNr := feedbackMsgBoxNrPre + 1
 
-if(feedbackMsgBoxNrPre > 10 || feedbackMsgBoxNr > 10){
+if(feedbackMsgBoxNrPre > 4 || feedbackMsgBoxNr > 4){
 	TOolTip5sec(":( Oops `n feedbackMsgBoxNr>MAX `n " . A_LineNumber . " " . A_ScriptName . " " . Last_A_This,1,1) 
 	; for some reasion sometimes there anyway to many windows. therfor this dirty-bugFix:
 	SetTitleMatchMode,1
@@ -1076,10 +1076,10 @@ Msgbox ,,`% boxTitle, `% text
 ; WinSetTitle,ScrollBox,,%boxTitle%
 sleep,200
 ; WinWait,`% boxTitle
-WinMove, `% boxTitle , , `% x , `% y
+WinMove, `% boxTitle , , `% x , `% y, 350
 WinSet, Transparent, 125, `% boxTitle
 WinSet, Bottom,,%feedbackMsgBoxNr%
-tooltip, `% at
+;tooltip, `% at
 maxTryes:=1
 while(!winactive(at)){ ; :( no effect 14.08.2017 18:56
 	tooltip, while(!winactive(`%at`%))
@@ -1106,7 +1106,7 @@ if( y+h+h > A_ScreenHeight){
 }else{
 	y := y + h - 4
 }
-WinMove,%feedbackMsgBoxNr%:,,`% x,`% y, `% w, `% h
+WinMove,%feedbackMsgBoxNr%:,,`% x,`% y, 400, `% h
 if(x <> xOld || y <> yOld ){
  WinActivate,%feedbackMsgBoxNr%
  WinSet, Top, ,%feedbackMsgBoxNr%
@@ -1282,8 +1282,8 @@ setSearchAreaToWinTitleArea(winTitle){
    return mm
 }
 ;>>>>>>>> setSearchAreaToWinTitleArea >>>> 171024094739 >>>> 24.10.2017 09:47:39 >>>>
-
 DynaRun(TempScript, pipename=""){
+	TempScript := "#" . "ErrorStdOut`n" . TempScript
    static _:="uint",@:="Ptr"
 try  ; i dont want disturbing error messages
 {
@@ -1295,9 +1295,12 @@ try  ; i dont want disturbing error messages
    __PIPE_    := DllCall("CreateNamedPipe","str","\\.\pipe\" name,_,2,_,0,_,255,_,0,_,0,@,0,@,0)
    if (__PIPE_=-1 or __PIPE_GA_=-1)
       Return 0
+	;if(!FileExist(A_AhkPath . "\\.\pipe\" . name))
+	;  Return 0
+	;IfNotExist, %A_AhkPath% "\\.\pipe\%name%"
    Run, %A_AhkPath% "\\.\pipe\%name%",,UseErrorLevel HIDE, PID
    If ErrorLevel
-      MsgBox, 262144, ERROR,% "Could not open file:`n" __AHK_EXE_ """\\.\pipe\" name """"
+      tooltip, % "Could not open file:`n" __AHK_EXE_ """\\.\pipe\" name """"
    DllCall("ConnectNamedPipe",@,__PIPE_GA_,@,0)
    DllCall("CloseHandle",@,__PIPE_GA_)
    DllCall("ConnectNamedPipe",@,__PIPE_,@,0)
