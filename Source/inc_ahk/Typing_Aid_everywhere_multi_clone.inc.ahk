@@ -702,6 +702,22 @@ FileWriteAndRun(sayHelloCode, sayHelloFunctionInc){
 
  g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
 
+
+    DetectHiddenWindows,On
+    SetTitleMatchMode,2
+    winTC := sayHelloFunctionInc . " ahk_class AutoHotkey"
+    if(winexist(winTC)){
+        WinClose,% winTC
+        WinWaitClose,% winTC,,1
+    }
+    if(winexist(winTC)){
+        ToolTip,DONT WANT RUN '%winTC%'. its already exist. `n (line:%A_LineNumber%) `n 18-02-15_13-00bbb
+        WinKill,% winTC
+        WinWaitClose,% winTC,,2
+        tooltip,
+        return false
+    }
+
    isFileExist := false
    ;feedbackMsgBox(sayHelloCode . "`n`n`n" . sayHelloFunctionInc,A_LineNumber . " Typing_Aid_everywhere_multi_clone.inc.ahk")
    FileWrite(sayHelloCode, sayHelloFunctionInc)
@@ -731,7 +747,7 @@ FileWrite(sayHelloCode, sayHelloFunctionInc){
  g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
 
    if(FileExist(sayHelloFunctionInc))
-   FileDelete, % sayHelloFunctionInc
+      FileDelete, % sayHelloFunctionInc
    Sleep,100
    FileAppend, % sayHelloCode, % sayHelloFunctionInc
    return 1

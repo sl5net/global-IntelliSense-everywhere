@@ -17,8 +17,10 @@ EnableWinHook()
 		
 lll(A_LineNumber, "Window.ahk", "Failed to register Event Hook! `n  g_WinChangedEventHook=" . g_WinChangedEventHook . "`n 17-07-16_16-21" )
 
-         MsgBox, Failed to register Event Hook!
-         ExitApp
+         tip=A_LineNumber . " " . A_ScriptName . " " . Last_A_This
+         tooltip,% tip
+         return false
+         ;ExitApp
       }
    }
    

@@ -29,7 +29,13 @@ Receive_wordlistAddress(CopyOfData){
 
 
     if( 1 && wordlistOLD <> wordlist){
-        feedbackMsgBox("wordlistOLD <> wordlist",wordlistOLD . " <> " . wordlist . "`n" . A_ScriptName . "(inc)~" . A_LineNumber)
+
+       CloseListBox()
+       SuspendOn()
+
+
+    ;feedbackMsgBox("wordlistOLD <> wordlist",wordlistOLD . " <> " . wordlist . "`n" . A_ScriptName . "(inc)~" . A_LineNumber)
+         tooltip,LOAD NEW '%wordlist%' = wordlist `n ( %A_ScriptName%(inc)~%A_LineNumber% ) `n
         ;setGlobalWordlist(wordlistActive)
         ;InitializeListBox()
         ;BlockInput, Send ; Send:  The user's keyboard and mouse input is ignored while a Send or SendRaw is in progress
@@ -531,8 +537,15 @@ lll(A_LineNumber, A_ScriptName, "DisableKeyboardHotKeys() { ... 17-07-16_13-31 "
    global g_EnabledKeyboardHotKeys
    Loop, Parse, g_EnabledKeyboardHotKeys, %g_DelimiterChar%
    {
-      HotKey, %A_LoopField%, Off
-   ; lll(A_LineNumber, A_ScriptName, "HotKey, %" . A_LoopField . "%, Off")
+      try{
+         HotKey, %A_LoopField%, Off
+      } catch e{
+         ;throw Exception("Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line, -1)
+         tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
+         tooltip, % tip
+      }
+
+; lll(A_LineNumber, A_ScriptName, "HotKey, %" . A_LoopField . "%, Off")
    }
    Return
 }
@@ -1136,10 +1149,10 @@ SuspendOn(){
    {
             ; A_IsCompiled	Contains 1 if the script is running as a compiled EXE and an empty string (which is considered false) if it is not.
 
-      Menu, tray, Icon, %A_ScriptFullPath%,3,1
+      ; Menu, tray, Icon, %A_ScriptFullPath%,3,1
    } else
    {
-      Menu, tray, Icon, %A_ScriptDir%\%g_ScriptTitle%-Inactive.ico, ,1
+      ;Menu, tray, Icon, %A_ScriptDir%\%g_ScriptTitle% - Inactive.ico, ,1
    }
 }
 
@@ -1154,7 +1167,7 @@ SuspendOff(){
       Menu, tray, Icon, %A_ScriptFullPath%,1,1
    } else
    {
-      Menu, tray, Icon, %A_ScriptDir%\%g_ScriptTitle%-Active.ico, ,1
+      ; Menu, tray, Icon, %A_ScriptDir%\%g_ScriptTitle% - Active.ico, ,1
 ; we dont need it. sometimes it could not be loadet. so forget it. 03.05.2017 16:31
    }
    DynaRun("#" . "NoTrayIcon `n Tooltip,||SL5||`n Sleep,2300")

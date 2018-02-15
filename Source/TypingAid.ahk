@@ -487,9 +487,11 @@ return
 
 checkActiveTitleChanged:
 WinGetActiveTitle, ActiveTitle
-if(ActiveTitleOLD <> ActiveTitle){
+if(false && ActiveTitleOLD <> ActiveTitle){
     ActiveTitleOLD := ActiveTitle
     ; sleep,120 ; it needs a little time to copy the files 31.07.2017 21:30
+msg=`n (%A_ScriptName%~%A_LineNumber%)
+feedbackMsgBox(msg,msg,1,1)
     SetTimer, ifWordlistFileWasUpdatedChanged, 100
 }
 return
