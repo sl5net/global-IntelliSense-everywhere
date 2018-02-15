@@ -1310,7 +1310,11 @@ try  ; i dont want disturbing error messages
    DllCall("CloseHandle",@,__PIPE_)
 }
 catch e  ; Handles the first error/exception raised by the block above.
-{}
+{
+}
+SetTitleMatchMode,1
+while(WinExist(substr(name,1,StrLen(name)-5)))
+		WinClose,
    Return PID
 }
 
