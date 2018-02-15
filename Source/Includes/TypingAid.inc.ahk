@@ -9,14 +9,14 @@ global activeTitle
 global activeClassOLD
 global activeClass
 
-
-Receive_WM_COPYDATA(wParam, lParam)
-{
-    StringAddress := NumGet(lParam + 2*A_PtrSize)  ; Retrieves the CopyDataStruct's lpData member.
-    CopyOfData := StrGet(StringAddress)  ; Copy the string out of the structure.
+Receive_wordlistAddress(CopyOfData){
+; Receive_WM_COPYDATA(wParam, lParam) ; deprecated 15.02.2018 10:26
+;{
+    ;StringAddress := NumGet(lParam + 2*A_PtrSize)  ; Retrieves the CopyDataStruct's lpData member.
+    ;CopyOfData := StrGet(StringAddress)  ; Copy the string out of the structure.
     ; Show it with ToolTip vs. MsgBox so we can return in a timely fashion:
     ;msgbox, %A_ScriptName%`nReceived:`n%CopyOfData%
-    RegRead, wordlistActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, CopyOfData
+    ;RegRead, wordlistActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, CopyOfData
 
     global wordlistOLD
     global wordlist
