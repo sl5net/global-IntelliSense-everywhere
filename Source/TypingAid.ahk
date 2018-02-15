@@ -1,7 +1,9 @@
 #Include *i %A_ScriptDir%\inc_ahk\init_global.init.inc.ahk
 
+fnReceive_wordlistAddress := Func("Receive_wordlistAddress").Bind(1)
 ; OnMessage(0x4a, "Receive_WM_COPYDATA")  ; 0x4a is WM_COPYDATA  ; deprecated 15.02.2018 10:26
-ObjRegisterActive(Stuff, "{93C04B39-0465-4460-8CA0-7BFFF481FF98}")
+; ObjRegisterActive(Stuff, "{93C04B39-0465-4460-8CA0-7BFFF481FF98}")
+ObjRegisterActive(fnReceive_wordlistAddress, "{93C04B39-0465-4460-8CA0-7BFFF481FF98}")  ; Receive_wordlistAddress(CopyOfData){
 class Stuff{
     static abc := 1
     callFunction( name, p* ) { ;allows you to call any function in this script
