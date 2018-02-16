@@ -4,3 +4,7 @@ then i recommand using this
 for searching a wordlist. this is sometimes useful. for example: you want include oter worddlists an need to find a matching one:
 path:\Wordlists\ endwith:.txt YourSearchedFileName
 (updated: 16.02.2018 08:51)
+
+Diese Seiten auf deutsch lesen mit google-translater:
+read this pages in other language, for e.g. german:
+https://translate.googleusercontent.com/translate_c?act=url&depth=1&hl=de&ie=UTF8&prev=_t&rurl=translate.google.de&sl=en&sp=nmt4&tl=de&u=https://github.com/sl5net/global-IntelliSense-everywhere
