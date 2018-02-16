@@ -258,24 +258,6 @@ lll_if_g_doSaveLogFiles(A_LineNumber, A_ThisFunc,  "'" . wordlistGeneratedPath .
   ; All we have to do know is to  use this file. therefore we only copying it to the active used file. it will be overwritten. 12.07.2017 21:31
 
   ExitAPP_if_NOT_wordlistNEWarchivePath_and_NOT_wordlistNEW(A_LineNumber, A_ThisFunc, wordlistNEWarchivePath, wordlistGeneratedPath , wordlistNEW)
-  if(0){
-FormatTime, timestampyyMMddHHmmss, %A_now%,yyMMddHHmmss
-content =
-(
-%A_WorkingDir%\%wordlistNEWarchivePath%
-%activeClass%
-%activeTitle%
-wordlistNEWarchivePath = %wordlistNEWarchivePath%
-activeClass  = %activeClass%
-activeTitle = %activeTitle%
-; FileReadLine,wordlistNEWarchivePath ,wordlist.txt, 1
-)
-; FileReadLine,activeClass ,wordlist.txt, 2
-; FileReadLine,activeTitle ,wordlist.txt, 3
-  FileAppend, % content, % timestampyyMMddHHmmss
-  FileCopy, % timestampyyMMddHHmmss, % wordlistActivePath . ".status.txt" , 1
-  FileDeleteAsyncDynaRun(timestampyyMMddHHmmss , 1000)
-  }
   FileCopy, % wordlistNEWarchivePath, % wordlistActivePath  , 1
   return, 1
 } ; EndOf function wordlistNEWactivate( wordlistDir , wordlistNEW, wordlistActive , typingAidSourcePath )
