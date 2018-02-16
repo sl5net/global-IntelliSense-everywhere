@@ -1,5 +1,5 @@
 #SingleInstance, force
-; Hallo Hallo 05 
+; Hallo Hallo 05
 send,% getDaytimeHello() . " "
 getDaytimeHello(){
   helloHour=Hallo

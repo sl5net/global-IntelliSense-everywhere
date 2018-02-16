@@ -1,0 +1,10 @@
+#Include .\..\Wordlists\_globalWordLists\_global.txt
+#Include .\..\Wordlists\ChromeWidgetWin1\_global.txt
+; Neuer Tab - Google Chrome ; = activeTitle 17-08-10_16-04
+; #Include .\..\Wordlists\_globalWordLists\examplesForBeginners.txt
+___open global library|rr||ahk|run,..\.\Wordlists\_globalWordLists\_global.txt
+___open class library|rr||ahk|run,..\.\Wordlists\ChromeWidgetWin1\_global.txt
+___open window library |rr||ahk|run,..\.\Wordlists\ChromeWidgetWin1\Neuer_Tab_Google_Chrome.txt
+
+
+Hallo wie gehts?
