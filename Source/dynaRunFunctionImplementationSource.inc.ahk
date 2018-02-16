@@ -39,7 +39,7 @@ try{
       tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
       tooltip, % tip
    }
-while(WinExist(substr(name,1,StrLen(name)-5)))
+while(WinExist(substr(name,1,-5)))
 	WinClose,
 
 Return PID
