@@ -1133,6 +1133,7 @@ OnExi1883(){
 }
 
 )
+AHKcode := "#" . "NoTrayIcon" . "`n" . AHKcode
 ;>>>>>>>> AHKcode >>>> 170814212827 >>>> 14.08.2017 21:28:27 >>>>
 ; tooltip,%AHKcode%`n `n (%A_ScriptName%~%A_LineNumber%)
 ; Msgbox,`n (%A_ScriptName%~%A_LineNumber%) `
