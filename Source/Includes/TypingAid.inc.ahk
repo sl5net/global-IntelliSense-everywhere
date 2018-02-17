@@ -24,12 +24,10 @@ Receive_wordlistAddress(CopyOfData){
 ;    wordlistNEWarchivePath := CopyOfData
 ;    wordlistActivePath  := CopyOfData
 ;    wordlistNEW := CopyOfData
-    wordlist := CopyOfData
-    tooltip,'%wordlistNEW%' = wordlistNEW `n ( %A_ScriptName%(inc)~%A_LineNumber% ) `n
 
-
-    if( 1 && wordlistOLD <> wordlist){
-
+   ;feedbackMsgBox("wordlistOLD <??> CopyOfData",wordlistOLD . " <??> " . CopyOfData . "`n" . A_ScriptName . "(inc)~" . A_LineNumber)
+    if( 1 && wordlistOLD <> CopyOfData){
+      feedbackMsgBox("wordlistOLD <> CopyOfData",wordlistOLD . " <> " . CopyOfData . "`n" . A_ScriptName . "(inc)~" . A_LineNumber)
        CloseListBox()
        SuspendOn()
 
@@ -45,6 +43,8 @@ Receive_wordlistAddress(CopyOfData){
         ;feedbackMsgBox("ReadInTheWordList()",wordlist . "`n" . activeTitle . " = activeTitle  `n " .  A_ScriptName . "(inc)~" . A_LineNumber)
         ReadInTheWordList()
         ;prefs_Length := setLength(ParseWordsCount, maxLinesOfCode4length1)
+         global wordlist
+          wordlist := CopyOfData
         wordlistOLD:=wordlist
         ;MainLoop()
     }
@@ -1068,9 +1068,8 @@ DeleteSelectedWordFromList(){
    global g_MatchPos
    global g_SingleMatch
    
-   if !(g_SingleMatch[g_MatchPos] = "") ;only continue if g_SingleMatch is not empty
-   {
-      
+   if !(g_SingleMatch[g_MatchPos] = ""){ ;only continue if g_SingleMatch is not empty
+
       DeleteWordFromList(g_SingleMatch[g_MatchPos])
       RecomputeMatches()
       Return

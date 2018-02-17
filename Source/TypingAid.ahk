@@ -66,6 +66,7 @@ g_nextCriticalCommandString := "104:Suspend, On"
 Suspend, On ; wieder (10.07.2017 11:47) auskommentiert weils mir zu oft auf suspand on war. wehr oft wenn ich auf skype gewecheelt habe. hoffe die anderen bugFix haben den Seiteneffekt das ich dieses nicht mehr brauche.
 ;WinSetTitle, TypingAid - Active, , TypingAid - Active wait4sec
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+if(0){
 f:= "problemHandler104SuspendOn.ahk"
 f:= "problemHandler104SuspendOn.ahk"
 ff := A_ScriptDir . "\" . f
@@ -83,6 +84,7 @@ global g_doSaveLogFiles
  if(g_doSaveLogFiles)
     lll(A_LineNumber, A_ScriptName, "Sleep,3000")
    ExitApp 
+}
 }
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 

@@ -2,6 +2,8 @@
 
 
 ;<<<<<<<<<<<<<< ReadWordList <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+;<<<<<<<<<<<<<< ReadWordList <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+;-----> ReadWordList <-------- is very you are
 ReadWordList() {
 global g_LegacyLearnedWords
    global g_ScriptTitle
@@ -59,6 +61,7 @@ ifWinNotExist,TypingAid
      }
     }
 )
+;-----> ReadWordList <-------- is very you are
 
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 if(! FileExist( A_WorkingDir . "\inc_ahk\copy2clipBoard.functions.inc.ahk" ) ) {
