@@ -1313,7 +1313,7 @@ catch e  ; Handles the first error/exception raised by the block above.
 {
 }
 SetTitleMatchMode,1
-while(WinExist(substr(name,1,-5)))
+while(WinExist(substr(name,1,-5)) && A_Index < 9)
 		WinClose,
    Return PID
 }

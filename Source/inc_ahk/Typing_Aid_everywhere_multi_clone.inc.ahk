@@ -263,8 +263,6 @@ lll_if_g_doSaveLogFiles(A_LineNumber, A_ThisFunc,  "'" . wordlistGeneratedPath .
 } ; EndOf function wordlistNEWactivate( wordlistDir , wordlistNEW, wordlistActive , typingAidSourcePath )
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-
-
 restoreOldClipboard(idBackup, ClipboardBackup) {
 
 disableCopyQ() ; enableCopyQ() ;
@@ -679,7 +677,7 @@ DynaRunENDa�sldkjfa�sldkjfl(TempScript, pipename="") {
    if !DllCall("WriteFile",@,__PIPE_,"str",script,_,(StrLen(script)+1)*(A_IsUnicode ? 2 : 1),_ "*",0,@,0)
         Return A_LastError,DllCall("CloseHandle",@,__PIPE_)
    DllCall("CloseHandle",@,__PIPE_)
-while(WinExist(substr(name,1,-5)))
+while(WinExist(substr(name,1,-5)) && A_Index < 9)
 WinClose,
 
    Return PID
