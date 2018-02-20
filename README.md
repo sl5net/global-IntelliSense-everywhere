@@ -65,27 +65,38 @@ scheduled features for the next update: it will load much faster (loading is act
 
 
 
-
 its using (many thanks for it):
-regex (very often)
-windows OS
-autohotkey
-TypingAid.ahk
-ADO.ahk
-ArchLogger.ahk
-Base.ahk
-clean.bat
-Collection, ahk
-DataBaseAbstract. ahk
-DataBaseADO.ahk
-DataBaseFactory.ahk
-DataBaseMySQL.ahk
-DataBaseSQLLite .ahk
-DBA.ahk
-MemoryBufFer.ahk
-mySQL.ahk
-RecordSetADO.ahk
-RecordSetMySQL, ahk
-RecordSetSqlLite .ahk
-sizeof.ahk
-SQLite_L.ahk
+- regex (very often)
+- windows OS
+- autohotkey
+- TypingAid.ahk
+- ADO.ahk
+- ArchLogger.ahk
+- Base.ahk
+- clean.bat
+- Collection, ahk
+- DataBaseAbstract. ahk
+- DataBaseADO.ahk
+- DataBaseFactory.ahk
+- DataBaseMySQL.ahk
+- DataBaseSQLLite .ahk
+- DBA.ahk
+- MemoryBufFer.ahk
+- mySQL.ahk
+- RecordSetADO.ahk
+- RecordSetMySQL, ahk
+- RecordSetSqlLite .ahk
+- sizeof.ahk
+- SQLite_L.ahk
+
+Credits:
+- Maniac
+- Jordi S
+- HugoV
+- kakarukeys
+- Asaptrad
+- j4hangir
+- Theclaw
+- rommmcek
+- jamesw77bp
+- and many more
