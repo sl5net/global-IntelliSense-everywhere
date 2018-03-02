@@ -465,7 +465,8 @@ if(wordlistNewTemp && wordlist <> wordlistNewTemp ){
         ; AHKcodeMsgBox := "msgbox,,worlistChangedInRegistry,worlistChangedInRegistry. ==>  update?? `n (wordlist <> wordlistNewTemp)`n ( NOW: " . wordlist . " <> `nNEW: " . wordlistNewTemp . " ) `n `n (" . A_LineFile . "~" A_LineNumber ")"
         ; AHKcodeMsgBox .= "msgbox,,worlistChangedInRegistry," . wordlist . " `n (" . A_LineFile . "~" A_LineNumber ")"
         ; AHKcodeMsgBox = msgbox,,worlistChangedInRegistry, Would you use new list now? `n %wordlistNewTemp%
-        AHKcodeMsgBox = msgbox,,worlistChangedInRegistry, Would you use new list now? `n `n Say goodbye to?`n  %wordlist%
+    AHKcodeMsgBox = msgbox,,worlistChangedInRegistry, Would you use new list now? ``n ``n Say goodbye to? ``n  %wordlist%
+    ; AHKcodeMsgBox = msgbox,,worlistChangedInRegistry, Say goodbye to? ``n  %wordlist%
         if(g_FLAGmsgbox){
             g_FLAGmsgbox := false ; just clicked msgboxWindow
         }else{
@@ -479,17 +480,21 @@ if(wordlistNewTemp && wordlist <> wordlistNewTemp ){
             return ; no update jet
         }
     }
+
     ; may there was a change anyway
     RegRead, wordlistNewTemp, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlist
     if(wordlistNewTemp && wordlist <> wordlistNewTemp ){
         wordlist := wordlistNewTemp
         tooltip,%wordlist%  (%A_LineFile%~%A_LineNumber%)
         ;msgbox,%wordlist%  (%A_LineFile%~%A_LineNumber%)
-        ReadInTheWordList()
-        prefs_Length := setLength(ParseWordsCount, maxLinesOfCode4length1)
-        RebuildDatabase()
-        ; msgbox, have fun with :) `n %wordlist% 18-03-02_18-37  (%A_LineFile%~%A_LineNumber%)
+        if(1){
+            ReadInTheWordList()
+            prefs_Length := setLength(ParseWordsCount, maxLinesOfCode4length1)
+            RebuildDatabase()
+            ; msgbox, have fun with :) `n %wordlist% 18-03-02_18-37  (%A_LineFile%~%A_LineNumber%)
+        }
         reload ; hardcore :( 02.03.2018 12:52 18-03-02_12-52
+
 
 
         wordlistOLD := wordlist
