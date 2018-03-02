@@ -464,7 +464,8 @@ if(wordlistNewTemp && wordlist <> wordlistNewTemp ){
 
         ; AHKcodeMsgBox := "msgbox,,worlistChangedInRegistry,worlistChangedInRegistry. ==>  update?? `n (wordlist <> wordlistNewTemp)`n ( NOW: " . wordlist . " <> `nNEW: " . wordlistNewTemp . " ) `n `n (" . A_LineFile . "~" A_LineNumber ")"
         ; AHKcodeMsgBox .= "msgbox,,worlistChangedInRegistry," . wordlist . " `n (" . A_LineFile . "~" A_LineNumber ")"
-        AHKcodeMsgBox = msgbox,,worlistChangedInRegistry, %wordlistNewTemp%
+        ; AHKcodeMsgBox = msgbox,,worlistChangedInRegistry, Would you use new list now? `n %wordlistNewTemp%
+        AHKcodeMsgBox = msgbox,,worlistChangedInRegistry, Would you use new list now? `n `n Say goodbye to?`n  %wordlist%
         if(g_FLAGmsgbox){
             g_FLAGmsgbox := false ; just clicked msgboxWindow
         }else{
