@@ -34,7 +34,7 @@ wordlistDir  := "..\Wordlists\SciTEWindow"
   isSlowMotion := true
 } ; demo Mode ende.
 
-;ToolTip,`n (%A_ScriptName%~%A_LineNumber%) 
+;ToolTip,`n (%A_LineFile%~%A_LineNumber%)
 ;Sleep,2000
 
 #Include,.\..\Wordlists\activeClassManipulation.inc.ahk
@@ -68,7 +68,7 @@ getWordlistNEW173129( activeTitle, ActiveClass, wordlistNEW, wordlistDir ) {
 
 
  ; 'Q-Dir 6.49.7 [3]' = at  
- ; Bild �ffnen ahk_class #32770 
+ ; Bild öffnen ahk_class #32770 
  ; Exportieren ahk_class #32770 aus openoffice zu pdf 01.07.2017 20:22
  ; Select Path SunAwtDialog
  ; Open File or Project ahk_class SunAwtDialog
@@ -85,7 +85,7 @@ if( RegExMatch( activeTitle  , "i)(\.ahk)" ) || instr( activeTitle , "\TypingAid
 
 if(false){
       msgbox,wordlistDir_backupTopOfTempAHL = %wordlistDir_backupTopOfTempAHL%
-            Msgbox, wordlistNEW=%wordlistNEW%  A_ScriptDir2= %wordlistDir%  A_ScriptDir1= %A_ScriptDir% `n (from: %A_ScriptName%~%A_LineNumber%) 
+            Msgbox, wordlistNEW=%wordlistNEW%  A_ScriptDir2= %wordlistDir%  A_ScriptDir1= %A_ScriptDir% `n (from: %A_LineFile%~%A_LineNumber%)
       exitapp
 }
       wLGeneratedDIRname = _globalWordListsGenerated
@@ -178,7 +178,7 @@ ToolTipSlowMotion(wordlistNEW, LineNumber){
 if(A_ScriptName == "wordlistNameFilter.inc.ahk" ) {  ; thats developer mode. this script is not includet. 08.03.2017 09:14
 ; Clipboard := wordlistNEW ;  we dont transport usually inside this global file via clipboard 06.03.2017 19:41
  MsgBox,4, %wordlistNEW%, '%wordlistNEW%' = wordlistNEW  `n '%wordlistDir%' = wordlistDir `n  `n %ActiveClass% = ActiveClass `n  17-03-06_18-48 `n `n ( line: %A_LineNumber%), 50
- ;MsgBox,4 ,Titel, 5Sek (from: %A_ScriptName%~%A_LineNumber%), 5
+ ;MsgBox,4 ,Titel, 5Sek (from: %A_LineFile%~%A_LineNumber%), 5
 }
 
 
@@ -255,7 +255,6 @@ maybeSuperglobalWordList(wordlistNEW, wordlistNEW_time_between , ActiveClass, ac
       ToolTip,%msg% 17-08-10_16-33
       SetTitleMatchMode, 2
       WinWaitNotActive,% activeTitle
-      msgbox,reload
       Reload
       return
     }
@@ -266,7 +265,7 @@ contend =
 (
 #Include .\..\Wordlists\_globalWordLists\_global.txt
 #Include .\..\Wordlists\%ActiveClass%\_global.txt
-; %activeTitle% ; = activeTitle 17-08-10_16-04
+; '%activeTitle%' ; = activeTitle . ist manchmal leer. sometimes emtpy. it not a error. tet it for e.g. with OpenOffice-Aps
 ; #Include .\..\Wordlists\_globalWordLists\examplesForBeginners.txt
 ___open global library|rr||ahk|run,..\.\Wordlists\_globalWordLists\_global.txt
 ___open class library|rr||ahk|run,..\.\Wordlists\%ActiveClass%\_global.txt
@@ -278,7 +277,7 @@ ___open window library |rr||ahk|run,..\.\Wordlists\%ActiveClass%\%wordlistNEW%
      run,                    % "..\Wordlists\" . ActiveClass . "\" . wordlistNEW
 
      return, % wordlistNEW 
-}
+} ; ENDof: maybeSuperglobalWordList
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<

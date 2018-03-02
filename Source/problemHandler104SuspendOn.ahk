@@ -58,7 +58,7 @@ IfWinExist, TypingAid - Inactive
       
          WinClose, TypingAid - Active ; :( dosent work 10.07.2017 20:47
          WinClose, TypingAid - Inactive ; :( dosent work 10.07.2017 20:47
-         ; Msgbox,:-( ist not moving since %secondsProgrammIsNotMoving% sec (%timestampyyMMddHHmmss% - %TypingAidTimestamp%) `n (%A_ScriptName%~%A_LineNumber%) 
+         ; Msgbox,:-( ist not moving since %secondsProgrammIsNotMoving% sec (%timestampyyMMddHHmmss% - %TypingAidTimestamp%) `n (%A_LineFile%~%A_LineNumber%)
          ; IfWinNotExist,TypingAid
             Run,TypingAid.ahk
 
@@ -68,7 +68,7 @@ IfWinExist, TypingAid - Inactive
 
 
 
-; Msgbox,`n (%A_ScriptName%~%A_LineNumber%) 
+; Msgbox,`n (%A_LineFile%~%A_LineNumber%)
 
 
 ; if you to stupid to find yourself better do nothing! 11.07.2017 15:11
