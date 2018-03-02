@@ -76,18 +76,11 @@ getWordlistNEW173129( activeTitle, ActiveClass, wordlistNEW, wordlistDir ) {
 if ( RegExMatch( activeTitle , "(FreeCommander|Q-Dir \d|Bild öffnen|Anhang speichern|Datei speichern|Speichern unter|ffnen|Dateien/Ordner suchen|Exportieren|Dokument speichern|Select Path|Open File or Project)" ) ) 
       return "..\_globalWordLists\pfade"
 
-if ( RegExMatch( activeTitle , "Formular.*\.pdf\b" ) )
-      return "..\_globalWordLists\Formular_Daten"
 
 SetTitleMatchMode,2 ; 2: A window's title can contain WinTitle anywhere inside it to be a match.
 
 if( RegExMatch( activeTitle  , "i)(\.ahk)" ) || instr( activeTitle , "\TypingAid-master\Wordlists\")  ) {
 
-if(false){
-      msgbox,wordlistDir_backupTopOfTempAHL = %wordlistDir_backupTopOfTempAHL%
-            Msgbox, wordlistNEW=%wordlistNEW%  A_ScriptDir2= %wordlistDir%  A_ScriptDir1= %A_ScriptDir% `n (from: %A_LineFile%~%A_LineNumber%)
-      exitapp
-}
       wLGeneratedDIRname = _globalWordListsGenerated
       wLGeneratedDIR := scriptDIR . "\..\" . wLGeneratedDIRname
       wlRelativePath := "..\SciTEWindow\_global" ; relative old
