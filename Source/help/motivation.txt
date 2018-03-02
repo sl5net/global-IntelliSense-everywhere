@@ -1,11 +1,17 @@
-Motivation: "Motivation:" In earlier days, I explained that mouse use is ineffective,
- like playing piano with just one finger. Shurtcuts and 10 finger techniques are
- better. Of course, right? But was considered a spinner. Now I say Shurtcuts are old
- scool. Soon, everything, really pretty much everything, works best only via global
- Intellisenses. Of course, right?"(SL5.net, 18.01.2018)
+Motivation: "Motivation:" In earlier days, I explained that mouse use is ineffective, 
+like playing piano with just one finger. Shurtcuts and 10 finger techniques are better. 
+Of course, right? But was considered a spinner. Now I say Shurtcuts are old scool. 
+Soon, everything, really pretty much everything, works best only via global Intellisenses.
+ Of course, right?"(SL5.net, 18.01.2018)
 
-Motivation: "Motivation: "In früheren Tagen erklärte ich, die Mausnutzung ist
- ineffektiv, wie Klavierspielen mit nur einem Finger. Shurtcuts und 10 Fingertechnik
- sind besser. Selbstverständlich oder? Aber galt machen als Spinner. Jetzt sage ich
- Shurtcuts sind old scool. Bald funktioniert alles, wirklich ziemlich alles, am besten
- nur noch über globale Intellisenses. Logisch eigentlich? " (SL5.net,18.01.2018)
+Motivation: "Motivation: "In früheren Tagen erklärte ich, die Mausnutzung ist ineffektiv, 
+wie Klavierspielen mit nur einem Finger. Shurtcuts und 10 Fingertechnik sind besser. 
+Selbstverständlich oder? Aber galt machen als Spinner. Jetzt sage ich Shurtcuts sind old scool. 
+Bald funktioniert alles, wirklich ziemlich alles, am besten nur noch über globale Intellisenses. 
+Logisch eigentlich? " (SL5.net,18.01.2018)
+
+
+Why is it important to program faster and clearer?
+Then you have more room to think about something more important.
+Then you are not annoyed about your dull work (assuming you know that it is dull and can be automated, otherwise you will not be annoyed). 
+Annoying is unhealthy;) And of course, machines make fewer mistakes and your boss saves money;)  (SL5,02.03.2018)
