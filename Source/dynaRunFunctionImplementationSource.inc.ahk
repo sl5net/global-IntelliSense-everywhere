@@ -1,4 +1,4 @@
-DynaRun(TempScript, pipename=""){
+DynaRun(TempScript, pipename=""){ ; dynAhk, AhkDyn 01.03.2018 16:54
    TempScript := "#" . "ErrorStdOut`n" . TempScript
 static _:="uint",@:="Ptr"
    If pipename =

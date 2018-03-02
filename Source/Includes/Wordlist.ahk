@@ -2,8 +2,6 @@
 
 
 ;<<<<<<<<<<<<<< ReadWordList <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-;<<<<<<<<<<<<<< ReadWordList <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-;-----> ReadWordList <-------- is very you are
 ReadWordList() {
 global g_LegacyLearnedWords
    global g_ScriptTitle
@@ -14,18 +12,24 @@ global g_LegacyLearnedWords
    g_WordListDone = 0
 
 
-  WordlistFileName = wordlist.txt
+  WordlistFileName = wordlist ABBCCDDD.txt
+  global wordlist
+  WordlistFileName := wordlist
    ; FileReadLine,WordlistFileName  ,wordlist.txt, 1
    ; FileReadLine,activeClass ,wordlist.txt, 2
    ; FileReadLine,activeTitle ,wordlist.txt, 3
 
    ; WordlistFileAdress := RegExReplace("\._Generated.txt\s*$", "")
-   Wordlist = %A_ScriptDir%\%WordlistFileName%
+   ; Wordlist = %A_ScriptDir%\%WordlistFileName%
+   Wordlist = %wordlist%
    WordlistLearned = %A_ScriptDir%\WordlistLearned.txt
-   
+
+; msgbox,Wordlist = %Wordlist% `n (%A_LineFile%~%A_LineNumber%)
+
    MaybeFixFileEncoding(Wordlist,"UTF-8")
    MaybeFixFileEncoding(WordlistLearned,"UTF-8")
 
+;msgbox,Wordlist = %Wordlist% `n (%A_LineFile%~%A_LineNumber%)
 
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ; Section wait for unsolved error messages. to close them unsolved :D 02.04.2017 14:36 17-04-02_14-36 todo: dirty bugfix
@@ -61,12 +65,11 @@ ifWinNotExist,TypingAid
      }
     }
 )
-;-----> ReadWordList <-------- is very you are
 
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 if(! FileExist( A_WorkingDir . "\inc_ahk\copy2clipBoard.functions.inc.ahk" ) ) {
     lll(A_LineNumber, "Wordlist.ahk", "52 :-( if(!fileExist(A_WorkingDir . \inc_ahk\copy2clipBoard.functions.inc.ahk)) ==> exitApp 17-07-18_20-24")
-     msg=NOT Exist %A_WorkingDir% . "\inc_ahk\copy2clipBoard.functions.inc.ahk" ) ==> exitapp `n (%A_ScriptName%~%A_LineNumber%)
+     msg=NOT Exist %A_WorkingDir% . "\inc_ahk\copy2clipBoard.functions.inc.ahk" ) ==> exitapp `n (%A_LineFile%~%A_LineNumber%)
      feedbackMsgBox(msg,msg,1,1)
     exitApp
 }
@@ -216,8 +219,9 @@ OK
        msgbox,Oops i am triggered :D 17-04-02_13-47 !g_WordListDB
    
    DatabaseRebuilt := MaybeConvertDatabase()
-         
+
    FileGetSize, WordlistSize, %Wordlist%
+;msgbox,WordlistSize = %WordlistSize% `n (%A_LineFile%~%A_LineNumber%)
 
    if(false && !WordlistSize) {
           m = !WordlistSize: Oops i am triggered :D 17-04-02_13-52 (from: Wordlist.ahk~%A_LineNumber%)
@@ -229,7 +233,7 @@ global g_doRunLogFiles
 run,log\%A_ScriptName%.log.txt
         lll(A_LineNumber, "Wordlist.ahk",Last_A_This . " reload ")
         Reload
-          MsgBox,5 ,!WordlistSize ,Oops i am triggered :D 17-04-02_13-52 (from: %A_ScriptName%~%A_LineNumber%), 5
+          MsgBox,5 ,!WordlistSize ,Oops i am triggered :D 17-04-02_13-52 (from: %A_LineFile%~%A_LineNumber%), 5
           ; that is very seldom triggerend. 18.04.2017 20:17
    }
    FileGetTime, WordlistModified, %Wordlist%, M
@@ -276,6 +280,8 @@ from: Wordlist.ahk~%A_LineNumber%
       g_WordListDB.BeginTransaction()
       ;reads list of words from file 
       FileRead, ParseWords, %Wordlist%
+      ParseWords := JEE_StrUtf8BytesToText( ParseWords )
+
 
 ;<<<<<<<<<<<<<<<<< library open ADD <<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ; thats a way how you could add wordlist lines vocabularies inside onlive 12.08.2017 23:24
@@ -288,7 +294,7 @@ from: Wordlist.ahk~%A_LineNumber%
 temp := "___open library (Wordlist.ahk~" . A_LineNumber . "|rr||ahk|FileReadLine,WordlistFileAdress, wordlist.txt.status.txt, 1 ``n WordlistFileAdress := RegExReplace(WordlistFileAdress, ""\._Generated\.txt\s*$"", """") ``n run,% WordlistFileAdress"
     ParseWords .= "`n" . temp ; thats not performantly. :/ but works 12.08.2017 22:31 sl5.net todo:
 
-; info := SubSTr( ParseWords , 1 , 150 ) ;     tooltip,%info% ... `n (%A_ScriptName%~%A_LineNumber%) `
+; info := SubSTr( ParseWords , 1 , 150 ) ;     tooltip,%info% ... `n (%A_LineFile%~%A_LineNumber%) `
 }
 ;>>>>>>>>>>>>>>>>> library open ADD >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -303,7 +309,7 @@ temp := "___open library (Wordlist.ahk~" . A_LineNumber . "|rr||ahk|FileReadLine
                   pattern := "^\s*__+open[^`n]*\|rr\|\|ahk\|"
                   foundOpenLibLine  := RegExMatch(A_LoopField, pattern )
                   if( foundOpenLibLine ){
-                      Tooltip, %A_LoopField% `n found :) `n (from: %A_ScriptName%~%A_LineNumber%)
+                      Tooltip, %A_LoopField% `n found :) `n (from: %A_LineFile%~%A_LineNumber%)
                   }
           }
 
@@ -333,7 +339,7 @@ global do_tooltipReadWordList
       Loop, Parse, ParseWords, `n, `r1
       {
 
-         ; Tooltip,%A_LoopField% `n (from: %A_ScriptName%~%A_LineNumber%)
+         ; Tooltip,%A_LoopField% `n (from: %A_LineFile%~%A_LineNumber%)
          ParseWordsSubCount++
          ProgressPercent := Round(ParseWordsSubCount/ParseWordsCount * 100)
          if (ProgressPercent <> OldProgressPercent)
@@ -424,7 +430,7 @@ if(false && ParseWordsCount>0)
    ;mark the wordlist as completed
    g_WordlistDone = 1
    DynaRun("#" . "NoTrayIcon `n Tooltip,|SL5|`n Sleep,2300")
-   ; tooltip,%ParseWordsCount%`n (from: %A_ScriptName%~%A_LineNumber%)
+   ; tooltip,%ParseWordsCount%`n (from: %A_LineFile%~%A_LineNumber%)
    Return ParseWordsCount
 }
 ;>>>>>>>>>>>>>>>>>>  ReadWordList >>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -605,7 +611,7 @@ CheckValid(Word,ForceLearn:= false)
       Return
    }
    
-   ;Anything below this line should not be checked if we want to Force Learning the word (Ctrl-Shift-C or coming from wordlist.txt)
+   ;Anything below this line should not be checked if we want to Force Learning the word (Ctrl-Shift-C or coming from wordlist . txt)
    If ForceLearn
       Return, 1
    
@@ -616,7 +622,7 @@ CheckValid(Word,ForceLearn:= false)
       {
          return
       }
-   } else if ( RegExMatch(Word, "S)[a-zA-Z�-��-��-��-�]") = 0 )
+   } else if ( RegExMatch(Word, "S)[a-zA-Zà-öø-ÿÀ-ÖØ-ß]") = 0 )
    {
       Return
    }
@@ -690,7 +696,7 @@ UpdateWordCount(word,SortOnly)
 CleanupWordList(LearnedWordsOnly := false)
 {
    ;Function cleans up all words that are less than the LearnCount threshold or have a NULL for count
-   ;(NULL in count represents a 'wordlist.txt' word, as opposed to a learned word)
+   ;(NULL in count represents a 'wordlist . txt' word, as opposed to a learned word)
    global g_ScriptTitle
    global g_WordListDB
    global prefs_LearnCount
@@ -736,17 +742,18 @@ MaybeUpdateWordlist(){
          IfEqual, g_LegacyLearnedWords, 1
          {
             TempWordList =
-            FileRead, ParseWords, %A_ScriptDir%\Wordlist.txt
+            FileRead, ParseWords, %A_ScriptDir%\%wordlist%
             LearnedWordsPos := InStr(ParseWords, "`;LEARNEDWORDS`;",true,1) ;Check for Learned Words
             TempWordList := SubStr(ParseWords, 1, LearnedwordsPos - 1) ;Grab all non-learned words out of list
             ParseWords = 
             FileDelete, %A_ScriptDir%\Temp_Wordlist.txt
             FileAppendDispatch(TempWordList, A_ScriptDir . "\Temp_Wordlist.txt")
-            FileCopy, %A_ScriptDir%\Temp_Wordlist.txt, %A_ScriptDir%\Wordlist.txt, 1
+;            FileCopy, %A_ScriptDir%\Temp_Wordlist.txt, %A_ScriptDir%\Wordlist.txt, 1
+            FileCopy, %A_ScriptDir%\Temp_Wordlist.txt, %wordlist%, 1 ; 02.03.2018 12:37 18-03-02_12-37
             FileDelete, %A_ScriptDir%\Temp_Wordlist.txt
          }   
       }
-   }
+   } ; __ __
    
    g_WordListDB.Close(),
    

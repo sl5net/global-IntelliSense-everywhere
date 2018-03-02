@@ -71,15 +71,15 @@ copySelection2clipBoard( sleepDelay := 1, loopCounterMAX := 100){
    ; version-timestamp of this function: 13.08.2017 11:56 17-08-13_11-56
    ClipboardBackup := ClipboardAll
    loopCounter:=0
-  ;Msgbox,%c% `n (%A_ScriptName%~%A_LineNumber%)
+  ;Msgbox,%c% `n (%A_LineFile%~%A_LineNumber%)
   while(clipboard && loopCounter < loopCounterMAX){
    Clipboard:=""
    loopCounter += 1
    Sleep, %sleepDelay%
   }
-  ;Msgbox,%c% `n (%A_ScriptName%~%A_LineNumber%)
+  ;Msgbox,%c% `n (%A_LineFile%~%A_LineNumber%)
   if(clipboard){
-      Msgbox,ERROR %clipboard%=clipboard `n (%A_ScriptName%~%A_LineNumber%)
+      Msgbox,ERROR %clipboard%=clipboard `n (%A_LineFile%~%A_LineNumber%)
    }
 
    a_TimeIdleStart := A_TimeIdlePhysical ; A_TimeIdle ; 
@@ -97,11 +97,11 @@ copySelection2clipBoard( sleepDelay := 1, loopCounterMAX := 100){
             a_TimeIdleStart := A_TimeIdlePhysical ; A_TimeIdle ; 
          }else{
             if(doToolTipBackupFeedback)
-               ToolTip,%loopCounter%: `n >%Clipboard%< `n (%A_ScriptName%~%A_LineNumber%)
+               ToolTip,%loopCounter%: `n >%Clipboard%< `n (%A_LineFile%~%A_LineNumber%)
             return false
          }
          if(doToolTipBackupFeedback)
-            ToolTip,%loopCounter%: `n >%Clipboard%< `n (%A_ScriptName%~%A_LineNumber%)
+            ToolTip,%loopCounter%: `n >%Clipboard%< `n (%A_LineFile%~%A_LineNumber%)
          ;msgbox,%loopCounter%: `n >%c%<
       }
       Send,^c
@@ -110,10 +110,10 @@ copySelection2clipBoard( sleepDelay := 1, loopCounterMAX := 100){
       loopCounter += 1
       Sleep, %sleepDelay%
       if(doToolTipBackupFeedback)
-         ToolTip,%loopCounter%: `n >%Clipboard%< `n (%A_ScriptName%~%A_LineNumber%)
+         ToolTip,%loopCounter%: `n >%Clipboard%< `n (%A_LineFile%~%A_LineNumber%)
    }
    if(doToolTipBackupFeedback)
-      ToolTip,%loopCounter%: `n >%Clipboard%< `n (%A_ScriptName%~%A_LineNumber%)
+      ToolTip,%loopCounter%: `n >%Clipboard%< `n (%A_LineFile%~%A_LineNumber%)
    c:=Clipboard
    Clipboard := ClipboardBackup
    Suspend,Off

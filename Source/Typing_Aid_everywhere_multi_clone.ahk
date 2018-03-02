@@ -1,3 +1,5 @@
+Pause
+
 #ErrorStdOut
 ;
 ;<<<<<<<< IncludeI <<<< 171103161518 <<<< 03.11.2017 16:15:18 <<<<
@@ -36,7 +38,7 @@ do_tooltipReadWordList:=true
 
 g_tooltipText:=""
 global g_lineNumberFeedback
-g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
 ; ListGlobalVars() ; doesentn work
 ; test
@@ -49,7 +51,7 @@ SetTimer, tooltipABS, 4000
 ; SetTimer, tooltipABS, 100
 if(False) {
 global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
    msg := getWelcomeMsg()
    MsgBox,% msg
 } ;
@@ -131,7 +133,7 @@ If (true){
 
 
 global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
 
     activeTitleOLD:=activeTitle
@@ -169,10 +171,16 @@ global g_lineNumberFeedback
     }
     ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+
+    if(RegExMatch(activeTitle,"^\d:.+")){
+      Clipboard:=activeClass
+      tooltip, activeClass. prob a feedback msgWindow 17.02.2018 22:03 `n (%A_LineFile%~%A_LineNumber%)
+      continue
+    }
     if(activeTitleOLD == activeTitle && activeClassOLD == activeClass ){
         ; WinWaitNotActive, %activeTitle% ahk_class %activeClass%
         if(0){
-        tip=WinWaitNotActive %activeTitleREAL%`n (%A_ScriptName%~%A_LineNumber%)
+        tip=WinWaitNotActive %activeTitleREAL%`n (%A_LineFile%~%A_LineNumber%)
         ToolTip4sec(tip)
         WinWaitNotActive, %activeTitleREAL%
         }
@@ -182,7 +190,7 @@ global g_lineNumberFeedback
 global g_doSaveLogFiles
  if(g_doSaveLogFiles)
 lll(A_LineNumber, A_ScriptName, regEx . " end of while(true)`n '" . activeTitle . "' = activeTitle `n  time:" . timestampHHmmss)
-Msgbox,%activeTitle% `n`n %activeClass% `n`n  (%A_ScriptName%~%A_LineNumber%)
+Msgbox,%activeTitle% `n`n %activeClass% `n`n  (%A_LineFile%~%A_LineNumber%)
 ;ExitApp
     }
 
@@ -202,7 +210,7 @@ Msgbox,%activeTitle% `n`n %activeClass% `n`n  (%A_ScriptName%~%A_LineNumber%)
 
     if(debugIt) {
 global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
           ahkCode2 := getAhkCodeInsideFile(wordlistDirBase . "\FunnyWidgetHuHu" , wordlistDirBase . "\FunnyWidgetHuHu\" . filterFileName  ) 
     createEmptyFilterInNewDir(wordlistDirBase . "\FunnyWidgetHuHu" , wordlistDirBase . "\FunnyWidgetHuHu\" . filterFileName, ahkCode2, isInternMsgTransportIsClipboard) ; FunnyWidgetHuHu
     if(debugIt)
@@ -227,7 +235,7 @@ global g_lineNumberFeedback
 
     if(!wordlistDir) {
         global g_lineNumberFeedback
-        g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+        g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
         msgbox,!wordlistDir exitap (line:`%A_LineNumber`%) `n 17-03-19_14-06
         exitapp
     }
@@ -236,10 +244,10 @@ global g_lineNumberFeedback
             wordlistNEW=noTitle
         else {
             global g_lineNumberFeedback
-            g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+            g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
             m=!wordlistNEW `n '%activeTitle%' = activeTitle  `n  '%activeClass%' = activeClass `n'%wordlistDir%' = wordlistDir `n==> return (line:`%A_LineNumber`%) `n 17-03-19_14-09
             g_tooltipText:=m
-            Msgbox,%m%`n (from: %A_ScriptName%~%A_LineNumber%) 17-08-11_23-42
+            Msgbox,%m%`n (from: %A_LineFile%~%A_LineNumber%) 17-08-11_23-42
            ; ToolTip5sec(m . " `n" . A_LineNumber . " " . A_ScriptName . " " . Last_A_This)
             ; return ; we are inside a while loop ;) return probably makes now since there ;) 24.03.2017 20:29 17-03-24_20-29
 
@@ -264,14 +272,14 @@ lll( A_LineNumber, A_ScriptName, msg . "`n 17-07-29_14-18 ")
         }
         if(false && !activeTitle) {
             global g_lineNumberFeedback
-            g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+            g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
             msgbox,!activeTitle exitap (line:`%A_LineNumber`%) `n 17-03-19_14-19
             exitapp
         }
 
         if(!activeClass) {
             global g_lineNumberFeedback
-            g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+            g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
             msgbox,!activeClass exitap (line:`%A_LineNumber`%) `n 17-03-19_14-15
             exitapp
         }
@@ -284,7 +292,7 @@ wordlistOLD := RegExReplace(wordlistOLD, "m)\n.*", "") ; never is multioline. th
 SetTitleMatchMode, 1
 activeTitle := RegExReplace`(activeTitle, Chr`(37`) . ".*", ""`) ; delete prozent. should be easy to include variable later. some websites have suche long title with the procent in it. dont like it. simplify it. 16.03.2017
 global g_lineNumberFeedback
-g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 wordlistDir = %wordlistDir%
 activeTitle = %activeTitle%
 activeClass = %activeClass%
@@ -319,7 +327,7 @@ wordlistNEW = %activeTitle%
         ahkSource .= "fileEx := FileExist ( wordlistFilterPath2Abs ) `n"
         ; ahkSource .= "KeyWait Control  `; Wartet darauf, dass sowohl STRG als auch ALT losgelassen wird. `n"
         ahkSource .= "if( !fileEx ) { `n"
-        ahkSource .= "message = :(  ``n '%wordlistFilterPath2%'  ``n '%wordlistFilterPath2Abs%'  ``n existiert nicht ( `%fileEx%` = fileEx ) . ``n ``n message with id (1704171514) was copied to the Clipboard. Sor you probably could find this source code little bit easier. ``n (from: %A_ScriptName%~%A_LineNumber%) `n "
+        ahkSource .= "message = :(  ``n '%wordlistFilterPath2%'  ``n '%wordlistFilterPath2Abs%'  ``n existiert nicht ( `%fileEx%` = fileEx ) . ``n ``n message with id (1704171514) was copied to the Clipboard. Sor you probably could find this source code little bit easier. ``n (from: %A_LineFile%~%A_LineNumber%) `n "
         ahkSource .= "tooltip, `%message`% `n "
 
         ahkSource .= "Clipboard = `%message`%  `n "
@@ -372,8 +380,8 @@ ahkSource .= temp
     SetTitleMatchMode,1
     ; IfWinNotExist,temp.ahk
     ; IfNotExist,temp.ahk
-;~     Tooltip, %ahkSource% `n (from: %A_ScriptName%~%A_LineNumber%)
-;~     Msgbox,`n (from: %A_ScriptName%~%A_LineNumber%)
+;~     Tooltip, %ahkSource% `n (from: %A_LineFile%~%A_LineNumber%)
+;~     Msgbox,`n (from: %A_LineFile%~%A_LineNumber%)
 
     if(GetKeyState("ctrl", "P"))
         KeyWait, ctrl
@@ -385,10 +393,15 @@ ahkSource .= temp
     {
         FileWriteAndRun( ahkSource , "temp.ahk" ) ; wozu ? 13.08.2017 10:52
     } else {
-        Tooltip, WinWaitClose   temp.ahk `n (from: %A_ScriptName%~%A_LineNumber%)
+        Tooltip, WinWaitClose   temp.ahk `n (from: %A_LineFile%~%A_LineNumber%)
         WinWaitClose,temp.ahk,,5
         IfWinExist,temp.ahk
-            MsgBox,4 ,Oops , :-O WinExist temp.ahk `n `n %A_ScriptName%~%A_LineNumber%,5
+        {
+            msg=:-O WinExist temp.ahk `n `n %A_LineFile%~%A_LineNumber% ==> continue
+            feedbackMsgBox("Oops ",msg,1,1)
+            sleep,2000
+            continue
+        }
     }
     ; FileDeleteAsyncDynaRun(A_WorkingDir . "\temp.ahk" , 500)
     Sleep,40 ; you need to use it minimum of 3 seconds
@@ -399,7 +412,7 @@ global g_doSaveLogFiles
 
     g_tooltipText = WaitNotActive, %activeTitle%
     ; WinWaitNotActive [, WinTitle, WinText, Seconds, ExcludeTitle, ExcludeText]
-    g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+    g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
 DetectHiddenText,Off
     ; WinWaitNotActive, ahk_class %activeClass%
@@ -417,17 +430,17 @@ DetectHiddenText,Off
     ; WinWaitNotActive, %activeTitle% ahk_class %activeClass% ; seems not work alway. be careful !! with that :( 29.04.2017 22:13
 ;    WinWaitNotActive, %activeTitle% %activeClass%
     g_tooltipText = WinWaitNotActive, CopyQ
-    g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+    g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
     WinWaitNotActive,CopyQ , , 9
     g_tooltipText = WinWaitNotActive,- Everything
-    g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+    g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
     WinWaitNotActive,- Everything , , 9 ; ahk_class EVERYTHING
 
     if( debugIt || 0) {
 global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
         l = ______________________________________________________________ `n ; %l%
     MsgBox, '%activeTitle%' = activeTitle  `n %l% '%varInjects%' = varInjects  %l% `n (line:%A_LineNumber%) `n  '%ahkSource%' = ahkSource of temp.php `n (line:%A_LineNumber%) `n
     }
@@ -456,13 +469,13 @@ return  ; probably redundant. its more secure if we do that.
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 createGLOBALwordlistNameFilterIfNotExist(wordlistDirBase ) {
 global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
    isDebuggingOverWriteAlwayUserUpdatesWithThisScript := false
    filterFileName := "wordlistNameFilter.inc.ahk"
  wordlistFilterPath := wordlistDirBase . "\" . filterFileName 
  if( isDebuggingOverWriteAlwayUserUpdatesWithThisScript ) {
 global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
    FormatTime, timestamp, %A_now%,yy-MM-dd_HH-mm
     wordlistFilterPathBackup := wordlistDirBase . "\" . timestamp . "_" . filterFileName 
 
@@ -472,7 +485,7 @@ global g_lineNumberFeedback
 } 
  if(!fileExist(wordlistFilterPath)) {
 global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 ; the following gives no errors
 
 ahkCodeInsideFile =
@@ -488,7 +501,7 @@ ahkCodeInsideFile =
 
 if`(A_ScriptName == "wordlistNameFilter.inc.ahk" `) {
 global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%  ; thats developer mode. this script is not includet. 08.03.2017 09:14
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%  ; thats developer mode. this script is not includet. 08.03.2017 09:14
 activeClass := "ChromeWidgetWin1" 
 activeTitle  = I would like to hire a PHP Developer | Codeigniter | CSS | HTML5 | JSON | PHP - Google Chrome 
 activeTitle := wordlistNEW
@@ -497,7 +510,7 @@ activeTitle := wordlistNEW
 
 if `(!wordlistNEW `) {
 global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
     m = ERROR wordlistNEW is EMPTY: ``n ``n '`%wordlistNEW`%' = wordlistNEW  ``n   17-03-05_14-51 ``n ``n '%wordlistFilterPath%' = wordlistFilterPath  ``n `(line:`%A_LineNumber`%`) ``n `%A_ScriptFullPath`% = A_ScriptFullPath   `(line: `%A_LineNumber`%` token50)
    Clipboard := m
     tooltip, ERRORmessage is copied to the >>Clipboard<< `%m`% 
@@ -507,7 +520,7 @@ global g_lineNumberFeedback
  } 
 if `(!wordlistDir `) {
 global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
     MsgBox, ERROR wordlistDir is EMPTY 17-03-19_11-52
     exitapp
 }
@@ -519,7 +532,7 @@ global g_lineNumberFeedback
  
  else if `( activeClass == "ChromeWidgetWin1" `) {
 global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
    
 `;   I would like to hire a PHP Developer | Codeigniter | CSS | HTML5 | JSON | PHP - Google Chrome ahk_class Chrome_WidgetWin_1 
    
@@ -541,7 +554,7 @@ global g_lineNumberFeedback
    } else
  {
 global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
  wordlistNEW := RegExReplace`( wordlistNEW, "`(SciTE4AutoHotkey|PhpStorm`)\.+" , ""`)  
  }
 wordlistNEW := RegExReplace`( wordlistNEW, ".`(ahk|txt|htm|pdf`)\.+" , ""`)  
@@ -560,7 +573,7 @@ wordlistNEW := RegExReplace`( wordlistNEW, ".`(ahk|txt|htm|pdf`)\.+" , ""`)
 
 if`(A_ScriptName == "wordlistNameFilter.inc.ahk" `) {
 global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%   ; thats developer mode. this script is not includet. 08.03.2017 09:14
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%   ; thats developer mode. this script is not includet. 08.03.2017 09:14
 ; Clipboard := wordlistNEW ;  we dont transport usually inside this global file via clipboard 06.03.2017 19:41
  MsgBox,  '`%wordlistNEW`%' = wordlistNEW  ``n `%activeClass`% = activeClass ``n  17-03-06_18-48 ``n ``n `( line: `%A_LineNumber`%`)
 }
@@ -584,7 +597,7 @@ return
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 getWordlistNEWfromPluginIfExist(wordlistDir, wordlistNEW, activeClass, activeTitle   ) {
 global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
    m = '%wordlistNEW%' = wordlistNEW  `n '%wordlistDir%' = wordlistDir  `n  '%activeTitle%' = activeTitle  `n 
 global g_doSaveLogFiles
  if(g_doSaveLogFiles)
@@ -624,7 +637,7 @@ lll(A_LineNumber, "Typing_Aid_everywhere_multi_clone.ahk" , "`n" . m)
 worlistExtension := SubStr(wordlistNEW, -3)
 if( worlistExtension  <> ".txt" ) {
 global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
    m = '%wordlistNEW%' = wordlistNEW  `n 
       ToolTip5sec(A_LineNumber . "THATS VERY QUICK AND DIRTY AND MAYBEEEE IT HALPS NOT!!!! " . A_ScriptName . " " . m) ;
 ; return,  "superSimple.txt"
@@ -651,7 +664,7 @@ if(false)
 Loop,20
  {
 global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 Clipboard = %ClipboardBackup%
 cExtension := SubStr(Clipboard, -3)
 if( worlistExtension  <> ".txt" )
@@ -673,16 +686,16 @@ return wordlistNEW
 
 createEmptyFilterInNewDir(wordlistDir, wordlistFilterPath,ahkCode, isInternMsgTransportIsClipboard){
 global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 if(!FileExist(wordlistDir)){
 global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
    FileCreateDir, % wordlistDir
    ;~ FileAppend, , % wordlistFilterPath
 }
 ;~ if(!isInternMsgTransportIsClipboard) 
    if(!FileExist( wordlistFilterPath ) ){
-      g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+      g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
       FileAppend, % ahkCode , % wordlistFilterPath
     }
 return true
@@ -809,7 +822,7 @@ global g_nextCriticalCommandString
         global g_nextCriticalCommandTimeIdle ; checkCriticalCommand() WinWaitNotActive, %activeTitle% %activeClass%
 
 if(0){ ; check if this is arrived 30.04.2017 09:43
-    Msgbox,n (%A_ScriptName%~%A_LineNumber%) :-)
+    Msgbox,n (%A_LineFile%~%A_LineNumber%) :-)
     ExitApp
 }
     ; is this function triggerd evver onee time? i dont know if setinterval works if the script stucks. may we cant do anything then from inside the script. needs temp ahk. 30.04.2017 09:25
@@ -830,7 +843,7 @@ if(0){ ; check if this is arrived 30.04.2017 09:43
 
              if( activeTitle == activeTitleOLD && activeClass <> activeClassOLD ){
                  ; if this ever happend ? of is this function ovsolete? 30.04.2017 09:59 :D i dont knew
-                 ; Msgbox, title is the same but class differs. a new wordlist shod be used. (%A_ScriptName%~%A_LineNumber%)
+                 ; Msgbox, title is the same but class differs. a new wordlist shod be used. (%A_LineFile%~%A_LineNumber%)
 
                  if ( 0) {
                  ; yeeeaaahhh now it happens first time 30.04.2017 10:54 :)
@@ -848,11 +861,11 @@ lll(A_LineNumber, A_ScriptName, "reload 17-08-04_14-42")
 global g_doRunLogFiles
  if(g_doRunLogFiles)
 run,log\%A_ScriptName%.log.txt
-                MsgBox, =>Reload  `n  `n (%A_ScriptName%~%A_LineNumber%)
+                MsgBox, =>Reload  `n  `n (%A_LineFile%~%A_LineNumber%)
                  Reload
              }
              if( 0 ) ; fo debugging really useful.
-            tooltip,%activeTitle%`n ?= `n%activeTitleOLD% `n `n  %g_nextCriticalCommandTimeIdle% = g_nextCriticalCommandTimeIdle `n (%A_ScriptName%~%A_LineNumber%)
+            tooltip,%activeTitle%`n ?= `n%activeTitleOLD% `n `n  %g_nextCriticalCommandTimeIdle% = g_nextCriticalCommandTimeIdle `n (%A_LineFile%~%A_LineNumber%)
         }
     } else
         g_nextCriticalCommandTimeIdle := 0

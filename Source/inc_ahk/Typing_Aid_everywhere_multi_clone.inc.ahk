@@ -14,7 +14,7 @@ lll(A_LineNumber, "Typing_Aid_everywhere_multi_clone.inc.ahk", ":) _____________
 
 
     global g_lineNumberFeedback
-    g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+    g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
 
 
@@ -62,7 +62,7 @@ if(!wordlistNEWarchivePath)
   ; So hear it's possibly a good idea to generate a new one by using a template. 12.07.2017 21:12
 
     global g_lineNumberFeedback
-    g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+    g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
     WinGetActiveTitle,at
     strLen_wordlistNEWar := StrLen(wordlistNEWarchivePath)
@@ -72,7 +72,7 @@ if(!wordlistNEWarchivePath)
        ; Let's generate a pretty short 80 signs long name. 12.07.2017 21:14
     if(strLen_wordlistNEWar>70) {
       global g_lineNumberFeedback
-      g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+      g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
       wordlistNEWarchivePath80 := "... " . SubStr(wordlistNEWarchivePath, -70 ) 
       ; MsgBox, '%wordlistNEWarchivePath80%' = wordlistNEWarchivePath80  `n (line:%A_LineNumber%) `n 
@@ -142,7 +142,7 @@ Loop, read, % wordlistNEWarchivePath
             lineInRegExArray.Insert(lineInRegEx)
             exist_includeFilePath := (FileExist(includeFilePath)) ? 1 : 0
             if(!exist_includeFilePath){
-              msg =:-( ERROR %exist_includeFilePath% = exist_includeFilePath `n %includeFilePath% `n  >%wordlistNEWarchivePath%< = wordlistNEWarchivePath (from: %A_ScriptName%~%A_LineNumber%)
+              msg =:-( ERROR %exist_includeFilePath% = exist_includeFilePath `n %includeFilePath% `n  >%wordlistNEWarchivePath%< = wordlistNEWarchivePath (from: %A_LineFile%~%A_LineNumber%)
               Tooltip,%msg%
               g_doSaveLogFiles := true
               lll_if_g_doSaveLogFiles(A_LineNumber, A_ThisFunc,  msg)
@@ -269,7 +269,7 @@ disableCopyQ() ; enableCopyQ() ;
 
 
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
    MsgBox, 17-03-10_08-06
    ; by restoring we cant us a token or id becouse we dont know what the real value of clipboard was. 07.03.2017 08:08
@@ -279,7 +279,7 @@ disableCopyQ() ; enableCopyQ() ;
    while(i++ < iMax )
    {
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
          result:=SubStr(ClipboardBackup,l+1)
          Clipboard := result
@@ -300,7 +300,7 @@ disableCopyQ() ; enableCopyQ() ;
 
 wordlistOLDbackup( wordlistDir , wordlistOLD){
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
    FileCopy, % wordlistDir . "\" . wordlistOLD , % wordlistDir . "\" . wordlistOLD . ".backup.txt", 1
    return 1
@@ -310,7 +310,7 @@ wordlistOLDbackup( wordlistDir , wordlistOLD){
 
 wordlistOLDdisable( typingAidSourcePath, wordlistActive){
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
    wordlistActive = % typingAidSourcePath . "\" . wordlistActive
    wordlistDisable = % typingAidSourcePath . "\" . wordlistActive ".backup.txt"
@@ -323,10 +323,10 @@ runTypingAidAHKifNotExist( typingAidAHK ){
    SetTitleMatchMode,2
     IfWinNotExist,TypingAid.ahk
     {
-        g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+        g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
         IfWinNotExist,TypingAid
         {
-            g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+            g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
         ;   MsgBox,,TypingAid  is running, :( `n are you sure TypingAid  is running? `n  IfWinNotExist TypingAid  `n (line:%A_LineNumber%) `n   lets try start it   automatically, 2
         ; lets wait and try again. maybe its reload its self and needs only a second
@@ -337,7 +337,7 @@ runTypingAidAHKifNotExist( typingAidAHK ){
                 ; gosub,couldIfindMyself
                 msg := "Run, typingAidAHK"
                 ; Run, % typingAidAHK
-MsgBox, run TypingAid `n  `n (%A_ScriptName%~%A_LineNumber%)
+MsgBox, run TypingAid `n  `n (%A_LineFile%~%A_LineNumber%)
                 RunAs,Administrator, % typingAidAHK
 
                 tooltip, '%msg%' = msg  `n (line:%A_LineNumber%)
@@ -348,7 +348,7 @@ lll(A_LineNumber, "Typing_Aid_everywhere_multi_clone.inc.ahk", msg )
             }
 
             g_tooltipText = WinWait TypingAid.ahk
-            g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+            g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
             WinWait,TypingAid.ahk,, 9
             IfWinNotExist,TypingAid
             {
@@ -365,16 +365,16 @@ checkFilePathExistens1704291222(wordlistDir, destinDir, sourceDir, typingAidAHK 
 
 
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
    DetectHiddenWindows,on
    SetTitleMatchMode,1
 IfWinNotExist,TypingAid.ahk
 {
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
    IfWinNotExist,TypingAid
    {
-    g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+    g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
 ;   MsgBox,,TypingAid  is running, :( `n are you sure TypingAid  is running? `n  IfWinNotExist TypingAid  `n (line:%A_LineNumber%) `n lets try start it automatically, 2
 ; lets wait and try again. maybe its reload its self and needs only a second
@@ -390,7 +390,7 @@ lll(A_LineNumber, "Typing_Aid_everywhere_multi_clone.inc.ahk", "Debuggging!  NOT
 
     }
     g_tooltipText = WinWait TypingAid.ahk
-    g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+    g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
    WinWait,TypingAid,, 9
     IfWinNotExist,TypingAid
     {
@@ -406,7 +406,7 @@ SetTitleMatchMode,2
 IfWinNotExist,TypingAid
 {
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
    MsgBox,,NotExist?, :( IfWinNotExist '%typingAidAHK%' = typingAidAHK  `n (line:%A_LineNumber%) `n , 2
 }
@@ -414,7 +414,7 @@ IfWinNotExist,TypingAid
    if(! FileExist(wordlistDir) )
    {
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
    FileCreateDir, % wordlistDir
    Sleep,100
@@ -422,7 +422,7 @@ IfWinNotExist,TypingAid
    if(! FileExist(wordlistDir) )
    {
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
    Last_A_This:=A_ThisFunc . A_ThisLabel 
    ToolTip1sec(A_LineNumber . " " . A_ScriptName . " " . Last_A_This) ;
@@ -438,7 +438,7 @@ IfWinNotExist,TypingAid
    if(! FileExist(sourceDir) )
    {
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
    Last_A_This:=A_ThisFunc . A_ThisLabel 
    ToolTip1sec(A_LineNumber . " " . A_ScriptName . " " . Last_A_This) ;
@@ -456,7 +456,7 @@ IfWinNotExist,TypingAid
 
 simplifyNameOfWordlistNEWstep1( wordlistNEW ) {
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
 ;   wordlistNEW := "superSimple" . ".txt"
    return wordlistNEW ; 
@@ -480,7 +480,7 @@ return wordlistNEW
 
 encodeAHKchars( s ){
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
    s := RegExReplace( s , "(""|``)", "$1$1")
    s := RegExReplace( s , "(``n|`%|\(|\))", "``$1")
@@ -488,7 +488,7 @@ encodeAHKchars( s ){
 }
 encodeAHKcharsOLD( s ){
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
    s := RegExReplace( s , "(""|``)", "$1$1")
 ;   hi3 := RegExReplace( s , "(``)", "$1$1")
@@ -500,7 +500,7 @@ encodeAHKcharsOLD( s ){
 selfPerformanceTest()
 {
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
 disableCopyQ() ; enableCopyQ() ;
 
@@ -518,12 +518,12 @@ Clipboard = selfPerformanceTest
    Loop,9
    {
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
    i := 0
       while(i++ < 99){
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
    Sleep,10
    result := DynaRunGetClipboard(ahkCode)
@@ -539,7 +539,7 @@ millisec := A_TickCount - TickCount1
       MsgBox, %   ":-( ERROR wrong result " . Clipboard
 else {
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
 ; MsgBox, % ":-)  " .  Clipboard
 }
@@ -557,20 +557,20 @@ DynaRunGetClipboard2(ahkCode){
 disableCopyQ() ; enableCopyQ() ;
 
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
    MsgBox, that function is obsolte now 11.03.2017 16:57 `n  '%ahkCode%' = ahkCode  `n (line:%A_LineNumber%) `n 
    ClipboardBackup1703061259 := Clipboard   
    Loop,9
 {
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
    DynaRun(ahkCode)
    i := 0
       while(i++ < 99){
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
    Sleep,10
    result  = %Clipboard%
@@ -585,7 +585,7 @@ Clipboard := ClipboardBackup1703061259
 }
 selfPerformanceTest2(){
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
    ClipboardBackup1703061259 := Clipboard
    ahkCode =
@@ -604,13 +604,13 @@ Clipboard = selfPerformanceTest2
    Loop,9
 {
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
    DynaRun(ahkCode)
    i := 0
       while(i++ < 99){
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
    Sleep,10
    result  = %Clipboard%
@@ -628,7 +628,7 @@ millisec := A_TickCount - TickCount1
 MsgBox, ERROR !!! :-( `n %Clipboard% `n (line:%A_LineNumber%) `n 
 else{
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
 m = %Clipboard% `n (line:%A_LineNumber%) `n 
    ToolTip4sec(m)
@@ -653,7 +653,7 @@ MsgBox, 17-03-10_08-04
 
 DynaRunENDa�sldkjfa�sldkjfl(TempScript, pipename="") {
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
    static _:="uint",@:="Ptr"
    If pipename =
@@ -685,7 +685,7 @@ WinClose,
 FileWriteAndRun(sayHelloCode, sayHelloFunctionInc){
  global g_lineNumberFeedback
 
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
 
     DetectHiddenWindows,On
@@ -708,13 +708,13 @@ FileWriteAndRun(sayHelloCode, sayHelloFunctionInc){
    FileWrite(sayHelloCode, sayHelloFunctionInc)
    Loop,200 ;  
    {
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
    if(GetKeyState("Ctrl", "P"))
     KeyWait Control  ; Wartet darauf, dass sowohl STRG als auch ALT losgelassen wird.
 
    if(FileExist(sayHelloFunctionInc)){
-    g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+    g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
       isFileExist := true
       break
    }
@@ -729,7 +729,7 @@ FileWriteAndRun(sayHelloCode, sayHelloFunctionInc){
 }
 FileWrite(sayHelloCode, sayHelloFunctionInc){
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
    if(FileExist(sayHelloFunctionInc))
       FileDelete, % sayHelloFunctionInc
@@ -739,12 +739,12 @@ FileWrite(sayHelloCode, sayHelloFunctionInc){
 }
 mvarInjects(wordlistDir, wordlistNEW, ActiveClass, activeTitle){
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
 if(!wordlistDir)
 {
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
 msgbox,!wordlistDir exitap (line:`%A_LineNumber`%) `n 17-03-19_14-06
 exitapp
@@ -752,7 +752,7 @@ exitapp
 if(!wordlistNEW)
 {
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
 msgbox,!wordlistNEW exitap (line:`%A_LineNumber`%) `n
 exitapp
@@ -760,7 +760,7 @@ exitapp
 if(!ActiveClass)
 {
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
 msgbox,!ActiveClass exitap (line:`%A_LineNumber`%) `n
 exitapp
@@ -768,7 +768,7 @@ exitapp
 if(!activeTitle)
 {
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 }
 
    varInjects =
@@ -782,7 +782,7 @@ if(!activeTitle)
 }
 getWelcomeMsg(){
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
 msg = 
 (
@@ -799,7 +799,7 @@ delete WordlistLearned.db
    
 descriptions:
 <word>|d|<description>
-"Word descriptions can be added to 'Wordlist.txt' that will appear in the wordlist next to the word. These descriptions should be in the form of 
+"Word descriptions can be added to 'Wordlist .txt' that will appear in the wordlist next to the word. These descriptions should be in the form of
 <word>|d|<description>, e.g., Tylenol|d|Pain Reliever. 
 This could be used for things like definitions, translation aids, or function arguments. When Fixed Width fonts are used in the wordlist, the description columns will be tabbed evenly so they line up."
 04.03.017 16:16 from https://github.com/ManiacDC/TypingAid
@@ -833,7 +833,7 @@ return msg
 
 getAhkCodeInsideFile(wordlistDir, wordlistFilterPath ) {
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
 ahkCodeInsideFile =
 (
@@ -850,14 +850,14 @@ wordlistNEW_time_between := wordlistNEW
 `; if you want you could use the follwong global variables fot calculating you new wordlistNEW : wordlistDir, wordlistNEW, ActiveClass, activeTitle  
 if `(!wordlistNEW `){
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
     MsgBox, ERROR wordlistNEW is EMPTY 17-03-05_14-51
     exitapp
 }
 if `(!wordlistDir `){
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
     MsgBox, ERROR wordlistDir is EMPTY 17-03-19_11-52
     exitapp
@@ -879,7 +879,7 @@ return ahkCodeInsideFile
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 DynaRunGetClipboard(value){
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
 disableCopyQ() ; enableCopyQ() ;
 
@@ -891,7 +891,7 @@ disableCopyQ() ; enableCopyQ() ;
       ;~ value := RegExReplace(value,"(Clipboard\s*:=)\s*(\w+)", "$1" . " . """ . id . """ " . "$2" )  ; Clipboard := wordlistNEW
 if(RegExMatch(value, "Clipboard\s*:?=") ) {
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
    ahkCode  := RegExReplace(value,"(Clipboard\s*:=)\s*(\w+)", "$1" . " """ . id . """ . " . "$2" )  ; Clipboard := wordlistNEW
    ;~ Clipboard := ahkCode ; debugging only
@@ -899,7 +899,7 @@ if(RegExMatch(value, "Clipboard\s*:?=") ) {
 }
 else{
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
    yesValueShouldGetEqualResult := true
 token = %id%%value%
@@ -913,7 +913,7 @@ Clipboard =  %token%
    k := 0
    while( k++ < 1000) {
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
       
          idBackup := A_TickCount  . "_line_" . A_LineNumber
@@ -931,7 +931,7 @@ Clipboard =  %token%
 }
    if(foundPos){
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
                result:=SubStr(result , StrLen(id)+1)
    }  else
@@ -956,7 +956,7 @@ enableCopyQ() ; enableCopyQ() ;
 
 selfTestLoop1000(loopMax){
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
    MsgBox, 17-03-10_08-04
    ; if you make much clipboard work during the test, you could see its not working fine :( 07.03.2017 01:05
@@ -964,7 +964,7 @@ selfTestLoop1000(loopMax){
 ;   id = 17-03-07_00-32 ; without this nummer you get some 1000 without any false, some with some false 07.03.2017 00:49
    while( i++ < loopMax)    {
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_ScriptName%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
       ToolTip, %i% < %loopMax%
       value = selfTest1703061808i%i%
@@ -1028,7 +1028,7 @@ ExitAPP_if_NOT_wordlistGeneratedPath(ALineNumber, AThisFunc, wordlistNEWarchiveP
     global g_doSaveLogFiles
     g_doSaveLogFiles := 1
     global g_lineNumberFeedback
-    ;g_lineNumberFeedback=%A_ScriptName%~%AThisFunc%~%ALineNumber%
+    ;g_lineNumberFeedback=%A_LineFile%~%AThisFunc%~%ALineNumber%
     g_lineNumberFeedback=Typing_Aid_everywhere_multi_clone.inc.ahk / %A_ScriptName% ~%AThisFunc%~%ALineNumber%
     msg = :( !FileExist(%wordlistNEWarchivePath%)) `n `n '%wordlistNEWarchivePath%' = wordlistNEWarchivePath  `n '%wordlistGeneratedPath%' = wordlistGeneratedPath  `n wordlistNEW= %wordlistNEW% `n ==> ExitAPP 17-08-11_00-00 `n %g_lineNumberFeedback%
     tooltip,% msg
@@ -1050,7 +1050,7 @@ global g_doSaveLogFiles
  if(g_doSaveLogFiles)
     lll(AThisFunc . "~" . ALineNumber, "Typing_Aid_everywhere_multi_clone.inc.ahk" , msg)
     ; llll(A_LineNumber, A_ScriptName, "")
-; Msgbox,'%g_doSaveLogFiles%' = g_doSaveLogFiles   (%A_ScriptName%~%A_LineNumber%) `
+; Msgbox,'%g_doSaveLogFiles%' = g_doSaveLogFiles   (%A_LineFile%~%A_LineNumber%) `
 return
 }
 ;>>>>>>>>>>>>>>>>> lll_if_g_doSaveLogFiles >>>>>>>>>>>>>>>>>>>>>>>>>>><>
@@ -1059,8 +1059,8 @@ return
 save_wordlistGeneratedPath(wordlistGeneratedPath,includeFileSContent,wordlistNEWarchivePath) {
 
 if(!wordlistNEWarchivePath){
-    Tooltip, >%fileContent%< =fileContent `n (from: %A_ScriptName%~%A_LineNumber%)
-    ; msgbox,cant read  >%fileContent%< =fileContent `n  becouse !wordlistNEWarchivePath `n (from: %A_ScriptName%~%A_LineNumber%)
+    Tooltip, >%fileContent%< =fileContent `n (from: %A_LineFile%~%A_LineNumber%)
+    ; msgbox,cant read  >%fileContent%< =fileContent `n  becouse !wordlistNEWarchivePath `n (from: %A_LineFile%~%A_LineNumber%)
 
         global g_doSaveLogFiles
         g_doSaveLogFiles := 1

@@ -24,10 +24,12 @@ Receive_wordlistAddress(CopyOfData){
 ;    wordlistNEWarchivePath := CopyOfData
 ;    wordlistActivePath  := CopyOfData
 ;    wordlistNEW := CopyOfData
+    wordlist := CopyOfData
+    tooltip,'%wordlistNEW%' = wordlistNEW `n ( %A_ScriptName%(inc)~%A_LineNumber% ) `n
 
-   ;feedbackMsgBox("wordlistOLD <??> CopyOfData",wordlistOLD . " <??> " . CopyOfData . "`n" . A_ScriptName . "(inc)~" . A_LineNumber)
-    if( 1 && wordlistOLD <> CopyOfData){
-      feedbackMsgBox("wordlistOLD <> CopyOfData",wordlistOLD . " <> " . CopyOfData . "`n" . A_ScriptName . "(inc)~" . A_LineNumber)
+
+    if( 1 && wordlistOLD <> wordlist){
+
        CloseListBox()
        SuspendOn()
 
@@ -43,8 +45,6 @@ Receive_wordlistAddress(CopyOfData){
         ;feedbackMsgBox("ReadInTheWordList()",wordlist . "`n" . activeTitle . " = activeTitle  `n " .  A_ScriptName . "(inc)~" . A_LineNumber)
         ReadInTheWordList()
         ;prefs_Length := setLength(ParseWordsCount, maxLinesOfCode4length1)
-         global wordlist
-          wordlist := CopyOfData
         wordlistOLD:=wordlist
         ;MainLoop()
     }
@@ -1068,8 +1068,9 @@ DeleteSelectedWordFromList(){
    global g_MatchPos
    global g_SingleMatch
    
-   if !(g_SingleMatch[g_MatchPos] = ""){ ;only continue if g_SingleMatch is not empty
-
+   if !(g_SingleMatch[g_MatchPos] = "") ;only continue if g_SingleMatch is not empty
+   {
+      
       DeleteWordFromList(g_SingleMatch[g_MatchPos])
       RecomputeMatches()
       Return
@@ -1312,11 +1313,11 @@ MaybeCoUninitialize(){
 
 setLength(ParseWordsCount, maxLinesOfCode4length1){
        if( ParseWordsCount > 0 ){
-;~           Tooltip,%ParseWordsCount% = ParseWordsCount(`from: %A_ScriptName%~%A_LineNumber%) `
+;~           Tooltip,%ParseWordsCount% = ParseWordsCount(`from: %A_LineFile%~%A_LineNumber%) `
     global prefs_Length
           if(ParseWordsCount <= maxLinesOfCode4length1){ ; 16 for 16 lines
             prefs_Length = 1 ; 27.03.2017 10:25 17-03-27_10-25 sl5.net
-            ; Msgbox,%prefs_Length% = prefs_Length`n (from: %A_ScriptName%~%A_LineNumber%)
+            ; Msgbox,%prefs_Length% = prefs_Length`n (from: %A_LineFile%~%A_LineNumber%)
           } else
             prefs_Length = 2 ; 27.03.2017 10:25 17-03-27_10-25 sl5.net
       }
@@ -1327,7 +1328,7 @@ setLength(ParseWordsCount, maxLinesOfCode4length1){
 
 doReloadIfScriptDontMoveThisLine(sec := 5){
 if(0){ ; check if this is arrived 30.04.2017 09:43
-    Msgbox,n (%A_ScriptName%~%A_LineNumber%) :-)
+    Msgbox,n (%A_LineFile%~%A_LineNumber%) :-)
     ExitApp
 }
     ; is this function triggerd evver onee time? i dont know if setinterval works if the script stucks. may we cant do anything then from inside the script. needs temp ahk. 30.04.2017 09:25

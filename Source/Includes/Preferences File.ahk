@@ -614,7 +614,7 @@ helpinfo_NumPresses=
 
 helpinfo_ShowLearnedFirst=
 (
-;"Show learned words first" controls whether the learned words appear before or after the words from Wordlist.txt.
+;"Show learned words first" controls whether the learned words appear before or after the words from Wordlist . txt.
 )
 
 helpinfo_ListBoxOffset=

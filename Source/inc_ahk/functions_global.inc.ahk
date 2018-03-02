@@ -16,9 +16,7 @@ isInteger(var) {
  
 
 getCaretPos(activedoProtectOutOfWindowPos:=true){
-   global g_CaretX_Old
-   global g_CaretY_Old
-   CaretX := A_CaretX 
+   CaretX := A_CaretX
    CaretY := A_CaretY 
    if(activedoProtectOutOfWindowPos){
 	   WinGetPos,wX,wY,wW,wH,A
@@ -45,14 +43,16 @@ getCaretPos(activedoProtectOutOfWindowPos:=true){
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
  lll(ln, scriptName, text="") {
 
+    if( RegExMatch( ln, g_ignReg["saveLogFiles"]["ln"])		|| RegExMatch( scriptName, g_ignReg["saveLogFiles"]["scriptName"])		|| RegExMatch( text, g_ignReg["saveLogFiles"]["text"]) )
+		return
+
 	ln .= "`n"
 	text .= "`n"
 
-	global GLOBAL_lllog_only_this_scriptName
 	scriptName := trim(scriptName)
 	GLOBAL_lllog_only_this_scriptName := trim(GLOBAL_lllog_only_this_scriptName)
 	if(StrLen(GLOBAL_lllog_only_this_scriptName)>0) {
-	do_createLog_notAppendLog:=true
+		do_createLog_notAppendLog:=true
 		if(scriptName != GLOBAL_lllog_only_this_scriptName)
 			return false
 	}
@@ -165,7 +165,12 @@ getCaretPos(activedoProtectOutOfWindowPos:=true){
 	lll := ""
 	return
 }
-;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+;>>>>>>>>>lll >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+
+
+
 
 ;<<<<<<<< sendClipboard <<<< 180111182313 <<<< 11.01.2018 18:23:13 <<<<
 sendClipboard(c){
@@ -178,7 +183,7 @@ sendClipboard(c){
 	}
 	if(c == Clipboard){
 		isError := true
-		Msgbox,:( Oops `n c == Clipboard (%A_ScriptName%~%A_LineNumber%) 
+		Msgbox,:( Oops `n c == Clipboard (%A_LineFile%~%A_LineNumber%)
 		return
 	}
 
@@ -190,24 +195,24 @@ sendClipboard(c){
 		Send,^v
 	}else{
 		isError := true
-		Msgbox,:( Oops `n NOTActive %at% (%A_ScriptName%~%A_LineNumber%) 
+		Msgbox,:( Oops `n NOTActive %at% (%A_LineFile%~%A_LineNumber%)
 	}
 	if(c <> Clipboard){
 		isError := true
-		Msgbox,:( Oops `n c <> Clipboard (%A_ScriptName%~%A_LineNumber%) 
+		Msgbox,:( Oops `n c <> Clipboard (%A_LineFile%~%A_LineNumber%)
 	}
 	Suspend,Off
 	if(InStr(Clipboard,"~token:")){
 		Clipboard := ClipboardBackup
 		send,^z^z
-		Msgbox,:( Mist token inside :( `n (%A_ScriptName%~%A_LineNumber%) 
+		Msgbox,:( Mist token inside :( `n (%A_LineFile%~%A_LineNumber%)
 	}
 	Clipboard := ClipboardBackup
 	if(ClipboardBackup <> Clipboard){
 		isError := true
 		l1 := StrLen(ClipboardBackup)
 		l2 := StrLen(Clipboard)
-		Msgbox,:( Oops `n l1=%l1%`n l2=%l2% `n ClipboardBackup == Clipboard (%A_ScriptName%~%A_LineNumber%) 
+		Msgbox,:( Oops `n l1=%l1%`n l2=%l2% `n ClipboardBackup == Clipboard (%A_LineFile%~%A_LineNumber%)
 	}
 	return
 }
@@ -987,19 +992,32 @@ if(WinExist("1:")){
 
 ;<<<<<<<< feedbackMsgBox <<<< 170814121750 <<<< 14.08.2017 12:17:50 <<<<
 feedbackMsgBoxNr(tit := "",text := "" ,x:=1,y:=1){
-;Tooltip, next try pls write feedbackMsgBox NOT feedbackMsgBoxNr `n (from: %A_ScriptName%~%A_LineNumber%) `
+;Tooltip, next try pls write feedbackMsgBox NOT feedbackMsgBoxNr `n (from: %A_LineFile%~%A_LineNumber%) `
     return feedbackMsgBox(tit ,text ,x,y)
 }
+
 feedbackMsgBox(tit := "",text := "" ,x:=1,y:=1){
 	WinGetActiveTitle,at
 	if(!at || RegExMatch(at, "^(\d:|temp\.ahk)")){ ; check for probably wrong title. dont know why its happens sometimes. :(
+        lll( A_LineNumber, A_ScriptName, "return")
 		return
 	}
 
+
 tit := RegExReplace(tit,"i)[\s,]+", " ")
-text := "" . RegExReplace(text,"i)[ ,]+", " ") . ""
+text := RegExReplace(text,"i)[ ,]+", " ")
+
+	; g_ignReg := { feedbackMsgBox:{tit:"", text:"."} , ...
+	; ; please use it like this: if( RegExMatch( ln, g_ignReg["saveLogFiles"]["ln"])	|| ......
+	if( RegExMatch( tit, g_ignReg[A_ThisFunc]["tit"]) || RegExMatch( text, g_ignReg[A_ThisFunc]["text"]) ){
+        lll( A_LineNumber, A_ScriptName, "return")
+		return
+    }
+
 if(!text)
     text:=tit
+
+; msgbox,% "g_ignReg..[tit]=>" . g_ignReg[A_ThisFunc]["tit"] . "< = >" . (RegExMatch(tit, g_ignReg[A_ThisFunc]["tit"])) . "< tit = >" . tit . "< `n `n " . A_LineNumber . " " . A_ScriptName . " "
 
 global g_feedbackMsgBoxNr
 if(!g_feedbackMsgBoxNr)
@@ -1015,13 +1033,14 @@ settitlematchmode,slow
 DetectHiddenWindows,Off
 while(feedbackMsgBoxNrPre > 0 && !winexist(feedbackMsgBoxNrPre . ":"))
     feedbackMsgBoxNrPre--
-;Msgbox,%feedbackMsgBoxNrPre% `n (%A_ScriptName%~%A_LineNumber%)
+;Msgbox,%feedbackMsgBoxNrPre% `n (%A_LineFile%~%A_LineNumber%)
 
 if(!feedbackMsgBoxNrPre)
     feedbackMsgBoxNrPre := 0
 feedbackMsgBoxNr := feedbackMsgBoxNrPre + 1
 
-if(feedbackMsgBoxNrPre > 4 || feedbackMsgBoxNr > 4){
+MAXcountMsgBoxNr := 5
+if(feedbackMsgBoxNrPre > MAXcountMsgBoxNr || feedbackMsgBoxNr > MAXcountMsgBoxNr){
 	TOolTip5sec(":( Oops `n feedbackMsgBoxNr>MAX `n " . A_LineNumber . " " . A_ScriptName . " " . Last_A_This,1,1) 
 	; for some reasion sometimes there anyway to many windows. therfor this dirty-bugFix:
 	SetTitleMatchMode,1
@@ -1070,6 +1089,8 @@ settitlematchmode,1
 SetTimer,myExitApp,500
 settitlematchmode,1
 boxTitle := `% feedbackMsgBoxNr . ":" . tit
+if(feedbackMsgBoxNr == %MAXcountMsgBoxNr%)
+text .= "``n feedbackMsgBoxNr == MAXcountMsgBoxNr == %MAXcountMsgBoxNr%"
 Msgbox ,,`% boxTitle, `% text
 ; ScrollBox(text ,"WP") ; Word Wrap and Pause
 ; WinWait, ScrollBox
@@ -1126,7 +1147,6 @@ IfWinNotExist, 1:
 return
 
 OnExi1883(){
-    global g_feedbackMsgBoxNr
     g_feedbackMsgBoxNr := g_feedbackMsgBoxNr - 1 ; sad :( onbound not possible
     sleep,100
     return
@@ -1135,8 +1155,8 @@ OnExi1883(){
 )
 AHKcode := "#" . "NoTrayIcon" . "`n" . AHKcode
 ;>>>>>>>> AHKcode >>>> 170814212827 >>>> 14.08.2017 21:28:27 >>>>
-; tooltip,%AHKcode%`n `n (%A_ScriptName%~%A_LineNumber%)
-; Msgbox,`n (%A_ScriptName%~%A_LineNumber%) `
+; tooltip,%AHKcode%`n `n (%A_LineFile%~%A_LineNumber%)
+; Msgbox,`n (%A_LineFile%~%A_LineNumber%) `
 ;ToolTip4sec(A_LineNumber . " " . A_ScriptName . " `n" . at)
 ;If(!WinExist(feedbackMsgBoxNr . ":")) ; shuld never happens
 SetTitleMatchMode,1
@@ -1181,7 +1201,7 @@ return, feedbackMsgBoxNr
 ;<<<<<<<< show_rectangle_by_mouseMove_animation <<<< 171010135140 <<<< 10.10.2017 13:51:40 <<<<
 show_rectangle_by_mouseMove_animation(rArea){
    if(!rArea){
-    Msgbox,:( !rArea `n (%A_ScriptName%~%A_LineNumber%)
+    Msgbox,:( !rArea `n (%A_LineFile%~%A_LineNumber%)
    }
    
    if(!rArea["bottom"])

@@ -1,22 +1,17 @@
 ; these functions handle database conversion
 ; always set the SetDbVersion default argument to the current highest version
 
-SetDbVersion(dBVersion = 7)
-{
+SetDbVersion(dBVersion = 7){
 	global g_WordListDB
 	g_WordListDB.Query("INSERT OR REPLACE INTO LastState VALUES ('databaseVersion', '" . dBVersion . "', NULL);")
 }
 
-
+;<<<<<<<< MaybeConvertDatabase <<<< 180223091829 <<<< 23.02.2018 09:18:29 <<<<
 ; returns true if we need to rebuild the whole database
-MaybeConvertDatabase()
-{
+MaybeConvertDatabase(){
 	global g_WordListDB
-	
 	databaseVersionRows := g_WordListDB.Query("SELECT lastStateNumber FROM LastState WHERE lastStateItem = 'databaseVersion';")
-	
-	if (databaseVersionRows)
-	{
+	if (databaseVersionRows){
 		for each, row in databaseVersionRows.Rows
 		{
 			databaseVersion := row[1]

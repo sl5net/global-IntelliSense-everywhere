@@ -1,8 +1,4 @@
-﻿
-
-
-
-/*
+﻿/*
 * Provides Static ADO Helper classes and Enums
 *
 */

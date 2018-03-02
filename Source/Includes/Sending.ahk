@@ -7,8 +7,7 @@
 ; <td class="col1" style="color: transparent">Schule</td>
 ; These functions and labels are related to sending the word to the program
 
-SendKey(Key)
-{
+SendKey(Key){
    IfEqual, Key, $^Enter
    {
       Key = ^{Enter}
@@ -30,16 +29,35 @@ getWordIndex(word) {
 msgbox, getWordIndex(word) `n is not implemented yet 17-07-10_14-10
 }
 getLineOfWord(word) {
-  ;~ global g_SingleMatch
+  global g_SingleMatch
   ;~ global g_SingleMatchReplacement
 
 ;~ erste zeile mit eintrag im wörterbuch: g_SingleMatch[1] 10.07.2017 12:13
 ;~ letzte zeile mit eintrag im wörterbuch: g_SingleMatch[1] 10.07.2017 12:13
 
   global WordlistFileName
-  WordlistFileName = wordlist.txt
+  global wordlist
+  ;WordlistFileName = wordlist.txt
+  WordlistFileName := wordlist
   if(!FileExist(WordlistFileName))
-  msgbox, :( 17-07-10_13-48
+    msgbox, :( 17-07-10_13-48
+
+    Loop, Read, %WordlistFileName%
+    {
+        if ErrorLevel
+            break
+
+        foundPos := RegExMatch(A_LoopReadLine, "^" . word )
+        if ( foundPos  ) {
+            ;msgBox, %A_LoopReadLine% 18-03-02_09-26
+            ;tooltip,'%A_LoopReadLine%' = A_LoopReadLine `n (line:%A_LineNumber%)
+            ;ToolTip1sec(A_LoopReadLine . "`n" . A_LineNumber . " " . A_ScriptName . " " .    Last_A_This)
+            return, JEE_StrUtf8BytesToText( A_LoopReadLine )
+            ; return A_Index
+         }
+        }
+
+    if(0)
     Loop,9999
     {
         FileReadLine, thisLine , %WordlistFileName%, %A_Index%
@@ -54,8 +72,6 @@ getLineOfWord(word) {
             return, thisLine
             return a_index
          }
-    ; _______________
-
     }
     ; MsgBox, '%WordlistFileName%' = WordlistFileName  n (line:%A_LineNumber%) n `n The end of the file has been reached or there was a problem.
 return
@@ -74,7 +90,7 @@ firstLine := g_SingleMatch[1]
     thisLine := g_SingleMatch[a_index]
     foundPos := RegExMatch(thisLine, word )
     if ( foundPos  ) {
-        msgBox, %thisLine% 17-07-10_13-28
+        msgBox, %thisLine% 170710_1328
         return a_index
      }
   }
@@ -163,12 +179,24 @@ disableCopyQ() ; enableCopyQ() ;
       ForceBackspace := false
    }
 
-sending := getCorrectedStringUAOSS( sending  ) 
+; sending := "getCorrectedStringUAOSS1==" getCorrectedStringUAOSS( sending  )
+
+;sending := "JEE_StrTextToUtf8Bytes" JEE_StrTextToUtf8Bytes( sending )
+;sending := JEE_StrUtf8BytesToText( sending )
+;sending := getCorrectedStringUAOSS( sending  )
+; MsgBox, % vText := JEE_StrUtf8BytesToText(vUtf8Bytes)
+
+
+; sending := "getCorrectedStringUAOSS2==" getCorrectedStringUAOSS( sending  )
+; sending = %sending%
+; sending := getCorrectedStringUAOSS( sending  )
+
+;Msgbox, '%sending%' = sending  n (line:%A_LineNumber%)  (line:%A_LineNumber%)
 ; ein eineins|rr|zwei|ahk|autohotkey source code
 ; eins|rr|zwei|ahk|autohotkey source code
 ; thats great :) here we find the complete line :) inside sending 17.03.2017 18:23 17-03-17_18-23
  ; SciTEWindow\_global.txt
- ;~ Msgbox,'%WordIndex%' = WordIndex  `n (%A_ScriptName%~%A_LineNumber%)
+ ;~ Msgbox,'%WordIndex%' = WordIndex  `n (%A_LineFile%~%A_LineNumber%)
 
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ; comments to WordIndex is numeric ID
@@ -246,8 +274,8 @@ if(isAHKcode)
        AHKcode := g_SingleMatch[WordIndex]
 
        ; lets open the wordlist inside notepad++ or so 19.04.2017 19:16
-;       Msgbox,'%wordlistActive%' = wordlistActive  n (line:%A_LineNumber%) n   n (from: %A_ScriptName%~%A_LineNumber%)
-; Msgbox,n (from: %A_ScriptName%~%A_LineNumber%)
+;       Msgbox,'%wordlistActive%' = wordlistActive  n (line:%A_LineNumber%) n   n (from: %A_LineFile%~%A_LineNumber%)
+; Msgbox,n (from: %A_LineFile%~%A_LineNumber%)
 
 
     }
@@ -280,10 +308,15 @@ if(false){
 
    if( isAHKcode ){
    AHKcode2 := ""
-AHKcode2 .= "#" . "NoTrayIcon `n SetKeyDelay, -1, -1 `n "
+AHKcode2 .= "#" . "NoTrayIcon `n "
+AHKcode2 .= "#" "MaxHotkeysPerInterval 99000000 `n "
+AHKcode2 .= "#" "HotkeyInterval 99000000 `n "
 AHKcode2 .= "SetWorkingDir, " . A_ScriptDir . "`n" ; doesent work has no effect ScriptDir|rr||ahk|send, % A_ScriptDir ; \\.\pipe 03.04.2017 11:17 17-04-03_11-17
-
-AHKcode2 .= "#" . "NoTrayIcon `n SetKeyDelay, -1, -1 `n "
+AHKcode2 .= "SetBatchLines, -1 `n "
+AHKcode2 .= "SetKeyDelay, -1, -1 `n "
+AHKcode2 .= "SetWinDelay, -1 `n "
+AHKcode2 .= "SetControlDelay, -1 `n "
+AHKcode2 .= "Process, Priority,, H `n "
 
 ;>>>>>>>> DynaRun >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 FileRead,dynaRunFunctionImplementationSource,dynaRunFunctionImplementationSource.inc.ahk
@@ -293,7 +326,7 @@ AHKcode2 .= dynaRunFunctionImplementationSource  . "`n"
 
 if(0){
 AHKcode2 .= "wordlist = , " . wordlistNEW . "`n" ; i cant do this :D becouse the script cant know this :D 12.08.2017 11:12
-Msgbox,% AHKcode2 . "`n`n = AHKcode2 `n (%A_ScriptName%~%A_LineNumber%)"
+Msgbox,% AHKcode2 . "`n`n = AHKcode2 `n (%A_LineFile%~%A_LineNumber%)"
 }
 ; doesent work has no effect ScriptDir|rr||ahk|send, % A_ScriptDir ; \\.\pipe 03.04.2017 11:17 17-04-03_11-17
 ; AHKcode2 .= "d := """ . a_scriptDir . """`n"
@@ -341,6 +374,7 @@ send,{blind}
        if( g_sending_is_buggy )
            lll(A_LineNumber, "Sending.ahk", "send,{blind} `n 17-07-29_11-47")
 
+        ;msgbox,(%A_LineFile%~%A_LineNumber%) `n %AHKcode2% 
        DynaRun(AHKcode2)
    }
 
@@ -350,7 +384,7 @@ send,{blind}
    sending:=trim( sending )
    if(RegExMatch( sending , "^[^\s]+(\\[^\\\s]+\\[^\\\s]+\.txt)$", SubPat) ) ; stores in SubPat1. 30.04.2017 12:24 is that buggy ? correct? todo:
         absWordListAddress := A_ScriptDir . "\..\" . sending
-        ;Msgbox,%absWordListAddress% `n (from: %A_ScriptName%~%A_LineNumber%)
+        ;Msgbox,%absWordListAddress% `n (from: %A_LineFile%~%A_LineNumber%)
         fExistWL := FileExist(absWordListAddress)
         fExist := FileExist(sending)
         ; InStr(FileExist("C:\My Folder"), "D") would be true only if the file exists and is a directory.
@@ -364,7 +398,7 @@ send,{blind}
         else
              run, %absWordListAddress%
 
-                 ;Msgbox,%absWordListAddress% `n (from: %A_ScriptName%~%A_LineNumber%)
+                 ;Msgbox,%absWordListAddress% `n (from: %A_LineFile%~%A_LineNumber%)
 
       }
 
@@ -514,7 +548,7 @@ else {
 if(!g_doUseSendPlay){
     SendRaw, %sending%
 }else{
-       SendPlay, %sending% ; First do the backspaces, Then send word (Raw because we want the string exactly as in wordlist.txt)
+       SendPlay, %sending% ; First do the backspaces, Then send word (Raw because we want the string exactly as in wordlist . txt)
 }
 
              global g_sending_is_buggy
@@ -612,7 +646,7 @@ if( g_sending_is_buggy )
 
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-      SendInput, %sending% ; First do the backspaces, Then send word (Raw because we want the string exactly as in wordlist.txt)
+      SendInput, %sending% ; First do the backspaces, Then send word (Raw because we want the string exactly as in wordlist . txt)
  ;Msgbox, '%SendValue%' = SendValue  `n `n '%sending%' = sending `n (line:%A_LineNumber%) n
 
  global g_sending_is_buggy
@@ -628,7 +662,7 @@ if( g_sending_is_buggy )
    if( g_sending_is_buggy )
        lll(A_LineNumber, "Sending.ahk", " SendEvent, %sending% ")
 
-      SendEvent, %sending% ; First do the backspaces, Then send word (Raw because we want the string exactly as in wordlist.txt)
+      SendEvent, %sending% ; First do the backspaces, Then send word (Raw because we want the string exactly as in wordlist . txt)
  ;Msgbox, '%SendValue%' = SendValue  `n `n '%sending%' = sending `n (line:%A_LineNumber%) n
       Return
    }
@@ -1192,7 +1226,7 @@ if( time2keyPressLog[key] )
 Else {
   key := SubStr(key,2 , 1) . SubStr(key,1,1)
   r := time2keyPressLog[key]
-  ;Msgbox,%key% --- %temp%`n (from: %A_ScriptName%~%A_LineNumber%)
+  ;Msgbox,%key% --- %temp%`n (from: %A_LineFile%~%A_LineNumber%)
   if( RegExMatch(temp,"^d+$"))
         r :=  temp
     else
@@ -1244,7 +1278,7 @@ getRealisticDelayDynamicSendAHKcode(g_Word,AHKcode){
 
 ; lets ignore to send the first letters
 BackSpaceLen := StrLen(g_Word)
-  ;  msgbox,'%BackSpaceLen%' = BackSpaceLen   = '%g_Word%' = g_Word `n (%A_ScriptName%~%A_LineNumber%)
+  ;  msgbox,'%BackSpaceLen%' = BackSpaceLen   = '%g_Word%' = g_Word `n (%A_LineFile%~%A_LineNumber%)
 AHKcode := substr(AHKcode, BackSpaceLen + 1)
 isDoubleQuoteDeletedByBackspace := false
 while( RegExMatch( AHKcode , "P)([^\n])([^\n])" , m , startPos ) ) {
@@ -1310,7 +1344,7 @@ if(true){
     if(m1 = " "){
         m1 := "{space}" ; that seems importend. for e.g. hiere: climbers = CLIMBERS;
     }
-;    tooltip,'%m1%'=m1 (%A_ScriptName%~%A_LineNumber%)
+;    tooltip,'%m1%'=m1 (%A_LineFile%~%A_LineNumber%)
     ; m2 := convertSendCode2SendPlayCode(m2)
 }
     AHKcodePre := SubStr(AHKcode, 1 , mPos1 + mLen1 -2 ) . m1
@@ -1335,7 +1369,7 @@ AHKcode := "`nSend," . AHKcode
 
 ; deencodeing. the space becouse they key is wainting without using key. thats quick and dirty and good working workaround. 27.04.2017 18:22:
  StringReplace, AHKcode , AHKcode ,´,````{SPACE},, All
-; Msgbox,'%AHKcode%' = AHKcode  `n (%A_ScriptName%~%A_LineNumber%)
+; Msgbox,'%AHKcode%' = AHKcode  `n (%A_LineFile%~%A_LineNumber%)
 return AHKcode
 }
  ; StringReplace, AHKcode , AHKcode ,;,````;,, All ; maybe this is not problem. may comment it oust
@@ -1346,6 +1380,7 @@ return AHKcode
 
 
 getCorrectedStringUAOSS( sending  ) {
+
 sending := RegExReplace( sending , "i)Ã¼", Chr(252) ) ; ue http://slayeroffice.com/tools/ascii/
 sending := RegExReplace( sending , "Ãœ", Chr(220) ) ; UE http://slayeroffice.com/tools/ascii/ Ãœbrigens
 sending := RegExReplace( sending , "ueber", "" . Chr(252) .  "ber" ) ; ue http://slayeroffice.com/tools/ascii/
@@ -1355,6 +1390,8 @@ sending := RegExReplace( sending , "i)\bmuendl.\b","m" . Chr(252) . "uendl.") ; 
 
 sending := RegExReplace( sending , "Ã¶", Chr(246) ) ; oe zB hÃ¶ren http://slayeroffice.com/tools/ascii/
 sending := RegExReplace( sending , "oe", Chr(246) ) ; oe zB hÃ¶ren http://slayeroffice.com/tools/ascii/
+
+sending := RegExReplace( sending , "Ã¼", Chr(252) ) ; ue http://slayeroffice.com/tools/ascii/
 
 
 ; weiÃŸ
@@ -1370,12 +1407,51 @@ sending := RegExReplace( sending , "i)beschÃ¤ftigte","besch" . Chr(228) . "fti
 sending := RegExReplace( sending , "i)AuftrÃ¤ge","Auftr" . Chr(228) . "ge") ; ae http://slayeroffice.com/tools/ascii/ ausschlieÃŸlich
 
 foundPos := RegExMatch( sending , "i)Ã" )
-;~ foundPos := RegExMatch( "str" , "i)fÃ¼r" )
 if(foundPos){
-msgbox,17-05-23_17-09 :( '%sending%' = sending  (line:%A_LineNumber%) n )
+    msgbox,17-05-23_17-09 :( '%sending%' = sending  (line:%A_LineNumber%)
+}
+foundPos := RegExMatch( sending , "Ã¼" )
+if(foundPos){
+    msgbox,18-03-01_15-49 :( '%sending%' = sending  (line:%A_LineNumber%)
 }
 
 
 return sending  
 }
 
+
+
+
+
+
+
+
+
+;==================================================
+
+;e.g. vText := JEE_StrUtf8BytesToText(vUtf8Bytes)
+
+JEE_StrUtf8BytesToText(ByRef vUtf8Bytes)
+{
+	if A_IsUnicode
+	{
+		VarSetCapacity(vTemp, StrPut(vUtf8Bytes, "CP0"))
+		StrPut(vUtf8Bytes, &vTemp, "CP0")
+		return StrGet(&vTemp, "UTF-8")
+	}
+	else
+		return StrGet(&vUtf8Bytes, "UTF-8")
+}
+
+;==================================================
+
+;e.g. vUtf8Bytes := JEE_StrTextToUtf8Bytes(vText)
+
+JEE_StrTextToUtf8Bytes(ByRef vText)
+{
+	VarSetCapacity(vTemp, StrPut(vText, "UTF-8"))
+	StrPut(vText, &vTemp, "UTF-8")
+	return StrGet(&vTemp, "CP0")
+}
+
+;==================================================

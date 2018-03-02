@@ -53,7 +53,7 @@ YPos2 := YPos1 ; try prevent empty variables
        msg = ErrorLevel: %ErrorLevel%  `n textInfo =`n '%textInfo%'  `n`n '%i%' `n  '%i2%' `n  `n  :( Icon could not be found on the screen.  `n `n   (line:%A_LineNumber%) `n
       ToolTip4sec(msg)  
       Sleep,4000
-         MSgbox,`n (%A_ScriptName%~%A_LineNumber%) `
+         MSgbox,`n (%A_LineFile%~%A_LineNumber%) `
       return false
    }
    
@@ -72,7 +72,7 @@ move2Img(i , textInfo, mm, variation := 85){
    if(!i || !textInfo)
    {
       MsgBox, '%i%' = i (line:%A_LineNumber%) `n  ||  %textInfo% = textInfo (line:%A_LineNumber%) `n
-       MSgbox,`n (%A_ScriptName%~%A_LineNumber%) `
+       MSgbox,`n (%A_LineFile%~%A_LineNumber%) `
       return false
    }
    if(mm["left"] == "" || mm["top"] == "" || !mm["width"] || !mm["height"] )
@@ -95,7 +95,7 @@ mm := {left:0, top:0, width:A_ScreenWidth, height:A_ScreenHeight}
 
       t =  %msg% `n move2Img_functions.inc.ahk 109:   `n  :( %msg% `n  '%mm%' = mm `n %textInfo% `n  (line:%A_LineNumber%, `n move2Img_functions.inc.ahk )
       ToolTip1sec( t )
-       MSgbox,t='%t%' `n (%A_ScriptName%~%A_LineNumber%) `
+       MSgbox,t='%t%' `n (%A_LineFile%~%A_LineNumber%) `
       return false
    }
  coord = Screen

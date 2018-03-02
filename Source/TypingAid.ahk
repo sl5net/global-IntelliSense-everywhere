@@ -1,4 +1,14 @@
-#ErrorStdOut
+
+; # ErrorStdOut
+
+#MaxHotkeysPerInterval 99000000
+#HotkeyInterval 99000000
+Process, Priority,, H
+SetBatchLines, -1
+SetKeyDelay, -1, -1
+SetMouseDelay, -1
+SetWinDelay, -1
+SetControlDelay, -1
 
 #Include *i %A_ScriptDir%\inc_ahk\init_global.init.inc.ahk
 
@@ -24,6 +34,8 @@ global activeTitle:=""
 
 wordlist:=wordlistActive
 
+RegRead, wordlist, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlist ; todo: 02.03.2018 12:55 18-03-02_12-55
+
 feedbackMsgBoxCloseAllWindows()
 
 temp := "___________________________________`n"
@@ -33,7 +45,8 @@ if(g_doSaveLogFiles)
 
 maxLinesOfCode4length1 := 900
 
-SetTimer, saveIamAllive, 8000
+SetTimer, saveIamAllive, 8000 ; setinterval
+SetTimer,onLink2worlistChangedInRegistry,1000 ; RegRead, wordlistActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlist
 
 #SingleInstance,Force ; thats sometimes not working : https://autohotkey.com/boards/viewtopic.php?f=5&t=1261&p=144860#p144860
 
@@ -44,7 +57,7 @@ scriptName := SubStr( A_ScriptName , 1 , Strlen(A_ScriptName)-4)
 
 IfWinExist, %scriptName% - Active ; maybe  work 26.04.2017 15:28
 {
- ; Msgbox,%scriptName% ?= %g_ScriptTitle% `n (%A_ScriptName%~%A_LineNumber%) 
+ ; Msgbox,%scriptName% ?= %g_ScriptTitle% `n (%A_LineFile%~%A_LineNumber%)
 global g_doSaveLogFiles
  if(g_doSaveLogFiles)
 lll(A_LineNumber, A_ScriptName, "exit ")
@@ -76,7 +89,7 @@ if( !WinExist(f) ){
     WinWait,%f% ,,1
 } ;
 if( !WinExist(f) ){
-   msg=%ff% NOTfound => ExitApp `n (from. %A_ScriptName%~%A_LineNumber%)
+   msg=%ff% NOTfound => ExitApp `n (from. %A_LineFile%~%A_LineNumber%)
     tooltip,% msg
     feedbackMsgBox(msg,msg,1,1)
    Sleep,3000
@@ -361,23 +374,13 @@ doReload:
 return ; reload is deaktivated today :D 29.07.2017 14:51 17-07-29_14-51 . i using it from the Administrator user
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-setWordlistFileUpdatedTime:
-; lets do this only first time for initializing 29.04.2017 13:40
-   WordlistFileName = wordlist.txt
-   Wordlist = %A_ScriptDir%\%WordlistFileName%
-   WordlistOLD := Wordlist
-
-   if( !FileExist(Wordlist) || InStr(FileExist(Wordlist), "D") ){
-        Msgbox,:(  '%Wordlist%' = Wordlist  `n Wordlist is not a file  (%A_ScriptName%~%A_LineNumber%)
-        return
-    }
-    FileGetTime, WordlistModiTime, %Wordlist%, M
-    WordlistModiTime_OLD:=WordlistModiTime
-return
 
 
 
 ifWordlistFileWasUpdatedChanged:
+msgbox,18-03-02_12-51 return
+return
+
     FileGetTime, WordlistModiTime, %Wordlist%, M
     if(WordlistModiTime_OLD <> WordlistModiTime){
         SetTimer, ifWordlistFileWasUpdatedChanged, Off
@@ -418,7 +421,7 @@ lll(A_LineNumber, A_ScriptName, "`n Sleep,100 `n" . msg . "`n ==> Goto, doReload
             ReadInTheWordList() ; 07.02.2018 17:28
          }
     }
-    ;Msgbox, wordlist was changed (%A_ScriptName%~%A_LineNumber%)
+    ;Msgbox, wordlist was changed (%A_LineFile%~%A_LineNumber%)
     WordlistModiTime_OLD:=WordlistModiTime
 
    ; lll(A_LineNumber, A_ScriptName, "doReloadIfScriptDontMoveThisLine()")
@@ -433,6 +436,37 @@ saveIamAllive:
    FileDelete, TypingAid_programmCounter_LineAndTime.txt
    FileAppend,117_%timestampyyMMddHHmmssPretty%_line_%timestampyyMMddHHmmss% , TypingAid_programmCounter_LineAndTime.txt
 return
+
+
+
+onLink2worlistChangedInRegistry:
+global g_SingleMatch
+if(0 && firstLine := g_SingleMatch[1])
+    tooltip,%firstLine% `n (%A_LineFile%~%A_LineNumber%)
+; ask if new wordlis should be used (thats workaround/dirtyBugFix. planed to change automatically)
+RegRead, wordlistNewTemp, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlist
+if(wordlistNewTemp && wordlist <> wordlistNewTemp ){
+    SetTimer,onLink2worlistChangedInRegistry,off
+    clipboard := wordlist
+    msgbox,worlistChangedInRegistry. ==>  update?? `n (wordlist <> wordlistNewTemp)`n ( NOW: %wordlist% <> `nNEW: %wordlistNewTemp% ) `n `n (%A_LineFile%~%A_LineNumber%)
+
+    ; may there was a change anyway
+    RegRead, wordlistNewTemp, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlist
+    if(wordlistNewTemp && wordlist <> wordlistNewTemp ){
+        wordlist := wordlistNewTemp
+        ReadInTheWordList()
+        prefs_Length := setLength(ParseWordsCount, maxLinesOfCode4length1)
+        RebuildDatabase()
+        reload ; hardvore :( 02.03.2018 12:52 18-03-02_12-52
+
+        wordlistOLD := wordlist
+        ; reload ; hardvore :( 02.03.2018 12:52 18-03-02_12-52
+        ;RecomputeMatches()
+    }
+    SetTimer,onLink2worlistChangedInRegistry,on
+}
+return
+
 
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 couldIfindMyself:
@@ -496,7 +530,7 @@ WinGetActiveTitle, ActiveTitle
 if(false && ActiveTitleOLD <> ActiveTitle){
     ActiveTitleOLD := ActiveTitle
     ; sleep,120 ; it needs a little time to copy the files 31.07.2017 21:30
-msg=`n (%A_ScriptName%~%A_LineNumber%)
+msg=`n (%A_LineFile%~%A_LineNumber%)
 feedbackMsgBox(msg,msg,1,1)
     SetTimer, ifWordlistFileWasUpdatedChanged, 100
 }
@@ -545,3 +579,23 @@ ObjRegisterActive(Object, CLSID, Flags:=0) {
         throw Exception(format("Error 0x{:x}", hr), -1)
     cookieJar[Object] := cookie
 }
+;
+setWordlistFileUpdatedTime:
+    ;msgbox, setWordlistFileUpdatedTime 18-03-02_11-49
+    return
+; lets do this only first time for initializing 29.04.2017 13:40
+   WordlistFileName = wordlist .txt
+   Wordlist = %A_ScriptDir%\%WordlistFileName%
+
+    Wordlist := wordlist ; todo: very ugly. no time 02.03.2018 12:54 18-03-02_12-54
+
+   WordlistOLD := Wordlist
+
+   if( !FileExist(Wordlist) || InStr(FileExist(Wordlist), "D") ){
+        Msgbox,:(  '%Wordlist%' = Wordlist  `n Wordlist is not a file  (%A_LineFile%~%A_LineNumber%)
+        return
+    }
+    FileGetTime, WordlistModiTime, %Wordlist%, M
+    WordlistModiTime_OLD:=WordlistModiTime
+return
+;
