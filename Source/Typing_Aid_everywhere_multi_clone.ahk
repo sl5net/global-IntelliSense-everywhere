@@ -1,5 +1,3 @@
-Pause
-
 #ErrorStdOut
 ;
 ;<<<<<<<< IncludeI <<<< 171103161518 <<<< 03.11.2017 16:15:18 <<<<
@@ -177,6 +175,13 @@ global g_lineNumberFeedback
       tooltip, activeClass. prob a feedback msgWindow 17.02.2018 22:03 `n (%A_LineFile%~%A_LineNumber%)
       continue
     }
+    if(RegExMatch(activeTitle,"worlistChangedInRegistry")){
+        ;tooltip, WinWaitNotActive,worlistChangedInRegistry  `n (%A_LineFile%~%A_LineNumber%)
+        WinWaitNotActive,worlistChangedInRegistry ahk_class AutoHotkeyGUI
+        tooltip,
+        sleep,1000
+      continue ;
+    }
     if(activeTitleOLD == activeTitle && activeClassOLD == activeClass ){
         ; WinWaitNotActive, %activeTitle% ahk_class %activeClass%
         if(0){
@@ -349,18 +354,34 @@ temp =
 TargetScriptTitle = TypingAid - Active ahk_class AutoHotkey
 stringToSend := (InStr(wordlistNEW,"\")) ? wordlistNEW : wordlistDir . "\" . wordlistNEW
 ; result := Send_WM_COPYDATA`(stringToSend, TargetScriptTitle`)
+if(false){  ; temporaly deactivated . for compatibiliti thinks 02.03.2018 17:10
 try{
     y := ComObjActive("{93C04B39-0465-4460-8CA0-7BFFF481FF98}")
     y.callFunction( "Receive_wordlistAddress", stringToSend ) ;will call the function of the other script
 } catch e{
     tip:="Exception:``n" e.What "``n" e.Message "``n" e.File "@" e.Line
     tooltip, `% tip
-}
+}}
+if(true){  ; old scool. for compatibiliti thinks 02.03.2018 17:10
+    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlistDir, `%wordlistDir`%
+    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlistActive, `%wordlistActive`%
+    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlistNEW, `%wordlistNEW`%
+    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlistNEWarchivePath, `%wordlistNEWarchivePath`%
 
-; RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlistDir, `%wordlistDir`%
-; RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlistActive, `%wordlistActive`%
-; RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlistNEW, `%wordlistNEW`%
-; RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlistNEWarchivePath, `%wordlistNEWarchivePath`%
+    wordlist = `%wordlistDir`%\`%wordlistNEW`%
+
+    pLength := 0
+    while(pLength <> StrLen(wordlist )){
+        ; tooltip,`% A_index . "# Line:" . A_LineNumber . " Name:" . A_ScriptName . " "
+        pLength := StrLen(wordlist )
+        wordlist := RegExReplace(wordlist ,"(\\[^\\]+\\\.\.)+") ; works. removes all symbolic links 24.02.2018  cleanPath
+    }
+    wordlist := RegExReplace(wordlist,"\\\.\\")  ; works. removes all symbolic link 24.02.2018 cleanPath
+    wordlist := RegExReplace(wordlist,"^\.\\")  ; works. removes all symbolic link 24.02.2018  cleanPath
+
+    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlist, `%wordlist`% ; old scool. for compatibiliti thinks 02.03.2018 17:10
+
+}
 )
 
 ahkSource .= temp

@@ -32,6 +32,8 @@ global Wordlist
 global WordlistOLD
 global activeTitle:=""
 
+global g_FLAGmsgbox := false
+
 wordlist:=wordlistActive
 
 RegRead, wordlist, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlist ; todo: 02.03.2018 12:55 18-03-02_12-55
@@ -447,17 +449,47 @@ if(0 && firstLine := g_SingleMatch[1])
 RegRead, wordlistNewTemp, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlist
 if(wordlistNewTemp && wordlist <> wordlistNewTemp ){
     SetTimer,onLink2worlistChangedInRegistry,off
-    clipboard := wordlist
-    msgbox,worlistChangedInRegistry. ==>  update?? `n (wordlist <> wordlistNewTemp)`n ( NOW: %wordlist% <> `nNEW: %wordlistNewTemp% ) `n `n (%A_LineFile%~%A_LineNumber%)
 
+    SetTitleMatchMode,2
+    global g_FLAGmsgbox
+    ; WinWaitNotActive,worlistChangedInRegistry ahk_class AutoHotkeyGUI
+    If(WinExist("worlistChangedInRegistry")){
+        ;If(WinExist("worlistChangedInRegistry ahk_class AutoHotkeyGUI"){
+        g_FLAGmsgbox := true
+        SetTimer,onLink2worlistChangedInRegistry,on
+        return ; no update jet
+    }else{
+        AHKcodeMsgBox .= "#" . "NoTrayIcon `n "
+        ; AHKcodeMsgBox := "msgbox,,worlistChangedInRegistry,worlistChangedInRegistry. ==>  update?? ``n (wordlist <> wordlistNewTemp)``n ( NOW: " wordlist " <> ``nNEW: " wordlistNewTemp " ) ``n ``n (" A_LineFile "~" A_LineNumber ")"
+
+        ; AHKcodeMsgBox := "msgbox,,worlistChangedInRegistry,worlistChangedInRegistry. ==>  update?? `n (wordlist <> wordlistNewTemp)`n ( NOW: " . wordlist . " <> `nNEW: " . wordlistNewTemp . " ) `n `n (" . A_LineFile . "~" A_LineNumber ")"
+        ; AHKcodeMsgBox .= "msgbox,,worlistChangedInRegistry," . wordlist . " `n (" . A_LineFile . "~" A_LineNumber ")"
+        AHKcodeMsgBox = msgbox,,worlistChangedInRegistry, %wordlistNewTemp%
+        if(g_FLAGmsgbox){
+            g_FLAGmsgbox := false ; just clicked msgboxWindow
+        }else{
+            DynaRun(AHKcodeMsgBox) ; wait for user decision
+            tooltip,WinWait worlistChangedInRegistry
+            ;WinWait,worlistChangedInRegistry
+            WinWait,worlistChangedInRegistry,,1
+            ;msgbox,18-03-02_17-42 %AHKcodeMsgBox%
+            tooltip,
+            SetTimer,onLink2worlistChangedInRegistry,on
+            return ; no update jet
+        }
+    }
     ; may there was a change anyway
     RegRead, wordlistNewTemp, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlist
     if(wordlistNewTemp && wordlist <> wordlistNewTemp ){
         wordlist := wordlistNewTemp
+        tooltip,%wordlist%  (%A_LineFile%~%A_LineNumber%)
+        ;msgbox,%wordlist%  (%A_LineFile%~%A_LineNumber%)
         ReadInTheWordList()
         prefs_Length := setLength(ParseWordsCount, maxLinesOfCode4length1)
         RebuildDatabase()
-        reload ; hardvore :( 02.03.2018 12:52 18-03-02_12-52
+        ; msgbox, have fun with :) `n %wordlist% 18-03-02_18-37  (%A_LineFile%~%A_LineNumber%)
+        reload ; hardcore :( 02.03.2018 12:52 18-03-02_12-52
+
 
         wordlistOLD := wordlist
         ; reload ; hardvore :( 02.03.2018 12:52 18-03-02_12-52
@@ -467,7 +499,7 @@ if(wordlistNewTemp && wordlist <> wordlistNewTemp ){
 }
 return
 
-
+;
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 couldIfindMyself:
 global g_doSaveLogFiles
