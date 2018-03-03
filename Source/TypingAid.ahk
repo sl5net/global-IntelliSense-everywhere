@@ -48,7 +48,7 @@ if(g_doSaveLogFiles)
 maxLinesOfCode4length1 := 900
 
 SetTimer, saveIamAllive, 8000 ; setinterval
-SetTimer,onLink2worlistChangedInRegistry,1000 ; RegRead, wordlistActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlist
+SetTimer,onLink2wordlistChangedInRegistry,1000 ; RegRead, wordlistActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlist
 
 #SingleInstance,Force ; thats sometimes not working : https://autohotkey.com/boards/viewtopic.php?f=5&t=1261&p=144860#p144860
 
@@ -441,22 +441,24 @@ return
 
 
 
-onLink2worlistChangedInRegistry:
+onLink2wordlistChangedInRegistry:
 global g_SingleMatch
 if(0 && firstLine := g_SingleMatch[1])
     tooltip,%firstLine% `n (%A_LineFile%~%A_LineNumber%)
 ; ask if new wordlis should be used (thats workaround/dirtyBugFix. planed to change automatically)
 RegRead, wordlistNewTemp, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlist
 if(wordlistNewTemp && wordlist <> wordlistNewTemp ){
-    SetTimer,onLink2worlistChangedInRegistry,off
+    SetTimer,onLink2wordlistChangedInRegistry,off
 
     SetTitleMatchMode,2
     global g_FLAGmsgbox
-    ; WinWaitNotActive,worlistChangedInRegistry ahk_class AutoHotkeyGUI
-    If(WinExist("worlistChangedInRegistry")){
-        ;If(WinExist("worlistChangedInRegistry ahk_class AutoHotkeyGUI"){
+    ; WinWaitNotActive,wordlistChangedInRegistry ahk_class AutoHotkeyGUI
+
+    ; DetectHiddenWindows,On ; it set the window to no tray icon. i surprized to use now DetectHiddenWindows,On 18-03-03_17-16 Really necasary ??? TODO:need it ?
+    If(WinExist("wordlistChangedInRegistry")){
+        ;If(WinExist("wordlistChangedInRegistry ahk_class AutoHotkeyGUI"){
         g_FLAGmsgbox := true
-        SetTimer,onLink2worlistChangedInRegistry,on
+        SetTimer,onLink2wordlistChangedInRegistry,on
         return ; no update jet
     }else{
         AHKcodeMsgBox := "#" . "NoTrayIcon `n "
@@ -466,12 +468,12 @@ if(wordlistNewTemp && wordlist <> wordlistNewTemp ){
             g_FLAGmsgbox := false ; just clicked msgboxWindow
         }else{
             DynaRun(AHKcodeMsgBox) ; wait for user decision
-            tooltip,WinWait worlistChangedInRegistry
-            ;WinWait,worlistChangedInRegistry
-            WinWait,worlistChangedInRegistry,,1
+            tooltip,WinWait wordlistChangedInRegistry
+            ;WinWait,wordlistChangedInRegistry
+            WinWait,wordlistChangedInRegistry,,1
             ;msgbox,18-03-02_17-42 %AHKcodeMsgBox%
             tooltip,
-            SetTimer,onLink2worlistChangedInRegistry,on
+            SetTimer,onLink2wordlistChangedInRegistry,on
             return ; no update jet
         }
     }
@@ -496,7 +498,7 @@ if(wordlistNewTemp && wordlist <> wordlistNewTemp ){
         ; reload ; hardvore :( 02.03.2018 12:52 18-03-02_12-52
         ;RecomputeMatches()
     }
-    SetTimer,onLink2worlistChangedInRegistry,on
+    SetTimer,onLink2wordlistChangedInRegistry,on
 }
 return
 
