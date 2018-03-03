@@ -864,6 +864,8 @@ if `(!wordlistDir `){
 }
 
 ; this days i have to many files into hiere... i want first to activate the superglobal 10.08.2017 09:29
+if(!RegExMatch(wordlistNEW,"\.txt$")) ; dirty bug fix TODO: not pretty
+    wordlistNEW .= ".txt"
 wordlistNEW := maybeSuperglobalWordList`(wordlistNEW, wordlistNEW_time_between , ActiveClass, activeTitle `)
 
 
