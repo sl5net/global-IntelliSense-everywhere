@@ -459,14 +459,9 @@ if(wordlistNewTemp && wordlist <> wordlistNewTemp ){
         SetTimer,onLink2worlistChangedInRegistry,on
         return ; no update jet
     }else{
-        AHKcodeMsgBox .= "#" . "NoTrayIcon `n "
-        ; AHKcodeMsgBox := "msgbox,,worlistChangedInRegistry,worlistChangedInRegistry. ==>  update?? ``n (wordlist <> wordlistNewTemp)``n ( NOW: " wordlist " <> ``nNEW: " wordlistNewTemp " ) ``n ``n (" A_LineFile "~" A_LineNumber ")"
-
-        ; AHKcodeMsgBox := "msgbox,,worlistChangedInRegistry,worlistChangedInRegistry. ==>  update?? `n (wordlist <> wordlistNewTemp)`n ( NOW: " . wordlist . " <> `nNEW: " . wordlistNewTemp . " ) `n `n (" . A_LineFile . "~" A_LineNumber ")"
-        ; AHKcodeMsgBox .= "msgbox,,worlistChangedInRegistry," . wordlist . " `n (" . A_LineFile . "~" A_LineNumber ")"
-        ; AHKcodeMsgBox = msgbox,,worlistChangedInRegistry, Would you use new list now? `n %wordlistNewTemp%
-    AHKcodeMsgBox = msgbox,,worlistChangedInRegistry, Would you use new list now? ``n ``n Say goodbye to? ``n  %wordlist%
-    ; AHKcodeMsgBox = msgbox,,worlistChangedInRegistry, Say goodbye to? ``n  %wordlist%
+        AHKcodeMsgBox := "#" . "NoTrayIcon `n "
+        temp = msgbox,,wordlistChangedInRegistry, Would you use new list now? ``n ``n Say goodbye to? ``n  %wordlist%
+        AHKcodeMsgBox .= temp
         if(g_FLAGmsgbox){
             g_FLAGmsgbox := false ; just clicked msgboxWindow
         }else{
