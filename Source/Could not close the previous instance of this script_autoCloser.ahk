@@ -6,6 +6,8 @@ isDevellopperMode=true ; enth�llt auch update script.
 
 DetectHiddenWindows,on
 SetTitleMatchMode,1
+#SingleInstance
+#NoTrayIcon
 
 sdSec := 10
 counter := 0

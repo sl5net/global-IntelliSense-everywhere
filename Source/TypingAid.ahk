@@ -71,8 +71,9 @@ WinShow,%g_ScriptTitle%
 DetectHiddenWindows,On ; if this is off it does not find the tool in tray bar 27.04.2017 12:04
 SetTitleMatchMode,2  ; if this is 1 it does not find the tool in tray bar 27.04.2017 12:04
 
+DetectHiddenWindows,On
 IfWinNotExist,Could not close the previous instance of this script_autoCloser.ahk
-run,%A_ScriptDir%\Could not close the previous instance of this script_autoCloser.ahk
+    run,%A_ScriptDir%\Could not close the previous instance of this script_autoCloser.ahk
 
 WinWait,Typing_Aid_everywhere_multi_clone.ahk ahk_class AutoHotkey
 
