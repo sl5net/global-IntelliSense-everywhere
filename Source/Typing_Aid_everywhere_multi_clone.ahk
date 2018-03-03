@@ -1,5 +1,6 @@
-#ErrorStdOut
-;
+#ErrorStdOut 
+#NoTrayIcon
+;kkkk
 ;<<<<<<<< IncludeI <<<< 171103161518 <<<< 03.11.2017 16:15:18 <<<<
 #Include *i ..\Wordlists\activeClassManipulation.inc.ahk
 ; ^- obiges funktioniert (weil funktion sp�ter ausgef�hrt) bei `normalem` Aufruf. z.B. click von atuoload.ahk und darin ein:
@@ -175,9 +176,9 @@ global g_lineNumberFeedback
       tooltip, activeClass. prob a feedback msgWindow 17.02.2018 22:03 `n (%A_LineFile%~%A_LineNumber%)
       continue
     }
-    if(RegExMatch(activeTitle,"worlistChangedInRegistry")){
-        ;tooltip, WinWaitNotActive,worlistChangedInRegistry  `n (%A_LineFile%~%A_LineNumber%)
-        WinWaitNotActive,worlistChangedInRegistry ahk_class AutoHotkeyGUI
+    if(RegExMatch(activeTitle,"wordlistChangedInRegistry")){
+        ;tooltip, WinWaitNotActive,wordlistChangedInRegistry  `n (%A_LineFile%~%A_LineNumber%)
+        WinWaitNotActive,wordlistChangedInRegistry ahk_class AutoHotkeyGUI
         tooltip,
         sleep,1000
       continue ;
