@@ -78,7 +78,7 @@ UPDATEDSCRIPTpilawa:
   }
   ModiTime_pilawa_OLD:=ModiTime_pilawa
   ;Last_A_This:=A_ThisFunc . A_ThisLabel 
-  ;ToolTip1sec(A_LineNumber . " " . A_ScriptName . " " . Last_A_This)
+  ;ToolTip1sec(A_LineNumber . " " .  A_LineFile . " " . Last_A_This)
   ; sicherheitshallber mach ich das noch in den update script timer
 Return
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -133,7 +133,7 @@ UPDATEDSCRIPTfunctions_global_dateiende:
   ModiTime_functions_global_dateiende_OLD := ModiTime_functions_global_dateiende
 
 ;Last_A_This:=A_ThisFunc . A_ThisLabel 
-  ;ToolTip1sec(A_LineNumber . " " . A_ScriptName . " " . Last_A_This)
+  ;ToolTip1sec(A_LineNumber . " " .  A_LineFile . " " . Last_A_This)
   ; sicherheitshallber mach ich das noch in den update script timer
 Return
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
