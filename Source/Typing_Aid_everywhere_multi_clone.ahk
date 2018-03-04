@@ -97,10 +97,10 @@ IfWinNotExist,TypingAid
     ; tooltip, RunWait %typingAidAHK%
 global g_doSaveLogFiles
  if(g_doSaveLogFiles)
-lll(A_LineNumber, A_ScriptName, "Debuggging!  NOT Run % typingAidAHK " ) ; 18-01-20_18-56
+lll(A_LineNumber, A_LineFile, "Debuggging!  NOT Run % typingAidAHK " ) ; 18-01-20_18-56
 
     ; RunWait, % typingAidAHK 
-    ; lll(A_LineNumber, A_ScriptName, "RunWait, % typingAidAHK")
+    ; lll(A_LineNumber, A_LineFile, "RunWait, % typingAidAHK")
 }
 SetTitleMatchMode,2 ; thats my default. do i need it later ? 08.07.2017 14:12
 
@@ -171,8 +171,9 @@ global g_lineNumberFeedback
 
 
     if(RegExMatch(activeTitle,"^\d:.+")){
-      Clipboard:=activeClass
-      tooltip, activeClass. prob a feedback msgWindow 17.02.2018 22:03 `n (%A_LineFile%~%A_LineNumber%)
+      ;Clipboard:=activeClass
+      tip= activeClass. prob a feedback msgWindow 17.02.2018 22:03 `n (%A_LineFile%~%A_LineNumber%)
+        lll(A_LineNumber, A_LineFile, tip)
       continue
     }
     if(RegExMatch(activeTitle,"wordlistChangedInRegistry")){
@@ -194,7 +195,7 @@ global g_lineNumberFeedback
          FormatTime, timestampHHmmss, %A_now%,HH:mm:ss
 global g_doSaveLogFiles
  if(g_doSaveLogFiles)
-lll(A_LineNumber, A_ScriptName, regEx . " end of while(true)`n '" . activeTitle . "' = activeTitle `n  time:" . timestampHHmmss)
+lll(A_LineNumber, A_LineFile, regEx . " end of while(true)`n '" . activeTitle . "' = activeTitle `n  time:" . timestampHHmmss)
 Msgbox,%activeTitle% `n`n %activeClass% `n`n  (%A_LineFile%~%A_LineNumber%)
 ;ExitApp
     }
@@ -226,7 +227,7 @@ global g_lineNumberFeedback
 
     wordlistNEW := activeTitle
     wordlistNEW := simplifyNameOfWordlistNEWstep1( wordlistNEW )
-;    lll(A_LineNumber, A_ScriptName,"wordlistDirBase= " . wordlistDirBase)
+;    lll(A_LineNumber, A_LineFile,"wordlistDirBase= " . wordlistDirBase)
 ;    MsgBox, '%wordlistFilterPath%' = wordlistFilterPath  `n '%wordlistDir%' = wordlistDir `n '%wordlistDirBase%' = wordlistDirBase `n '%A_ScriptDir%' = A_ScriptDir `n (line:%A_LineNumber%) `n      ; thats the global wordlost
     wordlistFilterPath := wordlistDirBase . "\" . filterFileName
     if(1){ ; absolute path
@@ -236,7 +237,7 @@ global g_lineNumberFeedback
     }else
         wordlistFilterPath2 :=  wordlistDirBase . activeClass . "\" . filterFileName ; todo: doesent work :( 28.03.2017 20:20 17-03-28_20-20
 
-; lll(A_LineNumber, A_ScriptName, "wordlistFilterPath2=" . wordlistFilterPath2 . " activeClass=" . activeClass . " filterFileName=" . filterFileName)
+; lll(A_LineNumber, A_LineFile, "wordlistFilterPath2=" . wordlistFilterPath2 . " activeClass=" . activeClass . " filterFileName=" . filterFileName)
 
     if(!wordlistDir) {
         global g_lineNumberFeedback
@@ -484,7 +485,7 @@ global g_lineNumberFeedback
     FormatTime, timestampHHmmss, %A_now%,HH:mm:ss
 global g_doSaveLogFiles
  if(g_doSaveLogFiles)
-lll(A_LineNumber, A_ScriptName, regEx . " end of while(true)`n '" . activeTitle . "' = activeTitle `n  time:" . timestampHHmmss)
+lll(A_LineNumber, A_LineFile, regEx . " end of while(true)`n '" . activeTitle . "' = activeTitle `n  time:" . timestampHHmmss)
     }
 } ; end of while(true)
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -885,12 +886,12 @@ if(0){ ; check if this is arrived 30.04.2017 09:43
                      WinSetTitle,main.ts.txt - WordPad,, main.ts
 global g_doSaveLogFiles
  if(g_doSaveLogFiles)
-lll(A_LineNumber, A_ScriptName, "ExitApp")
+lll(A_LineNumber, A_LineFile, "ExitApp")
                      ExitApp
                  }
 global g_doSaveLogFiles
  if(g_doSaveLogFiles)
-lll(A_LineNumber, A_ScriptName, "reload 17-08-04_14-42")
+lll(A_LineNumber, A_LineFile, "reload 17-08-04_14-42")
 global g_doRunLogFiles
  if(g_doRunLogFiles)
 run,log\%A_ScriptName%.log.txt

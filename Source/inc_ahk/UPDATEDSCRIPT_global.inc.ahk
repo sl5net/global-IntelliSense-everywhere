@@ -21,7 +21,7 @@ ModiTime_OLD:=ModiTime
 
 ;<<<<<<<< UPDATEDSCRIPT <<<< 180208165803 <<<< 08.02.2018 16:58:03 <<<<
 UPDATEDSCRIPT:
-;feedbackMsgBox("ModiTime:=f1703220615",A_LineNumber . " " .  A_ScriptName,1,1)
+;feedbackMsgBox("ModiTime:=f1703220615",A_LineNumber . " " .  A_LineFile,1,1)
 
 DetectHiddenWindows,on
 SetTitleMatchMode,2
@@ -46,7 +46,7 @@ msg:="A_LineNumber . "" "" . A_ScriptName . "" (token37) "" . Last_A_This `nA_Sc
 
 ToolTip1sec%blank%(A_ScriptFullPath)
 
-;feedbackMsgBox("ModiTime:=f1703220615",A_LineNumber . " " .  A_ScriptName,1,1)
+;feedbackMsgBox("ModiTime:=f1703220615",A_LineNumber . " " .  A_LineFile,1,1)
 
 ;ToolTip,51: ModiTime = %ModiTime%
 ModiTime:=f1703220615(ModiTime_OLD, ModiTime, A_ScriptDir, A_ScriptName, A_ScriptFullPath)
@@ -79,7 +79,7 @@ f1703220615(ModiTime_OLD, ModiTime, ScriptDir, ScriptName, ScriptFullPath){
   SplashTextOff,%UpdaSplashTit%
 
 scriptDir := RegExReplace( A_ScriptDir, "(\\AutoHotKey).*" , "$1") ; maybe file is started from subfolder. 18.04.2017 12:18
-;feedbackMsgBox(scriptDir = "scriptDir",A_LineNumber . " " .  A_ScriptName,1,1)
+;feedbackMsgBox(scriptDir = "scriptDir",A_LineNumber . " " .  A_LineFile,1,1)
  
 SetWorkingDir, % scriptDir ; thats not worked. Line later A_ScriptDir was not changed. so SetWorkingDir is probably buggy 18.04.2017 13:23
 ; Msgbox,%scriptDir% ?= `n%A_ScriptDir% `n`n (from: %A_ScriptName%~%A_LineNumber%)
@@ -90,7 +90,7 @@ SetWorkingDir, % scriptDir ; thats not worked. Line later A_ScriptDir was not ch
  
  ;<<<<<<<< SaveLast5_to_BackupSL5 <<<< 171003084729 <<<< 03.10.2017 08:47:29 <<<<
  ; i want copy it in the same path and into a google drive path
-ToolTip2sec("RunWait `n `n `n " . A_LineNumber . " " . A_ScriptName . " " . Last_A_This) 
+ToolTip2sec("RunWait `n `n `n " . A_LineNumber . " " .  A_LineFile . " " . Last_A_This)
 RunWait, %scriptDir%\SaveLast5_to_BackupSL5.ahk "%ScriptFullPath%", %scriptDir%
 RunWait, %scriptDir%\SaveLast5_to_BackupSL5.ahk "%ScriptFullPath%" "c:/fre/private/Google_Drive/fax.sl5net/backup", %scriptDir%
 ;>>>>>>>> SaveLast5_to_BackupSL5 >>>> 171003084736 >>>> 03.10.2017 08.47:36 >>>>

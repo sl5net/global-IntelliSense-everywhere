@@ -130,9 +130,22 @@ Loop, read, % wordlistNEWarchivePath
 ; include[ ]*(?:,|\s)[ ]*([^|!\n]+)[ ]*(?:((\||\!))[ ]*([^\n]+))?[ ]*
            regEx := "i)^[ ]*#include[ ]*(?:,|\s)[ ]*([^|!\n]+)[ ]*(?:((\||\!))[ ]*([^\n]+))?[ ]*"
            foundPos := RegexMatch( A_LoopReadLine, regEx, matchs)
-; Msgbox,'%wordlistNEWarchivePath%' = wordlistNEWarchivePath `n '%includeFilePath%' = includeFilePath  `n (line:%A_LineNumber%) n
+
            if(foundPos){
             isIncludeFileInside := true
+
+if(0){
+feedbackMsgBox("isIncludeFileInside = " isIncludeFileInside,A_LineNumber . " " .  A_LineFile,1,1)
+global g_ignReg
+g_ignReg["feedbackMsgBox"]["tit"]  =.^
+g_ignReg["feedbackMsgBox"]["text"] =.^
+feedbackMsgBox("isIncludeFileInside = " isIncludeFileInside,A_LineNumber . " " .  A_LineFile,1,1)
+msg='%wordlistNEWarchivePath%' = wordlistNEWarchivePath `n '%foundPos%' = foundPos  `n '%includeFilePath%' = includeFilePath  `n (line:%A_LineFile%~%A_LineNumber%)
+  ToolTip5sec(msg  . " `n " . A_LineNumber . " " .  A_LineFile . " " . Last_A_This)
+ msgbox,% msg
+}
+
+
             includeFilePath     := matchs1
             lineInRegEx         := (matchs4) ? matchs3 . matchs4 : "|.*" ; | ist a positvie rule. alle matching lines goes inside the new file.
             lll_if_g_doSaveLogFiles_matches(A_LineNumber, A_ThisFunc, matchs1,matchs2,matchs3,matchs4)
@@ -169,7 +182,7 @@ lll_if_g_doSaveLogFiles(A_LineNumber, A_ThisFunc,  ":| exist_includeFilePath =" 
 
 msg= '%wordlistNEWarchivePathBackupModifiedTime%' > '%wordlistGeneratedModifiedTime%' (wordlistNEWarchivePathBackupModifiedTime > wordlistGeneratedModifiedTime)  `n'%includeFileModifiedTime%' > '%wordlistGeneratedModifiedTime%' (includeFileModifiedTime > wordlistGeneratedModifiedTime)
 lll_if_g_doSaveLogFiles(A_LineNumber, A_ThisFunc,  msg)
-
+; msgbox, % msg
 
                 if( false 
                 || !exist_wordlistGeneratedPath 
@@ -425,7 +438,7 @@ IfWinNotExist,TypingAid
  g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
    Last_A_This:=A_ThisFunc . A_ThisLabel 
-   ToolTip1sec(A_LineNumber . " " . A_ScriptName . " " . Last_A_This) ;
+   ToolTip1sec(A_LineNumber . " " .  A_LineFile . " " . Last_A_This) ;
    msg = 
    (
    :-(
@@ -441,7 +454,7 @@ IfWinNotExist,TypingAid
  g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
    Last_A_This:=A_ThisFunc . A_ThisLabel 
-   ToolTip1sec(A_LineNumber . " " . A_ScriptName . " " . Last_A_This) ;
+   ToolTip1sec(A_LineNumber . " " .  A_LineFile . " " . Last_A_This) ;
    msg_sourceDir = `n '%sourceDir%' = sourceDir  `n (line:%A_LineNumber%) `n
    MsgBox, :(  `n  ! Exist(sourceDir) %msg_sourceDir%
    }
@@ -1051,7 +1064,7 @@ lll_if_g_doSaveLogFiles(ALineNumber, AThisFunc,msg ){
 global g_doSaveLogFiles
  if(g_doSaveLogFiles)
     lll(AThisFunc . "~" . ALineNumber, "Typing_Aid_everywhere_multi_clone.inc.ahk" , msg)
-    ; llll(A_LineNumber, A_ScriptName, "")
+    ; llll(A_LineNumber, A_LineFile, "")
 ; Msgbox,'%g_doSaveLogFiles%' = g_doSaveLogFiles   (%A_LineFile%~%A_LineNumber%) `
 return
 }

@@ -240,7 +240,7 @@ ProcessKey(InputChar,EndKey) {
    {
 global g_doSaveLogFiles
  if(g_doSaveLogFiles)
-lll(A_LineNumber, A_ScriptName, "g_Word=" . g_Word . " `n`n ==>j CloseListBox()")
+lll(A_LineNumber, A_LineFile, "g_Word=" . g_Word . " `n`n ==>j CloseListBox()")
 global g_doRunLogFiles
  if(g_doRunLogFiles)
 run,log\%A_ScriptName%.log.txt
@@ -486,7 +486,7 @@ InitializeHotKeys() {
 
 global g_doSaveLogFiles
 if(g_doSaveLogFiles)
-   lll(A_LineNumber, A_ScriptName, " g_EnabledKeyboardHotKeys .= $Down . g_DelimiterChar")
+   lll(A_LineNumber, A_LineFile, " g_EnabledKeyboardHotKeys .= $Down . g_DelimiterChar")
       g_EnabledKeyboardHotKeys .= "$Down" . g_DelimiterChar
     ;Hotkey, $Down, Off ; let it OFF. deaktivated from sl5net 15.07.2017 09:43 17-07-15_09-43 . it not helps using google adress bar or so.
 
@@ -522,7 +522,7 @@ EnableKeyboardHotKeys(){
    global g_EnabledKeyboardHotKeys
    Loop, Parse, g_EnabledKeyboardHotKeys, %g_DelimiterChar%
    {
-;      lll(A_LineNumber, A_ScriptName, "HotKey, %" . A_LoopField . "%, On")
+;      lll(A_LineNumber, A_LineFile, "HotKey, %" . A_LoopField . "%, On")
       HotKey, %A_LoopField%, On
    }
    Return
@@ -531,7 +531,7 @@ EnableKeyboardHotKeys(){
 DisableKeyboardHotKeys() {
 global g_doSaveLogFiles
  if(g_doSaveLogFiles)
-lll(A_LineNumber, A_ScriptName, "DisableKeyboardHotKeys() { ... 17-07-16_13-31 ")
+lll(A_LineNumber, A_LineFile, "DisableKeyboardHotKeys() { ... 17-07-16_13-31 ")
 
    global g_DelimiterChar
    global g_EnabledKeyboardHotKeys
@@ -545,7 +545,7 @@ lll(A_LineNumber, A_ScriptName, "DisableKeyboardHotKeys() { ... 17-07-16_13-31 "
          tooltip, % tip
       }
 
-; lll(A_LineNumber, A_ScriptName, "HotKey, %" . A_LoopField . "%, Off")
+; lll(A_LineNumber, A_LineFile, "HotKey, %" . A_LoopField . "%, Off")
    }
    Return
 }
@@ -580,7 +580,7 @@ CheckWord(Key) {
 
 global g_doSaveLogFiles
  if(g_doSaveLogFiles)
-lll(A_LineNumber, A_ScriptName, Key " = Key `n" . WordIndex " = WordIndex `n"  . g_NumKeyMethod . " = g_NumKeyMethod `n " . "`n 17-07-16_14-16" )
+lll(A_LineNumber, A_LineFile, Key " = Key `n" . WordIndex " = WordIndex `n"  . g_NumKeyMethod . " = g_NumKeyMethod `n " . "`n 17-07-16_14-16" )
 
 
 
@@ -616,7 +616,7 @@ global g_sending_is_buggy
 if( g_sending_is_buggy )
 global g_doSaveLogFiles
  if(g_doSaveLogFiles)
-lll(A_LineNumber, A_ScriptName, "Send,%Key% `n 17-07-29_11-58")
+lll(A_LineNumber, A_LineFile, "Send,%Key% `n 17-07-29_11-58")
 
     return
     }
@@ -624,7 +624,7 @@ lll(A_LineNumber, A_ScriptName, "Send,%Key% `n 17-07-29_11-58")
            msg='%g_ListBox_Id%' = g_ListBox_Id `n '%Key%' = Key  n (line:%A_LineNumber%) `n
 global g_doSaveLogFiles
  if(g_doSaveLogFiles)
-lll(A_LineNumber, A_ScriptName,msg )
+lll(A_LineNumber, A_LineFile,msg )
 
 
 
@@ -641,7 +641,7 @@ SendWord(WordIndex) ; if it put this at the biginning of tnis function its worki
    {
 global g_doSaveLogFiles
  if(g_doSaveLogFiles)
-lll(A_LineNumber, A_ScriptName, Key " = Key `n" . WordIndex " = WordIndex `n"  . g_NumKeyMethod . " = g_NumKeyMethod `n " . "`n 17-07-16_14-16" )
+lll(A_LineNumber, A_LineFile, Key " = Key `n" . WordIndex " = WordIndex `n"  . g_NumKeyMethod . " = g_NumKeyMethod `n " . "`n 17-07-16_14-16" )
       SendCompatible(Key,0)
       ProcessKey(Key,"")
       Return
@@ -651,9 +651,9 @@ lll(A_LineNumber, A_ScriptName, Key " = Key `n" . WordIndex " = WordIndex `n"  .
    {
 global g_doSaveLogFiles
  if(g_doSaveLogFiles)
-lll(A_LineNumber, A_ScriptName,"SuspendOn()`n" . Key " = Key `n" . WordIndex " = WordIndex `n"  . prefs_NumPresses . " = prefs_NumPresses `n " . "`n 17-07-16_14-16" )
+lll(A_LineNumber, A_LineFile,"SuspendOn()`n" . Key " = Key `n" . WordIndex " = WordIndex `n"  . prefs_NumPresses . " = prefs_NumPresses `n " . "`n 17-07-16_14-16" )
 
-;      lll(A_LineNumber, A_ScriptName, "SuspendOn()")
+;      lll(A_LineNumber, A_LineFile, "SuspendOn()")
       SuspendOn()
   }
 
@@ -663,7 +663,7 @@ lll(A_LineNumber, A_ScriptName,"SuspendOn()`n" . Key " = Key `n" . WordIndex " =
    { 
 global g_doSaveLogFiles
  if(g_doSaveLogFiles)
-lll(A_LineNumber, A_ScriptName,"SuspendOn()`n" . Key " = Key `n" . WordIndex " = WordIndex `n"  . "  `n " . "`n 17-07-16_15-26" )
+lll(A_LineNumber, A_LineFile,"SuspendOn()`n" . Key " = Key `n" . WordIndex " = WordIndex `n"  . "  `n " . "`n 17-07-16_15-26" )
 
       SendCompatible(Key,0)
       ProcessKey(Key,"")
@@ -679,7 +679,7 @@ lll(A_LineNumber, A_ScriptName,"SuspendOn()`n" . Key " = Key `n" . WordIndex " =
    { ;Make sure we are still on the same line
 global g_doSaveLogFiles
  if(g_doSaveLogFiles)
-lll(A_LineNumber, A_ScriptName,"SuspendOn()`n" . Key " = Key `n" . WordIndex " = WordIndex `n"  . "  `n " . "`n 17-07-16_15-26" )
+lll(A_LineNumber, A_LineFile,"SuspendOn()`n" . Key " = Key `n" . WordIndex " = WordIndex `n"  . "  `n " . "`n 17-07-16_15-26" )
 
       SendCompatible(Key,0)
       ProcessKey(Key,"") 
@@ -695,7 +695,7 @@ lll(A_LineNumber, A_ScriptName,"SuspendOn()`n" . Key " = Key `n" . WordIndex " =
       { 
 global g_doSaveLogFiles
  if(g_doSaveLogFiles)
-lll(A_LineNumber, A_ScriptName,"SuspendOn()`n" . Key " = Key `n" . WordIndex " = WordIndex `n"  . "  `n " . "`n 17-07-16_15-26" )
+lll(A_LineNumber, A_LineFile,"SuspendOn()`n" . Key " = Key `n" . WordIndex " = WordIndex `n"  . "  `n " . "`n 17-07-16_15-26" )
 
          SendCompatible(Key,0)
          ProcessKey(Key,"")
@@ -711,7 +711,7 @@ lll(A_LineNumber, A_ScriptName,"SuspendOn()`n" . Key " = Key `n" . WordIndex " =
    { 
 global g_doSaveLogFiles
  if(g_doSaveLogFiles)
-lll(A_LineNumber, A_ScriptName,"SuspendOn()`n" . Key " = Key `n" . WordIndex " = WordIndex `n"  . "  `n " . "`n 17-07-16_15-26" )
+lll(A_LineNumber, A_LineFile,"SuspendOn()`n" . Key " = Key `n" . WordIndex " = WordIndex `n"  . "  `n " . "`n 17-07-16_15-26" )
 
       SendCompatible(Key,0)
       ProcessKey(Key,"")
@@ -722,14 +722,14 @@ lll(A_LineNumber, A_ScriptName,"SuspendOn()`n" . Key " = Key `n" . WordIndex " =
            msg='%g_ListBox_Id%' = g_ListBox_Id `n '%Key%' = Key  n (line:%A_LineNumber%) `n
 global g_doSaveLogFiles
  if(g_doSaveLogFiles)
-lll(A_LineNumber, A_ScriptName,msg )
+lll(A_LineNumber, A_LineFile,msg )
 
 
    if ( ( (WordIndex + 1 - MatchStart) > prefs_ListBoxRows) || ( g_Match = "" ) || (g_SingleMatch[WordIndex] = "") )   ; only continue g_SingleMatch is not empty 
    { 
 global g_doSaveLogFiles
  if(g_doSaveLogFiles)
-lll(A_LineNumber, A_ScriptName,"SuspendOn()`n" . Key " = Key `n" . WordIndex " = WordIndex `n"  . "  `n " . "`n 17-07-16_15-26" )
+lll(A_LineNumber, A_LineFile,"SuspendOn()`n" . Key " = Key `n" . WordIndex " = WordIndex `n"  . "  `n " . "`n 17-07-16_15-26" )
 
       SendCompatible(Key,0)
       ProcessKey(Key,"")
@@ -740,7 +740,7 @@ lll(A_LineNumber, A_ScriptName,"SuspendOn()`n" . Key " = Key `n" . WordIndex " =
        msg='%g_ListBox_Id%' = g_ListBox_Id `n '%Key%' = Key  n (line:%A_LineNumber%) `n
 global g_doSaveLogFiles
  if(g_doSaveLogFiles)
-lll(A_LineNumber, A_ScriptName,msg )
+lll(A_LineNumber, A_LineFile,msg )
 
 
    IfEqual, prefs_NumPresses, 2
@@ -752,7 +752,7 @@ lll(A_LineNumber, A_ScriptName,msg )
       {
 global g_doSaveLogFiles
  if(g_doSaveLogFiles)
-lll(A_LineNumber, A_ScriptName,"SuspendOn()`n" . Key " = Key `n" . WordIndex " = WordIndex `n"  . "  `n " . "`n 17-07-16_15-26" )
+lll(A_LineNumber, A_LineFile,"SuspendOn()`n" . Key " = Key `n" . WordIndex " = WordIndex `n"  . "  `n " . "`n 17-07-16_15-26" )
 
          SendCompatible(Key,0)
          ProcessKey(Key,"")
@@ -762,7 +762,7 @@ lll(A_LineNumber, A_ScriptName,"SuspendOn()`n" . Key " = Key `n" . WordIndex " =
        msg='%g_ListBox_Id%' = g_ListBox_Id `n '%Key%' = Key  n (line:%A_LineNumber%) `n
 global g_doSaveLogFiles
  if(g_doSaveLogFiles)
-lll(A_LineNumber, A_ScriptName,msg )
+lll(A_LineNumber, A_LineFile,msg )
 
 
       ; Make sure it's an EndKey, otherwise abort replacement, send key and return
@@ -770,7 +770,7 @@ lll(A_LineNumber, A_ScriptName,msg )
       {
 global g_doSaveLogFiles
  if(g_doSaveLogFiles)
-lll(A_LineNumber, A_ScriptName,"SuspendOn()`n" . Key " = Key `n" . WordIndex " = WordIndex `n"  . "  `n " . "`n 17-07-16_15-26" )
+lll(A_LineNumber, A_LineFile,"SuspendOn()`n" . Key " = Key `n" . WordIndex " = WordIndex `n"  . "  `n " . "`n 17-07-16_15-26" )
 
          SendCompatible(Key . KeyAgain,0)
          ProcessKey(Key,"")
@@ -782,7 +782,7 @@ lll(A_LineNumber, A_ScriptName,"SuspendOn()`n" . Key " = Key `n" . WordIndex " =
         msg='%g_ListBox_Id%' = g_ListBox_Id `n '%Key%' = Key  n (line:%A_LineNumber%) `n
 global g_doSaveLogFiles
  if(g_doSaveLogFiles)
-lll(A_LineNumber, A_ScriptName,msg )
+lll(A_LineNumber, A_LineFile,msg )
 
 
       ; If the 2nd key is NOT the same 1st trigger key, abort replacement and send keys   
@@ -790,7 +790,7 @@ lll(A_LineNumber, A_ScriptName,msg )
       {
 global g_doSaveLogFiles
  if(g_doSaveLogFiles)
-lll(A_LineNumber, A_ScriptName,"SuspendOn()`n" . Key " = Key `n" . WordIndex " = WordIndex `n"  . "  `n " . "`n 17-07-16_15-26" )
+lll(A_LineNumber, A_LineFile,"SuspendOn()`n" . Key " = Key `n" . WordIndex " = WordIndex `n"  . "  `n " . "`n 17-07-16_15-26" )
 
          StringTrimLeft, KeyAgain, ErrorLevel, 7
          SendCompatible(Key . KeyAgain,0)
@@ -807,7 +807,7 @@ lll(A_LineNumber, A_ScriptName,"SuspendOn()`n" . Key " = Key `n" . WordIndex " =
       { 
 global g_doSaveLogFiles
  if(g_doSaveLogFiles)
-lll(A_LineNumber, A_ScriptName,"SuspendOn()`n" . Key " = Key `n" . WordIndex " = WordIndex `n"  . "  `n " . "`n 17-07-16_15-26" )
+lll(A_LineNumber, A_LineFile,"SuspendOn()`n" . Key " = Key `n" . WordIndex " = WordIndex `n"  . "  `n " . "`n 17-07-16_15-26" )
 
          SendCompatible(Key . KeyAgain,0)
          ProcessKey(Key,"")
@@ -818,7 +818,7 @@ lll(A_LineNumber, A_ScriptName,"SuspendOn()`n" . Key " = Key `n" . WordIndex " =
    msg='%g_ListBox_Id%' = g_ListBox_Id `n '%Key%' = Key  n (line:%A_LineNumber%) `n
 global g_doSaveLogFiles
  if(g_doSaveLogFiles)
-lll(A_LineNumber, A_ScriptName,msg )
+lll(A_LineNumber, A_LineFile,msg )
 
   ; msgbox,'%g_ListBox_Id%' = g_ListBox_Id `n '%Key%' = Key  n (line:%A_LineNumber%) `n
    ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -830,7 +830,7 @@ lll(A_LineNumber, A_ScriptName,msg )
     ; , '%ASC%' = ASC   n (line:%A_LineNumber%)  6n  , '%nnnnn%' = nnnnn   n (line:%A_LineNumber%)  N
 global g_doSaveLogFiles
  if(g_doSaveLogFiles)
-lll(A_LineNumber, A_ScriptName,"SuspendOn()`n" . Key " = Key `n" . WordIndex " = WordIndex `n"  . "  `n " . "`n 17-07-16_15-26" )
+lll(A_LineNumber, A_LineFile,"SuspendOn()`n" . Key " = Key `n" . WordIndex " = WordIndex `n"  . "  `n " . "`n 17-07-16_15-26" )
 
          SendCompatible(Key . KeyAgain,0)
          ProcessKey(Key,"")
@@ -844,7 +844,7 @@ lll(A_LineNumber, A_ScriptName,"SuspendOn()`n" . Key " = Key `n" . WordIndex " =
 
 global g_doSaveLogFiles
  if(g_doSaveLogFiles)
-lll(A_LineNumber, A_ScriptName,"SuspendOn()`n" . Key " = Key `n" . WordIndex " = WordIndex `n"  . "  `n " . "`n 17-07-16_15-26" )
+lll(A_LineNumber, A_LineFile,"SuspendOn()`n" . Key " = Key `n" . WordIndex " = WordIndex `n"  . "  `n " . "`n 17-07-16_15-26" )
 
    SendWord(WordIndex)
    IfEqual, prefs_NumPresses, 2
@@ -1099,7 +1099,7 @@ EvaluateScriptPathAndTitle(){
                ; gosub,couldIfindMyself
 global g_doSaveLogFiles
  if(g_doSaveLogFiles)
-lll(A_LineNumber, A_ScriptName, "Run, %" . ScriptPath64 . "%, %" . A_WorkingDir . "%")
+lll(A_LineNumber, A_LineFile, "Run, %" . ScriptPath64 . "%, %" . A_WorkingDir . "%")
                Run, %ScriptPath64%, %A_WorkingDir%
                 feedbackMsgBox(ExitApp , A_LineNumber . " TypingAid.inc.ahk")
                 ExitApp
@@ -1131,7 +1131,7 @@ InactivateAll(){
    SuspendOn()
 global g_doSaveLogFiles
  if(g_doSaveLogFiles)
-lll(A_LineNumber, A_ScriptName, "CloseListBox()")
+lll(A_LineNumber, A_LineFile, "CloseListBox()")
 global g_doRunLogFiles
  if(g_doRunLogFiles)
 run,log\%A_ScriptName%.log.txt
@@ -1196,7 +1196,7 @@ BuildTrayMenu(){
 ; This is to blank all vars related to matches, ListBox and (optionally) word 
 ClearAllVars(ClearWord){
    global
-       ; lll(A_LineNumber, A_ScriptName, "CloseListBox()")
+       ; lll(A_LineNumber, A_LineFile, "CloseListBox()")
        ; run,log\%A_ScriptName%.log.txt ; this line woks :) but to often ;) may we dont need any more to check it ;) 04.08.2017 15:20
 
    CloseListBox()
@@ -1345,7 +1345,7 @@ if(0){ ; check if this is arrived 30.04.2017 09:43
             msgbox,'%g_nextCriticalCommandString%'g_nextCriticalCommandString'%g_nextCriticalCommandString%':`n`n '%g_nextCriticalCommandTimeIdle%' = g_nextCriticalCommandTimeIdle  `n`n (line:%A_LineNumber%) n  := , '%A_TimeIdle%' = A_TimeIdle  n (line:%A_LineNumber%) n
 global g_doSaveLogFiles
 if(g_doSaveLogFiles){
-lll(A_LineNumber, A_ScriptName, "Reload")
+lll(A_LineNumber, A_LineFile, "Reload")
 run,log\%A_ScriptName%.log.txt
 }
             Reload

@@ -51,7 +51,7 @@ getLineOfWord(word) {
         if ( foundPos  ) {
             ;msgBox, %A_LoopReadLine% 18-03-02_09-26
             ;tooltip,'%A_LoopReadLine%' = A_LoopReadLine `n (line:%A_LineNumber%)
-            ;ToolTip1sec(A_LoopReadLine . "`n" . A_LineNumber . " " . A_ScriptName . " " .    Last_A_This)
+            ;ToolTip1sec(A_LoopReadLine . "`n" . A_LineNumber . " " .  A_LineFile . " " .    Last_A_This)
             return, JEE_StrUtf8BytesToText( A_LoopReadLine )
             ; return A_Index
          }
@@ -68,7 +68,7 @@ getLineOfWord(word) {
         if ( foundPos  ) {
             ;msgBox, %thisLine% 17-07-10_13-28
             ;tooltip,'%thisLine%' = thisLine  `n (line:%A_LineNumber%)
-            ;ToolTip1sec(thisLine . "`n" . A_LineNumber . " " . A_ScriptName . " " .    Last_A_This)
+            ;ToolTip1sec(thisLine . "`n" . A_LineNumber . " " .  A_LineFile . " " .    Last_A_This)
             return, thisLine
             return a_index
          }

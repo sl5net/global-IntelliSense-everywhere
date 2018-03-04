@@ -17,7 +17,7 @@ EnableWinHook()
 		
 lll(A_LineNumber, "Window.ahk", "Failed to register Event Hook! `n  g_WinChangedEventHook=" . g_WinChangedEventHook . "`n 17-07-16_16-21" )
 
-         tip=A_LineNumber . " " . A_ScriptName . " " . Last_A_This
+         tip=A_LineNumber . " " .  A_LineFile . " " . Last_A_This
          tooltip,% tip
          return false
          ;ExitApp
@@ -203,7 +203,7 @@ GetIncludedActiveWindowGuts() {
          
          CurrentWindowIsActive := false
 
-             lll(A_LineNumber, A_ScriptName, " InactivateAll() 17-08-04_16-19c")
+             lll(A_LineNumber, A_LineFile, " InactivateAll() 17-08-04_16-19c")
              ; run,\.\log\%A_ScriptName%.log.txt
 
          InactivateAll()
@@ -219,7 +219,7 @@ GetIncludedActiveWindowGuts() {
          Break
       
       CurrentWindowIsActive := false
-                   lll(A_LineNumber, A_ScriptName, "GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 18-02-10_09-44")
+                   lll(A_LineNumber, A_LineFile, "GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 18-02-10_09-44")
                   ; run,\.\log\%A_ScriptName%.log.txt
 
       InactivateAll()
