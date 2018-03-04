@@ -21,20 +21,20 @@ getCaretPos(activedoProtectOutOfWindowPos:=true){
    if(activedoProtectOutOfWindowPos){
 	   WinGetPos,wX,wY,wW,wH,A
 	   if(CaretX < wX || CaretY < wY || CaretX > (wX+wH) || CaretY > (wX+wH)){
-		  ToolTip5sec(A_LineNumber . " " . A_ScriptName . " (copy2clipBoard.functions.inc.ahk : 47)" )
+		  ToolTip5sec(A_LineNumber . " " .  A_LineFile . " (copy2clipBoard.functions.inc.ahk : 47)" )
 		  CaretX := g_CaretX_Old 
 		  CaretY := g_CaretY_Old 
 	   }
    if(CaretX < wX || CaretY < wY || CaretX > (wX+wH) || CaretY > (wX+wH)){
 		msg=line29 :( thats out. `n Caret = (%CaretX%,%CaretY%) `n
-		ToolTip5sec(msg . A_LineNumber . " " . A_ScriptName . " " . A_ThisFunc ,0,0 )
+		ToolTip5sec(msg . A_LineNumber . " " .  A_LineFile . " " . A_ThisFunc ,0,0 )
       return
    }
 	}
    g_CaretX_Old := CaretX
    g_CaretY_Old := CaretY
 	msg=line35: Caret = (%CaretX%,%CaretY%) `n
-	ToolTip5sec(msg . A_LineNumber . " " . A_ScriptName . " " . A_ThisFunc ,0,0 )
+	ToolTip5sec(msg . A_LineNumber . " " .  A_LineFile . " " . A_ThisFunc ,0,0 )
 	p := {x:CaretX, y:CaretY}
 	return p
 }
@@ -473,7 +473,7 @@ WinActivateTry(wintit,tries){
 
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<  
 contextHelp(HardDriveLetter){
-	ToolTip1sec(A_LineNumber . " " . A_ScriptName . " " . A_ThisFunc . A_ThisLabel)
+	ToolTip1sec(A_LineNumber . " " .  A_LineFile . " " . A_ThisFunc . A_ThisLabel)
 	SetTitleMatchMode, 1 ; must start match
 
 	;WinGetActiveStats, ActiveTitle, w, h, x, y 
@@ -582,7 +582,7 @@ runCopyQ_Ctrl_Shift_v(){
     Last_A_This:=A_ThisFunc . A_ThisLabel . " p"
     lll(A_LineNumber, "keysEveryWhere.ahk",Last_A_This)
 	
-    ToolTip1sec(A_LineNumber . " " . A_ScriptName . " " . Last_A_This)
+    ToolTip1sec(A_LineNumber . " " .  A_LineFile . " " . Last_A_This)
 ; 
 SetKeyDelay,80,80
 		send,{Blind}
@@ -822,7 +822,7 @@ convert123To_NumPad123(t)
   StringReplace, t, t, 9 , {numpad9}, All 
   StringReplace, t, t, 0 , {numpad0}, All 
   msg = '%t%' = t (line:%A_LineNumber%) `n 
-   msg .= A_LineNumber . " " . A_ScriptName . " " . A_ThisFunc . A_ThisLabel
+   msg .= A_LineNumber . " " .  A_LineFile . " " . A_ThisFunc . A_ThisLabel
 	ToolTip2sec(msg)
   return t
 }  
@@ -831,7 +831,7 @@ convert123To_NumPad123(t)
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 clipboardPaste(s)
 {
-  ToolTip1sec(A_LineNumber . " " . A_ScriptName . " " . A_ThisFunc . A_ThisLabel)
+  ToolTip1sec(A_LineNumber . " " .  A_LineFile . " " . A_ThisFunc . A_ThisLabel)
 	if(!s){
 		MsgBox, :(  clipboardPaste(s)  '%s%' = s (line:%A_LineNumber%) `n 
 		return false
@@ -1017,7 +1017,7 @@ text := RegExReplace(text,"i)[ ,]+", " ")
 if(!text)
     text:=tit
 
-; msgbox,% "g_ignReg..[tit]=>" . g_ignReg[A_ThisFunc]["tit"] . "< = >" . (RegExMatch(tit, g_ignReg[A_ThisFunc]["tit"])) . "< tit = >" . tit . "< `n `n " . A_LineNumber . " " . A_ScriptName . " "
+; msgbox,% "g_ignReg..[tit]=>" . g_ignReg[A_ThisFunc]["tit"] . "< = >" . (RegExMatch(tit, g_ignReg[A_ThisFunc]["tit"])) . "< tit = >" . tit . "< `n `n " . A_LineNumber . " " .  A_LineFile . " "
 
 global g_feedbackMsgBoxNr
 if(!g_feedbackMsgBoxNr)
@@ -1041,7 +1041,7 @@ feedbackMsgBoxNr := feedbackMsgBoxNrPre + 1
 
 MAXcountMsgBoxNr := 5
 if(feedbackMsgBoxNrPre > MAXcountMsgBoxNr || feedbackMsgBoxNr > MAXcountMsgBoxNr){
-	TOolTip5sec(":( Oops `n feedbackMsgBoxNr>MAX `n " . A_LineNumber . " " . A_ScriptName . " " . Last_A_This,1,1) 
+	TOolTip5sec(":( Oops `n feedbackMsgBoxNr>MAX `n " . A_LineNumber . " " .  A_LineFile . " " . Last_A_This,1,1)
 	; for some reasion sometimes there anyway to many windows. therfor this dirty-bugFix:
 	SetTitleMatchMode,1
 	DetectHiddenWindows,Off
@@ -1157,7 +1157,7 @@ AHKcode := "#" . "NoTrayIcon" . "`n" . AHKcode
 ;>>>>>>>> AHKcode >>>> 170814212827 >>>> 14.08.2017 21:28:27 >>>>
 ; tooltip,%AHKcode%`n `n (%A_LineFile%~%A_LineNumber%)
 ; Msgbox,`n (%A_LineFile%~%A_LineNumber%) `
-;ToolTip4sec(A_LineNumber . " " . A_ScriptName . " `n" . at)
+;ToolTip4sec(A_LineNumber . " " .  A_LineFile . " `n" . at)
 ;If(!WinExist(feedbackMsgBoxNr . ":")) ; shuld never happens
 SetTitleMatchMode,1
 while(0 && WinExist(feedbackMsgBoxNr . ":")){

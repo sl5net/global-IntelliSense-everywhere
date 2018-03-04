@@ -1,6 +1,5 @@
 #ErrorStdOut 
 #NoTrayIcon
-;kkkk
 ;<<<<<<<< IncludeI <<<< 171103161518 <<<< 03.11.2017 16:15:18 <<<<
 #Include *i ..\Wordlists\activeClassManipulation.inc.ahk
 ; ^- obiges funktioniert (weil funktion sp�ter ausgef�hrt) bei `normalem` Aufruf. z.B. click von atuoload.ahk und darin ein:
@@ -254,7 +253,7 @@ global g_lineNumberFeedback
             m=!wordlistNEW `n '%activeTitle%' = activeTitle  `n  '%activeClass%' = activeClass `n'%wordlistDir%' = wordlistDir `n==> return (line:`%A_LineNumber`%) `n 17-03-19_14-09
             g_tooltipText:=m
             Msgbox,%m%`n (from: %A_LineFile%~%A_LineNumber%) 17-08-11_23-42
-           ; ToolTip5sec(m . " `n" . A_LineNumber . " " . A_ScriptName . " " . Last_A_This)
+           ; ToolTip5sec(m . " `n" . A_LineNumber . " " .  A_LineFile . " " . Last_A_This)
             ; return ; we are inside a while loop ;) return probably makes now since there ;) 24.03.2017 20:29 17-03-24_20-29
 
 sleepMili := 1000
@@ -342,7 +341,7 @@ wordlistNEW = %activeTitle%
         ahkSource .= "Sleep, 4000 `n"
         ahkSource .= "ExitApp  `n"
         ahkSource .= "} `n"
-        ahkSource .= "#" . "Include *i " . wordlistFilterPath2Abs . "  `; thats the subfolder  wordlost inside class `n"
+      ahkSource .= "#" . "Include *i " . wordlistFilterPath2Abs . "  `; thats the subfolder  wordlost inside class `n"
  ;   ahkSource .= "#" . "Include *i " . wordlistFilterPath2 . "  `; thats the subfolder  wordlost inside class `n" 
 
     ahkSource .= "varInjects1 := mvarInjects(wordlistDir, wordlistNEW, activeClass, activeTitle) `n"
@@ -364,13 +363,16 @@ try{
     tooltip, `% tip
 }}
 if(true){  ; old scool. for compatibiliti thinks 02.03.2018 17:10
+
+
     RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlistDir, `%wordlistDir`%
     RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlistActive, `%wordlistActive`%
     RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlistNEW, `%wordlistNEW`%
     RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlistNEWarchivePath, `%wordlistNEWarchivePath`%
 
     wordlist = `%wordlistDir`%\`%wordlistNEW`%
-
+    ; wordlist = `%wordlistNEWarchivePath`% ; its not existing here 03.03.2018 19:13
+    ; msgbox,`%wordlistNEWarchivePath`%
     pLength := 0
     while(pLength <> StrLen(wordlist )){
         ; tooltip,`% A_index . "# Line:" . A_LineNumber . " Name:" . A_ScriptName . " "
@@ -380,12 +382,20 @@ if(true){  ; old scool. for compatibiliti thinks 02.03.2018 17:10
     wordlist := RegExReplace(wordlist,"\\\.\\")  ; works. removes all symbolic link 24.02.2018 cleanPath
     wordlist := RegExReplace(wordlist,"^\.\\")  ; works. removes all symbolic link 24.02.2018  cleanPath
 
+if(1){
+    ; dirty bug fix ._Generated.txt 04.03.2018 10:44
+    If(FileExist( wordlist . "._Generated.txt")) ; dirty bugFix TODO: prettyFy it
+      wordlist .= "._Generated.txt"
+
+  ; msgbox, `% wordlist
+}
+
     RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlist, `%wordlist`% ; old scool. for compatibiliti thinks 02.03.2018 17:10
 
 }
-)
-
+) ; endOf temp
 ahkSource .= temp
+
     ahkSource .= "wordlistOLDbackup( wordlistDir , wordlistOLD)" . " `n"
     ahkSource .= "wordlistOLDdisable( typingAidSourcePath, wordlistActive )" . " `n"
     ahkSource .= "wordlistNEWactivate( wordlistDir , wordlistNEW, wordlistActive, typingAidSourcePath, activeClass , activeTitle)" . " `n"
@@ -413,6 +423,7 @@ ahkSource .= temp
 
     IfWinNotExist,temp.ahk
     {
+
         FileWriteAndRun( ahkSource , "temp.ahk" ) ; wozu ? 13.08.2017 10:52
     } else {
         Tooltip, WinWaitClose   temp.ahk `n (from: %A_LineFile%~%A_LineNumber%)

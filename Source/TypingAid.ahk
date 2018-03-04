@@ -342,7 +342,7 @@ Return
 reloadWordlost:
 ParseWordsCount := ReadWordList()
 prefs_Length := setLength(ParseWordsCount, maxLinesOfCode4length1)
- ;feedbackMsgBox("reloadWordlost:",A_LineNumber . " " .  A_ScriptName,1,1)
+ ;feedbackMsgBox("reloadWordlost:",A_LineNumber . " " .  A_LineFile,1,1)
 
 ; ToolTipSec(t,x=123,y=321,sec=1000); 75+ lines in Live Edit Live_Edit Pseudo Live Edit for Chrome Firefox PhpStorm.ahk
 
