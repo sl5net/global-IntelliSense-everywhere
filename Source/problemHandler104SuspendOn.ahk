@@ -31,7 +31,7 @@ SetTitleMatchMode,1
 IfWinExist, TypingAid - Inactive
 {
    WinClose,
-   lll(A_LineNumber, A_ScriptName, "34: RunWait,TypingAid.ahk")
+   lll(A_LineNumber, A_LineFile, "34: RunWait,TypingAid.ahk")
    RunWait,TypingAid.ahk
 }
 
