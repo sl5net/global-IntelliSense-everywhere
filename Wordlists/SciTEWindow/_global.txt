@@ -1,4 +1,0 @@
-#include,Wordlists\_globalWordLists\_global.txt
-#include,Wordlists\TscShellContainerClass\_global.txt
-
-;___open class library|rr||ahk|run,..\.\Wordlists\SciTEWindow\_global.txt
