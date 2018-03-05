@@ -256,8 +256,8 @@ maybeSuperglobalWordList(wordlistNEW, wordlistNEW_time_between , ActiveClass, ac
 
 contend =
 (
-#Include .\..\Wordlists\_globalWordLists\_global.txt
-#Include .\..\Wordlists\%ActiveClass%\_global.txt
+#Include ..\_globalWordLists\_global.txt
+#Include ..\%ActiveClass%\_global.txt
 ; '%activeTitle%' ; = activeTitle . ist manchmal leer. sometimes emtpy. it not a error. tet it for e.g. with OpenOffice-Aps
 ; #Include .\..\Wordlists\_globalWordLists\examplesForBeginners.txt
 ___open global library|rr||ahk|run,..\.\Wordlists\_globalWordLists\_global.txt
