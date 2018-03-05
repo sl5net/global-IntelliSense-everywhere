@@ -182,6 +182,7 @@ global g_lineNumberFeedback
         tooltip,
         sleep,1000
       continue ;
+      continue ;
     }
     if(activeTitleOLD == activeTitle && activeClassOLD == activeClass ){
         ; WinWaitNotActive, %activeTitle% ahk_class %activeClass%

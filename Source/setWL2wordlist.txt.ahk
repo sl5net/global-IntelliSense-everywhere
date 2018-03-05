@@ -11,7 +11,7 @@ lll(A_LineNumber, A_LineFile, " hi :) just started. ")
 ; MsgBox,% A_LineFile . "`n hi :) ??? feedbackMsgBox visible ???? "
 ; php too too too to __ Über future Training & Consulting GmbH habe ich bis Ende März 2015 auch Python und andere Programmiersprachen (JavaSkript, PHP, HTML, Python C++, Java) unterrichtet. Python gefällt mir sehr und würde mich freuen, wenn sich mal wieder die Gelegenheit ergibt.
 
-; TOolTip1sec(A_LineNumber . " " . A_ScriptName . " " . Last_A_This) 
+; TOolTip1sec(A_LineNumber . " " .  A_LineFile . " " . Last_A_This)
 ; html php too
 
 wordlist := "..\Wordlists\_globalWordLists\_global.txt"

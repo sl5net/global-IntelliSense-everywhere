@@ -275,7 +275,7 @@ Class _Struct {
       ; Check for ENDING union and reset offset and union helpers
       While (SubStr(_LF_BKP_,0)="}"){
         If (!_uix_:=_union_.MaxIndex()){
-          MsgBox,0, Incorrect structure, missing opening braket {`nProgram will exit now `n%_TYPE_%
+          MsgBox,0, Incorrect structure, missing opening braket {`nProgram will exit now `n%_TYPE_% `n  (%A_LineFile%~%A_LineNumber%)
           ExitApp
         } ; Increase total size of union/structure if necessary
         ; reset offset and align because we left a union or structure

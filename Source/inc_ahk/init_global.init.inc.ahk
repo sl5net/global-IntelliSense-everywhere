@@ -1,10 +1,19 @@
 #SingleInstance force
 
 ;<<<<<<<< g_ignReg <<<< 180224082501 <<<< 24.02.2018 08:25:01 <<<<
+if(InStr(A_ComputerName,"SL5")) ; do ignore nothing
 global g_ignReg := { feedbackMsgBox:{tit:".^", text:".^"} ,          saveLogFiles: {ln:".^", scriptName:".^", text:".^"},                    sqlQuery: {ln:".^", scriptName:".^", text:".^"},                    hotKeyStuff: {ln:".^", scriptName:".^", text:".^"},                    runLogFile: {ln:".^", scriptName:".^", text:".^"} } ;;;; regEx ignoreConfigList ;;;;
-; please use it like this:     if( 1<RegExMatch(0 . ln, g_ignReg["saveLogFiles"]["ln"])	|| ......
+; please use it like this:     if( 1<RegExMatch(0 . A_ScriptName, g_ignReg["saveLogFiles"]["scriptName"])	|| ......
 		; OR: the regEx .^ never match anything. if you use .^ i recomand using: if( RegExMatch(ln, g_ignReg["saveLogFiles"]["ln"])	|| ......
 ; https://autohotkey.com/boards/viewtopic.php?f=6&t=44696&p=202322#p202322
+g_ignReg_exampleUsing =
+(
+if(RegExMatch(A_ScriptName, g_ignReg["saveLogFiles"]["scriptName"]))
+	MsgBox,ignore matched
+else
+	MsgBox,ignore NOT matched
+)
+lll(A_LineNumber, A_LineFile, "hey from ini ")
 ;>>>>>>>> g_ignReg >>>> 180224082506 >>>> 24.02.2018 08:25:06 >>>>
 
 if(instr(A_LineFile,A_ScriptName)){

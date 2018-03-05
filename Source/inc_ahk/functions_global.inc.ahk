@@ -42,6 +42,7 @@ getCaretPos(activedoProtectOutOfWindowPos:=true){
 
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
  lll(ln, scriptName, text="") {
+global g_ignReg
 
     if( RegExMatch( ln, g_ignReg["saveLogFiles"]["ln"])		|| RegExMatch( scriptName, g_ignReg["saveLogFiles"]["scriptName"])		|| RegExMatch( text, g_ignReg["saveLogFiles"]["text"]) )
 		return
@@ -102,8 +103,8 @@ getCaretPos(activedoProtectOutOfWindowPos:=true){
 		lll(A_LineNumber, "functions_global.inc.ahk")
 
 		;~ t := ""
-		;~ t .= "#Include *i init_global.init.inc.ahk" . "`n"
-		;~ t .= "#Include *i %A_ScriptDir%\inc_ahk\functions_global.inc.ahk" . "`n"
+		;~ t .= "# Include *i init_global.init.inc.ahk" . "`n"
+		;~ t .= "# Include *i %A_ScriptDir%\inc_ahk\functions_global.inc.ahk" . "`n"
 		;~ Clipboard := t
 
 		Clipboard="%A_ScriptName%"
@@ -471,7 +472,7 @@ WinActivateTry(wintit,tries){
 }
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<  
+;<<<<<<<< contextHelp <<<< 180304133425 <<<< 04.03.2018 13:34:25 <<<<
 contextHelp(HardDriveLetter){
 	ToolTip1sec(A_LineNumber . " " .  A_LineFile . " " . A_ThisFunc . A_ThisLabel)
 	SetTitleMatchMode, 1 ; must start match
@@ -564,7 +565,9 @@ ControlClick , ,  ahk_class Notepad
 	Send,{Blind}
 Return
 } ;  ; 
-;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+;>>>>>>>> contextHelp >>>> 180304133439 >>>> 04.03.2018 13:34:39 >>>>
+
+;<<<<<<<< runCopyQ_Ctrl_Shift_v <<<< 180304133515 <<<< 04.03.2018 13:35:15 <<<<
 runCopyQ_Ctrl_Shift_v(){
 	;~ MsgBox,Ctrl Shift v `n  dont work actually. `n please use Ctrl Shift 1. `n Sorry about that. thanks. 15.06.2015
 	;~ return
@@ -623,7 +626,7 @@ SetKeyDelay,80,80
 	
     return
 }
-
+;>>>>>>>> runCopyQ_Ctrl_Shift_v >>>> 180304133554 >>>> 04.03.2018 13:35:54 >>>>
 
 
 file_put_contents(f, c, doOverwrite=1)
@@ -1332,12 +1335,35 @@ try  ; i dont want disturbing error messages
 }
 catch e  ; Handles the first error/exception raised by the block above.
 {
+	tip := "Exception in DynaRun:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
+	lll(A_LineNumber, A_LineFile, tip)
+	tooltip, `% tip
 }
 SetTitleMatchMode,1
-while(WinExist(substr(name,1,-5)) && A_Index < 9)
+while(name && WinExist(substr(name,1,-5)) && A_Index < 9)
 		WinClose,
+	; clipboard := TempScript
    Return PID
 }
+;>>>>>>>> DynaRun >>>> 180228151009 >>>>
+
+;<<<<<<<< removesSymbolicLinksFromFileAdress <<<< 180305085209 <<<< 05.03.2018 08:52:09 <<<<
+removesSymbolicLinksFromFileAdress(wordlist){
+	pLength := 0
+	while(pLength <> StrLen(wordlist )){
+	; tooltip,`% A_index . "# Line:" . A_LineNumber . " Name:" . A_ScriptName . " "
+	pLength := StrLen(wordlist )
+	wordlist := RegExReplace(wordlist ,"(\\[^\\]+\\\.\.)+") ; works. removes all symbolic links 24.02.2018  cleanPath
+	}
+	wordlist := RegExReplace(wordlist,"\\\.\\")  ; works. removes all symbolic link 24.02.2018 cleanPath
+	wordlist := RegExReplace(wordlist,"^\.\\")  ; works. removes all symbolic link 24.02.2018  cleanPath
+	 return wordlist
+}
+;>>>>>>>> removesSymbolicLinksFromFileAdress >>>> 180305085214 >>>> 05.03.2018 08:52:14 >>>>
+
+
+
+
 
 
 ; lll(A_LineNumber, "inc_ahk\functions_global.inc.ahk")

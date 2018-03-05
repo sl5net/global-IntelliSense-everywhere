@@ -1,12 +1,3 @@
-
-
-
-
-
-
-; <td class="col1" style="color: transparent">Schule</td>
-; These functions and labels are related to sending the word to the program
-
 SendKey(Key){
    IfEqual, Key, $^Enter
    {
@@ -214,7 +205,7 @@ disableCopyQ() ; enableCopyQ() ;
 ; ________SciTEWindow\_global.txt
 ; zwei
 ; Msgbox, '%sending%' = sending  n (line:%A_LineNumber%)  (line:%A_LineNumber%)
-AHKcode := ""
+AHKcode := "" ; AHKcode2 .= ... AHKcode ... so later its in AHKcode2
 doSendSpacesInAHKslow := false
 doSendSpaceSlow := true
 isAHKcode := false
@@ -305,13 +296,15 @@ if(false){
 
     ;msgbox, isAHKcode = %isAHKcode%AHKdyn example super simple example
 
-
+aScriptDir2wordlistFolder := removesSymbolicLinksFromFileAdress(A_ScriptDir "\..\Wordlists") ; user should could includes direcly from his txt wordlist, without editing the address 05.03.2018 08:15
+;msgbox,% aScriptDir2wordlistFolder " = aScriptDir2wordlistFolder"
+;exitapp
    if( isAHKcode ){
    AHKcode2 := ""
 AHKcode2 .= "#" . "NoTrayIcon `n "
 AHKcode2 .= "#" "MaxHotkeysPerInterval 99000000 `n "
 AHKcode2 .= "#" "HotkeyInterval 99000000 `n "
-AHKcode2 .= "SetWorkingDir, " . A_ScriptDir . "`n" ; doesent work has no effect ScriptDir|rr||ahk|send, % A_ScriptDir ; \\.\pipe 03.04.2017 11:17 17-04-03_11-17
+AHKcode2 .= "SetWorkingDir, " . aScriptDir2wordlistFolder . "`n" ; doesent work has no effect ScriptDir|rr||ahk|send, % A_ScriptDir ; \\.\pipe 03.04.2017 11:17 17-04-03_11-17
 AHKcode2 .= "SetBatchLines, -1 `n "
 AHKcode2 .= "SetKeyDelay, -1, -1 `n "
 AHKcode2 .= "SetWinDelay, -1 `n "
@@ -346,12 +339,13 @@ if( RegExMatch( activeTitle , "\.(json|ts|css|html) - PhpStorm" ) && substr( g_S
     global g_Word ; thats the beginning of the word user already typed. 27.04.2017 18:52
     AHKcode := getRealisticDelayDynamicSendAHKcode(g_Word,AHKcode)
 }
+AHKcode := RegExReplace(AHKcode, "#include[ ]*,[ ]*(\w)"           , "#include " . aScriptDir2wordlistFolder . "\\$1" ) ; dayTimeHello|rr||ahk|#include,incDynAhk\sendDayTimeHello.ahk
+AHKcode := RegExReplace(AHKcode, "#include[ ]*,[ ]*([\.]{1,2}\\\w)", "#include " . aScriptDir2wordlistFolder . "\\$1" ) ; dayTimeHello|rr||ahk|#include,..\xyz\sendDayTimeHello.ahk
+AHKcode := RegExReplace(AHKcode, "#include[ ]+([\.]{1,2}\\\w)", "#include " . aScriptDir2wordlistFolder . "\\$1" ) ; dayTimeHello|rr||ahk|#include ..\xyz\sendDayTimeHello.ahk
 
-AHKcode := RegExReplace(AHKcode, "#include[ ]*,[ ]*(\w)"           , "#include " . A_ScriptDir . "\\$1" ) ; dayTimeHello|rr||ahk|#include,incDynAhk\sendDayTimeHello.ahk
-AHKcode := RegExReplace(AHKcode, "#include[ ]*,[ ]*([\.]{1,2}\\\w)", "#include " . A_ScriptDir . "\\$1" ) ; dayTimeHello|rr||ahk|#include,..\xyz\sendDayTimeHello.ahk
 ; AHKcode := RegExReplace(AHKcode, "#include[ ]*,[ ]*(\w)", "#include \\$1" ) ; dayTimeHello|rr||ahk|#include,incDynAhk\sendDayTimeHello.ahk
 ; AHKcode := RegExReplace(AHKcode, "#include[ ]*,[ ]*[\.]{0,2}\\(\w)", "#include \\$1" ) ; dayTimeHello|rr||ahk|#include,incDynAhk\sendDayTimeHello.ahk
-StringReplace, AHKcode, AHKcode, `%A_ScriptDir`%, %A_ScriptDir%, All
+StringReplace, AHKcode, AHKcode, `%A_ScriptDir`%, %aScriptDir2wordlistFolder%, All
 StringReplace, AHKcode, AHKcode, `%A_WorkingDir`%, %A_WorkingDir%, All ; in some context its not neccasarry becouse its set ... 12.08.2017 11:22
 ; A_ScriptDir == A_WorkingDir is proably the same !! should be in this case :) 12.08.2017 11:26
 
@@ -366,16 +360,19 @@ AHKcode2 .= RegExReplace(AHKcode, "([^``])``n", "$1`n") ; ; thats we really need
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 ; AHKcode2  = RegExReplace(AHKcode2 , "%A_ScriptDir%", A_ScriptDir)
-; clipboard := AHKcode2
-; msgbox, % AHKcode2n
+ ; clipboard := AHKcode2
+ ;msgbox, % AHKcode2
 
 send,{blind}
        global g_sending_is_buggy
        if( g_sending_is_buggy )
            lll(A_LineNumber, "Sending.ahk", "send,{blind} `n 17-07-29_11-47")
 
-        ;msgbox,(%A_LineFile%~%A_LineNumber%) `n %AHKcode2% 
+        ;msgbox,(%A_LineFile%~%A_LineNumber%) `n %AHKcode2%
+        aWorkingDirBackUp := A_WorkingDir
+        SetWorkingDir,%A_WorkingDir%\..\Wordlists 
        DynaRun(AHKcode2)
+        SetWorkingDir,%aWorkingDirBackUp%
    }
 
    ClearAllVars(true)
@@ -383,8 +380,8 @@ send,{blind}
    ; the following code was addet by Http://SL5.net 11.03.2017 17:54 17-03-11_17-54 . have fin & enjoy
    sending:=trim( sending )
    if(RegExMatch( sending , "^[^\s]+(\\[^\\\s]+\\[^\\\s]+\.txt)$", SubPat) ) ; stores in SubPat1. 30.04.2017 12:24 is that buggy ? correct? todo:
-        absWordListAddress := A_ScriptDir . "\..\" . sending
-        ;Msgbox,%absWordListAddress% `n (from: %A_LineFile%~%A_LineNumber%)
+        absWordListAddress = %aScriptDir2wordlistFolder%\..\%sending%
+        ; Msgbox,%absWordListAddress% = absWordListAddress `n (from: %A_LineFile%~%A_LineNumber%)
         fExistWL := FileExist(absWordListAddress)
         fExist := FileExist(sending)
         ; InStr(FileExist("C:\My Folder"), "D") would be true only if the file exists and is a directory.

@@ -6,7 +6,6 @@
 Process, Priority,, H
 SetBatchLines, -1
 SetKeyDelay, -1, -1
-SetMouseDelay, -1
 SetWinDelay, -1
 SetControlDelay, -1
 
@@ -75,7 +74,7 @@ DetectHiddenWindows,On
 IfWinNotExist,Could not close the previous instance of this script_autoCloser.ahk
     run,%A_ScriptDir%\Could not close the previous instance of this script_autoCloser.ahk
 
-WinWait,Typing_Aid_everywhere_multi_clone.ahk ahk_class AutoHotkey
+;WinWait,Typing_Aid_everywhere_multi_clone.ahk ahk_class AutoHotkey
 
 g_nextCriticalCommandString := "104:Suspend, On"
 ; Disables all hotkeys 
