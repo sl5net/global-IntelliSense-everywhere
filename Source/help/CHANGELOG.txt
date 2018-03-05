@@ -3,6 +3,7 @@
 Für eine bessere Benutzerfreundlichkeit in deinem Lieblingstexteditor, 
 wird von andern Listen nun folgendermasen geerbt:
 #Include ..\ActiveClass\WinTitel.txt
+nicht mehr
 #Include ..\Wordlists\ActiveClass\WinTitel.txt
 Damit kannst du nun aus notepad++ ganz einfach über das 
 Kontextmenü die Datei unter dem kurser öffnen (
@@ -21,6 +22,7 @@ Um von dieser Datei zu erben heisst es jetzt aber:
 For better usability in your favorite text editor, 
 other lists now inherit as follows:
 #Include .. \ ActiveClass \ WinTitel.txt
+not any more
 #Include .. \ Wordlists \ ActiveClass \ WinTitel.txt
 Now you can easily open the file from the notepad ++ 
 via the context menu under the cursor 
