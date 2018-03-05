@@ -1,0 +1,37 @@
+#Include ..\ statt #Include ..\Wordlists  
+
+Für eine bessere Benutzerfreundlichkeit in deinem Lieblingstexteditor, 
+wird von andern Listen nun folgendermasen geerbt:
+#Include ..\ActiveClass\WinTitel.txt
+#Include ..\Wordlists\ActiveClass\WinTitel.txt
+Damit kannst du nun aus notepad++ ganz einfach über das 
+Kontextmenü die Datei unter dem kurser öffnen (
+Kontextmenü und Date D bzw. F bei englischer Tastatur) öffnen.
+Vielleicht kann dein Texteditor das auch durch einen 
+Doppelklick auf die Dateiadresse.
+Damit ist jedoch eine kleine Inkonsistenz erzeugt, weil:
+Weiterhin gilt als Basisadresse (Root-Ordner) für die Scritpte Source Ordner. 
+Beispiel zum ausführen eine Datei (bzw. hier auch öffnen):
+run,..\Wordlists\Notepad\_global.txt
+also nicht
+run,..\Notepad\_global.txt
+Um von dieser Datei zu erben heisst es jetzt aber:
+#Include ..\Notepad\_global.txt
+
+For better usability in your favorite text editor, 
+other lists now inherit as follows:
+#Include .. \ ActiveClass \ WinTitel.txt
+#Include .. \ Wordlists \ ActiveClass \ WinTitel.txt
+Now you can easily open the file from the notepad ++ 
+via the context menu under the cursor 
+(context menu and Date D or F on English keyboard).
+Maybe your text editor can do that too by double clicking on the file address.
+However, this creates a small inconsistency because:
+Furthermore, the base address (root folder) 
+for the source folder is Scritpte.
+Example to run a file (or open it here):
+run, .. \ Word Lists \ Notepad \ _global.txt
+not
+run, .. \ Notepad \ _global.txt
+To inherit from this file, it now says:
+#Include .. \ Notepad \ _global.txt
