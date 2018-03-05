@@ -22,7 +22,7 @@ Um von dieser Datei zu erben heisst es jetzt aber:
 For better usability in your favorite text editor, 
 other lists now inherit as follows:
 #Include .. \ ActiveClass \ WinTitel.txt
-not any more
+not anymore
 #Include .. \ Wordlists \ ActiveClass \ WinTitel.txt
 Now you can easily open the file from the notepad ++ 
 via the context menu under the cursor 
