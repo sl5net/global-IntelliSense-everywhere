@@ -236,6 +236,8 @@ if( SubStr( wordlistNEW , -3 ) <> ".txt" ) ; 06.03.2018 13:09
     wordlistNEW .= ".txt"
 
 maybeSuperglobalWordList(wordlistNEW, wordlistNEW_time_between , ActiveClass, activeTitle := "" ){
+    if( SubStr( wordlistNEW , -3 ) <> ".txt" ) ; 06.03.2018 13:09
+        wordlistNEW .= ".txt"
      if(wordlistNEW <> wordlistNEW_time_between)
           return, % wordlistNEW 
      if(FileExist( "..\Wordlists\" . ActiveClass . "\" . wordlistNEW ))
@@ -261,15 +263,22 @@ contend =
 (
 #Include ..\_globalWordLists\_global.txt
 #Include ..\%ActiveClass%\_global.txt
+
 ; '%activeTitle%' ; = activeTitle . ist manchmal leer. sometimes emtpy. it not a error. tet it for e.g. with OpenOffice-Aps
-; #Include .\..\Wordlists\_globalWordLists\examplesForBeginners.txt
+; #Include ..\_globalWordLists\examplesForBeginners.txt
 ___open global library|rr||ahk|run,..\.\Wordlists\_globalWordLists\_global.txt
 ___open class library|rr||ahk|run,..\.\Wordlists\%ActiveClass%\_global.txt
 ___open window library |rr||ahk|run,..\.\Wordlists\%ActiveClass%\%wordlistNEW%
 )
      FileAppend,% "",   % "..\Wordlists\" . ActiveClass . "\_global.txt"
+if( FileExist("..\Wordlists\" . ActiveClass . "\" . wordlistNEW) ){
+    Msgbox,ups wordlistNEW = %wordlistNEW% exist already ==> EXIT `n (%A_LineFile%~%A_LineNumber%) )
+    EXIT
+}
      FileAppend,% contend,   % "..\Wordlists\" . ActiveClass . "\" . wordlistNEW
      Sleep,100
+      msgbox,%wordlistNEW% = wordlistNEW ,`%wordlistNEW`% = wordlistNEW 18-03-06_13-31
+
      run,                    % "..\Wordlists\" . ActiveClass . "\" . wordlistNEW
 
      return, % wordlistNEW 

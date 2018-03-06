@@ -1,5 +1,5 @@
 ; 'Source - FreeCommander XE' = at  
  ;  (line:75) 
 ;  ; = activeTitle 17-08-10_16-03
-; #Include .\..\Wordlists\_globalWordLists\examplesForBeginners.txt
+; #Include ..\_globalWordLists\examplesForBeginners.txt
 ___your library open|rr||ahk|run,..\\_globalWordListsGenerated\_global 

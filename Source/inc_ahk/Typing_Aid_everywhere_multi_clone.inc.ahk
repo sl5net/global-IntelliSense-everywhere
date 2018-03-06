@@ -1026,7 +1026,7 @@ if(!wordlistNEWarchivePath)
 initialWordList =
 (
 ; %activeTitle% ; = activeTitle 17-08-10_16-03
-; #Include .\..\Wordlists\_globalWordLists\examplesForBeginners.txt
+; #Include ..\_globalWordLists\examplesForBeginners.txt
 ___your library open|rr||ahk|run,..\%wordlistNEWarchivePath%
 )
 ; EndOf filling the template variable with useful examples 12.07.2017 21:18
