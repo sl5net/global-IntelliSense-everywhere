@@ -1181,7 +1181,7 @@ if(at && !RegExMatch(at, "^(\d:|temp\.ahk)")){ ; check for probably wrong title.
 	loop,10
 	{
 		maxTryes:=350
-		while(!WinActive(at)){ ; works :)  14.08.2017 19:34
+		while(!WinActive(at) && winExist(at)){ ; works :)  14.08.2017 19:34
 			sleep,10
 			tooltip,WinActivate %at%
 			WinActivate,% at
