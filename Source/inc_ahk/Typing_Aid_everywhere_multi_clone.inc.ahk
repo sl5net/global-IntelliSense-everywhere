@@ -134,26 +134,14 @@ Loop, read, % wordlistNEWarchivePath
            if(foundPos){
             isIncludeFileInside := true
 
-if(0){
-feedbackMsgBox("isIncludeFileInside = " isIncludeFileInside,A_LineNumber . " " .  A_LineFile,1,1)
-global g_ignReg
-g_ignReg["feedbackMsgBox"]["tit"]  =.^
-g_ignReg["feedbackMsgBox"]["text"] =.^
-feedbackMsgBox("isIncludeFileInside = " isIncludeFileInside,A_LineNumber . " " .  A_LineFile,1,1)
-msg='%wordlistNEWarchivePath%' = wordlistNEWarchivePath `n '%foundPos%' = foundPos  `n '%includeFilePath%' = includeFilePath  `n (line:%A_LineFile%~%A_LineNumber%)
-  ToolTip5sec(msg  . " `n " . A_LineNumber . " " .  A_LineFile . " " . Last_A_This)
- msgbox,% msg
-}
+includeFilePath     := trim(matchs1)
+exist_includeFilePath := (FileExist(includeFilePath)) ? 1 : 0
 
-
-            includeFilePath     := matchs1
-
-            exist_includeFilePath := (FileExist(includeFilePath)) ? 1 : 0
             if(!exist_includeFilePath){ ; Backwords compatibible 06.03.2018 11:35 allows old include path; TODO: clean that a day in future. Priority: low. really low TODO: change default. default is inside the if
                 msg := includeFilePath " = includeFilePath `n"
                 msg .= exist_includeFilePath " = exist_includeFilePath  `n`n"
                 includeFilePath := RegExReplace(includeFilePath, "^\.\.\\","") ; ..\ deleted 06.03.2018 11:34
-                includeFilePath := removesSymbolicLinksFromFileAdress( "..\Wordlists\" includeFilePath) ; user should could includes direcly from his txt wordlist, without editing the address 05.03.2018 08:15
+                includeFilePath := removesSymbolicLinksFromFileAdress( wordlistDir "\" includeFilePath) ; user should could includes direcly from his txt wordlist, without editing the address 05.03.2018 08:15
                 exist_includeFilePath := (FileExist(includeFilePath)) ? 1 : 0
 
                 msg .= includeFilePath " = includeFilePath  `n"
@@ -165,8 +153,20 @@ msg='%wordlistNEWarchivePath%' = wordlistNEWarchivePath `n '%foundPos%' = foundP
                 ;exitapp
             }
 
+if(0){
+feedbackMsgBox("isIncludeFileInside = " isIncludeFileInside,A_LineNumber . " " .  A_LineFile,1,1)
+global g_ignReg
+g_ignReg["feedbackMsgBox"]["tit"]  =.^
+g_ignReg["feedbackMsgBox"]["text"] =.^
+feedbackMsgBox("isIncludeFileInside = " isIncludeFileInside,A_LineNumber . " " .  A_LineFile,1,1)
+msg='%wordlistNEWarchivePath%' = wordlistNEWarchivePath `n '%foundPos%' = foundPos  `n '%includeFilePath%' = includeFilePath  `n '%exist_includeFilePath%' = exist_includeFilePath `n  wordlistDir = '%wordlistDir%' `n (line:%A_LineFile%~%A_LineNumber%)
+ToolTip5sec(msg  . " `n " . A_LineNumber . " " .  A_LineFile . " " . Last_A_This)
+msgbox,% msg
+}
 
-            lineInRegEx         := (matchs4) ? matchs3 . matchs4 : "|.*" ; | ist a positvie rule. alle matching lines goes inside the new file.
+
+
+lineInRegEx         := (matchs4) ? matchs3 . matchs4 : "|.*" ; | ist a positvie rule. alle matching lines goes inside the new file.
             lll_if_g_doSaveLogFiles_matches(A_LineNumber, A_ThisFunc, matchs1,matchs2,matchs3,matchs4)
             lll_if_g_doSaveLogFiles(A_LineNumber, A_ThisFunc,  "lineInRegEx=>" . lineInRegEx . "<" )
 
@@ -198,9 +198,9 @@ lll_if_g_doSaveLogFiles(A_LineNumber, A_ThisFunc,  ":| exist_includeFilePath =" 
                 if(exist_wordlistGeneratedPath)
                     FileGetTime, wordlistGeneratedModifiedTime, %wordlistGeneratedPath%
 
-msg= '%wordlistNEWarchivePathBackupModifiedTime%' > '%wordlistGeneratedModifiedTime%' (wordlistNEWarchivePathBackupModifiedTime > wordlistGeneratedModifiedTime)  `n'%includeFileModifiedTime%' > '%wordlistGeneratedModifiedTime%' (includeFileModifiedTime > wordlistGeneratedModifiedTime)
+msg= '%wordlistNEWarchivePathBackupModifiedTime%' > '%wordlistGeneratedModifiedTime%' (wordlistNEWarchivePathBackupModifiedTime > wordlistGeneratedModifiedTime)  `n'%includeFileModifiedTime%' > '%wordlistGeneratedModifiedTime%' (includeFileModifiedTime > wordlistGeneratedModifiedTime) `n'%includeFilePath%' = '%includeFilePath%'
 lll_if_g_doSaveLogFiles(A_LineNumber, A_ThisFunc,  msg)
-; msgbox, % msg
+msgbox, % msg
 
                 if( false 
                 || !exist_wordlistGeneratedPath 
