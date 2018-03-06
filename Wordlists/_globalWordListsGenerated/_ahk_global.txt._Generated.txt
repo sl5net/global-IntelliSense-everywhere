@@ -24,12 +24,12 @@ RTrim(String)
 FileAppend, Text, Filename, Encoding|rr|FileAppend, |ahk|m=Text, Filename, Encoding`n ll:=strlen(m)+1 `n lr:=4 `n send, %m% {left %ll%}{shift down}{right %lr%}{shift up}
 
 ; TypingAid-master\Source\TypingAid.ahk
-FileAppend dynAhk|rr|; FileAppend .. HelloWorld2.ahk|ahk|FileAppend, msgbox`, HelloWorld (from: %A_ScriptName%~%A_LineNumber%)``n , incDynAhk\HelloWorld2.ahk
+FileAppend dynAhk|rr|; FileAppend .. HelloWorld2.ahk|ahk|FileAppend, msgbox`, HelloWorld (from: %A_LineFile%~%A_LineNumber%)``n , incDynAhk\HelloWorld2.ahk
 AHKdyn Example run|rr||ahk|f=incDynAhk\HelloWorld3.ahk `n if(Fileexist(f)) `n run,%f%
 
 
 timestamp yy:MM:dd HH:mm:ss|r|FormatTime, timestampyyMMddHHmmss, %A_now%,yy:MM:dd HH:mm:ss
-timestamp dd.MM.yy HH:mm Uhr|r|FormatTime, ddMMyyHHmm, %A_now%,dd.MM.yy HH:mm Uhr; Msgbox,%ddMMyyHHmm% `n = ddMMyyHHmm (%A_ScriptName%~%A_LineNumber%)
+timestamp dd.MM.yy HH:mm Uhr|r|FormatTime, ddMMyyHHmm, %A_now%,dd.MM.yy HH:mm Uhr; Msgbox,%ddMMyyHHmm% `n = ddMMyyHHmm (%A_LineFile%~%A_LineNumber%)
 timestampyyMMddHHmmss|r|FormatTime, timestampyyMMddHHmmss, %A_now%,yyMMddHHmmss
 timestampHHmmss|r|FormatTime, timestampHHmmss, %A_now%,HH:mm:ss
 
@@ -640,7 +640,7 @@ MouseMove, %mX%, %mY% , 0 ; 24+ lines in androVMbox_Reload_Browser_Click.ahk|rr|
 abc|rr||ahk|Send, ``n  ```n 
 rundIfNotExist(m_r , m_WinTitle = "",m_category="")|rr|rundIfNotExist(m_r , m_WinTitle = "",m_category="")|ahk|send,{shift down}{left 36}{shift up}}
 Msgbox|rr|Msgbox,|ahk|c := Chr(96) `n m = (`%A_ScriptName`%~`%A_LineNumber`%) `n lm:=strlen(m)+4 `n Send,% c `n Send, n %m% {left %lm%}{shift down}{right %lm%}{shift up}
-MsgBox,4 ,Titel, 5Sek (from: %A_ScriptName%~%A_LineNumber%), 5
+MsgBox,4 ,Titel, 5Sek (from: %A_LineFile%~%A_LineNumber%), 5
 Multi
 NoActivate
 NoDefault
@@ -841,7 +841,7 @@ Theme
 Thread,Interrupt,0,0 ; 316+ lines in ac'tivAid_QuickChangeDir Indexer.ahk|rr|Thread,Interrupt,0,0; 316+ lines in ac'tivAid_QuickChangeDir Indexer.ahk|ahk|lc:=52 `n Send, {shift down}{left %lc%}{shift up}
 ToggleCheck
 ToggleEnable
-Tooltip,(from: %A_ScriptName%~%A_LineNumber%)|rr|Tooltip, |ahk|m =``n (from: `%A_ScriptName`%~`%A_LineNumber`%) `n lm:=strlen(m)+1 `n send, %m% {left %lm%}{shift down}{right %lm%}{shift up}
+Tooltip,(from: %A_LineFile%~%A_LineNumber%)|rr|Tooltip, |ahk|m =``n (from: `%A_ScriptName`%~`%A_LineNumber`%) `n lm:=strlen(m)+1 `n send, %m% {left %lm%}{shift down}{right %lm%}{shift up}
 ToolTip1sec(A_LineNumber . " " . A_ScriptName . " " . Last_A_This) |rr|ToolTip1sec|ahk|m =(A_LineNumber . " " . A_ScriptName . " " . Last_A_This)`n ll:=strlen(m) `n lr:=strlen(m)-2 `n send, %m% {left %ll%}{shift down}{right %lr%}{shift up}
 ToolTip2sec|rr|ToolTip2sec|ahk|m =(A_LineNumber . " " . A_ScriptName . " " . Last_A_This)`n ll:=strlen(m) `n lr:=strlen(m)-2 `n send, %m% {left %ll%}{shift down}{right %lr%}{shift up}
 ToolTip3sec|rr|ToolTip3sec|ahk|m =(A_LineNumber . " " . A_ScriptName . " " . Last_A_This)`n ll:=strlen(m) `n lr:=strlen(m)-2 `n send, %m% {left %ll%}{shift down}{right %lr%}{shift up}

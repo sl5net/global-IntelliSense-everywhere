@@ -13,11 +13,11 @@ ___open libraries Folder|rr||ahk|run,% A_WorkingDir . "\..\Wordlists\" ; works 1
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ; folgende #include befehle funktionieren nur am Dateianfang.
 ; folgender inclodiert die gesamte datei:
-#include,Wordlists\_globalWordLists\pfade.txt
+#Include ..\_globalWordLists\pfade.txt
 ; includiert alles aus der datei was aufss reg-suchmuster passst:
-#include,Wordlists\_globalWordLists\pfade.txt | i)^[ab]+
+#Include ..\_globalWordLists\pfade.txt | i)^[ab]+
 ; includiert alles aus der datei was NICHT aufs reg-suchmuster passst:
-#include,Wordlists\_globalWordLists\pfade.txt ! i)^[ab]+
+#Include ..\_globalWordLists\pfade.txt ! i)^[ab]+
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 WordlistFileAdress|rr||ahk|FileReadLine,WordlistFileAdress, wordlist.txt.status.txt, 1 `n send, % WordlistFileAdress
