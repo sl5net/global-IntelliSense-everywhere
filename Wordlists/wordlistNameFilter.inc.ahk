@@ -232,6 +232,9 @@ return s
 
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ; this days i have to many files into here... i want first to activate the superglobal 10.08.2017 09:29
+if( SubStr( wordlistNEW , -3 ) <> ".txt" ) ; 06.03.2018 13:09
+    wordlistNEW .= ".txt"
+
 maybeSuperglobalWordList(wordlistNEW, wordlistNEW_time_between , ActiveClass, activeTitle := "" ){
      if(wordlistNEW <> wordlistNEW_time_between)
           return, % wordlistNEW 
