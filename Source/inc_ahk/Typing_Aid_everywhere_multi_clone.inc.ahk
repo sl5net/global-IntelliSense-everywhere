@@ -895,13 +895,18 @@ if `(!wordlistDir `){
 }
 
 ; this days i have to many files into hiere... i want first to activate the superglobal 10.08.2017 09:29
-if(!RegExMatch(wordlistNEW,"\.txt$")) ; dirty bug fix TODO: not pretty
+if(0 && !RegExMatch(trim(wordlistNEW),"\.txt$")) ; dirty bug fix TODO: not pretty
     wordlistNEW .= ".txt"
-wordlistNEW := maybeSuperglobalWordList`(wordlistNEW, wordlistNEW_time_between , ActiveClass, activeTitle `)
+if( SubStr( wordlistNEW , -3 ) <> ".txt" ) ; 06.03.2018 13:09
+    wordlistNEW .= ".txt"
+
+
 
 
 
 `; Clipboard := wordlistNEW    we dont need that anymore. becouse now we work without the clipboard 09.03.2017 21:21 isInternMsgTransportIsClipboard := false `; false. then using fileSystem: readfile, include copyfile
+`; Clipboard := wordlistNEW ``n %A_LineFile%~%A_ThisFunc%~%A_LineNumber% ``n we dont need that anymore. becouse now we work without the clipboard 09.03.2017 21:21 isInternMsgTransportIsClipboard := false `; false. then using fileSystem: readfile, include copyfile
+`; tooltip,`%Clipboard`% = Clipboard 123496854
 )
 
 
