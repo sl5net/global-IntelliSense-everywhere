@@ -296,6 +296,7 @@ if(false){
 
     ;msgbox, isAHKcode = %isAHKcode%AHKdyn example super simple example
 
+; https://github.com/sl5net/global-IntelliSense-everywhere/blob/master/Source/help/CHANGELOG.txt#L1 05.03.2018 10:40
 aScriptDir2wordlistFolder := removesSymbolicLinksFromFileAdress(A_ScriptDir "\..\Wordlists") ; user should could includes direcly from his txt wordlist, without editing the address 05.03.2018 08:15
 ;msgbox,% aScriptDir2wordlistFolder " = aScriptDir2wordlistFolder"
 ;exitapp
@@ -339,6 +340,8 @@ if( RegExMatch( activeTitle , "\.(json|ts|css|html) - PhpStorm" ) && substr( g_S
     global g_Word ; thats the beginning of the word user already typed. 27.04.2017 18:52
     AHKcode := getRealisticDelayDynamicSendAHKcode(g_Word,AHKcode)
 }
+
+; https://github.com/sl5net/global-IntelliSense-everywhere/blob/master/Source/help/CHANGELOG.txt#L1
 AHKcode := RegExReplace(AHKcode, "#include[ ]*,[ ]*(\w)"           , "#include " . aScriptDir2wordlistFolder . "\\$1" ) ; dayTimeHello|rr||ahk|#include,incDynAhk\sendDayTimeHello.ahk
 AHKcode := RegExReplace(AHKcode, "#include[ ]*,[ ]*([\.]{1,2}\\\w)", "#include " . aScriptDir2wordlistFolder . "\\$1" ) ; dayTimeHello|rr||ahk|#include,..\xyz\sendDayTimeHello.ahk
 AHKcode := RegExReplace(AHKcode, "#include[ ]+([\.]{1,2}\\\w)", "#include " . aScriptDir2wordlistFolder . "\\$1" ) ; dayTimeHello|rr||ahk|#include ..\xyz\sendDayTimeHello.ahk
@@ -350,6 +353,9 @@ StringReplace, AHKcode, AHKcode, `%A_WorkingDir`%, %A_WorkingDir%, All ; in some
 ; A_ScriptDir == A_WorkingDir is proably the same !! should be in this case :) 12.08.2017 11:26
 
 StringReplace, AHKcode, AHKcode, #incDynAhk, #include %A_ScriptDir%\incDynAhk, All ; dayTimeHello|rr||ahk|#incDynAhk\sendDayTimeHello.ahk
+
+;Clipboard := AHKcode
+;Msgbox,%AHKcode%`n = AHKcode (%A_LineFile%~%A_LineNumber%) 
 
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 ; todo: howto insert  a newwline text sign into te output 19.04.2017 21:01 ? not solved :(

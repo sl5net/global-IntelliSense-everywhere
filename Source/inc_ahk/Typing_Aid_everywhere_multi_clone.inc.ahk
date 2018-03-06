@@ -147,13 +147,31 @@ msg='%wordlistNEWarchivePath%' = wordlistNEWarchivePath `n '%foundPos%' = foundP
 
 
             includeFilePath     := matchs1
+
+            exist_includeFilePath := (FileExist(includeFilePath)) ? 1 : 0
+            if(!exist_includeFilePath){ ; Backwords compatibible 06.03.2018 11:35 allows old include path
+                msg := includeFilePath " = includeFilePath `n"
+                msg .= exist_includeFilePath " = exist_includeFilePath  `n`n"
+                includeFilePath := RegExReplace(includeFilePath, "^\.\.\\","") ; ..\ deleted 06.03.2018 11:34
+                includeFilePath := removesSymbolicLinksFromFileAdress( "..\Wordlists\" includeFilePath) ; user should could includes direcly from his txt wordlist, without editing the address 05.03.2018 08:15
+                exist_includeFilePath := (FileExist(includeFilePath)) ? 1 : 0
+
+                msg .= includeFilePath " = includeFilePath  `n"
+                msg .= A_WorkingDir " = A_WorkingDir `n"
+                msg .= A_ScriptDir " = A_ScriptDir `n"
+                msg .= A_ScriptFullPath " = A_ScriptFullPath `n"
+                msg .= exist_includeFilePath " = exist_includeFilePath  `n`n"
+                ;msgbox,% msg "(" A_LineFile "~" A_LineNumber ")"
+                ;exitapp
+            }
+
+
             lineInRegEx         := (matchs4) ? matchs3 . matchs4 : "|.*" ; | ist a positvie rule. alle matching lines goes inside the new file.
             lll_if_g_doSaveLogFiles_matches(A_LineNumber, A_ThisFunc, matchs1,matchs2,matchs3,matchs4)
             lll_if_g_doSaveLogFiles(A_LineNumber, A_ThisFunc,  "lineInRegEx=>" . lineInRegEx . "<" )
 
             ;Msgbox,'%lineInRegEx%' = lineInRegEx  n (line:%A_LineNumber%) n
             lineInRegExArray.Insert(lineInRegEx)
-            exist_includeFilePath := (FileExist(includeFilePath)) ? 1 : 0
             if(!exist_includeFilePath){
               msg =:-( ERROR %exist_includeFilePath% = exist_includeFilePath `n %includeFilePath% `n  >%wordlistNEWarchivePath%< = wordlistNEWarchivePath (from: %A_LineFile%~%A_LineNumber%)
               Tooltip,%msg%
