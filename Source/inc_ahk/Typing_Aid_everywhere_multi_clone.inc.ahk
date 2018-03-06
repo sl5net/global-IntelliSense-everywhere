@@ -149,7 +149,7 @@ msg='%wordlistNEWarchivePath%' = wordlistNEWarchivePath `n '%foundPos%' = foundP
             includeFilePath     := matchs1
 
             exist_includeFilePath := (FileExist(includeFilePath)) ? 1 : 0
-            if(!exist_includeFilePath){ ; Backwords compatibible 06.03.2018 11:35 allows old include path
+            if(!exist_includeFilePath){ ; Backwords compatibible 06.03.2018 11:35 allows old include path; TODO: clean that a day in future. Priority: low. really low TODO: change default. default is inside the if
                 msg := includeFilePath " = includeFilePath `n"
                 msg .= exist_includeFilePath " = exist_includeFilePath  `n`n"
                 includeFilePath := RegExReplace(includeFilePath, "^\.\.\\","") ; ..\ deleted 06.03.2018 11:34
