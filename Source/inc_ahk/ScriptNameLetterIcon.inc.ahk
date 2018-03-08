@@ -1,3 +1,4 @@
+; Indentation_style: https://de.wikipedia.org/wiki/Einrückungsstil#SL5small-Stil
 ScriptNameLetter := SubStr(A_ScriptName, 1 , 1)
 ScriptNameLetter2 := SubStr(A_ScriptName, 1 , 2)
 ;~ tatam

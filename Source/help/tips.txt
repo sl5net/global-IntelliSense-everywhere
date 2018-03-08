@@ -9,3 +9,9 @@ path:\Wordlists\ endwith:.txt YourSearchedFileName
 Diese Seiten auf deutsch lesen mit google-translater:
 read this pages in other language, for e.g. german:
 https://translate.googleusercontent.com/translate_c?act=url&depth=1&hl=de&ie=UTF8&prev=_t&rurl=translate.google.de&sl=en&sp=nmt4&tl=de&u=https://github.com/sl5net/global-IntelliSense-everywhere
+
+others also helpful tools that are a bit similar:
+the list is not complete at all. tips are very welcome.
+HP: https://boostnote.io/
+und https://github.com/BoostIO/Boostnote
+(updated: 08.03.2018)

@@ -1,3 +1,4 @@
+; Indentation_style: https://de.wikipedia.org/wiki/Einrückungsstil#SL5small-Stil
 /*
 checks script and ifExist the include of it (only one include) and relads if changed 22.03.2017 07:46 17-03-22_07-46
 if its usinge the name scriptname.inc.ahk

@@ -1,3 +1,4 @@
+; Indentation_style: https://de.wikipedia.org/wiki/Einrückungsstil#SL5small-Stil
 #Include *i %A_ScriptDir%\inc_ahk\init_global.init.inc.ahk
 #Include *i %A_ScriptDir%\inc_ahk\copy2clipBoard.functions.inc.ahk
 

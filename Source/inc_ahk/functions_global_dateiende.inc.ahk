@@ -1,3 +1,4 @@
+; Indentation_style: https://de.wikipedia.org/wiki/Einrückungsstil#SL5small-Stil
 ;~ subroutinen m�ssen ans ende sonst blocken die
 ;~ #Include *i %A_ScriptDir%\inc_ahk\functions_global_dateiende.inc.ahk
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
