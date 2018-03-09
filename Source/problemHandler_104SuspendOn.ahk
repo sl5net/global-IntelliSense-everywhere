@@ -1,3 +1,4 @@
+; Indentation_style: https://de.wikipedia.org/wiki/Einrückungsstil#SL5small-Stil
 #SingleInstance,force
 
 FileRead,TypingAidContentStatus, TypingAid_programmCounter_LineAndTime.txt

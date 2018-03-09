@@ -341,8 +341,7 @@ SetTitleMatchMode,2
 	fileName := (isHttp) ? m_r : RegExReplace(m_r, ".*\\([\w\s\.]+)$", "$1")
 	fileNameWithoutPATHandEXT := RegExReplace(m_r, ".*\\([\w\s\._]+)\.\w+$", "$1")
 
-	if(!m_WinTitle)
-	{
+	if(!m_WinTitle){
 	  m_WinTitle := fileNameWithoutPATHandEXT
 	}
 	IfWinExist, %m_WinTitle%
@@ -1308,12 +1307,13 @@ setSearchAreaToWinTitleArea(winTitle){
 }
 ;>>>>>>>> setSearchAreaToWinTitleArea >>>> 171024094739 >>>> 24.10.2017 09:47:39 >>>>
 DynaRun(TempScript, pipename=""){
-	TempScript := "#" . "ErrorStdOut`n" . TempScript
+	; TempScript := "#" . "ErrorStdOut`n" . TempScript
    static _:="uint",@:="Ptr"
 try  ; i dont want disturbing error messages
 {
+	;fn := SubStr( jj , 1,3 )
    If pipename =
-      name := "AHK" A_TickCount
+      name := "AHK" A_TickCount "ln" A_LineNumber "fn" fn
    Else
       name := pipename
    __PIPE_GA_ := DllCall("CreateNamedPipe","str","\\.\pipe\" name,_,2,_,0,_,255,_,0,_,0,@,0,@,0)
@@ -1339,11 +1339,16 @@ catch e  ; Handles the first error/exception raised by the block above.
 	tip := "Exception in DynaRun:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
 	lll(A_LineNumber, A_LineFile, tip)
 	tooltip, `% tip
+	FileAppend, `% TempScript, `% name
 }
 SetTitleMatchMode,1
-while(name && WinExist(substr(name,1,-5)) && A_Index < 9)
+if(0 && WinExist(substr(name,1,-5))) ; helps debugging
+	FileAppend, `% TempScript, `% name
+
+while(1 && name && WinExist(substr(name,1,-5)) && A_Index < 9)
 		WinClose,
-	; clipboard := TempScript
+
+   ; clipboard := TempScript
    Return PID
 }
 ;>>>>>>>> DynaRun >>>> 180228151009 >>>>
@@ -1360,7 +1365,7 @@ removesSymbolicLinksFromFileAdress(wordlist){
 	wordlist := RegExReplace(wordlist,"^\.\\")  ; works. removes all symbolic link 24.02.2018  cleanPath
 	 return wordlist
 }
-;>>>>>>>> removesSymbolicLinksFromFileAdress >>>> 180305085214 >>>> 05.03.2018 08:52:14 >>>>
+;>>>>>>>> removesSymbolicLinksFromFileAdress >>>> 180305085214 >>>> 05.03.2018 08:502:14 >>>>
 
 
 

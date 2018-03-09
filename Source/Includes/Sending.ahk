@@ -1,3 +1,4 @@
+; Indentation_style: https://de.wikipedia.org/wiki/Einrückungsstil#SL5small-Stil
 SendKey(Key){
    IfEqual, Key, $^Enter
    {
@@ -157,6 +158,18 @@ SendWord(WordIndex){
    global g_SingleMatch
    global g_SingleMatchReplacement
 
+global wordlist
+
+wordlistFolderOfThisWordlistRELATIVE := RegExReplace(wordlist,"\\[^\\]+$","")
+wordlistFolderOfThisWordlist := A_ScriptDir  "\" RegExReplace(wordlist,"\\[^\\]+$","")
+wordlistFolderOfThisWordlist := removesSymbolicLinksFromFileAdress(wordlistFolderOfThisWordlist) ; user should could includes direcly from his txt wordlist, without editing the address 05.03.2018 08:15
+if(!FileExist(wordlistFolderOfThisWordlist)){ ; Checks for the existence of a file or folder
+clipboard := wordlistFolderOfThisWordlist
+    MsgBox,ups: ! FileExist(%wordlistFolderOfThisWordlist% `n (%A_LineFile%~%A_LineNumber%)
+
+}
+
+
 disableCopyQ() ; enableCopyQ() ;
    ; getWordIndex("__")
 
@@ -298,11 +311,11 @@ if(false){
 
 ; https://github.com/sl5net/global-IntelliSense-everywhere/blob/master/Source/help/CHANGELOG.txt#L1 05.03.2018 10:40
 aScriptDir2wordlistFolder := removesSymbolicLinksFromFileAdress(A_ScriptDir "\..\Wordlists") ; user should could includes direcly from his txt wordlist, without editing the address 05.03.2018 08:15
-;msgbox,% aScriptDir2wordlistFolder " = aScriptDir2wordlistFolder"
+;msgbox, aScriptDir2wordlistFolder  = %aScriptDir2wordlistFolder%  `n (%A_LineFile%~%A_LineNumber%)
 ;exitapp
    if( isAHKcode ){
    AHKcode2 := ""
-AHKcode2 .= "#" . "NoTrayIcon `n "
+; AHKcode2 .= "#" . "NoTrayIcon `n "
 AHKcode2 .= "#" "MaxHotkeysPerInterval 99000000 `n "
 AHKcode2 .= "#" "HotkeyInterval 99000000 `n "
 AHKcode2 .= "SetWorkingDir, " . aScriptDir2wordlistFolder . "`n" ; doesent work has no effect ScriptDir|rr||ahk|send, % A_ScriptDir ; \\.\pipe 03.04.2017 11:17 17-04-03_11-17
@@ -344,7 +357,12 @@ if( RegExMatch( activeTitle , "\.(json|ts|css|html) - PhpStorm" ) && substr( g_S
 ; https://github.com/sl5net/global-IntelliSense-everywhere/blob/master/Source/help/CHANGELOG.txt#L1
 AHKcode := RegExReplace(AHKcode, "#include[ ]*,[ ]*(\w)"           , "#include " . aScriptDir2wordlistFolder . "\\$1" ) ; dayTimeHello|rr||ahk|#include,incDynAhk\sendDayTimeHello.ahk
 AHKcode := RegExReplace(AHKcode, "#include[ ]*,[ ]*([\.]{1,2}\\\w)", "#include " . aScriptDir2wordlistFolder . "\\$1" ) ; dayTimeHello|rr||ahk|#include,..\xyz\sendDayTimeHello.ahk
-AHKcode := RegExReplace(AHKcode, "#include[ ]+([\.]{1,2}\\\w)", "#include " . aScriptDir2wordlistFolder . "\\$1" ) ; dayTimeHello|rr||ahk|#include ..\xyz\sendDayTimeHello.ahk
+; AHKcode := RegExReplace(AHKcode, "#include[ ]+([\.]{1,2}\\\w)", "#include " . aScriptDir2wordlistFolder . "\\$1" ) ; dayTimeHello|rr||ahk|#include ..\xyz\sendDayTimeHello.ahk
+
+AHKcode := RegExReplace(AHKcode, "i)#include[ ]+", "#include " . wordlistFolderOfThisWordlist . "\" ) ; dayTimeHello|rr||ahk|#include ..\xyz\sendDayTimeHello.ahk
+
+;clipboard := AHKcode
+;Msgbox,%AHKcode%`n = AHKcode (%A_LineFile%~%A_LineNumber%) 
 
 ; AHKcode := RegExReplace(AHKcode, "#include[ ]*,[ ]*(\w)", "#include \\$1" ) ; dayTimeHello|rr||ahk|#include,incDynAhk\sendDayTimeHello.ahk
 ; AHKcode := RegExReplace(AHKcode, "#include[ ]*,[ ]*[\.]{0,2}\\(\w)", "#include \\$1" ) ; dayTimeHello|rr||ahk|#include,incDynAhk\sendDayTimeHello.ahk
@@ -352,10 +370,14 @@ StringReplace, AHKcode, AHKcode, `%A_ScriptDir`%, %aScriptDir2wordlistFolder%, A
 StringReplace, AHKcode, AHKcode, `%A_WorkingDir`%, %A_WorkingDir%, All ; in some context its not neccasarry becouse its set ... 12.08.2017 11:22
 ; A_ScriptDir == A_WorkingDir is proably the same !! should be in this case :) 12.08.2017 11:26
 
-StringReplace, AHKcode, AHKcode, #incDynAhk, #include %A_ScriptDir%\incDynAhk, All ; dayTimeHello|rr||ahk|#incDynAhk\sendDayTimeHello.ahk
+; StringReplace, AHKcode, AHKcode, #incDynAhk, #include %A_ScriptDir%\incDynAhk, All ; dayTimeHello|rr||ahk|#incDynAhk\sendDayTimeHello.ahk ; before 09.03.2018 11:03
+ StringReplace, AHKcode, AHKcode, #incDynAhk, #include %wordlistFolderOfThisWordlist%\incDynAhk, All ; dayTimeHello|rr||ahk|#incDynAhk\sendDayTimeHello.ahk
 
-;Clipboard := AHKcode
-;Msgbox,%AHKcode%`n = AHKcode (%A_LineFile%~%A_LineNumber%) 
+Clipboard := AHKcode
+;Guten Tag Include,
+some news my friend.
+
+LG Bob ( 0159Msgbox,%AHKcode%`n = AHKcode (%A_LineFile%~%A_LineNumber%) 
 
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 ; todo: howto insert  a newwline text sign into te output 19.04.2017 21:01 ? not solved :(

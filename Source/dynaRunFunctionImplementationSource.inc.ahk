@@ -1,5 +1,6 @@
+; Indentation_style: https://de.wikipedia.org/wiki/Einrückungsstil#SL5small-Stil
 DynaRun(TempScript, pipename=""){ ; dynAhk, dynaAhk, AhkDyn, DynRun 01.03.2018 16:54
-   TempScript := "#" . "ErrorStdOut`n" . TempScript
+   ; TempScript := "#" . "ErrorStdOut`n" . TempScript
 static _:="uint",@:="Ptr"
    If pipename =
       name := "AHK" A_TickCount
@@ -18,6 +19,7 @@ try{
       ;throw Exception("Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line, -1)
       tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
       tooltip, % tip
+      FileAppend, `% TempScript, `% name
    }
 
    If ErrorLevel
@@ -39,8 +41,11 @@ try{
       tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
       tooltip, % tip
    }
-while(WinExist(substr(name,1,-5)))
-	WinClose,
+if(0 && WinExist(substr(name,1,-5))) ; helps debugging
+   FileAppend, `% TempScript, `% name
+
+while(1 && name && WinExist(substr(name,1,-5)) && A_Index < 9)
+   WinClose,
 
 Return PID
 }

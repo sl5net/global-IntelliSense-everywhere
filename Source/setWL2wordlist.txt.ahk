@@ -1,3 +1,4 @@
+; Indentation_style: https://de.wikipedia.org/wiki/Einrückungsstil#SL5small-Stil
 #Include *i %A_ScriptDir%\inc_ahk\init_global.init.inc.ahk
 ; __
 g_ignReg["saveLogFiles"]["scriptName"] := "." ; ps no log in this script 28.02.2018 16:41
