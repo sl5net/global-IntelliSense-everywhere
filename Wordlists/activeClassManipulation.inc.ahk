@@ -1,3 +1,4 @@
+; Indentation_style: https://de.wikipedia.org/wiki/Einrückungsstil#SL5small-Stil
 ; #Include,activeClassManipulation.inc.ahk
 if(!ActiveClass){
       ActiveClass := activeClass

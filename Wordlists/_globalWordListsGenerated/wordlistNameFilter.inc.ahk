@@ -1,3 +1,4 @@
+; Indentation_style: https://de.wikipedia.org/wiki/Einrückungsstil#SL5small-Stil
 #SingleInstance, force
 ; dontDeleteThisPlaceholder
 ; #Include .\..\Wordlists\_globalWordListsGenerated\wordlistNameFilter.inc.ahk ; global wordlist . pleas dont delete this line! 17-03-06_10-59

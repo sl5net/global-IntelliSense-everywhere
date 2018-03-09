@@ -1,4 +1,4 @@
-
+; Indentation_style: https://de.wikipedia.org/wiki/Einrueckungsstil#SL5small-Stil
 ; # ErrorStdOut
 
 #MaxHotkeysPerInterval 99000000
@@ -27,7 +27,7 @@ global g_sending_is_buggy := false ; Solved: SendPlay. 29.07.2017 11:21
 global g_doSaveLogFiles := false
 global g_doRunLogFiles := false
 
-global Wordlist
+global wordlist
 global WordlistOLD
 global activeTitle:=""
 

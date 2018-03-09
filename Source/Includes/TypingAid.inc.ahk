@@ -1,3 +1,4 @@
+; Indentation_style: https://de.wikipedia.org/wiki/Einrückungsstil#SL5small-Stil
 global g_lineNumberFeedback
 global wordlistDirBase
 global wordlistActive
@@ -24,11 +25,13 @@ Receive_wordlistAddress(CopyOfData){
 ;    wordlistNEWarchivePath := CopyOfData
 ;    wordlistActivePath  := CopyOfData
 ;    wordlistNEW := CopyOfData
-    wordlist := CopyOfData
-    tooltip,'%wordlistNEW%' = wordlistNEW `n ( %A_ScriptName%(inc)~%A_LineNumber% ) `n
+
+; AHKcode = #Include ..\..\Source\incDynAhk\sendDayTimeHello.ahk `n c := RegExReplace( substr(clipboard,1,99) , "^.*?(\w)(\w+).*", "$u1$l2") `n #Include incDynAhk\sendFreundBody.ahk
 
 
     if( 1 && wordlistOLD <> wordlist){
+       wordlist := CopyOfData
+       tooltip,'%wordlistNEW%' = wordlistNEW `n ( %A_ScriptName%(inc)~%A_LineNumber% ) `n
 
        CloseListBox()
        SuspendOn()
