@@ -1,3 +1,4 @@
+; Indentation_style: https://de.wikipedia.org/wiki/Einrückungsstil#SL5small-Stil
 #ErrorStdOut 
 #NoTrayIcon
 ;<<<<<<<< IncludeI <<<< 171103161518 <<<< 03.11.2017 16:15:18 <<<<
@@ -422,14 +423,13 @@ ahkSource .= temp
     if(GetKeyState("Alt", "P"))
         KeyWait, Alt
 
-
     IfWinNotExist,temp.ahk
     {
-
         FileWriteAndRun( ahkSource , "temp.ahk" ) ; wozu ? 13.08.2017 10:52
     } else {
         Tooltip, WinWaitClose   temp.ahk `n (from: %A_LineFile%~%A_LineNumber%)
         WinWaitClose,temp.ahk,,5
+        Tooltip,
         IfWinExist,temp.ahk
         {
             msg=:-O WinExist temp.ahk `n `n %A_LineFile%~%A_LineNumber% ==> continue
