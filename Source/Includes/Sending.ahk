@@ -359,7 +359,7 @@ AHKcode := RegExReplace(AHKcode, "#include[ ]*,[ ]*(\w)"           , "#include "
 AHKcode := RegExReplace(AHKcode, "#include[ ]*,[ ]*([\.]{1,2}\\\w)", "#include " . aScriptDir2wordlistFolder . "\\$1" ) ; dayTimeHello|rr||ahk|#include,..\xyz\sendDayTimeHello.ahk
 ; AHKcode := RegExReplace(AHKcode, "#include[ ]+([\.]{1,2}\\\w)", "#include " . aScriptDir2wordlistFolder . "\\$1" ) ; dayTimeHello|rr||ahk|#include ..\xyz\sendDayTimeHello.ahk
 
-AHKcode := RegExReplace(AHKcode, "i)#include[ ]+", "#include " . wordlistFolderOfThisWordlist . "\" ) ; dayTimeHello|rr||ahk|#include ..\xyz\sendDayTimeHello.ahk
+AHKcode := RegExReplace(AHKcode, "i)(#include|run)[ ]*( |,)", "$1$2" . wordlistFolderOfThisWordlist . "\" ) ; dayTimeHello|rr||ahk|#include ..\xyz\sendDayTimeHello.ahk
 
 ;clipboard := AHKcode
 ;Msgbox,%AHKcode%`n = AHKcode (%A_LineFile%~%A_LineNumber%) 
