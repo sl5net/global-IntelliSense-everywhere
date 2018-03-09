@@ -373,11 +373,7 @@ StringReplace, AHKcode, AHKcode, `%A_WorkingDir`%, %A_WorkingDir%, All ; in some
 ; StringReplace, AHKcode, AHKcode, #incDynAhk, #include %A_ScriptDir%\incDynAhk, All ; dayTimeHello|rr||ahk|#incDynAhk\sendDayTimeHello.ahk ; before 09.03.2018 11:03
  StringReplace, AHKcode, AHKcode, #incDynAhk, #include %wordlistFolderOfThisWordlist%\incDynAhk, All ; dayTimeHello|rr||ahk|#incDynAhk\sendDayTimeHello.ahk
 
-Clipboard := AHKcode
-;Guten Tag Include,
-some news my friend.
 
-LG Bob ( 0159Msgbox,%AHKcode%`n = AHKcode (%A_LineFile%~%A_LineNumber%) 
 
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 ; todo: howto insert  a newwline text sign into te output 19.04.2017 21:01 ? not solved :(
