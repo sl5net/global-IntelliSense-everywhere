@@ -127,16 +127,40 @@ Loop, read, % wordlistNEWarchivePath
        {
            ; Beispiel:
 ; #Include .\..\Wordlists\Notepad\_global.txt
-;           regEx := "i)^\s*#include\s*,\s*([^|!]+)\s*(?:((\||\!))\s*(.+))?\s*"
+; #Include ..\_globalWordLists\Bewerbung\Firmware_Entwicklung.txt
+
+;           regEx := "i)^\s*#include\s*( |,)\s*([^|!]+)\s*(?:((\||\!))\s*(.+))?\s*"
 ; include[ ]*(?:,|\s)[ ]*([^|!\n]+)[ ]*(?:((\||\!))[ ]*([^\n]+))?[ ]*
-           regEx := "i)^[ ]*#include[ ]*(?:,|\s)[ ]*([^|!\n]+)[ ]*(?:((\||\!))[ ]*([^\n]+))?[ ]*"
+            ; ?: is used to denote non capturing group.
+           regEx := "i)^[ ]*#include[ ]*(?:,| )[ ]*([^|!\n]+)[ ]*(?:((\||\!))[ ]*([^\n]+))?[ ]*"
            foundPos := RegexMatch( A_LoopReadLine, regEx, matchs)
+
+            msg := includeFilePath " = includeFilePath  `n"
+            msg .= A_WorkingDir " = A_WorkingDir `n"
+            msg .= A_ScriptDir " = A_ScriptDir `n"
+            msg .= A_ScriptFullPath " = A_ScriptFullPath `n"
+            msg .= foundPos " = foundPos `n"
+            msg .= exist_includeFilePath " = exist_includeFilePath  `n`n"
+            lll(A_LineNumber, A_LineFile, msg )
 
            if(foundPos){
             isIncludeFileInside := true
 
 includeFilePath     := trim(matchs1)
 exist_includeFilePath := (FileExist(includeFilePath)) ? 1 : 0
+if(!exist_includeFilePath){ ; 11.03.201:23 new style/format of adress writing, but try stay compativle to old scripts. TODO deletie it.
+    includeFilePath := RegExReplace(includeFilePath ,"^\.\." , "..\Wordlists")
+    ; includeFilePath := "Wordlists\" includeFilePath
+    exist_includeFilePath := (FileExist(includeFilePath)) ? 1 : 0
+}
+
+                msg := includeFilePath " = includeFilePath  `n"
+                msg .= A_WorkingDir " = A_WorkingDir `n"
+                msg .= A_ScriptDir " = A_ScriptDir `n"
+                msg .= A_ScriptFullPath " = A_ScriptFullPath `n"
+                msg .= exist_includeFilePath " = exist_includeFilePath  `n`n"
+                ;msgbox,% msg "(" A_LineFile "~" A_LineNumber ")"\
+                lll(A_LineNumber, A_LineFile, msg )
 
             if(!exist_includeFilePath){ ; Backwords compatibible 06.03.2018 11:35 allows old include path; TODO: clean that a day in future. Priority: low. really low TODO: change default. default is inside the if
                 msg := includeFilePath " = includeFilePath `n"
