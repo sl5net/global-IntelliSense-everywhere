@@ -9,7 +9,6 @@ global feedbackMsgBox1PosBackup_x
 global feedbackMsgBox1PosBackup_y
 
 
-; lll(A_LineNumber, "functions_global.inc.ahk")
 
 isInteger(var) {
     return var~="^\s*[\+\-]?((0x[0-9A-Fa-f]+)|\d+)\s*$"
@@ -41,34 +40,77 @@ getCaretPos(activedoProtectOutOfWindowPos:=true){
 }
 
 
+varExist(ByRef v) {
+	; Requires 1.0.46+
+	; 0 indicates that the variable does not exist
+	; 1 indicates that the variable does exist and contains data
+	; 2 indicates that the variable does exist and is empty
+	; Edit: 03-Dec-2006 : The following fine piece of 56 character code was written by Titan:
+	return &v = &n ? 0 : v = "" ? 2 : 1
+}
+
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
- lll(ln, scriptName, text="") {
+ lll(ByRef ln, scriptName, text := "") {
 global g_ignReg
+	ln .= "`n"
+	n := "`n"
 if(0){
 	msg=`n (%A_ScriptName%~%A_LineNumber%)
-	n=`n
 	tooltip,% A_LineNumber n logFileName n g_ignReg["saveLogFiles"]["ln"] n g_ignReg["saveLogFiles"]["scriptName"] n g_ignReg["saveLogFiles"]["text"] msg
 }
-    if( RegExMatch( ln, g_ignReg["saveLogFiles"]["ln"])		|| RegExMatch( scriptName, g_ignReg["saveLogFiles"]["scriptName"])		|| RegExMatch( text, g_ignReg["saveLogFiles"]["text"]) )
-		return
-
-
-	ln .= "`n"
-	text .= "`n"
-
 	scriptName := trim(scriptName)
-	GLOBAL_lllog_only_this_scriptName := trim(GLOBAL_lllog_only_this_scriptName)
-	if(StrLen(GLOBAL_lllog_only_this_scriptName)>0) {
-		do_createLog_notAppendLog:=true
-		if(scriptName != GLOBAL_lllog_only_this_scriptName)
-			return false
+	scriptName := RegExReplace( scriptName, "^.+\\([^\\]+)$" , "$1") ; cut away folder name
+	logFileName := "log\" scriptName ".log.txt"
+    l:=": scriptName = " scriptName " logFileName = " logFileName n
+
+ 	is_ignReg_defined := varExist(g_ignReg)
+	if( !is_ignReg_defined ){
+		; msgbox,ERROR g_ignReg is not defined msg=`n (%scriptName%~%ln%) >`n (%A_ScriptName%~%A_LineNumber%)
+		;0 indicates that the variable does not exist
+		;1 indicates that the variable does exist and contains data
+		;2 indicates that the variable does exist and is empty
 	}
 
 
+	if(is_ignReg_defined ){
+	if( RegExMatch( ln, g_ignReg["saveLogFiles"]["ln"]) ){
+		return
+		varExist(ByRef v)
+		l := "ln= >" g_ignReg["saveLogFiles"]["ln"] "<" l
+		FileAppend, % A_LineNumber ":" l, lll.log.txt
+		pause
+		return
+	}
+	if( RegExMatch( scriptName, g_ignReg["saveLogFiles"]["scriptName"])	){
+		return
+		FileAppend, % A_LineNumber l, lll.log.txt
+		return
+	}
+    if( RegExMatch( text, g_ignReg["saveLogFiles"]["text"]) ){
+		return
+		FileAppend, % A_LineNumber l, lll.log.txt
+		return
+	}}
 
-;~ logFileName=log\%A_ScriptName%.log.txt
-	scriptName2 := RegExReplace( scriptName, "^.+\\([^\\]+)$" , "$1") ; cut away folder name
-	logFileName=log\%scriptName2%.log.txt
+;l:=A_LineNumber ": scriptName = " scriptName n " logFileName = " logFileName n " GLOBAL_lllog_only_this_scriptName = " GLOBAL_lllog_only_this_scriptName n n
+;FileAppend, % l, lll.log.txt
+
+	text .= "`n"
+
+	GLOBAL_lllog_only_this_scriptName := trim(GLOBAL_lllog_only_this_scriptName)
+	if(StrLen(GLOBAL_lllog_only_this_scriptName)>1) {
+		do_createLog_notAppendLog:=true
+		if(scriptName != GLOBAL_lllog_only_this_scriptName){
+			l:=A_LineNumber ": scriptName = " scriptName n " logFileName = " logFileName n " GLOBAL_lllog_only_this_scriptName = " GLOBAL_lllog_only_this_scriptName n n
+			FileAppend, % l, lll.log.txt
+
+			return false
+		}
+	}
+
+;l:=A_LineNumber ": scriptName = " scriptName n " logFileName = " logFileName n " GLOBAL_lllog_only_this_scriptName = " GLOBAL_lllog_only_this_scriptName n n
+;FileAppend, % l, lll.log.txt
+
 	;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 	; proof randomly if ye should delte the log file 16.07.2017 12:05
 	Random, rand, 1, 100
