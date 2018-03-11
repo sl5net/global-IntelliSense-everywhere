@@ -4,7 +4,7 @@ SetWorkingDir %A_ScriptDir%\Source
 
 DetectHiddenWindows,on
 SetTitleMatchMode,2
-name=Typing_Aid_everywhere_multi_clone.ahk ; ahk_class AutoHotkey
+name=Typing_Aid_everywhere_multi_clone.ahk ahk_class AutoHotkey
 ;name := "Typing_Aid_everywhere_multi_clone" ; .ahk ; ahk_class AutoHotkey
 ;name=TypingAid ahk_class AutoHotkey
 while(WinExist(name) && A_Index < 999){
