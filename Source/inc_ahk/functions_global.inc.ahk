@@ -44,9 +44,14 @@ getCaretPos(activedoProtectOutOfWindowPos:=true){
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
  lll(ln, scriptName, text="") {
 global g_ignReg
-
+if(0){
+	msg=`n (%A_ScriptName%~%A_LineNumber%)
+	n=`n
+	tooltip,% A_LineNumber n logFileName n g_ignReg["saveLogFiles"]["ln"] n g_ignReg["saveLogFiles"]["scriptName"] n g_ignReg["saveLogFiles"]["text"] msg
+}
     if( RegExMatch( ln, g_ignReg["saveLogFiles"]["ln"])		|| RegExMatch( scriptName, g_ignReg["saveLogFiles"]["scriptName"])		|| RegExMatch( text, g_ignReg["saveLogFiles"]["text"]) )
 		return
+
 
 	ln .= "`n"
 	text .= "`n"
@@ -60,9 +65,10 @@ global g_ignReg
 	}
 
 
-;~ logFileName=log\%A_ScriptName%.log.txt
-	logFileName=log\%scriptName%.log.txt
 
+;~ logFileName=log\%A_ScriptName%.log.txt
+	scriptName2 := RegExReplace( scriptName, "^.+\\([^\\]+)$" , "$1") ; cut away folder name
+	logFileName=log\%scriptName2%.log.txt
 	;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 	; proof randomly if ye should delte the log file 16.07.2017 12:05
 	Random, rand, 1, 100
@@ -165,6 +171,8 @@ global g_ignReg
 	;Suspend,off
 	text := "" ; iam suspicious with autohotkey dis days ;) 16.07.2017 21:03 usally we dont need to do so
 	lll := ""
+
+
 	return
 }
 ;>>>>>>>>>lll >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -1307,13 +1315,13 @@ setSearchAreaToWinTitleArea(winTitle){
 }
 ;>>>>>>>> setSearchAreaToWinTitleArea >>>> 171024094739 >>>> 24.10.2017 09:47:39 >>>>
 DynaRun(TempScript, pipename=""){
-	; TempScript := "#" . "ErrorStdOut`n" . TempScript
+	TempScript := "#" . "ErrorStdOut`n" . TempScript
    static _:="uint",@:="Ptr"
 try  ; i dont want disturbing error messages
 {
 	;fn := SubStr( jj , 1,3 )
    If pipename =
-      name := "AHK" A_TickCount "ln" A_LineNumber "fn" fn
+      name := "AHK" A_TickCount "ln" A_LineNumber "fn_functions_global"
    Else
       name := pipename
    __PIPE_GA_ := DllCall("CreateNamedPipe","str","\\.\pipe\" name,_,2,_,0,_,255,_,0,_,0,@,0,@,0)
