@@ -1,14 +1,19 @@
-#Include ..\_globalWordLists\_global.txt
 #Include privat_Gmail_Google_Chrome.txt
 #Include verdi_de.txt
-___your library open|rr||ahk|run,..\Wordlists\ChromeWidgetWin1\Gmail_Google_Chrome.txt
+
+; #Include ..\_globalWordLists\_global.txt
+
+
+___your library open|rr||ahk|run, Gmail_Google_Chrome.txt
 Thanks again
 have a great day!
 Thanks again, and have a great day!
-
+  
 Eugen|rr||ahk|#incDynAhk\sendDayTimeHello.ahk `n Send, Eugen,{enter}
+
+run SendDayTimeHello.ahk|rr||ahk|run,..\..\Source\incDynAhk\sendDayTimeHello.ahk
 
 HalloFreund clipboard OHNE EMAIL|rr||ahk|#Include ..\..\Source\incDynAhk\sendDayTimeHello.ahk `n c := RegExReplace( substr(clipboard,1,99) , "^.*?(\w)(\w+).*", "$u1$l2") `n #Include incDynAhk\sendFreundBody.ahk
 
 ; now first letter uppercase and name (first word) from clipboard:
-HalloFreund clipboard EMAIL|rr||ahk|c1 := RegExReplace( substr(clipboard,1,99) , "^.*?(\w+\s+\w+|\w+).*", "$1") `n c := RegExReplace(c1, "^.*?(\w)(\w+).*", "$u1$l2") `n Send,%c1%,`n Sleep 500`n Send, {space 2}{tab}Neuigkeiten{Tab}^{home}`n #incDynAhk\sendDayTimeHello.ahk `n #include,..\Wordlists\ChromeWidgetWin1\incDynAhk\sendFreundBody.ahk
+HalloFreund clipboard EMAIL|rr||ahk|c1 := RegExReplace( substr(clipboard,1,99) , "^.*?(\w+\s+\w+|\w+).*", "$1") `n c := RegExReplace(c1, "^.*?(\w)(\w+).*", "$u1$l2") `n Send,%c1%,`n Sleep 500`n Send, {space 2}{tab}Neuigkeiten{Tab}^{home}`n #incDynAhk\sendDayTimeHello.ahk `n #include,..\\ChromeWidgetWin1\incDynAhk\sendFreundBody.ahk

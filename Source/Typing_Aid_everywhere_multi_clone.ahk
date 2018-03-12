@@ -404,9 +404,9 @@ if(0){
     ;msgbox,`% wordlist
     FileRead, fileContent, `% wordlist
     ; StringReplace, fileContent, fileContent, ..\Wordlists, .. \
-    l1 := StrLen(wordlist)
+    l1 := StrLen(fileContent)
     fileContent := StrReplace(fileContent, "..\Wordlists", "..\" )
-l2 := StrLen(wordlist)
+l2 := StrLen(fileContent)
 if(l1 <> l2){
     FileSave(fileContent, wordlist )
   ;  msgbox,`% wordlist " is saved"
