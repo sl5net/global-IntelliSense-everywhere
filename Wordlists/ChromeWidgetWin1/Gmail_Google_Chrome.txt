@@ -1,5 +1,4 @@
 #Include privat_Gmail_Google_Chrome.txt
-#Include verdi_de.txt
 
 ; #Include ..\_globalWordLists\_global.txt
 
