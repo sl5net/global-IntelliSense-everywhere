@@ -488,12 +488,15 @@ onLink2wordlistChangedInRegistry:
         if(g_FLAGmsgbox){
             g_FLAGmsgbox := false ; just clicked msgboxWindow
         }else{
-            DynaRun(AHKcodeMsgBox) ; wait for user decision
-            tooltip,WinWait wordlistChangedInRegistry
-            ;WinWait,wordlistChangedInRegistry
-            WinWait,wordlistChangedInRegistry,,1
-            ;msgbox,18-03-02_17-42 %AHKcodeMsgBox%
-            tooltip,
+            if(A_TimeIdle > 1333){
+                DynaRun(AHKcodeMsgBox) ; wait for user decision
+                tooltip,WinWait wordlistChangedInRegistry
+                ;WinWait,wordlistChangedInRegistry
+                WinWait,wordlistChangedInRegistry,,1
+                ;msgbox,18-03-02_17-42 %AHKcodeMsgBox%
+                tooltip,
+            }
+
             SetTimer,onLink2wordlistChangedInRegistry,on
             return ; no update jet
         }

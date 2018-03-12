@@ -1,3 +1,4 @@
+; Indentation_style: https://de.wikipedia.org/wiki/Einrückungsstil#SL5small-Stil
 ; GLOBAL FILTER / ROUTING
 ; this file was generated 20170308151813 by: 
 ; if you want you could update it by yourself. it will not overwritten by Typing_Aid_everywhere_multi_clone.ahk
@@ -73,6 +74,9 @@ getWordlistNEW173129( activeTitle, ActiveClass, wordlistNEW, wordlistDir ) {
  ; Select Path SunAwtDialog
  ; Open File or Project ahk_class SunAwtDialog
  ; Anhang speichern ahk_class #32770
+if ( RegExMatch( activeTitle , "\b(docker|DOS)\b" ) ) 
+      return "..\_globalWordLists\docker"
+	  
 if ( RegExMatch( activeTitle , "(FreeCommander|Q-Dir \d|Bild öffnen|Anhang speichern|Datei speichern|Speichern unter|ffnen|Dateien/Ordner suchen|Exportieren|Dokument speichern|Select Path|Open File or Project)" ) ) 
       return "..\_globalWordLists\pfade"
 
@@ -249,7 +253,7 @@ maybeSuperglobalWordList(wordlistNEW, wordlistNEW_time_between , ActiveClass, ac
           ; created token=17-08-10_16-17
     if(InStr(activeTitle, "token=17-08-10_16-17")){
       msg= :( tying aid was to slow with updating the `n action rejacted. reload `n 17-08-10_16-27
-      lll(A_LineNumber, A_ScriptName, msg )
+      lll(A_LineNumber, A_LineFile, msg )
       ToolTip,%msg% 17-08-10_16-33
       SetTitleMatchMode, 2
       WinWaitNotActive,% activeTitle
