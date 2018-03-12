@@ -219,8 +219,19 @@ if(0){
 }
 ;>>>>>>>>>lll >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+; varExist(ByRef v) 
 
+FileSave(ByRef content, fileName ){
+	FormatTime, timestamp, % A_now, yy-MM-dd_HH-mm
+	tempFileName := timestamp . A_TickCount
+	FileAppend, % content, % tempFileName
+	i := 0
+	while(i++ < 100 && !FileExist(logFileName))
+		Sleep,100
 
+	FileCopy,% tempFileName, % fileName, 1
+	FileDelete, % tempFileName
+}
 
 
 

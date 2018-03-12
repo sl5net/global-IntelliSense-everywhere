@@ -1,6 +1,21 @@
 ; Indentation_style: https://de.wikipedia.org/wiki/Einrückungsstil#SL5small-Stil
-#ErrorStdOut 
-#NoTrayIcon
+; #ErrorStdOut
+; #NoTrayIcon
+
+
+;<<<<<<<< g_ignReg <<<< 180224082501 <<<< 24.02.2018 08:25:01 <<<<
+if(InStr(A_ComputerName,"SL5")) ; do ignore nothing
+global g_ignReg := { feedbackMsgBox:{tit:".^", text:".^"} ,          saveLogFiles: {ln:".^", scriptName:".^", text:".^"},                    sqlQuery: {ln:".^", scriptName:".^", text:".^"},                    hotKeyStuff: {ln:".^", scriptName:".^", text:".^"},                    runLogFile: {ln:".^", scriptName:".^", text:".^"} } ;;;; regEx ignoreConfigList ;;;;
+; please use it like this:     if( 1<RegExMatch(0 . A_ScriptName, g_ignReg["saveLogFiles"]["scriptName"])	|| ......
+        ; OR: the regEx .^ never match anything. if you use .^ i recomand using: if( RegExMatch(ln, g_ignReg["saveLogFiles"]["ln"])	|| ......
+; https://autohotkey.com/boards/viewtopic.php?f=6&t=44696&p=202322#p202322
+lll(A_LineNumber, A_LineFile, "hey from ini ")
+;>>>>>>>> g_ignReg >>>> 180224082506 >>>> 24.02.2018 08:25:06 >>>>
+
+
+
+
+
 ;<<<<<<<< IncludeI <<<< 171103161518 <<<< 03.11.2017 16:15:18 <<<<
 #Include *i ..\Wordlists\activeClassManipulation.inc.ahk
 ; ^- obiges funktioniert (weil funktion sp�ter ausgef�hrt) bei `normalem` Aufruf. z.B. click von atuoload.ahk und darin ein:
@@ -97,7 +112,7 @@ IfWinNotExist,TypingAid
     }
     ; tooltip, RunWait %typingAidAHK%
 global g_doSaveLogFiles
- if(g_doSaveLogFiles)
+
 lll(A_LineNumber, A_LineFile, "Debuggging!  NOT Run % typingAidAHK " ) ; 18-01-20_18-56
 
     ; RunWait, % typingAidAHK 
@@ -157,7 +172,7 @@ global g_lineNumberFeedback
                 msg = !fileExist(wordlistFilterPathNEWdir === >%wordlistFilterPathNEWdir%<)  `n '%activeTitle%'=activeTitle  `n '%activeClass%' = activeClass `n (line:%A_LineNumber%)
                 ;global g_doSaveLogFiles
                 ;g_doSaveLogFiles := true
-                ; if(g_doSaveLogFiles)
+                ;
                 ;lll( A_LineNumber, A_ScriptName, msg . "`n 17-07-29_14-18 ")
 
                 ; impotend!!
@@ -173,7 +188,7 @@ global g_lineNumberFeedback
 
     if(RegExMatch(activeTitle,"^\d:.+")){
       ;Clipboard:=activeClass
-      tip= activeClass. prob a feedback msgWindow 17.02.2018 22:03 `n (%A_LineFile%~%A_LineNumber%)
+      tip= %activeTitle% ==> continue `n 17.02.2018 22:03 `n (%A_LineFile%~%A_LineNumber%)
         lll(A_LineNumber, A_LineFile, tip)
       continue
     }
@@ -182,7 +197,6 @@ global g_lineNumberFeedback
         WinWaitNotActive,wordlistChangedInRegistry ahk_class AutoHotkeyGUI
         tooltip,
         sleep,1000
-      continue ;
       continue ;
     }
     if(activeTitleOLD == activeTitle && activeClassOLD == activeClass ){
@@ -196,7 +210,7 @@ global g_lineNumberFeedback
         continue
          FormatTime, timestampHHmmss, %A_now%,HH:mm:ss
 global g_doSaveLogFiles
- if(g_doSaveLogFiles)
+
 lll(A_LineNumber, A_LineFile, regEx . " end of while(true)`n '" . activeTitle . "' = activeTitle `n  time:" . timestampHHmmss)
 Msgbox,%activeTitle% `n`n %activeClass% `n`n  (%A_LineFile%~%A_LineNumber%)
 ;ExitApp
@@ -271,7 +285,7 @@ continue
 17-07-29_14-29
 )
 global g_doSaveLogFiles
- if(g_doSaveLogFiles)
+
 lll( A_LineNumber, A_ScriptName, msg . "`n 17-07-29_14-18 ")
 
             Sleep,%sleepMili%
@@ -358,15 +372,14 @@ TargetScriptTitle = TypingAid - Active ahk_class AutoHotkey
 stringToSend := (InStr(wordlistNEW,"\")) ? wordlistNEW : wordlistDir . "\" . wordlistNEW
 ; result := Send_WM_COPYDATA`(stringToSend, TargetScriptTitle`)
 if(false){  ; temporaly deactivated . for compatibiliti thinks 02.03.2018 17:10
-try{
-    y := ComObjActive("{93C04B39-0465-4460-8CA0-7BFFF481FF98}")
-    y.callFunction( "Receive_wordlistAddress", stringToSend ) ;will call the function of the other script
-} catch e{
-    tip:="Exception:``n" e.What "``n" e.Message "``n" e.File "@" e.Line
-    tooltip, `% tip
+    try{
+        y := ComObjActive("{93C04B39-0465-4460-8CA0-7BFFF481FF98}")
+        y.callFunction( "Receive_wordlistAddress", stringToSend ) ;will call the function of the other script
+    } catch e{
+        tip:="Exception:``n" e.What "``n" e.Message "``n" e.File "@" e.Line
+        tooltip, `% tip
 }}
 if(true){  ; old scool. for compatibiliti thinks 02.03.2018 17:10
-
 
     RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlistDir, `%wordlistDir`%
     RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlistActive, `%wordlistActive`%
@@ -374,6 +387,9 @@ if(true){  ; old scool. for compatibiliti thinks 02.03.2018 17:10
     RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlistNEWarchivePath, `%wordlistNEWarchivePath`%
 
     wordlist = `%wordlistDir`%\`%wordlistNEW`%
+
+    wordlist := removesSymbolicLinksFromFileAdress(wordlist)
+if(0){
     ; wordlist = `%wordlistNEWarchivePath`% ; its not existing here 03.03.2018 19:13
     ; msgbox,`%wordlistNEWarchivePath`%
     pLength := 0
@@ -384,6 +400,19 @@ if(true){  ; old scool. for compatibiliti thinks 02.03.2018 17:10
     }
     wordlist := RegExReplace(wordlist,"\\\.\\")  ; works. removes all symbolic link 24.02.2018 cleanPath
     wordlist := RegExReplace(wordlist,"^\.\\")  ; works. removes all symbolic link 24.02.2018  cleanPath
+}
+    ;msgbox,`% wordlist
+    FileRead, fileContent, `% wordlist
+    ; StringReplace, fileContent, fileContent, ..\Wordlists, .. \
+    l1 := StrLen(wordlist)
+    fileContent := StrReplace(fileContent, "..\Wordlists", "..\" )
+l2 := StrLen(wordlist)
+if(l1 <> l2){
+    FileSave(fileContent, wordlist )
+  ;  msgbox,`% wordlist " is saved"
+}
+
+
 
 if(1){
     ; dirty bug fix ._Generated.txt 04.03.2018 10:44
@@ -442,7 +471,7 @@ ahkSource .= temp
     Sleep,40 ; you need to use it minimum of 3 seconds
 
 global g_doSaveLogFiles
- if(g_doSaveLogFiles)
+
     lll("`n" . A_LineNumber, A_ScriptName, "FileDeleteAsyncDynaRun(temp.ahk , 4000)")
 
     g_tooltipText = WaitNotActive, %activeTitle%
@@ -485,7 +514,7 @@ global g_lineNumberFeedback
     if(false){
     FormatTime, timestampHHmmss, %A_now%,HH:mm:ss
 global g_doSaveLogFiles
- if(g_doSaveLogFiles)
+
 lll(A_LineNumber, A_LineFile, regEx . " end of while(true)`n '" . activeTitle . "' = activeTitle `n  time:" . timestampHHmmss)
     }
 } ; end of while(true)
@@ -635,7 +664,7 @@ global g_lineNumberFeedback
  g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
    m = '%wordlistNEW%' = wordlistNEW  `n '%wordlistDir%' = wordlistDir  `n  '%activeTitle%' = activeTitle  `n 
 global g_doSaveLogFiles
- if(g_doSaveLogFiles)
+
 lll(A_LineNumber, "Typing_Aid_everywhere_multi_clone.ahk" ,m)
 
    lineB := "<<<<<<<<<<<<<<<<<<<<<<`n"
@@ -661,12 +690,12 @@ ahkCode := RegExReplace( ahkCodeInsideFile , "`;\s*dontDeleteThisPlaceholder" , 
    
    m = '%wordlistNEW%' = wordlistNEW  `n '%activeTitle%' = activeTitle  `n 
 global g_doSaveLogFiles
- if(g_doSaveLogFiles)
+
 lll(A_LineNumber, "Typing_Aid_everywhere_multi_clone.ahk" , "`n" . m)
 wordlistNEW := DynaRunGetClipboard(ahkCode)
    m = '%wordlistNEW%' = wordlistNEW  `n '%activeTitle%' = activeTitle  `n 
 global g_doSaveLogFiles
- if(g_doSaveLogFiles)
+
 lll(A_LineNumber, "Typing_Aid_everywhere_multi_clone.ahk" , "`n" . m)
 
 worlistExtension := SubStr(wordlistNEW, -3)
@@ -886,12 +915,12 @@ if(0){ ; check if this is arrived 30.04.2017 09:43
                      WinSetTitle,main.ts.txt - Editor,, main.ts
                      WinSetTitle,main.ts.txt - WordPad,, main.ts
 global g_doSaveLogFiles
- if(g_doSaveLogFiles)
+
 lll(A_LineNumber, A_LineFile, "ExitApp")
                      ExitApp
                  }
 global g_doSaveLogFiles
- if(g_doSaveLogFiles)
+
 lll(A_LineNumber, A_LineFile, "reload 17-08-04_14-42")
 global g_doRunLogFiles
  if(g_doRunLogFiles)

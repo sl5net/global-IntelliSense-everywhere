@@ -41,7 +41,7 @@ feedbackMsgBoxCloseAllWindows()
 
 temp := "___________________________________`n"
 global g_doSaveLogFiles
-if(g_doSaveLogFiles)
+
     lll("`n" . A_LineNumber, A_ScriptName, temp . " STARTING first lines :) ")
 
 maxLinesOfCode4length1 := 900
@@ -60,7 +60,7 @@ IfWinExist, %scriptName% - Active ; maybe  work 26.04.2017 15:28
 {
  ; Msgbox,%scriptName% ?= %g_ScriptTitle% `n (%A_LineFile%~%A_LineNumber%)
 global g_doSaveLogFiles
- if(g_doSaveLogFiles)
+
 lll(A_LineNumber, A_LineFile, "exit ")
    ExitApp ; this protect hopefully the scipt from building 100drets of instances.
    ; this was happend during looking videos. tv- mediathek oder sometimes youtube.
@@ -96,7 +96,7 @@ if( !WinExist(f) ){
     feedbackMsgBox(msg,msg,1,1)
    Sleep,3000
 global g_doSaveLogFiles
- if(g_doSaveLogFiles)
+
     lll(A_LineNumber, A_LineFile, "Sleep,3000")
    ExitApp 
 }
@@ -187,12 +187,12 @@ InitializeListBox()
 BlockInput, Send
 
 global g_doSaveLogFiles
- if(g_doSaveLogFiles)
+
 lll(A_LineNumber, A_LineFile, "InitializeHotKeys()")
 InitializeHotKeys()
 
 global g_doSaveLogFiles
- if(g_doSaveLogFiles)
+
 lll(A_LineNumber, A_LineFile, "DisableKeyboardHotKeys()")
 DisableKeyboardHotKeys()
 
@@ -362,7 +362,7 @@ settitlematchmode,1
 ;}
 if(ActiveTitleOLD && ActiveTitleOLD <> ActiveTitle ){
 global g_doSaveLogFiles
- if(g_doSaveLogFiles)
+
     lll(A_LineNumber, A_LineFile,  "Goto, doReload `n reason for being carefully with reload `;) https://youtu.be/2a_AsYubzvE " )
     ;~ ToolTip, % A_TickCount
 }
@@ -408,7 +408,7 @@ return
                Sleep,100
                if(!isActuallyWrittenToLog){
 global g_doSaveLogFiles
- if(g_doSaveLogFiles)
+
 lll(A_LineNumber, A_LineFile, "Title changed, Wordlist(modiTime) NOT changed so fast ... ups `n Wordlist=>" . Wordlist . "< `n Sleep,100")
                   isActuallyWrittenToLog := true
                }
@@ -417,7 +417,7 @@ lll(A_LineNumber, A_LineFile, "Title changed, Wordlist(modiTime) NOT changed so 
          
             msg = %ActiveTitleOLD%  <> `n%ActiveTitle%
 global g_doSaveLogFiles
- if(g_doSaveLogFiles)
+
 lll(A_LineNumber, A_LineFile, "`n Sleep,100 `n" . msg . "`n ==> Goto, doReload")
            ;feedbackMsgBox("ReadInTheWordList",A_LineNumber . " , " . A_ScriptName,1,1)
             ReadInTheWordList() ; 07.02.2018 17:28
@@ -442,16 +442,37 @@ return
 
 
 onLink2wordlistChangedInRegistry:
-global g_SingleMatch
-if(0 && firstLine := g_SingleMatch[1])
-    tooltip,%firstLine% `n (%A_LineFile%~%A_LineNumber%)
-; ask if new wordlis should be used (thats workaround/dirtyBugFix. planed to change automatically)
-RegRead, wordlistNewTemp, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlist
-if(wordlistNewTemp && wordlist <> wordlistNewTemp ){
-    SetTimer,onLink2wordlistChangedInRegistry,off
-
+    global g_SingleMatch
     SetTitleMatchMode,2
     global g_FLAGmsgbox
+
+
+    SetTimer,onLink2wordlistChangedInRegistry,off
+
+
+    FileGetTime, WordlistModified, %wordlist%, M
+    FormatTime, WordlistModified, %WordlistModified%, yyyy-MM-dd HH:mm:ss
+    ;ToolTip4sec(wordlist " = wordlist `n"  WordlistModified  " `n" . A_LineNumber . " " . A_ScriptName . " " . Last_A_This,1,1)
+    if(WordlistModiTime_OLD <> WordlistModiTime && WordlistModiTime_OLD ){
+        msgbox,aaaaawwwwwwwwwwwww alsdkfjaölsdkfjaölsdkfjaölsdkjf
+        ; ParseWordsCount := ReadWordList()
+        ; prefs_Length := setLength(ParseWordsCount, maxLinesOfCode4length1)
+
+        ReadInTheWordList()
+        prefs_Length := setLength(ParseWordsCount, maxLinesOfCode4length1)
+        ;RebuildDatabase()
+
+        ;If(WinExist("wordlistChangedInRegistry"))
+        winclose,wordlistChangedInRegistry
+
+        SetTimer,onLink2wordlistChangedInRegistry,on
+        return ; no update jet
+    }
+    WordlistModiTime_OLD := WordlistModiTime
+
+    if(0 && firstLine := g_SingleMatch[1])
+        tooltip,%firstLine% `n (%A_LineFile%~%A_LineNumber%)
+
     ; WinWaitNotActive,wordlistChangedInRegistry ahk_class AutoHotkeyGUI
 
     ; DetectHiddenWindows,On ; it set the window to no tray icon. i surprized to use now DetectHiddenWindows,On 18-03-03_17-16 Really necasary ??? TODO:need it ?
@@ -478,9 +499,11 @@ if(wordlistNewTemp && wordlist <> wordlistNewTemp ){
         }
     }
 
+
     ; may there was a change anyway
     RegRead, wordlistNewTemp, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlist
-    if(wordlistNewTemp && wordlist <> wordlistNewTemp ){
+    isRegListChanged := (wordlistNewTemp && wordlist <> wordlistNewTemp)
+    if( isRegListChanged ){
         wordlist := wordlistNewTemp
         tooltip,%wordlist%  (%A_LineFile%~%A_LineNumber%)
         ;msgbox,%wordlist%  (%A_LineFile%~%A_LineNumber%)
@@ -499,14 +522,14 @@ if(wordlistNewTemp && wordlist <> wordlistNewTemp ){
         ;RecomputeMatches()
     }
     SetTimer,onLink2wordlistChangedInRegistry,on
-}
+
 return
 
 ;
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 couldIfindMyself:
 global g_doSaveLogFiles
- if(g_doSaveLogFiles)
+
 lll(A_LineNumber, A_LineFile, "couldIfindMyself cant find scripts running in tray. so its useless :( deprevated. return from function :( now.")
 
 ; but BTW it works with oter windows (probably the proble is a changed window name???) . for e.x. this works: IfWinNotExist,Could not close the previous instance of this script_autoCloser.ahk
@@ -546,7 +569,7 @@ IfWinNotExist,% scriptNameWithoutAHK
    ; sleep, % 9 * min 
    ; reload 
 global g_doSaveLogFiles
- if(g_doSaveLogFiles)
+
 lll(A_LineNumber, A_LineFile, "ExitApp")
    Sleep, 3000
    ExitApp

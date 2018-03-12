@@ -208,7 +208,7 @@ preParser(AScriptDir, AScriptName, AScriptFullPath)
       line:=RTrim(line)
       FileAppend, %line% `n ,%temFile%            
   }               
-  if(isPreparsedChanged := true )
+  if(isPreparsedChanged == true )
     FileCopy, %temFile%, %AScriptFullPath%,1            
   return
 }
