@@ -447,7 +447,7 @@ onLink2wordlistChangedInRegistry:
     global g_FLAGmsgbox
 
 
-    SetTimer,onLink2wordlistChangedInRegistry,off
+    ;SetTimer,onLink2wordlistChangedInRegistry,off
 
 
     FileGetTime, WordlistModified, %wordlist%, M
@@ -465,7 +465,7 @@ onLink2wordlistChangedInRegistry:
         ;If(WinExist("wordlistChangedInRegistry"))
         winclose,wordlistChangedInRegistry
 
-        SetTimer,onLink2wordlistChangedInRegistry,on
+        ;SetTimer,onLink2wordlistChangedInRegistry,on
         return ; no update jet
     }
     WordlistModiTime_OLD := WordlistModiTime
@@ -479,7 +479,7 @@ onLink2wordlistChangedInRegistry:
     If(WinExist("wordlistChangedInRegistry")){
         ;If(WinExist("wordlistChangedInRegistry ahk_class AutoHotkeyGUI"){
         g_FLAGmsgbox := true
-        SetTimer,onLink2wordlistChangedInRegistry,on
+        ;SetTimer,onLink2wordlistChangedInRegistry,on
         return ; no update jet
     }else{
         AHKcodeMsgBox := "#" . "NoTrayIcon `n "
@@ -497,7 +497,7 @@ onLink2wordlistChangedInRegistry:
                 tooltip,
             }
 
-            SetTimer,onLink2wordlistChangedInRegistry,on
+            ;SetTimer,onLink2wordlistChangedInRegistry,on
             return ; no update jet
         }
     }
@@ -524,7 +524,7 @@ onLink2wordlistChangedInRegistry:
         ; reload ; hardvore :( 02.03.2018 12:52 18-03-02_12-52
         ;RecomputeMatches()
     }
-    SetTimer,onLink2wordlistChangedInRegistry,on
+    ;SetTimer,onLink2wordlistChangedInRegistry,on
 
 return
 
