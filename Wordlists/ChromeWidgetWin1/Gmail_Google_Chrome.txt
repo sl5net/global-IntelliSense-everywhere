@@ -1,8 +1,5 @@
 #Include privat_Gmail_Google_Chrome.txt
 
-; #Include ..\_globalWordLists\_global.txt
-
-
 ___your library open|rr||ahk|run, Gmail_Google_Chrome.txt
 Thanks again
 have a great day!
