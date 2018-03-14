@@ -405,11 +405,11 @@ if(0){
     FileRead, fileContent, `% wordlist
     ; StringReplace, fileContent, fileContent, ..\Wordlists, .. \
     l1 := StrLen(fileContent)
-    fileContent := StrReplace(fileContent, "..\Wordlists", "..\" )
+    fileContent := StrReplace(fileContent, "..\Wordlists", "..\" ) ; https://ahkde.github.io/docs/commands/StringReplace.htm
 l2 := StrLen(fileContent)
-if(l1 <> l2){
+if(1 && l1 <> l2){ ; proof it test it
     FileSave(fileContent, wordlist )
-  ;  msgbox,`% wordlist " is saved"
+    msgbox,`% wordlist " is saved -- " fileContent
 }
 
 
@@ -937,7 +937,8 @@ run,log\%A_ScriptName%.log.txt
 
 ; g_nextCriticalCommandString := "120:SuspendOn()"
 ; g_nextCriticalCommandTimeIdle := A_TimeIdle
-}
+} ; checkCriticalCommand
+;>>>>>>>> checkCriticalCommand >>>> 180312173924 >>>> 12.03.2018 17:39:24 >>>>
 
 
 
@@ -957,7 +958,7 @@ couldIfindMyself:
 DetectHiddenWindows,On
 IfWinNotExist,% A_ScriptName
 {
-   ToolTip, i cant find myself `n ( %A_ScriptName% ) `n FOUNDmyselfCounter = %FOUNDmyselfCounter% `n `n (programmed at 11.07.2017 15:12)
+   ToolTip, i cant find myself `n ( %A_LineFile% ) `n FOUNDmyselfCounter = %FOUNDmyselfCounter% `n `n (programmed at 11.07.2017 15:12)
    ; thats a totally stupid situation, but it happen often.
    ; not always but often.
    ; then i think no autohotkey scrpt should start oter scripts. 

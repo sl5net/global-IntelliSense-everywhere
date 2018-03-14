@@ -11,17 +11,17 @@ global activeClassOLD
 global activeClass
 
 Receive_wordlistAddress(CopyOfData){
-   msgbox, Received:`n%CopyOfData% `n ( %A_ScriptName%(inc)~%A_LineNumber% ) `n
-   msgbox, Received:`n%CopyOfData% `n ( %A_ScriptName%(inc)~%A_LineNumber% ) `n
-   msgbox, Received:`n%CopyOfData% `n ( %A_ScriptName%(inc)~%A_LineNumber% ) `n
-   msgbox, Received:`n%CopyOfData% `n ( %A_ScriptName%(inc)~%A_LineNumber% ) `n
-   msgbox, Received:`n%CopyOfData% `n ( %A_ScriptName%(inc)~%A_LineNumber% ) `n
+   msgbox, Received:`n%CopyOfData% `n ( %A_LineFile%(inc)~%A_LineNumber% ) `n
+   msgbox, Received:`n%CopyOfData% `n ( %A_LineFile%(inc)~%A_LineNumber% ) `n
+   msgbox, Received:`n%CopyOfData% `n ( %A_LineFile%(inc)~%A_LineNumber% ) `n
+   msgbox, Received:`n%CopyOfData% `n ( %A_LineFile%(inc)~%A_LineNumber% ) `n
+   msgbox, Received:`n%CopyOfData% `n ( %A_LineFile%(inc)~%A_LineNumber% ) `n
 ; Receive_WM_COPYDATA(wParam, lParam) ; deprecated 15.02.2018 10:26
 ;{
     ;StringAddress := NumGet(lParam + 2*A_PtrSize)  ; Retrieves the CopyDataStruct's lpData member.
     ;CopyOfData := StrGet(StringAddress)  ; Copy the string out of the structure.
     ; Show it with ToolTip vs. MsgBox so we can return in a timely fashion:
-    msgbox, %A_ScriptName%`nReceived:`n%CopyOfData%
+    msgbox, %A_LineFile%`nReceived:`n%CopyOfData%
     ;RegRead, wordlistActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, CopyOfData
 
     global wordlistOLD
@@ -35,18 +35,21 @@ Receive_wordlistAddress(CopyOfData){
 
 
     if( 1 && wordlistOLD <> wordlist){
-       ToolTip, Received:`n%CopyOfData% `n ( %A_ScriptName%(inc)~%A_LineNumber% ) `n
+       ToolTip, Received:`n%CopyOfData% `n ( %A_LineFile%(inc)~%A_LineNumber% ) `n
        Sleep,2000
 
                                        wordlist := CopyOfData
-       tooltip,'%wordlistNEW%' = wordlistNEW `n ( %A_ScriptName%(inc)~%A_LineNumber% ) `n
+       tooltip,'%wordlistNEW%' = wordlistNEW `n ( %A_LineFile%(inc)~%A_LineNumber% ) `n
 
        CloseListBox()
+
+       msgbox,% A_LineNumber " " A_LineFile "`n SuspendOn()`n"
+
        SuspendOn()
 
 
     ;feedbackMsgBox("wordlistOLD <> wordlist",wordlistOLD . " <> " . wordlist . "`n" . A_ScriptName . "(inc)~" . A_LineNumber)
-         tooltip,LOAD NEW '%wordlist%' = wordlist `n ( %A_ScriptName%(inc)~%A_LineNumber% ) `n
+         tooltip,LOAD NEW '%wordlist%' = wordlist `n ( %A_LineFile%(inc)~%A_LineNumber% ) `n
         ;setGlobalWordlist(wordlistActive)
         ;InitializeListBox()
         ;BlockInput, Send ; Send:  The user's keyboard and mouse input is ignored while a Send or SendRaw is in progress
@@ -56,8 +59,10 @@ Receive_wordlistAddress(CopyOfData){
         ;feedbackMsgBox("ReadInTheWordList()",wordlist . "`n" . activeTitle . " = activeTitle  `n " .  A_ScriptName . "(inc)~" . A_LineNumber)
         ReadInTheWordList()
         ;prefs_Length := setLength(ParseWordsCount, maxLinesOfCode4length1)
-        wordlistOLD:=wordlist
+        wordlistOLD := wordlist
         ;MainLoop()
+
+         SuspendOff()
     }
     ; MainLoop()
     ; goto, MainLoopLabel
@@ -254,7 +259,7 @@ global g_doSaveLogFiles
 lll(A_LineNumber, A_LineFile, "g_Word=" . g_Word . " `n`n ==>j CloseListBox()")
 global g_doRunLogFiles
  if(g_doRunLogFiles)
-run,log\%A_ScriptName%.log.txt
+run,log\%A_LineFile%.log.txt
       CloseListBox()
       Return
    }
@@ -610,8 +615,10 @@ if(!g_ListBox_Id){ ; lines addet to reenable numbers without special functions. 
     SetKeyDelay, 0, -1
 
 foundPos := RegExMatch( Key , "\d" )
-if(foundPos)
-    Suspend,On ; 01.08.2017 04:28 17-08-01_04-28 with this effect, the first number is normal litle slow, but number later are fast again.
+if(foundPos){
+    ;Suspend,On ; 01.08.2017 04:28 17-08-01_04-28 with this effect, the first number is normal litle slow, but number later are fast again.
+   ;msgbox,% A_LineNumber " " A_LineFile "`n SuspendOn()`n"
+}
 
 
 ; // adsdf2131234567896541234565498 12345678965412365445612345654 ____
@@ -665,6 +672,7 @@ global g_doSaveLogFiles
 lll(A_LineNumber, A_LineFile,"SuspendOn()`n" . Key " = Key `n" . WordIndex " = WordIndex `n"  . prefs_NumPresses . " = prefs_NumPresses `n " . "`n 17-07-16_14-16" )
 
 ;      lll(A_LineNumber, A_LineFile, "SuspendOn()")
+      msgbox,% A_LineNumber " " A_LineFile "`n SuspendOn()`n"
       SuspendOn()
   }
 
@@ -679,7 +687,7 @@ lll(A_LineNumber, A_LineFile,"SuspendOn()`n" . Key " = Key `n" . WordIndex " = W
       SendCompatible(Key,0)
       ProcessKey(Key,"")
       IfEqual, prefs_NumPresses, 2
-         SuspendOff()
+      SuspendOff()
       Return 
    } 
 
@@ -1145,7 +1153,7 @@ global g_doSaveLogFiles
 lll(A_LineNumber, A_LineFile, "CloseListBox()")
 global g_doRunLogFiles
  if(g_doRunLogFiles)
-run,log\%A_ScriptName%.log.txt
+run,log\%A_LineFile%.log.txt
 
    CloseListBox()
    MaybeSaveHelperWindowPos()
@@ -1208,7 +1216,7 @@ BuildTrayMenu(){
 ClearAllVars(ClearWord){
    global
        ; lll(A_LineNumber, A_LineFile, "CloseListBox()")
-       ; run,log\%A_ScriptName%.log.txt ; this line woks :) but to often ;) may we dont need any more to check it ;) 04.08.2017 15:20
+       ; run,log\%A_LineFile%.log.txt ; this line woks :) but to often ;) may we dont need any more to check it ;) 04.08.2017 15:20
 
    CloseListBox()
    Ifequal,ClearWord,1
@@ -1357,7 +1365,7 @@ if(0){ ; check if this is arrived 30.04.2017 09:43
 global g_doSaveLogFiles
 {
 lll(A_LineNumber, A_LineFile, "Reload")
-run,log\%A_ScriptName%.log.txt
+run,log\%A_LineFile%.log.txt
 }
             Reload
         }

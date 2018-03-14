@@ -37,7 +37,15 @@ while(WinExist(name) && A_Index < 9)
 while(WinExist(name) && A_Index < 9)
 	WinKill,
 
-name=TypingAid - Active ahk_class AutoHotkey
+; ahk_class AutoHotkey
+name=TypingAid - Active
+while(WinExist(name) && A_Index < 9)
+	WinClose,
+while(WinExist(name) && A_Index < 9)
+	WinKill,
+
+; ahk_class AutoHotkey
+name=TypingAid - Inactive
 while(WinExist(name) && A_Index < 9)
 	WinClose,
 while(WinExist(name) && A_Index < 9)
