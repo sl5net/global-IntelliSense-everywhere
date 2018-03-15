@@ -42,3 +42,12 @@ Einfach downoad und start.ahk starten. Allerdings sind zu beginn nur Beispiel Wo
 
 EN: The installation is very easy. You do not have to configure anything. 
 Just start downoad and start.ahk. However, at the beginning only example word lists exist (thus almost empty). If you need help here to create a word list please read a bit in the documentation or ask.
+
+16.03.2018 00:45:
+now it understands kotlin Script. But you need to unzip CotlinScript into
+this directory Wordlists\_kts\kotlinc You could get it here: https://kotlinlang.org/docs/tutorials/command-line.html
+Examples: 
+kotlin example|rr||kts|KotlinLove.kts
+kotlin example|rr||kts|import java.io.File`n val folders = File("c:").listFiles { file -> file.isDirectory() }`n folders?.forEach { folder -> println(folder) }
+kotlin example|rr||kts|print("Hi world")
+kts example|rr||kts|print("Hi world")
