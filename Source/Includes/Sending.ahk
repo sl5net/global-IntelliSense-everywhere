@@ -227,13 +227,24 @@ WinGetActiveTitle, activeTitle
 if (g_SingleMatch[WordIndex]) {
 ; eins|rr|zwei|ahk|autohotkey source code
 ; regIsAHKcode := "^([^\|]+?)\|rr\|(.*?)\|ahk\|(.*?)$"
-regIsAHKcode := "^([^\|\n]+?)\|rr\|([^\n]*?)\|ahk\|([^\n]*?)$" ; works in phpstorm
+regIsAHKcode := "^([^\|\n]+?)\|rr\|([^\n]*?)\|ahk\|([^\n]*?)$"
+regIsKTScode := "^([^\|\n]+?)\|rr\|([^\n]*?)\|kts\|([^\n]*?)$"
+regIsXXXcode := "^([^\|\n]+?)\|rr\|([^\n]*?)\|(ahk|kts)\|([^\n]*?)$"
 ; AHKdyn example super simple example
    ; if(RegExMatch( sending , ereg ,  m )) {
-   if(RegExMatch( g_SingleMatch[WordIndex] , regIsAHKcode ,  m )) {
-   isAHKcode := true
+   ;if(RegExMatch( g_SingleMatch[WordIndex] , regIsAHKcode ,  m )) {
+   if(RegExMatch( g_SingleMatch[WordIndex] , regIsXXXcode ,  m )) {
+        StringLower, m3, m3
+        if(m3 == "ahk"){
+            isAHKcode := true
+            AHKcode := m4
+        }
+        if(m3 == "kts"){
+            isKTScode := true
+            KTScode := m4
+        }
 
-    AHKcode := m3
+
 
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ; enable to use quellenangaben in ahk pseudo code.
@@ -243,14 +254,14 @@ regIsAHKcode := "^([^\|\n]+?)\|rr\|([^\n]*?)\|ahk\|([^\n]*?)$" ; works in phpsto
 
 ; indirect3 hello :-) 10.07.2017 14:27
 
-   if( RegExMatch( AHKcode , "^\s*q=\s*(.+)\s*$" ,  m ) ) { ; q=
+   if(isAHKcode && RegExMatch( AHKcode , "^\s*q=\s*(.+)\s*$" ,  m ) ) { ; q=
         line := getCorrectedStringUAOSS( getLineOfWord( m1 )) ; that works :) 10.07.2017 14:18
         isAHKcode := false
         if(RegExMatch( line , regIsAHKcode ,  m )) { ; repeat / overwrite last regex 10.07.2017 14:24
          isAHKcode := true
          AHKcode := m3
         }else{
-         sending := line
+         ;sending := line
          sending := RegExReplace(line, "i).*\|r\|(.*)", "$1") ; i know thats not redundanct. todo: do better reduaant style 10.07.2017 15:31
       }
 
@@ -263,7 +274,7 @@ regIsAHKcode := "^([^\|\n]+?)\|rr\|([^\n]*?)\|ahk\|([^\n]*?)$" ; works in phpsto
 
 ; msgbox, '%line%' = line  n (line:%A_LineNumber%) n
 ; __asdkjfhsdf
-if(isAHKcode)
+if(isAHKcode || isKTScode)
     sending := m2
 ;    Msgbox, '%sending%' = sending  `n `n AHKcode = %m3% (line:%A_LineNumber%)
 
@@ -312,7 +323,36 @@ if(false){
 ; https://github.com/sl5net/global-IntelliSense-everywhere/blob/master/Source/help/CHANGELOG.txt#L1 05.03.2018 10:40
 aScriptDir2wordlistFolder := removesSymbolicLinksFromFileAdress(A_ScriptDir "\..\Wordlists") ; user should could includes direcly from his txt wordlist, without editing the address 05.03.2018 08:15
 ;msgbox, aScriptDir2wordlistFolder  = %aScriptDir2wordlistFolder%  `n (%A_LineFile%~%A_LineNumber%)
-;exitapp
+;exitapp\
+
+if( isKTScode ){
+    ; "E:\fre\private\HtmlDevelop\AutoHotKey\global-IntelliSense-everywhere\Wordlists\_kts\kotlinc\bin\kotlinc"
+    ;
+
+    fExistCode := FileExist(wordlistFolderOfThisWordlist "\" KTScode)
+    if(fExistCode){
+        scriptAddress := wordlistFolderOfThisWordlist "\" KTScode
+    }else{
+        scriptAddress := removesSymbolicLinksFromFileAdress( A_ScriptDir "\..\Wordlists\_kts\KotlinLove.kts" )
+        KTScode := RegExReplace(KTScode, "``n" , "`n")
+        FileSave(KTScode, scriptAddress )
+    }
+    resultAddress := removesSymbolicLinksFromFileAdress( A_ScriptDir "\..\Wordlists\_kts\cmdResult2.txt" ) ; ; %A_Temp%\
+    kotlincExeAddress := removesSymbolicLinksFromFileAdress (A_ScriptDir "\..\Wordlists\_kts\kotlinc\bin\kotlinc")
+    ; run,cmd.exe /c "%kotlincExeAddress%" -script KotlinLove.kts > cmdResult.txt,, Hide"
+    runString = cmd.exe /c "%kotlincExeAddress%" -script %scriptAddress% > %resultAddress%
+    run,% runString,, Hide
+    ; Clipboard := runString
+        ;  Wordlists\_kts\kotlinc\bin\kotlinc""
+    ; FileReadLine, thisLine , %A_Temp%\cmdResult.txt, 1
+    sleep,100
+    FileRead, cmdResult, % resultAddress
+    Send,% "{text}" cmdResult
+    ; Msgbox,cmdResult = %cmdResult% `n sKTScode = %isKTScode% `n (%A_LineFile%~%A_LineNumber%)
+}
+
+
+;<<<<<<<< isAHKcode <<<< 180315221709 <<<< 15.03.2018 22:17:09 <<<<
    if( isAHKcode ){
    AHKcode2 := ""
 ; AHKcode2 .= "#" . "NoTrayIcon `n "
@@ -332,8 +372,8 @@ AHKcode2 .= dynaRunFunctionImplementationSource  . "`n"
 
 
 if(0){
-AHKcode2 .= "wordlist = , " . wordlistNEW . "`n" ; i cant do this :D becouse the script cant know this :D 12.08.2017 11:12
-Msgbox,% AHKcode2 . "`n`n = AHKcode2 `n (%A_LineFile%~%A_LineNumber%)"
+    AHKcode2 .= "wordlist = , " . wordlistNEW . "`n" ; i cant do this :D becouse the script cant know this :D 12.08.2017 11:12
+    Msgbox,% AHKcode2 . "`n`n = AHKcode2 `n (%A_LineFile%~%A_LineNumber%)"
 }
 ; doesent work has no effect ScriptDir|rr||ahk|send, % A_ScriptDir ; \\.\pipe 03.04.2017 11:17 17-04-03_11-17
 ; AHKcode2 .= "d := """ . a_scriptDir . """`n"
@@ -400,6 +440,7 @@ if(0){
         ; suspend,off
         SetWorkingDir,%aWorkingDirBackUp%
    }
+   ;>>>>>>>> isAHKcode >>>> 180315221926 >>>> 15.03.2018 22:19:26 >>>>
 
    ClearAllVars(true)
    ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<

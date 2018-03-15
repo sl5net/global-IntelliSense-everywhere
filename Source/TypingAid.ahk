@@ -77,8 +77,11 @@ IfWinNotExist,Could not close the previous instance of this script_autoCloser.ah
 ;WinWait,Typing_Aid_everywhere_multi_clone.ahk ahk_class AutoHotkey
 
 g_nextCriticalCommandString := "104:Suspend, On"
-; Disables all hotkeys 
+; Disables all hotkeys
+
+;msgbox,% A_LineNumber " " A_LineFile "`n SuspendOn()`n"
 Suspend, On ; wieder (10.07.2017 11:47) auskommentiert weils mir zu oft auf suspand on war. wehr oft wenn ich auf skype gewecheelt habe. hoffe die anderen bugFix haben den Seiteneffekt das ich dieses nicht mehr brauche.
+
 ;WinSetTitle, TypingAid - Active, , TypingAid - Active wait4sec
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 if(0){
@@ -567,7 +570,9 @@ IfWinNotExist,% scriptNameWithoutAHK
    ; then i think no autohotkey scrpt should start oter scripts. 
    ; its to dangerous that a stack overflow happens.
    ; may one good workaround could be, wait a lang time and then try it again or pause the script for ever..... and ever ...
-   suspend,On 
+   suspend,On
+      msgbox,% A_LineNumber " " A_LineFile "`n SuspendOn()`n"
+
    min := 60 * 1000
    ; sleep, % 9 * min 
    ; reload 

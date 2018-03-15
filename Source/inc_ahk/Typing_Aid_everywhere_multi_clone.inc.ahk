@@ -34,7 +34,7 @@ wordlistNEWarchivePath = '%wordlistNEWarchivePath%'
 wordlistDir = '%wordlistDir%'
 '%A_LineNumber%' = A_LineNumber
 '%A_ScriptDir%' = A_ScriptDir
-'%A_ScriptName%' = A_ScriptName
+'%A_LineFile%' = A_ScriptName
 '%A_ThisFunc%' = A_ThisFunc
 )
     ;feedbackMsgBox(msg,msg,1,1)
@@ -96,7 +96,7 @@ if(!wordlistNEWarchivePath)
     ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 } else {
     ; No example template was used. The content is already there. Inside on this file. And don't need to be generated. 12.07.2017 21:36
-    lll(A_LineNumber, A_LineFile,A_ThisFunc ": "    "startREADING: >" . wordlistNEWarchivePath . "< = wordlistNEWarchivePath" )
+    ;lll(A_LineNumber, A_LineFile,A_ThisFunc ": "    "startREADING: >" . wordlistNEWarchivePath . "< = wordlistNEWarchivePath" )
 
 ;<<<<<<<<<<<<< startREADING <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
        ; read #include commands
@@ -108,7 +108,7 @@ if(!wordlistNEWarchivePath)
        includeFilePathArray := Object()
        lineInRegExArray := Object()
 
-lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   "'" . wordlistGeneratedPath . "' = wordlistGeneratedPath `n'" . wordlistNEWarchivePath . " = wordlistNEWarchivePath " )
+; lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   "'" . wordlistGeneratedPath . "' = wordlistGeneratedPath `n'" . wordlistNEWarchivePath . " = wordlistNEWarchivePath " )
 
 if(0 && !WinExist("1:" )){
 msg =
@@ -117,7 +117,7 @@ wordlistNEWarchivePath = '%wordlistNEWarchivePath%'
 wordlistDir = '%wordlistDir%'
 '%A_LineNumber%' = A_LineNumber
 '%A_ScriptDir%' = A_ScriptDir
-'%A_ScriptName%' = A_ScriptName
+'%A_LineFile%' = A_ScriptName
 '%A_ThisFunc%' = A_ThisFunc
 )
 feedbackMsgBox(msg,msg,1,1)
@@ -142,7 +142,7 @@ Loop, read, % wordlistNEWarchivePath
             msg .= A_ScriptFullPath " = A_ScriptFullPath `n"
             msg .= foundPos " = foundPos `n"
             msg .= exist_includeFilePath " = exist_includeFilePath  `n`n"
-            lll(A_LineNumber, A_LineFile, msg )
+            ; lll(A_LineNumber, A_LineFile, msg )
 
            if(foundPos){
             isIncludeFileInside := true
@@ -260,7 +260,7 @@ lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   msg)
        }
 
 
-lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   includeFileSContentWillBeNeedsSaved . " = includeFileSContentWillBeNeedsSaved `n" . wordlistNEWarchivePath . " = wordlistNEWarchivePath `n" . "17-07-16_17-07")
+; lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   includeFileSContentWillBeNeedsSaved . " = includeFileSContentWillBeNeedsSaved `n" . wordlistNEWarchivePath . " = wordlistNEWarchivePath `n" . "17-07-16_17-07")
 
 
 if(includeFileSContentWillBeNeedsSaved ) {
@@ -298,14 +298,14 @@ for fileId, includeFilePath in includeFilePathArray ; Recommended approach in mo
 } ; END if(includeFileSContentWillBeNeedsSaved )
 
 
-lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   "'" . includeFileSContentWillBeNeedsSaved . "' = includeFileSContentWillBeNeedsSaved" )
+; lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   "'" . includeFileSContentWillBeNeedsSaved . "' = includeFileSContentWillBeNeedsSaved" )
 
 ; lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   "'" . wordlistGeneratedPath . "' = wordlistGeneratedPath `n'" . wordlistNEWarchivePath . " = wordlistNEWarchivePath " )
 
 if(includeFileSContentWillBeNeedsSaved )
     save_wordlistGeneratedPath(wordlistGeneratedPath,includeFileSContent,wordlistNEWarchivePath)
 
-lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   "'" . wordlistGeneratedPath . "' = wordlistGeneratedPath `n'" . wordlistNEWarchivePath . " = wordlistNEWarchivePath " )
+; lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   "'" . wordlistGeneratedPath . "' = wordlistGeneratedPath `n'" . wordlistNEWarchivePath . " = wordlistNEWarchivePath " )
 
         if(isIncludeFileInside && wordlistGeneratedPath){
            wordlistNEWarchivePath := wordlistGeneratedPath ; that it will be used as your wordllist with all sugestions :) 12.07.2017 22:58
@@ -316,7 +316,7 @@ lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   "'" . wordlistGeneratedPath . "' 
 ;>>>>>>>>>>>>>>>>>> includeFileSContentWillBeNeedsSaved >>>>>>>>>>>>>>>>>>>>>>>>>>>
 } ; EndOf: Loop, read, % wordlistNEWarchivePath
 
-lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   "'" . wordlistGeneratedPath . "' = wordlistGeneratedPath `n'" . wordlistNEWarchivePath . " = wordlistNEWarchivePath " )
+; lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   "'" . wordlistGeneratedPath . "' = wordlistGeneratedPath `n'" . wordlistNEWarchivePath . " = wordlistNEWarchivePath " )
 
   ; All we have to do know is to  use this file. therefore we only copying it to the active used file. it will be overwritten. 12.07.2017 21:31
 
@@ -849,7 +849,7 @@ getWelcomeMsg(){
 
 msg = 
 (
-this `n `n  %A_ScriptName% `n 
+this `n `n  %A_LineFile% `n 
 copies the activAid for every window class you are using automatically
 runs this and close/kills the other activAid
 
@@ -1076,7 +1076,7 @@ return initialWordList
 ExitAPP_if_NOT_wordlistNEWarchivePath_and_NOT_wordlistNEW(ALineNumber, AThisFunc, wordlistNEWarchivePath, wordlistGeneratedPath , wordlistNEW){
   if( !FileExist(wordlistNEWarchivePath) ) {
     global g_lineNumberFeedback
-    g_lineNumberFeedback=Typing_Aid_everywhere_multi_clone.inc.ahk / %A_ScriptName% ~%AThisFunc%~%ALineNumber%
+    g_lineNumberFeedback=Typing_Aid_everywhere_multi_clone.inc.ahk / %A_LineFile% ~%AThisFunc%~%ALineNumber%
     msg = :( !FileExist(%wordlistNEWarchivePath%)) `n `n '%wordlistNEWarchivePath%' = wordlistNEWarchivePath  `n '%wordlistGeneratedPath%' = wordlistGeneratedPath  `n wordlistNEW= %wordlistNEW% `n ==> ExitAPP 17-08-11_01-01
     tooltip,%msg% `n`n ( %g_lineNumberFeedback% )
 
@@ -1099,7 +1099,7 @@ ExitAPP_if_NOT_wordlistGeneratedPath(ALineNumber, AThisFunc, wordlistNEWarchiveP
     g_doSaveLogFiles := 1
     global g_lineNumberFeedback
     ;g_lineNumberFeedback=%A_LineFile%~%AThisFunc%~%ALineNumber%
-    g_lineNumberFeedback=Typing_Aid_everywhere_multi_clone.inc.ahk / %A_ScriptName% ~%AThisFunc%~%ALineNumber%
+    g_lineNumberFeedback=Typing_Aid_everywhere_multi_clone.inc.ahk / %A_LineFile% ~%AThisFunc%~%ALineNumber%
     msg = :( !FileExist(%wordlistNEWarchivePath%)) `n `n '%wordlistNEWarchivePath%' = wordlistNEWarchivePath  `n '%wordlistGeneratedPath%' = wordlistGeneratedPath  `n wordlistNEW= %wordlistNEW% `n ==> ExitAPP 17-08-11_00-00 `n %g_lineNumberFeedback%
     tooltip,% msg
 
@@ -1134,7 +1134,7 @@ if(!wordlistNEWarchivePath){
         g_doSaveLogFiles := 1
         global g_lineNumberFeedback
 
-        g_lineNumberFeedback=Typing_Aid_everywhere_multi_clone.inc.ahk / %A_ScriptName% ~%A_ThisFunc%~%A_LineNumber%
+        g_lineNumberFeedback=Typing_Aid_everywhere_multi_clone.inc.ahk / %A_LineFile% ~%A_ThisFunc%~%A_LineNumber%
 
         msg=:( !fileContent `n `n ==> ExitApp  `n `n (g_lineNumberFeedback)
         tooltip,% msg

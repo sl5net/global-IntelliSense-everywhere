@@ -405,14 +405,15 @@ if(0){
     FileRead, fileContent, `% wordlist
     ; StringReplace, fileContent, fileContent, ..\Wordlists, .. \
     l1 := StrLen(fileContent)
-    fileContent := StrReplace(fileContent, "..\Wordlists", "..\" ) ; https://ahkde.github.io/docs/commands/StringReplace.htm
+    fileContent := StrReplace(fileContent, "..\Wordlists\", "..\" ) ; https://ahkde.github.io/docs/commands/StringReplace.htm
 l2 := StrLen(fileContent)
-if(1 && l1 <> l2){ ; proof it test it
+if(1 && l1 > l2){ ; proof it test it
     FileSave(fileContent, wordlist )
-    msgbox,`% wordlist " is saved -- " fileContent
+    msgbox,`% wordlist " is saved (l1 > l2) (%A_LineFile%~%A_LineNumber%) (" A_LineFile "~" A_LineNumber ") ---- " fileContent
 }
 
 
+;
 
 if(1){
     ; dirty bug fix ._Generated.txt 04.03.2018 10:44
@@ -556,7 +557,7 @@ ahkCodeInsideFile =
 (
 `; GLOBAL FILTER / ROUTING
 `; this file was generated %A_Now% by: `n`;  %A_ScriptFullPath% 
-`; if you want you could update it by yourself. it will not overwritten by %A_ScriptName% 
+`; if you want you could update it by yourself. it will not overwritten by %A_LineFile% 
 `; if you delete it it will be generated again.
 `; you could use it as a global filter/routing called from your special .../className/%filterFileName%
 
@@ -914,19 +915,33 @@ if(0){ ; check if this is arrived 30.04.2017 09:43
                  ; for testing i created this code:
                      WinSetTitle,main.ts.txt - Editor,, main.ts
                      WinSetTitle,main.ts.txt - WordPad,, main.ts
-global g_doSaveLogFiles
 
 lll(A_LineNumber, A_LineFile, "ExitApp")
                      ExitApp
-                 }
-global g_doSaveLogFiles
 
-lll(A_LineNumber, A_LineFile, "reload 17-08-04_14-42")
-global g_doRunLogFiles
- if(g_doRunLogFiles)
-run,log\%A_ScriptName%.log.txt
-                MsgBox, =>Reload  `n  `n (%A_LineFile%~%A_LineNumber%)
-                 Reload
+                     happendLog =
+(
+ActiveClass: 32770
+activeClassOLD: ChromeWidgetWin1
+activeTitle: H:\download
+activeTitleOLD: H:\download
+)
+                 }
+
+tip =
+(
+activeClass: %activeClass%
+activeClassOLD: %activeClassOLD%
+activeTitle: %activeTitle%
+activeTitleOLD: %activeTitleOLD%
+ (%A_LineFile%~%A_LineNumber%)
+)
+
+lll(A_LineNumber, A_LineFile, tip "reload 17-08-04_14-42")
+                tooltip, =>Reload  `n  `n (%A_LineFile%~%A_LineNumber%)
+ToolTip5sec(tip A_LineNumber . " " . A_LineFile)
+                 sleep,1500
+                 return
              }
              if( 0 ) ; fo debugging really useful.
             tooltip,%activeTitle%`n ?= `n%activeTitleOLD% `n `n  %g_nextCriticalCommandTimeIdle% = g_nextCriticalCommandTimeIdle `n (%A_LineFile%~%A_LineNumber%)
@@ -972,7 +987,7 @@ IfWinNotExist,% A_ScriptName
 }
 FOUNDmyselfCounter += 1
 if(false){
-ToolTip, i FOUND :-) myself yeaah `n not a totally idiot :) `n ( %A_ScriptName% )  `n FOUNDmyselfCounter = %FOUNDmyselfCounter% `n `n  (programmed at 11.07.2017 20:26)
+ToolTip, i FOUND :-) myself yeaah `n not a totally idiot :) `n ( %A_LineFile% )  `n FOUNDmyselfCounter = %FOUNDmyselfCounter% `n `n  (programmed at 11.07.2017 20:26)
 }
 return
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

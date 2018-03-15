@@ -55,7 +55,7 @@ global g_ignReg
 	ln .= "`n"
 	n := "`n"
 if(0){
-	msg=`n (%A_ScriptName%~%A_LineNumber%)
+	msg=`n (%A_LineFile%~%A_LineNumber%)
 	tooltip,% A_LineNumber n logFileName n g_ignReg["saveLogFiles"]["ln"] n g_ignReg["saveLogFiles"]["scriptName"] n g_ignReg["saveLogFiles"]["text"] msg
 }
 	scriptName := trim(scriptName)
@@ -65,7 +65,7 @@ if(0){
 
  	is_ignReg_defined := varExist(g_ignReg)
 	if( !is_ignReg_defined ){
-		; msgbox,ERROR g_ignReg is not defined msg=`n (%scriptName%~%ln%) >`n (%A_ScriptName%~%A_LineNumber%)
+		; msgbox,ERROR g_ignReg is not defined msg=`n (%scriptName%~%ln%) >`n (%A_LineFile%~%A_LineNumber%)
 		;0 indicates that the variable does not exist
 		;1 indicates that the variable does exist and contains data
 		;2 indicates that the variable does exist and is empty
@@ -156,7 +156,7 @@ if(0){
 		;~ t .= "# Include *i %A_ScriptDir%\inc_ahk\functions_global.inc.ahk" . "`n"
 		;~ Clipboard := t
 
-		Clipboard="%A_ScriptName%"
+		Clipboard="%A_LineFile%"
 		MsgBox, functions_global.inc.ahk `n ln=%ln% `n  scriptName = %scriptName% `n parameter FILE must not be empty `n `n you find this now inside your clipboard : %Clipboard% `n `n move to line %ln% and fix the bug. `n `n or let run the SL5_AHK_preparser.ahk
 		return -1
 	}
@@ -1428,6 +1428,10 @@ removesSymbolicLinksFromFileAdress(wordlist){
 }
 ;>>>>>>>> removesSymbolicLinksFromFileAdress >>>> 180305085214 >>>> 05.03.2018 08:502:14 >>>>
 
+ProcessExist(Name){
+	Process,Exist,%Name%
+	return Errorlevel
+}
 
 
 
