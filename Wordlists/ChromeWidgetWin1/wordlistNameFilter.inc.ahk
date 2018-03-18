@@ -8,7 +8,7 @@ if(false){
 	noop:=0
 }
 
-#Include *i PRIVATE_wordlistNameFilter.inc.ahk
+#Include *i %A_LineFile%\..\PRIVATE_wordlistNameFilter.inc.ahk
 
 else if ( instr( activeTitle , "Benachrichtigung:")  &&  RegExMatch( activeTitle , "Gmail")   )
     wordlistNEW := "Benachrichtigung_Google_Chrome"
