@@ -174,8 +174,7 @@ ListBoxChooseItem(Row)
 ;------------------------------------------------------------------------
 ; SciTEWindow\_global.txt __SunAwtFrame\.txt
 ; __SciTEWindow\_global.txt
-CloseListBox()
-{
+CloseListBox(){
    global g_ListBox_Id
    IfNotEqual, g_ListBox_Id,
    {
@@ -191,7 +190,6 @@ CloseListBox()
 }
 
 DestroyListBox(){
-
    Gui, ListBoxGui:Destroy
    ListBoxEnd()
    Return
@@ -222,8 +220,7 @@ ListBoxEnd() {
 
 ;------------------------------------------------------------------------
 
-SavePriorMatchPosition()
-{
+SavePriorMatchPosition(){
    global g_MatchPos
    global g_MatchStart
    global g_OldMatch
@@ -251,8 +248,7 @@ SavePriorMatchPosition()
    Return
 }
 
-SetupMatchPosition()
-{
+SetupMatchPosition(){
    global g_MatchPos
    global g_MatchStart
    global g_MatchTotal
@@ -326,8 +322,7 @@ SetupMatchPosition()
    Return
 }
 
-RebuildMatchList()
-{
+RebuildMatchList(){
    global g_Match
    global g_MatchLongestLength
    global g_MatchPos

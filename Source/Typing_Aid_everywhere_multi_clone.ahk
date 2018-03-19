@@ -107,7 +107,8 @@ DetectHiddenWindows,On ; if this is off it does not find in tray 27.04.2017
 IfWinNotExist,TypingAid
 {
     if(!FileExist(typingAidAHK)){
-        MsgBox,:-( FileNotExist %typingAidAHK% `n 08.07.2017 14:06 17-07-08_14-06
+        msg = :-( FileNotExist %typingAidAHK% `n 08.07.2017 14:06 17-07-08_14-06
+        Msgbox,%msg% `n (%A_LineFile%~%A_LineNumber%)
         ExitApp
     }
     ; tooltip, RunWait %typingAidAHK%

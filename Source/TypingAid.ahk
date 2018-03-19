@@ -31,6 +31,8 @@ global wordlist
 global WordlistOLD
 global activeTitle:=""
 
+global g_doAskBevoreChangingWordlist := false
+global g_doAskBevoreChangingWordlist := true
 global g_FLAGmsgbox := false
 
 wordlist:=wordlistActive
@@ -47,7 +49,8 @@ global g_doSaveLogFiles
 maxLinesOfCode4length1 := 900
 
 SetTimer, saveIamAllive, 8000 ; setinterval
-SetTimer,onLink2wordlistChangedInRegistry,1000 ; RegRead, wordlistActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlist
+SetTimer,checkInRegistryChangedWordlistAddress,1000 ; RegRead, wordlistActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlist
+SetTimer,checkWordlistTXTfile_sizeAndModiTime,3000
 
 #SingleInstance,Force ; thats sometimes not working : https://autohotkey.com/boards/viewtopic.php?f=5&t=1261&p=144860#p144860
 
@@ -443,32 +446,124 @@ saveIamAllive:
 return
 
 
+;<<<<<<<< ordlistTXTfile <<<< 180319224633 <<<< 19.03.2018 22:46:33 <<<<
+checkWordlistTXTfile_sizeAndModiTime:
+    SetTimer,checkInRegistryChangedWordlistAddress,Off
 
-onLink2wordlistChangedInRegistry:
+    FileGetSize, WordlistSize, %wordlist%
+    FileGetTime, WordlistModified, %wordlist%, M
+    FormatTime, WordlistModified, %WordlistModified%, yyyy-MM-dd HH:mm:ss
+
+    WordsTbl := g_WordListDB.Query("SELECT wordlistmodified, wordlistsize FROM Wordlists WHERE wordlist = '" . wordlist . "';")
+    For each, row in WordsTbl.Rows
+    {
+        WordlistLastModified := row[1]
+        WordlistLastSize := row[2]
+        break
+    }
+    doReadWordlistTXTfile := (WordlistSize <> WordlistLastSize || WordlistModified <> WordlistLastModified)
+    if(doReadWordlistTXTfile){
+        ;msgbox, doReadWordlistTXTfile 654654654
+        ReadInTheWordList()
+        ;ParseWordsCount := ReadWordList() ; there is also update and select of time of the wordlist
+        ;prefs_Length := setLength(ParseWordsCount, maxLinesOfCode4length1)
+        ; RebuildDatabase()
+        ; msgbox, have fun with :) `n %wordlist% 18-03-02_18-37  (%A_LineFile%~%A_LineNumber%)
+        RecomputeMatches()
+        tooltip,ReadInTheWordList()  wordlist=%wordlist% 4567984654888888
+        sleep,100
+        ;reload ; hardcore. anyway. thats a way it works
+    }
+    SetTimer,checkInRegistryChangedWordlistAddress,On
+return
+;>>>>>>>> checkWordlistTXTfile_sizeAndModiTime >>>> 180319224746 >>>> 19.03.2018 22:47:46 >>>>
+
+
+
+;<<<<<<<< checkInRegistryChangedWordlistAddress <<<< 180319214428 <<<< 19.03.2018 21:44:28 <<<<
+checkInRegistryChangedWordlistAddress:
+    ;SetTimer,checkWordlistTXTfile_sizeAndModiTime,Off
+
     global g_SingleMatch
-    SetTitleMatchMode,2
     global g_FLAGmsgbox
 
+    SetTitleMatchMode,2
+    If(WinExist("wordlistChangedInRegistry")){
+        ;If(WinExist("wordlistChangedInRegistry ahk_class AutoHotkeyGUI"){
+        g_FLAGmsgbox := true
+        ;SetTimer,checkInRegistryChangedWordlistAddress,on
+        g_FLAGmsgbox := true
+        return ; no update jet
+    }
 
-    ;SetTimer,onLink2wordlistChangedInRegistry,off
+    RegRead, wordlistNewTemp, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlist
+    isRegListChanged := (wordlistNewTemp && wordlist <> wordlistNewTemp)
+
+    if(!isRegListChanged )
+        return
+
+    if(A_TimeIdle < 1333)
+        return
+
+    if(g_doAskBevoreChangingWordlist){
+        AHKcodeMsgBox := "#" . "NoTrayIcon `n "
+        temp = msgbox,,wordlistChangedInRegistry, Would you use new list now? ``n ``n Say goodbye to? ``n  %wordlist%
+        AHKcodeMsgBox .= temp
+        if(g_FLAGmsgbox){
+            g_FLAGmsgbox := false ; just clicked msgboxWindow
+        }else{
+            DynaRun(AHKcodeMsgBox) ; wait for user decision
+            tooltip,WinWait wordlistChangedInRegistry
+            ;WinWait,wordlistChangedInRegistry
+            WinWait,wordlistChangedInRegistry,,1
+            ;msgbox,18-03-02_17-42 %AHKcodeMsgBox%
+            tooltip,
+
+            return ; no update jet
+        }
+    }
+
+        wordlist := wordlistNewTemp
+        wordlistOLD := wordlist
+
+        tooltip,%wordlist%  (%A_LineFile%~%A_LineNumber%)
+        ;msgbox,%wordlist%  (%A_LineFile%~%A_LineNumber%)
+
+        ;if(g_FLAGmsgbox == 0)
+            RecomputeMatches()
+
+    ;gosub onLink2wordlistChangedInRegistry ToolTip3sec(A_LineNumber . " " . A_LineFile . " " . Last_A_This)
+return
+;>>>>>>>> checkInRegistryChangedWordlistAddress >>>> 180319214434 >>>> 19.03.2018 21:44:34 >>>>
+
+; ToolTip1sec(A_LineNumber . " " . A_LineFile . " " . Last_A_This) )
+
+
+;<<<<<<<< onLink2wordlistChangedInRegistry <<<< 180319214441 <<<< 19.03.2018 21:44:41 <<<<
+onLink2wordlistChangedInRegistry:
+    global g_SingleMatch
+    global g_FLAGmsgbox
+    SetTitleMatchMode,2
+
+    ;SetTimer,checkInRegistryChangedWordlistAddress,off
 
 
     FileGetTime, WordlistModified, %wordlist%, M
     FormatTime, WordlistModified, %WordlistModified%, yyyy-MM-dd HH:mm:ss
     ;ToolTip4sec(wordlist " = wordlist `n"  WordlistModified  " `n" . A_LineNumber . " " . A_ScriptName . " " . Last_A_This,1,1)
     if(WordlistModiTime_OLD <> WordlistModiTime && WordlistModiTime_OLD ){
-        msgbox,aaaaawwwwwwwwwwwww alsdkfjaölsdkfjaölsdkfjaölsdkjf
+        Msgbox,WordlistModiTime_OLD <> WordlistModiTime `n (%A_LineFile%~%A_LineNumber%)
         ; ParseWordsCount := ReadWordList()
         ; prefs_Length := setLength(ParseWordsCount, maxLinesOfCode4length1)
 
         ReadInTheWordList()
         prefs_Length := setLength(ParseWordsCount, maxLinesOfCode4length1)
-        ;RebuildDatabase()
+        ; RebuildDatabase()
 
         ;If(WinExist("wordlistChangedInRegistry"))
         winclose,wordlistChangedInRegistry
 
-        ;SetTimer,onLink2wordlistChangedInRegistry,on
+        ;SetTimer,checkInRegistryChangedWordlistAddress,on
         return ; no update jet
     }
     WordlistModiTime_OLD := WordlistModiTime
@@ -479,55 +574,9 @@ onLink2wordlistChangedInRegistry:
     ; WinWaitNotActive,wordlistChangedInRegistry ahk_class AutoHotkeyGUI
 
     ; DetectHiddenWindows,On ; it set the window to no tray icon. i surprized to use now DetectHiddenWindows,On 18-03-03_17-16 Really necasary ??? TODO:need it ?
-    If(WinExist("wordlistChangedInRegistry")){
-        ;If(WinExist("wordlistChangedInRegistry ahk_class AutoHotkeyGUI"){
-        g_FLAGmsgbox := true
-        ;SetTimer,onLink2wordlistChangedInRegistry,on
-        return ; no update jet
-    }else{
-        AHKcodeMsgBox := "#" . "NoTrayIcon `n "
-        temp = msgbox,,wordlistChangedInRegistry, Would you use new list now? ``n ``n Say goodbye to? ``n  %wordlist%
-        AHKcodeMsgBox .= temp
-        if(g_FLAGmsgbox){
-            g_FLAGmsgbox := false ; just clicked msgboxWindow
-        }else{
-            if(A_TimeIdle > 1333){
-                DynaRun(AHKcodeMsgBox) ; wait for user decision
-                tooltip,WinWait wordlistChangedInRegistry
-                ;WinWait,wordlistChangedInRegistry
-                WinWait,wordlistChangedInRegistry,,1
-                ;msgbox,18-03-02_17-42 %AHKcodeMsgBox%
-                tooltip,
-            }
-
-            ;SetTimer,onLink2wordlistChangedInRegistry,on
-            return ; no update jet
-        }
-    }
 
 
     ; may there was a change anyway
-    RegRead, wordlistNewTemp, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlist
-    isRegListChanged := (wordlistNewTemp && wordlist <> wordlistNewTemp)
-    if( isRegListChanged ){
-        wordlist := wordlistNewTemp
-        tooltip,%wordlist%  (%A_LineFile%~%A_LineNumber%)
-        ;msgbox,%wordlist%  (%A_LineFile%~%A_LineNumber%)
-        if(1){
-            ReadInTheWordList()
-            prefs_Length := setLength(ParseWordsCount, maxLinesOfCode4length1)
-            RebuildDatabase()
-            ; msgbox, have fun with :) `n %wordlist% 18-03-02_18-37  (%A_LineFile%~%A_LineNumber%)
-        }
-        reload ; hardcore :( 02.03.2018 12:52 18-03-02_12-52
-
-
-
-        wordlistOLD := wordlist
-        ; reload ; hardvore :( 02.03.2018 12:52 18-03-02_12-52
-        ;RecomputeMatches()
-    }
-    ;SetTimer,onLink2wordlistChangedInRegistry,on
 
 return
 

@@ -1,3 +1,4 @@
+; Indentation_style: https://de.wikipedia.org/wiki/Einrückungsstil#SL5small-Stil
 ; these functions handle database conversion
 ; always set the SetDbVersion default argument to the current highest version
 
@@ -9,6 +10,9 @@ SetDbVersion(dBVersion = 7){
 ;<<<<<<<< MaybeConvertDatabase <<<< 180223091829 <<<< 23.02.2018 09:18:29 <<<<
 ; returns true if we need to rebuild the whole database
 MaybeConvertDatabase(){
+	ToolTip5sec("MaybeConvertDatabase() return false " A_LineNumber . " " . A_LineFile )
+	return false
+
 	global g_WordListDB
 	databaseVersionRows := g_WordListDB.Query("SELECT lastStateNumber FROM LastState WHERE lastStateItem = 'databaseVersion';")
 	if (databaseVersionRows){
@@ -18,15 +22,13 @@ MaybeConvertDatabase(){
 		}
 	}
 	
-	if (!databaseVersion)
-	{
+	if (!databaseVersion){
 		   tableConverted := g_WordListDB.Query("SELECT tableconverted FROM LastState;")
 	} else {
 		tableConverted := g_WordListDB.Query("SELECT lastStateNumber FROM LastState WHERE lastStateItem = 'tableConverted';")
 	}
    
-	if (tableConverted)
-	{
+	if (tableConverted){
 		for each, row in tableConverted.Rows
 		{
 			WordlistConverted := row[1]
@@ -35,7 +37,8 @@ MaybeConvertDatabase(){
 	
 	IfNotEqual, WordlistConverted, 1
 	{
-		RebuildDatabase()		
+		Msgbox,RebuildDatabase()`n RebuildDatabase= %RebuildDatabase%`n `n `n (%A_LineFile%~%A_LineNumber%)
+		RebuildDatabase()
 		return, true
 	}
 	
@@ -79,8 +82,13 @@ MaybeConvertDatabase(){
 
 
 ; Rebuilds the Database from scratch as we have to redo the wordlist anyway.
-RebuildDatabase()
-{
+RebuildDatabase(){
+	tip := "FALSE NOOO RebuildDatabase `n " A_LineNumber . " " . A_LineFile
+	ToolTip5sec(tip)
+	MsgBox,4 ,% tip,% tip, 5
+	return false
+
+
 	global g_WordListDB
 	g_WordListDB.BeginTransaction()
 	g_WordListDB.Query("DROP TABLE Words;")
@@ -91,7 +99,7 @@ RebuildDatabase()
 	CreateWordsTable()
 	
 	CreateWordIndex()
-	
+
 	CreateLastStateTable()
 	
 	CreateWordlistsTable()
@@ -244,7 +252,7 @@ CreateWordsTable(WordsTableName:="Words")
 {
 	global g_WordListDB
 	
-	IF not g_WordListDB.Query("CREATE TABLE " . WordsTableName . " (wordindexed TEXT NOT NULL, word TEXT NOT NULL, count INTEGER, worddescription TEXT, wordreplacement TEXT NOT NULL, PRIMARY KEY (word, wordreplacement) );")
+	IF not g_WordListDB.Query("CREATE TABLE " . WordsTableName . " (wordindexed TEXT NOT NULL, word TEXT NOT NULL, count INTEGER, worddescription TEXT, wordreplacement TEXT NOT NULL, wordlist TEXT NOT, PRIMARY KEY (word, wordreplacement) );")
 	{
 		ErrMsg := g_WordListDB.ErrMsg()
 		ErrCode := g_WordListDB.ErrCode()
@@ -253,8 +261,7 @@ CreateWordsTable(WordsTableName:="Words")
 	}
 }
 
-CreateWordIndex()
-{
+CreateWordIndex(){
 	global g_WordListDB
 
 	IF not g_WordListDB.Query("CREATE INDEX WordIndex ON Words (wordindexed);")
