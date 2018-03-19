@@ -1,4 +1,6 @@
 
+runIfNotExist|rr||ahk|s=runIfNotExist(m_r , m_WinTitle = "",m_category="", doFeedbackMsgBox:=258)`nSend,%s%
+
 regEx remove some lines in wordlist|r|^((?!(ToolTipSec|init_global|functions_global_dateiende|move2Img_functions|functions_global|copy2clipBoard.functions)).)*$
 
 regEx find AHK functios definitions|r|^[ ]*?\w[\w\d_]{5,}\s*\([^()+<>]+\)[\s\S]{0,5}?\{
@@ -57,9 +59,14 @@ getMultiMonitor() ; 692+ lines in move2Img_functions.inc.ahk|rr|getMultiMonitor(
 mouseMove( p, speed = 0 ) ; 692+ lines in move2Img_functions.inc.ahk|rr|mouseMove( p, speed = 0 ); 692+ lines in move2Img_functions.inc.ahk|ahk|lf:=25 `n lc:=42 `n send,{left %lc%}{shift down}{left %lf%}{shift up}
 MouseMoveRectrangle(mm) ; 692+ lines in move2Img_functions.inc.ahk|rr|MouseMoveRectrangle(mm); 692+ lines in move2Img_functions.inc.ahk|ahk|lf:=23 `n lc:=42 `n send,{left %lc%}{shift down}{left %lf%}{shift up}
 MsgBoxMM(mm) ; 692+ lines in move2Img_functions.inc.ahk|rr|MsgBoxMM(mm); 692+ lines in move2Img_functions.inc.ahk|ahk|lf:=12 `n lc:=42 `n send,{left %lc%}{shift down}{left %lf%}{shift up}
-ToolTip2sec(A_LineNumber . " " . A_ScriptName . " " . Last_A_This) ; 67+ lines in ToolTipSec.inc.ahk|rr|ToolTip2sec(A_LineNumber . " " . A_ScriptName . " " . Last_A_This); 67+ lines in ToolTipSec.inc.ahk|ahk|lf:=26 `n lc:=33 `n send,{left %lc%}{shift down}{left %lf%}{shift up}
-ToolTip4sec(A_LineNumber . " " . A_ScriptName . " " . Last_A_This) ; 67+ lines in ToolTipSec.inc.ahk|rr|ToolTip4sec(A_LineNumber . " " . A_ScriptName . " " . Last_A_This); 67+ lines in ToolTipSec.inc.ahk|ahk|lf:=26 `n lc:=33 `n send,{left %lc%}{shift down}{left %lf%}{shift up}
-ToolTip5sec(A_LineNumber . " " . A_ScriptName . " " . Last_A_This) ; 67+ lines in ToolTipSec.inc.ahk|rr|ToolTip5sec(A_LineNumber . " " . A_ScriptName . " " . Last_A_This); 67+ lines in ToolTipSec.inc.ahk|ahk|lf:=26 `n lc:=33 `n send,{left %lc%}{shift down}{left %lf%}{shift up}
+ToolTip2sec(A_LineNumber . " " . A_LineFile . " " . Last_A_This) ; 67+ lines in ToolTipSec.inc.ahk|rr|ToolTip2sec(A_LineNumber . " " . A_LineFile . " " . Last_A_This); 67+ lines in ToolTipSec.inc.ahk|ahk|lf:=26 `n lc:=33 `n send,{left %lc%}{shift down}{left %lf%}{shift up}
+
+ToolTip2sec(A_LineNumber . " " . A_LineFile . " " . Last_A_This)
+
+
+
+ToolTip4sec(A_LineNumber . " " . A_LineFile . " " . Last_A_This) ; 67+ lines in ToolTipSec.inc.ahk|rr|ToolTip4sec(A_LineNumber . " " . A_LineFile . " " . Last_A_This); 67+ lines in ToolTipSec.inc.ahk|ahk|lf:=26 `n lc:=33 `n send,{left %lc%}{shift down}{left %lf%}{shift up}
+ToolTip5sec(A_LineNumber . " " . A_LineFile . " " . Last_A_This) ; 67+ lines in ToolTipSec.inc.ahk|rr|ToolTip5sec(A_LineNumber . " " . A_LineFile . " " . Last_A_This); 67+ lines in ToolTipSec.inc.ahk|ahk|lf:=26 `n lc:=33 `n send,{left %lc%}{shift down}{left %lf%}{shift up}
 RemoveToolTip() ; 14+ lines in ToolTipSec_RemoveToolTip.inc.ahk|rr|RemoveToolTip(); 14+ lines in ToolTipSec_RemoveToolTip.inc.ahk|ahk|lf:=15 `n lc:=47 `n send,{left %lc%}{shift down}{left %lf%}{shift up}
 move2ImgORImg(i, i2 , textInfo, mm) ; 304+ lines in move2Img_functions-151218.inc.ahk|rr|move2ImgORImg(i, i2 , textInfo, mm); 304+ lines in move2Img_functions-151218.inc.ahk|ahk|lf:=35 `n lc:=49 `n send,{left %lc%}{shift down}{left %lf%}{shift up}
 move2Img(i , textInfo, mm) ; 304+ lines in move2Img_functions-151218.inc.ahk|rr|move2Img(i , textInfo, mm); 304+ lines in move2Img_functions-151218.inc.ahk|ahk|lf:=26 `n lc:=49 `n send,{left %lc%}{shift down}{left %lf%}{shift up}

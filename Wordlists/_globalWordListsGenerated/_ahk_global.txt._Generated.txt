@@ -6,12 +6,8 @@ ZZZZZZZZZ
 
 
 
-___global generated open|rr||ahk|run,..\Wordlists\_globalWordListsGenerated\_ahk_global.txt
-___global generated lib|rr||ahk|run,..\Wordlists\_globalWordListsGenerated\_ahk_global.txt
-
-___your library scite global|r|Wordlists\SciTEWindow\_global.txt
-___your library scite global|r|...Wordlists\SciTEWindow\_global.txt
-___your library scite global|r|_global.txt 
+___global generated open|rr||ahk|run,..\_globalWordListsGenerated\_ahk_global.txt
+___global generated lib|rr||ahk|run,..\_globalWordListsGenerated\_ahk_global.txt
 
 regEx find AHK functios definitions|r|^[ ]*?\w[\w\d_]{5,}\s*\([^()+<>]+\)[\s\S]{0,5}?\{
 
@@ -164,7 +160,7 @@ A_ScreenHeight
 A_ScreenWidth
 A_ScriptDir
 A_ScriptFullPath
-A_ScriptName
+A_LineFile
 A_Sec
 A_Space
 A_StartMenu
@@ -290,7 +286,7 @@ A_YYYY
 %A_ScreenWidth%
 %A_ScriptDir%
 %A_ScriptFullPath%
-%A_ScriptName%
+%A_LineFile%
 %A_Sec%
 %A_Space%
 %A_StartMenu%
@@ -639,7 +635,7 @@ MouseGetPos, MouseScreenX, MouseScreenY, MouseWindowUID, MouseControlID ; 2355+ 
 MouseMove, %mX%, %mY% , 0 ; 24+ lines in androVMbox_Reload_Browser_Click.ahk|rr|MouseMove, %mX%, %mY% , 0; 24+ lines in androVMbox_Reload_Browser_Click.ahk|ahk|lc:=50 `n Send, {shift down}{left %lc%}{shift up}
 abc|rr||ahk|Send, ``n  ```n 
 rundIfNotExist(m_r , m_WinTitle = "",m_category="")|rr|rundIfNotExist(m_r , m_WinTitle = "",m_category="")|ahk|send,{shift down}{left 36}{shift up}}
-Msgbox|rr|Msgbox,|ahk|c := Chr(96) `n m = (`%A_ScriptName`%~`%A_LineNumber`%) `n lm:=strlen(m)+4 `n Send,% c `n Send, n %m% {left %lm%}{shift down}{right %lm%}{shift up}
+Msgbox|rr|Msgbox,|ahk|c := Chr(96) `n m = (`%A_LineFile`%~`%A_LineNumber`%) `n lm:=strlen(m)+4 `n Send,% c `n Send, n %m% {left %lm%}{shift down}{right %lm%}{shift up}
 MsgBox,4 ,Titel, 5Sek (from: %A_LineFile%~%A_LineNumber%), 5
 Multi
 NoActivate
@@ -807,7 +803,7 @@ Space|AppsKey| ; 707+ lines in 49096-x-macro-recorder-v202-automationmacro-tool.
 SplashImage, DeskPinsSpeedMode.bmp, b W20 H20,,,%SplashImageTitle% ; 242+ lines in DeskPins-reloaded-from-SL5net.ahk|rr|SplashImage, DeskPinsSpeedMode.bmp, b W20 H20,,,%SplashImageTitle%; 242+ lines in DeskPins-reloaded-from-SL5net.ahk|ahk|lc:=49 `n Send, {shift down}{left %lc%}{shift up}
 SplashTextOff,Pls click Recorder ; 271+ lines in Camtasia Recorder - automatically recorder_backup15-04-23_17-04.ahk|rr|SplashTextOff,Pls click Recorder; 271+ lines in Camtasia Recorder - automatically recorder_backup15-04-23_17-04.ahk|ahk|lc:=83 `n Send, {shift down}{left %lc%}{shift up}
 SplashTextOn,,,Updated script, ; 39+ lines in ashampo_autoEnter_Speichern_unter.ahk|rr|SplashTextOn,,,Updated script,; 39+ lines in ashampo_autoEnter_Speichern_unter.ahk|ahk|lc:=52 `n Send, {shift down}{left %lc%}{shift up}
-SplitPath, A_ScriptName, , , , OutNameNoExt ; 2355+ lines in AHK_Window_Info_v1.7.ahk|rr|SplitPath, A_ScriptName, , , , OutNameNoExt; 2355+ lines in AHK_Window_Info_v1.7.ahk|ahk|lc:=41 `n Send, {shift down}{left %lc%}{shift up}
+SplitPath, A_LineFile, , , , OutNameNoExt ; 2355+ lines in AHK_Window_Info_v1.7.ahk|rr|SplitPath, A_LineFile, , , , OutNameNoExt; 2355+ lines in AHK_Window_Info_v1.7.ahk|ahk|lc:=41 `n Send, {shift down}{left %lc%}{shift up}
 Standard
 static   buffer_state, old_x, old_y, old_w, old_h ; 2355+ lines in AHK_Window_Info_v1.7.ahk|rr|static   buffer_state, old_x, old_y, old_w, old_h; 2355+ lines in AHK_Window_Info_v1.7.ahk|ahk|lc:=41 `n Send, {shift down}{left %lc%}{shift up}
 Status
@@ -841,13 +837,13 @@ Theme
 Thread,Interrupt,0,0 ; 316+ lines in ac'tivAid_QuickChangeDir Indexer.ahk|rr|Thread,Interrupt,0,0; 316+ lines in ac'tivAid_QuickChangeDir Indexer.ahk|ahk|lc:=52 `n Send, {shift down}{left %lc%}{shift up}
 ToggleCheck
 ToggleEnable
-Tooltip,(from: %A_LineFile%~%A_LineNumber%)|rr|Tooltip, |ahk|m =``n (from: `%A_ScriptName`%~`%A_LineNumber`%) `n lm:=strlen(m)+1 `n send, %m% {left %lm%}{shift down}{right %lm%}{shift up}
-ToolTip1sec(A_LineNumber . " " . A_ScriptName . " " . Last_A_This) |rr|ToolTip1sec|ahk|m =(A_LineNumber . " " . A_ScriptName . " " . Last_A_This)`n ll:=strlen(m) `n lr:=strlen(m)-2 `n send, %m% {left %ll%}{shift down}{right %lr%}{shift up}
-ToolTip2sec|rr|ToolTip2sec|ahk|m =(A_LineNumber . " " . A_ScriptName . " " . Last_A_This)`n ll:=strlen(m) `n lr:=strlen(m)-2 `n send, %m% {left %ll%}{shift down}{right %lr%}{shift up}
-ToolTip3sec|rr|ToolTip3sec|ahk|m =(A_LineNumber . " " . A_ScriptName . " " . Last_A_This)`n ll:=strlen(m) `n lr:=strlen(m)-2 `n send, %m% {left %ll%}{shift down}{right %lr%}{shift up}
-ToolTip4sec|rr|ToolTip4sec|ahk|m =(A_LineNumber . " " . A_ScriptName . " " . Last_A_This)`n ll:=strlen(m) `n lr:=strlen(m)-2 `n send, %m% {left %ll%}{shift down}{right %lr%}{shift up}
-ToolTip5sec|rr|ToolTip5sec|ahk|m =(A_LineNumber . " " . A_ScriptName . " " . Last_A_This)`n ll:=strlen(m) `n lr:=strlen(m)-2 `n send, %m% {left %ll%}{shift down}{right %lr%}{shift up}
-; ToolTip1sec(A_LineNumber . " " . A_ScriptName . " " . Last_A_This) ;
+Tooltip,(from: %A_LineFile%~%A_LineNumber%)|rr|Tooltip, |ahk|m =``n (from: `%A_LineFile`%~`%A_LineNumber`%) `n lm:=strlen(m)+1 `n send, %m% {left %lm%}{shift down}{right %lm%}{shift up}
+ToolTip1sec(A_LineNumber . " " . A_LineFile . " " . Last_A_This) |rr|ToolTip1sec|ahk|m =(A_LineNumber . " " . A_LineFile . " " . Last_A_This)`n ll:=strlen(m) `n lr:=strlen(m)-2 `n send, %m% {left %ll%}{shift down}{right %lr%}{shift up}
+ToolTip2sec|rr|ToolTip2sec|ahk|m =(A_LineNumber . " " . A_LineFile . " " . Last_A_This)`n ll:=strlen(m) `n lr:=strlen(m)-2 `n send, %m% {left %ll%}{shift down}{right %lr%}{shift up}
+ToolTip3sec|rr|ToolTip3sec|ahk|m =(A_LineNumber . " " . A_LineFile . " " . Last_A_This)`n ll:=strlen(m) `n lr:=strlen(m)-2 `n send, %m% {left %ll%}{shift down}{right %lr%}{shift up}
+ToolTip4sec|rr|ToolTip4sec|ahk|m =(A_LineNumber . " " . A_LineFile . " " . Last_A_This)`n ll:=strlen(m) `n lr:=strlen(m)-2 `n send, %m% {left %ll%}{shift down}{right %lr%}{shift up}
+ToolTip5sec|rr|ToolTip5sec|ahk|m =(A_LineNumber . " " . A_LineFile . " " . Last_A_This)`n ll:=strlen(m) `n lr:=strlen(m)-2 `n send, %m% {left %ll%}{shift down}{right %lr%}{shift up}
+; ToolTip1sec(A_LineNumber . " " . A_LineFile . " " . Last_A_This) ;
 ToolWindow
 Topmost
 TransColor
@@ -1452,8 +1448,8 @@ FuzzySearch(string1, string2) ; 665+ lines in functions_global.inc.ahk|rr|FuzzyS
 StringDifference(string1, string2, maxOffset=1) ; 665+ lines in functions_global.inc.ahk|rr|StringDifference(string1, string2, maxOffset=1); 665+ lines in functions_global.inc.ahk|ahk|lf:=47 `n lc:=40 `n send,{left %lc%}{shift down}{left %lf%}{shift up} 
 stringLower(s) ; 665+ lines in functions_global.inc.ahk|rr|stringLower(s); 665+ lines in functions_global.inc.ahk|ahk|lf:=14 `n lc:=40 `n send,{left %lc%}{shift down}{left %lf%}{shift up} 
 isUrlAvailable(URL) ; 665+ lines in functions_global.inc.ahk|rr|isUrlAvailable(URL); 665+ lines in functions_global.inc.ahk|ahk|lf:=19 `n lc:=40 `n send,{left %lc%}{shift down}{left %lf%}{shift up} 
-lll(A_LineNumber, A_ScriptName, text="")|rr|lll(A_LineNumber, A_ScriptName, "")|ahk|Send,{left 2}
-lll(A_LineNumber, A_ScriptName, msg)
+lll(A_LineNumber, A_LineFile, text="")|rr|lll(A_LineNumber, A_LineFile, "")|ahk|Send,{left 2}
+lll(A_LineNumber, A_LineFile, msg)
 lll(ln, sn, text="") ; 410+ lines in functions_global.inc.sync-conflict-20170312-020914.ahk|rr|lll(ln, sn, text=""); 410+ lines in functions_global.inc.sync-conflict-20170312-020914.ahk|ahk|lf:=20 `n lc:=70 `n send,{left %lc%}{shift down}{left %lf%}{shift up} 
 file_put_contents(f, c, overwrite=true) ; 410+ lines in functions_global.inc.sync-conflict-20170312-020914.ahk|rr|file_put_contents(f, c, overwrite=true); 410+ lines in functions_global.inc.sync-conflict-20170312-020914.ahk|ahk|lf:=39 `n lc:=70 `n send,{left %lc%}{shift down}{left %lf%}{shift up} 
 SendStrgC(trycount) ; 410+ lines in functions_global.inc.sync-conflict-20170312-020914.ahk|rr|SendStrgC(trycount); 410+ lines in functions_global.inc.sync-conflict-20170312-020914.ahk|ahk|lf:=19 `n lc:=70 `n send,{left %lc%}{shift down}{left %lf%}{shift up} 
@@ -1750,8 +1746,8 @@ winActiveCheck(winExpected , fromLine) ; 174+ lines in letter2icon.ahk|rr|winAct
 move2Img(i , textInfo) ; 174+ lines in letter2icon.ahk|rr|move2Img(i , textInfo); 174+ lines in letter2icon.ahk|ahk|lf:=22 `n lc:=31 `n send,{left %lc%}{shift down}{left %lf%}{shift up} 
 clickImg(i, textInfo) ; 174+ lines in letter2icon.ahk|rr|clickImg(i, textInfo); 174+ lines in letter2icon.ahk|ahk|lf:=21 `n lc:=31 `n send,{left %lc%}{shift down}{left %lf%}{shift up} 
 myHalllo() ; 187+ lines in letter2icon_v0.5.ahk|rr|myHalllo(); 187+ lines in letter2icon_v0.5.ahk|ahk|lf:=10 `n lc:=36 `n send,{left %lc%}{shift down}{left %lf%}{shift up} 
-ToolTip1sec(A_LineNumber . " " . A_ScriptName . " " . Last_A_This) ; 75+ lines in Live Edit Live_Edit Pseudo Live Edit for Chrome Firefox PhpStorm.ahk|rr|ToolTip1sec(A_LineNumber . " " . A_ScriptName . " " . Last_A_This); 75+ lines in Live Edit Live_Edit Pseudo Live Edit for Chrome Firefox PhpStorm.ahk|ahk|lf:=26 `n lc:=83 `n send,{left %lc%}{shift down}{left %lf%}{shift up}
-ToolTip3sec(A_LineNumber . " " . A_ScriptName . " " . Last_A_This) ; 75+ lines in Live Edit Live_Edit Pseudo Live Edit for Chrome Firefox PhpStorm.ahk|rr|ToolTip3sec(A_LineNumber . " " . A_ScriptName . " " . Last_A_This); 75+ lines in Live Edit Live_Edit Pseudo Live Edit for Chrome Firefox PhpStorm.ahk|ahk|lf:=26 `n lc:=83 `n send,{left %lc%}{shift down}{left %lf%}{shift up}
+ToolTip1sec(A_LineNumber . " " . A_LineFile . " " . Last_A_This) ; 75+ lines in Live Edit Live_Edit Pseudo Live Edit for Chrome Firefox PhpStorm.ahk|rr|ToolTip1sec(A_LineNumber . " " . A_LineFile . " " . Last_A_This); 75+ lines in Live Edit Live_Edit Pseudo Live Edit for Chrome Firefox PhpStorm.ahk|ahk|lf:=26 `n lc:=83 `n send,{left %lc%}{shift down}{left %lf%}{shift up}
+ToolTip3sec(A_LineNumber . " " . A_LineFile . " " . Last_A_This) ; 75+ lines in Live Edit Live_Edit Pseudo Live Edit for Chrome Firefox PhpStorm.ahk|rr|ToolTip3sec(A_LineNumber . " " . A_LineFile . " " . Last_A_This); 75+ lines in Live Edit Live_Edit Pseudo Live Edit for Chrome Firefox PhpStorm.ahk|ahk|lf:=26 `n lc:=83 `n send,{left %lc%}{shift down}{left %lf%}{shift up}
 ToolTipSec(t,x=123,y=321,sec=1000) ; 75+ lines in Live Edit Live_Edit Pseudo Live Edit for Chrome Firefox PhpStorm.ahk|rr|ToolTipSec(t,x=123,y=321,sec=1000); 75+ lines in Live Edit Live_Edit Pseudo Live Edit for Chrome Firefox PhpStorm.ahk|ahk|lf:=34 `n lc:=83 `n send,{left %lc%}{shift down}{left %lf%}{shift up} 
 openHelpFile(command) ; 106+ lines in liveHelpFileView.ahk|rr|openHelpFile(command); 106+ lines in liveHelpFileView.ahk|ahk|lf:=21 `n lc:=36 `n send,{left %lc%}{shift down}{left %lf%}{shift up} 
 letterPressed(l,typedGlobal) ; 106+ lines in liveHelpFileView.ahk|rr|letterPressed(l,typedGlobal); 106+ lines in liveHelpFileView.ahk|ahk|lf:=28 `n lc:=36 `n send,{left %lc%}{shift down}{left %lf%}{shift up} 
@@ -1932,9 +1928,9 @@ writeTo_Wav_Stuttgart() ; 1843+ lines in Thunderbird_Help.ahk|rr|writeTo_Wav_Stu
 subscribeToADbNewsSender(email) ; 1843+ lines in Thunderbird_Help.ahk|rr|subscribeToADbNewsSender(email); 1843+ lines in Thunderbird_Help.ahk|ahk|lf:=31 `n lc:=37 `n send,{left %lc%}{shift down}{left %lf%}{shift up} 
 setEmailAnd(anText, mf, duSie, OpenEmailCounter) ; 1843+ lines in Thunderbird_Help.ahk|rr|setEmailAnd(anText, mf, duSie, OpenEmailCounter); 1843+ lines in Thunderbird_Help.ahk|ahk|lf:=48 `n lc:=37 `n send,{left %lc%}{shift down}{left %lf%}{shift up} 
 findFirstNameInThunderbirdVerfassen() ; 111+ lines in Thunderbird_Personalisierte_Anrede_mit_WinA_Gruss_SL5.DE_INTEGRATION_AUTOMATISIERUNG.ahk|rr|findFirstNameInThunderbirdVerfassen(); 111+ lines in Thunderbird_Personalisierte_Anrede_mit_WinA_Gruss_SL5.DE_INTEGRATION_AUTOMATISIERUNG.ahk|ahk|lf:=37 `n lc:=104 `n send,{left %lc%}{shift down}{left %lf%}{shift up} 
-ToolTip2sec(A_LineNumber . " " . A_ScriptName . " " . Last_A_This) ; 67+ lines in ToolTipSec.inc.ahk|rr|ToolTip2sec(A_LineNumber . " " . A_ScriptName . " " . Last_A_This); 67+ lines in ToolTipSec.inc.ahk|ahk|lf:=26 `n lc:=33 `n send,{left %lc%}{shift down}{left %lf%}{shift up}
-ToolTip4sec(A_LineNumber . " " . A_ScriptName . " " . Last_A_This) ; 67+ lines in ToolTipSec.inc.ahk|rr|ToolTip4sec(A_LineNumber . " " . A_ScriptName . " " . Last_A_This); 67+ lines in ToolTipSec.inc.ahk|ahk|lf:=26 `n lc:=33 `n send,{left %lc%}{shift down}{left %lf%}{shift up}
-ToolTip5sec(A_LineNumber . " " . A_ScriptName . " " . Last_A_This) ; 67+ lines in ToolTipSec.inc.ahk|rr|ToolTip5sec(A_LineNumber . " " . A_ScriptName . " " . Last_A_This); 67+ lines in ToolTipSec.inc.ahk|ahk|lf:=26 `n lc:=33 `n send,{left %lc%}{shift down}{left %lf%}{shift up}
+ToolTip2sec(A_LineNumber . " " . A_LineFile . " " . Last_A_This) ; 67+ lines in ToolTipSec.inc.ahk|rr|ToolTip2sec(A_LineNumber . " " . A_LineFile . " " . Last_A_This); 67+ lines in ToolTipSec.inc.ahk|ahk|lf:=26 `n lc:=33 `n send,{left %lc%}{shift down}{left %lf%}{shift up}
+ToolTip4sec(A_LineNumber . " " . A_LineFile . " " . Last_A_This) ; 67+ lines in ToolTipSec.inc.ahk|rr|ToolTip4sec(A_LineNumber . " " . A_LineFile . " " . Last_A_This); 67+ lines in ToolTipSec.inc.ahk|ahk|lf:=26 `n lc:=33 `n send,{left %lc%}{shift down}{left %lf%}{shift up}
+ToolTip5sec(A_LineNumber . " " . A_LineFile . " " . Last_A_This) ; 67+ lines in ToolTipSec.inc.ahk|rr|ToolTip5sec(A_LineNumber . " " . A_LineFile . " " . Last_A_This); 67+ lines in ToolTipSec.inc.ahk|ahk|lf:=26 `n lc:=33 `n send,{left %lc%}{shift down}{left %lf%}{shift up}
 RemoveToolTip() ; 14+ lines in ToolTipSec_RemoveToolTip.inc.ahk|rr|RemoveToolTip(); 14+ lines in ToolTipSec_RemoveToolTip.inc.ahk|ahk|lf:=15 `n lc:=47 `n send,{left %lc%}{shift down}{left %lf%}{shift up} 
 exampleHideAllAutohotkey_1601191314() ; 310+ lines in TrayIcon.ahk|rr|exampleHideAllAutohotkey_1601191314(); 310+ lines in TrayIcon.ahk|ahk|lf:=37 `n lc:=28 `n send,{left %lc%}{shift down}{left %lf%}{shift up} 
 TrayIcon_GetInfo(sExeName:="") ; 310+ lines in TrayIcon.ahk|rr|TrayIcon_GetInfo(sExeName:=""); 310+ lines in TrayIcon.ahk|ahk|lf:=30 `n lc:=28 `n send,{left %lc%}{shift down}{left %lf%}{shift up} 
