@@ -2,6 +2,9 @@
 
 
 ;<<<<<<<<<<<<<< ReadWordList <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+;<<<<<<<<<<<<<< ReadWordList <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+;<<<<<<<<<<<<<< ReadWordList <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+;<<<<<<<<<<<<<< ReadWordList <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ReadWordList() {
     global g_LegacyLearnedWords
    global g_ScriptTitle
@@ -220,7 +223,7 @@ OK
    
    DatabaseRebuilt := MaybeConvertDatabase()
 
-   FileGetSize, WordlistSize, %Wordlist%
+   FileGetSize, WordlistSize, %wordlist%
 ;msgbox,WordlistSize = %WordlistSize% `n (%A_LineFile%~%A_LineNumber%)
 
    if(false && !WordlistSize) {
@@ -251,7 +254,11 @@ from: Wordlist.ahk~%A_LineNumber%
         exitApp
   }
 ; regex
+
+  ToolTip5sec("DatabaseRebuilt = " DatabaseRebuilt "`nLoadWordlist = " LoadWordlist "`n" A_LineNumber . " " . A_LineFile )
    if (!DatabaseRebuilt) {
+    ; thats inside ReadWordList() ---------------------------------------------
+
       ; LearnedWordsTable := g_WordListDB.Query("SELECT wordlistmodified, wordlistsize FROM Wordlists WHERE wordlist = 'wordlist.txt';")
       LearnedWordsTable := g_WordListDB.Query("SELECT wordlistmodified, wordlistsize FROM Wordlists WHERE wordlist = '" . WordlistFileName . "';")
 
@@ -263,11 +270,13 @@ from: Wordlist.ahk~%A_LineNumber%
          WordlistLastSize := row[2]
          
          if (WordlistSize != WordlistLastSize || WordlistModified != WordlistLastModified) {
-            LoadWordlist := "Update"
-            CleanupWordList()
+            LoadWordlist := "Update" ; updated?
+            ; Msgbox,LoadWordlist = "LoadWordlist"`n source TXT has changed. update database next. `n (%A_LineFile%~%A_LineNumber%)
+            tooltip,LoadWordlist = "LoadWordlist"`n source TXT has changed. update database next. `n (%A_LineFile%~%A_LineNumber%)
+            CleanupWordListAll_ofLittleWordCount()
          } else {
             LoadWordlist =
-            CleanupWordList(true)
+            CleanupWordListAll_ofLittleWordCount(true)
          }
       }
    } else {
@@ -292,7 +301,7 @@ from: Wordlist.ahk~%A_LineNumber%
                         ParseWords432indes := SubSTr( ParseWords , 1 , 432 ) ; we dont wann search the complete file. takes to much time :) 12.08.2017 23:02 17-08-12_23-02
                         if( !RegExMatch(ParseWords432indes, pattern ) ){
 temp := "___open library (Wordlist.ahk~" . A_LineNumber . "|rr||ahk|FileReadLine,WordlistFileAdress, wordlist.txt.status.txt, 1 ``n WordlistFileAdress := RegExReplace(WordlistFileAdress, ""\._Generated\.txt\s*$"", """") ``n run,% WordlistFileAdress"
-    ParseWords .= "`n" . temp ; thats not performantly. :/ but works 12.08.2017 22:31 sl5.net todo:
+    ParseWords .= "`n" . temp  ; thats not performantly. :/ but works 12.08.2017 22:31 sl5.net todo: 
 
 ; info := SubSTr( ParseWords , 1 , 150 ) ;     tooltip,%info% ... `n (%A_LineFile%~%A_LineNumber%) `
 }
@@ -341,9 +350,8 @@ global do_tooltipReadWordList
 ; tii Tooltip, `n (from: %A_LineFile%~%A_LineNumber%)
          ; Tooltip,%A_LoopField% `n (from: %A_LineFile%~%A_LineNumber%)
          ParseWordsSubCount++
-         ProgressPercent := Round(ParseWordsSubCount/ParseWordsCount * 100)
-         if (ProgressPercent <> OldProgressPercent)
-         {
+         ;ProgressPercent := Round(ParseWordsSubCount/ParseWordsCount * 100)
+         if (ProgressPercent <> OldProgressPercent){
             ;~ Progress, %ProgressPercent%
             OldProgressPercent := ProgressPercent
          }
@@ -371,7 +379,7 @@ global do_tooltipReadWordList
 
       ParseWords =
       g_WordListDB.EndTransaction()
-      Progress, Off
+      ;Progress, Off
       
       if (LoadWordlist == "Update") {
          g_WordListDB.Query("UPDATE wordlists SET wordlistmodified = '" . WordlistModified . "', wordlistsize = '" . WordlistSize . "' WHERE wordlist = '" . WordlistFileName . "';")
@@ -431,7 +439,7 @@ if(false && ParseWordsCount>0)
       
       g_WordListDB.Query("INSERT INTO LastState VALUES ('tableConverted','1',NULL);")
       
-      Progress, Off
+      ;Progress, Off
    }
     if(false && ParseWordsCount>0)
         Msgbox, %ParseWordsCount%  (line:%A_LineNumber%)
@@ -446,28 +454,28 @@ if(false && ParseWordsCount>0)
 ;
 ;------------------------------------------------------------------------
 
-ReverseWordNums(LearnedWordsCount)
-{
+ReverseWordNums(LearnedWordsCount){
    ; This function will reverse the read numbers since now we know the total number of words
    global prefs_LearnCount
    global g_WordListDB
+   global wordlist
 
    LearnedWordsCount+= (prefs_LearnCount - 1)
 
-   LearnedWordsTable := g_WordListDB.Query("SELECT word FROM Words WHERE count IS NOT NULL;")
+   LearnedWordsTable := g_WordListDB.Query("SELECT word FROM Words WHERE count IS NOT NULL AND wordlist = '" wordlist "';")
+   ; LearnedWordsTable := g_WordListDB.Query("SELECT word FROM Words WHERE count IS NOT NULL;")
 
    g_WordListDB.BeginTransaction()
    For each, row in LearnedWordsTable.Rows
    {
       SearchValue := row[1]
       StringReplace, SearchValueEscaped, SearchValue, ', '', All
-      WhereQuery := "WHERE word = '" . SearchValueEscaped . "'"
+      WhereQuery := "WHERE word = '" SearchValueEscaped "' AND wordlist = '" wordlist "'"
       g_WordListDB.Query("UPDATE words SET count = (SELECT " . LearnedWordsCount . " - count FROM words " . WhereQuery . ") " . WhereQuery . ";")
    }
    g_WordListDB.EndTransaction()
 
    Return
-   
 }
 
 ;------------------------------------------------------------------------
@@ -484,6 +492,7 @@ AddWordToList(AddWord,ForceCountNewOnly,ForceLearn:= false, ByRef LearnedWordsCo
    global prefs_LearnMode
    global g_WordListDone
    global g_WordListDB
+   global wordlist
 ;SciTEWindow\_global.txt
 ; SciTEWindow\_global.txt
 ; zwei
@@ -533,7 +542,7 @@ AddWordToList(AddWord,ForceCountNewOnly,ForceLearn:= false, ByRef LearnedWordsCo
       IfNotEqual,LearnedWordsCount,  ;if this is a stored learned word, this will only have a value when LearnedWords are read in from the wordlist
       {
          ; must update wordreplacement since SQLLite3 considers nulls unique
-         g_WordListDB.Query("INSERT INTO words (wordindexed, word, count, wordreplacement) VALUES ('" . AddWordIndexTransformed . "','" . AddWordTransformed . "','" . LearnedWordsCount++ . "','');")
+         g_WordListDB.Query("INSERT INTO words (wordindexed, word, count, wordreplacement, wordlist) VALUES ('" AddWordIndexTransformed "','" AddWordTransformed "','" LearnedWordsCount++ "','','" wordlist "');")
       } else {
          if (AddWordReplacement)
          {
@@ -548,7 +557,7 @@ AddWordToList(AddWord,ForceCountNewOnly,ForceLearn:= false, ByRef LearnedWordsCo
          } else {
             WordDescriptionQuery := "NULL"
          }
-         g_WordListDB.Query("INSERT INTO words (wordindexed, word, worddescription, wordreplacement) VALUES ('" . AddWordIndexTransformed . "','" . AddWordTransformed . "'," . WordDescriptionQuery . "," . WordReplacementQuery . ");")
+         g_WordListDB.Query("INSERT INTO words (wordindexed, word, worddescription, wordreplacement, wordlist) VALUES ('" . AddWordIndexTransformed . "','" . AddWordTransformed . "'," . WordDescriptionQuery . "," . WordReplacementQuery . ",'" wordlist "');")
       }
       
    } else if (prefs_LearnMode = "On" || ForceCountNewOnly == 1)
@@ -577,7 +586,7 @@ AddWordToList(AddWord,ForceCountNewOnly,ForceLearn:= false, ByRef LearnedWordsCo
          }
          
          ; must update wordreplacement since SQLLite3 considers nulls unique
-         g_WordListDB.Query("INSERT INTO words (wordindexed, word, count, wordreplacement) VALUES ('" . AddWordIndexTransformed . "','" . AddWordTransformed . "','" . CountValue . "','');")
+         g_WordListDB.Query("INSERT INTO words (wordindexed, word, count, wordreplacement, wordlist) VALUES ('" . AddWordIndexTransformed . "','" . AddWordTransformed . "','" . CountValue . "','','" wordlist "');")
       } else IfEqual, prefs_LearnMode, On
       {
          IfEqual, ForceCountNewOnly, 1                     
@@ -590,7 +599,7 @@ AddWordToList(AddWord,ForceCountNewOnly,ForceLearn:= false, ByRef LearnedWordsCo
                
             IF ( CountValue < prefs_LearnCount )
             {
-               g_WordListDB.QUERY("UPDATE words SET count = ('" . prefs_LearnCount . "') WHERE word = '" . AddWordTransformed . "');")
+               g_WordListDB.QUERY("UPDATE words SET count = ('" prefs_LearnCount "') WHERE word = '"  AddWordTransformed "' AND wordlist = '" wordlist "';")
             }
          } else {
             UpdateWordCount(AddWord,0) ;Increment the word count if it's already in the list and we aren't forcing it on
@@ -639,8 +648,8 @@ CheckValid(Word,ForceLearn:= false)
    Return, 1
 }
 
-TransformWord(AddWord, AddWordReplacement, AddWordDescription, ByRef AddWordTransformed, ByRef AddWordIndexTransformed, ByRef AddWordReplacementTransformed, ByRef AddWordDescriptionTransformed)
-{
+;<<<<<<<< TransformWord <<<< 180319190854 <<<< 19.03.2018 19:08:54 <<<<
+TransformWord(AddWord, AddWordReplacement, AddWordDescription, ByRef AddWordTransformed, ByRef AddWordIndexTransformed, ByRef AddWordReplacementTransformed, ByRef AddWordDescriptionTransformed) {
    AddWordIndex := AddWord
    
    ; normalize accented characters
@@ -657,12 +666,15 @@ TransformWord(AddWord, AddWordReplacement, AddWordDescription, ByRef AddWordTran
       StringReplace, AddWordDescriptionTransformed, AddWordDescription, ', '', All
    }
 }
+;>>>>>>>> TransformWord >>>> 180319190900 >>>> 19.03.2018 19:09:00 >>>>
 
-DeleteWordFromList(DeleteWord)
-{
+
+;<<<<<<<< DeleteWordFromList <<<< 180319190926 <<<< 19.03.2018 19:09:26 <<<<
+DeleteWordFromList(DeleteWord){
    global prefs_LearnMode
    global g_WordListDB
-   
+   global wordlist
+
    Ifequal, DeleteWord,  ;If we have no word to delete, skip out.
       Return
             
@@ -673,11 +685,12 @@ DeleteWordFromList(DeleteWord)
       Return
    
    StringReplace, DeleteWordEscaped, DeleteWord, ', '', All
-   g_WordListDB.Query("DELETE FROM words WHERE word = '" . DeleteWordEscaped . "';")
-      
+   ; g_WordListDB.Query("DELETE FROM words WHERE word = '" . DeleteWordEscaped . "';")
+   g_WordListDB.Query("DELETE FROM words WHERE word = '" . DeleteWordEscaped . "' AND wordlist = '" wordlist "';")
+
    Return   
 }
-
+;>>><>>>> DeleteWordFromList >>>> 180319190934 >>>> 19.03.2018 19:09:34 >>>>
 ;------------------------------------------------------------------------
 
 UpdateWordCount(word,SortOnly)
@@ -702,21 +715,31 @@ UpdateWordCount(word,SortOnly)
 
 ;------------------------------------------------------------------------
 
-CleanupWordList(LearnedWordsOnly := false)
-{
+;<<<<<<<< CleanupWordListOfThisWordlist <<<<
+CleanupWordListOfThisWordlist(wordlist){
+   ;Function cleans up all words from given wordlist
+    Msgbox,not yet implemented `n (%A_LineFile%~%A_LineNumber%)
+  g_WordListDB.Query("DELETE FROM Words WHERE wordlist = '" wordlist "';")
+}
+;>>>>>>>> CleanupWordListOfThisWordlist >>>>
+
+;<<<<<<<< CleanupWordListAll_ofLittleWordCount <<<< 180319192431 <<<< 19.03.2018 19:24:31 <<<<
+CleanupWordListAll_ofLittleWordCount(LearnedWordsOnly := false){
    ;Function cleans up all words that are less than the LearnCount threshold or have a NULL for count
    ;(NULL in count represents a 'wordlist . txt' word, as opposed to a learned word)
    global g_ScriptTitle
    global g_WordListDB
+   global wordlist
    global prefs_LearnCount
 ;   Progress, M, Please wait..., Cleaning wordlist, %g_ScriptTitle%
    if (LearnedWordsOnly) {
-      g_WordListDB.Query("DELETE FROM Words WHERE count < " . prefs_LearnCount . " AND count IS NOT NULL;")
+      g_WordListDB.Query("DELETE FROM Words WHERE count < " . prefs_LearnCount . " AND count IS NOT NULL AND wordlist = '" wordlist "';")
    } else {
-      g_WordListDB.Query("DELETE FROM Words WHERE count < " . prefs_LearnCount . " OR count IS NULL;")
+      g_WordListDB.Query("DELETE FROM Words WHERE (count < " . prefs_LearnCount . " OR count IS NULL) AND wordlist = '" wordlist "';")
    }
-   Progress, Off
+   ;Progress, Off
 }
+;>>>>>>>> CleanupWordListAll_ofLittleWordCount >>>> 180319192436 >>>> 19.03.2018 19:24:36 >>>>
 
 ;------------------------------------------------------------------------
 
@@ -724,15 +747,18 @@ MaybeUpdateWordlist(){
    return ; learnd words. dont need 07.02.2018 17:10
    global g_LegacyLearnedWords
    global g_WordListDB
+   global wordlist
    global g_WordListDone
    global prefs_LearnCount
    
    ; Update the Learned Words
    IfEqual, g_WordListDone, 1
    {
-      
-      SortWordList := g_WordListDB.Query("SELECT Word FROM Words WHERE count >= " . prefs_LearnCount . " AND count IS NOT NULL ORDER BY count DESC;")
-      
+    ;
+      SELECT := "SELECT Word FROM Words WHERE count >= " . prefs_LearnCount . " AND count IS NOT NULL AND wordlist = '" . wordlist . "' ORDER BY count DESC; "
+        ;Clipboard := SELECT
+      SortWordList := g_WordListDB.Query(SELECT)
+
       for each, row in SortWordList.Rows
       {
          TempWordList .= row[1] . "`r`n"

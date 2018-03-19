@@ -62,6 +62,10 @@ Receive_wordlistAddress(CopyOfData){
         wordlistOLD := wordlist
         ;MainLoop()
 
+         ;RebuildMatchList() ; line addet 19.03.2018 20:57
+         ;InitializeListBox() ; line addet 19.03.2018 20:57^
+         RecomputeMatches() ; line addet 19.03.2018 21
+
          SuspendOff()
     }
     ; MainLoop()
@@ -266,6 +270,12 @@ run,log\%A_LineFile%.log.txt
    SetTimer, RecomputeMatchesTimer, -1
 }
 
+
+
+
+
+
+;<<<<<<<< RecomputeMatches <<<< 180319210937 <<<< 19.03.2018 21:09:37 <<<<
 RecomputeMatches(){
    ; This function will take the given word, and will recompile the list of matches and redisplay the wordlist.
    global g_MatchTotal
@@ -274,6 +284,7 @@ RecomputeMatches(){
    global g_SingleMatchReplacement
    global g_Word
    global g_WordListDB
+   global wordlist
    global prefs_ArrowKeyMethod
    global prefs_LearnMode
    global prefs_ListBoxRows
@@ -327,7 +338,7 @@ RecomputeMatches(){
          }         
       }
    } else {
-      WordAccentQuery =
+      WordAccentQuery := ""
    }
    
    StringReplace, WordExactEscaped, g_Word, ', '', All
@@ -343,9 +354,9 @@ RecomputeMatches(){
             }
    }
    
-   WhereQuery := " WHERE wordindexed GLOB '" . WordMatchEscaped . "*' " . SuppressMatchingWordQuery . WordAccentQuery
+   WhereQuery := " WHERE wordindexed GLOB '" . WordMatchEscaped . "*' " . SuppressMatchingWordQuery . WordAccentQuery  " AND wordlist = '" wordlist "'"
    
-   NormalizeTable := g_WordListDB.Query("SELECT MIN(count) AS normalize FROM Words" . WhereQuery . "AND count IS NOT NULL LIMIT " . LimitTotalMatches . ";")
+   NormalizeTable := g_WordListDB.Query("SELECT MIN(count) AS normalize FROM Words" . WhereQuery . " AND count IS NOT NULL LIMIT " . LimitTotalMatches . ";")
    
    for each, row in NormalizeTable.Rows
    {
@@ -356,7 +367,7 @@ RecomputeMatches(){
    {
       Normalize := 0
    }
-
+;
 
    WordLen := StrLen(g_Word)
    OrderByQuery := " ORDER BY CASE WHEN count IS NULL then "
@@ -395,6 +406,7 @@ RecomputeMatches(){
    RebuildMatchList()
    ShowListBox()
 }
+;>>>>>>>> RecomputeMatches >>>> 180319210950 >>>> 19.03.2018 21:09:50 >>>>
 
 
 CheckForCaretMove(MouseButtonClick, UpdatePosition := false){

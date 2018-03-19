@@ -204,7 +204,7 @@ GetIncludedActiveWindowGuts() {
          CurrentWindowIsActive := false
 
              lll(A_LineNumber, A_LineFile, " InactivateAll() 17-08-04_16-19c")
-             ; run,\.\log\%A_ScriptName%.log.txt
+             ; run,\.\log\%A_LineFile%.log.txt
 
          InactivateAll()
          ;Wait for any window to be active
@@ -220,7 +220,7 @@ GetIncludedActiveWindowGuts() {
       
       CurrentWindowIsActive := false
                    lll(A_LineNumber, A_LineFile, "GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 18-02-10_09-44")
-                  ; run,\.\log\%A_ScriptName%.log.txt
+                  ; run,\.\log\%A_LineFile%.log.txt
 
       InactivateAll()
       SetTitleMatchMode, 3 ; set the title match mode to exact so we can detect a window title change
