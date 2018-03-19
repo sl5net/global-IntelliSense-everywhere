@@ -31,8 +31,8 @@ global wordlist
 global WordlistOLD
 global activeTitle:=""
 
-global g_doAskBevoreChangingWordlist := false
-global g_doAskBevoreChangingWordlist := true
+global g_doAskBevoreChangingWordlist := false ; <== buggy dont know whey 19.03.2018 23:50
+global g_doAskBevoreChangingWordlist := true ; <== works preetty nice :) 19.03.2018 23:51
 global g_FLAGmsgbox := false
 
 wordlist:=wordlistActive
@@ -125,7 +125,7 @@ EvaluateScriptPathAndTitle()
 
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ; next line is useless sice 16.07.2017 11:51 . i have daktivated it.
-SetTimer, checkActiveTitleChanged, 50 ; 31.07.2017 20:57
+; SetTimer, checkActiveTitleChanged, 50 ; 31.07.2017 20:57
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 ;disable hotkeys until setup is complete
@@ -650,7 +650,6 @@ feedbackMsgBox(msg,msg,1,1)
     SetTimer, ifWordlistFileWasUpdatedChanged, 100
 }
 return
-
 
 
 /*
