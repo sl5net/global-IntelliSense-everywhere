@@ -4,10 +4,10 @@
 if(!address){
 	; take address frome command line 02.08.2017 10:21 17-08-02_10-21
 	address = %1%
-	; Msgbox,%address% `n (%A_ScriptName%~%A_LineNumber%) 
+	; Msgbox,%address% `n (%A_LineFile%~%A_LineNumber%) 
 }
 if(!address){
-	Msgbox,:-(  address=%address% `n (%A_ScriptName%~%A_LineNumber%) 
+	Msgbox,:-(  address=%address% `n (%A_LineFile%~%A_LineNumber%) 
 	ExitApp
 }
 
@@ -26,13 +26,13 @@ if(doTryWithCmdAdmin){
 	SetTitleMatchMode,1
 	IfWinNotExist, % tc
 	{
-		Tooltip,:( %tc% not exist `n (from: %A_ScriptName%~%A_LineNumber%) 
+		Tooltip,:( %tc% not exist `n (from: %A_LineFile%~%A_LineNumber%) 
 		Sleep, 2500 
 	}
 	Wingetactivetitle, activeTitle
 
 	WinActivate, % tc 
-	Tooltip,WinWaitActive %tc% `n (from: %A_ScriptName%~%A_LineNumber%) 
+	Tooltip,WinWaitActive %tc% `n (from: %A_LineFile%~%A_LineNumber%) 
 	WinWaitActive,% tc ,,1
 	;sleep,100
 
@@ -67,7 +67,7 @@ if(address=="dhcp"){
 		Run, % send1
 		;RunAs, Administrator, % send1
 	;RunAs, Admin, % send1
-	Tooltip,%send1% `n (from: %A_ScriptName%~%A_LineNumber%) 
+	Tooltip,%send1% `n (from: %A_LineFile%~%A_LineNumber%) 
 }
 ; send , :-( address ????? 17-07-27_16-52
 
@@ -77,7 +77,7 @@ if(doTryWithCmdAdmin)
 {
 	WinActivate, % activeTitle
 	WinWaitActive,% activeTitle ,,1
-	; Tooltip,WinWaitActive %activeTitle% `n (from: %A_ScriptName%~%A_LineNumber%) 
+	; Tooltip,WinWaitActive %activeTitle% `n (from: %A_LineFile%~%A_LineNumber%) 
 	Sleep, 2000 
 }
 
@@ -101,7 +101,7 @@ if(A_UserName != "Administrator"){
 		tc := "cmd.exe (Admin)" 
 		IfWinExist, % tc
 			WinActivate, % tc
-        Msgbox,:-( Oops ERROR`n netsh `n dont works if user != 'Administrator' `n pls login 'Administrator' and try again. `n 30.07.2017 11:53 17-07-30_11-53 `n %msg2% `n`n command is copied to your Clipboard: `n %Clipboard% `n `n (%A_ScriptName%~netsh_interface_ip_set_address.ahk~%A_LineNumber%)
+        Msgbox,:-( Oops ERROR`n netsh `n dont works if user != 'Administrator' `n pls login 'Administrator' and try again. `n 30.07.2017 11:53 17-07-30_11-53 `n %msg2% `n`n command is copied to your Clipboard: `n %Clipboard% `n `n (%A_LineFile%~netsh_interface_ip_set_address.ahk~%A_LineNumber%)
         ;RunAs, Administrator, netsh interface ip set address name="SL5Box" source=dhcp ; Oops doesent work :)
         return false 
     }

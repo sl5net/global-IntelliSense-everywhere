@@ -1,8 +1,7 @@
 ; Indentation_style: https://de.wikipedia.org/wiki/Einrückungsstil#SL5small-Stil
 #Include *i init_global.init.inc.ahk
 ;~ GLOBAL_lllog_only_this_scriptName=ToolTipSec_RemoveToolTip.inc.ahk
-RemoveToolTip()
-{
+RemoveToolTip(){
   gosub,RemoveToolTip
 }
 ;~ l;~ ll

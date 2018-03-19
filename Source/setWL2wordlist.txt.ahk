@@ -37,7 +37,7 @@ ExitApp
 stringToSend := wordlist
 
 try{
-    ; feedbackMsgBox("%A_ScriptName%>%A_LineNumber%", "ComObjActive" . " " . A_ScriptName . "~" . A_LineNumber)
+    ; feedbackMsgBox("%A_LineFile%>%A_LineNumber%", "ComObjActive" . " " . A_ScriptName . "~" . A_LineNumber)
     y := ComObjActive("{93C04B39-0465-4460-8CA0-7BFFF481FF98}")
     feedbackMsgBox(A_ScriptName . ">" . A_LineNumber, "START y.callFunction( Receive_wordlistAddress, " . stringToSend )
     y.callFunction( "Receive_wordlistAddress", stringToSend ) ;will call the function of the other script , ObjRegisterActive , shuttle

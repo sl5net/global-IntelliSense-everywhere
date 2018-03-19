@@ -3,7 +3,7 @@
 
 ;<<<<<<<<<<<<<< ReadWordList <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ReadWordList() {
-global g_LegacyLearnedWords
+    global g_LegacyLearnedWords
    global g_ScriptTitle
    global g_WordListDone
    global g_WordListDB
@@ -22,7 +22,7 @@ global g_LegacyLearnedWords
    ; WordlistFileAdress := RegExReplace("\._Generated.txt\s*$", "")
    ; Wordlist = %A_ScriptDir%\%WordlistFileName%
    Wordlist = %wordlist%
-   WordlistLearned = %A_ScriptDir%\WordlistLearned.txt
+   WordlistLearnedTXTaddress= %A_ScriptDir%\WordlistLearned.txt
 
 ; msgbox,Wordlist = %Wordlist% `n (%A_LineFile%~%A_LineNumber%)
 
@@ -230,7 +230,7 @@ OK
  ;lll(A_LineNumber, "Wordlist.ahk",Last_A_This . " reload " )
 global g_doRunLogFiles
  if(g_doRunLogFiles)
-run,log\%A_ScriptName%.log.txt
+run,log\%A_LineFile%.log.txt
         lll(A_LineNumber, "Wordlist.ahk",Last_A_This . " reload ")
         Reload
           MsgBox,5 ,!WordlistSize ,Oops i am triggered :D 17-04-02_13-52 (from: %A_LineFile%~%A_LineNumber%), 5
@@ -338,7 +338,7 @@ global do_tooltipReadWordList
 
       Loop, Parse, ParseWords, `n, `r1
       {
-
+; tii Tooltip, `n (from: %A_LineFile%~%A_LineNumber%)
          ; Tooltip,%A_LoopField% `n (from: %A_LineFile%~%A_LineNumber%)
          ParseWordsSubCount++
          ProgressPercent := Round(ParseWordsSubCount/ParseWordsCount * 100)
@@ -395,12 +395,18 @@ global do_tooltipReadWordList
       ; Msgbox, n  n n 17-04-27_22-08 (line:%A_LineNumber%)
 
       g_WordListDB.BeginTransaction()
-      ;reads list of words from file 
-      FileRead, ParseWords, %WordlistLearned%
-      global do_tooltipReadWordList
-;      if(do_tooltipReadWordList)
-;          Tooltip, read WordlistLearned(line:%A_LineNumber%)
-      DynaRun("#" . "NoTrayIcon `n" . "loop,20 `n { `n Tooltip,read WordlistLearned (line:" . A_LineNumber . ") `n Sleep,100 `n }  ")
+      ;reads list of words from file
+     if(InStr(WordlistLearnedTXTaddress,"WordlistLearned.txt")){
+        tip=thats deprecated `n ordlistLearnedTXTaddress = `n %WordlistLearnedTXTaddress% `n (%A_LineFile%~%A_LineNumber%)
+        ToolTip3sec(tip "`n" A_LineNumber " " A_LineFile " " Last_A_This)
+        Return ParseWordsCount
+    }else
+      FileRead, ParseWords, %WordlistLearnedTXTaddress%
+; -- here we are inside ReadWordList()
+if(InStr(A_ComputerName,"SL5"))
+      DynaRun("#" . "NoTrayIcon `n" . "loop,20 `n { `n Tooltip,read WordlistLearnedTXTaddress``n" WordlistLearnedTXTaddress "``n (" A_LineFile ">" A_LineNumber ") `n Sleep,2000 `n }  ")
+else
+      DynaRun("#" . "NoTrayIcon `n" . "loop,20 `n { `n Tooltip,read WordlistLearnedTXTaddress ``n" WordlistLearnedTXTaddress "``n (" A_LineFile ">" A_LineNumber ") `n Sleep,100 `n }  ")
 ; Msgbox, n (line:%A_LineNumber%) Msgbox, `n (line:%A_LineNumber%)
 ;Msgbox, n (line:%A_LineNumber%) ; SciTEWindow\_global.txt
 ; SciTEWindow\_global.txt
@@ -416,6 +422,9 @@ if(false && ParseWordsCount>0)
       g_WordListDB.EndTransaction()
       
 ;      Progress, 50, Please wait..., Converting learned words, %g_ScriptTitle%
+
+; -- here we are inside ReadWordList()\
+
 
       ;reverse the numbers of the word counts in memory
       ReverseWordNums(LearnedWordsCount)
