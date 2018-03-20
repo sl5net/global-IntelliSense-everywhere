@@ -490,10 +490,11 @@ FileGetSize, WordlistSize, %wordlist%
         if( instr(sqlLastError, "no such table") ){
             tooltip, % tip
             SuspendOn()
-            msgbox,% tip
+            ;msgbox,% tip
             RebuildDatabase()
             SuspendOff()
-            msgbox,% tip
+            sleep,3000
+            ; msgbox,% tip
             ; reload ; hardcore. anyway. thats a way it works
         }
         ;pause ; RebuildDatabase()
@@ -552,7 +553,8 @@ checkInRegistryChangedWordlistAddress:
         wordlist := wordlistNewTemp
         wordlistOLD := wordlist
 
-        tooltip,%wordlist%  (%A_LineFile%~%A_LineNumber%)
+        tip=%wordlist% `n(old: %wordlistOLD% `n %A_LineFile%~%A_LineNumber%)
+        ToolTip4sec(tip)
         ;msgbox,%wordlist%  (%A_LineFile%~%A_LineNumber%)
 
         ;if(g_FLAGmsgbox == 0)

@@ -12,9 +12,9 @@ if its usinge the name scriptname.inc.ahk
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 FileGetTime, ModiTime, %A_ScriptFullPath%, M
 inc17032207130:= SubStr(A_ScriptName,1,strlen(A_ScriptName)-4) . ".inc.ahk"
-; Msgbox,%inc17032207130% `n (from: %A_ScriptName%~%A_LineNumber%)
+; Msgbox,%inc17032207130% `n (from: %A_LineFile%~%A_LineNumber%)
 if(FileExist(inc17032207130)){
-; Msgbox,%inc17032207130% `n (from: %A_ScriptName%~%A_LineNumber%)
+; Msgbox,%inc17032207130% `n (from: %A_LineFile%~%A_LineNumber%)
     FileGetTime, incModiTime, %inc17032207130%, M
     incModiTime_OLD:=incModiTime
 }
@@ -83,7 +83,7 @@ scriptDir := RegExReplace( A_ScriptDir, "(\\AutoHotKey).*" , "$1") ; maybe file 
 ;feedbackMsgBox(scriptDir = "scriptDir",A_LineNumber . " " .  A_LineFile,1,1)
  
 SetWorkingDir, % scriptDir ; thats not worked. Line later A_ScriptDir was not changed. so SetWorkingDir is probably buggy 18.04.2017 13:23
-; Msgbox,%scriptDir% ?= `n%A_ScriptDir% `n`n (from: %A_ScriptName%~%A_LineNumber%)
+; Msgbox,%scriptDir% ?= `n%A_ScriptDir% `n`n (from: %A_LineFile%~%A_LineNumber%)
 
   ; if(FileExist( A_ScriptDir . "\SaveLast5_to_BackupSL5.ahk" )
 ;  fileAHKabs = %ScriptDir% ; \SaveLast5_to_BackupSL5.ahk

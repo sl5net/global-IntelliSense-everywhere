@@ -198,7 +198,13 @@ global g_lineNumberFeedback
         ;tooltip, WinWaitNotActive,wordlistChangedInRegistry  `n (%A_LineFile%~%A_LineNumber%)
         WinWaitNotActive,wordlistChangedInRegistry ahk_class AutoHotkeyGUI
         tooltip,
-        sleep,1000
+        sleep,500
+      continue ;
+    }
+    if(RegExMatch(activeTitle,"created_token_17-08-10_16-17")){
+        ;tooltip, WinWaitNotActive,wordlistChangedInRegistry  `n (%A_LineFile%~%A_LineNumber%)
+        WinWaitNotActive,created_token_17-08-10_16-17 ahk_class AutoHotkeyGUI
+        tooltip,
       continue ;
     }
     if(activeTitleOLD == activeTitle && activeClassOLD == activeClass ){

@@ -200,7 +200,7 @@ lineInRegEx         := (matchs4) ? matchs3 . matchs4 : "|.*" ; | ist a positvie 
             ;Msgbox,'%lineInRegEx%' = lineInRegEx  n (line:%A_LineNumber%) n
             lineInRegExArray.Insert(lineInRegEx)
             if(!exist_includeFilePath){
-              msg =:-( ERROR %exist_includeFilePath% = exist_includeFilePath `n %includeFilePath% `n  >%wordlistNEWarchivePath%< = wordlistNEWarchivePath (from: %A_LineFile%~%A_LineNumber%)
+              msg =:-( ERROR %exist_includeFilePath% = exist_includeFilePath `n wordlistDir = %wordlistDir% `n includeFilePath = %includeFilePath% `n  >%wordlistNEWarchivePath%< = wordlistNEWarchivePath (from: %A_LineFile%~%A_LineNumber%)
               Tooltip,%msg%
               g_doSaveLogFiles := true
               lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   msg)
