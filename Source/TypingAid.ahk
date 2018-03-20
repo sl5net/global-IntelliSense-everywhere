@@ -33,6 +33,7 @@ global activeTitle:=""
 
 global g_doAskBevoreChangingWordlist := false ; <== buggy dont know whey 19.03.2018 23:50
 global g_doAskBevoreChangingWordlist := true ; <== works preetty nice :) 19.03.2018 23:51
+global g_minBytesNeedetToAskBevoreChangingWordlist := 80000 ; <== Minimum bytes. then will be asked before the change 20.03.2018 18:22
 global g_FLAGmsgbox := false
 
 wordlist:=wordlistActive
@@ -45,6 +46,7 @@ temp := "___________________________________`n"
 global g_doSaveLogFiles
 
     lll("`n" . A_LineNumber, A_ScriptName, temp . " STARTING first lines :) ")
+
 
 maxLinesOfCode4length1 := 900
 
@@ -459,7 +461,7 @@ checkWordlistTXTfile_sizeAndModiTime:
 
 
 
-FileGetSize, WordlistSize, %wordlist%
+    FileGetSize, WordlistSize, %wordlist%
     FileGetTime, WordlistModified, %wordlist%, M
     FormatTime, WordlistModified, %WordlistModified%, yyyy-MM-dd HH:mm:ss
 
@@ -515,12 +517,28 @@ checkInRegistryChangedWordlistAddress:
     global g_FLAGmsgbox
 
     SetTitleMatchMode,2
-    If(WinExist("wordlistChangedInRegistry")){
-        ;If(WinExist("wordlistChangedInRegistry ahk_class AutoHotkeyGUI"){
-        g_FLAGmsgbox := true
-        ;SetTimer,checkInRegistryChangedWordlistAddress,on
-        g_FLAGmsgbox := true
-        return ; no update jet
+    if(WordlistSize > g_minBytesNeedetToAskBevoreChangingWordlist)
+        If(WinExist("wordlistChangedInRegistry") ){
+            g_FLAGmsgbox := true
+            return ; no update jet
+    }
+
+    if(1){
+        ; not needet to check, but maybe mmore pretty coding ?? 20.03.2018 18:34 TODO
+        ; its more pretty to have a updated text inside this box, therfore close it first. 20.03.2018 18:35
+        name := "wordlistChangedInRegistry"
+        while(WinExist(name) && A_Index < 9){
+            WinClose,% name
+            winWaitclose,% name,,1
+        }
+        while(WinExist(name) && A_Index < 9){
+            WinKill,% name
+            winWaitclose,% name,,1
+        }
+        If(WinExist("wordlistChangedInRegistry") ){
+            Msgbox,Oops  `n should never happen BUG (%A_LineFile%~%A_LineNumber%) 20.03.2018 18:54
+            return
+        }
     }
 
     RegRead, wordlistNewTemp, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlist
@@ -532,9 +550,9 @@ checkInRegistryChangedWordlistAddress:
     if(A_TimeIdle < 1333)
         return
 
-    if(g_doAskBevoreChangingWordlist){
+    if(g_doAskBevoreChangingWordlist && WordlistSize > g_minBytesNeedetToAskBevoreChangingWordlist){
         AHKcodeMsgBox := "#" . "NoTrayIcon `n "
-        temp = msgbox,,wordlistChangedInRegistry, Would you use new list now? ``n ``n Say goodbye to? ``n  %wordlist%
+        temp = msgbox,,wordlistChangedInRegistry, Would you use new list now? ``n ``n Say goodbye to? (%WordlistSize% bytes < %g_minBytesNeedetToAskBevoreChangingWordlist%) ``n  %wordlist%
         AHKcodeMsgBox .= temp
         if(g_FLAGmsgbox){
             g_FLAGmsgbox := false ; just clicked msgboxWindow
