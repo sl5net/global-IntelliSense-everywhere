@@ -83,11 +83,12 @@ MaybeConvertDatabase(){
 
 ; Rebuilds the Database from scratch as we have to redo the wordlist anyway.
 RebuildDatabase(){
-	tip := "FALSE NOOO RebuildDatabase `n " A_LineNumber . " " . A_LineFile
-	ToolTip5sec(tip)
-	MsgBox,4 ,% tip,% tip, 5
-	return false
-
+	if(0){
+		tip := "FALSE NOOO RebuildDatabase `n " A_LineNumber . " " . A_LineFile
+		ToolTip5sec(tip)
+		MsgBox,4 ,% tip,% tip, 5
+		return false
+	}
 
 	global g_WordListDB
 	g_WordListDB.BeginTransaction()
@@ -97,16 +98,13 @@ RebuildDatabase(){
 	g_WordListDB.Query("DROP TABLE Wordlists;")
 	
 	CreateWordsTable()
-	
 	CreateWordIndex()
 
 	CreateLastStateTable()
-	
 	CreateWordlistsTable()
 	
 	SetDbVersion()
 	g_WordListDB.EndTransaction()
-		
 }
 
 ;Runs the first conversion
@@ -248,11 +246,10 @@ CreateLastStateTable()
 	}
 }
 
-CreateWordsTable(WordsTableName:="Words")
-{
+CreateWordsTable(WordsTableName:="Words"){
 	global g_WordListDB
 	
-	IF not g_WordListDB.Query("CREATE TABLE " . WordsTableName . " (wordindexed TEXT NOT NULL, word TEXT NOT NULL, count INTEGER, worddescription TEXT, wordreplacement TEXT NOT NULL, wordlist TEXT NOT, PRIMARY KEY (word, wordreplacement) );")
+	IF not g_WordListDB.Query("CREATE TABLE " . WordsTableName . " (wordindexed TEXT NOT NULL, word TEXT NOT NULL, count INTEGER, worddescription TEXT, wordreplacement TEXT NOT NULL, wordlist TEXT, PRIMARY KEY (word, wordreplacement) );")
 	{
 		ErrMsg := g_WordListDB.ErrMsg()
 		ErrCode := g_WordListDB.ErrCode()

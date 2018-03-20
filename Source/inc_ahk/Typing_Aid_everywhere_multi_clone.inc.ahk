@@ -83,7 +83,7 @@ if(!wordlistNEWarchivePath)
     }
    ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-    initialWordList := getInitialWordList(wordlistNEWarchivePath,wordlistNEW)
+    initialWordList := ltrim(getInitialWordList(wordlistNEWarchivePath,wordlistNEW))
 
 ; _%wordlistNEWarchivePath%|r|Here you could find your library
 

@@ -271,9 +271,9 @@ contend =
 
 ; '%activeTitle%' ; = activeTitle . ist manchmal leer. sometimes emtpy. it not a error. tet it for e.g. with OpenOffice-Aps
 ; #Include ..\_globalWordLists\examplesForBeginners.txt
-___open global library|rr||ahk|run,_globalWordLists\_global.txt
-___open class library|rr||ahk|run,%ActiveClass%\_global.txt
-___open window library |rr||ahk|run,%ActiveClass%\%wordlistNEW%
+___open global library|rr||ahk|run,..\_globalWordLists\_global.txt
+___open class library|rr||ahk|run,_global.txt
+___open window library |rr||ahk|run,%wordlistNEW%
 )
      FileAppend,% "",   % "..\Wordlists\" . ActiveClass . "\_global.txt"
 if( FileExist("..\Wordlists\" . ActiveClass . "\" . wordlistNEW) ){

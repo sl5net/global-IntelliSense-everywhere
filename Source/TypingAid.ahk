@@ -463,7 +463,10 @@ FileGetSize, WordlistSize, %wordlist%
     FileGetTime, WordlistModified, %wordlist%, M
     FormatTime, WordlistModified, %WordlistModified%, yyyy-MM-dd HH:mm:ss
 
-    WordsTbl := g_WordListDB.Query("SELECT wordlistmodified, wordlistsize FROM Wordlists WHERE wordlist = '" . wordlist . "';")
+    SELECTwordlistmodified := "SELECT wordlistmodified, wordlistsize FROM Wordlists WHERE wordlist = '" . wordlist . "';"
+    ;clipboard := SELECTwordlistmodified ; SELECT wordlistmodified, wordlistsize FROM Wordlists WHERE wordlist = '..\Wordlists\_globalWordListsGenerated\_global.txt';
+    ; [2018-03-20 11:56:58] [1] [SQLITE_ERROR] SQL error or missing database (no such table: Wordlists)
+    WordsTbl := g_WordListDB.Query(SELECTwordlistmodified)
     For each, row in WordsTbl.Rows
     {
         WordlistLastModified := row[1]
@@ -479,8 +482,21 @@ FileGetSize, WordlistSize, %wordlist%
         ;prefs_Length := setLength(ParseWordsCount, maxLinesOfCode4length1)
         ; RebuildDatabase()
         ; msgbox, have fun with :) `n %wordlist% 18-03-02_18-37  (%A_LineFile%~%A_LineNumber%)
+
         RecomputeMatches()
-        tooltip,ReadInTheWordList()  wordlist=%wordlist% 4567984654888888
+        tip:="doReadWordlistTXTfile=" doReadWordlistTXTfile " ReadInTheWordList()  wordlist=" wordlist " 4567984654888888 "
+        sqlLastError := SQLite_LastError()
+        tip .= "`n sqlLastError=" sqlLastError " `n( " A_LineFile "~" A_LineNumber ")"
+        if( instr(sqlLastError, "no such table") ){
+            tooltip, % tip
+            SuspendOn()
+            msgbox,% tip
+            RebuildDatabase()
+            SuspendOff()
+            msgbox,% tip
+            ; reload ; hardcore. anyway. thats a way it works
+        }
+        ;pause ; RebuildDatabase()
         sleep,100
         ;reload ; hardcore. anyway. thats a way it works
     }
