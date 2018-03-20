@@ -290,7 +290,7 @@ if( !FileExist("..\Wordlists\" . ActiveClass . "\" . wordlistNEW) ){
 EXIT
 }
      Sleep,100
-      msgbox,%wordlistNEW% = wordlistNEW ,`%wordlistNEW`% = wordlistNEW 18-03-06_13-31
+     ; msgbox,%wordlistNEW% = wordlistNEW ,`%wordlistNEW`% = wordlistNEW 18-03-06_13-31 `n (%A_LineFile%~%A_LineNumber%)
 
      run,                    % "..\Wordlists\" . ActiveClass . "\" . wordlistNEW
 
