@@ -1047,7 +1047,6 @@ selfTestLoop1000(loopMax){
     return result
 }
 
-
 ;<<<<<<<<<<<<<<<<<<< getInitialWordList <<<<<<<<<<<<<<<<<<<<<<<<<<<
 getInitialWordList(wordlistNEWarchivePath,wordlistNEW){
 ; Start filling the template variable with useful examples 12.07.2017 21:18
@@ -1055,11 +1054,13 @@ getInitialWordList(wordlistNEWarchivePath,wordlistNEW){
 if(!wordlistNEWarchivePath)
     Msgbox,Oops !wordlistNEWarchivePath `n (Typing_Aid_everywhere_multi_clone.inc.ahk~%A_ThisFunc%~%A_`LineNumber%) `
 
+wordlistFileName := RegExReplace(wordlistNEWarchivePath,".*\\([^\\]+)$","$1") ; 20.03.2018 00:15
+
 initialWordList =
 (
 ; %activeTitle% ; = activeTitle 17-08-10_16-03
 ; #Include ..\_globalWordLists\examplesForBeginners.txt
-___your library open|rr||ahk|run,..\%wordlistNEWarchivePath%
+___your library open|rr||ahk|run,%wordlistFileName%
 )
 ; EndOf filling the template variable with useful examples 12.07.2017 21:18
 return initialWordList

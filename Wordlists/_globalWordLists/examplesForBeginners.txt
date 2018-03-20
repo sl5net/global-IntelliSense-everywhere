@@ -112,7 +112,7 @@ AHKdyn example |rr||ahk|Send,{Enter}hi baum :-)
 AHKdyn example returns ente|rr||ahk|m := "hi {Enter}ente :-)" `n Send, %m%
 AHKdyn example returns `%m`%|rr||ahk|m := "hi {Enter}fuchs :-)" `n Send, `%m`%
 
-AHKdyn example A_... AHK4381756<~>4<|rr||ahk|Send,A_ScriptName und A_LineNumber=>%A_ScriptName%<~>%A_LineNumber%<
+AHKdyn example A_... AHK4381756<~>4<|rr||ahk|Send,A_LineFile und A_LineNumber=>%A_LineFile%<~>%A_LineNumber%<
 
 
 AHKdyn newline ##  buggy :(|rr||ahk|m := "hi " . Chr(96) . "n" `n Send,%m% 1 {enter} 2 ``n 3 ``n 4 ``n 5 ``n 

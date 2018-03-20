@@ -15,7 +15,7 @@ EnableWinHook()
       
       if !(g_WinChangedEventHook){
 		
-lll(A_LineNumber, "Window.ahk", "Failed to register Event Hook! `n  g_WinChangedEventHook=" . g_WinChangedEventHook . "`n 17-07-16_16-21" )
+lll(A_LineNumber, A_LineFile, "Failed to register Event Hook! `n  g_WinChangedEventHook=" . g_WinChangedEventHook . "`n 17-07-16_16-21" )
 
          tip=A_LineNumber . " " .  A_LineFile . " " . Last_A_This
          tooltip,% tip

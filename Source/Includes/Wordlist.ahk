@@ -51,7 +51,7 @@ DetectHiddenWindows, On
 ifWinNotExist,TypingAid
 {
     if(FileExist("%A_WorkingDir%\TypingAid.ahk")) {
-        lll(A_LineNumber, "Wordlist.ahk", "39: Run, %A_WorkingDir%\TypingAid.ahk 17-08-04_15-47 inside ahkCloseERRERmsg")
+        lll(A_LineNumber, A_LineFile, "39: Run, %A_WorkingDir%\TypingAid.ahk 17-08-04_15-47 inside ahkCloseERRERmsg")
 
 
         run, %A_WorkingDir%\log\Wordlist.ahk.log.txt
@@ -60,10 +60,10 @@ ifWinNotExist,TypingAid
         ; lll doesent work becouse som inc are not includet here :( 20.04.2017 19:23
     } else{
         ;gosub,couldIfindMyself
-        lll(A_LineNumber, "Wordlist.ahk", "Run, %A_WorkingDir%\Source\TypingAid.ahk 17-08-04_16-08  inside ahkCloseERRERmsg")
+        lll(A_LineNumber, A_LineFile, "Run, %A_WorkingDir%\Source\TypingAid.ahk 17-08-04_16-08  inside ahkCloseERRERmsg")
         run, %A_WorkingDir%\log\Wordlist.ahk.log.txt
         run, %A_WorkingDir%\Source\TypingAid.ahk , %A_WorkingDir%\Source ; is not working : source is
-        ; lll(A_LineNumber, "Wordlist.ahk", "Run, %A_WorkingDir%\Source\TypingAid.ahk")
+        ; lll(A_LineNumber, A_LineFile, "Run, %A_WorkingDir%\Source\TypingAid.ahk")
         ; lll doesent work becouse som inc are not includet here :( 20.04.2017 19:23
      }
     }
@@ -71,7 +71,7 @@ ifWinNotExist,TypingAid
 
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 if(! FileExist( A_WorkingDir . "\inc_ahk\copy2clipBoard.functions.inc.ahk" ) ) {
-    lll(A_LineNumber, "Wordlist.ahk", "52 :-( if(!fileExist(A_WorkingDir . \inc_ahk\copy2clipBoard.functions.inc.ahk)) ==> exitApp 17-07-18_20-24")
+    lll(A_LineNumber, A_LineFile, "52 :-( if(!fileExist(A_WorkingDir . \inc_ahk\copy2clipBoard.functions.inc.ahk)) ==> exitApp 17-07-18_20-24")
      msg=NOT Exist %A_WorkingDir% . "\inc_ahk\copy2clipBoard.functions.inc.ahk" ) ==> exitapp `n (%A_LineFile%~%A_LineNumber%)
      feedbackMsgBox(msg,msg,1,1)
     exitApp
@@ -97,10 +97,10 @@ WinWaitClose,TypingAid ahk_class AutoHotkey,,1
 ifWinNotExist,TypingAid
 {
 if(FileExist("%A_WorkingDir%\TypingAid.ahk")){
-   lll(A_LineNumber, "Wordlist.ahk", "65: Run, %A_WorkingDir%\TypingAid.ahk 17-08-04_15-47")
+   lll(A_LineNumber, A_LineFile, "65: Run, %A_WorkingDir%\TypingAid.ahk 17-08-04_15-47")
     run , %A_WorkingDir%\TypingAid.ahk ; is not working : source is twice:  %A_WorkingDir%\Source\TypingAid.ahk
 }else{
-        lll(A_LineNumber, "Wordlist.ahk", "Run, %A_WorkingDir%\Source\TypingAid.ahk")
+        lll(A_LineNumber, A_LineFile, "Run, %A_WorkingDir%\Source\TypingAid.ahk")
 global g_doRunLogFiles
  if(g_doRunLogFiles)
 run,log\Wordlist.ahk.log.txt
@@ -133,14 +133,14 @@ WinWaitClose,TypingAid ahk_class AutoHotkey,, 2
 ifWinNotExist,TypingAid
 {
    if(FileExist("%A_WorkingDir%\TypingAid.ahk")){
-              lll(A_LineNumber, "Wordlist.ahk", "Run, %A_WorkingDir%\Source\TypingAid.ahk 17-08-04_15-46")
+              lll(A_LineNumber, A_LineFile, "Run, %A_WorkingDir%\Source\TypingAid.ahk 17-08-04_15-46")
 global g_doRunLogFiles
  if(g_doRunLogFiles)
 run,log\Wordlist.ahk.log.txt
 
        run , %A_WorkingDir%\TypingAid.ahk ; is not working : source is twice:  %A_WorkingDir%\Source\TypingAid.ahk, , min
    } else{
-           lll(A_LineNumber, "Wordlist.ahk", "Run, %A_WorkingDir%\Source\TypingAid.ahk")
+           lll(A_LineNumber, A_LineFile, "Run, %A_WorkingDir%\Source\TypingAid.ahk")
 global g_doRunLogFiles
  if(g_doRunLogFiles)
 run,log\Wordlist.ahk.log.txt
@@ -167,7 +167,7 @@ ifWinNotExist , Typing_Aid_everywhere_multi_clone.ahk
 {
    fexist := FileExist ("%A_WorkingDir%\Typing_Aid_everywhere_multi_clone.ahk" )
    if( !fexist ){
-        lll(A_LineNumber, "Wordlist.ahk", "Run, %A_WorkingDir%\Source\TypingAid.ahk 17-08-04_15-46")
+        lll(A_LineNumber, A_LineFile, "Run, %A_WorkingDir%\Source\TypingAid.ahk 17-08-04_15-46")
 global g_doRunLogFiles
  if(g_doRunLogFiles)
 run,log\Wordlist.ahk.log.txt
@@ -193,10 +193,10 @@ g_WordListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", A_ScriptDir . "\Wordl
    if (!g_WordListDB )
    {
       tooltip, Problem opening database '%A_ScriptDir%\WordlistLearned.db' - fatal error...
-      lll(A_LineNumber, "Wordlist.ahk",Last_A_This . " sleep,15000 ")
+      lll(A_LineNumber, A_LineFile,Last_A_This . " sleep,15000 ")
       sleep,15000
       ; exitapp
-      lll(A_LineNumber, "Wordlist.ahk",Last_A_This . " reload ")
+      lll(A_LineNumber, A_LineFile,Last_A_This . " reload ")
       reload ; 02.04.2017 12:47 17-04-02_12-47 Http://SL5.net
    }
 errorLog =
@@ -230,11 +230,11 @@ OK
           m = !WordlistSize: Oops i am triggered :D 17-04-02_13-52 (from: Wordlist.ahk~%A_LineNumber%)
         Sleep,2500
 
- ;lll(A_LineNumber, "Wordlist.ahk",Last_A_This . " reload " )
+ ;lll(A_LineNumber, A_LineFile,Last_A_This . " reload " )
 global g_doRunLogFiles
  if(g_doRunLogFiles)
 run,log\%A_LineFile%.log.txt
-        lll(A_LineNumber, "Wordlist.ahk",Last_A_This . " reload ")
+        lll(A_LineNumber, A_LineFile,Last_A_This . " reload ")
         Reload
           MsgBox,5 ,!WordlistSize ,Oops i am triggered :D 17-04-02_13-52 (from: %A_LineFile%~%A_LineNumber%), 5
           ; that is very seldom triggerend. 18.04.2017 20:17

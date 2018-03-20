@@ -49,6 +49,9 @@ varExist(ByRef v) {
 	return &v = &n ? 0 : v = "" ? 2 : 1
 }
 
+
+
+
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
  lll(ByRef ln, scriptName, text := "") {
 global g_ignReg
@@ -91,6 +94,11 @@ if(0){
 		FileAppend, % A_LineNumber l, lll.log.txt
 		return
 	}}
+
+if(!Instr(logFileName,scriptName)){ ; plausibillity check . hopefully never happesns. addet becouse of strange bug
+	Clipboard := "`n scriptName=" scriptName  "`n logFileName=" logFileName " `n(" A_LineFile "~" A_LineNumber ")"
+	Msgbox,ups `n Clipboard = `n`n %Clipboard% `n (%A_LineFile%~%A_LineNumber%)
+}
 
 ;l:=A_LineNumber ": scriptName = " scriptName n " logFileName = " logFileName n " GLOBAL_lllog_only_this_scriptName = " GLOBAL_lllog_only_this_scriptName n n
 ;FileAppend, % l, lll.log.txt
@@ -172,7 +180,7 @@ if(0){
     msgtext := text
 
 
-	msg.= scriptName . ">" . ln  . msgtext  . "`n"
+	msg.= scriptName "(ignSN=" . g_ignReg["saveLogFiles"]["scriptName"] . ")>" ln msgtext "`n"
 	;~ msg.= ";>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>`n`n"
 
 	global lll
@@ -644,7 +652,7 @@ runCopyQ_Ctrl_Shift_v(){
   ; ^+v!; ^+v!; ^+v!; ^+v!; ^+v!; ^+v!; ^+v!; ^+vCopyQ ahk_class QWidget
     ; ^+v7!; ^+v!; ^+v!; ^+v!; ^+v!; ^+v\SL5_AHK_Refactor_engine\SL5_AHK_Refactor_engine\SL5_AHK_Refactor_engine
     Last_A_This:=A_ThisFunc . A_ThisLabel . " p"
-    lll(A_LineNumber, "keysEveryWhere.ahk",Last_A_This)
+    lll(A_LineNumber, A_LineFile,Last_A_This)
 	
     ToolTip1sec(A_LineNumber . " " .  A_LineFile . " " . Last_A_This)
 ; 
@@ -1368,7 +1376,7 @@ setSearchAreaToWinTitleArea(winTitle){
 }
 ;>>>>>>>> setSearchAreaToWinTitleArea >>>> 171024094739 >>>> 24.10.2017 09:47:39 >>>>
 DynaRun(TempScript, pipename=""){
-	TempScript := "#" . "ErrorStdOut`n" . TempScript
+	; TempScript := "#" . "ErrorStdOut`n" . TempScript
    static _:="uint",@:="Ptr"
 try  ; i dont want disturbing error messages
 {

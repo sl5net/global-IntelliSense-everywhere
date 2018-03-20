@@ -5,7 +5,8 @@
 
 ;<<<<<<<< g_ignReg <<<< 180224082501 <<<< 24.02.2018 08:25:01 <<<<
 if(InStr(A_ComputerName,"SL5")) ; do ignore nothing
-global g_ignReg := { feedbackMsgBox:{tit:".^", text:".^"} ,          saveLogFiles: {ln:".^", scriptName:".^", text:".^"},                    sqlQuery: {ln:".^", scriptName:".^", text:".^"},                    hotKeyStuff: {ln:".^", scriptName:".^", text:".^"},                    runLogFile: {ln:".^", scriptName:".^", text:".^"} } ;;;; regEx ignoreConfigList ;;;;
+global g_ignReg := { feedbackMsgBox:{tit:".^", text:".^"} ,          saveLogFiles: {ln:".^", scriptName:"token1803201013", text:".^"},                    sqlQuery: {ln:".^", scriptName:".^", text:".^"},                    hotKeyStuff: {ln:".^", scriptName:".^", text:".^"},                    runLogFile: {ln:".^", scriptName:".^", text:".^"} } ;;;; regEx ignoreConfigList ;;;;
+; this "token1803201013" helps sometimes to debug this list byitself
 ; please use it like this:     if( 1<RegExMatch(0 . A_ScriptName, g_ignReg["saveLogFiles"]["scriptName"])	|| ......
         ; OR: the regEx .^ never match anything. if you use .^ i recomand using: if( RegExMatch(ln, g_ignReg["saveLogFiles"]["ln"])	|| ......
 ; https://autohotkey.com/boards/viewtopic.php?f=6&t=44696&p=202322#p202322
@@ -472,9 +473,7 @@ ahkSource .= temp
     ; FileDeleteAsyncDynaRun(A_WorkingDir . "\temp.ahk" , 500)
     Sleep,40 ; you need to use it minimum of 3 seconds
 
-global g_doSaveLogFiles
-
-    lll("`n" . A_LineNumber, A_ScriptName, "FileDeleteAsyncDynaRun(temp.ahk , 4000)")
+    ; lll("`n" . A_LineNumber, A_ScriptName, "FileDeleteAsyncDynaRun(temp.ahk , 4000)")
 
     g_tooltipText = WaitNotActive, %activeTitle%
     ; WinWaitNotActive [, WinTitle, WinText, Seconds, ExcludeTitle, ExcludeText]
@@ -667,7 +666,7 @@ global g_lineNumberFeedback
    m = '%wordlistNEW%' = wordlistNEW  `n '%wordlistDir%' = wordlistDir  `n  '%activeTitle%' = activeTitle  `n 
 global g_doSaveLogFiles
 
-lll(A_LineNumber, "Typing_Aid_everywhere_multi_clone.ahk" ,m)
+lll(A_LineNumber, A_LineFile ,m)
 
    lineB := "<<<<<<<<<<<<<<<<<<<<<<`n"
    lineE := ";>>>>>>>>>>>>>>>>>>>>>>`n"
@@ -693,12 +692,12 @@ ahkCode := RegExReplace( ahkCodeInsideFile , "`;\s*dontDeleteThisPlaceholder" , 
    m = '%wordlistNEW%' = wordlistNEW  `n '%activeTitle%' = activeTitle  `n 
 global g_doSaveLogFiles
 
-lll(A_LineNumber, "Typing_Aid_everywhere_multi_clone.ahk" , "`n" . m)
+lll(A_LineNumber, A_LineFile , "`n" . m)
 wordlistNEW := DynaRunGetClipboard(ahkCode)
    m = '%wordlistNEW%' = wordlistNEW  `n '%activeTitle%' = activeTitle  `n 
 global g_doSaveLogFiles
 
-lll(A_LineNumber, "Typing_Aid_everywhere_multi_clone.ahk" , "`n" . m)
+lll(A_LineNumber, A_LineFile , "`n" . m)
 
 worlistExtension := SubStr(wordlistNEW, -3)
 if( worlistExtension  <> ".txt" ) {

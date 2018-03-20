@@ -608,7 +608,7 @@ CheckWord(Key) {
 
 global g_doSaveLogFiles
 
-lll(A_LineNumber, A_LineFile, Key " = Key `n" . WordIndex " = WordIndex `n"  . g_NumKeyMethod . " = g_NumKeyMethod `n " . "`n 17-07-16_14-16" )
+lll(A_LineNumber, A_LineFile, Key " = Key `n" . WordIndex " = WordIndex `n"  . g_NumKeyMethod . " = g_NumKeyMethod `n " )
 
 
 

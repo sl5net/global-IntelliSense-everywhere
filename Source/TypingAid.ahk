@@ -9,7 +9,7 @@ SetKeyDelay, -1, -1
 SetWinDelay, -1
 SetControlDelay, -1
 
-#Include *i %A_ScriptDir%\inc_ahk\init_global.init.inc.ahk
+#Include %A_ScriptDir%\inc_ahk\init_global.init.inc.ahk
 
 fnReceive_wordlistAddress := Func("Receive_wordlistAddress").Bind(1)
 ; OnMessage(0x4a, "Receive_WM_COPYDATA")  ; 0x4a is WM_COPYDATA  ; deprecated 15.02.2018 10:26
@@ -450,7 +450,16 @@ return
 checkWordlistTXTfile_sizeAndModiTime:
     SetTimer,checkInRegistryChangedWordlistAddress,Off
 
-    FileGetSize, WordlistSize, %wordlist%
+    if(!FileExist(wordlist)){
+        wordlist := removesSymbolicLinksFromFileAdress( A_ScriptDir "\..\Wordlists\_globalWordListsGenerated\_global.txt" )
+    }
+    if(!FileExist(wordlist)){
+        MsgBox,ups !FileExist(wordlist = %wordlist%) 99999
+    }
+
+
+
+FileGetSize, WordlistSize, %wordlist%
     FileGetTime, WordlistModified, %wordlist%, M
     FormatTime, WordlistModified, %WordlistModified%, yyyy-MM-dd HH:mm:ss
 
@@ -461,7 +470,8 @@ checkWordlistTXTfile_sizeAndModiTime:
         WordlistLastSize := row[2]
         break
     }
-    doReadWordlistTXTfile := (WordlistSize <> WordlistLastSize || WordlistModified <> WordlistLastModified)
+    ; doReadWordlistTXTfile := (WordlistSize && WordlistModified && (WordlistSize <> WordlistLastSize || WordlistModified > WordlistLastModified))
+    doReadWordlistTXTfile := (WordlistSize <> WordlistLastSize || WordlistModified > WordlistLastModified || !WordlistLastSize || !WordlistLastSize)
     if(doReadWordlistTXTfile){
         ;msgbox, doReadWordlistTXTfile 654654654
         ReadInTheWordList()
@@ -651,7 +661,7 @@ feedbackMsgBox(msg,msg,1,1)
 }
 return
 
-
+;
 /*
     ObjRegisterActive(Object, CLSID, Flags:=0)
     

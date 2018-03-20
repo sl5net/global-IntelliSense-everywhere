@@ -9,17 +9,17 @@ if(!ActiveClass){
 ActiveClass := activeClassManipulation(ActiveClass, activeTitle)
 activeClass := ActiveClass ; ActiveClass is deprecated but in use ;) 10.08.2017 21:45
 
-; Tooltip,>%ActiveClass%< = ActiveClass  `n >%activeTitle%< = activeTitle  `n (from: activeClassManipulation.inc.ahk / %A_ScriptName% ~%A_ThisFunc%~%A_LineNumber%) token:1708112343
+; Tooltip,>%ActiveClass%< = ActiveClass  `n >%activeTitle%< = activeTitle  `n (from: activeClassManipulation.inc.ahk / %A_LineFile% ~%A_ThisFunc%~%A_LineNumber%) token:1708112343
 
 
 activeClassManipulation(ActiveClass, activeTitle := ""){
       
       if(RegExMatch( ActiveClass , "^_" )){ ; dont tuch this !! :) 11.08.2017 21:44
-        ;tip = :) found `n "^_" `n >%ActiveClass%< = ActiveClass  `n >%activeTitle%< = activeTitle  `n (from: activeClassManipulation.inc.ahk / %A_ScriptName% ~%A_ThisFunc%~%A_LineNumber%) token:1708120003
+        ;tip = :) found `n "^_" `n >%ActiveClass%< = ActiveClass  `n >%activeTitle%< = activeTitle  `n (from: activeClassManipulation.inc.ahk / %A_LineFile% ~%A_ThisFunc%~%A_LineNumber%) token:1708120003
         ;Tooltip,% tip
         ; lll(A_LineNumber, "activeClassManipulation.inc.ahk", tip )
 
-        ; msgbox,:) found `n "^_" `n %ActiveClass% `n (activeClassManipulation.inc.ahk / %A_ScriptName% ~%A_ThisFunc%~%A_LineNumber%)
+        ; msgbox,:) found `n "^_" `n %ActiveClass% `n (activeClassManipulation.inc.ahk / %A_LineFile% ~%A_ThisFunc%~%A_LineNumber%)
         ; ExitAPp
         ;Sleep,1000
         return, % ActiveClass

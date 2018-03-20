@@ -99,7 +99,7 @@ if( RegExMatch( activeTitle  , "i)(\.ahk)" ) || instr( activeTitle , "\TypingAid
       }
       FileAppend, _____global generated lib|r|%wl%`n , % wl
       FileAppend, _____global generated lib|rr||ahk|run,%wl%`n, % wl
-      FileAppend, _____global generated lib|rr||ahk|run,..\Wordlists\_globalWordListsGenerated\_ahk_global.txt`n, % wl
+      FileAppend, _____global generated lib|rr||ahk|run,..\_globalWordListsGenerated\_ahk_global.txt`n, % wl
 
       Sleep, 100
       
@@ -252,9 +252,10 @@ maybeSuperglobalWordList(wordlistNEW, wordlistNEW_time_between , ActiveClass, ac
           
           ; created token=17-08-10_16-17
     if(InStr(activeTitle, "token=17-08-10_16-17")){
-      msg= :( tying aid was to slow with updating the `n action rejacted. reload `n 17-08-10_16-27
+      msg= :( script was to slow with updating the `n action rejacted. reload `n 17-08-10_16-27
       lll(A_LineNumber, A_LineFile, msg )
       ToolTip,%msg% 17-08-10_16-33
+        Msgbox,%msg%`n (%A_LineFile%~%A_LineNumber%) )
       SetTitleMatchMode, 2
       WinWaitNotActive,% activeTitle
       Reload
@@ -270,16 +271,24 @@ contend =
 
 ; '%activeTitle%' ; = activeTitle . ist manchmal leer. sometimes emtpy. it not a error. tet it for e.g. with OpenOffice-Aps
 ; #Include ..\_globalWordLists\examplesForBeginners.txt
-___open global library|rr||ahk|run,..\.\Wordlists\_globalWordLists\_global.txt
-___open class library|rr||ahk|run,..\.\Wordlists\%ActiveClass%\_global.txt
-___open window library |rr||ahk|run,..\.\Wordlists\%ActiveClass%\%wordlistNEW%
+___open global library|rr||ahk|run,_globalWordLists\_global.txt
+___open class library|rr||ahk|run,%ActiveClass%\_global.txt
+___open window library |rr||ahk|run,%ActiveClass%\%wordlistNEW%
 )
      FileAppend,% "",   % "..\Wordlists\" . ActiveClass . "\_global.txt"
 if( FileExist("..\Wordlists\" . ActiveClass . "\" . wordlistNEW) ){
     Msgbox,ups wordlistNEW = %wordlistNEW% exist already ==> EXIT `n (%A_LineFile%~%A_LineNumber%) )
     EXIT
 }
+if( !FileExist("..\Wordlists\" . ActiveClass . "\_global.txt") ){
+    Msgbox,ups ==> EXIT `n (%A_LineFile%~%A_LineNumber%) )
+    EXIT
+}
      FileAppend,% contend,   % "..\Wordlists\" . ActiveClass . "\" . wordlistNEW
+if( !FileExist("..\Wordlists\" . ActiveClass . "\" . wordlistNEW) ){
+    Msgbox,ups ==> EXIT `n (%A_LineFile%~%A_LineNumber%) )
+EXIT
+}
      Sleep,100
       msgbox,%wordlistNEW% = wordlistNEW ,`%wordlistNEW`% = wordlistNEW 18-03-06_13-31
 
