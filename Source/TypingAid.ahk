@@ -48,7 +48,7 @@ global g_doSaveLogFiles
     lll("`n" . A_LineNumber, A_ScriptName, temp . " STARTING first lines :) ")
 
 
-maxLinesOfCode4length1 := 900
+maxLinesOfCode4length1 := 900 ;
 
 SetTimer, saveIamAllive, 8000 ; setinterval
 SetTimer,checkInRegistryChangedWordlistAddress,1000 ; RegRead, wordlistActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlist
@@ -552,7 +552,7 @@ checkInRegistryChangedWordlistAddress:
 
     if(g_doAskBevoreChangingWordlist && WordlistSize > g_minBytesNeedetToAskBevoreChangingWordlist){
         AHKcodeMsgBox := "#" . "NoTrayIcon `n "
-        temp = msgbox,,wordlistChangedInRegistry, Would you use new list now? ``n ``n Say goodbye to? (%WordlistSize% bytes < %g_minBytesNeedetToAskBevoreChangingWordlist%) ``n  %wordlist%
+        temp = msgbox,,wordlistChangedInRegistry, Would you use new list now? ``n ``n Say goodbye to? (%WordlistSize% bytes > %g_minBytesNeedetToAskBevoreChangingWordlist%) ``n  %wordlist%
         AHKcodeMsgBox .= temp
         if(g_FLAGmsgbox){
             g_FLAGmsgbox := false ; just clicked msgboxWindow
