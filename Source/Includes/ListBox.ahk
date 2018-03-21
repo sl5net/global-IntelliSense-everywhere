@@ -679,9 +679,14 @@ else if(0){
          }
             
       }
-      
-      Gui, ListBoxGui: Show, NoActivate X%g_ListBoxPosX% Y%ListBoxPosY% H%ListBoxActualSizeH% W%ListBoxActualSizeW%, Word List Appears Here.
+
+try {
+      Gui, ListBoxGui: Show, NoActivate X%g_ListBoxPosX% Y%ListBoxPosY% H%ListBoxActualSizeH% W%ListBoxActualSizeW%, Word List Appears Here. 
       Gui, ListBoxGui: +LastFound +AlwaysOnTop
+} catch {
+   lll(A_LineNumber, A_LineFile, "ERROR Gui, ListBoxGui proably not ready ")
+   return 
+}      
       
       IfEqual, g_ListBox_Id,
       {
