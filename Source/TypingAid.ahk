@@ -512,7 +512,7 @@ return
 ;<<<<<<<< checkInRegistryChangedWordlistAddress <<<< 180319214428 <<<< 19.03.2018 21:44:28 <<<<
 checkInRegistryChangedWordlistAddress:
 
-if(InStr(A_ComputerName,"SL5"))
+if(false && InStr(A_ComputerName,"SL5"))
     ToolTip5sec(wordlist " `n(" A_LineNumber " " A_LineFile . " )" )
 
     ;SetTimer,checkWordlistTXTfile_sizeAndModiTime,Off

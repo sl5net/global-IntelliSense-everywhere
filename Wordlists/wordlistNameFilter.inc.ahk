@@ -33,7 +33,7 @@ wordlistDir  := "..\Wordlists\SciTEWindow"
       wordlistDir := A_ScriptDir
 
   isSlowMotion := true
-} ; demo Mode ende.
+} ; demo Mode ende. ( A_ScriptName == "wordlistNameFilter.inc.ahk" )
 
 ;ToolTip,`n (%A_LineFile%~%A_LineNumber%)
 ;Sleep,2000
@@ -76,8 +76,18 @@ getWordlistNEW173129( activeTitle, ActiveClass, wordlistNEW, wordlistDir ) {
  ; Anhang speichern ahk_class #32770
  
 ; Sourcetree ahk_class HwndWrapper[SourceTree.exe;;2705bdea-7ac8-4b39-b851-91e598ce9055] ; mouseWindowTitle=0xd508d8   
-if ( RegExMatch( activeTitle , "\b(Sourcetree)\b" ) && RegExMatch( ActiveClass , "SourceTreeexe" )  ) {
-	  ;Msgbox,%ActiveClass%=ActiveClass`n (%A_LineFile%~%A_LineNumber%) 
+tip=%activeTitle%=activeTitle`n %ActiveClass%=ActiveClass`n (%A_LineFile%~%A_LineNumber%) 
+ToolTip,%tip%
+;Clipboard := tip
+if(!activeTitle && !ActiveClass){
+      Msgbox,%tip% this should never happens `n (%A_LineFile%~%A_LineNumber%) 
+}
+if(0 && !activeTitle){
+      Msgbox,%tip% this should never happens `n (%A_LineFile%~%A_LineNumber%) 
+}
+
+if ( RegExMatch( activeTitle , "i)Sourcetree" ) || RegExMatch( ActiveClass , "i)SourceTree" )  ) {
+	  ; Msgbox,%ActiveClass%=ActiveClass`n (%A_LineFile%~%A_LineNumber%) 
       return "..\_globalWordLists\SourceTree"
 }	  
 if ( RegExMatch( activeTitle , "\b(docker|DOS)\b" ) ) 
