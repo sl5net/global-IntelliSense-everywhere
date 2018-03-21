@@ -417,11 +417,12 @@ if(0){
 l2 := StrLen(fileContent)
 if(1 && l1 > l2){ ; proof it test it
     FileSave(fileContent, wordlist )
-    msgbox,`% wordlist " is saved (l1 > l2) (%A_LineFile%~%A_LineNumber%) (" A_LineFile "~" A_LineNumber ") ---- " fileContent
+    ;msgbox,`% wordlist " 12is saved (l1 > l2) (%A_LineFile%~%A_LineNumber%) (" A_LineFile "~" A_LineNumber ") ---- " fileContent
+    tooltip,`% wordlist " 12is saved (l1 > l2) (%A_LineFile%~%A_LineNumber%) (" A_LineFile "~" A_LineNumber ") ---- " fileContent
 }
 
 
-;
+; 
 
 if(1){
     ; dirty bug fix ._Generated.txt 04.03.2018 10:44

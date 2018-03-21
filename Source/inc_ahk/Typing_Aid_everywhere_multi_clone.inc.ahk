@@ -87,7 +87,10 @@ if(!wordlistNEWarchivePath)
 
 ; _%wordlistNEWarchivePath%|r|Here you could find your library
 
-      FileAppend, `; '%at%' = at  `n `;  (line:%A_LineNumber%) `n%initialWordList% `n, % wordlistNEWarchivePath
+     StringReplace, lineFileRelative, A_LineFile , % A_ScriptDir,Source, All
+    ;Msgbox,%LineFileRelative%`n (%A_LineFile%~%A_LineNumber%) )
+
+      FileAppend, `; '%at%' `; (%LineFileRelative%~%A_LineNumber%) `n%initialWordList% `n, % wordlistNEWarchivePath
    Sleep,500
 
    ; End of: if(!FileExist(wordlistNEWarchivePath))
@@ -1058,8 +1061,7 @@ wordlistFileName := RegExReplace(wordlistNEWarchivePath,".*\\([^\\]+)$","$1") ; 
 
 initialWordList =
 (
-; %activeTitle% ; = activeTitle 17-08-10_16-03
-; #Include ..\_globalWordLists\examplesForBeginners.txt
+; #Include ..\_globalWordLists\examplesForBeginners.txt ; updated: 21.03.2018 07:33
 ___your library open|rr||ahk|run,%wordlistFileName%
 )
 ; EndOf filling the template variable with useful examples 12.07.2017 21:18
