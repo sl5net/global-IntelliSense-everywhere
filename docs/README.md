@@ -1,4 +1,4 @@
-# global-IntelliSense-everywhere 
+ï»¿# global-IntelliSense-everywhere 
 
 English: If you can not imagine what this is, watch this video or ask a friend what an intellisense is.
 
@@ -33,16 +33,16 @@ https://www.heise.de/download/product/autohotkey-20763
 oder: https://autohotkey.com/
 - download: https://github.com/sl5net/global-IntelliSense-everywhere
 - Starte start.ahk
-2. Öffne ein Windows-Prograamm, z.B. notepad++ oder eine Webseite usw.
-3. Drücke "_" zwei oder dreimal (wenn keine Liste erscheint probiere es in wenigen Sekunden noch einmal)
-4. Wähle dann aus der Liste den ersten Eintrag via Taste "1" (create own project dir) und bearbeite die Wortliste
-5. Öffne ein Windows-Prograamm, z.B. notepad++ oder eine Webseite usw. und warte Sekunden
+2. Ã–ffne ein Windows-Prograamm, z.B. notepad++ oder eine Webseite usw.
+3. DrÃ¼cke "_" zwei oder dreimal (wenn keine Liste erscheint probiere es in wenigen Sekunden noch einmal)
+4. WÃ¤hle dann aus der Liste den ersten Eintrag via Taste "1" (create own project dir) und bearbeite die Wortliste
+5. Ã–ffne ein Windows-Prograamm, z.B. notepad++ oder eine Webseite usw. und warte Sekunden
 6. Beginne irgendetwas zu schreiben ...
 7. Falls tieferem Interesse:
 - https://github.com/sl5net/global-IntelliSense-everywhere/blob/master/Wordlists/_globalWordLists/examplesForBeginners.txt
 - https://www.youtube.com/watch?v=elLsl8lj0K8
 - Lese diese README Datei
-(Verbesserungsvorschläge, Kritik, Fragen sind ausdrücklich erwünscht. Vielen Dank.)
+(VerbesserungsvorschlÃ¤ge, Kritik, Fragen sind ausdrÃ¼cklich erwÃ¼nscht. Vielen Dank.)
 
 
 Please configure wordlist by hit _ key.
