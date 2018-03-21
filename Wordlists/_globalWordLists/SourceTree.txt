@@ -4,11 +4,7 @@ ___your library open|rr||ahk|run,SourceTree.txt
 
 Small prettify to make it more readable. Without significance for the functionality. You do not need to change anything.
 
-prettify|r|Small prettify to make it more readable. Without significance for the functionality. You do not need to change anything.
-prettify2|r|Small prettify to make it more readable. Without significance for the functionality. You do not need to change anything.
-prettify3|r|Small prettify to make it more readable. Without significance for the functionality. You do not need to change anything.
+prettify|rr||ahk|q=Small prettify
+translate.google.de|rr||ahk|run,https://translate.google.de
 
 hey from :) SourceTree
-hey2 from :) SourceTree
-hey3 from :) SourceTree
-

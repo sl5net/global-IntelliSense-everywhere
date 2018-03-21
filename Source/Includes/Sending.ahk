@@ -400,6 +400,8 @@ if( RegExMatch( activeTitle , "\.(json|ts|css|html) - PhpStorm" ) && substr( g_S
 ;AHKcode := RegExReplace(AHKcode, "#include[ ]*,[ ]*([\.]{1,2}\\\w)", "#include " . aScriptDir2wordlistFolder . "\\$1" ) ; dayTimeHello|rr||ahk|#include,..\xyz\sendDayTimeHello.ahk
 ; AHKcode := RegExReplace(AHKcode, "#include[ ]+([\.]{1,2}\\\w)", "#include " . aScriptDir2wordlistFolder . "\\$1" ) ; dayTimeHello|rr||ahk|#include ..\xyz\sendDayTimeHello.ahk
 
+regEx := "i)(http|https):"
+if(!RegExMatch(AHKcode, regEx))
 AHKcode := RegExReplace(AHKcode, "i)(#include|run)[ ]*( |,)[ ]*", "$1$2" . wordlistFolderOfThisWordlist . "\" ) ; dayTimeHello|rr||ahk|#include ..\xyz\sendDayTimeHello.ahk
 
 ;clipboard := AHKcode
