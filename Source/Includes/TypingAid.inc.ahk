@@ -256,14 +256,11 @@ ProcessKey(InputChar,EndKey) {
    }
 
    ;Wait till minimum letters 
-   IF ( true && StrLen(g_Word) < prefs_Length ) ; 04.08.2017 15:17 changed by sly Oops lets see what happens :D
+   IF ( true && StrLen(g_Word) < prefs_Length ) ; 04.08.2017 15:17 changed by sl5 Oops lets see what happens :D
    {
 global g_doSaveLogFiles
 
-lll(A_LineNumber, A_LineFile, "g_Word=" . g_Word . " `n`n ==>j CloseListBox()")
-global g_doRunLogFiles
- if(g_doRunLogFiles)
-run,log\%A_LineFile%.log.txt
+      lll(A_LineNumber, A_LineFile, "g_Word=" . g_Word . " `n`n ==>j CloseListBox()")
       CloseListBox()
       Return
    }
@@ -494,8 +491,8 @@ InitializeHotKeys() {
    
    HotKey, $^+c, On
 
-   IfEqual, prefs_ArrowKeyMethod, Off
-   {
+   ; Msgbox,%prefs_ArrowKeyMethod% = prefs_ArrowKeyMethod`n (%A_LineFile%~%A_LineNumber%)
+   If(1 || prefs_ArrowKeyMethod == "Off") { ; switched to always do by SL5 21.03.2018 19:04
       Hotkey, $^Enter, Off
       Hotkey, $^Space, Off
       Hotkey, $Tab, Off
@@ -1160,12 +1157,8 @@ InactivateAll(){
    ;Force unload of Keyboard Hook and WinEventHook
    Input
    SuspendOn()
-global g_doSaveLogFiles
 
 lll(A_LineNumber, A_LineFile, "CloseListBox()")
-global g_doRunLogFiles
- if(g_doRunLogFiles)
-run,log\%A_LineFile%.log.txt
 
    CloseListBox()
    MaybeSaveHelperWindowPos()

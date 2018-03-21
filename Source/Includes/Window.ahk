@@ -264,11 +264,8 @@ GetIncludedActiveWindowGuts() {
       ;Check Caret Position again
       CheckForCaretMove("LButton")
       ShowListBox()
-   } else {
-   
-   
+   } else
       CloseListBox()
-   }
    g_Active_Id :=  ActiveId
    g_Active_Pid := ActivePid
    g_Active_Process := ActiveProcess
