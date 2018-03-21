@@ -12,7 +12,7 @@ typical start (english):
 from:
 https://www.heise.de/download/product/autohotkey-20763
 or: https://autohotkey.com/ 
-- download: https://github.com/sl5net/global-IntelliSense-everywhere
+- download: https://github.com/sl5net/global-IntelliSense-everywhere/zipball/master/
 - Start start.ahk
 2. open your win-app, for e.g. notepad++ or a website etc. and wait seconds
 3. Press "_" two or three times (if no list appears, try again in a few seconds)
