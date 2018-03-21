@@ -1,0 +1,54 @@
+a) reinvent as little as possible
+, b) be backwards compatible
+, c) compatible with other scripts and programs
+, d) simple
+, but e) also interesting for experts. All that works.
+
+Example for compatibility (to a, b):
+The selection of an entry is similar to the selection of e.g. at notepad ++
+In notepad ++ you can select (last entries) as follows:
+Alt + D or Alt + F (opens the file menu) and then a number (1 to 9).
+This is almost the same in g_IntelliSense:
+__ (opens the list) and then tap a number (1 to 9).
+
+Example for compatibility (to a, b):
+The simplest wordlists are text files. 
+Just copy a text from Wikipedia into the list, done.
+
+Example for compatibility (to a, b):
+More intelligent word lists are programmable. For this purpose any script / programming language should be used. 
+Currently only configured / possible for Auto Hotkey. 
+For this purpose existing old word lists can be used / extended.
+
+Example of integrability (to c):
+The script does not occupy any shortcuts. It does not use a GUI. 
+It always generates a suggestion list, which may be ignored. 
+All configuration commands begin with __. 
+Again, this could theoretically, be reconfigured, 
+because even these are again simply text files that are inherited from (point e for experts).
+
+to a) or d) intelligibility / simplicity:
+The number of word lists is infinite. Word lists can inherit from each other. 
+The location of a word list is well defined (e: can be changed individually).
+Place = ClassName \ Window Name
+
+whey d) simple?
+all you need to remember is to type __ .
+
+place for e) experts?
+for e.g. you change the superGlobal wordlist (inherit).
+for e.g. you change the global wordlist (inherit). its inside the class folder.
+for e.g. you could change/programm the place to save lists by regular expressions.
+for e.g. you could trigger, run your own scipts instead of using a word ... try, help, supprt, comment it. thanks :)
+
+Why all these points? Why is that important to me? 
+
+And it is and remains open source. 
+Therefore, it must also a, b, c, d) remain as understandable as possible. 
+Others should be able to improve it or even repair it. It helps me. 
+You will only be able to earn money indirectly. It helps to remember and work faster, etc.
+
+(Seeh, 02.03.2018)
+
+
+
