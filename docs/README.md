@@ -33,9 +33,9 @@ https://www.heise.de/download/product/autohotkey-20763
 oder: https://autohotkey.com/
 
 - download: 
-[[download 1|https://codeload.github.com/sl5net/global-IntelliSense-everywhere/zip/master]]
+[download 1](https://codeload.github.com/sl5net/global-IntelliSense-everywhere/zip/master)
 oder 
-[[download 2|https://github.com/sl5net/global-IntelliSense-everywhere/zipball/master/]]
+[download 2](https://github.com/sl5net/global-IntelliSense-everywhere/zipball/master/)
 
 
  https://codeload.github.com/sl5net/global-IntelliSense-everywhere/zip/master or  https://github.com/sl5net/global-IntelliSense-everywhere/zipball/master/
