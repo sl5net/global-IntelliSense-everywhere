@@ -1,4 +1,4 @@
-# global-IntelliSense-everywhere 
+﻿# global-IntelliSense-everywhere 
  
 English: If you can not imagine what this is, watch this video or ask a friend what an intellisense is.
 
