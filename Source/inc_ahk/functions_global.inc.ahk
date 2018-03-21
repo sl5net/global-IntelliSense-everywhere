@@ -89,11 +89,15 @@ if(0){
 		FileAppend, % A_LineNumber l, lll.log.txt
 		return
 	}
+
     if( RegExMatch( text, g_ignReg["saveLogFiles"]["text"]) ){
 		return
 		FileAppend, % A_LineNumber l, lll.log.txt
 		return
 	}}
+
+	; if(0 && Instr(text,"append"))
+	;	Msgbox,% text " | " g_ignReg["saveLogFiles"]["text"] "445555555"
 
 if(!Instr(logFileName,scriptName)){ ; plausibillity check . hopefully never happesns. addet becouse of strange bug
 	Clipboard := "`n scriptName=" scriptName  "`n logFileName=" logFileName " `n(" A_LineFile "~" A_LineNumber ")"

@@ -14,7 +14,7 @@ loop,9999
    secondsProgrammIsNotMoving := timestampyyMMddHHmmss
    
    if(secondsProgrammIsNotMoving > 4) {
-Msgbox,ist not moving since %secondsProgrammIsNotMoving% sec :-( `n (%A_ScriptName%~%A_LineNumber%) 
+Msgbox,ist not moving since %secondsProgrammIsNotMoving% sec :-( `n (%A_LineFile%~%A_LineNumber%) 
    }
 
    if(false){
@@ -30,4 +30,4 @@ Msgbox,ist not moving since %secondsProgrammIsNotMoving% sec :-( `n (%A_ScriptNa
 }
 
 
-; Msgbox,`n (%A_ScriptName%~%A_LineNumber%) 
+; Msgbox,`n (%A_LineFile%~%A_LineNumber%)

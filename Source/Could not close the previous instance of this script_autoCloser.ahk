@@ -67,7 +67,7 @@ Could not close the previous instance of this script.  Keep waiting?
 
   IfWinActive,TypingAid.ahk ahk_class #32770,%text2%
   send,n ; no dont keep waiting . do this also. if it may not was closed . 12.07.2017 20:39 
-  ToolTip,Typing: Could not close the previous instance of this script. `n %A_ScriptName%:%A_LineNumber% `n %counter% = counter
+  ToolTip,Typing: Could not close the previous instance of this script. `n %A_LineFile%:%A_LineNumber% `n %counter% = counter
 }
 
 return

@@ -74,6 +74,12 @@ getWordlistNEW173129( activeTitle, ActiveClass, wordlistNEW, wordlistDir ) {
  ; Select Path SunAwtDialog
  ; Open File or Project ahk_class SunAwtDialog
  ; Anhang speichern ahk_class #32770
+ 
+; Sourcetree ahk_class HwndWrapper[SourceTree.exe;;2705bdea-7ac8-4b39-b851-91e598ce9055] ; mouseWindowTitle=0xd508d8   
+if ( RegExMatch( activeTitle , "\b(Sourcetree)\b" ) && RegExMatch( ActiveClass , "SourceTreeexe" )  ) {
+	  ;Msgbox,%ActiveClass%=ActiveClass`n (%A_LineFile%~%A_LineNumber%) 
+      return "..\_globalWordLists\SourceTree"
+}	  
 if ( RegExMatch( activeTitle , "\b(docker|DOS)\b" ) ) 
       return "..\_globalWordLists\docker"
 	  

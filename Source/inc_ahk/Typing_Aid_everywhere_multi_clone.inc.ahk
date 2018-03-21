@@ -324,7 +324,11 @@ if(includeFileSContentWillBeNeedsSaved )
   ; All we have to do know is to  use this file. therefore we only copying it to the active used file. it will be overwritten. 12.07.2017 21:31
 
   ExitAPP_if_NOT_wordlistNEWarchivePath_and_NOT_wordlistNEW(A_LineNumber, A_ThisFunc, wordlistNEWarchivePath, wordlistGeneratedPath , wordlistNEW)
-  FileCopy, % wordlistNEWarchivePath, % wordlistActivePath  , 1
+  if(0){ ; deprecated 21.03.2018 11:00
+      Msgbox,%wordlistNEWarchivePath% 2 %wordlistActivePath% `n (%A_LineFile%~%A_LineNumber%)
+      lll(A_LineNumber, A_LineFile, wordlistNEWarchivePath " FileCopy too " wordlistActivePath)
+      FileCopy, % wordlistNEWarchivePath, % wordlistActivePath  , 1
+    }
   return, 1
 } ; EndOf function wordlistNEWactivate( wordlistDir , wordlistNEW, wordlistActive , typingAidSourcePath )
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -365,22 +369,26 @@ disableCopyQ() ; enableCopyQ() ;
 
 
 wordlistOLDbackup( wordlistDir , wordlistOLD){
+    if(!wordlistDir) ; TODO dirty bugFix 21.03.2018 11:36
+          Return
  global g_lineNumberFeedback
  g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
-
+    lll(A_LineNumber, A_LineFile, wordlistDir wordlistOLD " FileCopy too " wordlistDir wordlistOLD . ".backup.txt")
    FileCopy, % wordlistDir . "\" . wordlistOLD , % wordlistDir . "\" . wordlistOLD . ".backup.txt", 1
+    ;Msgbox,`n (%A_LineFile%~%A_LineNumber%)
    return 1
 } 
 
 
 
 wordlistOLDdisable( typingAidSourcePath, wordlistActive){
+      Return 1 ; Todo: dirtyBugFix  , deprecated 21.03.2018 11:33
  global g_lineNumberFeedback
  g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
    wordlistActive = % typingAidSourcePath . "\" . wordlistActive
    wordlistDisable = % typingAidSourcePath . "\" . wordlistActive ".backup.txt"
-
+    lll(A_LineNumber, A_LineFile, wordlistActive " FileCopy too " wordlistDisable)
    FileCopy, % wordlistActive  , % wordlistDisable , 1
    return 1
 } 
@@ -403,9 +411,10 @@ runTypingAidAHKifNotExist( typingAidAHK ){
                 ; gosub,couldIfindMyself
                 msg := "Run, typingAidAHK"
                 ; Run, % typingAidAHK
-MsgBox, run TypingAid `n  `n (%A_LineFile%~%A_LineNumber%)
+                if(0){
+                    MsgBox, run TypingAid `n  `n (%A_LineFile%~%A_LineNumber%)
                 RunAs,Administrator, % typingAidAHK
-
+                }
                 tooltip, '%msg%' = msg  `n (line:%A_LineNumber%)
 global g_doSaveLogFiles
 
@@ -800,6 +809,7 @@ FileWrite(sayHelloCode, sayHelloFunctionInc){
    if(FileExist(sayHelloFunctionInc))
       FileDelete, % sayHelloFunctionInc
    Sleep,100
+   lll(A_LineNumber, A_LineFile, "FileAppend too " sayHelloFunctionInc)
    FileAppend, % sayHelloCode, % sayHelloFunctionInc
    return 1
 }
@@ -1151,10 +1161,12 @@ if(!wordlistNEWarchivePath){
     if(FileExist(wordlistGeneratedPath))
         FileDelete, %wordlistGeneratedPath%
     Sleep,60
+    lll(A_LineNumber, A_LineFile, "FileAppend too " wordlistGeneratedPath)
     FileAppend,% includeFileSContent, % wordlistGeneratedPath
     ; Sleep,20
     FileRead, fileContent, %wordlistNEWarchivePath%
     ;Sleep,20
+    lll(A_LineNumber, A_LineFile, "FileAppend too " wordlistGeneratedPath)
     FileAppend,% fileContent, % wordlistGeneratedPath
     if(false)lll(A_LineNumber, A_LineFile, "SAVED: " . wordlistGeneratedPath)
     Sleep,60

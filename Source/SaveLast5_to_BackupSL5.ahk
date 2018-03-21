@@ -10,8 +10,8 @@ fileExtension=php,ahk,js,csv,htm,html,txt,mdb,bas
 ; example:
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-; Msgbox,%A_ScriptFullPath% = `n%A_ScriptFullPath%  `n fullfile=%fullfile% `n `n (from: %A_ScriptName%~%A_LineNumber%) 
-; Msgbox,%A_ScriptDir% = `n%A_ScriptDir%  `n fullfile=%fullfile% `n `n (from: %A_ScriptName%~%A_LineNumber%) 
+; Msgbox,%A_ScriptFullPath% = `n%A_ScriptFullPath%  `n fullfile=%fullfile% `n `n (from: %A_LineFile%~%A_LineNumber%) 
+; Msgbox,%A_ScriptDir% = `n%A_ScriptDir%  `n fullfile=%fullfile% `n `n (from: %A_LineFile%~%A_LineNumber%) 
 
 #SingleInstance force
 ;~ The word IGNORE skips the dialog box and leaves the old instance running. In other words, attempts to launch an already-running script are ignored.
@@ -23,7 +23,7 @@ SetWorkingDir, % scriptDir
 #Include %A_ScriptDir%\inc_ahk\init_global.init.inc.ahk
 
 #Include %A_ScriptDir%\inc_ahk\ScriptNameLetterIcon.inc.ahk
-;Msgbox,%HardDriveLetter%`n (%A_ScriptName%~%A_LineNumber%) 
+;Msgbox,%HardDriveLetter%`n (%A_LineFile%~%A_LineNumber%) 
 
 feedbackMsgBoxCloseAllWindows()
 ; feedbackMsgBox(A_ScriptName,"18-01-06_16-26")
@@ -71,10 +71,10 @@ if(false)
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ;~ open navigation for ahk-developer
 ;~ autoload.ahk * SciTE4AutoHotkey [3 of 3] ahk_class SciTEWindow,
-IfWinExist, %A_ScriptName% * SciTE4AutoHotkey
+IfWinExist, %A_LineFile% * SciTE4AutoHotkey
 	run, AHK Code Viewer.ahk "%A_ScriptFullPath%"
 else
-IfWinExist, %A_ScriptName% - SciTE4AutoHotkey
+IfWinExist, %A_LineFile% - SciTE4AutoHotkey
 	run, AHK Code Viewer.ahk "%A_ScriptFullPath%"
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 }
@@ -107,11 +107,11 @@ para4=%4%
 para5=%5%
 subFolderNameForBackDRIVE= %subFolderNameForBackDRIVE%
 %subFolderNameForBackUps% = subFolderNameForBackUps 
-(%A_ScriptName%~%A_LineNumber%)
+(%A_LineFile%~%A_LineNumber%)
 )
     ;feedbackMsgBox(A_ScriptName,msg)
 
-	; Msgbox,%subFolderNameForBackDRIVE% `n  %subFolderNameForBackUps%`n (%A_ScriptName%~%A_LineNumber%) 
+	; Msgbox,%subFolderNameForBackDRIVE% `n  %subFolderNameForBackUps%`n (%A_LineFile%~%A_LineNumber%) 
 	; subFolderNameForBackUps=fre\private\Google_Drive\fax.sl5net\backup
 }
 if(para3){
@@ -125,7 +125,7 @@ para4=%4%
 para5=%5%
 subFolderNameForBackDRIVE= %subFolderNameForBackDRIVE%
 %subFolderNameForBackUps% = subFolderNameForBackUps 
-(%A_ScriptName%~%A_LineNumber%)
+(%A_LineFile%~%A_LineNumber%)
 ==> ExitApp
 )
     feedbackMsgBox(A_ScriptName,msg)
@@ -153,12 +153,12 @@ if(0){
 if("debugging" AND false)
 	fullfile:=A_ScriptFullPath
 
-; Msgbox,%fullfile% `n thanks for going (from: %A_ScriptName%~%A_LineNumber%) 
+; Msgbox,%fullfile% `n thanks for going (from: %A_LineFile%~%A_LineNumber%) 
 
 
 if(not fullfile)
 {
-	msg=%A_ScriptName% expects (first) parameter fullfile `n like this `n %A_ScriptName% R:\blabla\someThink.ahk `n i recommand you to use it with tools like `n gulpJS or TheFolderSpy.exe (please read Read me.txt *f) `n or PsychoFolder.exe from Ferruh Mavituna. `n (%A_ScriptName%~%A_LineNumber%) 
+	msg=%A_LineFile% expects (first) parameter fullfile `n like this `n %A_LineFile% R:\blabla\someThink.ahk `n i recommand you to use it with tools like `n gulpJS or TheFolderSpy.exe (please read Read me.txt *f) `n or PsychoFolder.exe from Ferruh Mavituna. `n (%A_LineFile%~%A_LineNumber%) 
 	feedbackMsgBox(A_ScriptName,msg)
 	ExitApp
 	
@@ -204,15 +204,15 @@ fileExtension            = %fileExtension%
 backUpFilePostfixModus   = %backUpFilePostfixModus%
 show_tooltip   = %show_tooltip%
 A_UserName     = %A_UserName%
-%A_ScriptName%~%A_LineNumber%
+%A_LineFile%~%A_LineNumber%
 )
 	;feedbackMsgBox(A_ScriptName,msg)
-	;Msgbox,%msg% `n (%A_ScriptName%~%A_LineNumber%)
+	;Msgbox,%msg% `n (%A_LineFile%~%A_LineNumber%)
 	versionBackup(dir,subFolderNameForBackUps,fileExtension,backUpFilePostfixModus,show_tooltip)
 
 	if(dirNameWithoutFile){
 		msg2 = fullfile=%fullfile%,  fileNameWithoutDir=%fileNameWithoutDir%,  `n dirNameWithoutFile=%dirNameWithoutFile%, extName=%extName%, `n  fileName_no_ext=%fileName_no_ext%, driveName=%driveName% `n 
-		msg=dirNameWithoutFile ==> ExitApp %msg2% `n (%A_ScriptName%~%A_LineNumber%) 
+		msg=dirNameWithoutFile ==> ExitApp %msg2% `n (%A_LineFile%~%A_LineNumber%) 
        ; feedbackMsgBox(A_ScriptName,msg)
 
 		ExitApp
@@ -235,10 +235,10 @@ versionBackup(m_dir, m_subFolderNameForBackUps, m_fileExtension, m_backUpFilePos
 	if(m_show_tooltip)
 		ToolTip2sec(m_dir . " " . m_fileExtension)
 
-    ;MsgBox,stop `n = FolderAdrBackUp `n (%A_ScriptName%~%A_LineNumber%)
+    ;MsgBox,stop `n = FolderAdrBackUp `n (%A_LineFile%~%A_LineNumber%)
 
 	
-	;msg = %m_dir% = m_dir `n (%A_ScriptName%~%A_LineNumber%)
+	;msg = %m_dir% = m_dir `n (%A_LineFile%~%A_LineNumber%)
 	;feedbackMsgBox(A_ScriptName,msg)
 	
 	;~ MsgBox,%m_backUpFilePostfixModus%
@@ -256,7 +256,7 @@ versionBackup(m_dir, m_subFolderNameForBackUps, m_fileExtension, m_backUpFilePos
 		global subFolderNameForBackDRIVE
 		if(subFolderNameForBackDRIVE)
 			StringReplace,dirTemp,dirTemp, %HardDriveLetter%:\,%subFolderNameForBackDRIVE%:\
-		msg = fileCreateDirS(%dirTemp% ... ) `n (%A_ScriptName%~%A_LineNumber%)
+		msg = fileCreateDirS(%dirTemp% ... ) `n (%A_LineFile%~%A_LineNumber%)
 		;feedbackMsgBox(A_ScriptName,msg)
 
 global folderAddressBackUps
@@ -265,7 +265,7 @@ global folderAddressBackUps
 (
 %dirTemp% = dirTemp
 %m_subFolderNameForBackUps% = m_subFolderNameForBackUps
-%backUpFolderRoot% = backUpFolderRoot `n (%A_ScriptName%~%A_LineNumber%)
+%backUpFolderRoot% = backUpFolderRoot `n (%A_LineFile%~%A_LineNumber%)
 )
         ;feedbackMsgBox(A_ScriptName,msg)
 
@@ -276,17 +276,17 @@ global folderAddressBackUps
 		global subFolderNameForBackDRIVE
 		if(subFolderNameForBackDRIVE)
 			StringReplace,m_dir,dirTemp, %HardDriveLetter%:\,%subFolderNameForBackDRIVE%:\
-		msg = fileCreateDirS(%dirTemp% ... ) `n (%A_ScriptName%~%A_LineNumber%)
+		msg = fileCreateDirS(%dirTemp% ... ) `n (%A_LineFile%~%A_LineNumber%)
 		if(!dirTemp){
 		    feedbackMsgBox(A_ScriptName,"Oops !dirTemp " . msg)
 		}
 		backUpFolderRoot := fileCreateDirS(dirTemp, m_subFolderNameForBackUps)
-        msg = %backUpFolderRoot% = backUpFolderRoot `n (%A_ScriptName%~%A_LineNumber%)
+        msg = %backUpFolderRoot% = backUpFolderRoot `n (%A_LineFile%~%A_LineNumber%)
         feedbackMsgBox(A_ScriptName,msg)
 		;msgbox,% msg
 		exitapp
 	}
-	msg = %loopFilePattern% `n (%A_ScriptName%~%A_LineNumber%)
+	msg = %loopFilePattern% `n (%A_LineFile%~%A_LineNumber%)
 	;feedbackMsgBox(A_ScriptName,msg)
 	
 	Loop, %loopFilePattern%, , 1
@@ -313,7 +313,7 @@ global folderAddressBackUps
 			}
 		}
 		if(isUsefulFileExt == false){
-			msg=this_ext=%this_ext% `n loopExt=%loopExt% `n isUsefulFileExt == false `n ==> continue (%A_ScriptName%~%A_LineNumber%) 
+			msg=this_ext=%this_ext% `n loopExt=%loopExt% `n isUsefulFileExt == false `n ==> continue (%A_LineFile%~%A_LineNumber%) 
 			; feedbackMsgBox(A_ScriptName,msg)
 			continue
 		}
@@ -322,7 +322,7 @@ global folderAddressBackUps
 		FolderAdrBackUp:=backUpFolderRoot . SubStr(A_LoopFileDir,3)
 
 
-		; MsgBox,backUpFolderRoot=%backUpFolderRoot% A_LoopFileDir=%A_LoopFileDir% `n (%A_ScriptName%~%A_LineNumber%) 
+		; MsgBox,backUpFolderRoot=%backUpFolderRoot% A_LoopFileDir=%A_LoopFileDir% `n (%A_LineFile%~%A_LineNumber%) 
 		;~ ExitApp
 		
 		
@@ -331,20 +331,20 @@ global folderAddressBackUps
 		
 		msg = 
 (
-%A_ScriptName%~%A_LineNumber%
+%A_LineFile%~%A_LineNumber%
 %loopFilePattern% = loopFilePattern
 %fileExtensionArray0% = fileExtensionArray0
 %A_LoopFileDir% = A_LoopFileDir
 %backUpFolderRoot% = backUpFolderRoot
 %FolderAdrBackUp% = FolderAdrBackUp
-fileCreateDirS(%FolderAdrBackUp%,"")  `n (%A_ScriptName%~%A_LineNumber%)
+fileCreateDirS(%FolderAdrBackUp%,"")  `n (%A_LineFile%~%A_LineNumber%)
 )
 ;feedbackMsgBox(A_ScriptName,msg)
 
 		fileCreateDirS(FolderAdrBackUp,"")
 		;~ FolderAdrBackUp:=A_LoopFileDir . "\" . m_subFolderNameForBackUps
 		
-		; MsgBox,%FolderAdrBackUp%  `n = FolderAdrBackUp `n (%A_ScriptName%~%A_LineNumber%) 
+		; MsgBox,%FolderAdrBackUp%  `n = FolderAdrBackUp `n (%A_LineFile%~%A_LineNumber%) 
 
 		if(isDir(A_LoopFileFullPath))
 		{
@@ -355,7 +355,7 @@ fileCreateDirS(%FolderAdrBackUp%,"")  `n (%A_ScriptName%~%A_LineNumber%)
 		FoundPos := RegExMatch(m_dir,"[%]+")
 		if(FoundPos>0)
 			{
-			msg=strang signs in dir name ... better continue this `n (%A_ScriptName%~%A_LineNumber%) 
+			msg=strang signs in dir name ... better continue this `n (%A_LineFile%~%A_LineNumber%) 
 			feedbackMsgBox(A_ScriptName,msg)
 			continue
 		}
@@ -364,13 +364,13 @@ fileCreateDirS(%FolderAdrBackUp%,"")  `n (%A_ScriptName%~%A_LineNumber%)
 		
 		FoundPos := RegExMatch(m_dir,"[%]+")
 		if(FoundPos>0){
-			msg=better continue this `n (%A_ScriptName%~%A_LineNumber%) 
+			msg=better continue this `n (%A_LineFile%~%A_LineNumber%) 
 			feedbackMsgBox(A_ScriptName,msg)
 			continue
 		}
 		FoundPos := RegExMatch(A_LoopFileName,"[%]+")
 		if(FoundPos>0){
-			msg=better continue this `n (%A_ScriptName%~%A_LineNumber%) 
+			msg=better continue this `n (%A_LineFile%~%A_LineNumber%) 
 			feedbackMsgBox(A_ScriptName,msg)
 			continue
 		}
@@ -381,7 +381,7 @@ fileCreateDirS(%FolderAdrBackUp%,"")  `n (%A_ScriptName%~%A_LineNumber%)
 			;~ ToolTip, :-(	%A_LoopFileName% dir=%dir% FileSize=%FileSize%
 			if(m_show_tooltip)
 				ToolTip2sec(":( FileSize <= 0 :" . A_LoopFileName . "           bzw " . A_LoopFileFullPath)
-			msg=better continue this `n (%A_ScriptName%~%A_LineNumber%) 
+			msg=better continue this `n (%A_LineFile%~%A_LineNumber%) 
 			feedbackMsgBox(A_ScriptName,msg)
 			continue
 		}
@@ -397,7 +397,7 @@ fileCreateDirS(%FolderAdrBackUp%,"")  `n (%A_ScriptName%~%A_LineNumber%)
 
 		fileCreateDirS(sizeTxtFilePath,"")
 		
-			;MsgBox,%sizeTxtFilePath%  `n = sizeTxtFilePath `n %FolderAdrBackUp%  `n = FolderAdrBackUp `n %FileAdrBackup% = FileAdrBackup `n (%A_ScriptName%~%A_LineNumber%) 
+			;MsgBox,%sizeTxtFilePath%  `n = sizeTxtFilePath `n %FolderAdrBackUp%  `n = FolderAdrBackUp `n %FileAdrBackup% = FileAdrBackup `n (%A_LineFile%~%A_LineNumber%) 
 			
 		; Path ??
 		if(not FileExist(sizeTxtFilePath))
@@ -441,11 +441,11 @@ fileCreateDirS(%FolderAdrBackUp%,"")  `n (%A_ScriptName%~%A_LineNumber%)
 			if( NOT FileAdrBackup){
 				if(1){
    	; fileCopy_NAME_INJECTION(m_source, m_destination, m_dest_injectString_type, m_dest_ext)
-    ; Msgbox,%m_source% %m_destination% %m_dest_injectString_type% %m_dest_ext% `n (%A_ScriptName%~%A_LineNumber%)
+    ; Msgbox,%m_source% %m_destination% %m_dest_injectString_type% %m_dest_ext% `n (%A_LineFile%~%A_LineNumber%)
 		; FileAdrBackupDAY=%m_destination%.%inJ%.%m_dest_ext%
 		FolderAdrBackUpROOT := FolderAdrBackUp
 		; FolderAdrBackUp := FolderAdrBackUp . "." . A_Index
-		;msgbox,(%A_ScriptName%~%A_LineNumber%)
+		;msgbox,(%A_LineFile%~%A_LineNumber%)
 		;fileCreateDirS(FolderAdrBackUp,"")
 		; destinationDirBackup := destinationDir . "." . inJ 
 		FileAdrBackup := FolderAdrBackUp . "\" . A_LoopFileName
@@ -453,7 +453,7 @@ msg=
 (
 %FolderAdrBackUp% 
 %FileAdrBackup% = FileAdrBackup
-(%A_ScriptName%~%A_LineNumber%)
+(%A_LineFile%~%A_LineNumber%)
 )
 ;feedbackMsgBox(A_ScriptName,msg)
 	}
@@ -465,7 +465,7 @@ msg=
 fileSMALEST = %fileSMALEST%
 %FolderAdrBackUp% = FolderAdrBackUp
 %FileAdrBackup% = FileAdrBackup
-(%A_ScriptName%~%A_LineNumber%)
+(%A_LineFile%~%A_LineNumber%)
 )
  ;feedbackMsgBox(A_ScriptName,msg)
 
@@ -478,10 +478,10 @@ fileSMALEST = %fileSMALEST%
 				s:=SubStr(A_Sec,1,1) ; only one digit. its enough
 				if(1){
    	; fileCopy_NAME_INJECTION(m_source, m_destination, m_dest_injectString_type, m_dest_ext)
-    ; Msgbox,%m_source% %m_destination% %m_dest_injectString_type% %m_dest_ext% `n (%A_ScriptName%~%A_LineNumber%)
+    ; Msgbox,%m_source% %m_destination% %m_dest_injectString_type% %m_dest_ext% `n (%A_LineFile%~%A_LineNumber%)
 		; FileAdrBackupDAY=%m_destination%.%inJ%.%m_dest_ext%
 		; FolderAdrBackUp := FolderAdrBackUp . "." . aIndex_54321
-				;msgbox,(%A_ScriptName%~%A_LineNumber%)
+				;msgbox,(%A_LineFile%~%A_LineNumber%)
 
 		; fileCreateDirS(FolderAdrBackUp,"")
 		;feedbackMsgBox(A_ScriptName,msg)
@@ -489,7 +489,7 @@ fileSMALEST = %fileSMALEST%
 
 		FileAdrBackup := FolderAdrBackUpROOT . ".1-5\" . aIndex_54321 . "\" . A_LoopFileName
 
-            ;msg=%aIndex_54321% = aIndex_54321 %A_ScriptName%~%A_LineNumber%
+            ;msg=%aIndex_54321% = aIndex_54321 %A_LineFile%~%A_LineNumber%
             ;feedbackMsgBox(A_ScriptName,msg)
 			if(A_Index = 1){
                 fileAdr1 := FolderAdrBackUpROOT . ".1-5\1\" . A_LoopFileName
@@ -500,7 +500,7 @@ msg=
 %m_source% = m_source
 %fileAdr1% = fileAdr1
 %m_dest_ext% = m_dest_ext
-%A_ScriptName%~%A_LineNumber%
+%A_LineFile%~%A_LineNumber%
 )
 ;feedbackMsgBox(A_ScriptName,msg)
 ;msgbox,% msg
@@ -522,7 +522,7 @@ msg=
 FileCopy,
   %fileAdr4%,
   %fileAdr5%, 1
-(%A_ScriptName%~%A_LineNumber%)
+(%A_LineFile%~%A_LineNumber%)
 )
 ;feedbackMsgBox(A_ScriptName,msg)
 
@@ -538,7 +538,7 @@ msg=
 (
 FolderAdrBackUpROOT = %FolderAdrBackUpROOT%
 %FolderAdrBackUp% = FolderAdrBackUp
-%A_ScriptName%~%A_LineNumber%
+%A_LineFile%~%A_LineNumber%
 )
 ;feedbackMsgBox(A_ScriptName,msg)
 ;		msgbox,% msg
@@ -546,7 +546,7 @@ FolderAdrBackUpROOT = %FolderAdrBackUpROOT%
 		;feedbackMsgBox(A_ScriptName,msg)
 msg =
 (
-%A_ScriptName%~%A_LineNumber%
+%A_LineFile%~%A_LineNumber%
 m_source = %m_source%
 dir = %dir%
 m_destination    = %m_destination%
@@ -570,7 +570,7 @@ A_UserName = %A_UserName%
 					; FileCopy,% A_LoopFileFullPath, % FileAdrBackup
                     fileCopy_NAME_INJECTION(A_LoopFileFullPath, FileAdrBackup, "folder", m_dest_ext)
 
-					msg= break `n IfNotExist,%FileAdrBackup% `n (%A_ScriptName%~%A_LineNumber%)
+					msg= break `n IfNotExist,%FileAdrBackup% `n (%A_LineFile%~%A_LineNumber%)
 					; feedbackMsgBox(A_ScriptName,msg)
 					break
 				}
@@ -579,7 +579,7 @@ A_UserName = %A_UserName%
 				{
 					fileSizeSMALEST:=fileSize
 					fileSMALEST:=FileAdrBackup
-					msg=fileSMALEST = %fileSMALEST%  `n (%A_ScriptName%~%A_LineNumber%)
+					msg=fileSMALEST = %fileSMALEST%  `n (%A_LineFile%~%A_LineNumber%)
 					feedbackMsgBox(A_ScriptName,msg)
 				}
 			}
@@ -591,7 +591,7 @@ FolderAdrBackUpROOT = %FolderAdrBackUpROOT%
 %fileSMALEST% = fileSMALEST
 %FolderAdrBackUp% = FolderAdrBackUp
 destinationDir = %destinationDir%
-%A_ScriptName%~%A_LineNumber%
+%A_LineFile%~%A_LineNumber%
 )
 ; feedbackMsgBox(A_ScriptName,msg)
 ;tooltip, % msg
@@ -605,13 +605,13 @@ destinationDir = %destinationDir%
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		if(1)
 		{
-			msg=%fileSMALEST% = fileSMALEST  (%A_ScriptName%~%A_LineNumber%)
+			msg=%fileSMALEST% = fileSMALEST  (%A_LineFile%~%A_LineNumber%)
 			;feedbackMsgBox(A_ScriptName,msg)
 			ExitApp
 		}
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-            msg= FileCopy,%A_LoopFileFullPath%,%fileSMALEST% `n (%A_ScriptName%~%A_LineNumber%)
+            msg= FileCopy,%A_LoopFileFullPath%,%fileSMALEST% `n (%A_LineFile%~%A_LineNumber%)
             feedbackMsgBox(A_ScriptName,msg)
 
 			FileCopy,%A_LoopFileFullPath%,%fileSMALEST%,1
@@ -661,7 +661,7 @@ fileCopy_NAME_INJECTION(m_source, m_destination, m_dest_injectString_type, m_des
 	;	inJ:="\" . m_dest_injectString_type
 
 	if( strlen(inJ) < 1 && m_dest_injectString_type <> "folder" ){
-		msg= ( strlen(inJ) < 1 ) `n %m_dest_injectString_type% = m_dest_injectString_type `n (%A_ScriptName%~%A_LineNumber%)
+		msg= ( strlen(inJ) < 1 ) `n %m_dest_injectString_type% = m_dest_injectString_type `n (%A_LineFile%~%A_LineNumber%)
 		feedbackMsgBox(A_ScriptName,msg)
 		return,false
 	}
@@ -672,7 +672,7 @@ fileCopy_NAME_INJECTION(m_source, m_destination, m_dest_injectString_type, m_des
 destinationDir := RegExReplace(m_destination, "[\\/][^\\/]+$")
 destinationName := SubStr(m_destination , Strlen(destinationDir) + 2 )
    	; fileCopy_NAME_INJECTION(m_source, m_destination, m_dest_injectString_type, m_dest_ext)
-    ; Msgbox,%m_source% %m_destination% %m_dest_injectString_type% %m_dest_ext% `n (%A_ScriptName%~%A_LineNumber%)
+    ; Msgbox,%m_source% %m_destination% %m_dest_injectString_type% %m_dest_ext% `n (%A_LineFile%~%A_LineNumber%)
 		; FileAdrBackupDAY=%m_destination%.%inJ%.%m_dest_ext%
 		destinationDirBackupDAY := destinationDir . "." . inJ 
 		FileAdrBackupDAY := destinationDirBackupDAY . "\" . destinationName
@@ -688,27 +688,27 @@ FileAdrBackupDAY = %FileAdrBackupDAY%
 m_dest_injectString_type = %m_dest_injectString_type%
 m_dest_ext = %m_dest_ext%
 A_UserName = %A_UserName%
-%A_ScriptName%~%A_LineNumber%
+%A_LineFile%~%A_LineNumber%
 )
 
-		;Msgbox,%msg% `n (%A_ScriptName%~%A_LineNumber%)
-		;Msgbox,FileAdrBackupDAY=%FileAdrBackupDAY% `n (%A_ScriptName%~%A_LineNumber%)
+		;Msgbox,%msg% `n (%A_LineFile%~%A_LineNumber%)
+		;Msgbox,FileAdrBackupDAY=%FileAdrBackupDAY% `n (%A_LineFile%~%A_LineNumber%)
 		;ExitApp
 		if(!FileExist(destinationDirBackupDAY)){
-				;msgbox,(%A_ScriptName%~%A_LineNumber%)
+				;msgbox,(%A_LineFile%~%A_LineNumber%)
 
 			fileCreateDirS(destinationDirBackupDAY,"")
-			;Msgbox,destinationDirBackupDAY=%destinationDirBackupDAY% `n (%A_ScriptName%~%A_LineNumber%)
+			;Msgbox,destinationDirBackupDAY=%destinationDirBackupDAY% `n (%A_LineFile%~%A_LineNumber%)
 		}
 		if(!InStr(FileExist(destinationDirBackupDAY), "D")){
-			msg=ERROR: its not Exist of is not a Folder `n %destinationDirBackupDAY% `n (%A_ScriptName%~%A_LineNumber%) 
+			msg=ERROR: its not Exist of is not a Folder `n %destinationDirBackupDAY% `n (%A_LineFile%~%A_LineNumber%) 
 			feedbackMsgBox(A_ScriptName,msg)
 		}
 	}
 	IfNotExist,%FileAdrBackupDAY%
 	{
 		FileCopy,%m_source%,%FileAdrBackupDAY%,0 ; dont overwrite = 0
-		;Msgbox,FileAdrBackupDAY=%FileAdrBackupDAY% `n (%A_ScriptName%~%A_LineNumber%)
+		;Msgbox,FileAdrBackupDAY=%FileAdrBackupDAY% `n (%A_LineFile%~%A_LineNumber%)
 
 		return,true
 	}
@@ -744,7 +744,7 @@ A_Index=%A_Index%: = A_Index
 !FileExist(%growingPath%) 
 dir=%dir% 
 addSecondDir=%addSecondDir% 
-%A_ScriptName%~%A_LineNumber%
+%A_LineFile%~%A_LineNumber%
 )
 				;feedbackMsgBox(A_ScriptName,msg)
 				ExitApp
@@ -756,7 +756,7 @@ addSecondDir=%addSecondDir%
 		if(!FileExist(growingPath))
 		{
 			;~ MsgBox, %A_Index% is %growingPath%.
-					;msgbox,(%A_ScriptName%~%A_LineNumber%)
+					;msgbox,(%A_LineFile%~%A_LineNumber%)
 			FileCreateDir,%growingPath%
 		}
 	}

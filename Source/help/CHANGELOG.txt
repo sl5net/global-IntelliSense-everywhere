@@ -13,7 +13,7 @@ Doppelklick auf die Dateiadresse.
 Damit ist jedoch eine kleine Inkonsistenz erzeugt, weil:
 Weiterhin gilt als Basisadresse (Root-Ordner) für die Scritpte Source Ordner. 
 Beispiel zum ausführen eine Datei (bzw. hier auch öffnen):
-run,..\Wordlists\Notepad\_global.txt
+run,..\Notepad\_global.txt
 also nicht
 run,..\Notepad\_global.txt
 Um von dieser Datei zu erben heisst es jetzt aber:

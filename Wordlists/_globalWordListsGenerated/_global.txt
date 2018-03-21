@@ -1,5 +1,7 @@
 ; #Include ..\_globalWordLists\examplesForBeginners.txt
 
+hey you are inside  _globalWordListsGenerated\_global.txt
+
 ; !! importand: never delte this line or this file! with this line you are able to usa a special project configuaratioin 09.08.2017 20:07 17-08-09_20-07
 ___create own project dir or this 1|rr||ahk|#Include,..\activeClassManipulation.inc.ahk `n activeClass := RegExReplace( activeClass, "[\W_]+", "") `n d1 = %A_ScriptDir%\%activeClass% `n  FileCreateDir, %d1% `n sleep,99 `n  FileAppend,"temporary empty file. if exist next view dont use the super _global.txt", %d1%\_create_own_project.flag `n MsgBox,0,created token=17-08-10_16-17,token=17-08-10_16-17,1 `n
 

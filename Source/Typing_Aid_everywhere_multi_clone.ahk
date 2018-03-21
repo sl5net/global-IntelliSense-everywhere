@@ -5,7 +5,7 @@
 
 ;<<<<<<<< g_ignReg <<<< 180224082501 <<<< 24.02.2018 08:25:01 <<<<
 if(InStr(A_ComputerName,"SL5")) ; do ignore nothing
-global g_ignReg := { feedbackMsgBox:{tit:".^", text:".^"} ,          saveLogFiles: {ln:".^", scriptName:"token1803201013", text:".^"},                    sqlQuery: {ln:".^", scriptName:".^", text:".^"},                    hotKeyStuff: {ln:".^", scriptName:".^", text:".^"},                    runLogFile: {ln:".^", scriptName:".^", text:".^"} } ;;;; regEx ignoreConfigList ;;;;
+global g_ignReg := { feedbackMsgBox:{tit:".^", text:".^"} ,          saveLogFiles: {ln:".^", scriptName:"token1803201013", text:"(FileCopy too|FileAppend too)"},                    sqlQuery: {ln:".^", scriptName:".^", text:".^"},                    hotKeyStuff: {ln:".^", scriptName:".^", text:".^"},                    runLogFile: {ln:".^", scriptName:".^", text:".^"} } ;;;; regEx ignoreConfigList ;;;;
 ; this "token1803201013" helps sometimes to debug this list byitself
 ; please use it like this:     if( 1<RegExMatch(0 . A_ScriptName, g_ignReg["saveLogFiles"]["scriptName"])	|| ......
         ; OR: the regEx .^ never match anything. if you use .^ i recomand using: if( RegExMatch(ln, g_ignReg["saveLogFiles"]["ln"])	|| ......
@@ -89,7 +89,8 @@ wordlistDirBase = %sourceDir%\..\Wordlists
 wordlistDirBase = %sourceDir%\..\Wordlists
 typingAidAHK := typingAidSourcePath  . "\TypingAid.ahk"
 typingAidAHK := typingAidSourcePath  . "TypingAid.ahk"
-wordlistActive := sourceDir . "\wordlist.txt"
+; wordlistActive := sourceDir . "\wordlist.txt" ; we dont need it. deprecated 21.03.2018 09:09
+wordlistActive := ""
 wordlistOLD:=""
 
 checkFilePathExistens1704291222(wordlistDirBase, destinDir, sourceDir, typingAidAHK)
@@ -328,7 +329,7 @@ activeTitle = %activeTitle%
 activeClass = %activeClass%
 wordlistNEW = %activeTitle%
 )
-;>>>>>>>>>>>>>>>  demoData =  >>>>>>>>>>>>>>>>>>>>>>><>>>>>>>
+;>>>>>>>>>>>>>>>  demoData =  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 
 
@@ -422,7 +423,7 @@ if(1 && l1 > l2){ ; proof it test it
 }
 
 
-; 
+;
 
 if(1){
     ; dirty bug fix ._Generated.txt 04.03.2018 10:44
@@ -438,9 +439,11 @@ if(1){
 ) ; endOf temp
 ahkSource .= temp
 
-    ahkSource .= "wordlistOLDbackup( wordlistDir , wordlistOLD)" . " `n"
-    ahkSource .= "wordlistOLDdisable( typingAidSourcePath, wordlistActive )" . " `n"
-    ahkSource .= "wordlistNEWactivate( wordlistDir , wordlistNEW, wordlistActive, typingAidSourcePath, activeClass , activeTitle)" . " `n"
+    ; following lines are debrecated
+    ; ahkSource .= "wordlistOLDbackup( wordlistDir , wordlistOLD)" . " `n"
+    ; ahkSource .= "wordlistOLDdisable( typingAidSourcePath, wordlistActive )" . " `n"
+    ; ahkSource .= "wordlistNEWactivate( wordlistDir , wordlistNEW, wordlistActive, typingAidSourcePath, activeClass , activeTitle)" . " `n"
+
     ahkSource .= "varInjects2 := mvarInjects(wordlistDir, wordlistNEW, activeClass, activeTitle) `n"
     if(debugIt)
         ahkSource .= "MsgBox, , debugIt , `% varInjects1 . "" ``n "" . varInjects2 . "" ``n wordlistNEW = '"" . wordlistNEW . ""'  ``n (lineCaller:" . A_LineNumber . ") ``n "" ,9 `n"
@@ -464,7 +467,7 @@ ahkSource .= temp
 
     IfWinNotExist,temp.ahk
     {
-        FileWriteAndRun( ahkSource , "temp.ahk" ) ; wozu ? 13.08.2017 10:52
+        FileWriteAndRun( ahkSource , "temp.ahk" ) ; TODO: wozu ? 13.08.2017 10:52
     } else {
         Tooltip, WinWaitClose   temp.ahk `n (from: %A_LineFile%~%A_LineNumber%)
         WinWaitClose,temp.ahk,,5
@@ -551,6 +554,8 @@ global g_lineNumberFeedback
    FormatTime, timestamp, %A_now%,yy-MM-dd_HH-mm
     wordlistFilterPathBackup := wordlistDirBase . "\" . timestamp . "_" . filterFileName 
 
+
+lll(A_LineNumber, A_LineFile, wordlistFilterPath " FileCopy too " wordlistFilterPathBackup)
    FileCopy, % wordlistFilterPath, % wordlistFilterPathBackup
    FileDelete, % wordlistFilterPath
    Sleep,100
@@ -652,7 +657,7 @@ global g_lineNumberFeedback
 )
  ; MsgBox, % RegExReplace( " -- - -___ _ _ _ __", "[_\s]{2,}" , "_"`)  
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
+ lll(A_LineNumber, A_LineFile, "FileAppend too " wordlistFilterPath)
  FileAppend,  % ahkCodeInsideFile , % wordlistFilterPath ; wordlistNameFilter.inc.ahk
 } 
 return 
@@ -682,6 +687,7 @@ lll(A_LineNumber, A_LineFile ,m)
  if(!fileExist(wordlistFilterPath)) {
    ahkCodeInsideFile := getAhkCodeInsideFile(wordlistDir, wordlistFilterPath )
    FileAppend,  % ahkCodeInsideFile , % wordlistFilterPath ; wordlistNameFilter.inc.ahk
+lll(A_LineNumber, A_LineFile, "FileAppend too " wordlistFilterPath)
    if(!FileExist(wordlistFilterPath))
       MsgBox, :-( `n !FileExist(wordlistFilterPath)) `n  (line:%A_LineNumber%)  '%wordlistFilterPath%' = wordlistFilterPath  `n (line:%A_LineNumber%) `n 
 } else

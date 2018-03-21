@@ -79,7 +79,7 @@ DetectHiddenWindows,On
 SetTitleMatchMode 2
 IfWinNotExist,% A_ScriptName
 {
-   ToolTip, i cant find myself `n ( %A_ScriptName% ) `n FOUNDmyselfCounter = %FOUNDmyselfCounter% `n `n (programmed at 11.07.2017 15:12)
+   ToolTip, i cant find myself `n ( %A_LineFile% ) `n FOUNDmyselfCounter = %FOUNDmyselfCounter% `n `n (programmed at 11.07.2017 15:12)
    ; thats a totally stupid situation, but it happen often.
    ; not always but often.
    ; then i think no autohotkey scrpt should start oter scripts. 
@@ -93,7 +93,7 @@ IfWinNotExist,% A_ScriptName
 }
 FOUNDmyselfCounter += 1
 if(false){
-ToolTip, i FOUND :-) myself yeaah `n not a totally idiot :) `n ( %A_ScriptName% )  `n FOUNDmyselfCounter = %FOUNDmyselfCounter% `n `n  (programmed at 11.07.2017 20:26)
+ToolTip, i FOUND :-) myself yeaah `n not a totally idiot :) `n ( %A_LineFile% )  `n FOUNDmyselfCounter = %FOUNDmyselfCounter% `n `n  (programmed at 11.07.2017 20:26)
 }
 return
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
