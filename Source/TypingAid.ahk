@@ -245,11 +245,11 @@ Return
 ; MsgBox,%keyState_Numpad% = keyState_Numpad (line:%A_LineNumber%) `
 
 $1::
-
 ;~ $!::
 $Numpad1::
 CheckWord("$1")
 return
+
 
 $2:: ; ; some users dont have numpad ; 25.03.2018 15:35
 ;~ $":: ; this is working

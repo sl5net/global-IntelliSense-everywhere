@@ -288,7 +288,11 @@ RecomputeMatches(){
    global prefs_NoBackSpace
    global prefs_ShowLearnedFirst
    global prefs_SuppressMatchingWord
-   
+
+   ;Msgbox,g_Word = %g_Word% (%A_LineFile%~%A_LineNumber%)
+   if(!g_Word) ; if g_Word is empty and you run, it shows the complete list. you want it? maybe sometimes its helpful 25.03.2018 19:42 18-03-25_19-42
+        Return
+
    SavePriorMatchPosition()
 
    ;Match part-word with command 
@@ -493,6 +497,10 @@ InitializeHotKeys() {
    }
    
    ; HotKey, $^+c, On
+
+   ;HotKey, $1, Off ; too Tooltip, `n (from: %A_LineFile%~%A_LineNumber%)
+   ; too too ; 75+ lines in Live Edit Live_Edit Pseudo Live Edit for Chrome Firefox PhpStorm.ahk
+
 
    ; Msgbox,%prefs_ArrowKeyMethod% = prefs_ArrowKeyMethod`n (%A_LineFile%~%A_LineNumber%)
    If(1 || prefs_ArrowKeyMethod == "Off") { ; switched to always do by SL5 21.03.2018 19:04

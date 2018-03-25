@@ -1,11 +1,4 @@
 ; please never delete this wordklst 05.08.2017 10:25
 ___your library open|rr||ahk|run,..\_globalWordLists\_global.txt
 
-now|rr||ahk|Send,% A_NOw
-
-Hallo from _globalWordLists\_global.txt
-A_Working|rr||ahk|send,% A_Working " =A_Working"
-AWorking|rr||ahk|send,% A_Working " =A_Working"
-A_ScriptDir|rr||ahk|send,% A_ScriptDir " =A_ScriptDir"
-AScriptDir|rr||ahk|send,% A_ScriptDir " =A_ScriptDir"
 

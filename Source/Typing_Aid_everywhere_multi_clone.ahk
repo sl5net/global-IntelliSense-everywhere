@@ -194,6 +194,7 @@ global g_lineNumberFeedback
       ;Clipboard:=activeClass
       tip= %activeTitle% ==> continue `n 17.02.2018 22:03 `n (%A_LineFile%~%A_LineNumber%)
        ; lll(A_LineNumber, A_LineFile, tip)
+    ;Msgbox,`n (%A_LineFile%~%A_LineNumber%)
       continue
     }
     if(RegExMatch(activeTitle,"wordlistChangedInRegistry")){

@@ -11,13 +11,14 @@ ___open libraries Folder|rr||ahk|run,% A_WorkingDir . "\..\Wordlists\" ; works 1
 ; ___library name|r|%wordlistNEW%
 
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-; folgende #include befehle funktionieren nur am Dateianfang.
-; folgender inclodiert die gesamte datei:
-#Include ..\_globalWordLists\pfade.txt
-; includiert alles aus der datei was aufss reg-suchmuster passst:
-#Include ..\_globalWordLists\pfade.txt | i)^[ab]+
+; the following #include commands work only at the beginning of the file.
+; following includes the entire file:
+#include,..\_globalWordLists\pfade.txt
+; includes everything from the file that fits on your reg search pattern:
+#include,..\_globalWordLists\pfade.txt | i)^[ab]+
 ; includiert alles aus der datei was NICHT aufs reg-suchmuster passst:
-#Include ..\_globalWordLists\pfade.txt ! i)^[ab]+
+; includes everything from the file which does NOT fit the reg-search pattern:
+#include,..\_globalWordLists\pfade.txt ! i)^[ab]+
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 WordlistFileAdress|rr||ahk|FileReadLine,WordlistFileAdress, wordlist.txt.status.txt, 1 `n send, % WordlistFileAdress
@@ -33,7 +34,7 @@ activeTitle|rr||ahk|FileReadLine,activeTitle, wordlist.txt.status.txt, 3 `n send
 
 
 ScriptDir|rr||ahk|send, % A_ScriptDir ; \\.\pipe 12.08.2017 10:29
-WorkingDir|rr||ahk|send, % A_WorkingDir ; E:\... \TypingAid-master\Source :-) yeaaaaah 12.08.2017 10:36
+WorkingDir|rr||ahk|send, % A_WorkingDir
 libraries Folder|rr||ahk|send, % A_WorkingDir . "\..\Wordlists\" 
 
 dir of your wordlist OPEN|rr||ahk|#Include,%A_ScriptDir%\..\Wordlists\activeClassManipulation.inc.ahk `n d1 = %A_ScriptDir%\..\Wordlists\%activeClass% `n run, % d1 . " === d1" ; .....\Wordlists\Notepad === d1
@@ -127,3 +128,10 @@ AHKdyn wordlist buggy :(|rr|hi :-) welcome to example 6|ahk|send, {enter} your w
 AHKdyn A_ScriptDir|rr||ahk|Send,`%A_ScriptDir`%
 
 AHKdyn login by calling a ahk-script into your wordlist folder|rr||ahk|#include,`%A_ScriptDir`%\..\Wordlists\ChromeWidgetWin1\LoginSecret.ahk
+
+now|rr||ahk|Send,% A_NOw
+
+A_Working|rr||ahk|send,% A_Working " =A_Working"
+AWorking|rr||ahk|send,% A_Working " =A_Working"
+A_ScriptDir|rr||ahk|send,% A_ScriptDir " =A_ScriptDir"
+AScriptDir|rr||ahk|send,% A_ScriptDir " =A_ScriptDir"
