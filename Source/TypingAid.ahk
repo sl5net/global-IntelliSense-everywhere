@@ -307,34 +307,34 @@ CheckWord("$0")
 Return
 
 
-$^Enter::
-$^Space::
-$Tab::
-$Up::
-$Down::
-$PgUp::
-$PgDn::
-$Right::
-$Enter::
-$NumpadEnter::
-EvaluateUpDown(A_ThisHotKey)
-Return
+; $^Enter::
+; $^Space::
+; $Tab::
+; $Up::
+; $Down::
+; $PgUp::
+; $PgDn::
+; $Right::
+; $Enter::
+;$NumpadEnter::
+;EvaluateUpDown(A_ThisHotKey)
+; Return
 
-$^+h::
-MaybeOpenOrCloseHelperWindowManual()
-Return
+; $^+h::
+; MaybeOpenOrCloseHelperWindowManual()
+; Return
 
-$^+c:: 
-AddSelectedWordToList()
-Return
+; $^+c::
+; AddSelectedWordToList()
+; Return
 
-$^+Delete::
-DeleteSelectedWordFromList()
-Return
+; $^+Delete::
+; DeleteSelectedWordFromList()
+; Return
 
-Configuration:
-GoSub, LaunchSettings
-Return
+; Configuration:
+; GoSub, LaunchSettings
+; Return
 
 PauseResumeScript:
 if (g_PauseState == "Paused")
@@ -353,7 +353,7 @@ if (g_PauseState == "Paused")
 Return
 
 ExitScript:
-ExitApp
+    ExitApp
 Return
 ; 
 #Include %A_ScriptDir%\Includes\TypingAid.inc.ahk

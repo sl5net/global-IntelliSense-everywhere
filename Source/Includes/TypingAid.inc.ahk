@@ -485,34 +485,32 @@ InitializeHotKeys() {
 
    IfNotEqual, prefs_LearnMode, On
    {
-      Hotkey, $^+Delete, Off
+      ; Hotkey, $^+Delete, Off ; 25.03.2018 15:59 18-03-25_15-59
    } else {
-      Hotkey, $^+Delete, Off
+      ; Hotkey, $^+Delete, Off ; 25.03.2018 15:59 18-03-25_15-59
       ; We only want Ctrl-Shift-Delete enabled when the listbox is showing.
-      g_EnabledKeyboardHotKeys .= "$^+Delete" . g_DelimiterChar
+      ; g_EnabledKeyboardHotKeys .= "$^+Delete" . g_DelimiterChar ; 25.03.2018 15:59 18-03-25_15-59
    }
    
-   HotKey, $^+c, On
+   ; HotKey, $^+c, On
 
    ; Msgbox,%prefs_ArrowKeyMethod% = prefs_ArrowKeyMethod`n (%A_LineFile%~%A_LineNumber%)
    If(1 || prefs_ArrowKeyMethod == "Off") { ; switched to always do by SL5 21.03.2018 19:04
-      Hotkey, $^Enter, Off
-      Hotkey, $^Space, Off
-      Hotkey, $Tab, Off
-      Hotkey, $Right, Off
-      Hotkey, $Up, Off
-      Hotkey, $Down, Off ; let it OFF. deaktivated from sl5net 15.07.2017 09:43 17-07-15_09-43 . it not helps using google adress bar or so.
-      Hotkey, $PgUp, Off
-      Hotkey, $PgDn, Off
-      HotKey, $Enter, Off
-      Hotkey, $NumpadEnter, Off
+      ; Hotkey, $^Enter, Off
+      ; Hotkey, $^Space, Off
+      ; Hotkey, $Tab, Off
+      ; Hotkey, $Right, Off
+      ; Hotkey, $Up, Off
+      ; Hotkey, $Down, Off ; let it OFF. deaktivated from sl5net 15.07.2017 09:43 17-07-15_09-43 . it not helps using google adress bar or so.
+      ; Hotkey, $PgUp, Off
+      ; Hotkey, $PgDn, Off
+      ; HotKey, $Enter, Off
+      ; Hotkey, $NumpadEnter, Off
    } else {
-      g_EnabledKeyboardHotKeys .= "$Up" . g_DelimiterChar
+      ; g_EnabledKeyboardHotKeys .= "$Up" . g_DelimiterChar
 
-      Hotkey, $Down, Off ; 21.11.2017 15:23 17-11-21_15-23 let it OFF. deaktivated from sl5net  . it not helps using google adress bar or so.
+      ; Hotkey, $Down, Off ; 21.11.2017 15:23 17-11-21_15-23 let it OFF. deaktivated from sl5net  . it not helps using google adress bar or so.
 
-
-global g_doSaveLogFiles
 
    lll(A_LineNumber, A_LineFile, " g_EnabledKeyboardHotKeys .= $Down . g_DelimiterChar")
       g_EnabledKeyboardHotKeys .= "$Down" . g_DelimiterChar
