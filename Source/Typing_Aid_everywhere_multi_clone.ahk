@@ -5,12 +5,12 @@
 
 ;<<<<<<<< g_ignReg <<<< 180224082501 <<<< 24.02.2018 08:25:01 <<<<
 if(InStr(A_ComputerName,"SL5")) ; do ignore nothing
-global g_ignReg := { feedbackMsgBox:{tit:".^", text:".^"} ,          saveLogFiles: {ln:".^", scriptName:"token1803201013", text:"(FileCopy too|FileAppend too)"},                    sqlQuery: {ln:".^", scriptName:".^", text:".^"},                    hotKeyStuff: {ln:".^", scriptName:".^", text:".^"},                    runLogFile: {ln:".^", scriptName:".^", text:".^"} } ;;;; regEx ignoreConfigList ;;;;
+global g_ignReg := { feedbackMsgBox:{tit:".^", text:".^"} ,          saveLogFiles: {ln:".^", scriptName:"token1803201013", text:"\b(FileCopy too|FileAppend too)\b"},                    sqlQuery: {ln:".^", scriptName:".^", text:".^"},                    hotKeyStuff: {ln:".^", scriptName:".^", text:".^"},                    runLogFile: {ln:".^", scriptName:".^", text:".^"} } ;;;; regEx ignoreConfigList ;;;;
 ; this "token1803201013" helps sometimes to debug this list byitself
 ; please use it like this:     if( 1<RegExMatch(0 . A_ScriptName, g_ignReg["saveLogFiles"]["scriptName"])	|| ......
         ; OR: the regEx .^ never match anything. if you use .^ i recomand using: if( RegExMatch(ln, g_ignReg["saveLogFiles"]["ln"])	|| ......
 ; https://autohotkey.com/boards/viewtopic.php?f=6&t=44696&p=202322#p202322
-lll(A_LineNumber, A_LineFile, "hey from ini ")
+lll(A_LineNumber, A_LineFile, "hi from " A_LineFile)
 ;>>>>>>>> g_ignReg >>>> 180224082506 >>>> 24.02.2018 08:25:06 >>>>
 
 
@@ -103,9 +103,10 @@ checkFilePathExistens1704291222(wordlistDirBase, destinDir, sourceDir, typingAid
 activeTitle:=""
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 while(true) {
-SetTitleMatchMode,1
 ; IfWinNotExist,TypingAid - Active
 DetectHiddenWindows,On ; if this is off it does not find in tray 27.04.2017
+;<<<<<<<< IfWinNotExist <<<< 180323140132 <<<< 23.03.2018 14:01:32 <<<<
+SetTitleMatchMode,2
 IfWinNotExist,TypingAid
 {
     if(!FileExist(typingAidAHK)){
@@ -114,13 +115,13 @@ IfWinNotExist,TypingAid
         ExitApp
     }
     ; tooltip, RunWait %typingAidAHK%
-global g_doSaveLogFiles
 
-lll(A_LineNumber, A_LineFile, "Debuggging!  NOT Run % typingAidAHK " ) ; 18-01-20_18-56
+        lll(A_LineNumber, A_LineFile, "Debuggging!  NOT Run % typingAidAHK (23.03.2018 14:24)" ) ; 18-01-20_18-56
 
     ; RunWait, % typingAidAHK 
     ; lll(A_LineNumber, A_LineFile, "RunWait, % typingAidAHK")
 }
+;>>>>>>>> IfWinNotExist >>>> 180323140141 >>>> 23.03.2018 14:01:41 >>>>
 SetTitleMatchMode,2 ; thats my default. do i need it later ? 08.07.2017 14:12
 
 
@@ -192,7 +193,7 @@ global g_lineNumberFeedback
     if(RegExMatch(activeTitle,"^\d:.+")){
       ;Clipboard:=activeClass
       tip= %activeTitle% ==> continue `n 17.02.2018 22:03 `n (%A_LineFile%~%A_LineNumber%)
-        lll(A_LineNumber, A_LineFile, tip)
+       ; lll(A_LineNumber, A_LineFile, tip)
       continue
     }
     if(RegExMatch(activeTitle,"wordlistChangedInRegistry")){
@@ -203,6 +204,7 @@ global g_lineNumberFeedback
       continue ;
     }
     if(RegExMatch(activeTitle,"created_token_17-08-10_16-17")){
+                             ; created_token_17-08-10_16-17
         ;tooltip, WinWaitNotActive,wordlistChangedInRegistry  `n (%A_LineFile%~%A_LineNumber%)
         WinWaitNotActive,created_token_17-08-10_16-17 ahk_class AutoHotkeyGUI
         tooltip,
@@ -432,8 +434,8 @@ if(1){
 
   ; msgbox, `% wordlist
 }
-
-    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlist, `%wordlist`% ; old scool. for compatibiliti thinks 02.03.2018 17:10
+    if(!RegExMatch(wordlist,"created_token_17-08-10_16-17")) ; todo: whey control here? wrong place. quck dirty 25.03.2018 01:36
+        RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlist, `%wordlist`% ; old scool. for compatibiliti thinks 02.03.2018 17:10
 
 }
 ) ; endOf temp
@@ -442,7 +444,7 @@ ahkSource .= temp
     ; following lines are debrecated
     ; ahkSource .= "wordlistOLDbackup( wordlistDir , wordlistOLD)" . " `n"
     ; ahkSource .= "wordlistOLDdisable( typingAidSourcePath, wordlistActive )" . " `n"
-    ; ahkSource .= "wordlistNEWactivate( wordlistDir , wordlistNEW, wordlistActive, typingAidSourcePath, activeClass , activeTitle)" . " `n"
+    ahkSource .= "wordlistNEWactivate( wordlistDir , wordlistNEW, wordlistActive, typingAidSourcePath, activeClass , activeTitle)" . " `n"
 
     ahkSource .= "varInjects2 := mvarInjects(wordlistDir, wordlistNEW, activeClass, activeTitle) `n"
     if(debugIt)
@@ -658,6 +660,7 @@ global g_lineNumberFeedback
  ; MsgBox, % RegExReplace( " -- - -___ _ _ _ __", "[_\s]{2,}" , "_"`)  
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
  lll(A_LineNumber, A_LineFile, "FileAppend too " wordlistFilterPath)
+;msgbox, % wordlistFilterPath " asdf77778"
  FileAppend,  % ahkCodeInsideFile , % wordlistFilterPath ; wordlistNameFilter.inc.ahk
 } 
 return 

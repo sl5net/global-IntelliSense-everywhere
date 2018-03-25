@@ -119,7 +119,7 @@ firstLine := g_SingleMatch[1]
   select := "SELECT * FROM Words WHERE word LIKE '" . SearchValueEscaped . "%' " where
   select := "SELECT * FROM Words WHERE word LIKE 'Trim%' " where
   select := "SELECT * FROM Words WHERE word = 'Trim(String)' " where
-  ; msgbox, '%select%' = select  n (line:%A_LineNumber%) n
+  msgbox, '%select%' = select  n (line:%A_LineNumber%) n
   ; ______________________' ' = SearchValue  n (line:69) n17-07-10_12-21 index= 1
   table := g_WordListDB.Query( select )
  g_WordListDB.BeginTransaction()

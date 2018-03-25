@@ -9,7 +9,10 @@ SetKeyDelay, -1, -1
 SetWinDelay, -1
 SetControlDelay, -1
 
+
 #Include %A_ScriptDir%\inc_ahk\init_global.init.inc.ahk
+
+lll(A_LineNumber, A_LineFile, "hi from " A_LineFile)
 
 fnReceive_wordlistAddress := Func("Receive_wordlistAddress").Bind(1)
 ; OnMessage(0x4a, "Receive_WM_COPYDATA")  ; 0x4a is WM_COPYDATA  ; deprecated 15.02.2018 10:26
@@ -36,6 +39,8 @@ global g_doAskBevoreChangingWordlist := true ; <== works preetty nice :) 19.03.2
 global g_minBytesNeedetToAskBevoreChangingWordlist := 80000 ; <== Minimum bytes. then will be asked before the change 20.03.2018 18:22
 global g_FLAGmsgbox := false
 
+global g_wordListID
+
 wordlist:=wordlistActive
 
 RegRead, wordlist, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlist ; todo: 02.03.2018 12:55 18-03-02_12-55
@@ -53,6 +58,8 @@ maxLinesOfCode4length1 := 900 ;
 SetTimer, saveIamAllive, 8000 ; setinterval
 SetTimer,checkInRegistryChangedWordlistAddress,1000 ; RegRead, wordlistActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlist
 SetTimer,checkWordlistTXTfile_sizeAndModiTime,3000
+ ; SetTimer,wordlistTooltip,222
+
 
 #SingleInstance,Force ; thats sometimes not working : https://autohotkey.com/boards/viewtopic.php?f=5&t=1261&p=144860#p144860
 
@@ -207,6 +214,7 @@ DisableKeyboardHotKeys()
 ;Change the Running performance speed (Priority changed to High in GetIncludedActiveWindow)
 SetBatchLines, -1
 
+g_wordListID := getWordListID(wordlist) ; 24.03.2018 23:02
 ReadInTheWordList()
 
 
@@ -465,18 +473,19 @@ checkWordlistTXTfile_sizeAndModiTime:
     FileGetTime, WordlistModified, %wordlist%, M
     FormatTime, WordlistModified, %WordlistModified%, yyyy-MM-dd HH:mm:ss
 
-    SELECTwordlistmodified := "SELECT wordlistmodified, wordlistsize FROM Wordlists WHERE wordlist = '" . wordlist . "';"
+    SELECTwordlistmodified := "SELECT id, wordlistmodified, wordlistsize FROM Wordlists WHERE wordlist = '" . wordlist . "';"
     ;clipboard := SELECTwordlistmodified ; SELECT wordlistmodified, wordlistsize FROM Wordlists WHERE wordlist = '..\Wordlists\_globalWordListsGenerated\_global.txt';
     ; [2018-03-20 11:56:58] [1] [SQLITE_ERROR] SQL error or missing database (no such table: Wordlists)
     WordsTbl := g_WordListDB.Query(SELECTwordlistmodified)
     For each, row in WordsTbl.Rows
     {
-        WordlistLastModified := row[1]
-        WordlistLastSize := row[2]
+        g_wordListID := row[1]
+        WordlistLastModified := row[2]
+        WordlistLastSize := row[3]
         break
     }
     ; doReadWordlistTXTfile := (WordlistSize && WordlistModified && (WordlistSize <> WordlistLastSize || WordlistModified > WordlistLastModified))
-    doReadWordlistTXTfile := (WordlistSize <> WordlistLastSize || WordlistModified > WordlistLastModified || !WordlistLastSize || !WordlistLastSize)
+    doReadWordlistTXTfile := (WordlistSize <> WordlistLastSize || WordlistModified <> WordlistLastModified || !WordlistLastSize || !WordlistLastSize)
     if(doReadWordlistTXTfile){
         ;msgbox, doReadWordlistTXTfile 654654654
         ReadInTheWordList()
@@ -574,6 +583,7 @@ if(false && InStr(A_ComputerName,"SL5"))
 
         wordlist := wordlistNewTemp
         wordlistOLD := wordlist
+        g_wordListID := getWordListID(wordlist) ; 24.03.2018 23:02
 
         tip=%wordlist% `n(old: %wordlistOLD% `n %A_LineFile%~%A_LineNumber%)
         ToolTip4sec(tip)
@@ -582,7 +592,7 @@ if(false && InStr(A_ComputerName,"SL5"))
         ;if(g_FLAGmsgbox == 0)
             RecomputeMatches()
 
-    ;gosub onLink2wordlistChangedInRegistry ToolTip3sec(A_LineNumber . " " . A_LineFile . " " . Last_A_This)
+    ; gosub onLink2wordlistChangedInRegistry ; ToolTip3sec(A_LineNumber . " " . A_LineFile . " " . Last_A_This)
 return
 ;>>>>>>>> checkInRegistryChangedWordlistAddress >>>> 180319214434 >>>> 19.03.2018 21:44:34 >>>>
 
@@ -591,6 +601,8 @@ return
 
 ;<<<<<<<< onLink2wordlistChangedInRegistry <<<< 180319214441 <<<< 19.03.2018 21:44:41 <<<<
 onLink2wordlistChangedInRegistry:
+    ;Msgbox,RETURN OFF`n (%A_LineFile%~%A_LineNumber%)
+    ;return
     global g_SingleMatch
     global g_FLAGmsgbox
     SetTitleMatchMode,2
@@ -602,10 +614,11 @@ onLink2wordlistChangedInRegistry:
     FormatTime, WordlistModified, %WordlistModified%, yyyy-MM-dd HH:mm:ss
     ;ToolTip4sec(wordlist " = wordlist `n"  WordlistModified  " `n" . A_LineNumber . " " . A_ScriptName . " " . Last_A_This,1,1)
     if(WordlistModiTime_OLD <> WordlistModiTime && WordlistModiTime_OLD ){
-        Msgbox,WordlistModiTime_OLD <> WordlistModiTime `n (%A_LineFile%~%A_LineNumber%)
+        ;Msgbox,WordlistModiTime_OLD <> WordlistModiTime `n (%A_LineFile%~%A_LineNumber%)
         ; ParseWordsCount := ReadWordList()
         ; prefs_Length := setLength(ParseWordsCount, maxLinesOfCode4length1)
 
+        g_wordListID := getWordListID(wordlist) ; 24.03.2018 23:02
         ReadInTheWordList()
         prefs_Length := setLength(ParseWordsCount, maxLinesOfCode4length1)
         ; RebuildDatabase()
@@ -763,3 +776,8 @@ setWordlistFileUpdatedTime:
     WordlistModiTime_OLD:=WordlistModiTime
 return
 ;
+
+wordlistTooltip:
+    tip=%wordlist% `n(old: %wordlistOLD% `n %A_LineFile%~%A_LineNumber%)
+    ToolTip,% tip
+return

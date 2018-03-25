@@ -74,7 +74,7 @@ if(0){
 		;2 indicates that the variable does exist and is empty
 	}
 
-
+if(0){
 	if(is_ignReg_defined ){
 	if( RegExMatch( ln, g_ignReg["saveLogFiles"]["ln"]) ){
 		return
@@ -96,6 +96,7 @@ if(0){
 		return
 	}}
 
+}
 	; if(0 && Instr(text,"append"))
 	;	Msgbox,% text " | " g_ignReg["saveLogFiles"]["text"] "445555555"
 
@@ -184,7 +185,7 @@ if(!Instr(logFileName,scriptName)){ ; plausibillity check . hopefully never happ
     msgtext := text
 
 
-	msg.= scriptName "(ignSN=" . g_ignReg["saveLogFiles"]["scriptName"] . ")>" ln msgtext "`n"
+	msg.= scriptName "(ign:SN=" . g_ignReg["saveLogFiles"]["scriptName"] . ", t=" . g_ignReg["saveLogFiles"]["text"] . ", ln=" . g_ignReg["saveLogFiles"]["ln"] . ")>" ln msgtext "`n"
 	;~ msg.= ";>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>`n`n"
 
 	global lll
@@ -1379,6 +1380,9 @@ setSearchAreaToWinTitleArea(winTitle){
    return mm
 }
 ;>>>>>>>> setSearchAreaToWinTitleArea >>>> 171024094739 >>>> 24.10.2017 09:47:39 >>>>
+
+
+
 DynaRun(TempScript, pipename=""){
 	; TempScript := "#" . "ErrorStdOut`n" . TempScript
    static _:="uint",@:="Ptr"

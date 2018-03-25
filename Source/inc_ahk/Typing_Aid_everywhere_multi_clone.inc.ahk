@@ -1,4 +1,29 @@
+if(InStr(A_ComputerName,"SL5")) ; do ignore nothing. development computer
+global g_ignReg := { feedbackMsgBox:{tit:".^", text:".^"} ,          saveLogFiles: {ln:".^", scriptName:"\b(Window|ListBox)\.ahk", text:"(WordIndex|CloseListBox|HotKeys|g_ListBox_Id)\b"},                    sqlQuery: {ln:".^", scriptName:".^", text:".^"},                    hotKeyStuff: {ln:".^", scriptName:".^", text:".^"},                    runLogFile: {ln:".^", scriptName:".^", text:".^"} } ;;;;
+
+
 ; Indentation_style: https://de.wikipedia.org/wiki/Einrückungsstil#SL5small-Stil
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -6,16 +31,16 @@
 wordlistNEWactivate( wordlistDir , wordlistNEW, wordlistActive , typingAidSourcePath, activeClass := "" , activeTitle := "" ) {
 ; return, 1 ; return spielt keine rolle, quasi void 30.07.2017 12:52 17-07-30_12-52
 
+;Msgbox,n (%A_LineFile%~%A_LineNumber%)
 
   if(1)
-global g_doSaveLogFiles
 
-; lll(A_LineNumber, A_LineFile, ":) _______________ Hello inside temp.ahk _____________"  )
-      
+    lll(A_LineNumber, A_LineFile, ":) _______________ Hello inside " A_LineFile )
+    ; lll(A_LineNumber, A_LineFile, ":) _______________ Hello inside temp.ahk _____________"  )
+
     ; lll(A_LineNumber, A_LineFile, "START function: wordlistNEWactivate"  )
 
 
-    global g_lineNumberFeedback
     g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
 
@@ -27,7 +52,7 @@ global g_doSaveLogFiles
    ; From here we only use wordlistNEWarchivePath
    ; Next time this variable is used here: simplifyNameOfWordlistNEWstep1( wordlistNEW ) {  in line 256   12.07.2017 21:07
 
-if(0 && !WinExist("1:" )){
+if(1 && !WinExist("1:" )){
     msg =
 (
 wordlistNEWarchivePath = '%wordlistNEWarchivePath%'
@@ -37,7 +62,7 @@ wordlistDir = '%wordlistDir%'
 '%A_LineFile%' = A_ScriptName
 '%A_ThisFunc%' = A_ThisFunc
 )
-    ;feedbackMsgBox(msg,msg,1,1)
+    feedbackMsgBox(msg,msg,1,1)
 }
 
 
@@ -94,12 +119,14 @@ if(!wordlistNEWarchivePath)
    Sleep,500
 
    ; End of: if(!FileExist(wordlistNEWarchivePath))
-
+    lll(A_LineNumber, A_LineFile,A_ThisFunc ": "    "saved first time: >" . wordlistNEWarchivePath . "< = Now the new examples-template should be saved" )
     ; Now the new examples-template is saved inside of this file: wordlistNEWarchivePath
     ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 } else {
     ; No example template was used. The content is already there. Inside on this file. And don't need to be generated. 12.07.2017 21:36
-    ;lll(A_LineNumber, A_LineFile,A_ThisFunc ": "    "startREADING: >" . wordlistNEWarchivePath . "< = wordlistNEWarchivePath" )
+    msg:=A_ThisFunc ": "    "startREADING: >" . wordlistNEWarchivePath . "< = wordlistNEWarchivePath"
+    lll(A_LineNumber, A_LineFile,msg)
+    ;Msgbox,%msg%`n (%A_LineFile%~%A_LineNumber%)
 
 ;<<<<<<<<<<<<< startREADING <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
        ; read #include commands
@@ -113,7 +140,7 @@ if(!wordlistNEWarchivePath)
 
 ; lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   "'" . wordlistGeneratedPath . "' = wordlistGeneratedPath `n'" . wordlistNEWarchivePath . " = wordlistNEWarchivePath " )
 
-if(0 && !WinExist("1:" )){
+if(1 && !WinExist("1:" )){
 msg =
 (
 wordlistNEWarchivePath = '%wordlistNEWarchivePath%'
@@ -123,7 +150,8 @@ wordlistDir = '%wordlistDir%'
 '%A_LineFile%' = A_ScriptName
 '%A_ThisFunc%' = A_ThisFunc
 )
-feedbackMsgBox(msg,msg,1,1)
+; feedbackMsgBox(msg,msg,1,1)
+lll(A_LineNumber, A_LineFile, msg )
 }
 
 
@@ -139,13 +167,12 @@ Loop, read, % wordlistNEWarchivePath
            regEx := "i)^[ ]*#include[ ]*(?:,| )[ ]*([^|!\n]+)[ ]*(?:((\||\!))[ ]*([^\n]+))?[ ]*"
            foundPos := RegexMatch( A_LoopReadLine, regEx, matchs)
 
-            msg := includeFilePath " = includeFilePath  `n"
+            msg := " ??? " foundPos " = foundPos `n"
             msg .= A_WorkingDir " = A_WorkingDir `n"
             msg .= A_ScriptDir " = A_ScriptDir `n"
             msg .= A_ScriptFullPath " = A_ScriptFullPath `n"
-            msg .= foundPos " = foundPos `n"
-            msg .= exist_includeFilePath " = exist_includeFilePath  `n`n"
-            ; lll(A_LineNumber, A_LineFile, msg )
+            lll(A_LineNumber, A_LineFile, msg )
+            ;Msgbox,%msg%`n (%A_LineFile%~%A_LineNumber%)
 
            if(foundPos){
             isIncludeFileInside := true
@@ -153,21 +180,23 @@ Loop, read, % wordlistNEWarchivePath
 includeFilePath     := trim(matchs1)
 exist_includeFilePath := (FileExist(includeFilePath)) ? 1 : 0
 if(!exist_includeFilePath){ ; 11.03.201:23 new style/format of adress writing, but try stay compativle to old scripts. TODO deletie it.
+
+    msg := ":( "  includeFilePath " = includeFilePath  `n"
+    msg .= A_WorkingDir " = A_WorkingDir `n"
+    msg .= A_ScriptDir " = A_ScriptDir `n"
+    msg .= A_ScriptFullPath " = A_ScriptFullPath `n"
+    msg .= exist_includeFilePath " = exist_includeFilePath  `n`n"
+    ;msgbox,% msg "(" A_LineFile "~" A_LineNumber ")"\
+    lll(A_LineNumber, A_LineFile, msg )
+
     includeFilePath := RegExReplace(includeFilePath ,"^\.\." , "..\Wordlists")
     ; includeFilePath := "Wordlists\" includeFilePath
     exist_includeFilePath := (FileExist(includeFilePath)) ? 1 : 0
 }
 
-                msg := includeFilePath " = includeFilePath  `n"
-                msg .= A_WorkingDir " = A_WorkingDir `n"
-                msg .= A_ScriptDir " = A_ScriptDir `n"
-                msg .= A_ScriptFullPath " = A_ScriptFullPath `n"
-                msg .= exist_includeFilePath " = exist_includeFilePath  `n`n"
-                ;msgbox,% msg "(" A_LineFile "~" A_LineNumber ")"\
-                lll(A_LineNumber, A_LineFile, msg )
 
             if(!exist_includeFilePath){ ; Backwords compatibible 06.03.2018 11:35 allows old include path; TODO: clean that a day in future. Priority: low. really low TODO: change default. default is inside the if
-                msg := includeFilePath " = includeFilePath `n"
+                msg := ":( " includeFilePath " = includeFilePath `n"
                 msg .= exist_includeFilePath " = exist_includeFilePath  `n`n"
                 includeFilePath := RegExReplace(includeFilePath, "^\.\.\\","") ; ..\ deleted 06.03.2018 11:34
                 includeFilePath := removesSymbolicLinksFromFileAdress( wordlistDir "\" includeFilePath) ; user should could includes direcly from his txt wordlist, without editing the address 05.03.2018 08:15
@@ -178,10 +207,20 @@ if(!exist_includeFilePath){ ; 11.03.201:23 new style/format of adress writing, b
                 msg .= A_ScriptDir " = A_ScriptDir `n"
                 msg .= A_ScriptFullPath " = A_ScriptFullPath `n"
                 msg .= exist_includeFilePath " = exist_includeFilePath  `n`n"
-                ;msgbox,% msg "(" A_LineFile "~" A_LineNumber ")"\
+                ;msgbox,% msg "(" A_LineFile "~" A_LineNumber ")"
                 lll(A_LineNumber, A_LineFile, msg )
                 ;exitapp
+            }else{
+                msg := ":) " includeFilePath " = includeFilePath  `n"
+                msg .= A_WorkingDir " = A_WorkingDir `n"
+                msg .= A_ScriptDir " = A_ScriptDir `n"
+                msg .= A_ScriptFullPath " = A_ScriptFullPath `n"
+                msg .= exist_includeFilePath " = exist_includeFilePath  `n`n"
+                ;msgbox,% msg "(" A_LineFile "~" A_LineNumber ")"
+                lll(A_LineNumber, A_LineFile, msg )
             }
+
+
 
 if(0){
 feedbackMsgBox("isIncludeFileInside = " isIncludeFileInside,A_LineNumber . " " .  A_LineFile,1,1)
@@ -332,6 +371,21 @@ if(includeFileSContentWillBeNeedsSaved )
   return, 1
 } ; EndOf function wordlistNEWactivate( wordlistDir , wordlistNEW, wordlistActive , typingAidSourcePath )
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 restoreOldClipboard(idBackup, ClipboardBackup) {
 
@@ -810,6 +864,7 @@ FileWrite(sayHelloCode, sayHelloFunctionInc){
       FileDelete, % sayHelloFunctionInc
    Sleep,100
    lll(A_LineNumber, A_LineFile, "FileAppend too " sayHelloFunctionInc)
+    ;msgbox,% sayHelloCode
    FileAppend, % sayHelloCode, % sayHelloFunctionInc
    return 1
 }

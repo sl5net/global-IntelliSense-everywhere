@@ -101,7 +101,7 @@ RebuildDatabase(){
 	CreateWordIndex()
 
 	CreateLastStateTable()
-	CreateWordlistsTable()
+	CREATE_TABLE_Wordlists()
 	
 	SetDbVersion()
 	g_WordListDB.EndTransaction()
@@ -183,7 +183,8 @@ RunConversionFour()
 		
 		g_WordListDB.Query("UPDATE Words SET wordindexed = '" . WordIndexedTransformedEscaped . "' WHERE word = '" . WordEscaped . "' AND wordindexed = '" . WordIndexEscaped . "' AND wordreplacement = '" . WordReplacementEscaped . "';")
 	}
-	
+	; Yes, wordindexed is the transformed word that is actually searched upon.
+
 	SetDbVersion(4)
 	g_WordListDB.EndTransaction()
 	*/
@@ -195,7 +196,7 @@ RunConversionFive()
 	global g_WordListDB
 	g_WordListDB.BeginTransaction()
 	
-	CreateWordlistsTable()
+	CREATE_TABLE_Wordlists()
 	
 	SetDbVersion(5)
 	g_WordListDB.EndTransaction()
@@ -249,7 +250,7 @@ CreateLastStateTable()
 CreateWordsTable(WordsTableName:="Words"){
 	global g_WordListDB
 	
-	IF not g_WordListDB.Query("CREATE TABLE " . WordsTableName . " (wordindexed TEXT NOT NULL, word TEXT NOT NULL, count INTEGER, worddescription TEXT, wordreplacement TEXT NOT NULL, wordlist TEXT, PRIMARY KEY (word, wordreplacement) );")
+	IF not g_WordListDB.Query("CREATE TABLE " . WordsTableName . " (wordlist TEXT NOT NULL, wordindexed TEXT NOT NULL, word TEXT NOT NULL, count INTEGER, worddescription TEXT, wordreplacement TEXT NOT NULL, PRIMARY KEY (wordlist, word, wordreplacement) );")
 	{
 		ErrMsg := g_WordListDB.ErrMsg()
 		ErrCode := g_WordListDB.ErrCode()
@@ -261,7 +262,7 @@ CreateWordsTable(WordsTableName:="Words"){
 CreateWordIndex(){
 	global g_WordListDB
 
-	IF not g_WordListDB.Query("CREATE INDEX WordIndex ON Words (wordindexed);")
+	IF not g_WordListDB.Query("CREATE INDEX WordIndex ON Words (wordlist, wordindexed);")
 	{
 		ErrMsg := g_WordListDB.ErrMsg()
 		ErrCode := g_WordListDB.ErrCode()
@@ -269,9 +270,32 @@ CreateWordIndex(){
 		ExitApp
 	}
 }
+;
+
+;<<<<<<<< CREATE_TABLE_Wordlists <<<< 180218062159 <<<< 18.02.2018 06:21:59 <<<<
+CREATE_TABLE_Wordlists(){
+    lll(A_LineNumber, A_LineFile, "lin1 at CREATE_TABLE_Wordlists")
+	global g_WordListDB
+	if(!g_WordListDB)
+    	g_WordListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", A_ScriptDir . "\WordlistLearned.db" ) ;
+
+	sql := "CREATE TABLE IF NOT EXISTS Wordlists (id INTEGER PRIMARY KEY AUTOINCREMENT, wordlist TEXT, wordlistmodified DATETIME, wordlistsize INTEGER)"
+	IF not g_WordListDB.Query(sql)
+	{
+		ErrMsg := g_WordListDB.ErrMsg()
+		ErrCode := g_WordListDB.ErrCode()
+		clipboard := sql
+		msgbox, Cannot Create Wordlists Table - fatal error: %ErrCode% - %ErrMsg%  `n sql= %sql% `n  (%A_LineFile%~%A_LineNumber%)
+		ExitApp
+	}
+}
+;>>>>>>>> CREATE_TABLE_Wordlists >>>> 180218062205 >>>> 18.02.2018 06:22:05 >>>>
 
 CreateWordlistsTable()
 {
+	Msgbox,deprecated ==> return `n (%A_LineFile%~%A_LineNumber%)
+	return
+
 	global g_WordListDB
 	
 	IF not g_WordListDB.Query("CREATE TABLE Wordlists (wordlist TEXT PRIMARY KEY, wordlistmodified DATETIME, wordlistsize INTEGER) WITHOUT ROWID;")

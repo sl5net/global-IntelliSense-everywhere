@@ -328,6 +328,9 @@ RecomputeMatches(){
             {
                PrefixChars .= "?"
             }
+
+            ; Yes, wordindexed is the transformed word that is actually searched upon.
+
             ; because SQLite cannot do case-insensitivity on accented characters using LIKE, we need
             ; to handle it manually, so we need 2 searches for each accented character the user typed.
             ;GLOB is used for consistency with the wordindexed search.

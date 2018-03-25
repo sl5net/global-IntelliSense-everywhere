@@ -10,13 +10,17 @@ ReadWordList() {
    global g_ScriptTitle
    global g_WordListDone
    global g_WordListDB
+   global g_wordListID
    ParseWordsCount :=0
    ;mark the wordlist as not done
    g_WordListDone = 0
 
 
-  WordlistFileName = wordlist ABBCCDDD.txt
   global wordlist
+  ;wordlist = ..\Wordlists\ChromeWidgetWin1\wn654_Piratenpad_Google_Chrome.txt._Generated.txt
+
+
+
   WordlistFileName := wordlist
    ; FileReadLine,WordlistFileName  ,wordlist.txt, 1
    ; FileReadLine,activeClass ,wordlist.txt, 2
@@ -245,7 +249,7 @@ run,log\%A_LineFile%.log.txt
    if(!WordlistModified){
         msg =
 (
-%Wordlist% = Wordlist
+%wordlist% = wordlist
 %WordlistModified% = WordlistModified
 
 from: Wordlist.ahk~%A_LineNumber%
@@ -271,8 +275,10 @@ from: Wordlist.ahk~%A_LineNumber%
          
          if (WordlistSize != WordlistLastSize || WordlistModified != WordlistLastModified) {
             LoadWordlist := "Update" ; updated?
-            ; Msgbox,LoadWordlist = "LoadWordlist"`n source TXT has changed. update database next. `n (%A_LineFile%~%A_LineNumber%)
-            tooltip,LoadWordlist = "LoadWordlist"`n source TXT has changed. update database next. `n (%A_LineFile%~%A_LineNumber%)
+            ;Msgbox,%wordlist% = wordlist `n LoadWordlist = "%LoadWordlist%"`n source TXT has changed. update database next. `n (%A_LineFile%~%A_LineNumber%)
+            tip = LoadWordlist = "%LoadWordlist%"`n source TXT has changed. update database next. `n %wordlist% `n (%A_LineFile%~%A_LineNumber%)
+            tooltip,% tip
+            lll(A_LineNumber, A_LineFile, tip)
             CleanupWordListAll_ofLittleWordCount()
          } else {
             LoadWordlist =
@@ -382,9 +388,17 @@ global do_tooltipReadWordList
       ;Progress, Off
       
       if (LoadWordlist == "Update") {
-         g_WordListDB.Query("UPDATE wordlists SET wordlistmodified = '" . WordlistModified . "', wordlistsize = '" . WordlistSize . "' WHERE wordlist = '" . WordlistFileName . "';")
+    UPDATE := "UPDATE wordlists SET wordlistmodified = '" . WordlistModified . "', wordlistsize = '" . WordlistSize . "' WHERE wordlist = '" . WordlistFileName . "';"
+         g_WordListDB.Query(UPDATE)
+        ;Msgbox, %UPDATE%  (line:%A_LineNumber%)
       } else {
-         g_WordListDB.Query("INSERT INTO Wordlists (wordlist, wordlistmodified, wordlistsize) VALUES ('" . WordlistFileName . "','" . WordlistModified . "','" . WordlistSize . "');")
+         ;g_WordListDB.Query("INSERT INTO Wordlists (wordlist, wordlistmodified, wordlistsize) VALUES ('" . WordlistFileName . "','" . WordlistModified . "','" . WordlistSize . "');")
+
+        INSERT_INTO_Wordlists(wordlist, WordlistModified, WordlistSize )
+
+        g_wordListID := getWordListID(wordlist) ; 24.03.2018 23:02
+
+
       }
       
    }
@@ -462,7 +476,9 @@ ReverseWordNums(LearnedWordsCount){
 
    LearnedWordsCount+= (prefs_LearnCount - 1)
 
-   LearnedWordsTable := g_WordListDB.Query("SELECT word FROM Words WHERE count IS NOT NULL AND wordlist = '" wordlist "';")
+    sql := "SELECT word FROM Words WHERE count IS NOT NULL wordlist = '" wordlist "';"
+    LearnedWordsTable := g_WordListDB.Query(sql)
+    msgbox,%sql% 18-03-25_06-03
    ; LearnedWordsTable := g_WordListDB.Query("SELECT word FROM Words WHERE count IS NOT NULL;")
 
    g_WordListDB.BeginTransaction()
@@ -534,7 +550,8 @@ AddWordToList(AddWord,ForceCountNewOnly,ForceLearn:= false, ByRef LearnedWordsCo
          
    if !(CheckValid(AddWord,ForceLearn))
       return
-   
+
+   ; TransformWord normalizes the word, converting it to uppercase and removing certain accented characters.
    TransformWord(AddWord, AddWordReplacement, AddWordDescription, AddWordTransformed, AddWordIndexTransformed, AddWordReplacementTransformed, AddWordDescriptionTransformed)
 
    IfEqual, g_WordListDone, 0 ;if this is read from the wordlist
@@ -542,7 +559,9 @@ AddWordToList(AddWord,ForceCountNewOnly,ForceLearn:= false, ByRef LearnedWordsCo
       IfNotEqual,LearnedWordsCount,  ;if this is a stored learned word, this will only have a value when LearnedWords are read in from the wordlist
       {
          ; must update wordreplacement since SQLLite3 considers nulls unique
-         g_WordListDB.Query("INSERT INTO words (wordindexed, word, count, wordreplacement, wordlist) VALUES ('" AddWordIndexTransformed "','" AddWordTransformed "','" LearnedWordsCount++ "','','" wordlist "');")
+         insert := "INSERT INTO words (wordindexed, word, count, wordreplacement, wordlist) VALUES ('" AddWordIndexTransformed "','" AddWordTransformed "','" LearnedWordsCount++ "','','" wordlist "');"
+         g_WordListDB.Query(insert)
+         Msgbox,%insert%`n (%A_LineFile%~%A_LineNumber%)
       } else {
          if (AddWordReplacement)
          {
@@ -557,9 +576,13 @@ AddWordToList(AddWord,ForceCountNewOnly,ForceLearn:= false, ByRef LearnedWordsCo
          } else {
             WordDescriptionQuery := "NULL"
          }
-         g_WordListDB.Query("INSERT INTO words (wordindexed, word, worddescription, wordreplacement, wordlist) VALUES ('" . AddWordIndexTransformed . "','" . AddWordTransformed . "'," . WordDescriptionQuery . "," . WordReplacementQuery . ",'" wordlist "');")
+        INSERT := "INSERT INTO words (wordindexed, word, worddescription, wordreplacement, wordlist) VALUES ('" . AddWordIndexTransformed . "','" . AddWordTransformed . "'," . WordDescriptionQuery . "," . WordReplacementQuery . ",'" wordlist "');"
+         g_WordListDB.Query(INSERT)
+;        Msgbox,%insert%`n (%A_LineFile%~%A_LineNumber%)
+
       }
-      
+      ; Yes, wordindexed is the transformed word that is actually searched upon.
+
    } else if (prefs_LearnMode = "On" || ForceCountNewOnly == 1)
    { 
       ; If this is an on-the-fly learned word
@@ -650,6 +673,8 @@ CheckValid(Word,ForceLearn:= false)
 
 ;<<<<<<<< TransformWord <<<< 180319190854 <<<< 19.03.2018 19:08:54 <<<<
 TransformWord(AddWord, AddWordReplacement, AddWordDescription, ByRef AddWordTransformed, ByRef AddWordIndexTransformed, ByRef AddWordReplacementTransformed, ByRef AddWordDescriptionTransformed) {
+    ; TransformWord normalizes the word, converting it to uppercase and removing certain accented characters.
+
    AddWordIndex := AddWord
    
    ; normalize accented characters
@@ -756,6 +781,7 @@ MaybeUpdateWordlist(){
    {
     ;
       SELECT := "SELECT Word FROM Words WHERE count >= " . prefs_LearnCount . " AND count IS NOT NULL AND wordlist = '" . wordlist . "' ORDER BY count DESC; "
+    msgbox,% SELECT " 18-03-25_06-05"
         ;Clipboard := SELECT
       SortWordList := g_WordListDB.Query(SELECT)
 
@@ -829,3 +855,95 @@ StrUnmark(string) {
    
 }
 
+;<<<<<<<< getWordListID <<<< 180324230510 <<<< 24.03.2018 23:05:10 <<<<
+getWordListID(wordlist){
+   global g_WordListDB
+    if(!g_WordListDB)
+       g_WordListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", A_ScriptDir . "\WordlistLearned.db" ) ;
+
+    sqlGetWLid =
+    (
+SELECT id FROM Wordlists WHERE
+wordlist = '%wordlist%' ;
+    )
+    try{
+        result := g_WordListDB.Query(sqlGetWLid)
+        For each, row in result.Rows
+           return row[1]
+    } catch e{
+        tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
+        lll(A_LineNumber, A_LineFile, tip)
+        tooltip, `% tip
+        feedbackMsgBox(A_LineFile . ">" . A_LineNumber, tip )
+        Clipboard := tip
+    }
+
+    sqlLastError := SQLite_LastError()
+    if( instr(sqlLastError, "no such table") ){
+        RebuildDatabase()
+        tooltip,% "  RebuildDatabase() ==> (" A_LineFile "~" A_LineNumber ")"
+        sleep,5000
+        reload
+    }
+
+        size := 1 ; FIRST TIME EVER schuuld be done by reading the wordlist in other function
+        modified := "1111-11-11" ; FIRST TIME EVER  ; schuuld be done by reading the wordlist in other function
+        ; FileGetSize, WordlistSize, % wordlist
+        ; FileGetTime, WordlistModified, % wordlist, M
+        ; FormatTime, WordlistModified, % WordlistModified, yyyy-MM-dd HH:mm:ss
+
+        INSERT_INTO_Wordlists(wordlist, modified, size )
+        try{
+            result := g_WordListDB.Query(sqlGetWLid)
+        } catch e{
+            tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
+            sqlLastError := SQLite_LastError()
+            tip .= "`n sqlLastError=" sqlLastError " `n( " A_LineFile "~" A_LineNumber ")"
+            lll(A_LineNumber, A_LineFile, tip)
+            tooltip, `% tip
+            feedbackMsgBox(A_LineFile . ">" . A_LineNumber, tip )
+            Clipboard := tip
+
+           sqlLastError := SQLite_LastError()
+            if( instr(sqlLastError, "no such table") ){
+                RebuildDatabase()
+                tooltip,% "  RebuildDatabase() ==> (" A_LineFile "~" A_LineNumber ")"
+                sleep,5000
+                reload
+            }
+        }
+        For each, row in result.Rows
+           return row[1]
+      msg := sql . "`n" . sqlGetWLid .  "`n" . A_LineNumber . " " .  A_LineFile
+        sqlLastError := SQLite_LastError()
+        msg .= "`n sqlLastError=" sqlLastError " `n( " A_LineFile "~" A_LineNumber ")"
+      lll(A_LineNumber, A_LineFile, msg)
+      clipboard := msg
+      feedbackMsgBox("clipboard:=sql", msg)
+      msgbox,% msg
+      exitapp
+    return wordListID
+}
+;>>>>>>>> getWordListID >>>> 180324230528 >>>> 24.03.2018 23:05:28 >>>>
+
+
+INSERT_INTO_Wordlists(wordlist, WordlistModified, WordlistSize ){
+    global g_WordListDB
+    sql := "INSERT INTO Wordlists "
+    sql .= " (id, wordlist, wordlistmodified, wordlistsize) VALUES "
+    sql .= " (null, '" wordlist "', '" WordlistModified "', '" WordlistSize "' );"
+        if(!g_WordListDB)
+           g_WordListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", A_ScriptDir . "\WordlistLearned.db" ) ;
+        try{
+            g_WordListDB.Query(sql)
+        } catch e{
+            tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
+            sqlLastError := SQLite_LastError()
+            tip .= "`n sqlLastError=" sqlLastError "`n sql=" sql " `n( " A_LineFile "~" A_LineNumber ")"
+            lll(A_LineNumber, A_LineFile, tip)
+            tooltip, `% tip
+            feedbackMsgBox(A_LineFile . ">" . A_LineNumber, tip )
+            Clipboard := tip
+            msgbox, % tip
+        }
+}
