@@ -636,7 +636,7 @@ ControlClick , ,  ahk_class Notepad
 	WinActivate, %wTitleContextHelp2%
 	WinWaitActive, %wTitleContextHelp2%,,%Seconds%
 	sendplay,{control down}{End}{control up}
-	Send,{Blind}
+
 Return
 } ;  ; 
 ;>>>>>>>> contextHelp >>>> 180304133439 >>>> 04.03.2018 13:34:39 >>>>
@@ -662,7 +662,7 @@ runCopyQ_Ctrl_Shift_v(){
     ToolTip1sec(A_LineNumber . " " .  A_LineFile . " " . Last_A_This)
 ; 
 SetKeyDelay,80,80
-		send,{Blind}
+
 		Sleep,500
 		 ;~ if(GetKeyState("ctrl", "P") )
 		;~ {
@@ -798,7 +798,7 @@ sendByStrgV(s) {
     suspend,on
     disableCopyQ()
 
-    Send,{blind}
+
 	ClipboardOLD := Clipboard
 
 clipboard := ""

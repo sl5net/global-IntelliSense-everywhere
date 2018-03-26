@@ -433,7 +433,7 @@ if(0){
 }
        global g_sending_is_buggy
        if( g_sending_is_buggy )
-           lll(A_LineNumber, A_LineFile, "send,{blind} `n 17-07-29_11-47")
+           lll(A_LineNumber, A_LineFile, "send, `n 17-07-29_11-47")
 
         ;msgbox,(%A_LineFile%~%A_LineNumber%) `n %AHKcode2%
         aWorkingDirBackUp := A_WorkingDir
@@ -716,8 +716,8 @@ if(WinActive("PhpStorm", "", ".ahk") || WinActive("New File ahk_class SunAwtDial
         AHKcode := getRealisticDelayDynamicSendAHKcode(g_Word,SendValue)
 global g_sending_is_buggy
 if( g_sending_is_buggy )
-    lll(A_LineNumber, A_LineFile, " send,{blind} ")
-;send,{blind} ; avoids releasing Alt/Control/Shift/Win if they started out
+    lll(A_LineNumber, A_LineFile, " send, ")
+;send, ; avoids releasing Alt/Control/Shift/Win if they started out
                DynaRun(AHKcode)
                } else {
     SetKeyDelay, -1, -1 ; PressDuration: Use -1 for no delay at all (default) and 0 for the smallest possible delay ; Play applies the above settings to the SendPlay mode

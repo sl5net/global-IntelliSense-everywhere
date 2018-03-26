@@ -66,7 +66,7 @@ _Newenum
 _Release
 _Remove
 _Setcapacity
-{BLIND}
+
 A_AhkVersion
 A_AppData
 A_AppDataCommon

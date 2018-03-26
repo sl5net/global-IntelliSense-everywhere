@@ -800,7 +800,7 @@ Loop,9
 ;ControlSend,,{PrintScreen},Greenshot
    ; send,{PrintScreen} ; becouse it triggered. so make a sofisticated config llike below: 29.08.2017 16:11
    Send,{CtrlDown}{ShiftDown}{AltDown}q{AltUp}{ShiftUp}{CtrlUp}
-   ; send,{Blind}
+   ; 
 IfWinExist,Greenshot capture form
    break
 Sleep,40

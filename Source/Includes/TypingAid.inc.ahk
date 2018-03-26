@@ -290,8 +290,10 @@ RecomputeMatches(){
    global prefs_SuppressMatchingWord
 
    ;Msgbox,g_Word = %g_Word% (%A_LineFile%~%A_LineNumber%)
-   if(!g_Word) ; if g_Word is empty and you run, it shows the complete list. you want it? maybe sometimes its helpful 25.03.2018 19:42 18-03-25_19-42
+   if(!g_Word){ ; if g_Word is empty and you run, it shows the complete list. you want it? maybe sometimes its helpful 25.03.2018 19:42 18-03-25_19-42
+      lll(A_LineNumber, A_LineFile, "ERROR if(!g_Word) ... seems you use this function wrong. dosent matter. may take a look here if you have time. TODO: may fix this 25.03.2018 20:00 18-03-25_20-00")
         Return
+   }
 
    SavePriorMatchPosition()
 
