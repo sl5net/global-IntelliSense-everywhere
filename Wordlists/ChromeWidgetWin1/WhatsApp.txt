@@ -2,27 +2,5 @@
 ; #Include ..\TscShellContainerClass\_global.txt
 ; #Include ..\_globalWordLists\_global.txt
 
-
-
-
-;  ; = activeTitle 17-08-10_16-04
-; #Include ..\_globalWordLists\examplesForBeginners.txt
-___your library open|rr||ahk|run,..\ChromeWidgetWin1\WhatsApp.txt
-
-; Steuerung|r|Das ist so eine Steuerung aus einem anderen Programm herraus. Damit kann man dann so fast alles machen was man mit Emails auch kann und noch ein bisschen mehr. Also Rundschreiben usw.
-
-; Hey :) Seit heute auch auf whatsapp. Freundin is schuld ^_^ Hat Spaß gemacht Frisbee. Ja und bin auch raus aus diesem Tauschring. Schade, hätte gernen einen Ersatz gefunden, der ganz ohne Grundgebühr funktioniert. Alles Gute und schöne Grüße aus 72827 Wannweil ^_^ Sebastian
-
-
-
-; WriteToFile
-; WriteToFile|r|Call WriteToFile(vbTab & "Pfad: " & txtZielFolderMDE)
-; WriteToFile|r|Public Sub WriteToFile(ByVal sText As String, Optional ByVal bNewFile As Boolean = False, Optional ByVal bErrMsg As Boolean = False)
-
-
-; Hey :) Seit heute auch auf whatsapp. Freundin is schuld ^_^ Schöne Grüße aus 72827 Wannweil Sebastian
-; Hey :) Seit heute auch auf whatsapp. Freundin is schuld ^_^ I love your avatar ! :D Schöne Grüße aus 72827 Wannweil Sebastian
-; Hey :) Seit heute auch auf whatsapp. Schöne Grüße aus Wannweil Sebastian
-
-; Hey :) Seit heute auch auf whatsapp. Falls mal nahe Wannweil bist :) Komm mich doch besuchen :) Lieben Gruß Sebastian
-
+kuss|rr||ahk|send,{Space}:kiss `n Sleep,180 `n Send,{enter}
+kiss|rr|
