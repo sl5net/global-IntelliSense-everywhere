@@ -1,0 +1,116 @@
+f: I looked at the video (about a third of it, but I could not really understand it).
+a: In the video, I think the end is especially interesting. maybe you should watch it from the back. If you do not understand the end, you should look further ahead. It is quite a long time, I think.
+
+f: There must be some walkthroughs. TextBaustein. AutoText.
+a: Yes, good thought. I think I should talk about actions. An action triggered by keystrokes. Context-specific.
+How to proceed:
+It is always the same.
+You've done it right if I understood your text from the forum correctly.
+
+Q: I can not create a single entry. I can not create a named project.
+
+a:
+Create a project:
+Put simply, a project always consists of a folder and a (at least one) text file.
+I do not use the term project eientlich. I used to speak of word lists. Word lists filled with actions. But it's true. Diesse stuck in a folder that you could perhaps call project. Or maybe bundle.
+
+both (folder and file) sllte be created automatically, if you press these underscores and then the 1st That you already know.
+
+Now how to create an entry. In other words, how to create an action.
+
+The simplest action is a line of text.
+I think you should start with that. So there is a quick sense of achievement.
+
+f: example for | r | and | rr | ,
+a: There are examples of r and rr.
+r is a simple replacement without the possibility to program.
+At rr you can program. No longer at the beginning, at this point.
+
+f: If I enter "__" in Notepad, it seems to generate an entry, the editor will open and generate a token.
+a: Yes, this "__" works everywhere (it should).
+The token is only of temporary importance. You can also delete it sofoft. Should actually be deleted automatically. This will be easier in a later version.
+
+f: Really, a SHORT video would be really helpful. How to create a single entry.
+a: Thanks for the tip also short video. Understand. A short video about a single question.
+
+f: An error report: When exiting, only one of the two scripts is terminated. The other one must be deleted by Task Manager.
+a: Thanks for the bug report that also has to be somehow better soon.
+Currently I am working intensively on the acceleration of the database. The nightly version is currently faster (other repository).
+
+
+-------------
+
+f: Ich habe mir das Video angeschaut (ca. ein Drittel davon, aber ich konnte es nicht wirklich nachvollziehen).
+a: Bei dem Video ist glaube ich vor allem das Ende interessant. vielleicht sollte man es von hinten anschauen. Wenn man das Ende nicht versteht, sollte man es weiter vorne an schauen. Es ist doch ziemlich lange finde ich.
+
+f: Es müssen exemplarischen Vorgehensweisen gezeigt werden. Textbausteinverwaltung. Autotext.
+a: Ja guter Gedanke. Ich glaube ich sollte eher von Actions reden. Eine Action die ausgelöst wird über Tastatureingaben. Kontextspezifisch.
+Zur Vorgehensweise:
+Sie ist eigentlich immer gleich.
+Du hast es auch schon richtig gemacht wenn ich deinen Text von dem Forum richtig verstanden habe.
+
+f: Ich kann keinen einzigen Eintrag erstellen. Ich kann kein benanntes Projekt erstellen.
+
+a:
+Projekt erstellen:
+Vereinfacht gesagt besteht ein Projekt immer aus einem Ordner und einer (mindestens einer) Textdatei.
+Ich verwnde den Begriff Projekt eientlich nicht. Ich sprach bisher eher von Wortlisten. Wortlisten die mit Actions gefüllt sind. Aber es stimmt. Diesse stecken in einem Ordner, den man vielleicht auch Projekt nennen könnte. Oder vielleicht Bundle.
+
+Beides (Ordner und Datei) sllte automatisch erstellt werden, wenn man diese Unterstriche drückt und dann die 1. Dass kennst du ja schon.
+
+Nun dazu wie man einen Eintrag erstellt. Oder anders gesagt: Wie man eine Action erstellt.
+
+Die einfachste Action ist eine Textzeile. 
+Ich denke damit sollte man erst einmal beginnen. So gibt es ein schnelles Erfolgserlebnis.
+
+f: Beispiel zu  | r | und | rr | .
+a: Es gibt Beispiele zu r und rr.
+r ist eine einfache Ersetzung ohne die Möglichkeit zu pogrammieren.
+Bei rr kann man programmieren. Dazu nicht mehr am Anfang, an dieser Stelle.
+
+f: Wenn ich "__" in Notepad eingebe, scheint es, einen Eintrag zu generieren, der Editor öffnet sich, und generiert ein Token.
+a: Ja dieses "__" funktioniert eben überall (sollte es).
+Das Token ist nur temporär wichtig. Das kann man auch sofoft wieder löschen. Sollte eigentlich automatisch gelöscht werden. In einer späteren Version wird das sicher einfacher werden.
+
+f: Wirklich, wirklich hilfreich wäre ein SHORT-Video. Wie man einen einzelnen Eintrag erstellt. 
+a: Danke für den Tipp zudem Kurz-Video. Verstehe. Ein kleines kurzes Video zu einer einzigen Frage.
+
+f: Ein Fehlerbericht: Beim Beenden wird nur eines der beiden Scripte beendet. Der andere muss vom Task-Manager gelöscht werden.
+a: Danke für den Fehlerbericht das muss auch noch irgendwie besser werden demnächst.
+Aktuell arbeite ich intensiv an der Beschleunigung der Datenbank. Die nightly Version ist aktuell schneller (anderes Repository].
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Hi, das klingt interessant. Ich muss es aber tatsächlich für mich arbeiten lassen.
+Ich habe mir das Video angeschaut (ca. ein Drittel davon, aber ich konnte es nicht wirklich nachvollziehen), lies alle Anweisungen (auch die sind in deutscher Sprache sind.) Vollkommen gelungen. : Rolle:: x
+
+Meiner Meinung nach müssen die Anweisungen detailliert sein, es müssen exemplarischen Vorgehensweisen und keine Kenntnisse seitens des Benutzers vorausgesetzt werden. For the mosts least is textbausteinverwaltung. Autotext, aber weiteres Sollte man nicht erwarten :)
+
+Ich kann keinen einzigen Eintrag erstellen. Ich kann kein benanntes Projekt erstellen.
+
+Alle Einträge, die ich versuche zu erstellen, enden mit einem ChromeWidget-Ordner unter dem Startordner, aber es ist nichts, was darin nützlich wäre. Es gibt keine Option zum Benennen des Projekts und keine Möglichkeit, die darin enthaltenen Einträge über das Skript selbst zu bearbeiten.
+
+Die Unterscheidung zwischen | r | und | rr | muss klar gemacht werden - es sollte ein Beispiel geben, das den Unterschied zeigt.
+
+Wenn Sie "__" in Notepad (Not Notepad ++) eingeben, scheint es, einen Eintrag zu generieren, der Editor öffnet, und generiert ein Token, das nicht erläutert wird (nicht seine Verwendung, noch wo es in der Ordner-Hierarchie angezeigt werden soll).
+
+Die Eingabe von "__" auf dem Desktop führt zu allen Arten von Chaos - Einträgen, die mit Dingen erstellt werden, die ich nicht ausführen wollte. Und alles, was ich tat, war die Nummer drücken.
