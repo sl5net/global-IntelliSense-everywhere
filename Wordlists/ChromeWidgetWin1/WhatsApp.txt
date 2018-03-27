@@ -1,4 +1,4 @@
-#Include ..\SunAwtFrame\iselu_jabber_de.txt
+#Include privat_WhatsApp.txt
 ; #Include ..\TscShellContainerClass\_global.txt
 ; #Include ..\_globalWordLists\_global.txt
 
