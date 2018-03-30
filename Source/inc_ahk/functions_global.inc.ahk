@@ -636,7 +636,7 @@ ControlClick , ,  ahk_class Notepad
 	WinActivate, %wTitleContextHelp2%
 	WinWaitActive, %wTitleContextHelp2%,,%Seconds%
 	sendplay,{control down}{End}{control up}
-
+	
 Return
 } ;  ; 
 ;>>>>>>>> contextHelp >>>> 180304133439 >>>> 04.03.2018 13:34:39 >>>>
@@ -662,7 +662,7 @@ runCopyQ_Ctrl_Shift_v(){
     ToolTip1sec(A_LineNumber . " " .  A_LineFile . " " . Last_A_This)
 ; 
 SetKeyDelay,80,80
-
+		
 		Sleep,500
 		 ;~ if(GetKeyState("ctrl", "P") )
 		;~ {
@@ -798,7 +798,7 @@ sendByStrgV(s) {
     suspend,on
     disableCopyQ()
 
-
+    
 	ClipboardOLD := Clipboard
 
 clipboard := ""
@@ -1257,7 +1257,8 @@ if(at && !RegExMatch(at, "^(\d:|temp\.ahk)")){ ; check for probably wrong title.
 		maxTryes:=350
 		while(!WinActive(at) && winExist(at)){ ; works :)  14.08.2017 19:34
 			sleep,10
-			tooltip,WinActivate %at%
+			; tooltip,WinActivate %at%
+
 			WinActivate,% at
 			if(--maxTryes<1)
 				break
@@ -1407,6 +1408,9 @@ try  ; i dont want disturbing error messages
    DllCall("CloseHandle",@,__PIPE_GA_)
    DllCall("ConnectNamedPipe",@,__PIPE_,@,0)
    script := (A_IsUnicode ? chr(0xfeff) : (chr(239) . chr(187) . chr(191))) TempScript
+;	clipboard := script
+
+
    if !DllCall("WriteFile",@,__PIPE_,"str",script,_,(StrLen(script)+1)*(A_IsUnicode ? 2 : 1),_ "*",0,@,0)
         Return A_LastError,DllCall("CloseHandle",@,__PIPE_)
    DllCall("CloseHandle",@,__PIPE_)
@@ -1419,7 +1423,7 @@ catch e  ; Handles the first error/exception raised by the block above.
 	FileAppend, `% TempScript, `% name
 }
 SetTitleMatchMode,1
-if(0 && WinExist(substr(name,1,-5))) ; helps debugging
+if(1 && WinExist(substr(name,1,-5))) ; helps debugging
 	FileAppend, `% TempScript, `% name
 
 while(1 && name && WinExist(substr(name,1,-5)) && A_Index < 9)

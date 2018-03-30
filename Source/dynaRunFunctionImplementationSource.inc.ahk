@@ -1,13 +1,19 @@
 ; Indentation_style: https://de.wikipedia.org/wiki/Einrückungsstil#SL5small-Stil
 DynaRun(TempScript, pipename=""){ ; dynAhk, dynaAhk, AhkDyn, DynRun 01.03.2018 16:54
-   ; TempScript := "#" . "ErrorStdOut`n" . TempScript
+   TempScript := "#" . "ErrorStdOut`n" . TempScript
 static _:="uint",@:="Ptr"
    If pipename =
       name := "AHK" A_TickCount
    Else
       name := pipename
+try{
    __PIPE_GA_ := DllCall("CreateNamedPipe","str","\\.\pipe\" name,_,2,_,0,_,255,_,0,_,0,@,0,@,0)
    __PIPE_    := DllCall("CreateNamedPipe","str","\\.\pipe\" name,_,2,_,0,_,255,_,0,_,0,@,0,@,0)
+} catch e{
+;throw Exception("Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line, -1)
+tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
+tooltip, % tip
+}
    if (__PIPE_=-1 or __PIPE_GA_=-1)
       Return 0
    ;gosub,couldIfindMyself
@@ -41,7 +47,7 @@ try{
       tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
       tooltip, % tip
    }
-if(0 && WinExist(substr(name,1,-5))) ; helps debugging
+if(1 && WinExist(substr(name,1,-5))) ; helps debugging
    FileAppend, `% TempScript, `% name
 
 while(1 && name && WinExist(substr(name,1,-5)) && A_Index < 9)

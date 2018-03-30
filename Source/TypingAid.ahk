@@ -526,7 +526,7 @@ return
 ;<<<<<<<< checkInRegistryChangedWordlistAddress <<<< 180319214428 <<<< 19.03.2018 21:44:28 <<<<
 checkInRegistryChangedWordlistAddress:
 
-if(false && InStr(A_ComputerName,"SL5"))
+if(0 && InStr(A_ComputerName,"SL5"))
     ToolTip5sec(wordlist " `n(" A_LineNumber " " A_LineFile . " )" )
 
     ;SetTimer,checkWordlistTXTfile_sizeAndModiTime,Off
@@ -570,8 +570,8 @@ if(false && InStr(A_ComputerName,"SL5"))
 
     if(g_doAskBevoreChangingWordlist && WordlistSize > g_minBytesNeedetToAskBevoreChangingWordlist){
         AHKcodeMsgBox := "#" . "NoTrayIcon `n "
-        temp = msgbox,,wordlistChangedInRegistry, Would you use new list now? ``n ``n Say goodbye to? (%WordlistSize% bytes > %g_minBytesNeedetToAskBevoreChangingWordlist%) ``n  %wordlist%
-        AHKcodeMsgBox .= temp
+        temp = msgbox,,wordlistChangedInRegistry, Would you use new list now? ``n ``n Say goodbye to? (%WordlistSize% bytes > %g_minBytesNeedetToAskBevoreChangingWordlist%) ``n  %wordlist% ``n exitApp
+AHKcodeMsgBox .= temp
         if(g_FLAGmsgbox){
             g_FLAGmsgbox := false ; just clicked msgboxWindow
         }else{
@@ -632,6 +632,8 @@ onLink2wordlistChangedInRegistry:
         winclose,wordlistChangedInRegistry
 
         ;SetTimer,checkInRegistryChangedWordlistAddress,on
+        ;ToolTip4sec("RecomputeMatches() `n " wordlist " = wordlist `n"  WordlistModified  " `n" . A_LineNumber . " " . A_ScriptName . " " . Last_A_This,1,1)
+        ;RecomputeMatches() ; 27.03.2018 23:51
         return ; no update jet
     }
     WordlistModiTime_OLD := WordlistModiTime

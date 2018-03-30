@@ -282,6 +282,7 @@ RecomputeMatches(){
    global g_Word
    global g_WordListDB
    global wordlist
+   global g_wordListID
    global prefs_ArrowKeyMethod
    global prefs_LearnMode
    global prefs_ListBoxRows
@@ -290,10 +291,8 @@ RecomputeMatches(){
    global prefs_SuppressMatchingWord
 
    ;Msgbox,g_Word = %g_Word% (%A_LineFile%~%A_LineNumber%)
-   if(!g_Word){ ; if g_Word is empty and you run, it shows the complete list. you want it? maybe sometimes its helpful 25.03.2018 19:42 18-03-25_19-42
-      lll(A_LineNumber, A_LineFile, "ERROR if(!g_Word) ... seems you use this function wrong. dosent matter. may take a look here if you have time. TODO: may fix this 25.03.2018 20:00 18-03-25_20-00")
+   if(!g_Word) ; if g_Word is empty and you run, it shows the complete list. you want it? maybe sometimes its helpful 25.03.2018 19:42 18-03-25_19-42
         Return
-   }
 
    SavePriorMatchPosition()
 
@@ -360,7 +359,7 @@ RecomputeMatches(){
             }
    }
    
-   WhereQuery := " WHERE wordindexed GLOB '" . WordMatchEscaped . "*' " . SuppressMatchingWordQuery . WordAccentQuery  " AND wordlist = '" wordlist "'"
+   WhereQuery := " WHERE wordindexed GLOB '" . WordMatchEscaped . "*' " . SuppressMatchingWordQuery . WordAccentQuery  " AND wordListID = '" g_wordListID "'"
    
    NormalizeTable := g_WordListDB.Query("SELECT MIN(count) AS normalize FROM Words" . WhereQuery . " AND count IS NOT NULL LIMIT " . LimitTotalMatches . ";")
    
@@ -1205,7 +1204,7 @@ SuspendOff(){
       ; Menu, tray, Icon, %A_ScriptDir%\%g_ScriptTitle% - Active.ico, ,1
 ; we dont need it. sometimes it could not be loadet. so forget it. 03.05.2017 16:31
    }
-   DynaRun("#" . "NoTrayIcon `n Tooltip,||SL5||`n Sleep,2300")
+   ;DynaRun("#" "NoTrayIcon `; `n``n Tooltip,||SL5|| `; `n``n Sleep,2300 `; " A_LineNumber)
 }
 
 

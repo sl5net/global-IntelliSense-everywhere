@@ -58,3 +58,4 @@ Sleep,1000
 run,Typing_Aid_everywhere_multi_clone.ahk,%A_ScriptDir%\Source
 
 
+exitApp

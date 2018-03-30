@@ -10,15 +10,34 @@ ReadWordList() {
    global g_ScriptTitle
    global g_WordListDone
    global g_WordListDB
+   global wordlist
    global g_wordListID
    ParseWordsCount :=0
    ;mark the wordlist as not done
    g_WordListDone = 0
 
-
-  global wordlist
+;
   ;wordlist = ..\Wordlists\ChromeWidgetWin1\wn654_Piratenpad_Google_Chrome.txt._Generated.txt
 
+    g_wordListID := getWordListID(wordlist) ; 24.03.2018 23:02
+    if(!g_wordListID){ ; fallBack
+        FileGetTime, WordlistModified, %Wordlist%, M
+        FormatTime, WordlistModified, %WordlistModified%, yyyy-MM-dd HH:mm:ss
+        FileGetSize, WordlistSize, %wordlist%
+
+        INSERT_INTO_Wordlists(wordlist, WordlistModified, WordlistSize )
+        ;Msgbox,Oops `n %insert%`n (%A_LineFile%~%A_LineNumber%)
+        ;tooltip,g_wordListID = %g_wordListID% `n wordlist = %wordlist% `n %insert%`n (%A_LineFile%~%A_LineNumber%)
+        ;sleep,2000
+
+        g_wordListID := getWordListID(wordlist) ; 24.03.2018 23:02
+        if(!g_wordListID){
+            Msgbox,Oops `n ==> exitapp `n (%A_LineFile%~%A_LineNumber%)
+            exitapp
+        }
+        isTblWordsEmpty := true
+    }else
+        isTblWordsEmpty := false
 
 
   WordlistFileName := wordlist
@@ -186,10 +205,13 @@ ahkReStartOnClose .= "`n#" . "Include " .  A_WorkingDir . "\inc_ahk\ToolTipSec_R
 ahkReStartOnClose .= "`n#" . "Include " .  A_WorkingDir . "\inc_ahk\ToolTipSec.inc.ahk"
 ahkReStartOnClose .= "`n#" . "Include " .  A_WorkingDir . "\inc_ahk\functions_global_dateiende.inc.ahk"
 
+if(false){ ; was quick and dirty. dont need it anymore 28.03.2018 15:16 18-03-28_15-17
 DynaRun("#" . "NoTrayIcon `n" . ahkCloseERRERmsg) ; cant fix this error. so fix the error message :D 02.04.2017 14:35 17-04-02_14-35 http://SL5.net
 DynaRun("#" . "NoTrayIcon `n" . ahkCloseERRERmsg2) ; cant fix this error. so fix the error message :D 18.04.2017 15:53 http://SL5.net
 DynaRun("#" . "NoTrayIcon `n" . ahkCloseERRERmsg3) ; cant fix this error. 18.04.2017 17:39 http://SL5.net
 DynaRun("#" . "NoTrayIcon `n" . ahkReStartOnClose) ; cant fix this error. so fix the error message :D 18.04.2017 17:00 http://SL5.net
+}
+
 g_WordListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", A_ScriptDir . "\WordlistLearned.db" ) ; https://autohotkey.com/board/topic/86457-dba-16-easy-database-access-mysql-sqlite-ado-ms-sql-access/
 ; END of: Section wait for unsolved error messages. to close them unsolved :D 02.04.2017 14:36 17-04-02_14-36 todo: dirty bugfix
 
@@ -243,24 +265,25 @@ run,log\%A_LineFile%.log.txt
           MsgBox,5 ,!WordlistSize ,Oops i am triggered :D 17-04-02_13-52 (from: %A_LineFile%~%A_LineNumber%), 5
           ; that is very seldom triggerend. 18.04.2017 20:17
    }
-   FileGetTime, WordlistModified, %Wordlist%, M
-   FormatTime, WordlistModified, %WordlistModified%, yyyy-MM-dd HH:mm:ss
-   ;tooltip,FileGetTime %WordlistModified% %Wordlist%, M
-   if(!WordlistModified){
+   if(!isTblWordsEmpty){
+       FileGetTime, WordlistModified, %Wordlist%, M
+       FormatTime, WordlistModified, %WordlistModified%, yyyy-MM-dd HH:mm:ss
+       ;tooltip,FileGetTime %WordlistModified% %Wordlist%, M
+       if(!WordlistModified){
         msg =
 (
 %wordlist% = wordlist
 %WordlistModified% = WordlistModified
-
 from: Wordlist.ahk~%A_LineNumber%
 )
-        msgbox,Oops i am triggered :D 17-04-04_17-32 `n `n %msg%
-        exitApp
-  }
-; regex
+            msgbox,Oops i am triggered :D 17-04-04_17-32 `n `n %msg%
+            exitApp
+        }
+    }
+; regex ; __ __
 
   ToolTip5sec("DatabaseRebuilt = " DatabaseRebuilt "`nLoadWordlist = " LoadWordlist "`n" A_LineNumber . " " . A_LineFile )
-   if (!DatabaseRebuilt) {
+   if (!isTblWordsEmpty && !DatabaseRebuilt) {
     ; thats inside ReadWordList() ---------------------------------------------
 
       ; LearnedWordsTable := g_WordListDB.Query("SELECT wordlistmodified, wordlistsize FROM Wordlists WHERE wordlist = 'wordlist.txt';")
@@ -273,7 +296,7 @@ from: Wordlist.ahk~%A_LineNumber%
          WordlistLastModified := row[1]
          WordlistLastSize := row[2]
          
-         if (WordlistSize != WordlistLastSize || WordlistModified != WordlistLastModified) {
+         if (isTblWordsEmpty || WordlistSize != WordlistLastSize || WordlistModified != WordlistLastModified) {
             LoadWordlist := "Update" ; updated?
             ;Msgbox,%wordlist% = wordlist `n LoadWordlist = "%LoadWordlist%"`n source TXT has changed. update database next. `n (%A_LineFile%~%A_LineNumber%)
             tip = LoadWordlist = "%LoadWordlist%"`n source TXT has changed. update database next. `n %wordlist% `n (%A_LineFile%~%A_LineNumber%)
@@ -394,8 +417,7 @@ global do_tooltipReadWordList
       } else {
          ;g_WordListDB.Query("INSERT INTO Wordlists (wordlist, wordlistmodified, wordlistsize) VALUES ('" . WordlistFileName . "','" . WordlistModified . "','" . WordlistSize . "');")
 
-        INSERT_INTO_Wordlists(wordlist, WordlistModified, WordlistSize )
-
+        INSERT_INTO_Wordlists_ifNotExist(wordlist, WordlistModified, WordlistSize )
         g_wordListID := getWordListID(wordlist) ; 24.03.2018 23:02
 
 
@@ -460,7 +482,8 @@ if(false && ParseWordsCount>0)
 
    ;mark the wordlist as completed
    g_WordlistDone = 1
-   DynaRun("#" . "NoTrayIcon `n Tooltip,|SL5|`n Sleep,2300")
+   ; DynaRun("#" . "NoTrayIcon `n Tooltip,|SL5|`n Sleep,2300")
+    ;DynaRun("#" "NoTrayIcon `; `n``n Tooltip,||SL5|| `; `n``n Sleep,2300 `; " A_LineNumber)
    ; tooltip,%ParseWordsCount%`n (from: %A_LineFile%~%A_LineNumber%)
    Return ParseWordsCount
 }
@@ -473,6 +496,7 @@ ReverseWordNums(LearnedWordsCount){
    global prefs_LearnCount
    global g_WordListDB
    global wordlist
+   global g_wordListID
 
    LearnedWordsCount+= (prefs_LearnCount - 1)
 
@@ -486,7 +510,7 @@ ReverseWordNums(LearnedWordsCount){
    {
       SearchValue := row[1]
       StringReplace, SearchValueEscaped, SearchValue, ', '', All
-      WhereQuery := "WHERE word = '" SearchValueEscaped "' AND wordlist = '" wordlist "'"
+      WhereQuery := "WHERE word = '" SearchValueEscaped "' AND wordListID = '" g_wordListID "'"
       g_WordListDB.Query("UPDATE words SET count = (SELECT " . LearnedWordsCount . " - count FROM words " . WhereQuery . ") " . WhereQuery . ";")
    }
    g_WordListDB.EndTransaction()
@@ -559,7 +583,7 @@ AddWordToList(AddWord,ForceCountNewOnly,ForceLearn:= false, ByRef LearnedWordsCo
       IfNotEqual,LearnedWordsCount,  ;if this is a stored learned word, this will only have a value when LearnedWords are read in from the wordlist
       {
          ; must update wordreplacement since SQLLite3 considers nulls unique
-         insert := "INSERT INTO words (wordindexed, word, count, wordreplacement, wordlist) VALUES ('" AddWordIndexTransformed "','" AddWordTransformed "','" LearnedWordsCount++ "','','" wordlist "');"
+         insert := "INSERT INTO words (wordindexed, word, count, wordreplacement, wordListID) VALUES ('" AddWordIndexTransformed "','" AddWordTransformed "','" LearnedWordsCount++ "','','" . g_wordListID . "');"
          g_WordListDB.Query(insert)
          Msgbox,%insert%`n (%A_LineFile%~%A_LineNumber%)
       } else {
@@ -576,9 +600,9 @@ AddWordToList(AddWord,ForceCountNewOnly,ForceLearn:= false, ByRef LearnedWordsCo
          } else {
             WordDescriptionQuery := "NULL"
          }
-        INSERT := "INSERT INTO words (wordindexed, word, worddescription, wordreplacement, wordlist) VALUES ('" . AddWordIndexTransformed . "','" . AddWordTransformed . "'," . WordDescriptionQuery . "," . WordReplacementQuery . ",'" wordlist "');"
+        INSERT := "INSERT INTO words (wordindexed, word, worddescription, wordreplacement, wordListID) VALUES ('" . AddWordIndexTransformed . "','" . AddWordTransformed . "'," . WordDescriptionQuery . "," . WordReplacementQuery . ",'" . g_wordListID . "');"
          g_WordListDB.Query(INSERT)
-;        Msgbox,%insert%`n (%A_LineFile%~%A_LineNumber%)
+
 
       }
       ; Yes, wordindexed is the transformed word that is actually searched upon.
@@ -609,7 +633,7 @@ AddWordToList(AddWord,ForceCountNewOnly,ForceLearn:= false, ByRef LearnedWordsCo
          }
          
          ; must update wordreplacement since SQLLite3 considers nulls unique
-         g_WordListDB.Query("INSERT INTO words (wordindexed, word, count, wordreplacement, wordlist) VALUES ('" . AddWordIndexTransformed . "','" . AddWordTransformed . "','" . CountValue . "','','" wordlist "');")
+         g_WordListDB.Query("INSERT INTO words (wordindexed, word, count, wordreplacement, wordListID) VALUES ('" . AddWordIndexTransformed . "','" . AddWordTransformed . "','" . CountValue . "','','" . g_wordListID . "');")
       } else IfEqual, prefs_LearnMode, On
       {
          IfEqual, ForceCountNewOnly, 1                     
@@ -622,7 +646,7 @@ AddWordToList(AddWord,ForceCountNewOnly,ForceLearn:= false, ByRef LearnedWordsCo
                
             IF ( CountValue < prefs_LearnCount )
             {
-               g_WordListDB.QUERY("UPDATE words SET count = ('" prefs_LearnCount "') WHERE word = '"  AddWordTransformed "' AND wordlist = '" wordlist "';")
+               g_WordListDB.QUERY("UPDATE words SET count = ('" prefs_LearnCount "') WHERE word = '"  AddWordTransformed "' AND wordListID = '" . g_wordListID . "';")
             }
          } else {
             UpdateWordCount(AddWord,0) ;Increment the word count if it's already in the list and we aren't forcing it on
@@ -711,7 +735,7 @@ DeleteWordFromList(DeleteWord){
    
    StringReplace, DeleteWordEscaped, DeleteWord, ', '', All
    ; g_WordListDB.Query("DELETE FROM words WHERE word = '" . DeleteWordEscaped . "';")
-   g_WordListDB.Query("DELETE FROM words WHERE word = '" . DeleteWordEscaped . "' AND wordlist = '" wordlist "';")
+   g_WordListDB.Query("DELETE FROM words WHERE word = '" . DeleteWordEscaped . "' AND wordListID = '" . g_wordListID . "';")
 
    Return   
 }
@@ -744,7 +768,7 @@ UpdateWordCount(word,SortOnly)
 CleanupWordListOfThisWordlist(wordlist){
    ;Function cleans up all words from given wordlist
     Msgbox,not yet implemented `n (%A_LineFile%~%A_LineNumber%)
-  g_WordListDB.Query("DELETE FROM Words WHERE wordlist = '" wordlist "';")
+  g_WordListDB.Query("DELETE FROM Words WHERE wordListID = '" . g_wordListID . "';")
 }
 ;>>>>>>>> CleanupWordListOfThisWordlist >>>>
 
@@ -758,9 +782,9 @@ CleanupWordListAll_ofLittleWordCount(LearnedWordsOnly := false){
    global prefs_LearnCount
 ;   Progress, M, Please wait..., Cleaning wordlist, %g_ScriptTitle%
    if (LearnedWordsOnly) {
-      g_WordListDB.Query("DELETE FROM Words WHERE count < " . prefs_LearnCount . " AND count IS NOT NULL AND wordlist = '" wordlist "';")
+      g_WordListDB.Query("DELETE FROM Words WHERE count < " . prefs_LearnCount . " AND count IS NOT NULL AND wordListID = '" . g_wordListID . "';")
    } else {
-      g_WordListDB.Query("DELETE FROM Words WHERE (count < " . prefs_LearnCount . " OR count IS NULL) AND wordlist = '" wordlist "';")
+      g_WordListDB.Query("DELETE FROM Words WHERE (count < " . prefs_LearnCount . " OR count IS NULL) AND wordListID = '" . g_wordListID . "';")
    }
    ;Progress, Off
 }
@@ -773,6 +797,7 @@ MaybeUpdateWordlist(){
    global g_LegacyLearnedWords
    global g_WordListDB
    global wordlist
+   global g_wordListID
    global g_WordListDone
    global prefs_LearnCount
    
@@ -780,7 +805,7 @@ MaybeUpdateWordlist(){
    IfEqual, g_WordListDone, 1
    {
     ;
-      SELECT := "SELECT Word FROM Words WHERE count >= " . prefs_LearnCount . " AND count IS NOT NULL AND wordlist = '" . wordlist . "' ORDER BY count DESC; "
+      SELECT := "SELECT Word FROM Words WHERE count >= " . prefs_LearnCount . " AND count IS NOT NULL AND wordListID = '" . g_wordListID . "' ORDER BY count DESC; "
     msgbox,% SELECT " 18-03-25_06-05"
         ;Clipboard := SELECT
       SortWordList := g_WordListDB.Query(SELECT)
@@ -892,7 +917,7 @@ wordlist = '%wordlist%' ;
         ; FileGetTime, WordlistModified, % wordlist, M
         ; FormatTime, WordlistModified, % WordlistModified, yyyy-MM-dd HH:mm:ss
 
-        INSERT_INTO_Wordlists(wordlist, modified, size )
+        ;INSERT_INTO_Wordlists_ifNotExist(wordlist, modified, size )
         try{
             result := g_WordListDB.Query(sqlGetWLid)
         } catch e{
@@ -915,18 +940,31 @@ wordlist = '%wordlist%' ;
         For each, row in result.Rows
            return row[1]
       msg := sql . "`n" . sqlGetWLid .  "`n" . A_LineNumber . " " .  A_LineFile
-        sqlLastError := SQLite_LastError()
+        sqlLastError := trim( SQLite_LastError() )
         msg .= "`n sqlLastError=" sqlLastError " `n( " A_LineFile "~" A_LineNumber ")"
-      lll(A_LineNumber, A_LineFile, msg)
-      clipboard := msg
-      feedbackMsgBox("clipboard:=sql", msg)
-      msgbox,% msg
-      exitapp
+        if(sqlLastError){
+          lll(A_LineNumber, A_LineFile, msg)
+          clipboard := msg
+          feedbackMsgBox("clipboard:=sql", msg)
+          msgbox,% msg
+          exitapp
+        }
     return wordListID
 }
 ;>>>>>>>> getWordListID >>>> 180324230528 >>>> 24.03.2018 23:05:28 >>>>
 
 
+INSERT_INTO_Wordlists_ifNotExist(wordlist, WordlistModified, WordlistSize ){
+    global g_WordListDB
+    if(!g_WordListDB)
+        g_WordListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", A_ScriptDir . "\WordlistLearned.db" ) ;
+    wordListID := getWordListID(wordlist) ; 24.03.2018 23:02
+    if(wordListID){
+        tooltip,Oops wordListID already exist `n wordListID = %wordListID% `n wordlist=%wordlist% `n  27.03.2018 22:37
+        return
+    }
+    INSERT_INTO_Wordlists(wordlist, WordlistModified, WordlistSize )
+}
 INSERT_INTO_Wordlists(wordlist, WordlistModified, WordlistSize ){
     global g_WordListDB
     sql := "INSERT INTO Wordlists "

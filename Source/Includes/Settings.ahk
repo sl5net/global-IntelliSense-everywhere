@@ -1,3 +1,4 @@
+; Indentation_style: https://de.wikipedia.org/wiki/Einrückungsstil#SL5small-Stil
 ; GUI for TypingAid configuration
 ; by HugoV / Maniac
 

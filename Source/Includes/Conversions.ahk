@@ -89,7 +89,7 @@ RebuildDatabase(){
 		MsgBox,4 ,% tip,% tip, 5
 		return false
 	}
-
+;
 	global g_WordListDB
 	g_WordListDB.BeginTransaction()
 	g_WordListDB.Query("DROP TABLE Words;")
@@ -248,12 +248,30 @@ CreateLastStateTable()
 }
 
 CreateWordsTable(WordsTableName:="Words"){
+lll(A_LineNumber, A_LineFile, "lin1 at CREATE_TABLE_wordS")
 	global g_WordListDB
-	
-	IF not g_WordListDB.Query("CREATE TABLE " . WordsTableName . " (wordlist TEXT NOT NULL, wordindexed TEXT NOT NULL, word TEXT NOT NULL, count INTEGER, worddescription TEXT, wordreplacement TEXT NOT NULL, PRIMARY KEY (wordlist, word, wordreplacement) );")
+	if(!g_WordListDB)
+    	g_WordListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", A_ScriptDir . "\WordlistLearned.db" ) ;
+;
+sql =
+(
+CREATE TABLE IF NOT EXISTS %WordsTableName%  (
+wordListID INTEGER NOT NULL
+, wordindexed TEXT NOT NULL
+, word TEXT NOT NULL
+, count INTEGER
+, worddescription TEXT
+, wordreplacement TEXT NOT NULL
+, PRIMARY KEY `(wordListID, word, wordreplacement) );
+)
+; wordListID,
+;clipboard := sql
+tooltip, % sql
+	IF not g_WordListDB.Query(sql)
 	{
-		ErrMsg := g_WordListDB.ErrMsg()
+		ErrMsg := g_WordListDB.ErrMsg() . "`n" . sql . "`n"
 		ErrCode := g_WordListDB.ErrCode()
+		clipboard := sql
 		msgbox Cannot Create %WordsTableName% Table - fatal error: %ErrCode% - %ErrMsg%
 		ExitApp
 	}
@@ -262,7 +280,7 @@ CreateWordsTable(WordsTableName:="Words"){
 CreateWordIndex(){
 	global g_WordListDB
 
-	IF not g_WordListDB.Query("CREATE INDEX WordIndex ON Words (wordlist, wordindexed);")
+	IF not g_WordListDB.Query("CREATE INDEX WordIndex ON Words (wordListID, wordindexed);")
 	{
 		ErrMsg := g_WordListDB.ErrMsg()
 		ErrCode := g_WordListDB.ErrCode()

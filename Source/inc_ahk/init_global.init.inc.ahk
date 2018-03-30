@@ -32,6 +32,14 @@ if(instr(A_LineFile,A_ScriptName)){
 ; 16-01-19_23-11
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+;Wenn es dir auch auf den Keks geht, dass die [Capslock]-Taste (die über die [Umschalt]-Taste), immer wieder ausversehen aktiviert wird, dann schreibe folgendes in dein Script:
+; CapsLock::SetCapsLockState, AlwaysOff
+SetCapsLockState,Off
+
+SetScrollLockState,Off ; Im Übrigen reagieren nur noch einige Uralt-Programme, etwa Word 5 für DOS, auf diese Taste. Damit bietet sie sich als idealer Kandidat für selbst definierte Hotkeys an.
+SetNumLockState, AlwaysOn
+
+
 CoordMode, Caret, Screen
 CoordMode, Mouse, Screen
 CoordMode, Pixel, Screen

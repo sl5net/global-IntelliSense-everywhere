@@ -471,6 +471,7 @@ ahkSource .= temp
     IfWinNotExist,temp.ahk
     {
         FileWriteAndRun( ahkSource , "temp.ahk" ) ; TODO: wozu ? 13.08.2017 10:52
+        ; DynaRun(ahkSource) ; this line prducing erros. if u use FileWriteAndRun it works.
     } else {
         Tooltip, WinWaitClose   temp.ahk `n (from: %A_LineFile%~%A_LineNumber%)
         WinWaitClose,temp.ahk,,5

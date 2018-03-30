@@ -586,6 +586,7 @@ IfWinActive,SciTE4AutoHotkey ahk_class SciTEWindow
   g_ListBoxPosX += 160 ; was addet from sl5.net 11.03.2017 21:51 17-03-11_21-51
 
 if(WinActive("PhpStorm", "", ".ahk") || WinActive("New File ahk_class SunAwtDialog") || WinActive("Rename ahk_class SunAwtDialog") )  {
+   ;ToolTip9sec(A_LineNumber   " "   A_LineFile   " "   Last_A_This)
 ; SetKeyDelay,290,125 ; <=== this doesent has any effect.
 
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -607,18 +608,18 @@ if(0){
        ; x=603,y=16,t=0x380c6a
 }
 else if(0){
-      ; laptop mit 1600 auflÃ¶sung, skalieung 120prozent
+      ; laptop mit 1600 auflösung, skalieung 120prozent
       g_ListBoxPosX := 918 ; was addet from sl5.net 04.04.2017 19:07 17-04-04_19-08
       ListBoxPosY := 500 ; was addet from sl5.net 04.04.2017 19:07 17-04-04_19-08
 }
 else if(1){
-      ; laptop mit 1680 auflÃ¶sung, skalieung 120prozent
+      ; laptop mit 1680 auflösung, skalieung 120prozent
       g_ListBoxPosX := 1681
       ListBoxPosY := (1050 - 798) + 15
 }
 else if(0){
-; mitte lappi mit maximaler auflÃ¶sung und skalierung von 200proz
-; rechts usb monitor mit hÃ¶he von 798 und monitor ganz unten bÃ¶ndig
+; mitte lappi mit maximaler auflösung und skalierung von 200proz
+; rechts usb monitor mit höhe von 798 und monitor ganz unten böndig
       g_ListBoxPosX := 2885 ; was addet from sl5.net 04.04.2017 19:07 17-04-04_19-08
       ListBoxPosY := (1620 - 798) + 15 ; 15 pixel sicherheitshalber wegen vielleicht falscher positionierung 24.04.2017 18:57
 }      ; ListBoxPosY := 798

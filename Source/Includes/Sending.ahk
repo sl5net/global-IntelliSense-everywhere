@@ -16,10 +16,65 @@ SendKey(Key){
 
 ;------------------------------------------------------------------------
 
+getLineOfIndex(id) {
+  global g_SingleMatch
+    ;~ erste zeile mit eintrag im wörterbuch: g_SingleMatch[1] 10.07.2017 12:13
+  global WordlistFileName
+  global wordlist
+  ;WordlistFileName = wordlist.txt
+  WordlistFileName := wordlist
+  if(!FileExist(WordlistFileName))
+    Msgbox,:( `n (%A_LineFile%~%A_LineNumber%) )
 
-getWordIndex(word) {
-msgbox, getWordIndex(word) `n is not implemented yet 17-07-10_14-10
+    Loop, Read, %WordlistFileName%
+    {
+        if ErrorLevel
+            break
+
+        if ( id == A_Index  ) {
+            ;msgBox, %A_LoopReadLine% 18-03-02_09-26
+            ;tooltip,'%A_LoopReadLine%' = A_LoopReadLine `n (line:%A_LineNumber%)
+            ;ToolTip1sec(A_LoopReadLine . "`n" . A_LineNumber . " " .  A_LineFile . " " .    Last_A_This)
+            return, JEE_StrUtf8BytesToText( A_LoopReadLine )
+            return A_Index
+         }
+    }
+    ; MsgBox, '%WordlistFileName%' = WordlistFileName  n (line:%A_LineNumber%) n `n The end of the file has been reached or there was a problem.
+    return
+
 }
+getWordIndex(word) {
+  global g_SingleMatch
+    ;~ erste zeile mit eintrag im wörterbuch: g_SingleMatch[1] 10.07.2017 12:13
+  global WordlistFileName
+  global wordlist
+  ;WordlistFileName = wordlist.txt
+  WordlistFileName := wordlist
+  if(!FileExist(WordlistFileName))
+    Msgbox,:( `n (%A_LineFile%~%A_LineNumber%) )
+
+    Loop, Read, %WordlistFileName%
+    {
+        if ErrorLevel
+            break
+
+        foundPos := RegExMatch(A_LoopReadLine, "^" . word )
+        if ( foundPos  ) {
+            ;msgBox, %A_LoopReadLine% 18-03-02_09-26
+            ;tooltip,'%A_LoopReadLine%' = A_LoopReadLine `n (line:%A_LineNumber%)
+            ;ToolTip1sec(A_LoopReadLine . "`n" . A_LineNumber . " " .  A_LineFile . " " .    Last_A_This)
+            return A_Index
+         }
+    }
+    ; MsgBox, '%WordlistFileName%' = WordlistFileName  n (line:%A_LineNumber%) n `n The end of the file has been reached or there was a problem.
+    return
+}
+
+
+
+
+
+
 getLineOfWord(word) {
   global g_SingleMatch
   ;~ global g_SingleMatchReplacement
@@ -32,7 +87,7 @@ getLineOfWord(word) {
   ;WordlistFileName = wordlist.txt
   WordlistFileName := wordlist
   if(!FileExist(WordlistFileName))
-    msgbox, :( 17-07-10_13-48
+    Msgbox,:( `n (%A_LineFile%~%A_LineNumber%) )
 
     Loop, Read, %WordlistFileName%
     {
@@ -115,7 +170,8 @@ firstLine := g_SingleMatch[1]
 
 ;~   select = SELECT id FROM Words WHERE word ="%word%" ;
     StringReplace, SearchValueEscaped, word, ', '', All
-  where := " AND wordlist = '" wordlist "' "
+    global g_wordListID
+  where := " AND wordListID = '" g_wordListID "' "
   select := "SELECT * FROM Words WHERE word LIKE '" . SearchValueEscaped . "%' " where
   select := "SELECT * FROM Words WHERE word LIKE 'Trim%' " where
   select := "SELECT * FROM Words WHERE word = 'Trim(String)' " where
@@ -188,7 +244,8 @@ disableCopyQ() ; enableCopyQ() ;
 
 ;sending := "JEE_StrTextToUtf8Bytes" JEE_StrTextToUtf8Bytes( sending )
 ;sending := JEE_StrUtf8BytesToText( sending )
-;sending := getCorrectedStringUAOSS( sending  )
+;sending := "getCorrectedStringUAOSS" getCorrectedStringUAOSS( sending  )
+sending := getCorrectedStringUAOSS( sending  )
 ; MsgBox, % vText := JEE_StrUtf8BytesToText(vUtf8Bytes)
 
 
@@ -226,25 +283,77 @@ isAHKcode := false
 WinGetActiveTitle, activeTitle
 
 if (g_SingleMatch[WordIndex]) {
+
+; ToolTip2sec|rr|ToolTip2sec|ahk|strlen(m) `n ....
 ; eins|rr|zwei|ahk|autohotkey source code
+
 ; regIsAHKcode := "^([^\|]+?)\|rr\|(.*?)\|ahk\|(.*?)$"
 regIsAHKcode := "^([^\|\n]+?)\|rr\|([^\n]*?)\|ahk\|([^\n]*?)$"
 regIsKTScode := "^([^\|\n]+?)\|rr\|([^\n]*?)\|kts\|([^\n]*?)$"
-regIsXXXcode := "^([^\|\n]+?)\|rr\|([^\n]*?)\|(ahk|kts)\|([^\n]*?)$"
+regIsXXXcode := "^([^\|\n]+?)\|(rr)\|([^\n]*?)\|(ahk|kts)\|([^\n]*?)$"
+
+
+regIsSynonym := "^([^\|\n]+?)\|(rr)\|$"
+
+lineOfIndex := g_SingleMatch[WordIndex]
+
+; AHKdyn example super simple example
+   if(RegExMatch( lineOfIndex , regIsSynonym ,  m )){
+        rX := {key:m1, rr:m2, send:m3, lang:m4 ,code:m5}
+
+        if(!rX["lang"]){
+            ToolTip3sec("found synonym `n ("   A_LineFile " ," A_LineNumber  ") "   )
+            id := getWordIndex(m1)
+            while(!rX["code"] && id>1){
+                id -= 1
+                lineOfIndex := getLineOfIndex(id)
+                RegExMatch( lineOfIndex , regIsXXXcode ,  m )
+                if(!rX["rr"]){
+                    tip=%lineOfIndex% `n (%A_LineFile%~%A_LineNumber%)
+                    ToolTip3sec(tip)
+                    sending := lineOfIndex
+                    break ; no code tag inside
+                }
+                if(rX["code"]){
+                        tip=%lineOfIndex% `n (%A_LineFile%~%A_LineNumber%)
+                        ToolTip3sec(tip)
+                        break ; no code tag inside
+                }
+   }   }    }
+
+
+
 ; AHKdyn example super simple example
    ; if(RegExMatch( sending , ereg ,  m )) {
-   ;if(RegExMatch( g_SingleMatch[WordIndex] , regIsAHKcode ,  m )) {
-   if(RegExMatch( g_SingleMatch[WordIndex] , regIsXXXcode ,  m )) {
-        StringLower, m3, m3
-        if(m3 == "ahk"){
-            isAHKcode := true
-            AHKcode := m4
-        }
-        if(m3 == "kts"){
-            isKTScode := true
-            KTScode := m4
-        }
+   if(rX["code"] || RegExMatch( lineOfIndex , regIsXXXcode ,  m )) {
+        rX := {key:m1, rr:m2, send:m3, lang:m4 ,code:m5}
 
+if(false){
+tip:= "key= " rX["key"] " `n send= " rX["send"] " `n(" A_LineNumber ")"
+clipboard:=tip
+tooltip,% tip
+msgbox,% tip
+}
+        if(!rX["code"]){
+            ToolTip3sec("found synonym `n ("   A_LineFile " ," A_LineNumber  ") "   )
+            id := getWordIndex(m1)
+            while(!rX["code"] && id>1){
+                id -= 1
+                lineOfIndex := getLineOfIndex(id)
+                RegExMatch( lineOfIndex , regIsXXXcode ,  m )
+                m := {key:m1, rr:m2, send:m3, lang:m4 ,code:m5}
+            }
+        }
+        StringLower, mlang, % rX["lang"]
+        rX["lang"] := mlang
+        if(rX["lang"] == "ahk"){
+            isAHKcode := true
+            AHKcode := rX["code"]
+        }
+        if(rX["lang"] == "kts"){
+            isKTScode := true
+            KTScode := rX["code"]
+        }
 
 
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -260,7 +369,7 @@ regIsXXXcode := "^([^\|\n]+?)\|rr\|([^\n]*?)\|(ahk|kts)\|([^\n]*?)$"
         isAHKcode := false
         if(RegExMatch( line , regIsAHKcode ,  m )) { ; repeat / overwrite last regex 10.07.2017 14:24
          isAHKcode := true
-         AHKcode := m3
+         AHKcode := rX["code"]
         }else{
          ;sending := line
          sending := RegExReplace(line, "i).*\|r\|(.*)", "$1") ; i know thats not redundanct. todo: do better reduaant style 10.07.2017 15:31
@@ -271,23 +380,35 @@ regIsXXXcode := "^([^\|\n]+?)\|rr\|([^\n]*?)\|(ahk|kts)\|([^\n]*?)$"
     ; ___ __ thats a simple simpleHello thats a simple simpleHello thats a simple simpleHello
     ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-
+if(false){
+tip:= "key= " rX["key"] " `n send= " rX["send"] " `n(" A_LineNumber ")"
+clipboard:=tip
+tooltip,% tip
+msgbox,% tip
+}
 
 ; msgbox, '%line%' = line  n (line:%A_LineNumber%) n
 ; __asdkjfhsdf
 if(isAHKcode || isKTScode)
-    sending := m2
-;    Msgbox, '%sending%' = sending  `n `n AHKcode = %m3% (line:%A_LineNumber%)
+    sending :=  rX["send"]
+if(false){
+    tip:= "key= " rX["key"] " `n send= " rX["send"] " `n(" A_LineNumber ")"
+clipboard:=tip
+tooltip,% tip
+msgbox,% tip
+}
+    ;sleep,3000
+;    Msgbox, '%sending%' = sending  `n `n AHKcode = %rX["send"]% (line:%A_LineNumber%)
+; (A_LineNumber   " "   A_LineFile   " "   Last_A_This)
+
 
 
    }else
-   if( doSendSpaceSlow && substr( g_SingleMatch[WordIndex], 1 , 2 ) != "__" && RegExMatch( activetitle , "\.(json|ts|css|html) - PhpStorm" ) ) {
-   ; if(doSendSpaceSlow && "__" != substr( g_SingleMatch[WordIndex], 1 , 2 )  ){
+   if( doSendSpaceSlow && substr( lineOfIndex, 1 , 2 ) != "__" && RegExMatch( activetitle , "\.(json|ts|css|html) - PhpStorm" ) ) {
        isAHKcode := true
        doSendSpacesInAHKslow := true
        sending := "" ; thats very fast. may use it in other casese 10.04.2017 13:29
-       ; AHKcode := "Send," . g_SingleMatch[WordIndex]
-       AHKcode := g_SingleMatch[WordIndex]
+       AHKcode := lineOfIndex
 
        ; lets open the wordlist inside notepad++ or so 19.04.2017 19:16
 ;       Msgbox,'%wordlistActive%' = wordlistActive  n (line:%A_LineNumber%) n   n (from: %A_LineFile%~%A_LineNumber%)
@@ -377,20 +498,19 @@ if(0){
     Msgbox,% AHKcode2 . "`n`n = AHKcode2 `n (%A_LineFile%~%A_LineNumber%)"
 }
 ; doesent work has no effect ScriptDir|rr||ahk|send, % A_ScriptDir ; \\.\pipe 03.04.2017 11:17 17-04-03_11-17
-; AHKcode2 .= "d := """ . a_scriptDir . """`n"
 
 startPos := 1
 if( false && doSendSpacesInAHKslow )
 while( RegExMatch( AHKcode , "mPi)(^[ ]*Send[ ]*,[ ]*)([^\n]+)" , m , startPos ) ) {
     m1 := SubStr(AHKcode, mPos1 ,  mLen1 )
-    m2 := SubStr(AHKcode, mPos2 ,  mLen2 )
-    m2 := RegExReplace(m2, "([a-z,.\(\)\[\]]) ([a-z,.\(\)\[\]])" , "$1`nSleep,1000`nSend,{space}$2")
+    rX["rr"] := SubStr(AHKcode, mPos2 ,  mLen2 )
+    rX["rr"] := RegExReplace(rX["rr"], "([a-z,.\(\)\[\]]) ([a-z,.\(\)\[\]])" , "$1`nSleep,1000`nSend,{space}$2")
     endString := SubStr(AHKcode, mPos2 + mLen2 )
-    AHKcode := SubStr(AHKcode, 1 , mPos2 -1 ) . m2 . endString
+    AHKcode := SubStr(AHKcode, 1 , mPos2 -1 ) . rX["rr"] . endString
     startPos := mPos1 + m - 1
 }
 
-if( RegExMatch( activeTitle , "\.(json|ts|css|html) - PhpStorm" ) && substr( g_SingleMatch[WordIndex], 1 , 2 ) != "__" ) {
+if( RegExMatch( activeTitle , "\.(json|ts|css|html) - PhpStorm" ) && substr( lineOfIndex, 1 , 2 ) != "__" ) {
     global g_Word ; thats the beginning of the word user already typed. 27.04.2017 18:52
     AHKcode := getRealisticDelayDynamicSendAHKcode(g_Word,AHKcode)
 }
@@ -422,6 +542,7 @@ StringReplace, AHKcode, AHKcode, `%A_WorkingDir`%, %A_WorkingDir%, All ; in some
 ; todo: howto insert  a newwline text sign into te output 19.04.2017 21:01 ? not solved :(
 ; msgbox, '%AHKcode%' = AHKcode  n (line:%A_LineNumber%) n
 AHKcode2 .= RegExReplace(AHKcode, "([^``])``n", "$1`n") ; ; thats we really need. the only chance to get newline inside the source code
+AHKcode2 .= "`n exitApp"
 ; msgbox, '%AHKcode2%' = AHKcode2  n (line:%A_LineNumber%) n
 ; abc abc n
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -1474,26 +1595,45 @@ sending := RegExReplace( sending , "i)Ã¼", Chr(252) ) ; ue http://slayeroffice
 sending := RegExReplace( sending , "Ãœ", Chr(220) ) ; UE http://slayeroffice.com/tools/ascii/ Ãœbrigens
 sending := RegExReplace( sending , "ueber", "" . Chr(252) .  "ber" ) ; ue http://slayeroffice.com/tools/ascii/
 sending := RegExReplace( sending , "i)\bfÃ¼r\b","f" . Chr(252) . "r") ; ue http://slayeroffice.com/tools/ascii/
+sending := RegExReplace( sending , "i)\bf\?r\b","f" . Chr(252) . "r") ; ue http://slayeroffice.com/tools/ascii/
 sending := RegExReplace( sending , "i)\bgrÃ¼nd","gr" . Chr(252) . "nd") ; ue http://slayeroffice.com/tools/ascii/
-sending := RegExReplace( sending , "i)\bmuendl.\b","m" . Chr(252) . "uendl.") ; ue http://slayeroffice.com/tools/ascii/
+sending := RegExReplace( sending , "i)\bgr\?nd","gr" . Chr(252) . "nd") ; ue http://slayeroffice.com/tools/ascii/
+sending := RegExReplace( sending , "i)\bmuendl.\b","m" . Chr(252) . "ndl.") ; ue http://slayeroffice.com/tools/ascii/
+sending := RegExReplace( sending , "i)r\?ck","r" . Chr(252) . "ck") ; ue http://slayeroffice.com/tools/ascii/
+sending := RegExReplace( sending , "i)m\?nd","m" . Chr(252) . "nd") ; ue http://slayeroffice.com/tools/ascii/
 
 sending := RegExReplace( sending , "Ã¶", Chr(246) ) ; oe zB hÃ¶ren http://slayeroffice.com/tools/ascii/
 sending := RegExReplace( sending , "oe", Chr(246) ) ; oe zB hÃ¶ren http://slayeroffice.com/tools/ascii/
 
 sending := RegExReplace( sending , "Ã¼", Chr(252) ) ; ue http://slayeroffice.com/tools/ascii/
+sending := RegExReplace( sending , "Ã¼be", Chr(252) "be" ) ; ue http://slayeroffice.com/tools/ascii/
+sending := RegExReplace( sending , "\?be", Chr(252) "be" ) ; ue http://slayeroffice.com/tools/ascii/
 
 
 ; weiÃŸ
 sending := RegExReplace( sending , "ÃŸ","" . Chr(223) . "") ; ss http://slayeroffice.com/tools/ascii/
 sending := RegExReplace( sending , "i)\bgroÃŸ","gro" . Chr(223) . "") ; ss http://slayeroffice.com/tools/ascii/
+sending := RegExReplace( sending , "i)\bgro\?","gro" . Chr(223) . "") ; ss http://slayeroffice.com/tools/ascii/
 sending := RegExReplace( sending , "i)lieÃŸlich\b","lie" . Chr(223) . "lich") ; scharfess http://slayeroffice.com/tools/ascii/ ausschlieÃŸlich
 ; sending := RegExReplace( sending , "i)ss", Chr(223) ) ; scharfess http://slayeroffice.com/tools/ascii/ Ausnahmen professionell
 
+sending := RegExReplace( sending , "i)lie\?lich\b","lie" . Chr(223) . "lich") ; scharfess http://slayeroffice.com/tools/ascii/ ausschlieÃŸlich
+
+sending := RegExReplace( sending , "i)s\?ch","s" . Chr(228) . "ch") ; scharfess http://slayeroffice.com/tools/ascii/ ausschlieÃŸlich
 sending := RegExReplace( sending , "i)Ã¤", Chr(228) ) ; ae http://slayeroffice.com/tools/ascii/ ausschlieÃŸlich
 sending := RegExReplace( sending , "Ã„", "" . Chr(196) . "" ) ; AE http://slayeroffice.com/tools/ascii/
 sending := RegExReplace( sending , "u.Ã„.", "u." . Chr(196) . "." ) ; AE http://slayeroffice.com/tools/ascii/
-sending := RegExReplace( sending , "i)beschÃ¤ftigte","besch" . Chr(228) . "ftigte ") ; ae http://slayeroffice.com/tools/ascii/ ausschlieÃŸlich
+sending := RegExReplace( sending , "i)beschÃ¤ftigte","besch" . Chr(228) . "ftigte") ; ae http://slayeroffice.com/tools/ascii/ ausschlieÃŸlich
+sending := RegExReplace( sending , "i)\bMÃ¤rz","M" . Chr(228) . "rz") ; ae http://slayeroffice.com/tools/ascii/ ausschlieÃŸlich
+sending := RegExReplace( sending , "i)\bM\?rz","M" . Chr(228) . "rz") ; ae http://slayeroffice.com/tools/ascii/ ausschlieÃŸlich
+sending := RegExReplace( sending , "i)\bW\?hre","W" . Chr(228) . "hre") ; ae http://slayeroffice.com/tools/ascii/ ausschlieÃŸlich
+sending := RegExReplace( sending , "i)\bjÃ¤hr","j" . Chr(228) . "hr") ; ae http://slayeroffice.com/tools/ascii/ ausschlieÃŸlich
+sending := RegExReplace( sending , "i)\bj\?hr","j" . Chr(228) . "hr") ; ae http://slayeroffice.com/tools/ascii/ ausschlieÃŸlich
+sending := RegExReplace( sending , "i)\?hnlich","" . Chr(228) . "hnlich") ; ae http://slayeroffice.com/tools/ascii/ ausschlieÃŸlich
+sending := RegExReplace( sending , "i)besch\?ft","besch" . Chr(228) . "ft") ; ae http://slayeroffice.com/tools/ascii/ ausschlieÃŸlich
+sending := RegExReplace( sending , "i)sch\?tigt","sch" . Chr(228) . "ftigt") ; ae http://slayeroffice.com/tools/ascii/ ausschlieÃŸlich
 sending := RegExReplace( sending , "i)AuftrÃ¤ge","Auftr" . Chr(228) . "ge") ; ae http://slayeroffice.com/tools/ascii/ ausschlieÃŸlich
+sending := RegExReplace( sending , "i)Auftr\?ge","Auftr" . Chr(228) . "ge") ; ae http://slayeroffice.com/tools/ascii/ ausschlieÃŸlich
 
 foundPos := RegExMatch( sending , "i)Ã" )
 if(foundPos){
