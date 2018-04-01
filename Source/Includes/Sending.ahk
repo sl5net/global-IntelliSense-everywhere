@@ -222,8 +222,8 @@ wordlistFolderOfThisWordlist := A_ScriptDir  "\" RegExReplace(wordlist,"\\[^\\]+
 wordlistFolderOfThisWordlist := removesSymbolicLinksFromFileAdress(wordlistFolderOfThisWordlist) ; user should could includes direcly from his txt wordlist, without editing the address 05.03.2018 08:15
 if(!FileExist(wordlistFolderOfThisWordlist)){ ; Checks for the existence of a file or folder
 clipboard := wordlistFolderOfThisWordlist
-    MsgBox,ups: ! FileExist(%wordlistFolderOfThisWordlist% `n (%A_LineFile%~%A_LineNumber%)
-
+    tooltip,ups:`n ! FileExist(%wordlistFolderOfThisWordlist% `n (%A_LineFile%~%A_LineNumber%)
+    return false
 }
 
 
@@ -597,8 +597,7 @@ if(0){
 }  
 ;------------------------------------------------------------------------
             
-SendFull(SendValue,ForceBackspace:= false)
-{
+SendFull(SendValue,ForceBackspace:= false){
    global g_Active_Id
    global g_Word
    global prefs_AutoSpace
@@ -751,9 +750,41 @@ else {
 if(!g_doUseSendPlay){
      ; just tested: words with ahk code goes here. but sending gets the value1 not the value2 with the script or ahk part 13.03.2018 14:43
     ; SendRaw, %sending% ; used till 13.03.2018 14:51
-    Send,{Text}%sending%  
+
+global g_method
+if( g_method == "Clipboard" ){
+; HotKey, $^+v, Off ; nonexistend hotkey
+;HotKey, $^v, Off ; nonexistend hotkey
+
+    ;DisableKeyboardHotKeys()
+;sendClipboard(sending) ; funny not work here ; 01.04.2018 09:46 18-04-01_09-46
+
+SendLevel 99 ; with this additions lines it works also in globalIntelisense nearliy 99% of time 18-04-01_12-24
+ClipboardBackup := Clipboard
+sleep,88
+;tooltip,% c
+Clipboard := sending ; " ln=" A_LineNumber "`n`n"
+AHKcode := "Send,^v"
+DynaRun(AHKcode) ; <= uese old clipboard.or  simle give it more time
+sleep,500
+Clipboard := ClipboardBackup
+SendLevel 0
+
+
+
+    ;
+    ;SendLevel 9
+    ;ClipboardBackup := Clipboard
+    ;Clipboard := sending
+    ;Send,^v
+    ;Clipboard := ClipboardBackup
+    ;SendLevel 0
+}else
+    Send,{Text}%sending%
+
             ;lll(A_LineNumber, A_LineFile, "%sending% `n >" . sending . "<  `n token=18-03-13_14-44")
-        ; Msgbox,sending `n >%sending%< `n (%A_LineFile%~%A_LineNumber%) 
+
+        ; Msgbox,sending `n >%sending%< `n (%A_LineFile%~%A_LineNumber%)
 
 }else{
        SendPlay, %sending% ; First do the backspaces, Then send word (Raw because we want the string exactly as in wordlist . txt)
@@ -1596,6 +1627,10 @@ sending := RegExReplace( sending , "Ãœ", Chr(220) ) ; UE http://slayeroffice.c
 sending := RegExReplace( sending , "ueber", "" . Chr(252) .  "ber" ) ; ue http://slayeroffice.com/tools/ascii/
 sending := RegExReplace( sending , "i)\bfÃ¼r\b","f" . Chr(252) . "r") ; ue http://slayeroffice.com/tools/ascii/
 sending := RegExReplace( sending , "i)\bf\?r\b","f" . Chr(252) . "r") ; ue http://slayeroffice.com/tools/ascii/
+
+sending := RegExReplace( sending , "i)\bwÃ¼rd","w" . Chr(252) . "rd") ; ue http://slayeroffice.com/tools/ascii/
+sending := RegExReplace( sending , "i)\bw\?rd","w" . Chr(252) . "rd") ; ue http://slayeroffice.com/tools/ascii/
+
 sending := RegExReplace( sending , "i)\bgrÃ¼nd","gr" . Chr(252) . "nd") ; ue http://slayeroffice.com/tools/ascii/
 sending := RegExReplace( sending , "i)\bgr\?nd","gr" . Chr(252) . "nd") ; ue http://slayeroffice.com/tools/ascii/
 sending := RegExReplace( sending , "i)\bmuendl.\b","m" . Chr(252) . "ndl.") ; ue http://slayeroffice.com/tools/ascii/
@@ -1624,6 +1659,10 @@ sending := RegExReplace( sending , "i)Ã¤", Chr(228) ) ; ae http://slayeroffice
 sending := RegExReplace( sending , "Ã„", "" . Chr(196) . "" ) ; AE http://slayeroffice.com/tools/ascii/
 sending := RegExReplace( sending , "u.Ã„.", "u." . Chr(196) . "." ) ; AE http://slayeroffice.com/tools/ascii/
 sending := RegExReplace( sending , "i)beschÃ¤ftigte","besch" . Chr(228) . "ftigte") ; ae http://slayeroffice.com/tools/ascii/ ausschlieÃŸlich
+
+sending := RegExReplace( sending , "i)\bgefÃ¤lt","gef" . Chr(228) . "lt") ; ae http://slayeroffice.com/tools/ascii/ ausschlieÃŸlich
+sending := RegExReplace( sending , "i)\bgef\?lt","gef" . Chr(228) . "lt") ; ae http://slayeroffice.com/tools/ascii/ ausschlieÃŸlich
+
 sending := RegExReplace( sending , "i)\bMÃ¤rz","M" . Chr(228) . "rz") ; ae http://slayeroffice.com/tools/ascii/ ausschlieÃŸlich
 sending := RegExReplace( sending , "i)\bM\?rz","M" . Chr(228) . "rz") ; ae http://slayeroffice.com/tools/ascii/ ausschlieÃŸlich
 sending := RegExReplace( sending , "i)\bW\?hre","W" . Chr(228) . "hre") ; ae http://slayeroffice.com/tools/ascii/ ausschlieÃŸlich

@@ -1,8 +1,20 @@
 ;These functions and labels are related to the active window
 
-EnableWinHook()
-{
-   global g_EVENT_SYSTEM_FOREGROUND
+EnableWinHook(){
+   ; tooltip,EnableWinHook => return`n (%A_LineFile%~%A_LineNumber%)
+   ; return ; todo: clean it ??
+      ; vermutng1: dann funktionieren gar keine hotkeys mehr. also unbedingt laufen lassen
+; vermutng1 falsch falsch. läuft immer noch.
+
+; found it will be triggered here:
+; PauseResumeScript:
+; if (g_PauseState == "Paused"){
+; Msgbox,g_PauseState == "Paused"`n (%A_LineFile%~%A_LineNumber%)
+
+
+
+
+global g_EVENT_SYSTEM_FOREGROUND
    global g_NULL
    global g_WINEVENT_SKIPOWNPROCESS
    global g_WinChangedEventHook
@@ -27,8 +39,7 @@ lll(A_LineNumber, A_LineFile, "Failed to register Event Hook! `n  g_WinChangedEv
    Return
 }
 
-DisableWinHook()
-{
+DisableWinHook(){
    global g_WinChangedEventHook
    
    if (g_WinChangedEventHook)
@@ -200,14 +211,18 @@ GetIncludedActiveWindowGuts() {
                Return, CurrentWindowIsActive
             }
          }
-         
+
          CurrentWindowIsActive := false
 
-             lll(A_LineNumber, A_LineFile, " InactivateAll() 17-08-04_16-19c")
+             lll(A_LineNumber, A_LineFile, " InactivateAll_Suspend_ListBox_WinHook() 17-08-04_16-19c")
              ; run,\.\log\%A_LineFile%.log.txt
 
-         InactivateAll()
+         InactivateAll_Suspend_ListBox_WinHook()
          ;Wait for any window to be active
+
+         tip="WinWaitActive, , , , ZZZYouWillNeverFindThisStringInAWindowTitleZZZ`n" A_LineNumber . " " .  A_LineFile . " " . Last_A_This
+         tooltip,% tip
+         ; msgbox,% tip
          WinWaitActive, , , , ZZZYouWillNeverFindThisStringInAWindowTitleZZZ
          Continue
       }
@@ -219,10 +234,10 @@ GetIncludedActiveWindowGuts() {
          Break
       
       CurrentWindowIsActive := false
-                   lll(A_LineNumber, A_LineFile, "GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll() 18-02-10_09-44")
+                   lll(A_LineNumber, A_LineFile, "GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll_Suspend_ListBox_WinHook() 18-02-10_09-44")
                   ; run,\.\log\%A_LineFile%.log.txt
 
-      InactivateAll()
+      InactivateAll_Suspend_ListBox_WinHook()
       SetTitleMatchMode, 3 ; set the title match mode to exact so we can detect a window title change
       ; Wait for the current window to no longer be active
       WinWaitNotActive, %ActiveTitle% ahk_id %ActiveId% ; whats the use of this ? script stops at this possition. i will deactivat this line now 16.07.2017 11:31 17-07-16_11-31

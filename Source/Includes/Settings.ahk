@@ -7,7 +7,7 @@ if (g_InSettings == true)
 {
    return
 }
-             lll(A_LineNumber, A_LineFile, " InactivateAll() 17-08-04_16-19b")
+             lll(A_LineNumber, A_LineFile, " InactivateAll_Suspend_ListBox_WinHook() 17-08-04_16-19b")
              fileAddress := A_ScriptDir . "\log\" . A_ScriptName . ".log.txt"
              if(FileExist(fileAddress) && !InStr(FileExist(fileAddress), "D") )
                 run,% fileAddress
@@ -16,7 +16,10 @@ if (g_InSettings == true)
                 Msgbox,%msg%`n
             }
 
-InactivateAll()
+msg=LaunchSettings ??? really ??? next is InactivateAll_Suspend_ListBox_WinHook() `n (%A_LineFile%~%A_LineNumber%)
+ Msgbox,%msg%`n
+InactivateAll_Suspend_ListBox_WinHook()
+
 
 Menu, Tray, Disable, Settings
 g_InSettings := true

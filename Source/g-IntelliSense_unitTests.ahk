@@ -5,37 +5,58 @@ isDevellopperMode:=true ; enth�llt auch update script.
 #Include *i %A_ScriptDir%\inc_ahk\init_global.init.inc.ahk
 ;ToolTip5sec(A_LineNumber   " "   A_LineFile   " "   Last_A_This) 
 ; DetectHiddenWindows,on
-
 if(1){ ; may better do this
   send,{Shiftup}
   send,{AltUp}
   send,{CtrlUp}
 }
-
 tests()
 return
 
 #IfWinActive,g-IntelliSense_unitTests.ahk
-f9::
 f10::
 tests()
 return
 
 ;<<<<<<<< tests <<<< 180329000517 <<<< 29.03.2018 00:05:17 <<<<
 tests(){
-  run,..\start.ahk
   
+  SetTitleMatchMode,2
+  if(0){ ; its not working
+    DetectHiddenWindows,On
+    name=TypingAid.ahk 
+    name=TypingAid - Active ahk_class AutoHotkey
+    WinShow,% name
+    IfWinExist,% name
+      Msgbox,`n (%A_LineFile%~%A_LineNumber%) 
+    if(WinExist(name))
+      Msgbox,`n (%A_LineFile%~%A_LineNumber%) 
+    return
+    
+      SendLevel 0
+  DetectHiddenWindows,on
+  WinWait,TypingAid - Active,,12
+  if(!winWaitLoop("TypingAid - Active"))
+    return
+  DetectHiddenWindows,Off
 
+  }
+  run,..\start.ahk
+  Sleep,4000
   SetTitleMatchMode,2
 
   closeDisturbingWindows()
-  t:="\Wordlists\_globalWordListsGenerated\_ahk_global.txt"
-  WinClose,% t,,4
-  Sleep,4000
+
+
+
 
   WinActivate,g-IntelliSense_unitTests.ahk
   WinWaitActive,g-IntelliSense_unitTests.ahk
 
+  if(!winWaitLoop("g-IntelliSense_unitTests.ahk"))
+    return
+
+  send,^{End}
   SendLevel 9
   send,^{End}{enter}`; 
   
@@ -48,62 +69,70 @@ tests(){
     IfWinExist,% t
       break
   }
-  Sleep,200
-  SetTitleMatchMode,2
-  IfWinNotExist,% t
-  {
-    Msgbox,:( `n %t% `n not found `n (%A_LineFile%~%A_LineNumber%) 
+  if(!winWaitLoop(t))
     return
-  }
-  WinClose,% t
+  
+  close_ahk_global_txt()
 
-  FormatTime, timestampyyMMddHHmmss , %A_now%,yyMMddHHmmss
-  timestampyyMMddHHmmss := "tstamp_" timestampyyMMddHHmmss 
-  FormatTime, timestampyyMMddHHmmssPretty, %A_now%,yy:MM:dd HH:mm:ss 
-  AHKcode = InputBox, UserInput, %timestampyyMMddHHmmss%, dymmy text , , 340, 180
-  DynaRun(AHKcode) ; wait for user decision
-  SetTitleMatchMode,3
-  WinWait, % timestampyyMMddHHmmss, , 3
-  IfWinNotExist,% timestampyyMMddHHmmss
-  {
-    Msgbox,:( `n %timestampyyMMddHHmmss% `n not found `n (%A_LineFile%~%A_LineNumber%) 
-    return
-  }
-
+  openInputBoxTitle := openInputBox()
 
   Sleep,4500 ; give script time to genere new list address
+  close_wordlistChangedInRegistry()
+  
   menuNr := 1
-  t := timestampyyMMddHHmmss ".txt"
-  Loop,9
+  t := openInputBoxTitle ".txt"
+  Loop,4
   {
-    SetTitleMatchMode,3
-    WinActivate,% timestampyyMMddHHmmss
-    IfWinActive,% timestampyyMMddHHmmss
-      runMenu(menuNr,timestampyyMMddHHmmss) ; create or/and open
+    runMenu(menuNr, openInputBoxTitle ) ; create or/and open
     SetTitleMatchMode,2
-    WinWait,% t,,2
+    WinWait,% t,,3
     IfWinExist,% t
-    {
       break
-    }
-    Sleep,500
-  }
-  
-  ; ;____1____1____1DetectHiddenWindows,1
-  SetTitleMatchMode,2
-  IfWinNotExist,% t
+    IfExist,% "created_token_17-08-10_16-17"
+      break
+  }  
+
+;Msgbox,what do you see?? `n (%A_LineFile%~%A_LineNumber%) 
+
+  IfWinNotExist, % t
   {
-    Msgbox,:( `n %t% `n not found `n (%A_LineFile%~%A_LineNumber%) 
-    return
+    WinActivate,openInputBoxTitle
+    menuNr := 5
+    t := openInputBoxTitle ".txt"
+    Loop,4
+    {
+      runMenu(menuNr, openInputBoxTitle ) ; open new txt
+      SetTitleMatchMode,2
+      WinWait,% t,,3
+      IfWinExist,% t
+        break
+    }  
   }
   
-  ; now new list is created :) that wunderful :) 
+  
+ ; next step open it again
+    openInputBox(openInputBoxTitle)
+    close_tstamp()   ; first close it
+    WinActivate,openInputBoxTitle
+    menuNr := 5
+    t := openInputBoxTitle ".txt"
+    Loop,4
+    {
+      runMenu(menuNr, openInputBoxTitle ) ; open new txt
+      SetTitleMatchMode,2
+      WinWait,% t,,3
+      IfWinExist,% t
+        break
+    }  
+  
+
 
   
+  if(!winWaitLoop(t))
+    return
+  ; now new list is created :) that wunderful :) 
   Msgbox, :-) all tests run without errors  :-) `n (%A_LineFile%~%A_LineNumber%) 
-
-  return
-
+  close_tstamp()  
 }
 ;>>>>>>>> tests >>>> 180329000537 >>>> 29.03.2018 00:05:37 >>>>
 
@@ -120,54 +149,121 @@ tests(){
 
 
 
+
+
+
+  winWaitLoop(t, maxLoops:=9,s :=100){
+    SetTitleMatchMode,2
+    Loop,%maxLoops%
+    {
+      WinWait,% t,,1
+      IfWinExist,% t
+        return true
+      Sleep,% s
+    }
+    IfWinNotExist,% t
+      Msgbox,:( `n %t% `n not found `n (%A_LineFile%~%A_LineNumber%) 
+    return false
+  }
+
+
+
+
+
+create_a_window__never_existed_before(){
+  wn := openInputBox()
+  return wn
+}
+
+openInputBox(timestampyyMMddHHmmss:=""){
+  if(!timestampyyMMddHHmmss){
+    FormatTime, timestampyyMMddHHmmss , %A_now%,yyMMddHHmmss
+    timestampyyMMddHHmmss := "tstamp_" timestampyyMMddHHmmss 
+    FormatTime, timestampyyMMddHHmmssPretty, %A_now%,yy:MM:dd HH:mm:ss 
+  }else{
+    WinActivate,% timestampyyMMddHHmmss
+    return
+  }
+  AHKcode = InputBox, UserInput, %timestampyyMMddHHmmss%, dymmy text , , 340, 80
+  DynaRun(AHKcode) ; wait for user decision
+  SetTitleMatchMode,3
+  WinWait, % timestampyyMMddHHmmss, , 3
+  IfWinNotExist,% timestampyyMMddHHmmss
+  {
+    Msgbox,:( `n %timestampyyMMddHHmmss% `n not found `n (%A_LineFile%~%A_LineNumber%) 
+    return
+  }
+  close_wordlistChangedInRegistry()
+  return timestampyyMMddHHmmss
+}
+
+
+
+
+
 runMenu(nr := 1,t:=""){ ; of https://github.com/sl5net/global-IntelliSense-everywhere
+  if(!t)
+    Msgbox,:( `n !t parameter empty `n found `n (%A_LineFile%~%A_LineNumber%) 
   
   SetTitleMatchMode,2
-  closeDisturbingWindows_without_tstamp_18()
+  ;closeDisturbingWindows_without_tstamp_18()
+  close_wordlistChangedInRegistry()
+
+if(1){ ; may better do this
+  send,{Shiftup}
+  send,{AltUp}
+  send,{CtrlUp}
+}
+
   
   DelayMilliSec := 50
   PressDuration := 20
-  SetKeyDelay, DelayMilliSec, PressDuration ; sometimes helpful 28.03.2018 23:17
+  ; SetKeyDelay, DelayMilliSec, PressDuration ; sometimes helpful 28.03.2018 23:17
+  SetKeyDelay,180,120
+
+  WinActivate,% t
+  WinWaitActive,% t, , 1
+
+
+  IfWinNotActive,% t
+    return false
+  IfWinActive,% t ".txt"
+    return false
+
+  
+  send,%nr%{space} ; open wordlist / entry one
   send,____ ; open menu of https://github.com/sl5net/global-IntelliSense-everywhere
   Sleep,785
   
   IfWinNotActive,% t
-    return
+    return false
+  IfWinActive,% t ".txt"
+    return false
   
   send,% nr ; open wordlist / entry one
   Sleep,433
+  return true
 }
 
 closeDisturbingWindows_without_tstamp_18(){
-  SetTitleMatchMode,2
-  
-  WinClose,wordlistChangedInRegistry ahk_class #32770
-  IfWinExist,wordlistChangedInRegistry ahk_class #32770
-  {
-    Msgbox,:( `n wordlistChangedInRegistry `n found `n (%A_LineFile%~%A_LineNumber%) 
-  }
-  
-  WinClose,wordlistChangedInRegistry ahk_class #32770
-  IfWinExist,wordlistChangedInRegistry ahk_class #32770
-  {
-    Msgbox,:( `n wordlistChangedInRegistry `n found `n (%A_LineFile%~%A_LineNumber%) 
-  }
-
-  if(0){
-  t:="\Wordlists\_globalWordListsGenerated\_ahk_global.txt"
-  WinClose,% t
-  WinWaitClose,% t,,4
-  IfWinExist,% t
-  {
-    Msgbox,:( `n %t% `n found `n (%A_LineFile%~%A_LineNumber%) 
-    return
-  }
-  }
-
+  close_wordlistChangedInRegistry()
+  close_ahk_global_txt()
+}
+closeDisturbingWindows(){
+  close_tstamp()
+  close_wordlistChangedInRegistry()
+  close_ahk_global_txt()
 }
 
-
-closeDisturbingWindows(){
+close_wordlistChangedInRegistry(){
+  SetTitleMatchMode,1
+  WinClose,wordlistChangedInRegistry ahk_class #32770
+  IfWinExist,wordlistChangedInRegistry ahk_class #32770
+  {
+    Msgbox,:( `n wordlistChangedInRegistry `n found `n (%A_LineFile%~%A_LineNumber%) 
+  }
+}
+close_tstamp(){
   SetTitleMatchMode,2
   FormatTime, timestampyyMMdd , %A_now%,yyMMdd
   timestampyyMMdd := "tstamp_" timestampyyMMdd
@@ -184,13 +280,9 @@ closeDisturbingWindows(){
   {
     Msgbox,:( `n %wordlistChangedInRegistry% `n found `n (%A_LineFile%~%A_LineNumber%) 
   }
-  
-  WinClose,wordlistChangedInRegistry ahk_class #32770
-  IfWinExist,wordlistChangedInRegistry ahk_class #32770
-  {
-    Msgbox,:( `n wordlistChangedInRegistry `n found `n (%A_LineFile%~%A_LineNumber%) 
-  }
-  
+}
+close_ahk_global_txt(){
+  SetTitleMatchMode,2
   t:="\Wordlists\_globalWordListsGenerated\_ahk_global.txt"
   WinClose,% t
   WinWaitClose,% t,,4
@@ -199,10 +291,17 @@ closeDisturbingWindows(){
     Msgbox,:( `n %t% `n found `n (%A_LineFile%~%A_LineNumber%) 
     return
   }
-
 }
 
 
 #Include *i %A_ScriptDir%\inc_ahk\functions_global.inc.ahk
 #Include *i %A_ScriptDir%\inc_ahk\functions_glo1bal_dateiende.inc.ahk
 #Include *i %A_ScriptDir%\inc_ahk\UPDATEDSCRIPT_global.inc.ahk
+
+
+; 1____11__ 1_
+; 1___1 1____1 1____1 1___1 1____1 1___1
+; 1____11____1 1__1____1__1____
+;1___1 1__1____1____11____11____1
+;1____1 1____1 1___1 1____1 1___1 1____1
+; 1____11____1 1____1 1____1 1___1 1____1

@@ -117,8 +117,8 @@ MainLoop(){
       ;Get one key at a time 
       Input, InputChar, L1 V I, {BS}%g_TerminatingEndKeys%
    
-      Critical
-      EndKey := ErrorLevel
+      Critical ; Wenn der erste Parameter fehlt (oder das Wort On ist), wird der aktuelle Thread als kritisch eingestuft; das heißt, dass dieser Thread nicht von anderen Threads unterbrochen werden kann. ; If the first parameter is omitted (or the word On), the current thread is made critical, meaning that it cannot be interrupted by another thread.
+    EndKey := ErrorLevel
    
       ProcessKey(InputChar,EndKey)
    }
@@ -317,7 +317,8 @@ RecomputeMatches(){
    ; if a user typed an accented character, we should exact match on that accented character
    if (WordMatch != WordMatchOriginal) {
       WordAccentQuery =
-      LoopCount := StrLen(g_Word)
+        if(!LoopCount) ; ader 18-03-31_22-45
+            LoopCount := StrLen(g_Word)
       Loop, %LoopCount%
       {
          Position := A_Index
@@ -1163,7 +1164,7 @@ lll(A_LineNumber, A_LineFile, "Run, %" . ScriptPath64 . "%, %" . A_WorkingDir . 
 }
 
 
-InactivateAll(){
+InactivateAll_Suspend_ListBox_WinHook(){
    ;Force unload of Keyboard Hook and WinEventHook
    Input
    SuspendOn()
@@ -1171,21 +1172,21 @@ InactivateAll(){
 lll(A_LineNumber, A_LineFile, "CloseListBox()")
 
    CloseListBox()
-   MaybeSaveHelperWindowPos()
+   ;MaybeSaveHelperWindowPos()
    DisableWinHook()
+   ;msgbox,done: DisableWinHook()  (%A_LineFile%~%A_LineNumber%) :-)
 }
 
 SuspendOn(){
    global g_ScriptTitle
-   ; Suspend, On  ; deaktivated now. for testing reasons 16.07.2017 11:34 17-07-16_11-34
+   Suspend, On  ; deaktivated now. for testing reasons 16.07.2017 11:34 17-07-16_11-34
    Menu, Tray, Tip, %g_ScriptTitle% - Inactive
    If A_IsCompiled
    {
             ; A_IsCompiled	Contains 1 if the script is running as a compiled EXE and an empty string (which is considered false) if it is not.
 
       ; Menu, tray, Icon, %A_ScriptFullPath%,3,1
-   } else
-   {
+   } else {
       ;Menu, tray, Icon, %A_ScriptDir%\%g_ScriptTitle% - Inactive.ico, ,1
    }
 }

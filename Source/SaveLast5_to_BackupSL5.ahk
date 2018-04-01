@@ -55,6 +55,7 @@ IfWinExist,% activeTitle
 		; SendMessage,{esc},,,,SaveLast5_to_BackupSL5.ahk ahk_class #32770 ahk_exe AutoHotkey.exe
 		IfWinNotExist,% activeTitle
 			break
+		ToolTip9sec(A_LineNumber   " "   A_LineFile   " WinActivate," activeTitle)
 	   WinActivate,% activeTitle
 	   WinWaitActive,% activeTitle ,,1
 	   Send,{Enter}

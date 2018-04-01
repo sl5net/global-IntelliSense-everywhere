@@ -367,8 +367,7 @@ RebuildMatchList(){
    Return
 }
 
-AddToMatchList(position, MaxLength, HalfLength, LongestBaseLength, ComputeBaseLengthOnly)
-{
+AddToMatchList(position, MaxLength, HalfLength, LongestBaseLength, ComputeBaseLengthOnly){
    global g_DelimiterChar
    global g_Match
    global g_MatchStart
@@ -396,6 +395,10 @@ AddToMatchList(position, MaxLength, HalfLength, LongestBaseLength, ComputeBaseLe
    prefixlen := 2
    
    CurrentMatch := g_SingleMatch[position]
+
+   global g_regExReplaceInVisibleLine
+   CurrentMatch := RegExReplace(CurrentMatch, g_regExReplaceInVisibleLine,"$1")
+
    if (g_SingleMatchReplacement[position] || g_SingleMatchDescription[position])
    {
       AdditionalDataExists := true
@@ -403,11 +406,15 @@ AddToMatchList(position, MaxLength, HalfLength, LongestBaseLength, ComputeBaseLe
    } else if (ComputeBaseLengthOnly) {
       ; we don't need to compute the base length if there
       ; is no Replacement or Description
+
+      ToolTip1sec(BaseLength "=" BaseLength "`n (" A_LineNumber   " "   A_LineFile   ")")
       Return, 0
    } else {
-      BaseLength := MaxLength
+      BaseLength := MaxLength ; was default before 01.04.2018 14:23 18-04-01_14-23
+      BaseLength := HalfLength ; addet at 01.04.2018 14:24 18-04-01_14-24 so |rr| replacements also work more prety
+      ToolTip1sec(BaseLength "=" BaseLength "`n (" A_LineNumber   " "   A_LineFile   ")")
    }
-   
+
    CurrentMatchLength := StrLen(CurrentMatch) + prefixlen
    
    if (CurrentMatchLength > BaseLength)
@@ -469,7 +476,9 @@ AddToMatchList(position, MaxLength, HalfLength, LongestBaseLength, ComputeBaseLe
          CurrentMatchLength := strlen(CurrentMatch) + prefixlen - strlen(Tabs) + (Iterations * 8) - Remainder
       }
    }
-   
+
+
+
    g_Match .= prefix . CurrentMatch
    
    g_Match .= g_DelimiterChar
@@ -543,8 +552,7 @@ ComputeListBoxMaxLength()
 
 ;Show matched values
 ; Any changes to this function may need to be reflected in ComputeListBoxMaxLength()
-ShowListBox()
-{
+ShowListBox(){
    global
 
    IfNotEqual, g_Match,
@@ -651,7 +659,6 @@ else if(0){
             GuiControlGet, ListBoxActualSize, ListBoxGui: Pos, g_ListBox%A_Index%
             Continue
          }
-      
          GuiControl, ListBoxGui: Hide, g_ListBox%A_Index%
          GuiControl, ListBoxGui: -Redraw, g_ListBox%A_Index%
          GuiControl, ListBoxGui: , g_ListBox%A_Index%, %g_DelimiterChar%

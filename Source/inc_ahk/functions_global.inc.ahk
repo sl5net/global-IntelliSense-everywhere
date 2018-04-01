@@ -250,6 +250,9 @@ FileSave(ByRef content, fileName ){
 
 ;<<<<<<<< sendClipboard <<<< 180111182313 <<<< 11.01.2018 18:23:13 <<<<
 sendClipboard(c){
+	if(!c)
+		Return
+
 	SetTitleMatchMode,3 ;3: A window's title must exactly match WinTitle to be a match.
 	WinGetActiveTitle,at
 	SetKeyDelay,-1 ; By contrast, a delay of -1 will never sleep. For better reliability, 0 is recommended as an alternative to -1.
@@ -1075,6 +1078,7 @@ feedbackMsgBoxNr(tit := "",text := "" ,x:=1,y:=1){
 
 feedbackMsgBox(tit := "",text := "" ,x:=1,y:=1){
 	WinGetActiveTitle,at
+	at := RegExReplace(at, "m)\n.*", "") ; title should never is multioline. this proof is hoprefulle1
 	if(!at || RegExMatch(at, "^(\d:|temp\.ahk)")){ ; check for probably wrong title. dont know why its happens sometimes. :(
         lll( A_LineNumber, A_ScriptName, "return")
 		return
@@ -1148,6 +1152,7 @@ settitlematchmode,slow
 loop,1
 {
 WinGetActiveTitle , at ; seems not working in ayyn window
+at := RegExReplace(at, "m)\n.*", "") ; title should never is multioline. this proof is hoprefulle
 if(at)
     break
     sleep,99

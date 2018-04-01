@@ -26,6 +26,12 @@ class Stuff{
     }
 }
 
+global g_method := "Clipboard"
+
+global g_regExReplaceInVisibleLine := "^([\w\d_-]+).*" ; show only first text , numers _ or -
+global g_regExReplaceInVisibleLine := "^([^|]+).*" ; the string only before the first "|"
+
+
 global g_sending_is_buggy := false ; Solved: SendPlay. 29.07.2017 11:21
 global g_doSaveLogFiles := false
 global g_doRunLogFiles := false
@@ -82,9 +88,9 @@ WinShow,%g_ScriptTitle%
 DetectHiddenWindows,On ; if this is off it does not find the tool in tray bar 27.04.2017 12:04
 SetTitleMatchMode,2  ; if this is 1 it does not find the tool in tray bar 27.04.2017 12:04
 
-DetectHiddenWindows,On
-IfWinNotExist,Could not close the previous instance of this script_autoCloser.ahk
-    run,%A_ScriptDir%\Could not close the previous instance of this script_autoCloser.ahk
+; DetectHiddenWindows,On
+; IfWinNotExist,Could not close the previous instance of this script_autoCloser.ahk
+;    run,%A_ScriptDir%\Could not close the previous instance of this script_autoCloser.ahk
 
 ;WinWait,Typing_Aid_everywhere_multi_clone.ahk ahk_class AutoHotkey
 
@@ -337,8 +343,8 @@ Return
 ; Return
 
 PauseResumeScript:
-if (g_PauseState == "Paused")
-{
+if (g_PauseState == "Paused"){
+    Msgbox,g_PauseState == "Paused"`n (%A_LineFile%~%A_LineNumber%)
    g_PauseState =
    Pause, Off
    EnableWinHook()
@@ -590,7 +596,7 @@ AHKcodeMsgBox .= temp
         wordlistOLD := wordlist
         g_wordListID := getWordListID(wordlist) ; 24.03.2018 23:02
 
-        tip=%wordlist% `n(old: %wordlistOLD% `n %A_LineFile%~%A_LineNumber%)
+        tip=%wordlist% (%WordlistSize%) `n%wordlistOLD% (%WordlistLastSize%) = old `n ( %A_LineFile%~%A_LineNumber% )
         ToolTip4sec(tip)
         ;msgbox,%wordlist%  (%A_LineFile%~%A_LineNumber%)
 
@@ -785,6 +791,6 @@ return
 ;
 
 wordlistTooltip:
-    tip=%wordlist% `n(old: %wordlistOLD% `n %A_LineFile%~%A_LineNumber%)
+    tip=%wordlist% `n%wordlistOLD% = old `n ( %A_LineFile%~%A_LineNumber% )
     ToolTip,% tip
 return
