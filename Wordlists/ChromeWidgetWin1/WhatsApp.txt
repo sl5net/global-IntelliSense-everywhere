@@ -2,5 +2,7 @@
 ; #Include ..\TscShellContainerClass\_global.txt
 ; #Include ..\_globalWordLists\_global.txt
 
+___open WhatsApp.txt |rr||ahk|run,privat_WhatsApp.txt
+
 kuss|rr||ahk|send,{Space}:kiss `n Sleep,180 `n Send,{enter}
 kiss|rr|
