@@ -1179,7 +1179,8 @@ lll(A_LineNumber, A_LineFile, "CloseListBox()")
 
 SuspendOn(){
    global g_ScriptTitle
-   Suspend, On  ; deaktivated now. for testing reasons 16.07.2017 11:34 17-07-16_11-34
+   ;ToolTip2sec("Suspend deaktivad TEST " A_LineNumber   " "   A_LineFile   " "   Last_A_This)
+   ;Suspend, On  ; deaktivated now. for testing reasons 16.07.2017 11:34 17-07-16_11-34
    Menu, Tray, Tip, %g_ScriptTitle% - Inactive
    If A_IsCompiled
    {

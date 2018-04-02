@@ -399,15 +399,14 @@ AddToMatchList(position, MaxLength, HalfLength, LongestBaseLength, ComputeBaseLe
    global g_regExReplaceInVisibleLine
    CurrentMatch := RegExReplace(CurrentMatch, g_regExReplaceInVisibleLine,"$1")
 
-   if (g_SingleMatchReplacement[position] || g_SingleMatchDescription[position])
-   {
+   if (g_SingleMatchReplacement[position] || g_SingleMatchDescription[position]){
       AdditionalDataExists := true
       BaseLength := HalfLength
    } else if (ComputeBaseLengthOnly) {
       ; we don't need to compute the base length if there
       ; is no Replacement or Description
 
-      ToolTip1sec(BaseLength "=" BaseLength "`n (" A_LineNumber   " "   A_LineFile   ")")
+      ; ToolTip1sec(BaseLength "= BaseLength `n (" A_LineNumber   " "   A_LineFile   ")")
       Return, 0
    } else {
       BaseLength := MaxLength ; was default before 01.04.2018 14:23 18-04-01_14-23
