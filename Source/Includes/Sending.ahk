@@ -759,16 +759,25 @@ if( g_method == "Clipboard" ){
     ;DisableKeyboardHotKeys()
 ;sendClipboard(sending) ; funny not work here ; 01.04.2018 09:46 18-04-01_09-46
 
-SendLevel 99 ; with this additions lines it works also in globalIntelisense nearliy 99% of time 18-04-01_12-24
+ToolTip4sec("A_SendLevel = " A_SendLevel "`n`n" A_LineNumber   " "   A_LineFile   " "   Last_A_This) ; The built-in variable A_SendLevel contains the current setting.
+
 ClipboardBackup := Clipboard
-sleep,88
+;Sleep,10
+Clipboard := ""
+
+; #; InputLevel 0
+
+SendLevel 9 ; with this additions lines it works also in globalIntelisense nearliy 99% of time 18-04-01_12-24
+Clipboard := ""
+;sleep,2000
 ;tooltip,% c
 Clipboard := sending ; " ln=" A_LineNumber "`n`n"
 AHKcode := "Send,^v"
 DynaRun(AHKcode) ; <= uese old clipboard.or  simle give it more time
-sleep,500
-Clipboard := ClipboardBackup
+sleep,2000
 SendLevel 0
+Clipboard := ClipboardBackup
+
 
 
 
