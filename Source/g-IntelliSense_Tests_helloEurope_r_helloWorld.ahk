@@ -6,6 +6,7 @@ OnExit("exitFunc")
 doWorkaroundRerun_gIntelliISense := false 
 ;doWorkaroundRerun_gIntelliISense := true
 global g_DelayMilliSec := 150
+; global g_DelayMilliSec := 500
 global g_PressDuration := 370
 
 pleaseSeteNotepadPP =
@@ -25,33 +26,41 @@ if(1){ ; may better do this
 
   deleteAll_tstamp_in_32770_folder() ; dont do it while notpad is open. it may crash 18-03-31_23-58 31.03.2018 23:59
 
-  ; run,..\start.ahk
 
-  ; global g_created_token := false  ; not working. this window is to fast
+
+  ; feedbackMsgBoxCloseAllWindows()
+  closeAllOtherAHK() 
+  restoreClosedAHK() 
+  
   SetTimer,lbsFastTime,100
+  tWL := tests()
   
-;  tWL := tests()
-  
- closeAllOtherAHK() 
-  
-  ; for index, element in g_closedAHKlist ; Enumeration is the recommended approach in most cases.
-  loop, % g_closedAHKlist.MaxIndex()  ; Enumeration is the recommended approach in most cases.
-  {
-    ; Using "Loop", indices must be consecutive numbers from 1 to the number
-    ; of elements in the array (or they must be calculated within the loop).
-    ; MsgBox % "Element number " . A_Index . " is " . Array[A_Index]
 
-    ; Using "for", both the index (or "key") and its associated value
-    ; are provided, and the index can be *any* value of your choosing.
-    MsgBox, ,  % "cloaed ahk number "  index  " is " g_closedAHKlist[index] , , 1 ; element
+  if(Trim(g_error_log)) {
+    while(1){
+      SoundbeepGameOver()
+      Sleep,6000
+      ;Msgbox,%g_error_log% `n = g_error_log (%A_LineFile%~%A_LineNumber%) 
+    }
+    Msgbox, ,:( %g_error_log% `n = g_error_log (%A_LineFile%~%A_LineNumber%)   , , 5
+  }else{
+    ;SoundbeepACK()
+    SoundbeepMissionImpossibleTheme()
+    Msgbox, , :-) all tests run without errors  :-) `n (%A_LineFile%~%A_LineNumber%)  , , 2
   }
-  
+ 
+
     Msgbox,rerun ? `n (%A_LineFile%~%A_LineNumber%) 
   Reload
   
 return
 
-
+#IfWinActive,
+f12::
+  Hotkey,f12,f12,Off
+  MsgBox,reRun ?
+  Reload
+return
 
 SetTitleMatchMode,2
 #IfWinActive,g-IntelliSense_unitTests
@@ -60,12 +69,9 @@ f10::tests()
 ;<<<<<<<< tests <<<< 180329000517 <<<< 29.03.2018 00:05:17 <<<<
 tests(){
   ToolTip,
-  if(1){
+  if(1)
     run,..\start.ahk
-    closeAllOtherAHK() 
-  }
-  else
-    feedbackMsgBoxCloseAllWindows()
+  
 
   SetTitleMatchMode,2
   if(0){ ; its not working
@@ -101,7 +107,7 @@ tests(){
   ;feedbackMsgBox("try: create window never existed before", A_LineNumber . " , " . A_ScriptName,1,1)
   openInputBoxTitle := create_a_window_never_existed_before()
   WinSet, AlwaysOnTop, On, % openInputBoxTitle
-  WinMove, % openInputBoxTitle, , 380 , 200
+  WinMove, % openInputBoxTitle, , 380 , 200,1500
   Sleep,4500 ; give script time to genere new list address
   close_wordlistChangedInRegistry()
   
@@ -167,7 +173,7 @@ tests(){
       sendAeUeLines(tWLsaved) ; this function do not saved
       Sleep,60
       WinGetActiveTitle, tWLunsaved
-      if(tWLunsaved <> tWLsaved)
+      if(tWLunsaved <> tWL1saved)
         break
     }
     if(tWLunsaved <> tWLsaved)
@@ -181,7 +187,7 @@ tests(){
     global g_DelayMilliSec
     global g_PressDuration
     SetKeyDelay,% g_DelayMilliSec,% g_PressDuration ; sometimes helpful 28.03.2018 23:17
-    while(true){
+    while(A_Index < 50){
       WinActivateTry(tWLunsaved,9)
       IfWinActive,% tWLunsaved
         send,^s ; save the changes 
@@ -213,43 +219,42 @@ tests(){
   }
   SoundbeepACK()
     
-    run,..\start.ahk ; dirty bugFix. becourse late in the evening. TODO ceckit out 18-03-31_23-46
-    
-    msg := "try: action helloEurope|r|helloWorld in inputbox ", A_LineNumber . " , " . A_ScriptName
-    Msgbox,,% msg,,4 ; thats a dirty bug fix. helps script changeing wordlists 31.03.2018 17:55 18-03-31_17-55
-    ;feedbackMsgBox("try: action ae.. in inputbox ", A_LineNumber . " , " . A_ScriptName,1,1)    
-    openInputBox(openInputBoxTitle)
-    Sleep,2500
-    Loop,14
-    {
-      WinActivateTry(openInputBoxTitle,25)
-      send2inputBox("hel",1,openInputBoxTitle)
-      Sleep, 1000 ; 1 Sekunde
-      ControlGetText,inputBoxtext,Edit1,% openInputBoxTitle
-      ae := chr(228) ; lineAe := "helloEurope|r|helloWorld" chr(228) "`n"
-      if(InStr(inputBoxtext,ae))
-        break
-      if( Mod(A_Index, 4) == 0) {
-        Send,{AltDown}{Tab 2}{AltUp}
-              close_wordlistChangedInRegistry()
-        Sleep,3100
-      }
-
-      Sleep, 1200 ; 1 Sekunde
-    }
-    if(!InStr(inputBoxtext,ae)){
-      SoundbeepNoACK()
-      g_error_log .= ":( `n !InStr(inputBoxtext,ae) " A_ThisFunc " (line=" A_LineNumber ") `n" 
-    }        
-
-  if(Trim(g_error_log)) {
-    SoundbeepGameOver()
-    Msgbox,%g_error_log% `n = g_error_log (%A_LineFile%~%A_LineNumber%) 
-  }else{
-    ;SoundbeepACK()
-    SoundbeepMissionImpossibleTheme()
-    Msgbox, , :-) all tests run without errors  :-) `n (%A_LineFile%~%A_LineNumber%)  , , 2
+  feedbackMsgBox("try: open generated", A_LineNumber . " , " . A_ScriptName,1,1)
+  SetTitleMatchMode,2
+  while(A_Index < 5){
+    send2inputBox("__",5,openInputBoxTitle) 
+    IfWinExist,% ".txt._Generated.txt"
+      break
   }
+  SoundbeepACK()
+  WinMove,.txt._Generated.txt,, 912,35, 882,1055
+
+  WinActivateTry(tWL,9)
+  
+  if(False){
+  SetTitleMatchMode,2
+  while(A_Index<5 && !WinExist("hi World")){
+    if(!trickyUglySendTextWorkaround2inputBox("hi","", openInputBoxTitle)) 
+      break
+  }
+  if(!WinExist("","hi World"))
+        g_error_log .= ":( hi World " A_ThisFunc " (line=" A_LineNumber ") `n"
+  }
+
+  WinActivateTry(tWL,9)
+
+    msg := "try some action like helloEurope|r|helloWorld in inputbox ", A_LineNumber . " , " . A_ScriptName
+    feedbackMsgBox(msg)
+    if(!trickyUglySendTextWorkaround2inputBox("aa",chr(228), openInputBoxTitle))
+        g_error_log .= ":( ae " A_ThisFunc " (line=" A_LineNumber ") `n"
+
+ ; global g_DelayMilliSec := 2000
+ ; global g_PressDuration := 2000
+ ;   if(!trickyUglySendTextWorkaround2inpu5tBox("hell","helloWorld", openInputBoxTitle)) 
+  ;      g_error_log .= ":( helloE " A_ThisFunc " (line=" A_LineNumber ") `n"
+    ;trickyUglySendTextWorkaround2inputBox("he","hallo", openInputBoxTitle)
+    ;__feedbackMsgBox("try: list text hotkeys", A_LineNumber . " , " . A_ScriptName,1,1)
+    ;trickyUglySendTextWorkaround2inputBox("held","hallo", openInputBoxTitle)
 
   return tWL
 
@@ -309,7 +314,7 @@ open_for_second_time_wordlist_of_this_new_window(openInputBoxTitle){
     Loop,24
     {
       WinActivateTry(openInputBoxTitle,9)
-      runMenu(menuNr, openInputBoxTitle ) ; open new txt
+      runMenu("__",menuNr, openInputBoxTitle ) ; open new txt
       SetTitleMatchMode,2
       WinWait,% t,,3
       IfWinExist,% t
@@ -407,7 +412,7 @@ openInputBox(timestampyyMMddHHmmss:=""){
 
 
 
-send2inputBox(text,nr := 1,t:=""){ ; of https://github.com/sl5net/global-IntelliSense-everywhere
+send2inputBox_OLD(text,nr := 1,t:=""){ ; of https://github.com/sl5net/global-IntelliSense-everywhere
   if(!t){
     Msgbox,:( `n !t parameter empty `n found `n (%A_LineFile%~%A_LineNumber%) 
     return false
@@ -422,13 +427,13 @@ if(1){ ; may better do this
   send,{Shiftup}
   send,{AltUp}
   send,{CtrlUp}
-  SendLevel 9
+  SendLevel 100
   send,{Shiftup}
   send,{AltUp}
   send,{CtrlUp}
 }
 
-  SendLevel 9
+  SendLevel 100
   SetCapsLockState,Off
   
   ;SetKeyDelay,180,120
@@ -440,12 +445,14 @@ if(1){ ; may better do this
   WinActivate,% t
   WinWaitActive,% t, , 1
 
+;############# inside send2inputBox_OLD
 
   IfWinNotActive,% t
     return false
   IfWinActive,% t ".txt"
     return false
 
+  Sleep, 2000
   SendRaw,% text
   Sleep,800
   
@@ -454,8 +461,8 @@ if(1){ ; may better do this
   IfWinActive,% t ".txt"
     return false
   
-  SendRaw,% nr ; open wordlist / entry one
-  ;Sleep,900
+  SendRaw,% nr
+  Sleep,900
   return true
 }
 
@@ -463,7 +470,7 @@ if(1){ ; may better do this
 
 
 
-runMenu(nr := 1,t:=""){ ; of https://github.com/sl5net/global-IntelliSense-everywhere
+runMenu(text,nr,t,sLevel:=55){ ; of https://github.com/sl5net/global-IntelliSense-everywhere
   if(!nr){
     ToolTip,:( `n !nr parameter empty `n  (%A_LineFile%~%A_LineNumber%) 
     return false
@@ -482,20 +489,21 @@ if(1){ ; may better do this
   send,{Shiftup}
   send,{AltUp}
   send,{CtrlUp}
-  SendLevel 9
+  SendLevel 100
   send,{Shiftup}
   send,{AltUp}
   send,{CtrlUp}
 }
 
-SendLevel 9
+SendLevel, % sLevel
+ToolTip,% "A_SendLevel = " A_SendLevel "`n" A_LineNumber   
 SetCapsLockState,Off
   
-  DelayMilliSec := 50
-  PressDuration := 20
+  ;DelayMilliSec := 50
+  ;PressDuration := 20
   global g_DelayMilliSec
   global g_PressDuration
-  SetKeyDelay,% g_DelayMilliSec,% g_PressDuration ; sometimes helpful 28.03.2018 23:17
+  SetKeyDelay,% g_DelayMilliSec,% g_PressDuration, SendInput ; sometimes helpful 28.03.2018 23:17
   ; SetKeyDelay,180,120
   ; SetKeyDelay,80,320 ; works much better !!! :)
 
@@ -511,19 +519,26 @@ SetCapsLockState,Off
   IfWinActive,% t ".txt"
     return false
 
+; ############### inside runMenu(
+
   ;send,%nr%{space}
   ;send,%nr%
   ; ControlSend, , % nr, % t  ; Send directly 
 
   IfWinNotActive,% t
     return false
-  ;Send,{space}
-  SendRaw, __
+  ;Send,{space} ; for some reasons??? need a space
+  ; SendInput {space} ; destros input ups 
+  Sleep,3000
+  SendInput {Raw}%text% ; geht auch
+  ;SendRaw, %text%  ; geht auch
   ;ControlSendRaw, , ____, % t  ; Send directly 
   ;ControlSend, , ____, % t  ; Send directly 
-  Sleep,785
+  Sleep,800
   close_wordlistChangedInRegistry()
-  
+
+; ############### inside runMenu(
+
 ; ### we inside: runMenu(nr := 1 ...
 
 ;ControlSend, , % nr, % t  ; Send directly 
@@ -537,7 +552,9 @@ SetCapsLockState,Off
     return false
   IfWinActive,% t ".txt"
     return false
-  
+
+; ############### inside runMenu(
+
 ; ### we inside: runMenu(nr := 1 ...
 
   
@@ -558,6 +575,9 @@ lbsFastTime:
 ; WinMove,Save ahk_class #32770 ,, 1011,696, 554,220
 
 return
+
+
+
 
 closeDisturbingWindows_without_tstamp_18(){
   close_wordlistChangedInRegistry()
@@ -682,7 +702,7 @@ open_wordlist_first_time( openInputBoxTitle ){
   address :=""
   Loop,19
   {
-    runMenu(menuNr, openInputBoxTitle ) ; create or/and open
+    runMenu("__",menuNr, openInputBoxTitle ) ; create or/and open
     Sleep,300 ; importand to check fast, becouse 1 later opens anoter wordlist. so hurry 18-03-31_18-56
     
     ;MsgBox,openInputBoxTitle = %openInputBoxTitle%
@@ -742,7 +762,7 @@ open_wordlist_first_time( openInputBoxTitle ){
     t := openInputBoxTitle ".txt"
     Loop,4
     {
-      runMenu(menuNr, openInputBoxTitle ) ; open new txt
+      runMenu("__",menuNr, openInputBoxTitle ) ; open new txt
       SetTitleMatchMode,2
       WinWait,% t,,3
       IfWinExist,% t
@@ -764,7 +784,14 @@ open_wordlist_first_time( openInputBoxTitle ){
 
 sendAeUeLines(t){
   t1 := t
+  onlyName := RegExReplace(t, ".*(tstamp_[^\.]+).*","$1")
   lineAe := "helloEurope|r|helloWorld`n"
+  lineAe .= "___open generated|rr||ahk|run," onlyName ".txt._Generated.txt`n`n"
+  lineAe .= "hi MsgBox|rr||ahk|MsgBox,hi World`n`n"
+  lineAe .= "aaaaae|r|" chr(228) "`n"
+  lineAe .= "uuuuue|r|" chr(252) "`n" 
+
+  ; prob nr 5 then
   SendLevel 0
   IfWinNotExist,% t
   {
@@ -852,6 +879,7 @@ winCloseTry(t){
 
 exitFunc(){
   feedbackMsgBox("deleteAll_tstamp_in_32770_folder", A_LineNumber . " , " . A_ScriptName,1,1)
+  restoreClosedAHK() 
   deleteAll_tstamp_in_32770_folder()
   ExitApp
 }
@@ -897,19 +925,29 @@ setStatus_created_token:
     ToolTip,g_created_token = "%g_created_token%"
 return
 
+restoreClosedAHK() {
+  global g_closedAHKlist
+  loop, % g_closedAHKlist.MaxIndex()  
+  {
+    run,% g_closedAHKlist[A_Index] 
+  }
+}
 closeAllOtherAHK(){
   global g_closedAHKlist
 text:="it's highly recommended to close all other autohotkey script before run this test. should we close oterher autohotkey script now?"
 DetectHiddenWindows On
-WinGet, WList,List,ahk_class AutoHotkey
+WinGet, WList,List,ahk_class AutoHotkey ; <== the anonymous then are without .ahk extension
+
 ;msgbox, % WList.count() "`n" WList
 if(WList>=3) {
   doCloseAllAhk := true
-  MsgBox, 4, close all other AHK? time out in 5 seconds then all ahk will closed, % text, 5
-  IfMsgBox Timeout
-      doCloseAllAhk := true
-  else IfMsgBox No
-      doCloseAllAhk := false
+  if(!InStr(A_ComputerName,"SL5")){
+      MsgBox, 4, close all other AHK? and restart them later? time out in 5 seconds then all ahk will closed, % text, 5
+    IfMsgBox Timeout
+        doCloseAllAhk := true
+    else IfMsgBox No
+        doCloseAllAhk := false
+  }
   if(doCloseAllAhk){
     lastIndex:=0
     arrayCount := 0
@@ -917,20 +955,34 @@ if(WList>=3) {
     {
       Id:=% "WList" A_Index
       WinGetTitle, Title, % "ahk_id " %Id%  
+      ;MsgBox,% A_ScriptFullPath
       if(InStr(Title, A_ScriptFullPath))
         continue
-      if(InStr(Title,"Typing" ))
+      if(InStr(Title,"Toolbar.ahk" ))
+        continue
+      if(InStr(Title,"Toolbar.ahk" ))
+        continue
+      if(InStr(Title,"TillaGoto" ))
         continue
       if(InStr(Title,"highlight_activeWindow.ahk" ))
         continue
+      if(!InStr(Title,".ahk")){
+        WinClose,% Title
+        m=Title = %Title%`n 
+        m=%m% fAddress = %fAddress%`n (%A_LineFile%~%A_LineNumber%) 
+        ;MsgBox, %m%
+        continue
+      }
       arrayCount += 1
       ; g_closedAHKlist.Push(Title) ; dont work 
+      
       if(Title){
-        fAddress := RegExReplace(Title,"\.ahk.*",".ahk")
+        fAddress:=Title
+        fAddress := RegExReplace(fAddress,"\.ahk.*",".ahk")
         g_closedAHKlist[arrayCount] := fAddress
         ;Msgbox,Title = %Title%`n (%A_LineFile%~%A_LineNumber%) 
         ;Msgbox,fAddress = %fAddress%`n (%A_LineFile%~%A_LineNumber%) 
-        ; WinClose,% Title
+        WinClose,% Title
       }
     }
   }
@@ -1053,3 +1105,178 @@ SoundbeepACK(){
 #Include *i %A_ScriptDir%\inc_ahk\functions_global.inc.ahk
 #Include *i %A_ScriptDir%\inc_ahk\functions_glo1bal_dateiende.inc.ahk
 #Include *i %A_ScriptDir%\inc_ahk\UPDATEDSCRIPT_global.inc.ahk
+
+
+
+
+
+
+
+
+
+
+
+
+
+;send2inputBox("hel",1,openInputBoxTitle)
+send2inputBox(text,nr,openInputBoxTitle){
+ if(!openInputBoxTitle){
+    Msgbox,:( `n (%A_LineFile%~%A_LineNumber%)
+    return false
+  }
+  tWL := openInputBoxTitle ".txt"
+  
+;############## we inside: send2inputBox
+ ; next step open it again
+    ;close_tstamp()   ; first close it
+     ; Msgbox,all txt now closed ????????????????? `n %t% `n  found `n (%A_LineFile%~%A_LineNumber%) 
+    
+;############## we inside: send2inputBox
+    
+    openInputBox(openInputBoxTitle)
+    ;WinActivateTry(openInputBoxTitle,9)
+    ;WinActivate,openInputBoxTitle
+    menuNr := nr
+    t := openInputBoxTitle ".txt"
+    Loop,24
+    {
+      WinActivateTry(openInputBoxTitle,9)
+      runMenu(text,menuNr, openInputBoxTitle ) ; open new txt
+      SetTitleMatchMode,2
+      WinWait,% t,,3
+      IfWinExist,% t
+        break
+      if(A_Index > 1 && Mod(A_Index, 4) == 0){
+        ;ToolTip4sec(":( freezed ?? ==> start.ahk `n " A_LineNumber   " "   A_LineFile   " "   Last_A_This) 
+        ToolTip4sec(":( freezed ??  `n " A_LineNumber ==>  " "   A_LineFile   " "   Last_A_This) 
+        Send,{AltDown}{Tab 3}{AltUp}
+        ;run,..\start.ahk1
+        close_wordlistChangedInRegistry()
+        Sleep,3100
+      }
+    }  
+    SetTitleMatchMode,2
+    WinWait,% t, ,16 ; use 9 sec bevor. that was to short 
+    IfWinExist,% t
+      return t
+    
+    Msgbox,:( `n %t% `n not found `n (%A_LineFile%~%A_LineNumber%) 
+  g_error_log .= ":( " A_ThisFunc " (line=" A_LineNumber ") `n"
+}
+
+
+
+
+
+ae(openInputBoxTitle,aa:="hal",ae:="hallo"){
+    msg := "try: action ae.. in inputbox ", A_LineNumber . " , " . A_ScriptName
+    Msgbox,,% msg,,4 ; thats a dirty bug fix. helps script changeing wordlists 31.03.2018 17:55 18-03-31_17-55
+    ;feedbackMsgBox("try: action ae.. in inputbox ", A_LineNumber . " , " . A_ScriptName,1,1)    
+    openInputBox(openInputBoxTitle)
+    Sleep,2500
+    Loop,14
+    {
+      WinActivateTry(openInputBoxTitle,25)
+      ;send2inputBox(aa,1,openInputBoxTitle)
+      send2inputBox_OLD2(aa,1,openInputBoxTitle)
+      Sleep, 1000 ; 1 Sekunde
+      ControlGetText,inputBoxtext,Edit1,% openInputBoxTitle
+      
+      if(InStr(inputBoxtext,ae))
+        break
+      if( Mod(A_Index, 4) == 0) {
+        Send,{AltDown}{Tab 2}{AltUp}
+              close_wordlistChangedInRegistry()
+        Sleep,3100
+      }
+
+      Sleep, 1200 ; 1 Sekunde
+    }
+    if(!InStr(inputBoxtext,ae))
+        g_error_log .= ":( `n !InStr(inputBoxtext,ae) " A_ThisFunc " (line=" A_LineNumber ") `n"    
+
+
+}
+
+
+
+send2inputBox_OLD2(text,nr := 1,t:=""){ ; of https://github.com/sl5net/global-IntelliSense-everywhere
+  if(!t){
+    Msgbox,:( `n !t parameter empty `n found `n (%A_LineFile%~%A_LineNumber%) 
+    return false
+  }
+  
+  SetTitleMatchMode,2
+  ;closeDisturbingWindows_without_tstamp_18()
+  close_wordlistChangedInRegistry()
+
+if(1){ ; may better do this
+  SendLevel 0
+  send,{Shiftup}
+  send,{AltUp}
+  send,{CtrlUp}
+  SendLevel 9
+  send,{Shiftup}
+  send,{AltUp}
+  send,{CtrlUp}
+}
+
+  SendLevel 9
+  SetCapsLockState,Off
+  
+  ;SetKeyDelay,180,120
+  global g_DelayMilliSec
+  global g_PressDuration
+  SetKeyDelay,% g_DelayMilliSec,% g_PressDuration ; sometimes helpful 28.03.2018 23:17
+  ;SetKeyDelay,80,320 ; works much better !!! :)
+
+  WinActivate,% t
+  WinWaitActive,% t, , 1
+
+
+  IfWinNotActive,% t
+    return false
+  IfWinActive,% t ".txt"
+    return false
+
+  SendRaw,% text
+  Sleep,800
+  
+  IfWinNotActive,% t
+    return false
+  IfWinActive,% t ".txt"
+    return false
+  
+  SendRaw,% nr ; open wordlist / entry one
+  ;Sleep,900
+  return true
+}
+
+
+    trickyUglySendTextWorkaround2inputBox(textSend,textExpected , openInputBoxTitle){
+    run,..\start.ahk ; dirty bugFix. becourse late in the evening. TODO ceckit out 18-03-31_23-46    
+    msg := "try: action " text ".. in inputbox ", A_LineNumber . " , " . A_ScriptName
+    Msgbox,,% msg,,4 ; thats a dirty bug fix. helps script changeing wordlists 31.03.2018 17:55 18-03-31_17-55
+    ;feedbackMsgBox("try: action ae.. in inputbox ", A_LineNumber . " , " . A_ScriptName,1,1)    
+    openInputBox(openInputBoxTitle)
+    Sleep,2500
+    Loop,8
+    {
+      WinActivateTry(openInputBoxTitle,25)
+      send2inputBox(textSend,1,openInputBoxTitle)
+      Sleep, 1000 ; 1 Sekunde
+      ControlGetText,inputBoxtext,Edit1,% openInputBoxTitle
+      if(InStr(inputBoxtext,textExpected))
+        return true
+      if( Mod(A_Index, 4) == 0) {
+        Send,{AltDown}{Tab 2}{AltUp}
+              close_wordlistChangedInRegistry()
+        Sleep,3100
+      }
+
+      Sleep, 1200 ; 1 Sekunde
+    }
+    if(!InStr(inputBoxtext,ae))
+        g_error_log .= ":( `n !InStr(inputBoxtext,ae) " A_ThisFunc " (line=" A_LineNumber ") `n"    
+    return false
+}

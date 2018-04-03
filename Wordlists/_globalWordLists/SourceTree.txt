@@ -11,5 +11,3 @@ readable|rr|readable|rr|readable|rr|
 
 readable|rr|
 
-
-Small prettify to make it more readable. Without significance for the functionality. You do not need to change anything.
