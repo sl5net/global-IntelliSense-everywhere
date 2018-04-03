@@ -106,9 +106,10 @@ MainLoop(){
    { 
 
       ;If the active window has changed, wait for a new one
-      IF !( ReturnWinActive() ) 
-      {
-         Critical, Off
+      ;IF (false && !ReturnWinActive() ) { ; "false &&" addet 18-03-31_13-42 lets try
+      IF !( ReturnWinActive() )
+      { ; "false &&" addet 18-03-31_13-42 lets try
+         Critical, Off ; on Verhindert, dass der aktuelle Thread von anderen Threads unterbrochen werden kann, oder macht ihn unterbrechbar.
          GetIncludedActiveWindow()
       } else {    
          Critical, Off

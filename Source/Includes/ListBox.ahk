@@ -30,9 +30,8 @@ InitializeListBox()
 
    Return
 }
-   
-ListBoxClickItem(wParam, lParam, msg, ClickedHwnd)
-{
+   ; ______
+ListBoxClickItem(wParam, lParam, msg, ClickedHwnd){
    global
    Local NewClickedItem
    Local TempRows
@@ -52,6 +51,21 @@ ListBoxClickItem(wParam, lParam, msg, ClickedHwnd)
       Return
    }
    
+
+      ; global g_doListBoxFollowMouse  __
+      if(g_doListBoxFollowMouse){
+            Tooltip,STOP follow listbox mouse `n (from: %A_LineFile%~%A_LineNumber%) 
+            g_doListBoxFollowMouse := false ; togle it. _
+            SetTimer,doListBoxFollowMouse,off
+      }else{
+            Tooltip,START follow listbox mouse `n (from: %A_LineFile%~%A_LineNumber%) 
+            g_doListBoxFollowMouse := true ; togle it.
+            SetTimer,doListBoxFollowMouse,200
+            ;SetTimer,doListBoxFollowMouse,on
+      }
+      return
+
+
    GuiControlGet, g_MatchPos, ListBoxGui:, g_ListBox%TempRows%
    
    if (msg == g_WM_LBUTTONUP)
@@ -411,13 +425,12 @@ AddToMatchList(position, MaxLength, HalfLength, LongestBaseLength, ComputeBaseLe
    } else {
       BaseLength := MaxLength ; was default before 01.04.2018 14:23 18-04-01_14-23
       BaseLength := HalfLength ; addet at 01.04.2018 14:24 18-04-01_14-24 so |rr| replacements also work more prety
-      ToolTip1sec(BaseLength "=" BaseLength "`n (" A_LineNumber   " "   A_LineFile   ")")
+      ;ToolTip1sec(BaseLength "= BaseLength `n (" A_LineNumber   " "   A_LineFile   ")")
    }
 
    CurrentMatchLength := StrLen(CurrentMatch) + prefixlen
    
-   if (CurrentMatchLength > BaseLength)
-   {
+   if (CurrentMatchLength > BaseLength){
       CompensatedBaseLength := BaseLength - prefixlen
       ; remove 3 characters so we can add the ellipsis
       StringLeft, CurrentMatch, CurrentMatch, CompensatedBaseLength - 3
@@ -426,8 +439,7 @@ AddToMatchList(position, MaxLength, HalfLength, LongestBaseLength, ComputeBaseLe
       CurrentMatchLength := StrLen(CurrentMatch) + prefixlen
    }
    
-   if (ComputeBaseLengthOnly)
-   {
+   if (ComputeBaseLengthOnly){
       Return, CurrentMatchLength
    }
    
@@ -435,14 +447,11 @@ AddToMatchList(position, MaxLength, HalfLength, LongestBaseLength, ComputeBaseLe
    Tabs = 
    Remainder := 0
    
-   if (AdditionalDataExists) 
-   {
-      if (g_SingleMatchReplacement[position])
-      {
+   if (AdditionalDataExists) {
+      if (g_SingleMatchReplacement[position]){
          CurrentMatch .= " " . chr(26) . " " . g_SingleMatchReplacement[position]
       }
-      if (g_SingleMatchDescription[position])
-      {
+      if (g_SingleMatchDescription[position]){
          ;;CurrentMatch .= "|" . g_SingleMatchDescription[position]
          IfEqual, prefs_ListBoxFontFixed, On
          {
@@ -488,8 +497,7 @@ AddToMatchList(position, MaxLength, HalfLength, LongestBaseLength, ComputeBaseLe
 
 ; find out the longest length we can use in the listbox
 ; Any changes to this function probably need to be reflected in ShowListBox() or ForceWithinMonitorBounds
-ComputeListBoxMaxLength()
-{
+ComputeListBoxMaxLength(){
    global g_ListBoxCharacterWidthComputed
    global g_MatchTotal
    global g_SM_CMONITORS
@@ -515,8 +523,16 @@ ComputeListBoxMaxLength()
    
    ;Use 8 pixels for each character in width
    ListBoxBaseSizeX := g_ListBoxCharacterWidthComputed + ScrollBarWidth + (BorderWidthX * 2)
-   
+
+global ListBoxPosX
+global ListBoxPosY
+if(g_ListBoxX) ; if g_ListBoxX (not false > 0) it never usses HCaretX . if you want go back to default, reload the script
+    ListBoxPosX := g_ListBoxX - 60
+else
    ListBoxPosX := HCaretX()
+if(g_ListBoxY)  ; if g_ListBoxY (not false > 0) it never usses  HCaretY
+   ListBoxPosY := g_ListBoxY -  60
+else
    ListBoxPosY := HCaretY()
    
    SysGet, NumMonitors, %g_SM_CMONITORS%
@@ -537,11 +553,9 @@ ComputeListBoxMaxLength()
    if !prefs_ListBoxMaxWidth
    {
       Width := MonWidth
-   } else if (prefs_ListBoxMaxWidth < MonWidth)
-   {
+   } else if (prefs_ListBoxMaxWidth < MonWidth){
       Width := prefs_ListBoxMaxWidth
-   } else 
-   {
+   } else {
       Width := MonWidth
    }
    
@@ -551,7 +565,7 @@ ComputeListBoxMaxLength()
 
 ;Show matched values
 ; Any changes to this function may need to be reflected in ComputeListBoxMaxLength()
-ShowListBox(){
+ShowListBox(paraX:="",paraY:=""){
    global
 
    IfNotEqual, g_Match,
@@ -602,7 +616,16 @@ if(WinActive("PhpStorm", "", ".ahk") || WinActive("New File ahk_class SunAwtDial
 ; this program is changing the title bar. with xy coordination of the actual mouse coordination's.
 ; for find your preferred configuration 03.05.2017 18:36
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><
-if(0){
+
+if(paraX && paraY){
+      g_ListBoxPosX := paraX
+      ListBoxPosY := paraY   
+}
+if(g_ListBoxX && g_ListBoxY){
+      g_ListBoxPosX := g_ListBoxX
+      ListBoxPosY := g_ListBoxY
+}
+else if(0){
     ;1920
     ;1080
 ;    msgbox, thats a stup . its not working. 03.05.2017 17:29
@@ -662,7 +685,8 @@ else if(0){
          GuiControl, ListBoxGui: -Redraw, g_ListBox%A_Index%
          GuiControl, ListBoxGui: , g_ListBox%A_Index%, %g_DelimiterChar%
       }
-      
+
+      ; that box is not out of monitor, out of sceen:
       ForceWithinMonitorBounds(g_ListBoxPosX,ListBoxPosY,ListBoxActualSizeW,ListBoxActualSizeH)
       
       g_ListBoxContentWidth := ListBoxActualSizeW - ScrollBarWidth - BorderWidthX
@@ -672,16 +696,14 @@ else if(0){
          
          if prefs_DisabledAutoCompleteKeys not contains L
          {
-            if (!ListBox_Old_Cursor)
-            {
+            if (!ListBox_Old_Cursor){
                ListBox_Old_Cursor := DllCall(g_SetClassLongFunction, "Uint", g_ListBoxHwnd%Rows%, "int", g_GCLP_HCURSOR, "int", g_cursor_hand)
             }
             
             DllCall(g_SetClassLongFunction, "Uint", g_ListBoxHwnd%Rows%, "int", g_GCLP_HCURSOR, "int", g_cursor_hand)
             
          ; we only need to set it back to the default cursor if we've ever unset the default cursor
-         } else if (ListBox_Old_Cursor)
-         {
+         } else if (ListBox_Old_Cursor){
             DllCall(g_SetClassLongFunction, "Uint", g_ListBoxHwnd%Rows%, "int", g_GCLP_HCURSOR, "int", ListBox_Old_Cursor)
          }
             
@@ -705,8 +727,7 @@ try {
       WinGet, g_ListBox_Id, ID, Word List Appears Here.
       
       ListBoxThread := DllCall("GetWindowThreadProcessId", "Ptr", g_ListBox_Id, "Ptr", g_NULL)
-      if (g_ScrollEventHook && (ListBoxThread != g_ScrollEventHookThread))
-      {
+      if (g_ScrollEventHook && (ListBoxThread != g_ScrollEventHookThread)){
          DllCall("UnhookWinEvent", "Uint", g_ScrollEventHook)
          g_ScrollEventHook =
          g_ScrollEventHookThread =
@@ -728,8 +749,7 @@ try {
 }
 
 ; Any changes to this function may need to be reflected in ComputeListBoxMaxLength()
-ForceWithinMonitorBounds(ByRef ListBoxPosX, ByRef ListBoxPosY, ListBoxActualSizeW, ListBoxActualSizeH)
-{
+ForceWithinMonitorBounds(ByRef ListBoxPosX, ByRef ListBoxPosY, ListBoxActualSizeW, ListBoxActualSizeH){
    global g_ListBoxFlipped
    global g_SM_CMONITORS
    global g_ListBoxCharacterWidthComputed
@@ -759,13 +779,12 @@ ForceWithinMonitorBounds(ByRef ListBoxPosX, ByRef ListBoxPosY, ListBoxActualSize
          if (ListBoxMaxPosY < MonTop) {
             g_ListBoxFlipped =
          } else {
-            ListBoxPosY := HCaretY() - ListBoxActualSizeH
+           ListBoxPosY := HCaretY() - ListBoxActualSizeH
          }
       }
       
       ; make sure we don't go below the screen.
-      If ( (ListBoxPosY + g_ListBoxMaxWordHeight ) > MonBottom )
-      {
+      If ( (ListBoxPosY + g_ListBoxMaxWordHeight ) > MonBottom ){
          ListBoxPosY := HCaretY() - ListBoxActualSizeH
          g_ListBoxFlipped := true
       }
@@ -777,8 +796,7 @@ ForceWithinMonitorBounds(ByRef ListBoxPosX, ByRef ListBoxPosY, ListBoxActualSize
          ListBoxPosX += g_ListBoxCharacterWidthComputed
       }
       
-      If ( (ListBoxPosX + ListBoxActualSizeW ) > MonRight )
-      {
+      If ( (ListBoxPosX + ListBoxActualSizeW ) > MonRight ){
          ListBoxPosX := MonRight - ListBoxActualSizeW
          If ( ListBoxPosX < MonLeft )
             ListBoxPosX := MonLeft
@@ -806,13 +824,17 @@ GetRows()
 ;------------------------------------------------------------------------
 
 ; function to grab the X position of the caret for the ListBox
-HCaretX() 
-{
+HCaretX() {
    global g_DpiAware
    global g_DpiScalingFactor
    global g_Helper_Id
    global g_Process_DPI_Unaware
-    
+
+    global g_ListBoxX
+    if( g_ListBoxX )
+        return g_ListBoxX
+
+
    WinGetPos, HelperX,,,, ahk_id %g_Helper_Id% 
    if HelperX !=
    { 
@@ -834,20 +856,22 @@ HCaretX()
 ;------------------------------------------------------------------------
 
 ; function to grab the Y position of the caret for the ListBox
-HCaretY() 
-{
+HCaretY() {
    global g_DpiAware
    global g_DpiScalingFactor
    global g_Helper_Id
    global g_Process_DPI_Unaware
+
+    global g_ListBoxY
+    if( g_ListBoxY )
+        return g_ListBoxY
 
    WinGetPos,,HelperY,,, ahk_id %g_Helper_Id% 
    if HelperY != 
    { 
       return HelperY
    } 
-   if ( CheckIfCaretNotDetectable() )
-   { 
+   if ( CheckIfCaretNotDetectable() ){ 
       MouseGetPos, , MouseY
       return MouseY + (20*g_DpiScalingFactor)
    }

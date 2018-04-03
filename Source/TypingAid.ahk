@@ -26,6 +26,9 @@ class Stuff{
     }
 }
 
+global g_ListBoxX := 0 ; if g_ListBoxX (not false > 0) it never usses HCaretX . if you want go back to default, reload the
+global g_ListBoxY := 0 ; if g_ListBoxX (not false > 0) it never usses HCaretX . if you want go back to default, reload the
+
 global g_method := "Clipboard"
 
 global g_regExReplaceInVisibleLine := "^([\w\d_-]+).*" ; show only first text , numers _ or -
@@ -64,7 +67,8 @@ maxLinesOfCode4length1 := 900 ;
 SetTimer, saveIamAllive, 8000 ; setinterval
 SetTimer,checkInRegistryChangedWordlistAddress,1000 ; RegRead, wordlistActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlist
 SetTimer,checkWordlistTXTfile_sizeAndModiTime,3000
- ; SetTimer,wordlistTooltip,222
+
+SetTimer,doListBoxFollowMouse,off
 
 
 #SingleInstance,Force ; thats sometimes not working : https://autohotkey.com/boards/viewtopic.php?f=5&t=1261&p=144860#p144860
@@ -612,6 +616,10 @@ return
 
 ;<<<<<<<< onLink2wordlistChangedInRegistry <<<< 180319214441 <<<< 19.03.2018 21:44:41 <<<<
 onLink2wordlistChangedInRegistry:
+
+if(g_doListBoxFollowMouse)
+  Return  ; __
+
     ;Msgbox,RETURN OFF`n (%A_LineFile%~%A_LineNumber%)
     ;return
     global g_SingleMatch
@@ -794,3 +802,12 @@ wordlistTooltip:
     tip=%wordlist% `n%wordlistOLD% = old `n ( %A_LineFile%~%A_LineNumber% )
     ToolTip,% tip
 return
+
+doListBoxFollowMouse:
+      MouseGetPos, g_ListBoxX, g_ListBoxY
+      g_ListBoxX := g_ListBoxX - 77
+      g_ListBoxY := g_ListBoxY - 77
+      ShowListBox(g_ListBoxX,g_ListBoxY)
+return
+
+;__ too ha ha
