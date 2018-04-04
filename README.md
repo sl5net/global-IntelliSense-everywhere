@@ -1,8 +1,10 @@
 ﻿# global-IntelliSense-everywhere 
  
-English: If you can not imagine what this is, watch this video or ask a friend what an intellisense is.
+English: Automates context-sensitive writing and action.
+Is an unobtrusive IntelliSense for all programs, all websites, all apps, all windows, just everything that runs in Windows.
 
-German: Wenn du dir nicht vorstellen kannst was dies ist, schaue dir dieses Video an oder Frage einen Freund was eine intellisense ist.
+German: Automatisiert kontextsensitives Schreiben und Handeln.
+Ist eine unaufdringliche IntelliSense für alle Programmen, alle Webseiten, alle Apps, alle Fenster, für einfach alles was in Windows läuft.
 
 [![global IntelliSense everywhere examples windows autohotkey](https://img.youtube.com/vi/elLsl8lj0K8/0.jpg)](https://www.youtube.com/watch?v=elLsl8lj0K8)
   
