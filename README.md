@@ -63,7 +63,11 @@ Please handle the globals wordlistNameFilter.inc.ahk carefully, as it could be s
 The first steps will probably be that you only edit the Wordlists / YourNewClass / yourNewTitle.txt. The simplest change is just to add one line of text.
 
 
-scheduled features for the next update: it will load much faster (loading is actully little slow with big wordlists)
+please report Issues here:
+https://g-intellisense.myjetbrains.com/youtrack/issues?q=State:%20%7BIn%20Progress%7D,%20Incomplete,%20Submitted,%20%7BTo%20be%20discussed%7D%20sort%20by:%20Priority%20asc%20 (prefered place)
+or https://github.com/sl5net/global-IntelliSense-everywhere/issues
+or https://autohotkey.com/boards/viewtopic.php?f=6&t=45684 
+or essential-freebies.de/board/viewtopic.php?f=33&t=18557 
 
 
 
