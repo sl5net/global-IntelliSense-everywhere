@@ -92,7 +92,7 @@ WinChanged(hWinEventHook, event, wchwnd, idObject, idChild, dwEventThread, dwmsE
       {
          IfNotEqual, g_OldCaretY,
          {
-            if ( g_OldCaretY != HCaretY() )
+            if ( g_OldCaretY != CaretYorMouseYfallback() )
             {
             ;   ToolTip,lost focus 17-03-12_16-14
                CloseListBox()

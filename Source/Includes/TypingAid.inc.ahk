@@ -187,9 +187,9 @@ ProcessKey(InputChar,EndKey) {
    IfNotEqual, prefs_DetectMouseClickMove, On
    {
       ifequal, g_OldCaretY,
-         g_OldCaretY := HCaretY()
+         g_OldCaretY := CaretYorMouseYfallback()
          
-      if ( g_OldCaretY != HCaretY() ){
+      if ( g_OldCaretY != CaretYorMouseYfallback() ){
          ;Don't do anything if we aren't in the original window and aren't starting a new word
          IfNotEqual, g_LastInput_Id, %g_Active_Id%
             Return
@@ -202,8 +202,8 @@ ProcessKey(InputChar,EndKey) {
       } 
    }
 
-   g_OldCaretY := HCaretY()
-   g_OldCaretX := HCaretX()
+   g_OldCaretY := CaretYorMouseYfallback()
+   g_OldCaretX := CaretXorMouseXfallback()
    
    ;Backspace clears last letter 
    ifequal, EndKey, Endkey:BackSpace
@@ -460,7 +460,7 @@ CheckForCaretMove(MouseButtonClick, UpdatePosition := false){
    {
       IfNotEqual, g_Word, 
       {
-         if (( g_OldCaretY != HCaretY() ) || (g_OldCaretX != HCaretX() ))
+         if (( g_OldCaretY != CaretYorMouseYfallback() ) || (g_OldCaretX != CaretXorMouseXfallback() ))
          {
             ; add the word if switching lines
             AddWordToList(g_Word,0)
@@ -1086,7 +1086,7 @@ ReturnLineWrong(){
    IfEqual, prefs_DetectMouseClickMove, On
       Return
       
-   Return, ( g_OldCaretY != HCaretY() )
+   Return, ( g_OldCaretY != CaretYorMouseYfallback() )
 }
 
 AddSelectedWordToList(){

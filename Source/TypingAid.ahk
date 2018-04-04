@@ -26,8 +26,11 @@ class Stuff{
     }
 }
 
-global g_ListBoxX := 0 ; if g_ListBoxX (not false > 0) it never usses HCaretX . if you want go back to default, reload the
-global g_ListBoxY := 0 ; if g_ListBoxX (not false > 0) it never usses HCaretX . if you want go back to default, reload the
+global g_ListBoxX
+global g_ListBoxY
+g_ListBoxX := 0 ; if g_ListBoxX (not false > 0) it never usses CaretXorMouseXfallback . if you want go back to default, reload the
+g_ListBoxY := 0 ; if g_ListBoxX (not false > 0) it never usses CaretXorMouseXfallback . if you want go back to default, reload the
+
 
 global g_method := "Clipboard"
 
@@ -50,6 +53,12 @@ global g_FLAGmsgbox := false
 
 global g_wordListID
 
+
+global g_ListBoxFontSize := 16 ; works
+global g_ListBoxFontSize := 2 ; work but its so small i could not read it too
+global g_ListBoxFontSize := 8 ; work but its so small i could not read it too too tool
+listBoxFontSizeOLD := g_ListBoxFontSize
+
 wordlist:=wordlistActive
 
 RegRead, wordlist, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlist ; todo: 02.03.2018 12:55 18-03-02_12-55
@@ -69,6 +78,9 @@ SetTimer,checkInRegistryChangedWordlistAddress,1000 ; RegRead, wordlistActive, H
 SetTimer,checkWordlistTXTfile_sizeAndModiTime,3000
 
 SetTimer,doListBoxFollowMouse,off
+;SetTimer,doListBoxFollowMouse,off
+Hotkey, WheelUp, off
+Hotkey, WheelDown, off
 
 
 #SingleInstance,Force ; thats sometimes not working : https://autohotkey.com/boards/viewtopic.php?f=5&t=1261&p=144860#p144860
@@ -564,7 +576,9 @@ if(0 && InStr(A_ComputerName,"SL5"))
             winWaitclose,% name,,1
         }
         If(WinExist("wordlistChangedInRegistry") ){
-            Msgbox,Oops  `n should never happen BUG (%A_LineFile%~%A_LineNumber%) 20.03.2018 18:54
+            tooltip,Oops  `n should never happen BUG `n was not able to close wordlistChangedInRegistry `n`n  ==> reload in 9Seconds (%A_LineFile%~%A_LineNumber%) 20.03.2018 18:54
+            sleep,9000
+            reload
             return
         }
     }
@@ -803,11 +817,42 @@ wordlistTooltip:
     ToolTip,% tip
 return
 
+WheelUp::
+    global g_ListBoxFontSize
+    g_ListBoxFontSize := g_ListBoxFontSize + 1
+    Tooltip,WheelDown:: Size=%g_ListBoxFontSize% `n (from: %A_LineFile%~%A_LineNumber%) ; to to
+return
+
+WheelDown::
+    global g_ListBoxFontSize
+    g_ListBoxFontSize := g_ListBoxFontSize - 1
+    Tooltip,WheelDown:: Size=%g_ListBoxFontSize% `n (from: %A_LineFile%~%A_LineNumber%) ; to to
+return
+
+recreateListBox_IfFontSizeChangedAndTimeIdle(g_ListBoxFontSize, newListBoxFontSize){
+  if ( A_TimeIdlePhysical < 1000 * 0.5 )
+    return false
+    if(g_ListBoxFontSize <> newListBoxFontSize ){
+        g_ListBoxFontSize := newListBoxFontSize ; ; to to
+        ; ListBoxEnd()
+        DestroyListBox()
+        InitializeListBox()
+        return g_ListBoxFontSize
+    }
+    return false
+}
+; too
 doListBoxFollowMouse:
       MouseGetPos, g_ListBoxX, g_ListBoxY
       g_ListBoxX := g_ListBoxX - 77
       g_ListBoxY := g_ListBoxY - 77
-      ShowListBox(g_ListBoxX,g_ListBoxY)
+
+      newFontSize := recreateListBox_IfFontSizeChangedAndTimeIdle(listBoxFontSizeOLD , g_ListBoxFontSize )
+      if(newFontSize){
+        g_ListBoxFontSize := newFontSize
+        listBoxFontSizeOLD := g_ListBoxFontSize
+       }else
+          ShowListBox(g_ListBoxX,g_ListBoxY)
 return
 
 ;__ too ha ha

@@ -1,8 +1,7 @@
 ;These functions and labels are related to the shown list of words
 
  
-InitializeListBox()
-{
+InitializeListBox(){
    global
    
    Gui, ListBoxGui: -DPIScale -Caption +AlwaysOnTop +ToolWindow +Delimiter%g_DelimiterChar%
@@ -16,8 +15,10 @@ InitializeListBox()
    } else {
       ListBoxFont = Tahoma
    }
-      
-   Gui, ListBoxGui:Font, s%prefs_ListBoxFontSize%, %ListBoxFont%
+      ; to ms ms to
+   ; Gui, ListBoxGui:Font, s%prefs_ListBoxFontSize%, %ListBoxFont% ;
+   Tooltip,%g_ListBoxFontSize% = size `n (from: %A_LineFile%~%A_LineNumber%) `
+   Gui, ListBoxGui:Font, s%g_ListBoxFontSize%, %ListBoxFont%
 
    Loop, %prefs_ListBoxRows%
    {
@@ -25,7 +26,8 @@ InitializeListBox()
       ;feedbackMsgBox(g_ListBox%A_Index%,A_LineNumber . " ListBox.ahk")
       GuiControl, ListBoxGui:-Redraw, g_ListBox%A_Index%
       ;can't use a g-label here as windows sometimes passes the click message when spamming the scrollbar arrows
-      Gui, ListBoxGui: Add, ListBox, vg_ListBox%A_Index% R%A_Index% X0 Y0 T%prefs_ListBoxFontSize% T32 hwndg_ListBoxHwnd%A_Index%
+      ;Gui, ListBoxGui: Add, ListBox, vg_ListBox%A_Index% R%A_Index% X0 Y0 T%prefs_ListBoxFontSize% T32 hwndg_ListBoxHwnd%A_Index%
+      Gui, ListBoxGui: Add, ListBox, vg_ListBox%A_Index% R%A_Index% X0 Y0 T%g_ListBoxFontSize% T32 hwndg_ListBoxHwnd%A_Index%
    }
 
    Return
@@ -54,14 +56,20 @@ ListBoxClickItem(wParam, lParam, msg, ClickedHwnd){
 
       ; global g_doListBoxFollowMouse  __
       if(g_doListBoxFollowMouse){
-            Tooltip,STOP follow listbox mouse `n (from: %A_LineFile%~%A_LineNumber%) 
+            tip=STOP follow listbox mouse `n (from: %A_LineFile%~%A_LineNumber%)
+            ToolTip1sec(tip)
             g_doListBoxFollowMouse := false ; togle it. _
             SetTimer,doListBoxFollowMouse,off
+            Hotkey, WheelUp, off
+            Hotkey, WheelDown, off
       }else{
-            Tooltip,START follow listbox mouse `n (from: %A_LineFile%~%A_LineNumber%) 
+            tip=START follow listbox mouse `n (from: %A_LineFile%~%A_LineNumber%)
+            ToolTip1sec(tip)
             g_doListBoxFollowMouse := true ; togle it.
             SetTimer,doListBoxFollowMouse,200
-            ;SetTimer,doListBoxFollowMouse,on
+            Hotkey, WheelUp, on
+            Hotkey, WheelDown, on
+            ;SetTimer,doListBoxFollowMouse,on ; to
       }
       return
 
@@ -526,14 +534,14 @@ ComputeListBoxMaxLength(){
 
 global ListBoxPosX
 global ListBoxPosY
-if(g_ListBoxX) ; if g_ListBoxX (not false > 0) it never usses HCaretX . if you want go back to default, reload the script
+if(g_ListBoxX) ; if g_ListBoxX (not false > 0) it never usses CaretXorMouseXfallback . if you want go back to default, reload the script
     ListBoxPosX := g_ListBoxX - 60
 else
-   ListBoxPosX := HCaretX()
-if(g_ListBoxY)  ; if g_ListBoxY (not false > 0) it never usses  HCaretY
+   ListBoxPosX := CaretXorMouseXfallback()
+if(g_ListBoxY)  ; if g_ListBoxY (not false > 0) it never usses  CaretYorMouseYfallback
    ListBoxPosY := g_ListBoxY -  60
 else
-   ListBoxPosY := HCaretY()
+   ListBoxPosY := CaretYorMouseYfallback()
    
    SysGet, NumMonitors, %g_SM_CMONITORS%
 
@@ -599,8 +607,8 @@ ShowListBox(paraX:="",paraY:=""){
       ;Use 8 pixels for each character in width
       ListBoxSizeX := g_ListBoxCharacterWidthComputed * g_MatchLongestLength + g_ListBoxCharacterWidthComputed + ScrollBarWidth + (BorderWidthX * 2)
       
-      g_ListBoxPosX := HCaretX()
-      ListBoxPosY := HCaretY()
+      g_ListBoxPosX := CaretXorMouseXfallback()
+      ListBoxPosY := CaretYorMouseYfallback()
       ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 SetTitleMatchMode,2
 IfWinActive,SciTE4AutoHotkey ahk_class SciTEWindow
@@ -774,18 +782,18 @@ ForceWithinMonitorBounds(ByRef ListBoxPosX, ByRef ListBoxPosY, ListBoxActualSize
       ; + g_ListBoxOffsetComputed Move ListBox down a little so as not to hide the caret. 
       ListBoxPosY := ListBoxPosY + g_ListBoxOffsetComputed
       if (g_ListBoxFlipped) {
-         ListBoxMaxPosY := HCaretY() - g_ListBoxMaxWordHeight
+         ListBoxMaxPosY := CaretYorMouseYfallback() - g_ListBoxMaxWordHeight
          
          if (ListBoxMaxPosY < MonTop) {
             g_ListBoxFlipped =
          } else {
-           ListBoxPosY := HCaretY() - ListBoxActualSizeH
+           ListBoxPosY := CaretYorMouseYfallback() - ListBoxActualSizeH
          }
       }
       
       ; make sure we don't go below the screen.
       If ( (ListBoxPosY + g_ListBoxMaxWordHeight ) > MonBottom ){
-         ListBoxPosY := HCaretY() - ListBoxActualSizeH
+         ListBoxPosY := CaretYorMouseYfallback() - ListBoxActualSizeH
          g_ListBoxFlipped := true
       }
       
@@ -824,7 +832,7 @@ GetRows()
 ;------------------------------------------------------------------------
 
 ; function to grab the X position of the caret for the ListBox
-HCaretX() {
+CaretXorMouseXfallback() {
    global g_DpiAware
    global g_DpiScalingFactor
    global g_Helper_Id
@@ -856,7 +864,7 @@ HCaretX() {
 ;------------------------------------------------------------------------
 
 ; function to grab the Y position of the caret for the ListBox
-HCaretY() {
+CaretYorMouseYfallback() {
    global g_DpiAware
    global g_DpiScalingFactor
    global g_Helper_Id

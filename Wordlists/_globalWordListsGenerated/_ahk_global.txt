@@ -1,4 +1,11 @@
 
+chat:|r|https://autohotkey.com/boards/viewtopic.php?f=5&t=59
+Server IRQ: chat.freenode.net
+Port IRQ: 6667 (6697 for SSL)
+Channel IRQ: #ahk
+
+
+
 runIfNotExist|rr||ahk|s=runIfNotExist(m_r , m_WinTitle = "",m_category="", doFeedbackMsgBox:=258)`nSend,%s%
 
 regEx remove some lines in wordlist|r|^((?!(ToolTipSec|init_global|functions_global_dateiende|move2Img_functions|functions_global|copy2clipBoard.functions)).)*$
