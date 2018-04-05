@@ -592,11 +592,30 @@ if(0){
 
 ;
    ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+    unpressAllPressedKeys() ; addet at 05.04.2018 13:13
+
    enableCopyQ() ;
    Return
 }  
 ;------------------------------------------------------------------------
-            
+
+unpressAllPressedKeys(){
+
+    SetCapsLockState,Off
+    SetScrollLockState,Off ; Im Übrigen reagieren nur noch einige Uralt-Programme, etwa Word 5 für DOS, auf diese Taste. Damit bietet sie sich als idealer Kandidat
+
+    ; Unpress All Pressed Keys
+    KeyList := "Capslock|Shift|Ctrl|Alt" ; and so on
+    Loop, Parse, KeyList, |
+    {
+        If GetKeystate(A_Loopfield, "P")
+            Send % "{" A_Loopfield " Up}"
+    }
+    return
+}
+
+
 SendFull(SendValue,ForceBackspace:= false){
    global g_Active_Id
    global g_Word
