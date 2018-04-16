@@ -171,14 +171,16 @@ from: Wordlist.ahk~%A_LineNumber%
 ; thats a way how you could add wordlist lines vocabularies inside onlive 12.08.2017 23:24
 ; if you may destroy your path to your config file, thats a way to find it again.
 ;                        foundOpenLibLine := 0
-                        pattern := "m)^\s*__+[^`n]*open[^`n]*\|rr\|\|ahk\|"
+pattern := "m)^\s*__+[^`n]*open[^`n]*\|rr\|\|ahk\|"
 ;                        foundOpenLibLine  := RegExMatch(A_LoopField, pattern )
                         ParseWords432indes := SubSTr( ParseWords , 1 , 432 ) ; we dont wann search the complete file. takes to much time :) 12.08.2017 23:02 17-08-12_23-02
-                        if( !RegExMatch(ParseWords432indes, pattern ) ){
-; temp := "___open library (Wordlist.ahk~" . A_LineNumber . "|rr||ahk|FileReadLine,WordlistFileAdress, wordlist.txt.status.txt, 1 ``n WordlistFileAdress := RegExReplace(WordlistFileAdress, ""\._Generated\.txt\s*$"", """") ``n run,% WordlistFileAdress"
+
+if( !RegExMatch(ParseWords432indes, pattern ) ){
 global wordlist
 ToolTip,% wordlist "`n`n " A_LineNumber   " "   A_LineFile   " "   Last_A_This
-temp := "___open library (Wordlist.ahk~" A_LineNumber "|rr||ahk|f := RegExReplace(wordlist, ""\._Generated\.txt\s*$"", """") ``n run,% f"
+SplitPath, wordlist, , , , OutNameNoExt
+; temp := RegExReplace(temp, "/\._Generated\.txt\s*$/", "")
+temp := "___open library " OutNameNoExt "(Wordlist.ahk~" A_LineNumber "|rr||ahk|run," OutNameNoExt ".txt"
     ParseWords .= "`n" . temp  ; thats not performantly. :/ but works 12.08.2017 22:31 sl5.net todo:
 
 ; info := SubSTr( ParseWords , 1 , 150 ) ;     tooltip,%info% ... `n (%A_LineFile%~%A_LineNumber%) `
