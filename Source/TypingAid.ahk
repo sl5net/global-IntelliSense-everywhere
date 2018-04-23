@@ -321,13 +321,18 @@ $Numpad9::
 CheckWord("$9")
 return
 $0:: ; some users dont have numpad ; 25.03.2018 15:35
-;~ $=::
-;~ $}::
-$Numpad0::
+;msgbox,0
 CheckWord("$0")
+;~ $=::0000
+;~ $}::
+return
+$Numpad0::
+;msgbox,Numpad0
+CheckWord("$Numpad0")
 ; CheckWord(A_ThisHotkey)
 Return
 
+; too }0
 
 ; $^Enter::
 ; $^Space::

@@ -599,8 +599,14 @@ CheckWord(Key) {
    global g_Word
    global prefs_ListBoxRows
    global prefs_NumPresses
-   
-   StringRight, Key, Key, 1 ;Grab just the number pushed, trim off the "$"
+   ; 0000123
+   ; StringRight, Key, Key, 1 ;Grab just the number pushed, trim off the "$"
+   Key := SubStr(Key, 2)
+   keyBackup := key ; CheckWord("$Numpad0")
+   lenKey := StrLen(key)
+   if(lenKey>3)
+        key := RegExReplace(key, "i)^Numpad","")
+
    ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
    ; convert numpad number to simple numer 21.04.2017 11:40 http://SL5.net
 
@@ -645,17 +651,27 @@ if(foundPos){
 ; // adsdf2131234567896541234565498 12345678965412365445612345654 ____
     ;SendPlay, >%Key%<  ; 1239876541231231234567899874561231234567478912387654321321321123654987123 11222
 ; //SendRaw,>>%Key%<<  ; 1239876541231231234567899874561231234567478912387654321321321123654987123 11222
-if(A_UserName == "Administrator")
-    SendInput,%Key%
-else
-    Send,%Key%  ; 1239876541231231234567899874561231234567478912387654321321321123654987123
+;if(key==0)
+; Tooltip, `n (from: %A_LineFile%~%A_LineNumber%) }} } }456789
 
+; if(A_UserName == "Administrator")
+;    SendInput,%Key%
+;else }}}}} }}}}}}0000000000001230 ToolTip1sec(A_LineNumber   " "   A_LineFile   " "   Last_A_This); 75+ lines in Live Edit Live_Edit Pseudo Live Edit for Chrome Firefox PhpStorm.ahk
+if(lenKey>3){
+    ;ToolTip3sec(Key "`n`n" A_LineNumber   " "   A_LineFile   " "   Last_A_This) 
+    send,{%keyBackup%}
+}else{
+    ;ToolTip3sec(Key "`n" keyBackup "`n" A_LineNumber   " "   A_LineFile   " "   Last_A_This) 
+    SendRaw,%Key%
+}
+; 000   0  0 1234567890000000000
 
-global g_sending_is_buggy
-if( g_sending_is_buggy )
+global g_sending_is_buggy 
+if( g_sending_is_buggy ){
+lll(A_LineNumber, A_LineFile, "Send,%Key% `n`n 17-07-29_11-58")
 global g_doSaveLogFiles
-
-lll(A_LineNumber, A_LineFile, "Send,%Key% `n 17-07-29_11-58")
+}
+lll(A_LineNumber, A_LineFile, "Send,%Key% `n`n 17-07-29_11-58")
 
     return
     }
