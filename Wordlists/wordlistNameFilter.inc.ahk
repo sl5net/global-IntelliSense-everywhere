@@ -93,8 +93,10 @@ if ( RegExMatch( activeTitle , "i)Sourcetree" ) || RegExMatch( ActiveClass , "i)
 if ( RegExMatch( activeTitle , "\b(docker|DOS)\b" ) ) 
       return "..\_globalWordLists\docker"
 	  
-if ( RegExMatch( activeTitle , "(FreeCommander|Q-Dir \d|Bild öffnen|Anhang speichern|Datei speichern|Speichern unter|ffnen|Dateien/Ordner suchen|Exportieren|Dokument speichern|Select Path|Open File or Project)" ) ) 
+if ( RegExMatch( activeTitle , "(Double Commander|FreeCommander|Q-Dir \d|Bild öffnen|Anhang speichern|Datei speichern|Speichern unter|ffnen|Dateien/Ordner suchen|Exportieren|Dokument speichern|Select Path|Open File or Project)" ) ) 
       return "..\_globalWordLists\pfade"
+	  
+;msgbox,% activeTitle
 
 
 SetTitleMatchMode,2 ; 2: A window's title can contain WinTitle anywhere inside it to be a match.

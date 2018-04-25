@@ -1,4 +1,4 @@
-; #Include ..\_globalWordLists\examplesForBeginners.txt
+﻿; #Include ..\_globalWordLists\examplesForBeginners.txt
 
 hey you are inside  _globalWordListsGenerated\_global.txt
 

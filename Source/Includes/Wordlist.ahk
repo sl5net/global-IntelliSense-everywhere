@@ -179,7 +179,8 @@ if( !RegExMatch(ParseWords432indes, pattern ) ){
 global wordlist
 ToolTip,% wordlist "`n`n " A_LineNumber   " "   A_LineFile   " "   Last_A_This
 SplitPath, wordlist, , , , OutNameNoExt
-; temp := RegExReplace(temp, "/\._Generated\.txt\s*$/", "")
+; or: regPatt := "^[^\n]*?([^\.\\\n]+)[^\\\n]*$"
+; temp := RegExReplace(temp, "\._Generated\.txt\s*$", "")
 temp := "___open library " OutNameNoExt "(Wordlist.ahk~" A_LineNumber "|rr||ahk|run," OutNameNoExt ".txt"
     ParseWords .= "`n" . temp  ; thats not performantly. :/ but works 12.08.2017 22:31 sl5.net todo:
 

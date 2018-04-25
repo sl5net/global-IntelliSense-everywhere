@@ -1,10 +1,13 @@
-#Include privat_Gmail_Google_Chrome.txt
+﻿#Include privat_Gmail_Google_Chrome.txt
 
 ___your library open|rr||ahk|run, Gmail_Google_Chrome.txt
 Thanks again
 have a great day!
 Thanks again, and have a great day!
-   
+
+
+  
+  
 kotlin example|rr||kts|import java.io.File`n val folders = File("c:").listFiles { file -> file.isDirectory() }`n folders?.forEach { folder -> println(folder) }
 kotlin example|rr||kts|KotlinLove.kts
 kotlin example|rr||kts|print("Hi world")

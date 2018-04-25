@@ -295,6 +295,11 @@ RecomputeMatches(){
    if(!g_Word) ; if g_Word is empty and you run, it shows the complete list. you want it? maybe sometimes its helpful 25.03.2018 19:42 18-03-25_19-42
         Return
 
+   ; LoopCount := StrLen(g_Word)
+   ; if(LoopCount < 2 ) ; 18-03-31_22-43 addet TOD: proof
+      ; return
+
+
    SavePriorMatchPosition()
 
    ;Match part-word with command 
@@ -671,7 +676,7 @@ if( g_sending_is_buggy ){
 lll(A_LineNumber, A_LineFile, "Send,%Key% `n`n 17-07-29_11-58")
 global g_doSaveLogFiles
 }
-lll(A_LineNumber, A_LineFile, "Send,%Key% `n`n 17-07-29_11-58")
+lll(A_LineNumber, A_LineFile, "Send,%Key% `n 17-07-29_11-58")
 
     return
     }

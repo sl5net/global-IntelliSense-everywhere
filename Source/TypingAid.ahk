@@ -332,7 +332,6 @@ CheckWord("$Numpad0")
 ; CheckWord(A_ThisHotkey)
 Return
 
-; too }0
 
 ; $^Enter::
 ; $^Space::
