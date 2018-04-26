@@ -20,3 +20,18 @@ Best of using it with
 Customizable Windows terminal with tabs, splits, quake-style, hotkeys and more https://conemu.github.io/
 please read here:
 feature: Change title to reflect the current directory": https://github.com/Maximus5/ConEmu/issues/1472 (SL, 22.04.2018 18:23)
+
+
+prepare changing Double Commander (https://doublecmd.sourceforge.io/) directory by cd ... command"
+#IfWinActive,ahk_class DClass ; mouseWindowTitle=0x30d24  ; ,Double Commander 0.8.2 beta build 8010M
+!g::
+  Last_A_This:=A_ThisFunc . A_ThisLabel
+  msg := "cd... prepare changing directory by cd ... command"
+  while(GetKeyState("alt","P")){
+    ToolTip1sec(A_LineNumber . " " . A_ScriptName . "" . Last_A_This . "`n" msg )
+    sleep,100
+  }
+  ControlFocus, Edit1, ahk_class DClass
+  ControlSend, Edit1, cd{space} , ahk_class DClass
+  ToolTip5sec(A_LineNumber . " " . A_ScriptName . "" . Last_A_This . "`n" msg )
+return

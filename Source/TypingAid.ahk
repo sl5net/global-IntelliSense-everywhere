@@ -48,7 +48,10 @@ global activeTitle:=""
 
 global g_doAskBevoreChangingWordlist := false ; <== buggy dont know whey 19.03.2018 23:50
 global g_doAskBevoreChangingWordlist := true ; <== works preetty nice :) 19.03.2018 23:51
-global g_minBytesNeedetToAskBevoreChangingWordlist := 80000 ; <== Minimum bytes. then will be asked before the change 20.03.2018 18:22
+global g_minBytesNeedetToAskBevoreChangingWordlist := 81234 ; <== Minimum bytes. then will be asked before the change 20.03.2018 18:22
+if(1 && InStr(A_ComputerName,"SL5"))
+    g_minBytesNeedetToAskBevoreChangingWordlist := 812345 ; <== Minimum bytes. then will be asked before the change 20.03.2018 18:22
+
 global g_FLAGmsgbox := false
 
 global g_wordListID
@@ -254,6 +257,16 @@ if !(g_ListBoxScrollCallback){
 GetIncludedActiveWindow() ;Find the ID of the window we are using
 
 MainLoop()
+
+; dirty bugfix, https://github.com/sl5net/global-IntelliSense-everywhere/issues/4
+#IfWinActive,
+:*:___:: ; workaround if it comes sleeping
+  ;run,% "E:\fre\private\HtmlDevelop\AutoHotKey\global-IntelliSense-everywhere\start.ahk"
+   run,% "..\start.ahk"
+  Last_A_This:=A_ThisFunc . A_ThisLabel 
+  ToolTip1sec(A_LineNumber . " " . A_ScriptName . " " . Last_A_This)
+return 
+
 
 RecomputeMatchesTimer:
    Thread, NoTimers
@@ -612,6 +625,12 @@ AHKcodeMsgBox .= temp
 
             return ; no update jet
         }
+    }
+
+   if( !FileExist(wordlistNewTemp) ){
+        ; Msgbox,:(  '%wordlistNewTemp%' = wordlistNewTemp `n Wordlist is not a file  (%A_LineFile%~%A_LineNumber%)
+        wordlistOLD := "" ; probably programmer want a reloud soon. quck an dirty ???
+        return
     }
 
         wordlist := wordlistNewTemp

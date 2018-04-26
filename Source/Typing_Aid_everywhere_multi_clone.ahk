@@ -204,6 +204,13 @@ global g_lineNumberFeedback
         sleep,500
       continue ;
     }
+    if(false && RegExMatch(activeTitle,"Selected Tab")){
+        ;msgbox, %activeTitle% `n = activeTitle ==> continue (%A_LineFile%~%A_LineNumber%)
+        ;tooltip, WinWaitNotActive,wordlistChangedInRegistry  `n (%A_LineFile%~%A_LineNumber%)
+        WinWaitNotActive,Selected Tab
+        tooltip,
+      continue ;
+    }
     if(RegExMatch(activeTitle,"created_token_17-08-10_16-17")){
                              ; created_token_17-08-10_16-17
         ;tooltip, WinWaitNotActive,wordlistChangedInRegistry  `n (%A_LineFile%~%A_LineNumber%)

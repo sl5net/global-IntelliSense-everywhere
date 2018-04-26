@@ -92,16 +92,25 @@ if ( RegExMatch( activeTitle , "i)Sourcetree" ) || RegExMatch( ActiveClass , "i)
 }	  
 if ( RegExMatch( activeTitle , "\b(docker|DOS)\b" ) ) 
       return "..\_globalWordLists\docker"
+
+; Select File - AHK-Studio.ahk ahk_class #32770 ; mouseWindowTitle=0x1604f6  ; 
+
 	  
-if ( RegExMatch( activeTitle , "(Double Commander|FreeCommander|Q-Dir \d|Bild öffnen|Anhang speichern|Datei speichern|Speichern unter|ffnen|Dateien/Ordner suchen|Exportieren|Dokument speichern|Select Path|Open File or Project)" ) ) 
-      return "..\_globalWordLists\pfade"
-	  
-;msgbox,% activeTitle
+if ( RegExMatch( activeTitle , "(Double Commander|FreeCommander|Q-Dir \d|Bild öffnen|Anhang speichern|Datei speichern|Speichern|Speichern unter|ffnen|Dateien/Ordner suchen|Exportieren|Dokument speichern|Select Path|Open File or Project|Select File)" ) ) 
+      return "..\_globalWordLists\pfade" 
+;Speichern is used with ToDoList_c_AbstractSpoon
+
+
+; g_IntelliSense-everywhere - AutoHotkey Community - Google Chrome ahk_class Chrome_WidgetWin_1
+if (0 && RegExMatch( activeTitle , "(\.ahk)" ) ) 
+      return "..\_globalWordListsGenerated\_ahk_global.txt._Generated.txt"
+
 
 
 SetTitleMatchMode,2 ; 2: A window's title can contain WinTitle anywhere inside it to be a match.
 
-if( RegExMatch( activeTitle  , "i)(\.ahk)" ) || instr( activeTitle , "\TypingAid-master\Wordlists\")  ) {
+if( instr( activeTitle , "\Wordlists\")  ) {
+; if( RegExMatch( activeTitle  , "i)(\.ahk)" ) || instr( activeTitle , "\Wordlists\")  ) {
 
       wLGeneratedDIRname = _globalWordListsGenerated
       wLGeneratedDIR := scriptDIR . "\..\" . wLGeneratedDIRname
@@ -156,7 +165,8 @@ if( RegExMatch( activeTitle  , "i)(\.ahk)" ) || instr( activeTitle , "\TypingAid
   wordlistNEW := RegExReplace( wordlistNEW, "[_-]+$" , "")
 }
 return wordlistNEW
-}
+} ; endOf: getWordlistNEW173129
+
 getWordlistNEW173129addFileExtension(wordlistNEW ){
   if( SubStr( wordlistNEW , -3 ) <> ".txt" )
     wordlistNEW .= ".txt"
@@ -178,7 +188,7 @@ getWordlistNEW173129simplify( wordlistNEW ) {
   ; http://stackoverflow.com/questions/265769/maximum-filename-length-in-ntfs-windows-xp-and-windows-vista
 
  return wordlistNEW 
-}
+} ; EndOf getWordlistNEW173129simplify
 
 ToolTipSlowMotion(wordlistNEW, LineNumber){
   global isSlowMotion
