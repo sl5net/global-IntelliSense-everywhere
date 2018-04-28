@@ -296,18 +296,38 @@ regIsXXXcode := "^([^\|\n]+?)\|(rr)\|([^\n]*?)\|(ahk|kts)\|([^\n]*?)$"
 regIsSynonym := "^([^\|\n]+?)\|(rr)\|$"
 
 lineOfIndex := g_SingleMatch[WordIndex]
+; lineOfIndex := "hoHi|rr|"
+
+foundPosSynonym := RegExMatch( lineOfIndex , regIsSynonym ,  m )
+
+if(0){
+tip=
+(
+    %regIsSynonym% = regIsSynonym
+    >%foundPosSynonym%< = RegExMatch( lineOfIndex , regIsSynonym )
+    >%lineOfIndex%< = lineOfIndex
+    %A_LineFile%~%A_LineNumber%
+)
+tip .= g_SingleMatch[WordIndex] " = g_SingleMatch[WordIndex]"
+ToolTip3sec(tip)tip
+msgbox,% tip
+}
 
 ; AHKdyn example super simple example
-   if(RegExMatch( lineOfIndex , regIsSynonym ,  m )){
-        rX := {key:m1, rr:m2, send:m3, lang:m4 ,code:m5}
+   if(foundPosSynonym){
+        rX := {key:m1, rr:m2, send:"", lang:"" ,code:""}
 
         if(!rX["lang"]){
-            ToolTip3sec("found synonym `n ("   A_LineFile " ," A_LineNumber  ") "   )
+            tip := "found synonym `n ("   A_LineFile " ," A_LineNumber  ") "
+            ToolTip3sec( tip )
+            ; msgbox, % tip
             id := getWordIndex(m1)
             while(!rX["code"] && id>1){
                 id -= 1
                 lineOfIndex := getLineOfIndex(id)
                 RegExMatch( lineOfIndex , regIsXXXcode ,  m )
+                rX := {key:m1, rr:m2, send:m3, lang:m4 ,code:m5}
+
                 if(!rX["rr"]){
                     tip=%lineOfIndex% `n (%A_LineFile%~%A_LineNumber%)
                     ToolTip3sec(tip)
