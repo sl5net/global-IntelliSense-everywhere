@@ -4,12 +4,14 @@
 #MaxHotkeysPerInterval 99000000
 #HotkeyInterval 99000000
 ; Process, Priority,, H
-; SetBatchLines, -1
+Process, Priority,, Low
+SetBatchLines, -1 ; Use SetBatchLines -1 to never sleep (i.e. have the script run at maximum speed). The default setting is 10m
+; SetBatchLines, 10
 SetKeyDelay, -1, -1
-;SetWinDelay, -1
-SetWinDelay, 10
-; SetControlDelay, -1
-SetControlDelay, 10
+SetWinDelay, -1 ; Sets the delay that will occur after each windowing command, such as WinActivate.
+; SetWinDelay, 10
+SetControlDelay, -1 ; A short delay (sleep) is done automatically after every Control command that changes a control, namely Control, ControlMove, ControlClick, ControlFocus, and ControlSetText (ControlSend uses SetKeyDelay).
+; SetControlDelay, 10
 
 
 #Include %A_ScriptDir%\inc_ahk\init_global.init.inc.ahk
@@ -38,6 +40,18 @@ global g_method := "Clipboard"
 
 global g_regExReplaceInVisibleLine := "^([\w\d_-]+).*" ; show only first text , numers _ or -
 global g_regExReplaceInVisibleLine := "^([^|]+).*" ; the string only before the first "|"
+
+global g_regExReplaceInVisibleLine := "^[_]*([^|\n]+)[^\.\n]*?([^|\n]{3,})$"
+; the string only before the first "|"
+demoTestData =
+(
+___your library open|rr||ahk|run,SourceTree.txt
+autoload.ahk
+b&w Wordlists|r|E:\fre\Wordlists\TscShellContainerClass
+Visual Basic|rr||ahk|q=b&w Wordlists
+Recent|r|C:\Users\bla\AppData\Roaming\Microsoft\Windows\Recent
+last used Recent|rr||ahk|q=Recent
+)
 
 
 global g_sending_is_buggy := false ; Solved: SendPlay. 29.07.2017 11:21

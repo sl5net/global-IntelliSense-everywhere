@@ -419,7 +419,7 @@ AddToMatchList(position, MaxLength, HalfLength, LongestBaseLength, ComputeBaseLe
    CurrentMatch := g_SingleMatch[position]
 
    global g_regExReplaceInVisibleLine
-   CurrentMatch := RegExReplace(CurrentMatch, g_regExReplaceInVisibleLine,"$1")
+   CurrentMatch := RegExReplace(CurrentMatch, g_regExReplaceInVisibleLine,"$1 > $2")
 
    if (g_SingleMatchReplacement[position] || g_SingleMatchDescription[position]){
       AdditionalDataExists := true

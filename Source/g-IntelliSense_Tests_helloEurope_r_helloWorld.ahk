@@ -397,7 +397,7 @@ openInputBox(timestampyyMMddHHmmss:=""){
   AHKcode = InputBox, UserInput, %timestampyyMMddHHmmss%, dymmy text , , 190, 90
   DynaRun(AHKcode) ; wait for user decision
   SetTitleMatchMode,3
-  WinWait, % timestampyyMMddHHmmss, , 3
+  WinWait, % timestampyyMMddHHmmss, , 6
   IfWinNotExist,% timestampyyMMddHHmmss
   {
     Msgbox,:( `n %timestampyyMMddHHmmss% `n not found `n (%A_LineFile%~%A_LineNumber%) 
