@@ -1,5 +1,7 @@
 ; please never delete this wordklst 05.08.2017 10:25
 ___your library open|rr||ahk|run,..\_globalWordLists\_global.txt
 
+help online|rr||ahk|run,..\_globalWordLists\incDynAhk\helpOnline.ahk
+help online videos|rr||ahk|run,https://www.youtube.com/results?search_query=global+IntelliSense+everywhere
 
   
