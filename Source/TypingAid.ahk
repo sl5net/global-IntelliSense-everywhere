@@ -3,11 +3,13 @@
 
 #MaxHotkeysPerInterval 99000000
 #HotkeyInterval 99000000
-Process, Priority,, H
-SetBatchLines, -1
+; Process, Priority,, H
+; SetBatchLines, -1
 SetKeyDelay, -1, -1
-SetWinDelay, -1
-SetControlDelay, -1
+;SetWinDelay, -1
+SetWinDelay, 10
+; SetControlDelay, -1
+SetControlDelay, 10
 
 
 #Include %A_ScriptDir%\inc_ahk\init_global.init.inc.ahk
@@ -55,6 +57,7 @@ if(1 && InStr(A_ComputerName,"SL5"))
 global g_FLAGmsgbox := false
 
 global g_wordListID
+
 
 
 global g_ListBoxFontSize := 16 ; works
@@ -237,7 +240,7 @@ lll(A_LineNumber, A_LineFile, "DisableKeyboardHotKeys()")
 DisableKeyboardHotKeys()
 
 ;Change the Running performance speed (Priority changed to High in GetIncludedActiveWindow)
-SetBatchLines, -1
+; SetBatchLines, -1
 
 g_wordListID := getWordListID(wordlist) ; 24.03.2018 23:02
 ReadInTheWordList()

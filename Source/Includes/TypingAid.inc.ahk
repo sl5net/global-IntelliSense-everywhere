@@ -55,7 +55,7 @@ Receive_wordlistAddress(CopyOfData){
         ;BlockInput, Send ; Send:  The user's keyboard and mouse input is ignored while a Send or SendRaw is in progress
         InitializeHotKeys()
         DisableKeyboardHotKeys()
-        SetBatchLines, -1 ;Change the Running performance speed (Priority changed to High in GetIncludedActiveWindow)
+        ; SetBatchLines, -1 ;Change the Running performance speed (Priority changed to High in GetIncludedActiveWindow)
         ;feedbackMsgBox("ReadInTheWordList()",wordlist . "`n" . activeTitle . " = activeTitle  `n " .  A_ScriptName . "(inc)~" . A_LineNumber)
         ReadInTheWordList()
         ;prefs_Length := setLength(ParseWordsCount, maxLinesOfCode4length1)
