@@ -30,6 +30,9 @@ class Stuff{
     }
 }
 
+global g_config := { list:{ change: { stopRexExTitle: false } } }
+; g_config["list"]["change"]["stopRexExTitle"]))
+
 global g_ListBoxX
 global g_ListBoxY
 g_ListBoxX := 0 ; if g_ListBoxX (not false > 0) it never usses CaretXorMouseXfallback . if you want go back to default, reload the
@@ -41,7 +44,7 @@ global g_method := "Clipboard"
 global g_regExReplaceInVisibleLine := "^([\w\d_-]+).*" ; show only first text , numers _ or -
 global g_regExReplaceInVisibleLine := "^([^|]+).*" ; the string only before the first "|"
 
-global g_regExReplaceInVisibleLine := "^[_]*([^|\n]+)[^\.\n]*?([^|\n]{3,})$"
+global g_regExReplaceInVisibleLine := "^[_]*([^|\n]+)[^\.\n]*?([^|\n]{3,})$" ; https://autohotkey.com/boards/viewtopic.php?p=215425#p215425 https://regex101.com/r/GQjPg0/1
 ; the string only before the first "|"
 demoTestData =
 (
@@ -82,6 +85,12 @@ listBoxFontSizeOLD := g_ListBoxFontSize
 wordlist:=wordlistActive
 
 RegRead, wordlist, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlist ; todo: 02.03.2018 12:55 18-03-02_12-55
+if(!fileExist(wordlist)){ ; addet 26.4.2018 12:58 becouse of mistourios things
+    msg = :( !fileExist(%wordlist%) `n (%A_LineFile%~%A_LineNumber%)
+    Msgbox,% msg
+    clilpboard := msg
+    sleep,5000
+}
 
 feedbackMsgBoxCloseAllWindows()
 
@@ -582,6 +591,13 @@ return
 ;<<<<<<<< checkInRegistryChangedWordlistAddress <<<< 180319214428 <<<< 19.03.2018 21:44:28 <<<<
 checkInRegistryChangedWordlistAddress:
 
+if(g_config["list"]["change"]["stopRexExTitle"]=="."){
+    temp := g_config["list"]["change"]["stopRexExTitle"]
+    tip = ==> g_config["list"]["change"]["stopRexExTitle"] is %temp% `n %wordlist%
+    ToolTip5sec(tip " `n(" A_LineNumber " " A_LineFile . " )",0,0 )
+    return
+}
+
 if(0 && InStr(A_ComputerName,"SL5"))
     ToolTip5sec(wordlist " `n(" A_LineNumber " " A_LineFile . " )" )
 
@@ -619,12 +635,27 @@ if(0 && InStr(A_ComputerName,"SL5"))
 
     RegRead, wordlistNewTemp, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlist
     isRegListChanged := (wordlistNewTemp && wordlist <> wordlistNewTemp)
-
-    if(!isRegListChanged )
+    if(!isRegListChanged || A_TimeIdle < 1333)
         return
 
-    if(A_TimeIdle < 1333)
-        return
+    if(g_config["list"]["change"]["stopRexExTitle"]){
+        regExPattern := g_config["list"]["change"]["stopRexExTitle"]
+        ; regExPattern := g_config\["list"\]\["change"\]\["stopRexExTitle"\]\s*:=\s*(\w+)
+        foundPos := RegExMatch( wordlistNewTemp, regExPattern ,  matchs )
+        if(foundPos)
+            return
+
+    }
+
+
+
+    if(!fileExist(wordlistNewTemp)){ ; addet 26.4.2018 12:58 becouse of mistourios things
+        clilpboard := wordlistNewTemp
+        msg = :( list read by RegRead NOT `n wordlistNewTemp=%wordlistNewTemp% `n clilpboard = %wordlistNewTemp% `n  (%A_LineFile%~%A_LineNumber%)
+        Msgbox,% msg
+        clilpboard := msg
+        sleep,5000
+    }
 
     if(g_doAskBevoreChangingWordlist && WordlistSize > g_minBytesNeedetToAskBevoreChangingWordlist){
         AHKcodeMsgBox := "#" . "NoTrayIcon `n "

@@ -616,6 +616,27 @@ if(0){
     unpressAllPressedKeys() ; addet at 05.04.2018 13:13
 
    enableCopyQ() ;
+
+
+   if(isAHKcode){
+        regExPattern = g_config\["list"\]\["change"\]\["stopRexExTitle"\]\s*:=\s*([^\n]*)\s*
+      foundPos := RegExMatch( AHKcode , regExPattern ,  matchs )
+      if(foundPos) {
+        tooltip,found `n change list automatically = `>%matchs1%< `n(" A_LineNumber ")"
+        ; matchs1 := Trim(matchs1, """")
+        matchs1debuginfo := Trim(matchs1, """")
+        ; g_config["list"]["change"]["stopRexExTitle"]:=true
+        ;WinWaitNotActive,A,,9
+        WinWaitNotActive,A,,5
+        ;sleep,7777 ; needs maybe time to read changed title or so. script is triggerd by title changes
+
+        g_config["list"]["change"]["stopRexExTitle"] := ( RegExMatch(matchs1,"i)^\s*(false|"")\s*$" ) ) ? false : Trim(matchs1, """")
+        ; g_config["list"]["change"]["stopRexExTitle"] := ! g_config["list"]["change"]["stopRexExTitle"]
+        ; msgbox,found >%matchs1%<  >%matchs1debuginfo%< 18-04-30_11-46 `n(" A_LineNumber ")"
+      }
+   }
+
+
    Return
 }  
 ;------------------------------------------------------------------------
