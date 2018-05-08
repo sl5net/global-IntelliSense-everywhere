@@ -20,6 +20,25 @@ wordlistNEW := "Gmail_Google_Chrome"
 else if ( RegExMatch( activeTitle , "Google Kalender"  )    )
     wordlistNEW := "Gmail_Google_Chrome.txt"
 
+else if (RegExMatch( activeTitle , "(\.ahk)" ) ){
+    if(false && activeClass == "ChromeWidgetWin1") {  ; want to know that. debugging 26.4.218 12:18}
+        ; need to be discussed: https://g-intellisense.myjetbrains.com/youtrack/issue/GIS-22
+        tooltip,% activeTitle activeClass
+        clipboard := activeTitle activeClass
+        sleep,9000
+        log =
+        (
+        https://g-intellisense.myjetbrains.com/youtrack/issue/GIS-22
+        blabla.ahk - AutoHotKey - Visual Studio Code [Administrator]
+        ahk_class Chrome_WidgetWin_1
+        ahk_exe Code.exe
+        )
+    }
+    ;wordlistNEW := "..\_globalWordListsGenerated\_ahk_global.txt._Generated" ; seems works not 18-04-26_12-44
+    wordlistNEW := "..\_globalWordListsGenerated\_ahk_global.txt._Generated.txt" ; seems works not 18-04-26_12-44
+}
+	
+	
 if( SubStr( wordlistNEW , -3 ) <> ".txt" ) ; thats corect i proofed it. 11.04.2017 15:47
 wordlistNEW .= ".txt"
 

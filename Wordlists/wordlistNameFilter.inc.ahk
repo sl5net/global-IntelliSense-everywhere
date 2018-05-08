@@ -85,25 +85,89 @@ if(!activeTitle && !ActiveClass){
 if(0 && !activeTitle){
       Msgbox,%tip% this should never happens `n (%A_LineFile%~%A_LineNumber%) 
 }
+; E:\fre\private\HtmlDevelop\Human-Connection\WebApp ahk_class VirtualConsoleClassGhost 
+if (0 && !RegExMatch( ActiveClass , "(AutoHotKey|Chrome|Notepad)" ) ) { ; thats only for a bug i search actually 18-05-08_13-03
+      tip =
+      (
+            %ActiveClass%=ActiveClass
+            %activeTitle%=activeTitle
+      )
+      temp =
+      (
+            _globalWordListsGenerated=ActiveClass
+            _global=activeTitle
+      )
+      ; tooltip,%tip% = tip `n (%A_LineFile%~%A_LineNumber%) 
+      clipboard := tip
+      Msgbox,%tip% `n (%A_LineFile%~%A_LineNumber%) 
+}
+if (0 && RegExMatch( ActiveClass , "VirtualConsole" ) ) {
+      tip =
+      (
+            %ActiveClass%=ActiveClass
+            %activeTitle%=activeTitle
+      )
+      Msgbox,%tip% `n (%A_LineFile%~%A_LineNumber%) 
+     return "..\_globalWordLists\VirtualConsoleClassGhost\Human-Connection"
+}
+
+if (ActiveClass == "VirtualConsoleClassGhost" && RegExMatch( activeTitle , "Human-Connection" ) ) {
+        ; https://g-intellisense.myjetbrains.com/youtrack/issue/GIS-27 dirty bugFix
+      tip =
+      (
+            %ActiveClass%=ActiveClass
+            %activeTitle%=activeTitle
+            ..\VirtualConsoleClassGhost\Human-Connection
+      )
+     ; clipboard := tip 
+     ; tooltip,%tip% `n (%A_LineFile%~%A_LineNumber%) 
+     return "..\VirtualConsoleClassGhost\Human-Connection"
+}
+if (0 && ActiveClass == "VirtualConsoleClassGhost"  ) {
+      tip =
+      (
+            %ActiveClass%=ActiveClass
+            %activeTitle%=activeTitle
+            ..\VirtualConsoleClassGhost\Human-Connection
+      )
+     ; clipboard := tip 
+     ; tooltip,%tip% `n (%A_LineFile%~%A_LineNumber%) 
+     return "..\VirtualConsoleClassGhost\_global"
+}
 
 if ( RegExMatch( activeTitle , "i)Sourcetree" ) || RegExMatch( ActiveClass , "i)SourceTree" )  ) {
 	  ; Msgbox,%ActiveClass%=ActiveClass`n (%A_LineFile%~%A_LineNumber%) 
       return "..\_globalWordLists\SourceTree"
 }	  
-if ( RegExMatch( activeTitle , "\b(docker|DOS)\b" ) ) 
+if ( RegExMatch( activeTitle , "\b(docker)\b" ) ) 
       return "..\_globalWordLists\docker"
 
 ; Select File - AHK-Studio.ahk ahk_class #32770 ; mouseWindowTitle=0x1604f6  ; 
 
-	  
+
 if ( RegExMatch( activeTitle , "(Double Commander|FreeCommander|Q-Dir \d|Bild öffnen|Anhang speichern|Datei speichern|Speichern|Speichern unter|ffnen|Dateien/Ordner suchen|Exportieren|Dokument speichern|Select Path|Open File or Project|Select File)" ) ) 
       return "..\_globalWordLists\pfade" 
 ;Speichern is used with ToDoList_c_AbstractSpoon
 
 
 ; g_IntelliSense-everywhere - AutoHotkey Community - Google Chrome ahk_class Chrome_WidgetWin_1
-if (0 && RegExMatch( activeTitle , "(\.ahk)" ) ) 
-      return "..\_globalWordListsGenerated\_ahk_global.txt._Generated.txt"
+if (0 && RegExMatch( activeTitle , "(\.ahk)" ) ){
+    if(false && activeClass == "ChromeWidgetWin1") {  ; want to know that. debugging 26.4.218 12:18}
+        ; need to be discussed: https://g-intellisense.myjetbrains.com/youtrack/issue/GIS-22
+        tooltip,% activeTitle activeClass
+        clipboard := activeTitle activeClass
+        sleep,9000
+        log =
+        (
+        https://g-intellisense.myjetbrains.com/youtrack/issue/GIS-22
+        blabla.ahk - AutoHotKey - Visual Studio Code [Administrator]
+        ahk_class Chrome_WidgetWin_1
+        ahk_exe Code.exe
+        )
+    }
+    return "..\_globalWordListsGenerated\_ahk_global.txt._Generated" ; seems works not 18-04-26_12-44
+    return "..\_globalWordListsGenerated\_ahk_global.txt._Generated.txt" ; seems works not 18-04-26_12-44
+}
 
 
 

@@ -172,8 +172,17 @@ global g_lineNumberFeedback
     if( !fileExist(wordlistFilterPathNEWdir) ){
                 ActiveClass := "_globalWordListsGenerated"
                 activeTitle := "_global"
+;
+                msg = !fileExist(wordlistFilterPathNEWdir === >%wordlistFilterPathNEWdir%<)  `n '%activeTitle%'=activeTitle , '%activeClass%' = activeClass
+                lineFileName := RegExReplace(A_LineFile, ".*\\([\w\s\.]+)$", "$1")
+                lineFileNameWithoutPATHandEXT := RegExReplace(A_LineFile, ".*\\([\w\s\._]+)\.\w+$", "$1")
+                tip=%msg% (%lineFileNameWithoutPATHandEXT%~%A_LineNumber%)
+                ;ToolTip2sec(tip,-5,-5)
+                sleep,500 ; if this is the case slow down ths script a little bit. temporaily
+            ; msg=:-O WinExist temp.ahk `n `n %A_LineFile%~%A_LineNumber% ==> continue
+            ;feedbackMsgBox("Oops. so lets use global.`n ",msg,1,1)
 
-                msg = !fileExist(wordlistFilterPathNEWdir === >%wordlistFilterPathNEWdir%<)  `n '%activeTitle%'=activeTitle  `n '%activeClass%' = activeClass `n (line:%A_LineNumber%)
+
                 ;global g_doSaveLogFiles
                 ;g_doSaveLogFiles := true
                 ;

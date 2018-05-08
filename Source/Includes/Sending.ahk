@@ -541,8 +541,12 @@ if( RegExMatch( activeTitle , "\.(json|ts|css|html) - PhpStorm" ) && substr( lin
 ; AHKcode := RegExReplace(AHKcode, "#include[ ]+([\.]{1,2}\\\w)", "#include " . aScriptDir2wordlistFolder . "\\$1" ) ; dayTimeHello|rr||ahk|#include ..\xyz\sendDayTimeHello.ahk
 
 regEx := "i)(http|https):"
+regEx2 := "(#include|run)[ ]*( |,)[ ]*\b(?!\w\:\\)" ; should not work with thinks like: ; run, C:\tata only relative paths 8.5.2018 14:27 , see: https://www.regextester.com/15
 if(!RegExMatch(AHKcode, regEx))
-AHKcode := RegExReplace(AHKcode, "i)(#include|run)[ ]*( |,)[ ]*", "$1$2" . wordlistFolderOfThisWordlist . "\" ) ; dayTimeHello|rr||ahk|#include ..\xyz\sendDayTimeHello.ahk
+    AHKcode := RegExReplace(AHKcode, "i)" regEx2, "$1$2$3" . wordlistFolderOfThisWordlist . "\" ) ; dayTimeHello|rr||ahk|#include ..\xyz\sendDayTimeHello.ahk
+;    AHKcode := RegExReplace(AHKcode, "i)(#include|run)[ ]*( |,)[ ]*(?!\w\:\\)", "$1$2" . wordlistFolderOfThisWordlist . "\" ) ; dayTimeHello|rr||ahk|#include ..\xyz\sendDayTimeHello.ahk
+
+
 
 ;clipboard := AHKcode
 ;Msgbox,%AHKcode%`n = AHKcode (%A_LineFile%~%A_LineNumber%) 
