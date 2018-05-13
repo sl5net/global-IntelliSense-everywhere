@@ -40,13 +40,17 @@ while(!folderExist && index < 11){
     ExitApp
   }
 
-;FileAppend,"temporary empty file. if exist next view dont use the super _global.txt", %d1%\_create_own_project.flag 
-;MsgBox,0,created token=17-08-10_16-17,token=17-08-10_16-17,1
+FileAppend,"temporary empty file. if exist next view dont use the super _global.txt", %d1%\_create_own_project.flag 
+; MsgBox,0,created token=17-08-10_16-17,token=17-08-10_16-17,1 ; thats only trick. so it should reload another wordklist.
+MsgBox,0,created token=17-08-10_16-17,token=17-08-10_16-17,99 ; thats only trick. so it should reload another wordklist.
+; it not need to be closed active bevor 13.05.2018 19:23. now we close it active. so its litle faster then a second . thats nice
 
-;msgbox,%d1% 18-05-13_06-35
+; try sppedup it with DynaRun(AHKcode)
+;AHKcode := "MsgBox,0,created token=17-08-10_16-17,token=17-08-10_16-17,9"
+;DynaRun(AHKcode)
 
-MsgBox,0,created token=17-08-10_16-17,token=17-08-10_16-17,1
-FileDelete, % "..\Wordlists\" . ActiveClass . "\_create_own_project.flag"
+
+;FileDelete, % "..\Wordlists\" . ActiveClass . "\_create_own_project.flag"
 ExitApp
 ; sorry we dont know actually (wordlistNEW) the 
 ; wordlistNEW inside this script.

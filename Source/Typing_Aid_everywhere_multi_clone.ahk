@@ -220,10 +220,17 @@ global g_lineNumberFeedback
         tooltip,
       continue ;
     }
-    if(RegExMatch(activeTitle,"created_token_17-08-10_16-17")){
+
+    SetTitleMatchMode,1
+    temp :="created token=17-08-10_16-17" ; ahk_class #32770"
+    if(RegExMatch(activeTitle, temp )){
+        WinClose, % temp
+        ; msgbox,closed ???
+        ; box has mission completed. it just changed a short time the wordlist. thats all 13.05.2018 19:01
+
                              ; created_token_17-08-10_16-17
         ;tooltip, WinWaitNotActive,wordlistChangedInRegistry  `n (%A_LineFile%~%A_LineNumber%)
-        WinWaitNotActive,created_token_17-08-10_16-17 ahk_class AutoHotkeyGUI
+        WinWaitNotActive, % temp
         tooltip,
       continue ;
     }
@@ -456,12 +463,12 @@ if(1){
 
 }
 ) ; endOf temp
-ahkSource .= temp
+ahkSource .= "`n" temp
 
     ; following lines are debrecated
     ; ahkSource .= "wordlistOLDbackup( wordlistDir , wordlistOLD)" . " `n"
     ; ahkSource .= "wordlistOLDdisable( typingAidSourcePath, wordlistActive )" . " `n"
-    ahkSource .= "wordlistNEWactivate( wordlistDir , wordlistNEW, wordlistActive, typingAidSourcePath, activeClass , activeTitle)" . " `n"
+    ahkSource .= "`n wordlistNEWactivate( wordlistDir , wordlistNEW, wordlistActive, typingAidSourcePath, activeClass , activeTitle)" . " `n"
 
     ahkSource .= "varInjects2 := mvarInjects(wordlistDir, wordlistNEW, activeClass, activeTitle) `n"
     if(debugIt)
