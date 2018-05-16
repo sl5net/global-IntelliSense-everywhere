@@ -31,7 +31,7 @@ if(false){
 ; ..\Wordlists\VirtualConsoleClass\
 
 folderExist := ""
-while(!folderExist && index < 11){
+while(!folderExist && A_Index < 11){
   FileCreateDir, %d1% `n sleep,99 
   folderExist := FileExist(d1)
 }
