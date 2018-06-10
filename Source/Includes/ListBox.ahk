@@ -416,10 +416,22 @@ AddToMatchList(position, MaxLength, HalfLength, LongestBaseLength, ComputeBaseLe
    
    prefixlen := 2
    
-   CurrentMatch := g_SingleMatch[position]
+   ; CurrentMatch := Trim( g_SingleMatch[position] )
+   CurrentMatch := g_SingleMatch[position] 
 
    global g_regExReplaceInVisibleLine
+   CurrentMatchBackup := CurrentMatch
+   lenCurrentMatchBackup  := StrLen(CurrentMatchBackup)
    CurrentMatch := RegExReplace(CurrentMatch, g_regExReplaceInVisibleLine,"$1 > $2")
+   lenCurrentMatch  := StrLen(CurrentMatch)
+   islenPlus3 := (lenCurrentMatch == lenCurrentMatchBackup + 3) 
+   if(1 && islenPlus3){
+         ; probalbly $2 is empty. lets pretify it (18-06-10_10-24)
+            CurrentMatch := SubStr(CurrentMatch, 1 , lenCurrentMatchBackup)
+            ; msgbox,%s% ?= %CurrentMatchBackup%
+            ; tooltip,%s% islenPlus3=%islenPlus3% `n>%CurrentMatch%< ?= `n>%CurrentMatchBackup%<  (%lenCurrentMatch% ?=  %lenCurrentMatchBackup%)
+            ;sleep, 8000
+   }
 
    if (g_SingleMatchReplacement[position] || g_SingleMatchDescription[position]){
       AdditionalDataExists := true
