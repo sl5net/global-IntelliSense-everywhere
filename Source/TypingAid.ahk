@@ -84,20 +84,26 @@ listBoxFontSizeOLD := g_ListBoxFontSize
 
 wordlist:=wordlistActive
 
-RegRead, wordlist, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlist ; todo: 02.03.2018 12:55 18-03-02_12-55
-if(!fileExist(wordlist)){ ; addet 26.4.2018 12:58 becouse of mistourios things
-    msg = :( !fileExist(%wordlist%) `n (%A_LineFile%~%A_LineNumber%)
-    Msgbox,% msg
-    clilpboard := msg
-    sleep,5000
-}
-
 feedbackMsgBoxCloseAllWindows()
 
 temp := "___________________________________`n"
 global g_doSaveLogFiles
 
     lll("`n" . A_LineNumber, A_ScriptName, temp . " STARTING first lines :) ")
+
+RegRead, wordlist, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlist ; todo: 02.03.2018 12:55 18-03-02_12-55
+if(!fileExist(wordlist)){ 
+    ; addet 26.4.2018 12:58 becouse of mistourios things
+    ; deactivated 10.06.2018 08:36 becouse messeage disturbing every new installed is first time started.
+    ; and becouse dont know the use of this lines?
+    msg = :( !fileExist(%wordlist%) `n (%A_LineFile%~%A_LineNumber%)
+    lll("`n" . A_LineNumber, A_ScriptName, msg)
+    if(false){
+        Msgbox,% msg
+        clilpboard := msg
+        sleep,5000
+    }
+}
 
 
 maxLinesOfCode4length1 := 900 ;
@@ -593,8 +599,9 @@ checkInRegistryChangedWordlistAddress:
 
 if(g_config["list"]["change"]["stopRexExTitle"]=="."){
     temp := g_config["list"]["change"]["stopRexExTitle"]
-    tip = ==> g_config["list"]["change"]["stopRexExTitle"] is %temp% `n %wordlist%
-    ToolTip5sec(tip " `n(" A_LineNumber " " A_LineFile . " )",0,0 )
+    tip = stopRexExTitle is >%temp%< %wordlist%
+    lineFileName := RegExReplace(A_LineFile, ".*\\([\w\s\.]+)$", "$1")
+    ToolTip5sec(tip " (" A_LineNumber " " lineFileName . " )",1,-33 )
     return
 }
 
@@ -685,8 +692,8 @@ AHKcodeMsgBox .= temp
         wordlistOLD := wordlist
         g_wordListID := getWordListID(wordlist) ; 24.03.2018 23:02
 
-        tip=%wordlist% (%WordlistSize%) `n%wordlistOLD% (%WordlistLastSize%) = old `n ( %A_LineFile%~%A_LineNumber% )
-        ToolTip4sec(tip)
+        ;tip=%wordlist% (%WordlistSize%) `n%wordlistOLD% (%WordlistLastSize%) = old `n ( %A_LineFile%~%A_LineNumber% )
+        ;ToolTip4sec(tip)
         ;msgbox,%wordlist%  (%A_LineFile%~%A_LineNumber%)
 
         ;if(g_FLAGmsgbox == 0)
