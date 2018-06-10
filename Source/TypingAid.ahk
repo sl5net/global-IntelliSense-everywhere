@@ -45,6 +45,7 @@ global g_regExReplaceInVisibleLine := "^([\w\d_-]+).*" ; show only first text , 
 global g_regExReplaceInVisibleLine := "^([^|]+).*" ; the string only before the first "|"
 
 global g_regExReplaceInVisibleLine := "^[_]*([^|\n]+)[^\.\n]*?([^|\n]{3,})$" ; https://autohotkey.com/boards/viewtopic.php?p=215425#p215425 https://regex101.com/r/GQjPg0/1
+global g_regExReplaceInVisibleLine := "^[_]*([^|\n]+)[^\.\n]*?([^|\n]{3,})?$" ; 18-06-10_09-34 https://autohotkey.com/boards/viewtopic.php?p=215425#p215425 https://regex101.com/r/GQjPg0/1
 ; the string only before the first "|"
 demoTestData =
 (
