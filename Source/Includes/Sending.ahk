@@ -241,13 +241,28 @@ disableCopyQ() ; enableCopyQ() ;
    }
 
 ; sending := "getCorrectedStringUAOSS1==" getCorrectedStringUAOSS( sending  )
-
-;sending := "JEE_StrTextToUtf8Bytes" JEE_StrTextToUtf8Bytes( sending )
-;sending := JEE_StrUtf8BytesToText( sending )
-;sending := "getCorrectedStringUAOSS" getCorrectedStringUAOSS( sending  )
 sending := getCorrectedStringUAOSS( sending  )
-; MsgBox, % vText := JEE_StrUtf8BytesToText(vUtf8Bytes)
+if(false){
+Msgbox, '%sending%' = sending  n (line:%A_LineNumber%)  (line:%A_LineNumber%)
 
+sending := "JEE_StrTextToUtf8Bytes" JEE_StrTextToUtf8Bytes( sending )
+sending := getCorrectedStringUAOSS( sending  )
+Msgbox, '%sending%' = sending  n (line:%A_LineNumber%)  (line:%A_LineNumber%)
+
+sending := JEE_StrUtf8BytesToText( sending )
+sending := getCorrectedStringUAOSS( sending  )
+Msgbox, '%sending%' = sending  n (line:%A_LineNumber%)  (line:%A_LineNumber%)
+
+sending := "getCorrectedStringUAOSS" getCorrectedStringUAOSS( sending  )
+sending := getCorrectedStringUAOSS( sending  )
+Msgbox, '%sending%' = sending  n (line:%A_LineNumber%)  (line:%A_LineNumber%)
+
+sending := getCorrectedStringUAOSS( sending  )
+Msgbox, '%sending%' = sending  n (line:%A_LineNumber%)  (line:%A_LineNumber%)
+
+sleep,150
+ ;MsgBox, % vText := JEE_StrUtf8BytesToText(vUtf8Bytes)
+}
 
 ; sending := "getCorrectedStringUAOSS2==" getCorrectedStringUAOSS( sending  )
 ; sending = %sending%
@@ -259,6 +274,7 @@ sending := getCorrectedStringUAOSS( sending  )
 ; thats great :) here we find the complete line :) inside sending 17.03.2017 18:23 17-03-17_18-23
  ; SciTEWindow\_global.txt
  ;~ Msgbox,'%WordIndex%' = WordIndex  `n (%A_LineFile%~%A_LineNumber%)
+;Msgbox, '%sending%' = sending  n (line:%A_LineNumber%)  (line:%A_LineNumber%)
 
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ; comments to WordIndex is numeric ID
@@ -819,7 +835,7 @@ if(!g_doUseSendPlay){
     ; SendRaw, %sending% ; used till 13.03.2018 14:51
 
 global g_method
-if( g_method == "Clipboard" ){
+if(g_method == "Clipboard" ){
 ; HotKey, $^+v, Off ; nonexistend hotkey
 ;HotKey, $^v, Off ; nonexistend hotkey
 
@@ -1698,79 +1714,82 @@ return AHKcode
 
 getCorrectedStringUAOSS( sending  ) {
 
+nW := "[^\w\s\.!-_]" ; no word 
+
 sending := RegExReplace( sending , "i)Ã¼", Chr(252) ) ; ue http://slayeroffice.com/tools/ascii/
 sending := RegExReplace( sending , "Ãœ", Chr(220) ) ; UE http://slayeroffice.com/tools/ascii/ Ãœbrigens
 
-sending := RegExReplace( sending , "k\?rz","k" Chr(220) "rz" ) ; UE http://slayeroffice.com/tools/ascii/ k?rzlich
+sending := RegExReplace( sending , "k" nW "rz","k" Chr(220) "rz" ) ; UE http://slayeroffice.com/tools/ascii/ k?rzlich
 
-sending := RegExReplace( sending , "Pr\?f", "Pr" . Chr(252) .  "f" ) ; ue http://slayeroffice.com/tools/ascii/
+sending := RegExReplace( sending , "Pr" nW "f", "Pr" . Chr(252) .  "f" ) ; ue http://slayeroffice.com/tools/ascii/
 
 sending := RegExReplace( sending , "\bmu\ste\b", "musste" )
 
 
 sending := RegExReplace( sending , "ueber", "" . Chr(252) .  "ber" ) ; ue http://slayeroffice.com/tools/ascii/
 sending := RegExReplace( sending , "i)\bfÃ¼r\b","f" . Chr(252) . "r") ; ue http://slayeroffice.com/tools/ascii/
-sending := RegExReplace( sending , "i)\bf\?r\b","f" . Chr(252) . "r") ; ue http://slayeroffice.com/tools/ascii/
+sending := RegExReplace( sending , "i)\bf" nW "r\b","f" . Chr(252) . "r") ; ue http://slayeroffice.com/tools/ascii/
 
 sending := RegExReplace( sending , "i)\bwÃ¼rd","w" . Chr(252) . "rd") ; ue http://slayeroffice.com/tools/ascii/
-sending := RegExReplace( sending , "i)\bw\?rd","w" . Chr(252) . "rd") ; ue http://slayeroffice.com/tools/ascii/
+sending := RegExReplace( sending , "i)\bw" nW "rd","w" . Chr(252) . "rd") ; ue http://slayeroffice.com/tools/ascii/
 
 sending := RegExReplace( sending , "i)\bgrÃ¼nd","gr" . Chr(252) . "nd") ; ue http://slayeroffice.com/tools/ascii/
-sending := RegExReplace( sending , "i)\bgr\?nd","gr" . Chr(252) . "nd") ; ue http://slayeroffice.com/tools/ascii/
+sending := RegExReplace( sending , "i)\bgr" nW "nd","gr" . Chr(252) . "nd") ; ue http://slayeroffice.com/tools/ascii/
 sending := RegExReplace( sending , "i)\bmuendl.\b","m" . Chr(252) . "ndl.") ; ue http://slayeroffice.com/tools/ascii/
-sending := RegExReplace( sending , "i)r\?ck","r" . Chr(252) . "ck") ; ue http://slayeroffice.com/tools/ascii/
-sending := RegExReplace( sending , "i)m\?nd","m" . Chr(252) . "nd") ; ue http://slayeroffice.com/tools/ascii/
+sending := RegExReplace( sending , "i)r" nW "ck","r" . Chr(252) . "ck") ; ue http://slayeroffice.com/tools/ascii/
+sending := RegExReplace( sending , "i)m" nW "nd","m" . Chr(252) . "nd") ; ue http://slayeroffice.com/tools/ascii/
 
 sending := RegExReplace( sending , "m�glich", "m" Chr(246) "glich" ) ; oe  m�glich
-sending := RegExReplace( sending , "m\?glich", "m" Chr(246) "glich" ) ; oe  m�glich
+sending := RegExReplace( sending , "m" nW "glich", "m" Chr(246) "glich" ) ; oe  m�glich
 
 sending := RegExReplace( sending , "Ã¶", Chr(246) ) ; oe zB hÃ¶ren http://slayeroffice.com/tools/ascii/
 sending := RegExReplace( sending , "oe", Chr(246) ) ; oe zB hÃ¶ren http://slayeroffice.com/tools/ascii/
 
-sending := RegExReplace( sending , "\?ffentlicht", Chr(246) "ffentlicht" ) ; oe zB hÃ¶ren http://slayeroffice.com/tools/ascii/
-sending := RegExReplace( sending , "L\?sung", "L" Chr(246) "sung" ) ; oe zB hÃ¶ren http://slayeroffice.com/tools/ascii/
+sending := RegExReplace( sending , "" nW "ffentlicht", Chr(246) "ffentlicht" ) ; oe zB hÃ¶ren http://slayeroffice.com/tools/ascii/
+sending := RegExReplace( sending , "L" nW "sung", "L" Chr(246) "sung" ) ; oe zB hÃ¶ren http://slayeroffice.com/tools/ascii/
 
 sending := RegExReplace( sending , "Ã¼", Chr(252) ) ; ue http://slayeroffice.com/tools/ascii/
 sending := RegExReplace( sending , "Ã¼be", Chr(252) "be" ) ; ue http://slayeroffice.com/tools/ascii/
-sending := RegExReplace( sending , "\?be", Chr(252) "be" ) ; ue http://slayeroffice.com/tools/ascii/
+sending := RegExReplace( sending , "[^" nW "\s\.!-]be", Chr(252) "be" ) ; ue http://slayeroffice.com/tools/ascii/
 
 
 ; weiÃŸ
 sending := RegExReplace( sending , "ÃŸ","" . Chr(223) . "") ; ss http://slayeroffice.com/tools/ascii/
 sending := RegExReplace( sending , "i)\bgroÃŸ","gro" . Chr(223) . "") ; ss http://slayeroffice.com/tools/ascii/
-sending := RegExReplace( sending , "i)\bgro\?","gro" . Chr(223) . "") ; ss http://slayeroffice.com/tools/ascii/
+sending := RegExReplace( sending , "i)\bgro" nW "","gro" . Chr(223) . "") ; ss http://slayeroffice.com/tools/ascii/
 sending := RegExReplace( sending , "i)lieÃŸlich\b","lie" . Chr(223) . "lich") ; scharfess http://slayeroffice.com/tools/ascii/ 
 
-sending := RegExReplace( sending , "Abschlu\?", "Abschlu" . Chr(223) ) ; scharfess http://slayeroffice.com/tools/ascii/
+sending := RegExReplace( sending , "Abschlu" nW "", "Abschlu" . Chr(223) ) ; scharfess http://slayeroffice.com/tools/ascii/
 
 ; sending := RegExReplace( sending , "i)ss", Chr(223) ) ; scharfess http://slayeroffice.com/tools/ascii/ Ausnahmen professionell
 
-sending := RegExReplace( sending , "i)lie\?lich\b","lie" . Chr(223) . "lich") ; scharfess http://slayeroffice.com/tools/ascii/ 
+; ausschlie?lich
+sending := RegExReplace( sending , "i)lie.lich\b","lie" . Chr(223) . "lich") ; scharfess http://slayeroffice.com/tools/ascii/ 
 
-sending := RegExReplace( sending , "i)s\?ch","s" . Chr(228) . "ch") ; 
-sending := RegExReplace( sending , "i)schw\?tzte","schw" . Chr(228) . "tzte") ; 
+sending := RegExReplace( sending , "i)s" nW "ch","s" . Chr(228) . "ch") ; 
+sending := RegExReplace( sending , "i)schw" nW "tzte","schw" . Chr(228) . "tzte") ; 
 sending := RegExReplace( sending , "i)Ã¤", Chr(228) ) ;  http://slayeroffice.com/tools/ascii/ 
 sending := RegExReplace( sending , "Ã„", "" . Chr(196) . "" ) ; AE http://slayeroffice.com/tools/ascii/
 sending := RegExReplace( sending , "u.Ã„.", "u." . Chr(196) . "." ) ; AE http://slayeroffice.com/tools/ascii/
 sending := RegExReplace( sending , "i)beschÃ¤ftigte","besch" . Chr(228) . "ftigte") ; ae http://slayeroffice.com/tools/ascii/ 
 
-sending := RegExReplace( sending , "l\?uft","l" . Chr(228) . "uft") ; ae http://slayeroffice.com/tools/ascii/ 
-sending := RegExReplace( sending , "oberfl\?chlich","oberfl" . Chr(228) . "chlich") ; ae http://slayeroffice.com/tools/ascii/
+sending := RegExReplace( sending , "l" nW "uft","l" . Chr(228) . "uft") ; ae http://slayeroffice.com/tools/ascii/ 
+sending := RegExReplace( sending , "oberfl" nW "chlich","oberfl" . Chr(228) . "chlich") ; ae http://slayeroffice.com/tools/ascii/
 
 sending := RegExReplace( sending , "i)\bgefÃ¤lt","gef" . Chr(228) . "lt") ; ae http://slayeroffice.com/tools/ascii/ 
-sending := RegExReplace( sending , "i)\bgef\?lt","gef" . Chr(228) . "lt") ; ae http://slayeroffice.com/tools/ascii/ 
+sending := RegExReplace( sending , "i)\bgef" nW "lt","gef" . Chr(228) . "lt") ; ae http://slayeroffice.com/tools/ascii/ 
 
 sending := RegExReplace( sending , "i)\bMÃ¤rz","M" . Chr(228) . "rz") ; ae http://slayeroffice.com/tools/ascii/ 
-sending := RegExReplace( sending , "i)\bM\?rz","M" . Chr(228) . "rz") ; ae http://slayeroffice.com/tools/ascii/ 
+sending := RegExReplace( sending , "i)\bM" nW "rz","M" . Chr(228) . "rz") ; ae http://slayeroffice.com/tools/ascii/ 
 
-sending := RegExReplace( sending , "i)\bW\?hre","W" . Chr(228) . "hre") ; ae http://slayeroffice.com/tools/ascii/ 
+sending := RegExReplace( sending , "i)\bW" nW "hre","W" . Chr(228) . "hre") ; ae http://slayeroffice.com/tools/ascii/ 
 sending := RegExReplace( sending , "i)\bjÃ¤hr","j" . Chr(228) . "hr") ; ae http://slayeroffice.com/tools/ascii/ 
-sending := RegExReplace( sending , "i)\bj\?hr","j" . Chr(228) . "hr") ; ae http://slayeroffice.com/tools/ascii/ 
-sending := RegExReplace( sending , "i)\?hnlich","" . Chr(228) . "hnlich") ; ae http://slayeroffice.com/tools/ascii/ 
-sending := RegExReplace( sending , "i)besch\?ft","besch" . Chr(228) . "ft") ; ae http://slayeroffice.com/tools/ascii/ 
-sending := RegExReplace( sending , "i)sch\?tigt","sch" . Chr(228) . "ftigt") ; ae http://slayeroffice.com/tools/ascii/ 
+sending := RegExReplace( sending , "i)\bj" nW "hr","j" . Chr(228) . "hr") ; ae http://slayeroffice.com/tools/ascii/ 
+sending := RegExReplace( sending , "i)" nW "hnlich","" . Chr(228) . "hnlich") ; ae http://slayeroffice.com/tools/ascii/ 
+sending := RegExReplace( sending , "i)besch" nW "ft","besch" . Chr(228) . "ft") ; ae http://slayeroffice.com/tools/ascii/ 
+sending := RegExReplace( sending , "i)sch" nW "tigt","sch" . Chr(228) . "ftigt") ; ae http://slayeroffice.com/tools/ascii/ 
 sending := RegExReplace( sending , "i)AuftrÃ¤ge","Auftr" . Chr(228) . "ge") ; ae http://slayeroffice.com/tools/ascii/ 
-sending := RegExReplace( sending , "i)Auftr\?ge","Auftr" . Chr(228) . "ge") ; ae http://slayeroffice.com/tools/ascii/ 
+sending := RegExReplace( sending , "i)Auftr" nW "ge","Auftr" . Chr(228) . "ge") ; ae http://slayeroffice.com/tools/ascii/ 
 
 foundPos := RegExMatch( sending , "i)Ã" )
 if(foundPos){
