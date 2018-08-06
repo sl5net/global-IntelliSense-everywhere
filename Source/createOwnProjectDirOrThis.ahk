@@ -32,11 +32,12 @@ if(false){
 
 folderExist := ""
 while(!folderExist && A_Index < 11){
-  FileCreateDir, %d1% `n sleep,99 
+  FileCreateDir, %d1% 
+  sleep,99 
   folderExist := FileExist(d1)
 }
   if( !folderExist ){
-    msgbox,ERROR: folder NOT exist 13.05.2018 06:55
+    msgbox,ERROR: folder NOT exist 13.05.2018 06:55 `n >%d1%<
     ExitApp
   }
 

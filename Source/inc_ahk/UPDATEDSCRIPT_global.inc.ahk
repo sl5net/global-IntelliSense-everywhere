@@ -43,7 +43,7 @@ IfWinExist,hideAllAhkTray.ahk
 
 	; sicherlich falsch, korrektur unten 17-11-23_08-45: msg:="A_LineNumber . "" "" . A_ScriptName . "" "" . Last_A_This . ""`nA_ScriptFullPath= "" . A_ScriptFullPath "
 
-msg:="A_LineNumber . "" "" . A_ScriptName . "" (token37) "" . Last_A_This `nA_ScriptFullPath= ""(token48)" . A_ScriptFullPath 
+msg:= A_LineNumber . "" "" . A_ScriptName . "" (token37) "" . Last_A_This "`nA_ScriptFullPath = (token48f)" . A_ScriptFullPath 
 
 ToolTip1sec%blank%(A_ScriptFullPath)
 
