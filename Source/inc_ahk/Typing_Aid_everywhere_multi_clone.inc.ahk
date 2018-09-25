@@ -1,8 +1,8 @@
-if(InStr(A_ComputerName,"SL5")) ; do ignore nothing. development computer
+﻿if(InStr(A_ComputerName,"SL5")) ; do ignore nothing. development computer
 global g_ignReg := { feedbackMsgBox:{tit:".^", text:".^"} ,          saveLogFiles: {ln:".^", scriptName:"\b(Window|ListBox)\.ahk", text:"(WordIndex|CloseListBox|HotKeys|g_ListBox_Id)\b"},                    sqlQuery: {ln:".^", scriptName:".^", text:".^"},                    hotKeyStuff: {ln:".^", scriptName:".^", text:".^"},                    runLogFile: {ln:".^", scriptName:".^", text:".^"} } ;;;;
 
 
-; Indentation_style: https://de.wikipedia.org/wiki/Einrückungsstil#SL5small-Stil
+; Indentation_style: https://de.wikipedia.org/wiki/EinrÃ¼ckungsstil#SL5small-Stil
 
 
 
@@ -27,8 +27,8 @@ global g_ignReg := { feedbackMsgBox:{tit:".^", text:".^"} ,          saveLogFile
 
 
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-; hier wird das active �berschrieben: 12.07.2017 21:33
-wordlistNEWactivate( wordlistDir , wordlistNEW, wordlistActive , typingAidSourcePath, activeClass := "" , activeTitle := "" ) {
+; hier wird das active ï¿½berschrieben: 12.07.2017 21:33
+ActionListNEWactivate( ActionListDir , ActionListNEW, ActionListActive , typingAidSourcePath, activeClass := "" , activeTitle := "" ) {
 ; return, 1 ; return spielt keine rolle, quasi void 30.07.2017 12:52 17-07-30_12-52
 
 ;Msgbox,n (%A_LineFile%~%A_LineNumber%)
@@ -38,25 +38,25 @@ wordlistNEWactivate( wordlistDir , wordlistNEW, wordlistActive , typingAidSource
     lll(A_LineNumber, A_LineFile, ":) _______________ Hello inside " A_LineFile )
     ; lll(A_LineNumber, A_LineFile, ":) _______________ Hello inside temp.ahk _____________"  )
 
-    ; lll(A_LineNumber, A_LineFile, "START function: wordlistNEWactivate"  )
+    ; lll(A_LineNumber, A_LineFile, "START function: ActionListNEWactivate"  )
 
 
     g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
 
 
-    if(FileExist(wordlistNEW)) ; feature update 08.04.2017 19:43
-       wordlistNEWarchivePath := wordlistNEW
+    if(FileExist(ActionListNEW)) ; feature update 08.04.2017 19:43
+       ActionListNEWarchivePath := ActionListNEW
     else
-       wordlistNEWarchivePath = % wordlistDir . "\" . wordlistNEW
-   ; From here we only use wordlistNEWarchivePath
-   ; Next time this variable is used here: simplifyNameOfWordlistNEWstep1( wordlistNEW ) {  in line 256   12.07.2017 21:07
+       ActionListNEWarchivePath = % ActionListDir . "\" . ActionListNEW
+   ; From here we only use ActionListNEWarchivePath
+   ; Next time this variable is used here: simplifyNameOfActionListNEWstep1( ActionListNEW ) {  in line 256   12.07.2017 21:07
 
 if(1 && !WinExist("1:" )){
     msg =
 (
-wordlistNEWarchivePath = '%wordlistNEWarchivePath%'
-wordlistDir = '%wordlistDir%'
+ActionListNEWarchivePath = '%ActionListNEWarchivePath%'
+ActionListDir = '%ActionListDir%'
 '%A_LineNumber%' = A_LineNumber
 '%A_ScriptDir%' = A_ScriptDir
 '%A_LineFile%' = A_ScriptName
@@ -67,7 +67,7 @@ wordlistDir = '%wordlistDir%'
 
 
 global g_doSaveLogFiles
-if(Instr(wordlistNEWarchivePath,"\EVERYTHING\")){
+if(Instr(ActionListNEWarchivePath,"\EVERYTHING\")){
     g_doSaveLogFiles := false
     lll(A_LineNumber, A_LineFile,A_ThisFunc ": "    "g_doSaveLogFiles := true" )
 }else{
@@ -75,56 +75,56 @@ if(Instr(wordlistNEWarchivePath,"\EVERYTHING\")){
 }
 
 
-if(!wordlistNEWarchivePath)
-    Msgbox,Oops !wordlistNEWarchivePath `n (Typing_Aid_everywhere_multi_clone.inc.ahk~%A_ThisFunc%~%A_`LineNumber%) `
+if(!ActionListNEWarchivePath)
+    Msgbox,Oops !ActionListNEWarchivePath `n (Typing_Aid_everywhere_multi_clone.inc.ahk~%A_ThisFunc%~%A_`LineNumber%) `
 
-   ; wordlistActivePath := typingAidSourcePath .  "\" . wordlistActive
-   wordlistActivePath := A_ScriptDir . "\" . wordlistActive
-   if(!FileExist(wordlistActivePath))
-      MsgBox, :( '%wordlistActivePath%' = wordlistActivePath  `n (line:%A_LineNumber%) `n 18-01-20_17-12
+   ; ActionListActivePath := typingAidSourcePath .  "\" . ActionListActive
+   ActionListActivePath := A_ScriptDir . "\" . ActionListActive
+   if(!FileExist(ActionListActivePath))
+      MsgBox, :( '%ActionListActivePath%' = ActionListActivePath  `n (line:%A_LineNumber%) `n 18-01-20_17-12
 ; The active path, that the complete address of the file inc dir, has to be always present. if not then that is an error. 12.07.2017 21:10
 
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-  if(!FileExist(wordlistNEWarchivePath)) {
+  if(!FileExist(ActionListNEWarchivePath)) {
   ; So hear it's possibly a good idea to generate a new one by using a template. 12.07.2017 21:12
 
     global g_lineNumberFeedback
     g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
     WinGetActiveTitle,at
-    strLen_wordlistNEWar := StrLen(wordlistNEWarchivePath)
-    if(strLen_wordlistNEWar < 5)
-       MsgBox, :-( '%strLen_wordlistNEWar%' = strLen_wordlistNEWar  `n (line:%A_LineNumber%) `n
+    strLen_ActionListNEWar := StrLen(ActionListNEWarchivePath)
+    if(strLen_ActionListNEWar < 5)
+       MsgBox, :-( '%strLen_ActionListNEWar%' = strLen_ActionListNEWar  `n (line:%A_LineNumber%) `n
        ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
        ; Let's generate a pretty short 80 signs long name. 12.07.2017 21:14
-    if(strLen_wordlistNEWar>70) {
+    if(strLen_ActionListNEWar>70) {
       global g_lineNumberFeedback
       g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
-      wordlistNEWarchivePath80 := "... " . SubStr(wordlistNEWarchivePath, -70 ) 
-      ; MsgBox, '%wordlistNEWarchivePath80%' = wordlistNEWarchivePath80  `n (line:%A_LineNumber%) `n 
+      ActionListNEWarchivePath80 := "... " . SubStr(ActionListNEWarchivePath, -70 )
+      ; MsgBox, '%ActionListNEWarchivePath80%' = ActionListNEWarchivePath80  `n (line:%A_LineNumber%) `n
     } else {
-       wordlistNEWarchivePath80 := wordlistNEWarchivePath
+       ActionListNEWarchivePath80 := ActionListNEWarchivePath
     }
    ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-    initialWordList := ltrim(getInitialWordList(wordlistNEWarchivePath,wordlistNEW))
+    initialActionList := ltrim(getInitialActionList(ActionListNEWarchivePath,ActionListNEW))
 
-; _%wordlistNEWarchivePath%|r|Here you could find your library
+; _%ActionListNEWarchivePath%|r|Here you could find your library
 
      StringReplace, lineFileRelative, A_LineFile , % A_ScriptDir,Source, All
     ;Msgbox,%LineFileRelative%`n (%A_LineFile%~%A_LineNumber%) )
 
-      FileAppend, `; '%at%' `; (%LineFileRelative%~%A_LineNumber%) `n%initialWordList% `n, % wordlistNEWarchivePath
+      FileAppend, `; '%at%' `; (%LineFileRelative%~%A_LineNumber%) `n%initialActionList% `n, % ActionListNEWarchivePath
    Sleep,500
 
-   ; End of: if(!FileExist(wordlistNEWarchivePath))
-    lll(A_LineNumber, A_LineFile,A_ThisFunc ": "    "saved first time: >" . wordlistNEWarchivePath . "< = Now the new examples-template should be saved" )
-    ; Now the new examples-template is saved inside of this file: wordlistNEWarchivePath
+   ; End of: if(!FileExist(ActionListNEWarchivePath))
+    lll(A_LineNumber, A_LineFile,A_ThisFunc ": "    "saved first time: >" . ActionListNEWarchivePath . "< = Now the new examples-template should be saved" )
+    ; Now the new examples-template is saved inside of this file: ActionListNEWarchivePath
     ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 } else {
     ; No example template was used. The content is already there. Inside on this file. And don't need to be generated. 12.07.2017 21:36
-    msg:=A_ThisFunc ": "    "startREADING: >" . wordlistNEWarchivePath . "< = wordlistNEWarchivePath"
+    msg:=A_ThisFunc ": "    "startREADING: >" . ActionListNEWarchivePath . "< = ActionListNEWarchivePath"
     lll(A_LineNumber, A_LineFile,msg)
     ;Msgbox,%msg%`n (%A_LineFile%~%A_LineNumber%)
 
@@ -132,19 +132,19 @@ if(!wordlistNEWarchivePath)
        ; read #include commands
        exist_includeFilePath := 0
        includeFileSContent := ""
-       wordlistGeneratedPath := ""
+       ActionListGeneratedPath := ""
        isIncludeFileInside := false
        includeFileSContentWillBeNeedsSaved := false
        includeFilePathArray := Object()
        lineInRegExArray := Object()
 
-; lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   "'" . wordlistGeneratedPath . "' = wordlistGeneratedPath `n'" . wordlistNEWarchivePath . " = wordlistNEWarchivePath " )
+; lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   "'" . ActionListGeneratedPath . "' = ActionListGeneratedPath `n'" . ActionListNEWarchivePath . " = ActionListNEWarchivePath " )
 
 if(1 && !WinExist("1:" )){
 msg =
 (
-wordlistNEWarchivePath = '%wordlistNEWarchivePath%'
-wordlistDir = '%wordlistDir%'
+ActionListNEWarchivePath = '%ActionListNEWarchivePath%'
+ActionListDir = '%ActionListDir%'
 '%A_LineNumber%' = A_LineNumber
 '%A_ScriptDir%' = A_ScriptDir
 '%A_LineFile%' = A_ScriptName
@@ -155,11 +155,11 @@ lll(A_LineNumber, A_LineFile, msg )
 }
 
 
-Loop, read, % wordlistNEWarchivePath
+Loop, read, % ActionListNEWarchivePath
        {
            ; Beispiel:
-; #Include .\..\Wordlists\Notepad\_global.txt
-; #Include ..\_globalWordLists\Bewerbung\Firmware_Entwicklung.txt
+; #Include .\..\ActionLists\Notepad\_global.txt
+; #Include ..\_globalActionLists\Bewerbung\Firmware_Entwicklung.txt
 
 ;           regEx := "i)^\s*#include\s*( |,)\s*([^|!]+)\s*(?:((\||\!))\s*(.+))?\s*"
 ; include[ ]*(?:,|\s)[ ]*([^|!\n]+)[ ]*(?:((\||\!))[ ]*([^\n]+))?[ ]*
@@ -189,8 +189,8 @@ if(!exist_includeFilePath){ ; 11.03.201:23 new style/format of adress writing, b
     ;msgbox,% msg "(" A_LineFile "~" A_LineNumber ")"\
     lll(A_LineNumber, A_LineFile, msg )
 
-    includeFilePath := RegExReplace(includeFilePath ,"^\.\." , "..\Wordlists")
-    ; includeFilePath := "Wordlists\" includeFilePath
+    includeFilePath := RegExReplace(includeFilePath ,"^\.\." , "..\ActionLists")
+    ; includeFilePath := "ActionLists\" includeFilePath
     exist_includeFilePath := (FileExist(includeFilePath)) ? 1 : 0
 }
 
@@ -199,7 +199,7 @@ if(!exist_includeFilePath){ ; 11.03.201:23 new style/format of adress writing, b
                 msg := ":( " includeFilePath " = includeFilePath `n"
                 msg .= exist_includeFilePath " = exist_includeFilePath  `n`n"
                 includeFilePath := RegExReplace(includeFilePath, "^\.\.\\","") ; ..\ deleted 06.03.2018 11:34
-                includeFilePath := removesSymbolicLinksFromFileAdress( wordlistDir "\" includeFilePath) ; user should could includes direcly from his txt wordlist, without editing the address 05.03.2018 08:15
+                includeFilePath := removesSymbolicLinksFromFileAdress( ActionListDir "\" includeFilePath) ; user should could includes direcly from his ahk ActionList, without editing the address 05.03.2018 08:15
                 exist_includeFilePath := (FileExist(includeFilePath)) ? 1 : 0
 
                 msg .= includeFilePath " = includeFilePath  `n"
@@ -228,7 +228,7 @@ global g_ignReg
 g_ignReg["feedbackMsgBox"]["tit"]  =.^
 g_ignReg["feedbackMsgBox"]["text"] =.^
 feedbackMsgBox("isIncludeFileInside = " isIncludeFileInside,A_LineNumber . " " .  A_LineFile,1,1)
-msg='%wordlistNEWarchivePath%' = wordlistNEWarchivePath `n '%foundPos%' = foundPos  `n '%includeFilePath%' = includeFilePath  `n '%exist_includeFilePath%' = exist_includeFilePath `n  wordlistDir = '%wordlistDir%' `n (line:%A_LineFile%~%A_LineNumber%)
+msg='%ActionListNEWarchivePath%' = ActionListNEWarchivePath `n '%foundPos%' = foundPos  `n '%includeFilePath%' = includeFilePath  `n '%exist_includeFilePath%' = exist_includeFilePath `n  ActionListDir = '%ActionListDir%' `n (line:%A_LineFile%~%A_LineNumber%)
 ToolTip5sec(msg  . " `n " . A_LineNumber . " " .  A_LineFile . " " . Last_A_This)
 msgbox,% msg
 }
@@ -242,44 +242,44 @@ lineInRegEx         := (matchs4) ? matchs3 . matchs4 : "|.*" ; | ist a positvie 
             ;Msgbox,'%lineInRegEx%' = lineInRegEx  n (line:%A_LineNumber%) n
             lineInRegExArray.Insert(lineInRegEx)
             if(!exist_includeFilePath){
-              msg =:-( ERROR %exist_includeFilePath% = exist_includeFilePath `n wordlistDir = %wordlistDir% `n includeFilePath = %includeFilePath% `n  >%wordlistNEWarchivePath%< = wordlistNEWarchivePath (from: %A_LineFile%~%A_LineNumber%)
+              msg =:-( ERROR %exist_includeFilePath% = exist_includeFilePath `n ActionListDir = %ActionListDir% `n includeFilePath = %includeFilePath% `n  >%ActionListNEWarchivePath%< = ActionListNEWarchivePath (from: %A_LineFile%~%A_LineNumber%)
               Tooltip,%msg%
               g_doSaveLogFiles := true
               lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   msg)
             }
             
-lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   ":| exist_includeFilePath =" . exist_includeFilePath . "   '" . wordlistNEWarchivePath . "' = wordlistNEWarchivePath ")
+lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   ":| exist_includeFilePath =" . exist_includeFilePath . "   '" . ActionListNEWarchivePath . "' = ActionListNEWarchivePath ")
 
-lll(A_LineNumber, A_LineFile,  ":| exist_includeFilePath =" . exist_includeFilePath . "   '" . wordlistNEWarchivePath . "' = wordlistNEWarchivePath ")
+lll(A_LineNumber, A_LineFile,  ":| exist_includeFilePath =" . exist_includeFilePath . "   '" . ActionListNEWarchivePath . "' = ActionListNEWarchivePath ")
 
 ;<<<<<<<<<<<<<<  if(exist_includeFilePath)  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
             if(exist_includeFilePath){
-                wordlistNEWarchivePathBackup := wordlistNEWarchivePath
-                wordlistGeneratedPath := wordlistNEWarchivePath . "._Generated.txt"
+                ActionListNEWarchivePathBackup := ActionListNEWarchivePath
+                ActionListGeneratedPath := ActionListNEWarchivePath . "._Generated.ahk"
 
-                lll(A_LineNumber, A_LineFile, "'" . wordlistGeneratedPath . "' = wordlistGeneratedPath `n'" . wordlistNEWarchivePath . " = wordlistNEWarchivePath ")
+                lll(A_LineNumber, A_LineFile, "'" . ActionListGeneratedPath . "' = ActionListGeneratedPath `n'" . ActionListNEWarchivePath . " = ActionListNEWarchivePath ")
 
-                lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   "'" . wordlistGeneratedPath . "' = wordlistGeneratedPath `n'" . wordlistNEWarchivePath . " = wordlistNEWarchivePath " )
-                lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   "'" . wordlistGeneratedPath . "' = wordlistGeneratedPath `n'" . wordlistNEWarchivePath . " = wordlistNEWarchivePath " )
+                lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   "'" . ActionListGeneratedPath . "' = ActionListGeneratedPath `n'" . ActionListNEWarchivePath . " = ActionListNEWarchivePath " )
+                lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   "'" . ActionListGeneratedPath . "' = ActionListGeneratedPath `n'" . ActionListNEWarchivePath . " = ActionListNEWarchivePath " )
 
 
-                exist_wordlistGeneratedPath := FileExist(wordlistGeneratedPath)
+                exist_ActionListGeneratedPath := FileExist(ActionListGeneratedPath)
 
-                FileGetTime, wordlistNEWarchivePathBackupModifiedTime, %wordlistNEWarchivePathBackup%
+                FileGetTime, ActionListNEWarchivePathBackupModifiedTime, %ActionListNEWarchivePathBackup%
                 FileGetTime, includeFileModifiedTime, %includeFilePath%
                 
-                wordlistGeneratedModifiedTime := 0
-                if(exist_wordlistGeneratedPath)
-                    FileGetTime, wordlistGeneratedModifiedTime, %wordlistGeneratedPath%
+                ActionListGeneratedModifiedTime := 0
+                if(exist_ActionListGeneratedPath)
+                    FileGetTime, ActionListGeneratedModifiedTime, %ActionListGeneratedPath%
 
-msg= '%wordlistNEWarchivePathBackupModifiedTime%' > '%wordlistGeneratedModifiedTime%' (wordlistNEWarchivePathBackupModifiedTime > wordlistGeneratedModifiedTime)  `n'%includeFileModifiedTime%' > '%wordlistGeneratedModifiedTime%' (includeFileModifiedTime > wordlistGeneratedModifiedTime) `n'%includeFilePath%' = '%includeFilePath%'
+msg= '%ActionListNEWarchivePathBackupModifiedTime%' > '%ActionListGeneratedModifiedTime%' (ActionListNEWarchivePathBackupModifiedTime > ActionListGeneratedModifiedTime)  `n'%includeFileModifiedTime%' > '%ActionListGeneratedModifiedTime%' (includeFileModifiedTime > ActionListGeneratedModifiedTime) `n'%includeFilePath%' = '%includeFilePath%'
 lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   msg)
 ; msgbox, % msg
 
                 if( false 
-                || !exist_wordlistGeneratedPath 
-                || wordlistNEWarchivePathBackupModifiedTime > wordlistGeneratedModifiedTime  
-                || includeFileModifiedTime > wordlistGeneratedModifiedTime ){
+                || !exist_ActionListGeneratedPath
+                || ActionListNEWarchivePathBackupModifiedTime > ActionListGeneratedModifiedTime
+                || includeFileModifiedTime > ActionListGeneratedModifiedTime ){
                     includeFileSContentWillBeNeedsSaved := true
                      ; continue ; include is old. older.
                    }{
@@ -297,12 +297,12 @@ lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   msg)
             break
 ;>>>>>>>>>>>>>>>>> if(exist_includeFilePath)  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-         lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   "'" . wordlistGeneratedPath . "' = wordlistGeneratedPath `n'" . wordlistNEWarchivePath . " = wordlistNEWarchivePath " )
+         lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   "'" . ActionListGeneratedPath . "' = ActionListGeneratedPath `n'" . ActionListNEWarchivePath . " = ActionListNEWarchivePath " )
 
        }
 
 
-; lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   includeFileSContentWillBeNeedsSaved . " = includeFileSContentWillBeNeedsSaved `n" . wordlistNEWarchivePath . " = wordlistNEWarchivePath `n" . "17-07-16_17-07")
+; lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   includeFileSContentWillBeNeedsSaved . " = includeFileSContentWillBeNeedsSaved `n" . ActionListNEWarchivePath . " = ActionListNEWarchivePath `n" . "17-07-16_17-07")
 
 
 if(includeFileSContentWillBeNeedsSaved ) {
@@ -342,34 +342,34 @@ for fileId, includeFilePath in includeFilePathArray ; Recommended approach in mo
 
 ; lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   "'" . includeFileSContentWillBeNeedsSaved . "' = includeFileSContentWillBeNeedsSaved" )
 
-; lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   "'" . wordlistGeneratedPath . "' = wordlistGeneratedPath `n'" . wordlistNEWarchivePath . " = wordlistNEWarchivePath " )
+; lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   "'" . ActionListGeneratedPath . "' = ActionListGeneratedPath `n'" . ActionListNEWarchivePath . " = ActionListNEWarchivePath " )
 
 if(includeFileSContentWillBeNeedsSaved )
-    save_wordlistGeneratedPath(wordlistGeneratedPath,includeFileSContent,wordlistNEWarchivePath)
+    save_ActionListGeneratedPath(ActionListGeneratedPath,includeFileSContent,ActionListNEWarchivePath)
 
-; lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   "'" . wordlistGeneratedPath . "' = wordlistGeneratedPath `n'" . wordlistNEWarchivePath . " = wordlistNEWarchivePath " )
+; lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   "'" . ActionListGeneratedPath . "' = ActionListGeneratedPath `n'" . ActionListNEWarchivePath . " = ActionListNEWarchivePath " )
 
-        if(isIncludeFileInside && wordlistGeneratedPath){
-           wordlistNEWarchivePath := wordlistGeneratedPath ; that it will be used as your wordllist with all sugestions :) 12.07.2017 22:58
+        if(isIncludeFileInside && ActionListGeneratedPath){
+           ActionListNEWarchivePath := ActionListGeneratedPath ; that it will be used as your wordllist with all sugestions :) 12.07.2017 22:58
 
-            ExitAPP_if_NOT_wordlistGeneratedPath (A_LineNumber, A_ThisFunc, wordlistNEWarchivePath, wordlistGeneratedPath , wordlistNEW)
-            ;ExitAPP_if_NOT_wordlistNEWarchivePath_and_NOT_wordlistNEW(A_LineNumber, A_ThisFunc, wordlistNEWarchivePath, wordlistGeneratedPath , wordlistNEW)
+            ExitAPP_if_NOT_ActionListGeneratedPath (A_LineNumber, A_ThisFunc, ActionListNEWarchivePath, ActionListGeneratedPath , ActionListNEW)
+            ;ExitAPP_if_NOT_ActionListNEWarchivePath_and_NOT_ActionListNEW(A_LineNumber, A_ThisFunc, ActionListNEWarchivePath, ActionListGeneratedPath , ActionListNEW)
         }
 ;>>>>>>>>>>>>>>>>>> includeFileSContentWillBeNeedsSaved >>>>>>>>>>>>>>>>>>>>>>>>>>>
-} ; EndOf: Loop, read, % wordlistNEWarchivePath
+} ; EndOf: Loop, read, % ActionListNEWarchivePath
 
-; lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   "'" . wordlistGeneratedPath . "' = wordlistGeneratedPath `n'" . wordlistNEWarchivePath . " = wordlistNEWarchivePath " )
+; lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   "'" . ActionListGeneratedPath . "' = ActionListGeneratedPath `n'" . ActionListNEWarchivePath . " = ActionListNEWarchivePath " )
 
   ; All we have to do know is to  use this file. therefore we only copying it to the active used file. it will be overwritten. 12.07.2017 21:31
 
-  ExitAPP_if_NOT_wordlistNEWarchivePath_and_NOT_wordlistNEW(A_LineNumber, A_ThisFunc, wordlistNEWarchivePath, wordlistGeneratedPath , wordlistNEW)
+  ExitAPP_if_NOT_ActionListNEWarchivePath_and_NOT_ActionListNEW(A_LineNumber, A_ThisFunc, ActionListNEWarchivePath, ActionListGeneratedPath , ActionListNEW)
   if(0){ ; deprecated 21.03.2018 11:00
-      Msgbox,%wordlistNEWarchivePath% 2 %wordlistActivePath% `n (%A_LineFile%~%A_LineNumber%)
-      lll(A_LineNumber, A_LineFile, wordlistNEWarchivePath " FileCopy too " wordlistActivePath)
-      FileCopy, % wordlistNEWarchivePath, % wordlistActivePath  , 1
+      Msgbox,%ActionListNEWarchivePath% 2 %ActionListActivePath% `n (%A_LineFile%~%A_LineNumber%)
+      lll(A_LineNumber, A_LineFile, ActionListNEWarchivePath " FileCopy too " ActionListActivePath)
+      FileCopy, % ActionListNEWarchivePath, % ActionListActivePath  , 1
     }
   return, 1
-} ; EndOf function wordlistNEWactivate( wordlistDir , wordlistNEW, wordlistActive , typingAidSourcePath )
+} ; EndOf function ActionListNEWactivate( ActionListDir , ActionListNEW, ActionListActive , typingAidSourcePath )
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 
@@ -422,28 +422,28 @@ disableCopyQ() ; enableCopyQ() ;
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
-wordlistOLDbackup( wordlistDir , wordlistOLD){
-    if(!wordlistDir) ; TODO dirty bugFix 21.03.2018 11:36
+ActionListOLDbackup( ActionListDir , ActionListOLD){
+    if(!ActionListDir) ; TODO dirty bugFix 21.03.2018 11:36
           Return
  global g_lineNumberFeedback
  g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
-    lll(A_LineNumber, A_LineFile, wordlistDir wordlistOLD " FileCopy too " wordlistDir wordlistOLD . ".backup.txt")
-   FileCopy, % wordlistDir . "\" . wordlistOLD , % wordlistDir . "\" . wordlistOLD . ".backup.txt", 1
+    lll(A_LineNumber, A_LineFile, ActionListDir ActionListOLD " FileCopy too " ActionListDir ActionListOLD . ".backup.ahk")
+   FileCopy, % ActionListDir . "\" . ActionListOLD , % ActionListDir . "\" . ActionListOLD . ".backup.ahk", 1
     ;Msgbox,`n (%A_LineFile%~%A_LineNumber%)
    return 1
 } 
 
 
 
-wordlistOLDdisable( typingAidSourcePath, wordlistActive){
+ActionListOLDdisable( typingAidSourcePath, ActionListActive){
       Return 1 ; Todo: dirtyBugFix  , deprecated 21.03.2018 11:33
  global g_lineNumberFeedback
  g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
-   wordlistActive = % typingAidSourcePath . "\" . wordlistActive
-   wordlistDisable = % typingAidSourcePath . "\" . wordlistActive ".backup.txt"
-    lll(A_LineNumber, A_LineFile, wordlistActive " FileCopy too " wordlistDisable)
-   FileCopy, % wordlistActive  , % wordlistDisable , 1
+   ActionListActive = % typingAidSourcePath . "\" . ActionListActive
+   ActionListDisable = % typingAidSourcePath . "\" . ActionListActive ".backup.ahk"
+    lll(A_LineNumber, A_LineFile, ActionListActive " FileCopy too " ActionListDisable)
+   FileCopy, % ActionListActive  , % ActionListDisable , 1
    return 1
 } 
 runTypingAidAHKifNotExist( typingAidAHK ){
@@ -490,7 +490,7 @@ lll(A_LineNumber, A_LineFile, "IfWinNotExist,TypingAid -> exitapp")
     }
     return
 }
-checkFilePathExistens1704291222(wordlistDir, destinDir, sourceDir, typingAidAHK ){
+checkFilePathExistens1704291222(ActionListDir, destinDir, sourceDir, typingAidAHK ){
 
 
  global g_lineNumberFeedback
@@ -540,15 +540,15 @@ IfWinNotExist,TypingAid
    MsgBox,,NotExist?, :( IfWinNotExist '%typingAidAHK%' = typingAidAHK  `n (line:%A_LineNumber%) `n , 2
 }
 
-   if(! FileExist(wordlistDir) )
+   if(! FileExist(ActionListDir) )
    {
  global g_lineNumberFeedback
  g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
-   FileCreateDir, % wordlistDir
+   FileCreateDir, % ActionListDir
    Sleep,100
    }
-   if(! FileExist(wordlistDir) )
+   if(! FileExist(ActionListDir) )
    {
  global g_lineNumberFeedback
  g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
@@ -558,10 +558,10 @@ IfWinNotExist,TypingAid
    msg = 
    (
    :-(
-   `n '%wordlistDir%' = wordlistDir  `n (line:%A_LineNumber%) `n 
+   `n '%ActionListDir%' = ActionListDir  `n (line:%A_LineNumber%) `n
    do not exist.
    )
-   MsgBox, :( =>Reload  `n  ! Exist(wordlistDir) %msg%
+   MsgBox, :( =>Reload  `n  ! Exist(ActionListDir) %msg%
    Reload
    }
    if(! FileExist(sourceDir) )
@@ -583,27 +583,27 @@ IfWinNotExist,TypingAid
 
 
 
-simplifyNameOfWordlistNEWstep1( wordlistNEW ) {
+simplifyNameOfActionListNEWstep1( ActionListNEW ) {
  global g_lineNumberFeedback
  g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
-;   wordlistNEW := "superSimple" . ".txt"
-   return wordlistNEW ; 
+;   ActionListNEW := "superSimple" . ".txt"
+   return ActionListNEW ;
    
-FoundPos := InStr(wordlistNEW, "\",0,-1 )
+FoundPos := InStr(ActionListNEW, "\",0,-1 )
 if( FoundPos )
-   wordlistNEW:=SubStr(wordlistNEW,1,FoundPos) . "_" . SubStr(wordlistNEW,FoundPos) 
-wordlistNEW := RegExReplace(  wordlistNEW, "(\w)[^\\]+\\", "$1")  ; ChromeWidgetWin1\GmailGoogleChrome.txt - Notepad++ ahk_class Notepad++ ==> EfpHAtTWCGmailGoogleChrome_txt_Notepad_.txt
+   ActionListNEW:=SubStr(ActionListNEW,1,FoundPos) . "_" . SubStr(ActionListNEW,FoundPos)
+ActionListNEW := RegExReplace(  ActionListNEW, "(\w)[^\\]+\\", "$1")  ; ChromeWidgetWin1\GmailGoogleChrome.ahk - Notepad++ ahk_class Notepad++ ==> EfpHAtTWCGmailGoogleChrome_txt_Notepad_.ahk
 
- ;~ MsgBox, '%wordlistNEW%' = wordlistNEW  `n (line:%A_LineNumber%) `n 
-wordlistNEW := RegExReplace(  wordlistNEW , "\s*\[[^\[\]]+\]+", "")  ; clone.ahk * SciTE4AutoHotkey [2 von 2]
-wordlistNEW := RegExReplace(  wordlistNEW, "[\W_]+", "_")  . ".txt"
+ ;~ MsgBox, '%ActionListNEW%' = ActionListNEW  `n (line:%A_LineNumber%) `n
+ActionListNEW := RegExReplace(  ActionListNEW , "\s*\[[^\[\]]+\]+", "")  ; clone.ahk * SciTE4AutoHotkey [2 von 2]
+ActionListNEW := RegExReplace(  ActionListNEW, "[\W_]+", "_")  . ".ahk"
 ; MsgBox,'%ActiveClass%' = ActiveClass  `n (line:%A_LineNumber%) `n 
 
 
 
-wordlistNEW := "dummiTestFromLine" . A_LineNumber . ".txt"
-return wordlistNEW 
+ActionListNEW := "dummiTestFromLine" . A_LineNumber . ".ahk"
+return ActionListNEW
 }
 
 
@@ -780,7 +780,7 @@ MsgBox, 17-03-10_08-04
 }
 ;>>>>>>>>>>>>> FileDeleteAsyncDynaRun >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-DynaRunENDa�sldkjfa�sldkjfl(TempScript, pipename="") {
+DynaRunENDaï¿½sldkjfaï¿½sldkjfl(TempScript, pipename="") {
  global g_lineNumberFeedback
  g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
@@ -868,24 +868,24 @@ FileWrite(sayHelloCode, sayHelloFunctionInc){
    FileAppend, % sayHelloCode, % sayHelloFunctionInc
    return 1
 }
-mvarInjects(wordlistDir, wordlistNEW, ActiveClass, activeTitle){
+mvarInjects(ActionListDir, ActionListNEW, ActiveClass, activeTitle){
  global g_lineNumberFeedback
  g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
-if(!wordlistDir)
+if(!ActionListDir)
 {
  global g_lineNumberFeedback
  g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
-msgbox,!wordlistDir exitap (line:`%A_LineNumber`%) `n 17-03-19_14-06
+msgbox,!ActionListDir exitap (line:`%A_LineNumber`%) `n 17-03-19_14-06
 exitapp
 }
-if(!wordlistNEW)
+if(!ActionListNEW)
 {
  global g_lineNumberFeedback
  g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
-msgbox,!wordlistNEW exitap (line:`%A_LineNumber`%) `n
+msgbox,!ActionListNEW exitap (line:`%A_LineNumber`%) `n
 exitapp
 }
 if(!ActiveClass)
@@ -904,8 +904,8 @@ if(!activeTitle)
 
    varInjects =
    (
-   wordlistDir = %wordlistDir%
-   wordlistNEW = %wordlistNEW%
+   ActionListDir = %ActionListDir%
+   ActionListNEW = %ActionListNEW%
    ActiveClass = %ActiveClass%
    activeTitle = %activeTitle% `n
    )
@@ -921,29 +921,29 @@ this `n `n  %A_LineFile% `n
 copies the activAid for every window class you are using automatically
 runs this and close/kills the other activAid
 
-if you try to find which file belongs to your wordlist type _____ it hopefully helps
+if you try to find which file belongs to your ActionList type _____ it hopefully helps
    
-WordlistLearned.txt is a global wordlist.
+ActionListLearned.ahk is a global ActionList.
 for activate your updates in this file please 
 close TypingAid and
-delete WordlistLearned.db
+delete ActionListLearned.db
    
 descriptions:
 <word>|d|<description>
-"Word descriptions can be added to 'Wordlist .txt' that will appear in the wordlist next to the word. These descriptions should be in the form of
+"Word descriptions can be added to 'ActionList .ahk' that will appear in the ActionList next to the word. These descriptions should be in the form of
 <word>|d|<description>, e.g., Tylenol|d|Pain Reliever. 
-This could be used for things like definitions, translation aids, or function arguments. When Fixed Width fonts are used in the wordlist, the description columns will be tabbed evenly so they line up."
+This could be used for things like definitions, translation aids, or function arguments. When Fixed Width fonts are used in the ActionList, the description columns will be tabbed evenly so they line up."
 04.03.017 16:16 from https://github.com/ManiacDC/TypingAid
 
 replacements:
 <word>|r|<description>
-"Word replacements can be added to 'Wordlist.txt' that will appear in the wordlist next to the word. These replacements should be in the form of 
+"Word replacements can be added to 'ActionList.ahk' that will appear in the ActionList next to the word. These replacements should be in the form of
 <word>|r|<description>, e.g., fire|r|fuego. 
 When the word is chosen, it will be backspaced out and replaced with the new word. If Case Correction is off, the first letter will be changed to match the case of the word being replaced. This could be used for spelling replacements, text expansion, or translation aids. Multiple replacements can be defined for a word (put each on a separate line)."
 04.03.017 16:16 from https://github.com/ManiacDC/TypingAid
 
 problems:
-may have problems with cooding. may save your wordlists as UTF-8 or convert it. for e.g. with notepad. codierung > convert to UTF-8
+may have problems with cooding. may save your ActionLists as UTF-8 or convert it. for e.g. with notepad. codierung > convert to UTF-8
 hint from hints: http://stackoverflow.com/questions/2527269/any-tool-to-convert-bulk-php-files-to-utf-8-without-bom :
 Before trying this, you must make a backup of your files.
 You need to create a macro that does this:
@@ -962,7 +962,7 @@ you may think first letters want replace. yes thats true. thats a feature ;) not
 return msg
 }
 
-getAhkCodeInsideFile(wordlistDir, wordlistFilterPath ) {
+getAhkCodeInsideFile(ActionListDir, ActionListFilterPath ) {
  global g_lineNumberFeedback
  g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
@@ -970,42 +970,42 @@ ahkCodeInsideFile =
 (
 #SingleInstance, force
 `; dontDeleteThisPlaceholder
-#Include %wordlistDir%\..\wordlistNameFilter.inc.ahk `; global wordlist . pleas dont delete this line! 17-03-06_10-59
-wordlistFilterPath = %wordlistFilterPath% `n ; (line:`%A_LineNumber`%) `n
+#Include %ActionListDir%\..\ActionListNameFilter.inc.ahk `; global ActionList . pleas dont delete this line! 17-03-06_10-59
+ActionListFilterPath = %ActionListFilterPath% `n ; (line:`%A_LineNumber`%) `n
 
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ; this days i have to many files into hiere... i want first to activate the superglobal 10.08.2017 09:29
-wordlistNEW_time_between := wordlistNEW
+ActionListNEW_time_between := ActionListNEW
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-`; if you want you could use the follwong global variables fot calculating you new wordlistNEW : wordlistDir, wordlistNEW, ActiveClass, activeTitle  
-if `(!wordlistNEW `){
+`; if you want you could use the follwong global variables fot calculating you new ActionListNEW : ActionListDir, ActionListNEW, ActiveClass, activeTitle
+if `(!ActionListNEW `){
  global g_lineNumberFeedback
  g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
-    MsgBox, ERROR wordlistNEW is EMPTY 17-03-05_14-51
+    MsgBox, ERROR ActionListNEW is EMPTY 17-03-05_14-51
     exitapp
 }
-if `(!wordlistDir `){
+if `(!ActionListDir `){
  global g_lineNumberFeedback
  g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
-    MsgBox, ERROR wordlistDir is EMPTY 17-03-19_11-52
+    MsgBox, ERROR ActionListDir is EMPTY 17-03-19_11-52
     exitapp
 }
 
 ; this days i have to many files into hiere... i want first to activate the superglobal 10.08.2017 09:29
-if(0 && !RegExMatch(trim(wordlistNEW),"\.txt$")) ; dirty bug fix TODO: not pretty
-    wordlistNEW .= ".txt"
-if( SubStr( wordlistNEW , -3 ) <> ".txt" ) ; 06.03.2018 13:09
-    wordlistNEW .= ".txt"
+if(0 && !RegExMatch(trim(ActionListNEW),"\.ahk$")) ; dirty bug fix TODO: not pretty
+    ActionListNEW .= ".ahk"
+if( SubStr( ActionListNEW , -3 ) <> ".ahk" ) ; 06.03.2018 13:09
+    ActionListNEW .= ".ahk"
 
 
 
 
 
-`; Clipboard := wordlistNEW    we dont need that anymore. becouse now we work without the clipboard 09.03.2017 21:21 isInternMsgTransportIsClipboard := false `; false. then using fileSystem: readfile, include copyfile
-`; Clipboard := wordlistNEW ``n %A_LineFile%~%A_ThisFunc%~%A_LineNumber% ``n we dont need that anymore. becouse now we work without the clipboard 09.03.2017 21:21 isInternMsgTransportIsClipboard := false `; false. then using fileSystem: readfile, include copyfile
+`; Clipboard := ActionListNEW    we dont need that anymore. becouse now we work without the clipboard 09.03.2017 21:21 isInternMsgTransportIsClipboard := false `; false. then using fileSystem: readfile, include copyfile
+`; Clipboard := ActionListNEW ``n %A_LineFile%~%A_ThisFunc%~%A_LineNumber% ``n we dont need that anymore. becouse now we work without the clipboard 09.03.2017 21:21 isInternMsgTransportIsClipboard := false `; false. then using fileSystem: readfile, include copyfile
 `; tooltip,`%Clipboard`% = Clipboard 123496854
 )
 
@@ -1025,13 +1025,13 @@ disableCopyQ() ; enableCopyQ() ;
    ; if you make much clipboard work during the test, you could see its not working fine :( 07.03.2017 01:05
 ;   id = 17-03-07_00-32 ; without this nummer you get some 1000 without any false, some with some false 07.03.2017 00:49
    id := A_TickCount . "_line_" . A_LineNumber ; ; first teset no error with value
-      ;~ value := RegExReplace(value,"(Clipboard\s*:=)\s*(\w+)", "$1" . " . """ . id . """ " . "$2" )  ; Clipboard := wordlistNEW
-      ;~ value := RegExReplace(value,"(Clipboard\s*:=)\s*(\w+)", "$1" . " . """ . id . """ " . "$2" )  ; Clipboard := wordlistNEW
+      ;~ value := RegExReplace(value,"(Clipboard\s*:=)\s*(\w+)", "$1" . " . """ . id . """ " . "$2" )  ; Clipboard := ActionListNEW
+      ;~ value := RegExReplace(value,"(Clipboard\s*:=)\s*(\w+)", "$1" . " . """ . id . """ " . "$2" )  ; Clipboard := ActionListNEW
 if(RegExMatch(value, "Clipboard\s*:?=") ) {
  global g_lineNumberFeedback
  g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
-   ahkCode  := RegExReplace(value,"(Clipboard\s*:=)\s*(\w+)", "$1" . " """ . id . """ . " . "$2" )  ; Clipboard := wordlistNEW
+   ahkCode  := RegExReplace(value,"(Clipboard\s*:=)\s*(\w+)", "$1" . " """ . id . """ . " . "$2" )  ; Clipboard := ActionListNEW
    ;~ Clipboard := ahkCode ; debugging only
    ;~ MsgBox, '%Clipboard%' = Clipboard  `n (line:%A_LineNumber%) `n  ; debugging only
 }
@@ -1115,72 +1115,72 @@ selfTestLoop1000(loopMax){
     return result
 }
 
-;<<<<<<<<<<<<<<<<<<< getInitialWordList <<<<<<<<<<<<<<<<<<<<<<<<<<<
-getInitialWordList(wordlistNEWarchivePath,wordlistNEW){
+;<<<<<<<<<<<<<<<<<<< getInitialActionList <<<<<<<<<<<<<<<<<<<<<<<<<<<
+getInitialActionList(ActionListNEWarchivePath,ActionListNEW){
 ; Start filling the template variable with useful examples 12.07.2017 21:18
 
-if(!wordlistNEWarchivePath)
-    Msgbox,Oops !wordlistNEWarchivePath `n (Typing_Aid_everywhere_multi_clone.inc.ahk~%A_ThisFunc%~%A_`LineNumber%) `
+if(!ActionListNEWarchivePath)
+    Msgbox,Oops !ActionListNEWarchivePath `n (Typing_Aid_everywhere_multi_clone.inc.ahk~%A_ThisFunc%~%A_`LineNumber%) `
 
-wordlistFileName := RegExReplace(wordlistNEWarchivePath,".*\\([^\\]+)$","$1") ; 20.03.2018 00:15
+ActionListFileName := RegExReplace(ActionListNEWarchivePath,".*\\([^\\]+)$","$1") ; 20.03.2018 00:15
 
-initialWordList =
+initialActionList =
 (
-; #Include ..\_globalWordLists\examplesForBeginners.txt ; updated: 21.03.2018 07:33
-___your library open|rr||ahk|run,%wordlistFileName%
+; #Include ..\_globalActionLists\examplesForBeginners.txt ; updated: 21.03.2018 07:33
+___your library open|rr||ahk|run,%ActionListFileName%
 )
 ; EndOf filling the template variable with useful examples 12.07.2017 21:18
-return initialWordList
+return initialActionList
 }
-;>>>>>>>>>>>>>>>>>>>>> getInitialWordList >>>>>>>>>>>>>>>>>>>>>>>>>
+;>>>>>>>>>>>>>>>>>>>>> getInitialActionList >>>>>>>>>>>>>>>>>>>>>>>>>
 
 #Include *i %A_ScriptDir%\inc_ahk\functions_global.inc.ahk
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-;~ subroutinen beispielsweise müsen ans Dateiende
+;~ subroutinen beispielsweise mÃ¼sen ans Dateiende
 #Include *i %A_ScriptDir%\inc_ahk\functions_global_dateiende.inc.ahk
 
 
-;<<<<<<<<<<<<<<<<<< ExitAPP_if_NOT_wordlistNEWarchivePath_and_NOT_wordlistNEW<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-ExitAPP_if_NOT_wordlistNEWarchivePath_and_NOT_wordlistNEW(ALineNumber, AThisFunc, wordlistNEWarchivePath, wordlistGeneratedPath , wordlistNEW){
-  if( !FileExist(wordlistNEWarchivePath) ) {
+;<<<<<<<<<<<<<<<<<< ExitAPP_if_NOT_ActionListNEWarchivePath_and_NOT_ActionListNEW<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+ExitAPP_if_NOT_ActionListNEWarchivePath_and_NOT_ActionListNEW(ALineNumber, AThisFunc, ActionListNEWarchivePath, ActionListGeneratedPath , ActionListNEW){
+  if( !FileExist(ActionListNEWarchivePath) ) {
     global g_lineNumberFeedback
     g_lineNumberFeedback=Typing_Aid_everywhere_multi_clone.inc.ahk / %A_LineFile% ~%AThisFunc%~%ALineNumber%
-    msg = :( !FileExist(%wordlistNEWarchivePath%)) `n `n '%wordlistNEWarchivePath%' = wordlistNEWarchivePath  `n '%wordlistGeneratedPath%' = wordlistGeneratedPath  `n wordlistNEW= %wordlistNEW% `n ==> ExitAPP 17-08-11_01-01
+    msg = :( !FileExist(%ActionListNEWarchivePath%)) `n `n '%ActionListNEWarchivePath%' = ActionListNEWarchivePath  `n '%ActionListGeneratedPath%' = ActionListGeneratedPath  `n ActionListNEW= %ActionListNEW% `n ==> ExitAPP 17-08-11_01-01
     tooltip,%msg% `n`n ( %g_lineNumberFeedback% )
 
     lll_if_g_doSaveLogFiles(ALineNumber, AThisFunc,  msg)
 
 
     ; lll(AThisFunc . "~" . ALineNumber, A_ScriptName, msg)
-    Sleep,3000 ; function wordlistNEWactivate ??? right ??
+    Sleep,3000 ; function ActionListNEWactivate ??? right ??
     ExitAPP
   }
   return
 }
-;>>>>>>>>>>>>>> ExitAPP_if_NOT_wordlistNEWarchivePath_and_NOT_wordlistNEW>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+;>>>>>>>>>>>>>> ExitAPP_if_NOT_ActionListNEWarchivePath_and_NOT_ActionListNEW>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 
-;<<<<<<<<<<<<<<<<<< ExitAPP_if_NOT_wordlistGeneratedPath <<<<<<<<<<<<<<<<<<<<<<<<<<<<
-ExitAPP_if_NOT_wordlistGeneratedPath(ALineNumber, AThisFunc, wordlistNEWarchivePath, wordlistGeneratedPath , wordlistNEW){
-  if(!FileExist(wordlistGeneratedPath)) {
+;<<<<<<<<<<<<<<<<<< ExitAPP_if_NOT_ActionListGeneratedPath <<<<<<<<<<<<<<<<<<<<<<<<<<<<
+ExitAPP_if_NOT_ActionListGeneratedPath(ALineNumber, AThisFunc, ActionListNEWarchivePath, ActionListGeneratedPath , ActionListNEW){
+  if(!FileExist(ActionListGeneratedPath)) {
     global g_doSaveLogFiles
     g_doSaveLogFiles := 1
     global g_lineNumberFeedback
     ;g_lineNumberFeedback=%A_LineFile%~%AThisFunc%~%ALineNumber%
     g_lineNumberFeedback=Typing_Aid_everywhere_multi_clone.inc.ahk / %A_LineFile% ~%AThisFunc%~%ALineNumber%
-    msg = :( !FileExist(%wordlistNEWarchivePath%)) `n `n '%wordlistNEWarchivePath%' = wordlistNEWarchivePath  `n '%wordlistGeneratedPath%' = wordlistGeneratedPath  `n wordlistNEW= %wordlistNEW% `n ==> ExitAPP 17-08-11_00-00 `n %g_lineNumberFeedback%
+    msg = :( !FileExist(%ActionListNEWarchivePath%)) `n `n '%ActionListNEWarchivePath%' = ActionListNEWarchivePath  `n '%ActionListGeneratedPath%' = ActionListGeneratedPath  `n ActionListNEW= %ActionListNEW% `n ==> ExitAPP 17-08-11_00-00 `n %g_lineNumberFeedback%
     tooltip,% msg
 
 
     lll_if_g_doSaveLogFiles(ALineNumber, A_ScriptName, msg)
 
     ;lll(AThisFunc . "~" . ALineNumber, A_ScriptName, msg)
-    Sleep,3000 ; function wordlistNEWactivate ??? right ??
+    Sleep,3000 ; function ActionListNEWactivate ??? right ??
     ExitAPP
   }
   return
 }
-;>>>>>>>>>>>>>> ExitAPP_if_NOT_wordlistGeneratedPath >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+;>>>>>>>>>>>>>> ExitAPP_if_NOT_ActionListGeneratedPath >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 ;<<<<<<<<<<<<<<<<< lll_if_g_doSaveLogFiles <<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 lll_if_g_doSaveLogFiles(ALineNumber, AThisFunc,msg ){
@@ -1191,12 +1191,12 @@ return
 }
 ;>>>>>>>>>>>>>>>>> lll_if_g_doSaveLogFiles >>>>>>>>>>>>>>>>>>>>>>>>>>><>
 
-; wordlistNEWarchivePath
-save_wordlistGeneratedPath(wordlistGeneratedPath,includeFileSContent,wordlistNEWarchivePath) {
+; ActionListNEWarchivePath
+save_ActionListGeneratedPath(ActionListGeneratedPath,includeFileSContent,ActionListNEWarchivePath) {
 
-if(!wordlistNEWarchivePath){
+if(!ActionListNEWarchivePath){
     Tooltip, >%fileContent%< =fileContent `n (from: %A_LineFile%~%A_LineNumber%)
-    ; msgbox,cant read  >%fileContent%< =fileContent `n  becouse !wordlistNEWarchivePath `n (from: %A_LineFile%~%A_LineNumber%)
+    ; msgbox,cant read  >%fileContent%< =fileContent `n  becouse !ActionListNEWarchivePath `n (from: %A_LineFile%~%A_LineNumber%)
 
         global g_doSaveLogFiles
         g_doSaveLogFiles := 1
@@ -1210,20 +1210,20 @@ if(!wordlistNEWarchivePath){
     ExitApp
 }
 
-    ExitAPP_if_NOT_wordlistGeneratedPath (A_LineNumber, A_ThisFunc, wordlistNEWarchivePath, wordlistGeneratedPath , wordlistNEW)
-    ;ExitAPP_if_NOT_wordlistGeneratedPath (A_LineNumber, A_ThisFunc, wordlistNEWarchivePath, wordlistGeneratedPath , wordlistNEW)
+    ExitAPP_if_NOT_ActionListGeneratedPath (A_LineNumber, A_ThisFunc, ActionListNEWarchivePath, ActionListGeneratedPath , ActionListNEW)
+    ;ExitAPP_if_NOT_ActionListGeneratedPath (A_LineNumber, A_ThisFunc, ActionListNEWarchivePath, ActionListGeneratedPath , ActionListNEW)
 
-    if(FileExist(wordlistGeneratedPath))
-        FileDelete, %wordlistGeneratedPath%
+    if(FileExist(ActionListGeneratedPath))
+        FileDelete, %ActionListGeneratedPath%
     Sleep,60
-    lll(A_LineNumber, A_LineFile, "FileAppend too " wordlistGeneratedPath)
-    FileAppend,% includeFileSContent, % wordlistGeneratedPath
+    lll(A_LineNumber, A_LineFile, "FileAppend too " ActionListGeneratedPath)
+    FileAppend,% includeFileSContent, % ActionListGeneratedPath
     ; Sleep,20
-    FileRead, fileContent, %wordlistNEWarchivePath%
+    FileRead, fileContent, %ActionListNEWarchivePath%
     ;Sleep,20
-    lll(A_LineNumber, A_LineFile, "FileAppend too " wordlistGeneratedPath)
-    FileAppend,% fileContent, % wordlistGeneratedPath
-    if(false)lll(A_LineNumber, A_LineFile, "SAVED: " . wordlistGeneratedPath)
+    lll(A_LineNumber, A_LineFile, "FileAppend too " ActionListGeneratedPath)
+    FileAppend,% fileContent, % ActionListGeneratedPath
+    if(false)lll(A_LineNumber, A_LineFile, "SAVED: " . ActionListGeneratedPath)
     Sleep,60
     return
 }

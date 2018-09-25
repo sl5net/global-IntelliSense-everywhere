@@ -1,10 +1,10 @@
-;These functions and labels are related to the active window
+﻿;These functions and labels are related to the active window
 
 EnableWinHook(){
    ; tooltip,EnableWinHook => return`n (%A_LineFile%~%A_LineNumber%)
    ; return ; todo: clean it ??
       ; vermutng1: dann funktionieren gar keine hotkeys mehr. also unbedingt laufen lassen
-; vermutng1 falsch falsch. l�uft immer noch.
+; vermutng1 falsch falsch. läuft immer noch.
 
 ; found it will be triggered here:
 ; PauseResumeScript:
@@ -120,6 +120,7 @@ SwitchOffListBoxIfActive()
          ;set so we don't process this activation
          g_ManualActivate := true
          WinActivate, ahk_id %g_Active_Id%
+
          return, true
       }
    }

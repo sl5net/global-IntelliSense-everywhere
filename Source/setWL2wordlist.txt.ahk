@@ -1,4 +1,4 @@
-; Indentation_style: https://de.wikipedia.org/wiki/Einrückungsstil#SL5small-Stil
+﻿; Indentation_style: https://de.wikipedia.org/wiki/EinrÃ¼ckungsstil#SL5small-Stil
 #Include *i %A_ScriptDir%\inc_ahk\init_global.init.inc.ahk
 ; __
 g_ignReg["saveLogFiles"]["scriptName"] := "." ; ps no log in this script 28.02.2018 16:41
@@ -10,38 +10,38 @@ lll(A_LineNumber, A_LineFile, " hi :) just started. ")
 ;MsgBox,% A_LineFile . "`n hi :) just started. "
 ;feedbackMsgBox("hi :) just started. ", A_LineNumber . " , " . A_ScriptName,1,1)
 ; MsgBox,% A_LineFile . "`n hi :) ??? feedbackMsgBox visible ???? "
-; php too too too to __ �ber future Training & Consulting GmbH habe ich bis Ende M�rz 2015 auch Python und andere Programmiersprachen (JavaSkript, PHP, HTML, Python C++, Java) unterrichtet. Python gef�llt mir sehr und w�rde mich freuen, wenn sich mal wieder die Gelegenheit ergibt.
+; php too too too to __ Über future Training & Consulting GmbH habe ich bis Ende März 2015 auch Python und andere Programmiersprachen (JavaSkript, PHP, HTML, Python C++, Java) unterrichtet. Python gefällt mir sehr und würde mich freuen, wenn sich mal wieder die Gelegenheit ergibt.
 
 ; TOolTip1sec(A_LineNumber . " " .  A_LineFile . " " . Last_A_This)
 ; html php too
 
-wordlist := "..\Wordlists\_globalWordLists\_global.txt"
-wordlist := "..\Wordlists\_globalWordListsGenerated\_ahk_global.txt"
-wordlist := A_ScriptDir . "\wordlist.txt"
+ActionList := "..\ActionLists\_globalActionLists\_global.ahk"
+ActionList := "..\ActionLists\_globalActionListsGenerated\_ahk_global.ahk"
+ActionList := A_ScriptDir . "\ActionList.ahk"
 
 pLength := 0
-while(pLength <> StrLen(wordlist )){
+while(pLength <> StrLen(ActionList )){
 ; tooltip,`% A_index . "# Line:" . A_LineNumber . " Name:" . A_ScriptName . " "
-pLength := StrLen(wordlist )
-wordlist := RegExReplace(wordlist ,"(\\[^\\]+\\\.\.)+") ; works. removes all symbolic links 24.02.2018  cleanPath
+pLength := StrLen(ActionList )
+ActionList := RegExReplace(ActionList ,"(\\[^\\]+\\\.\.)+") ; works. removes all symbolic links 24.02.2018  cleanPath
 }
-wordlist := RegExReplace(wordlist,"\\\.\\")  ; works. removes all symbolic link 24.02.2018 cleanPath
-wordlist := RegExReplace(wordlist,"^\.\\")  ; works. removes all symbolic link 24.02.2018  cleanPath
+ActionList := RegExReplace(ActionList,"\\\.\\")  ; works. removes all symbolic link 24.02.2018 cleanPath
+ActionList := RegExReplace(ActionList,"^\.\\")  ; works. removes all symbolic link 24.02.2018  cleanPath
 
-RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlist, % wordlist
-RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlistActive, % wordlist
-RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlistDir, E:\fre\private\HtmlDevelop\AutoHotKey\tools\TypingAid-master\Source\
-RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlistNEW, wordlist.txt
+RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList, % ActionList
+RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionListActive, % ActionList
+RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionListDir, E:\fre\private\HtmlDevelop\AutoHotKey\tools\TypingAid-master\Source\
+RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionListNEW, ActionList.ahk
 ExitApp 
 
-stringToSend := wordlist
+stringToSend := ActionList
 
 try{
     ; feedbackMsgBox("%A_LineFile%>%A_LineNumber%", "ComObjActive" . " " . A_ScriptName . "~" . A_LineNumber)
     y := ComObjActive("{93C04B39-0465-4460-8CA0-7BFFF481FF98}")
-    feedbackMsgBox(A_ScriptName . ">" . A_LineNumber, "START y.callFunction( Receive_wordlistAddress, " . stringToSend )
-    y.callFunction( "Receive_wordlistAddress", stringToSend ) ;will call the function of the other script , ObjRegisterActive , shuttle
-    feedbackMsgBox(A_ScriptName . ">" . A_LineNumber, "END y.callFunction( Receive_wordlistAddress, " . stringToSend )
+    feedbackMsgBox(A_ScriptName . ">" . A_LineNumber, "START y.callFunction( Receive_ActionListAddress, " . stringToSend )
+    y.callFunction( "Receive_ActionListAddress", stringToSend ) ;will call the function of the other script , ObjRegisterActive , shuttle
+    feedbackMsgBox(A_ScriptName . ">" . A_LineNumber, "END y.callFunction( Receive_ActionListAddress, " . stringToSend )
 
 } catch e{
     tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line

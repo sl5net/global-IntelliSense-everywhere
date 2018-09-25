@@ -1,7 +1,7 @@
-; Indentation_style: https://de.wikipedia.org/wiki/Einrückungsstil#SL5small-Stil
+ï»¿; Indentation_style: https://de.wikipedia.org/wiki/EinrÃ¼ckungsstil#SL5small-Stil
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ;~ please use this ! as first line in every script before all includes! :)
-isDevellopperMode:= true ; enthällt auch update script.
+isDevellopperMode:= true ; enthÃ¤llt auch update script.
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 #Include *i init_global.init.inc.ahk
  
@@ -166,7 +166,7 @@ CoordMode, Menu, %coord%
    if ErrorLevel = 2
    {
       ; 2 if there was a problem that prevented the command from conducting the search (such as failure to open the image file or a badly formatted option).
-      tip := ImageSearchStrig . "`n`n" . " ErrorLevel = " . ErrorLevel . "`n  :( Die Suche konnte nicht durchgeführt werden.  `n textInfo =`n" . textInfo
+      tip := ImageSearchStrig . "`n`n" . " ErrorLevel = " . ErrorLevel . "`n  :( Die Suche konnte nicht durchgefÃ¼hrt werden.  `n textInfo =`n" . textInfo
       ToolTip3sec(tip . "`n`n" . A_LineNumber . " " .  A_LineFile . " " . Last_A_This)
       msgbox, % tip . "`n`n" . A_LineNumber . " " .  A_LineFile . " " . Last_A_This
       Sleep,3000
@@ -829,7 +829,7 @@ winActiveCheck(winExpected , fromLine){
 
 #Include *i %A_ScriptDir%\inc_ahk\functions_global.inc.ahk
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-;~ subroutinen beispielsweise müsen ans Dateiende
+;~ subroutinen beispielsweise mÃ¼sen ans Dateiende
 #Include *i %A_ScriptDir%\inc_ahk\functions_global_dateiende.inc.ahk
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 #Include *i %A_ScriptDir%\inc_ahk\UPDATEDSCRIPT_global.inc.ahk

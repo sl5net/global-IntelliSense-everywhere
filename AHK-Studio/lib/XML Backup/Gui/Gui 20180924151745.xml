@@ -1,0 +1,6 @@
+﻿<?xml version="1.0"?>
+<gui>
+	<win win="1" pos="x108 y106 w1807 h808">
+		<control h="758" w="1426" x="0" y="0" type="Scintilla" file="E:\fre\private\HtmlDevelop\AutoHotKey\global-IntelliSense-everywhere-Nightly-Build\ActionLists\ChromeWidgetWin1\wikipedia_de_Wikipedia_die_freie_Enzyklop_die_Google_Chrome.ahk" hwnd="2" ra="3" last="1"></control>
+		<control h="758" w="381" x="1426" y="0" lp="0.789032" type="Code Explorer" hwnd="3"></control></win>
+</gui>

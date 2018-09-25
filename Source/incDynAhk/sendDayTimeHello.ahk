@@ -1,4 +1,4 @@
-; Indentation_style: https://de.wikipedia.org/wiki/Einrückungsstil#SL5small-Stil
+﻿; Indentation_style: https://de.wikipedia.org/wiki/EinrÃ¼ckungsstil#SL5small-Stil
 #SingleInstance, force
 ; Hallo Hallo 05
 send,% getDaytimeHello() . " "
@@ -8,7 +8,7 @@ getDaytimeHello(){
   if(A_Hour >= 5) 
     helloHour=Guten Morgen
 
-  ; Guten Tag sag ich ,wenn ich fr�h aufgestanden bin, ab 11Uhr.
+  ; Guten Tag sag ich ,wenn ich frï¿½h aufgestanden bin, ab 11Uhr.
   if(A_Hour >= 11)
     helloHour=Guten Tag 
 

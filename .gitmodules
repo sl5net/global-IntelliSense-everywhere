@@ -1,0 +1,3 @@
+[submodule "AHK-Studio"]
+	path = AHK-Studio
+	url = https://github.com/maestrith/AHK-Studio

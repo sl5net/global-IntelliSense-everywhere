@@ -1,4 +1,4 @@
-; Indentation_style: https://de.wikipedia.org/wiki/Einrückungsstil#SL5small-Stil
+﻿; Indentation_style: https://de.wikipedia.org/wiki/EinrÃ¼ckungsstil#SL5small-Stil
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ; config it
 fileExtension=php,ahk,js,csv,htm,html,txt,mdb,bas
@@ -159,7 +159,7 @@ if("debugging" AND false)
 
 if(not fullfile)
 {
-	msg=%A_LineFile% expects (first) parameter fullfile `n like this `n %A_LineFile% R:\blabla\someThink.ahk `n i recommand you to use it with tools like `n gulpJS or TheFolderSpy.exe (please read Read me.txt *f) `n or PsychoFolder.exe from Ferruh Mavituna. `n (%A_LineFile%~%A_LineNumber%) 
+	msg=%A_LineFile% expects (first) parameter fullfile `n like this `n %A_LineFile% R:\blabla\someThink.ahk `n i recommand you to use it with tools like `n gulpJS or TheFolderSpy.exe (please read Read me.ahk *f) `n or PsychoFolder.exe from Ferruh Mavituna. `n (%A_LineFile%~%A_LineNumber%)
 	feedbackMsgBox(A_ScriptName,msg)
 	ExitApp
 	
@@ -404,7 +404,7 @@ fileCreateDirS(%FolderAdrBackUp%,"")  `n (%A_LineFile%~%A_LineNumber%)
 		if(not FileExist(sizeTxtFilePath))
 		{
 			; Clipboard=%sizeTxtFilePath%
-			msg=h�? exit `n not FileExist(%sizeTxtFilePath%) 
+			msg=hï¿½? exit `n not FileExist(%sizeTxtFilePath%) 
 			feedbackMsgBox(A_ScriptName,msg)
 			ExitApp
 		}
@@ -507,7 +507,7 @@ msg=
 ;msgbox,% msg
                 }
 
-			    ; alle einmal durchrücken FileMove, C:\*.txt, C:\My Folder
+			    ; alle einmal durchrÃ¼cken FileMove, C:\*.txt, C:\My Folder
                 Loop,4
                 {
                     aIndex_move4321 := 4 + (1 - A_Index)
@@ -529,8 +529,8 @@ FileCopy,
 
                 }
                 fileAdr1 := FolderAdrBackUpROOT . ".1-5\" .  aIndex_move4321      . "\" . A_LoopFileName
-                FileDelete, % fileAdr1 ; platz frei machen für neues
-                FileAdrBackup := fileAdr1 ; platz festlegen für neues
+                FileDelete, % fileAdr1 ; platz frei machen fÃ¼r neues
+                FileAdrBackup := fileAdr1 ; platz festlegen fÃ¼r neues
 			}
 
 

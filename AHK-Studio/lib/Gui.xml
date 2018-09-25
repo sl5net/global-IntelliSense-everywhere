@@ -1,0 +1,7 @@
+﻿<?xml version="1.0"?>
+<gui>
+	<win win="1" pos="x108 y242 w1827 h672">
+		<control h="508" w="1442" x="0" y="0" type="Scintilla" file="E:\fre\private\HtmlDevelop\AutoHotKey\global-IntelliSense-everywhere-Nightly-Build\ActionLists\MozillaWindowClass\Brexit_Sie_kann_auch_anders_ZEIT_ONLINE_Mozilla_Firefox.ahk" hwnd="2" ra="3" ba="4" last="1"></control>
+		<control h="622" w="385" x="1442" y="0" lp="0.789272" type="Code Explorer" hwnd="3"></control>
+		<control hwnd="4" type="Debug" h="114" w="1442" x="0" y="508" tp="0.81730769" ra="3"></control></win>
+</gui>

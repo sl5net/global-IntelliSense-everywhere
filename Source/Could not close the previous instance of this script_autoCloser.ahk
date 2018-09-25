@@ -1,7 +1,7 @@
-; Indentation_style: https://de.wikipedia.org/wiki/Einrückungsstil#SL5small-Stil
+﻿; Indentation_style: https://de.wikipedia.org/wiki/EinrÃ¼ckungsstil#SL5small-Stil
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ;~ please use this ! as first line in every script before all includes! :)
-isDevellopperMode=true ; enth�llt auch update script.
+isDevellopperMode=true ; enthï¿½llt auch update script.
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 #Include *i %A_ScriptDir%\inc_ahk\init_global.init.inc.ahk
 
@@ -76,7 +76,7 @@ return
 
 ; #Include *i %A_ScriptDir%\inc_ahk\functions_global.inc.ahk
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-;~ subroutinen beispielsweise m�sen ans Dateiende
+;~ subroutinen beispielsweise mï¿½sen ans Dateiende
 ; #Include *i %A_ScriptDir%\inc_ahk\functions_global_dateiende.inc.ahk
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 #Include *i %A_ScriptDir%\inc_ahk\UPDATEDSCRIPT_global.inc.ahk

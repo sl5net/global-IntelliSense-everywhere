@@ -1,6 +1,8 @@
-; Indentation_style: https://de.wikipedia.org/wiki/Einrückungsstil#SL5small-Stil
+﻿; Indentation_style: https://de.wikipedia.org/wiki/EinrÃ¼ckungsstil#SL5small-Stil
 ; #ErrorStdOut
 ; #NoTrayIcon
+
+FileEncoding, UTF-8
 
 
 ;<<<<<<<< g_ignReg <<<< 180224082501 <<<< 24.02.2018 08:25:01 <<<<
@@ -18,11 +20,11 @@ lll(A_LineNumber, A_LineFile, "hi from " A_LineFile)
 
 
 ;<<<<<<<< IncludeI <<<< 171103161518 <<<< 03.11.2017 16:15:18 <<<<
-#Include *i ..\Wordlists\activeClassManipulation.inc.ahk
-; ^- obiges funktioniert (weil funktion sp�ter ausgef�hrt) bei `normalem` Aufruf. z.B. click von atuoload.ahk und darin ein:
+#Include *i ..\ActionLists\activeClassManipulation.inc.ahk
+; ^- obiges funktioniert (weil funktion spï¿½ter ausgefï¿½hrt) bei `normalem` Aufruf. z.B. click von atuoload.ahk und darin ein:
 ; workingDir := HardDriveLetter . ":\fre\private\HtmlDevelop\AutoHotKey\tools\TypingAid-master\"
 ;  run, Typing_Aid_everywhere_multi_clone.ahk, %workingDir%
-; #Include *i ..\Wordlists\activeClassManipulation.inc.ahk
+; #Include *i ..\ActionLists\activeClassManipulation.inc.ahk
 ;>>>>>>>> IncludeI >>>> 171103161523 >>>> 03.11.2017 16:15:23 >>>>
 
 global g_doSaveLogFiles := true
@@ -48,8 +50,8 @@ g_doRunLogFiles := false
 dog_lineNumberFeedback:=true
 dog_lineNumberFeedback:=False
 do_g_tooltipText:=false
-do_tooltipReadWordList:=false
-do_tooltipReadWordList:=true
+do_tooltipReadActionList:=false
+do_tooltipReadActionList:=true
 
 g_tooltipText:=""
 global g_lineNumberFeedback
@@ -85,15 +87,15 @@ if(!FileExist(sourceDir)){
 
 typingAidSourcePath := sourceDir . "\Source"
 typingAidSourcePath := ""
-wordlistDirBase = %sourceDir%\..\Wordlists
-wordlistDirBase = %sourceDir%\..\Wordlists
+ActionListDirBase = %sourceDir%\..\ActionLists
+ActionListDirBase = %sourceDir%\..\ActionLists
 typingAidAHK := typingAidSourcePath  . "\TypingAid.ahk"
 typingAidAHK := typingAidSourcePath  . "TypingAid.ahk"
-; wordlistActive := sourceDir . "\wordlist.txt" ; we dont need it. deprecated 21.03.2018 09:09
-wordlistActive := ""
-wordlistOLD:=""
+; ActionListActive := sourceDir . "\ActionList.txt" ; we dont need it. deprecated 21.03.2018 09:09
+ActionListActive := ""
+ActionListOLD:=""
 
-checkFilePathExistens1704291222(wordlistDirBase, destinDir, sourceDir, typingAidAHK)
+checkFilePathExistens1704291222(ActionListDirBase, destinDir, sourceDir, typingAidAHK)
 
 ; selfTestLoop1000(1)
 ; selfPerformanceTest()
@@ -165,22 +167,22 @@ global g_lineNumberFeedback
         WinWaitNotActive, % activeTitle
     activeClass := activeClassManipulation(activeClass, activeTitle)
     g_tooltipText =
-    filterFileName := "wordlistNameFilter.inc.ahk"
+    filterFileName := "ActionListNameFilter.inc.ahk"
     ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-    wordlistFilterPathNEWdir := wordlistDirBase . "\" . ActiveClass . "\"
-    wordlistFilterPathNEW := wordlistFilterPathNEWdir . filterFileName
-    if( !fileExist(wordlistFilterPathNEWdir) ){
-                ActiveClass := "_globalWordListsGenerated"
+    ActionListFilterPathNEWdir := ActionListDirBase . "\" . ActiveClass . "\"
+    ActionListFilterPathNEW := ActionListFilterPathNEWdir . filterFileName
+    if( !fileExist(ActionListFilterPathNEWdir) ){
+                ActiveClass := "_globalActionListsGenerated"
                 activeTitle := "_global"
-;
-                msg = !fileExist(wordlistFilterPathNEWdir === >%wordlistFilterPathNEWdir%<)  `n '%activeTitle%'=activeTitle , '%activeClass%' = activeClass
+
+                msg = !fileExist(ActionListFilterPathNEWdir === >%ActionListFilterPathNEWdir%<)  `n '%activeTitle%'=activeTitle , '%activeClass%' = activeClass
                 lineFileName := RegExReplace(A_LineFile, ".*\\([\w\s\.]+)$", "$1")
                 lineFileNameWithoutPATHandEXT := RegExReplace(A_LineFile, ".*\\([\w\s\._]+)\.\w+$", "$1")
                 tip=%msg% (%lineFileNameWithoutPATHandEXT%~%A_LineNumber%)
-                ;ToolTip2sec(tip,-5,-5)
-                sleep,500 ; if this is the case slow down ths script a little bit. temporaily
+                ToolTip2sec(tip,-1,-30)
+                sleep,1500 ; if this is the case slow down ths script a little bit. temporaily
             ; msg=:-O WinExist temp.ahk `n `n %A_LineFile%~%A_LineNumber% ==> continue
-            ;feedbackMsgBox("Oops. so lets use global.`n ",msg,1,1)
+            ;feedbackMsgBox("Oops. so lets use global.`n ",msg,1,1) ;
 
 
                 ;global g_doSaveLogFiles
@@ -190,9 +192,9 @@ global g_lineNumberFeedback
 
                 ; impotend!!
                 ; this line has to be includet into the this global:
-                ; create own project dir or this|rr||ahk|WinGetClass,activeClass, A `n activeClass := RegExReplace( activeClass, "[\W_]+", "") `n d1 = %A_ScriptDir%\..\Wordlists\%activeClass% `n  FileCreateDir, %d1% `n run, %d1%
+                ; create own project dir or this|rr||ahk|WinGetClass,activeClass, A `n activeClass := RegExReplace( activeClass, "[\W_]+", "") `n d1 = %A_ScriptDir%\..\ActionLists\%activeClass% `n  FileCreateDir, %d1% `n run, %d1%
     }else{
-        ; ; if(!fileExist(wordlistFilterPathNEW)
+        ; ; if(!fileExist(ActionListFilterPathNEW)
         ; dont nee to do anything here. i filter is not inside it will be automatically fixed some lines later :) 09.08.2017 19:59 17-08-09_19-59
         ; so dont be worry about it :) 09.08.2017 19:59 17-08-09_19-59
     }
@@ -206,16 +208,16 @@ global g_lineNumberFeedback
     ;Msgbox,`n (%A_LineFile%~%A_LineNumber%)
       continue
     }
-    if(RegExMatch(activeTitle,"wordlistChangedInRegistry")){
-        ;tooltip, WinWaitNotActive,wordlistChangedInRegistry  `n (%A_LineFile%~%A_LineNumber%)
-        WinWaitNotActive,wordlistChangedInRegistry ahk_class AutoHotkeyGUI
+    if(RegExMatch(activeTitle,"ActionListChangedInRegistry")){
+        ;tooltip, WinWaitNotActive,ActionListChangedInRegistry  `n (%A_LineFile%~%A_LineNumber%)
+        WinWaitNotActive,ActionListChangedInRegistry ahk_class AutoHotkeyGUI
         tooltip,
         sleep,500
       continue ;
     }
     if(false && RegExMatch(activeTitle,"Selected Tab")){
         ;msgbox, %activeTitle% `n = activeTitle ==> continue (%A_LineFile%~%A_LineNumber%)
-        ;tooltip, WinWaitNotActive,wordlistChangedInRegistry  `n (%A_LineFile%~%A_LineNumber%)
+        ;tooltip, WinWaitNotActive,ActionListChangedInRegistry  `n (%A_LineFile%~%A_LineNumber%)
         WinWaitNotActive,Selected Tab
         tooltip,
       continue ;
@@ -226,10 +228,10 @@ global g_lineNumberFeedback
     if(RegExMatch(activeTitle, temp )){
         WinClose, % temp
         ; msgbox,closed ???
-        ; box has mission completed. it just changed a short time the wordlist. thats all 13.05.2018 19:01
+        ; box has mission completed. it just changed a short time the ActionList. thats all 13.05.2018 19:01
 
                              ; created_token_17-08-10_16-17
-        ;tooltip, WinWaitNotActive,wordlistChangedInRegistry  `n (%A_LineFile%~%A_LineNumber%)
+        ;tooltip, WinWaitNotActive,ActionListChangedInRegistry  `n (%A_LineFile%~%A_LineNumber%)
         WinWaitNotActive, % temp
         tooltip,
       continue ;
@@ -252,57 +254,61 @@ Msgbox,%activeTitle% `n`n %activeClass% `n`n  (%A_LineFile%~%A_LineNumber%)
     }
 
 
-    wordlistOLD := wordlistNEW
-    wordlistDir := wordlistDirBase . "\" . activeClass
-    wordlistFilterPath := wordlistDirBase . "\" . filterFileName
+    ActionListOLD := ActionListNEW
+    ActionListDir := ActionListDirBase . "\" . activeClass
+    ActionListFilterPath := ActionListDirBase . "\" . filterFileName
 
     ;<<<<<<<<<<<<<<<<< run createEmptyFilterInNewDir <<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     ;<<<<<<<<<<<<<< createEmptyFilterInNewDir <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-    ; make sure we get no errors by including %wordlistFilterPath% ... create wordlist inside className folder
-    wordlistFilterPathNEW := wordlistDirBase . "\" . ActiveClass . "\" . filterFileName
-    ahkCode1 := getAhkCodeInsideFile(wordlistDir , wordlistFilterPathNEW  )
-    createEmptyFilterInNewDir(       wordlistDir , wordlistFilterPathNEW , ahkCode1, isInternMsgTransportIsClipboard)
+    ; make sure we get no errors by including %ActionListFilterPath% ... create ActionList inside className folder
+    ActionListFilterPathNEW := ActionListDirBase . "\" . ActiveClass . "\" . filterFileName
+    ahkCode1 := getAhkCodeInsideFile(ActionListDir , ActionListFilterPathNEW  )
+
+    ;MsgBox, createEmptyFilterInNewDir( %ActionListDir% , %ActionListFilterPathNEW% ...)  `n (line:%A_LineNumber%) `n
+    ; todo: creating always is useless. please create only if user want create a ActionList explizit
+    ; may only do it if _create_own_project.flag is inside....
+    createEmptyFilterInNewDir(       ActionListDir , ActionListFilterPathNEW , ahkCode1, isInternMsgTransportIsClipboard)
 
     ;
 
     if(debugIt) {
 global g_lineNumberFeedback
  g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
-          ahkCode2 := getAhkCodeInsideFile(wordlistDirBase . "\FunnyWidgetHuHu" , wordlistDirBase . "\FunnyWidgetHuHu\" . filterFileName  ) 
-    createEmptyFilterInNewDir(wordlistDirBase . "\FunnyWidgetHuHu" , wordlistDirBase . "\FunnyWidgetHuHu\" . filterFileName, ahkCode2, isInternMsgTransportIsClipboard) ; FunnyWidgetHuHu
+          ahkCode2 := getAhkCodeInsideFile(ActionListDirBase . "\FunnyWidgetHuHu" , ActionListDirBase . "\FunnyWidgetHuHu\" . filterFileName  ) 
+    createEmptyFilterInNewDir(ActionListDirBase . "\FunnyWidgetHuHu" , ActionListDirBase . "\FunnyWidgetHuHu\" . filterFileName, ahkCode2, isInternMsgTransportIsClipboard) ; FunnyWidgetHuHu
     if(debugIt)
     MsgBox, '%ahkCode2%' = ahkCode2  `n (line:%A_LineNumber%) `n
     }
     ;>>>>>>>>>>>>>>>>> run createEmptyFilterInNewDir >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     ;>>>>>>>>>>>>>> createEmptyFilterInNewDir >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-    wordlistNEW := activeTitle
-    wordlistNEW := simplifyNameOfWordlistNEWstep1( wordlistNEW )
-;    lll(A_LineNumber, A_LineFile,"wordlistDirBase= " . wordlistDirBase)
-;    MsgBox, '%wordlistFilterPath%' = wordlistFilterPath  `n '%wordlistDir%' = wordlistDir `n '%wordlistDirBase%' = wordlistDirBase `n '%A_ScriptDir%' = A_ScriptDir `n (line:%A_LineNumber%) `n      ; thats the global wordlost
-    wordlistFilterPath := wordlistDirBase . "\" . filterFileName
+    ActionListNEW := activeTitle
+    ActionListNEW := simplifyNameOfActionListNEWstep1( ActionListNEW )
+;    lll(A_LineNumber, A_LineFile,"ActionListDirBase= " . ActionListDirBase)
+;    MsgBox, '%ActionListFilterPath%' = ActionListFilterPath  `n '%ActionListDir%' = ActionListDir `n '%ActionListDirBase%' = ActionListDirBase `n '%A_ScriptDir%' = A_ScriptDir `n (line:%A_LineNumber%) `n      ; thats the global wordlost
+    ActionListFilterPath := ActionListDirBase . "\" . filterFileName
     if(1){ ; absolute path
-        wordlistFilterPath2 := wordlistDir . "\" . filterFileName
-        wordlistFilterPath2Abs := A_ScriptDir . "\" . wordlistFilterPath2
-        StringReplace, wordlistFilterPath2Abs, wordlistFilterPath2Abs, \.\ , \
+        ActionListFilterPath2 := ActionListDir . "\" . filterFileName
+        ActionListFilterPath2Abs := A_ScriptDir . "\" . ActionListFilterPath2
+        StringReplace, ActionListFilterPath2Abs, ActionListFilterPath2Abs, \.\ , \
     }else
-        wordlistFilterPath2 :=  wordlistDirBase . activeClass . "\" . filterFileName ; todo: doesent work :( 28.03.2017 20:20 17-03-28_20-20
+        ActionListFilterPath2 :=  ActionListDirBase . activeClass . "\" . filterFileName ; todo: doesent work :( 28.03.2017 20:20 17-03-28_20-20
 
-; lll(A_LineNumber, A_LineFile, "wordlistFilterPath2=" . wordlistFilterPath2 . " activeClass=" . activeClass . " filterFileName=" . filterFileName)
+; lll(A_LineNumber, A_LineFile, "ActionListFilterPath2=" . ActionListFilterPath2 . " activeClass=" . activeClass . " filterFileName=" . filterFileName)
 
-    if(!wordlistDir) {
+    if(!ActionListDir) {
         global g_lineNumberFeedback
         g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
-        msgbox,!wordlistDir exitap (line:`%A_LineNumber`%) `n 17-03-19_14-06
+        msgbox,!ActionListDir exitap (line:`%A_LineNumber`%) `n 17-03-19_14-06
         exitapp
     }
-    if(!wordlistNEW)
+    if(!ActionListNEW)
         if(!activeTitle)
-            wordlistNEW=noTitle
+            ActionListNEW=noTitle
         else {
             global g_lineNumberFeedback
             g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
-            m=!wordlistNEW `n '%activeTitle%' = activeTitle  `n  '%activeClass%' = activeClass `n'%wordlistDir%' = wordlistDir `n==> return (line:`%A_LineNumber`%) `n 17-03-19_14-09
+            m=!ActionListNEW `n '%activeTitle%' = activeTitle  `n  '%activeClass%' = activeClass `n'%ActionListDir%' = ActionListDir `n==> return (line:`%A_LineNumber`%) `n 17-03-19_14-09
             g_tooltipText:=m
             Msgbox,%m%`n (from: %A_LineFile%~%A_LineNumber%) 17-08-11_23-42
            ; ToolTip5sec(m . " `n" . A_LineNumber . " " .  A_LineFile . " " . Last_A_This)
@@ -311,7 +317,7 @@ global g_lineNumberFeedback
 sleepMili := 1000
 msg =
 (
-no wordlistNEW and no activeTitle
+no ActionListNEW and no activeTitle
 we are inside a while loop
 
 Sleep,%sleepMili%
@@ -343,17 +349,17 @@ lll( A_LineNumber, A_ScriptName, msg . "`n 17-07-29_14-18 ")
 
 ;<<<<<<<<<<<<< demoData =  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 activeTitle := RegExReplace(activeTitle, "m)\n.*", "") ; title should never is multioline. this proof is hoprefulle redundatnd. 15.02.2018
-wordlistOLD := RegExReplace(wordlistOLD, "m)\n.*", "") ; never is multioline. this proof is hoprefulle redundatnd. 15.02.2018
+ActionListOLD := RegExReplace(ActionListOLD, "m)\n.*", "") ; never is multioline. this proof is hoprefulle redundatnd. 15.02.2018
     demoData =
 (
 SetTitleMatchMode, 1
 activeTitle := RegExReplace`(activeTitle, Chr`(37`) . ".*", ""`) ; delete prozent. should be easy to include variable later. some websites have suche long title with the procent in it. dont like it. simplify it. 16.03.2017
 global g_lineNumberFeedback
 g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
-wordlistDir = %wordlistDir%
+ActionListDir = %ActionListDir%
 activeTitle = %activeTitle%
 activeClass = %activeClass%
-wordlistNEW = %activeTitle%
+ActionListNEW = %activeTitle%
 )
 ;>>>>>>>>>>>>>>>  demoData =  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -376,76 +382,76 @@ wordlistNEW = %activeTitle%
 
 
     ahkSource .= demoData  . " `n"
-    ; ahkSource .= "#" . "Include, " . wordlistFilterPath . "  `; thats the subfolder  wordlost inside class `n"
+    ; ahkSource .= "#" . "Include, " . ActionListFilterPath . "  `; thats the subfolder  wordlost inside class `n"
 
 
-        ahkSource .= "wordlistFilterPath2 = " . wordlistFilterPath2 . " `n"
-        ahkSource .= "wordlistFilterPath2Abs = " . wordlistFilterPath2Abs . " `n"
-        ahkSource .= "fileEx := FileExist ( wordlistFilterPath2Abs ) `n"
+        ahkSource .= "ActionListFilterPath2 = " . ActionListFilterPath2 . " `n"
+        ahkSource .= "ActionListFilterPath2Abs = " . ActionListFilterPath2Abs . " `n"
+        ahkSource .= "fileEx := FileExist ( ActionListFilterPath2Abs ) `n"
         ; ahkSource .= "KeyWait Control  `; Wartet darauf, dass sowohl STRG als auch ALT losgelassen wird. `n"
         ahkSource .= "if( !fileEx ) { `n"
-        ahkSource .= "message = :(  ``n '%wordlistFilterPath2%'  ``n '%wordlistFilterPath2Abs%'  ``n existiert nicht ( `%fileEx%` = fileEx ) . ``n ``n message with id (1704171514) was copied to the Clipboard. Sor you probably could find this source code little bit easier. ``n (from: %A_LineFile%~%A_LineNumber%) `n "
+        ahkSource .= "message = :(  ``n '%ActionListFilterPath2%'  ``n '%ActionListFilterPath2Abs%'  ``n existiert nicht ( `%fileEx%` = fileEx ) . ``n ``n message with id (1704171514) was copied to the Clipboard. Sor you probably could find this source code little bit easier. ``n (from: %A_LineFile%~%A_LineNumber%) `n "
         ahkSource .= "tooltip, `%message`% `n "
 
         ahkSource .= "Clipboard = `%message`%  `n "
-        ahkSource .= "Msgbox,4 , :( wordlistNameFilter.inc.ahk not found , `%message`% , 4  `n "
+        ahkSource .= "Msgbox,4 , :( ActionListNameFilter.inc.ahk not found , `%message`% , 4  `n "
 
         ahkSource .= "Sleep, 4000 `n"
         ahkSource .= "ExitApp  `n"
         ahkSource .= "} `n"
-      ahkSource .= "#" . "Include *i " . wordlistFilterPath2Abs . "  `; thats the subfolder  wordlost inside class `n"
- ;   ahkSource .= "#" . "Include *i " . wordlistFilterPath2 . "  `; thats the subfolder  wordlost inside class `n" 
+      ahkSource .= "#" . "Include *i " . ActionListFilterPath2Abs . "  `; thats the subfolder  wordlost inside class `n"
+ ;   ahkSource .= "#" . "Include *i " . ActionListFilterPath2 . "  `; thats the subfolder  wordlost inside class `n" 
 
-    ahkSource .= "varInjects1 := mvarInjects(wordlistDir, wordlistNEW, activeClass, activeTitle) `n"
-    ; ahkSource .= "wordlistDir = " . wordlistDir  . " `n"
-    ahkSource .= "wordlistOLD = " . wordlistOLD . " `n"
+    ahkSource .= "varInjects1 := mvarInjects(ActionListDir, ActionListNEW, activeClass, activeTitle) `n"
+    ; ahkSource .= "ActionListDir = " . ActionListDir  . " `n"
+    ahkSource .= "ActionListOLD = " . ActionListOLD . " `n"
     ahkSource .= "typingAidSourcePath = " . typingAidSourcePath . " `n"
-    ahkSource .= "wordlistActive  = " . wordlistActive  . " `n"
+    ahkSource .= "ActionListActive  = " . ActionListActive  . " `n"
 temp =
 (
 TargetScriptTitle = TypingAid - Active ahk_class AutoHotkey
-stringToSend := (InStr(wordlistNEW,"\")) ? wordlistNEW : wordlistDir . "\" . wordlistNEW
+stringToSend := (InStr(ActionListNEW,"\")) ? ActionListNEW : ActionListDir . "\" . ActionListNEW
 ; result := Send_WM_COPYDATA`(stringToSend, TargetScriptTitle`)
 if(false){  ; temporaly deactivated . for compatibiliti thinks 02.03.2018 17:10
     try{
         y := ComObjActive("{93C04B39-0465-4460-8CA0-7BFFF481FF98}")
-        y.callFunction( "Receive_wordlistAddress", stringToSend ) ;will call the function of the other script
+        y.callFunction( "Receive_ActionListAddress", stringToSend ) ;will call the function of the other script
     } catch e{
         tip:="Exception:``n" e.What "``n" e.Message "``n" e.File "@" e.Line
         tooltip, `% tip
 }}
 if(true){  ; old scool. for compatibiliti thinks 02.03.2018 17:10
 
-    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlistDir, `%wordlistDir`%
-    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlistActive, `%wordlistActive`%
-    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlistNEW, `%wordlistNEW`%
-    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlistNEWarchivePath, `%wordlistNEWarchivePath`%
+    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionListDir, `%ActionListDir`%
+    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionListActive, `%ActionListActive`%
+    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionListNEW, `%ActionListNEW`%
+    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionListNEWarchivePath, `%ActionListNEWarchivePath`%
 
-    wordlist = `%wordlistDir`%\`%wordlistNEW`%
+    ActionList = `%ActionListDir`%\`%ActionListNEW`%
 
-    wordlist := removesSymbolicLinksFromFileAdress(wordlist)
+    ActionList := removesSymbolicLinksFromFileAdress(ActionList)
 if(0){
-    ; wordlist = `%wordlistNEWarchivePath`% ; its not existing here 03.03.2018 19:13
-    ; msgbox,`%wordlistNEWarchivePath`%
+    ; ActionList = `%ActionListNEWarchivePath`% ; its not existing here 03.03.2018 19:13
+    ; msgbox,`%ActionListNEWarchivePath`%
     pLength := 0
-    while(pLength <> StrLen(wordlist )){
+    while(pLength <> StrLen(ActionList )){
         ; tooltip,`% A_index . "# Line:" . A_LineNumber . " Name:" . A_ScriptName . " "
-        pLength := StrLen(wordlist )
-        wordlist := RegExReplace(wordlist ,"(\\[^\\]+\\\.\.)+") ; works. removes all symbolic links 24.02.2018  cleanPath
+        pLength := StrLen(ActionList )
+        ActionList := RegExReplace(ActionList ,"(\\[^\\]+\\\.\.)+") ; works. removes all symbolic links 24.02.2018  cleanPath
     }
-    wordlist := RegExReplace(wordlist,"\\\.\\")  ; works. removes all symbolic link 24.02.2018 cleanPath
-    wordlist := RegExReplace(wordlist,"^\.\\")  ; works. removes all symbolic link 24.02.2018  cleanPath
+    ActionList := RegExReplace(ActionList,"\\\.\\")  ; works. removes all symbolic link 24.02.2018 cleanPath
+    ActionList := RegExReplace(ActionList,"^\.\\")  ; works. removes all symbolic link 24.02.2018  cleanPath
 }
-    ;msgbox,`% wordlist
-    FileRead, fileContent, `% wordlist
-    ; StringReplace, fileContent, fileContent, ..\Wordlists, .. \
+    ;msgbox,`% ActionList
+    FileRead, fileContent, `% ActionList
+    ; StringReplace, fileContent, fileContent, ..\ActionLists, .. \
     l1 := StrLen(fileContent)
-    fileContent := StrReplace(fileContent, "..\Wordlists\", "..\" ) ; https://ahkde.github.io/docs/commands/StringReplace.htm
+    fileContent := StrReplace(fileContent, "..\ActionLists\", "..\" ) ; https://ahkde.github.io/docs/commands/StringReplace.htm
 l2 := StrLen(fileContent)
 if(1 && l1 > l2){ ; proof it test it
-    FileSave(fileContent, wordlist )
-    ;msgbox,`% wordlist " 12is saved (l1 > l2) (%A_LineFile%~%A_LineNumber%) (" A_LineFile "~" A_LineNumber ") ---- " fileContent
-    tooltip,`% wordlist " 12is saved (l1 > l2) (%A_LineFile%~%A_LineNumber%) (" A_LineFile "~" A_LineNumber ") ---- " fileContent
+    FileSave(fileContent, ActionList )
+    ;msgbox,`% ActionList " 12is saved (l1 > l2) (%A_LineFile%~%A_LineNumber%) (" A_LineFile "~" A_LineNumber ") ---- " fileContent
+    tooltip,`% ActionList " 12is saved (l1 > l2) (%A_LineFile%~%A_LineNumber%) (" A_LineFile "~" A_LineNumber ") ---- " fileContent
 }
 
 
@@ -453,32 +459,32 @@ if(1 && l1 > l2){ ; proof it test it
 
 if(1){
     ; dirty bug fix ._Generated.txt 04.03.2018 10:44
-    If(FileExist( wordlist . "._Generated.txt")) ; dirty bugFix TODO: prettyFy it
-      wordlist .= "._Generated.txt"
+    If(FileExist( ActionList . "._Generated.ahk")) ; dirty bugFix TODO: prettyFy it
+      ActionList .= "._Generated.ahk"
 
-  ; msgbox, `% wordlist
+  ; msgbox, `% ActionList
 }
-    if(!RegExMatch(wordlist,"created_token_17-08-10_16-17")) ; todo: whey control here? wrong place. quck dirty 25.03.2018 01:36
-        RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlist, `%wordlist`% ; old scool. for compatibiliti thinks 02.03.2018 17:10
+    if(!RegExMatch(ActionList,"created_token_17-08-10_16-17")) ; todo: whey control here? wrong place. quck dirty 25.03.2018 01:36
+        RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList, `%ActionList`% ; old scool. for compatibiliti thinks 02.03.2018 17:10
 
 }
 ) ; endOf temp
 ahkSource .= "`n" temp
 
     ; following lines are debrecated
-    ; ahkSource .= "wordlistOLDbackup( wordlistDir , wordlistOLD)" . " `n"
-    ; ahkSource .= "wordlistOLDdisable( typingAidSourcePath, wordlistActive )" . " `n"
-    ahkSource .= "`n wordlistNEWactivate( wordlistDir , wordlistNEW, wordlistActive, typingAidSourcePath, activeClass , activeTitle)" . " `n"
+    ; ahkSource .= "ActionListOLDbackup( ActionListDir , ActionListOLD)" . " `n"
+    ; ahkSource .= "ActionListOLDdisable( typingAidSourcePath, ActionListActive )" . " `n"
+    ahkSource .= "`n ActionListNEWactivate( ActionListDir , ActionListNEW, ActionListActive, typingAidSourcePath, activeClass , activeTitle)" . " `n"
 
-    ahkSource .= "varInjects2 := mvarInjects(wordlistDir, wordlistNEW, activeClass, activeTitle) `n"
+    ahkSource .= "varInjects2 := mvarInjects(ActionListDir, ActionListNEW, activeClass, activeTitle) `n"
     if(debugIt)
-        ahkSource .= "MsgBox, , debugIt , `% varInjects1 . "" ``n "" . varInjects2 . "" ``n wordlistNEW = '"" . wordlistNEW . ""'  ``n (lineCaller:" . A_LineNumber . ") ``n "" ,9 `n"
+        ahkSource .= "MsgBox, , debugIt , `% varInjects1 . "" ``n "" . varInjects2 . "" ``n ActionListNEW = '"" . ActionListNEW . ""'  ``n (lineCaller:" . A_LineNumber . ") ``n "" ,9 `n"
     ahkSource .= "ExitApp" . " `n"
     ahkSource .= "#" . "Include, inc_ahk\\Typing_Aid_everywhere_multi_clone.inc.ahk  `; `n"
-    ; createGLOBALwordlistNameFilterIfNotExist(wordlistDirBase ) ;  its possible to put it out of the loop, but if user delete it we get ugly errors. better gife a chance to ceate it imediatly again 06.03.2017 19:19
-    ; wordlistNEW := getWordlistNEWfromPluginIfExist(wordlistDir, wordlistNEW, activeClass, activeTitle   ) ; ; thats plugin. you could filter, reduce the complexety of new file names
-    ; ToolTip4sec(wordlistNEW . "= wordlistNEW `n " . A_LineNumber ) ;
-    ; MsgBox, '%wordlistNEW%' = wordlistNEW  `n (line:%A_LineNumber%) `n
+    ; createGLOBALActionListNameFilterIfNotExist(ActionListDirBase ) ;  its possible to put it out of the loop, but if user delete it we get ugly errors. better gife a chance to ceate it imediatly again 06.03.2017 19:19
+    ; ActionListNEW := getActionListNEWfromPluginIfExist(ActionListDir, ActionListNEW, activeClass, activeTitle   ) ; ; thats plugin. you could filter, reduce the complexety of new file names
+    ; ToolTip4sec(ActionListNEW . "= ActionListNEW `n " . A_LineNumber ) ;
+    ; MsgBox, '%ActionListNEW%' = ActionListNEW  `n (line:%A_LineNumber%) `n
     DetectHiddenWindows,On
     SetTitleMatchMode,1
     ; IfWinNotExist,temp.ahk
@@ -569,25 +575,25 @@ return  ; probably redundant. its more secure if we do that.
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-createGLOBALwordlistNameFilterIfNotExist(wordlistDirBase ) {
+createGLOBALActionListNameFilterIfNotExist(ActionListDirBase ) {
 global g_lineNumberFeedback
  g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
    isDebuggingOverWriteAlwayUserUpdatesWithThisScript := false
-   filterFileName := "wordlistNameFilter.inc.ahk"
- wordlistFilterPath := wordlistDirBase . "\" . filterFileName 
+   filterFileName := "ActionListNameFilter.inc.ahk"
+ ActionListFilterPath := ActionListDirBase . "\" . filterFileName 
  if( isDebuggingOverWriteAlwayUserUpdatesWithThisScript ) {
 global g_lineNumberFeedback
  g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
    FormatTime, timestamp, %A_now%,yy-MM-dd_HH-mm
-    wordlistFilterPathBackup := wordlistDirBase . "\" . timestamp . "_" . filterFileName 
+    ActionListFilterPathBackup := ActionListDirBase . "\" . timestamp . "_" . filterFileName 
 
 
-lll(A_LineNumber, A_LineFile, wordlistFilterPath " FileCopy too " wordlistFilterPathBackup)
-   FileCopy, % wordlistFilterPath, % wordlistFilterPathBackup
-   FileDelete, % wordlistFilterPath
+lll(A_LineNumber, A_LineFile, ActionListFilterPath " FileCopy too " ActionListFilterPathBackup)
+   FileCopy, % ActionListFilterPath, % ActionListFilterPathBackup
+   FileDelete, % ActionListFilterPath
    Sleep,100
 } 
- if(!fileExist(wordlistFilterPath)) {
+ if(!fileExist(ActionListFilterPath)) {
 global g_lineNumberFeedback
  g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 ; the following gives no errors
@@ -601,38 +607,38 @@ ahkCodeInsideFile =
 `; you could use it as a global filter/routing called from your special .../className/%filterFileName%
 
 #SingleInstance, force
-`; if you want you could use the follwong global variables fot calculating you new wordlistNEW : wordlistDir, wordlistNEW, activeClass, activeTitle  
+`; if you want you could use the follwong global variables fot calculating you new ActionListNEW : ActionListDir, ActionListNEW, activeClass, activeTitle  
 
-if`(A_ScriptName == "wordlistNameFilter.inc.ahk" `) {
+if`(A_ScriptName == "ActionListNameFilter.inc.ahk" `) {
 global g_lineNumberFeedback
  g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%  ; thats developer mode. this script is not includet. 08.03.2017 09:14
 activeClass := "ChromeWidgetWin1" 
 activeTitle  = I would like to hire a PHP Developer | Codeigniter | CSS | HTML5 | JSON | PHP - Google Chrome 
-activeTitle := wordlistNEW
+activeTitle := ActionListNEW
 }
 
 
-if `(!wordlistNEW `) {
+if `(!ActionListNEW `) {
 global g_lineNumberFeedback
  g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
-    m = ERROR wordlistNEW is EMPTY: ``n ``n '`%wordlistNEW`%' = wordlistNEW  ``n   17-03-05_14-51 ``n ``n '%wordlistFilterPath%' = wordlistFilterPath  ``n `(line:`%A_LineNumber`%`) ``n `%A_ScriptFullPath`% = A_ScriptFullPath   `(line: `%A_LineNumber`%` token50)
+    m = ERROR ActionListNEW is EMPTY: ``n ``n '`%ActionListNEW`%' = ActionListNEW  ``n   17-03-05_14-51 ``n ``n '%ActionListFilterPath%' = ActionListFilterPath  ``n `(line:`%A_LineNumber`%`) ``n `%A_ScriptFullPath`% = A_ScriptFullPath   `(line: `%A_LineNumber`%` token50)
    Clipboard := m
     tooltip, ERRORmessage is copied to the >>Clipboard<< `%m`% 
     sleep,5000
     MsgBox, ERRORmessage is copied to the >>Clipboard<< , `%m`% , 7
     exitapp
  } 
-if `(!wordlistDir `) {
+if `(!ActionListDir `) {
 global g_lineNumberFeedback
  g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
-    MsgBox, ERROR wordlistDir is EMPTY 17-03-19_11-52
+    MsgBox, ERROR ActionListDir is EMPTY 17-03-19_11-52
     exitapp
 }
 ;
  if`(activeClass == "SciTEWindow" `) 
-   wordlistNEW := "_global"
+   ActionListNEW := "_global"
    else if `( instr`( activeTitle , ".ahk"`)  `) 
-      wordlistNEW := "..\SciTEWindow\_global"
+      ActionListNEW := "..\SciTEWindow\_global"
  
  else if `( activeClass == "ChromeWidgetWin1" `) {
 global g_lineNumberFeedback
@@ -641,52 +647,52 @@ global g_lineNumberFeedback
 `;   I would like to hire a PHP Developer | Codeigniter | CSS | HTML5 | JSON | PHP - Google Chrome ahk_class Chrome_WidgetWin_1 
    
  if `( instr`( activeTitle , "Benachrichtigung:"`)  &&  RegExMatch`( activeTitle , "Gmail"`)   `) 
-      wordlistNEW := "Benachrichtigung_Google_Chrome"
+      ActionListNEW := "Benachrichtigung_Google_Chrome"
    
  else if `(  RegExMatch`( activeTitle , "\bGmail\b"`) `) 
-      wordlistNEW := "Gmail_Google_Chrome"
+      ActionListNEW := "Gmail_Google_Chrome"
     
    else if `( RegExMatch`( activeTitle , "`(Messenger|facebook`)"  `)    `)    
-      wordlistNEW := "Facebook_Google_Chrome"
+      ActionListNEW := "Facebook_Google_Chrome"
 
    else if `( RegExMatch`( activeTitle , "i`)`(Zimmer|Wohnung`)"  `)    `)    
-      wordlistNEW := "Zimmer_Wohnung_Google_Chrome"
+      ActionListNEW := "Zimmer_Wohnung_Google_Chrome"
 
    else if `( ! RegExMatch`( activeTitle , "`(Threema Web`)"  `)    `)    
-      wordlistNEW := "_global.txt"
+      ActionListNEW := "_global.ahk"
    
    } else
  {
 global g_lineNumberFeedback
  g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
- wordlistNEW := RegExReplace`( wordlistNEW, "`(SciTE4AutoHotkey|PhpStorm`)\.+" , ""`)  
+ ActionListNEW := RegExReplace`( ActionListNEW, "`(SciTE4AutoHotkey|PhpStorm`)\.+" , ""`)  
  }
-wordlistNEW := RegExReplace`( wordlistNEW, ".`(ahk|txt|htm|pdf`)\.+" , ""`)  
- wordlistNEW := RegExReplace`( wordlistNEW, "i`)[^\w\d_-]+" , "_"`)  
- wordlistNEW := RegExReplace`( wordlistNEW, "[_-]{2,}" , "_"`)  
- wordlistNEW := RegExReplace`( wordlistNEW, "^[_-]+" , ""`)  
- wordlistNEW := RegExReplace`( wordlistNEW, "[_-]+$" , ""`)  
+ActionListNEW := RegExReplace`( ActionListNEW, ".`(ahk|txt|htm|pdf`)\.+" , ""`)  
+ ActionListNEW := RegExReplace`( ActionListNEW, "i`)[^\w\d_-]+" , "_"`)  
+ ActionListNEW := RegExReplace`( ActionListNEW, "[_-]{2,}" , "_"`)  
+ ActionListNEW := RegExReplace`( ActionListNEW, "^[_-]+" , ""`)  
+ ActionListNEW := RegExReplace`( ActionListNEW, "[_-]+$" , ""`)  
 
- if`( SubStr`( wordlistNEW , -3 `) <> ".txt" `)
-   wordlistNEW .= ".txt"
+ if`( SubStr`( ActionListNEW , -3 `) <> ".ahk" `)
+   ActionListNEW .= ".ahk"
  
-`; Clipboard := wordlistNEW `;  we dont transport usually inside this global file via clipboard 06.03.2017 19:41
+`; Clipboard := ActionListNEW `;  we dont transport usually inside this global file via clipboard 06.03.2017 19:41
 
-`;  MsgBox,  '`%wordlistNEW`%' = wordlistNEW  ``n  17-03-06_18-48 ``n ``n `( line: `%A_LineNumber`%`) 
+`;  MsgBox,  '`%ActionListNEW`%' = ActionListNEW  ``n  17-03-06_18-48 ``n ``n `( line: `%A_LineNumber`%`) 
 
 
-if`(A_ScriptName == "wordlistNameFilter.inc.ahk" `) {
+if`(A_ScriptName == "ActionListNameFilter.inc.ahk" `) {
 global g_lineNumberFeedback
  g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%   ; thats developer mode. this script is not includet. 08.03.2017 09:14
-; Clipboard := wordlistNEW ;  we dont transport usually inside this global file via clipboard 06.03.2017 19:41
- MsgBox,  '`%wordlistNEW`%' = wordlistNEW  ``n `%activeClass`% = activeClass ``n  17-03-06_18-48 ``n ``n `( line: `%A_LineNumber`%`)
+; Clipboard := ActionListNEW ;  we dont transport usually inside this global file via clipboard 06.03.2017 19:41
+ MsgBox,  '`%ActionListNEW`%' = ActionListNEW  ``n `%activeClass`% = activeClass ``n  17-03-06_18-48 ``n ``n `( line: `%A_LineNumber`%`)
 }
 )
  ; MsgBox, % RegExReplace( " -- - -___ _ _ _ __", "[_\s]{2,}" , "_"`)  
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
- lll(A_LineNumber, A_LineFile, "FileAppend too " wordlistFilterPath)
-;msgbox, % wordlistFilterPath " asdf77778"
- FileAppend,  % ahkCodeInsideFile , % wordlistFilterPath ; wordlistNameFilter.inc.ahk
+ lll(A_LineNumber, A_LineFile, "FileAppend too " ActionListFilterPath)
+;msgbox, % ActionListFilterPath " asdf77778"
+ FileAppend,  % ahkCodeInsideFile , % ActionListFilterPath ; ActionListNameFilter.inc.ahk
 } 
 return 
 }
@@ -700,10 +706,10 @@ return
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-getWordlistNEWfromPluginIfExist(wordlistDir, wordlistNEW, activeClass, activeTitle   ) {
+getActionListNEWfromPluginIfExist(ActionListDir, ActionListNEW, activeClass, activeTitle   ) {
 global g_lineNumberFeedback
  g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
-   m = '%wordlistNEW%' = wordlistNEW  `n '%wordlistDir%' = wordlistDir  `n  '%activeTitle%' = activeTitle  `n 
+   m = '%ActionListNEW%' = ActionListNEW  `n '%ActionListDir%' = ActionListDir  `n  '%activeTitle%' = activeTitle  `n 
 global g_doSaveLogFiles
 
 lll(A_LineNumber, A_LineFile ,m)
@@ -711,17 +717,17 @@ lll(A_LineNumber, A_LineFile ,m)
    lineB := "<<<<<<<<<<<<<<<<<<<<<<`n"
    lineE := ";>>>>>>>>>>>>>>>>>>>>>>`n"
 
- wordlistFilterPath := wordlistDir . "\wordlistNameFilter.inc.ahk"
- if(!fileExist(wordlistFilterPath)) {
-   ahkCodeInsideFile := getAhkCodeInsideFile(wordlistDir, wordlistFilterPath )
-   FileAppend,  % ahkCodeInsideFile , % wordlistFilterPath ; wordlistNameFilter.inc.ahk
-lll(A_LineNumber, A_LineFile, "FileAppend too " wordlistFilterPath)
-   if(!FileExist(wordlistFilterPath))
-      MsgBox, :-( `n !FileExist(wordlistFilterPath)) `n  (line:%A_LineNumber%)  '%wordlistFilterPath%' = wordlistFilterPath  `n (line:%A_LineNumber%) `n 
+ ActionListFilterPath := ActionListDir . "\ActionListNameFilter.inc.ahk"
+ if(!fileExist(ActionListFilterPath)) {
+   ahkCodeInsideFile := getAhkCodeInsideFile(ActionListDir, ActionListFilterPath )
+   FileAppend,  % ahkCodeInsideFile , % ActionListFilterPath ; ActionListNameFilter.inc.ahk
+lll(A_LineNumber, A_LineFile, "FileAppend too " ActionListFilterPath)
+   if(!FileExist(ActionListFilterPath))
+      MsgBox, :-( `n !FileExist(ActionListFilterPath)) `n  (line:%A_LineNumber%)  '%ActionListFilterPath%' = ActionListFilterPath  `n (line:%A_LineNumber%) `n 
 } else
-   FileRead, ahkCodeInsideFile, % wordlistFilterPath
+   FileRead, ahkCodeInsideFile, % ActionListFilterPath
 ; ahkCode := encodeAHKchars(ahkCode)
-varInjects := mvarInjects(wordlistDir, wordlistNEW, activeClass, activeTitle)
+varInjects := mvarInjects(ActionListDir, ActionListNEW, activeClass, activeTitle)
 ahkCode := RegExReplace( ahkCodeInsideFile , "`;\s*dontDeleteThisPlaceholder" , varInjects )  ; dontDeleteThisPlaceholder is definde since 17-03-06_10-25 inside the global filter
 
  ClipboardBackup = 17-03-05_17-17
@@ -730,21 +736,21 @@ ahkCode := RegExReplace( ahkCodeInsideFile , "`;\s*dontDeleteThisPlaceholder" , 
  if(ClipboardBackup  == "17-03-05_17-17")
    MsgBox, :(  (line:%A_LineNumber%)  17-04-02_14-52
    
-   m = '%wordlistNEW%' = wordlistNEW  `n '%activeTitle%' = activeTitle  `n 
+   m = '%ActionListNEW%' = ActionListNEW  `n '%activeTitle%' = activeTitle  `n 
 global g_doSaveLogFiles
 
 lll(A_LineNumber, A_LineFile , "`n" . m)
-wordlistNEW := DynaRunGetClipboard(ahkCode)
-   m = '%wordlistNEW%' = wordlistNEW  `n '%activeTitle%' = activeTitle  `n 
+ActionListNEW := DynaRunGetClipboard(ahkCode)
+   m = '%ActionListNEW%' = ActionListNEW  `n '%activeTitle%' = activeTitle  `n 
 global g_doSaveLogFiles
 
 lll(A_LineNumber, A_LineFile , "`n" . m)
 
-worlistExtension := SubStr(wordlistNEW, -3)
-if( worlistExtension  <> ".txt" ) {
+worlistExtension := SubStr(ActionListNEW, -3)
+if( worlistExtension  <> ".ahk" ) {
 global g_lineNumberFeedback
  g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
-   m = '%wordlistNEW%' = wordlistNEW  `n 
+   m = '%ActionListNEW%' = ActionListNEW  `n 
       ToolTip5sec(A_LineNumber . "THATS VERY QUICK AND DIRTY AND MAYBEEEE IT HALPS NOT!!!! " . A_ScriptName . " " . m) ;
 ; return,  "superSimple.txt"
       ; ################################################
@@ -753,15 +759,15 @@ global g_lineNumberFeedback
       ; ################################################
 
    ClipboardBackup1703052115 = %Clipboard%
-   ;~ clipboard := wordlistFilterPath
+   ;~ clipboard := ActionListFilterPath
    disableCopyQ() ; enableCopyQ() ;
    clipboard := varInjects
    
-   msg = a bug in your  `n %wordlistFilterPath%  `n this path is now copied to your Clipboard (line:%A_LineNumber%) `n ? `n '%ClipboardBackup%' = ClipboardBackup  `n 
-   if( ClipboardBackup == wordlistNEW)
-      m2 = ClipboardBackup == wordlistNEW == '%wordlistNEW%'  <=== thats bad :-( `n 
-   m3 := " StrLen(wordlistNEW)=" . StrLen(wordlistNEW) . "`n"
-   MsgBox, :-( ERROR: (line:%A_LineNumber%)  `n%m2% %m3% worlistExtension != .txt ='%worlistExtension%' `n wordlistNEW='%wordlistNEW%'   `n`ncode=`n %lineB%%ahkCode% `n%lineE%  `n  %msg% `n (line:%A_LineNumber%) 
+   msg = a bug in your  `n %ActionListFilterPath%  `n this path is now copied to your Clipboard (line:%A_LineNumber%) `n ? `n '%ClipboardBackup%' = ClipboardBackup  `n 
+   if( ClipboardBackup == ActionListNEW)
+      m2 = ClipboardBackup == ActionListNEW == '%ActionListNEW%'  <=== thats bad :-( `n 
+   m3 := " StrLen(ActionListNEW)=" . StrLen(ActionListNEW) . "`n"
+   MsgBox, :-( ERROR: (line:%A_LineNumber%)  `n%m2% %m3% worlistExtension != .ahk ='%worlistExtension%' `n ActionListNEW='%ActionListNEW%'   `n`ncode=`n %lineB%%ahkCode% `n%lineE%  `n  %msg% `n (line:%A_LineNumber%)
    Clipboard = %ClipboardBackup1703052115%
    enableCopyQ() ; enableCopyQ() ;
 }
@@ -773,7 +779,7 @@ global g_lineNumberFeedback
  g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 Clipboard = %ClipboardBackup%
 cExtension := SubStr(Clipboard, -3)
-if( worlistExtension  <> ".txt" )
+if( worlistExtension  <> ".ahk" )
    break
 if( Clipboard == ClipboardBackup )
    break
@@ -782,27 +788,27 @@ Sleep,50
 
 
 
-; Clipboard := wordlistFilterPath
-; MsgBox, '%ahkCode%' = ahkCode  `n  `n '%ahkCodeInsideFile%' = ahkCodeInsideFile  `n  `n  '%wordlistNEW%' = wordlistNEW  `n (line:%A_LineNumber%) `n 
-; MsgBox, '%ahkCode%' = ahkCode  `n  `n '%ahkCodeInsideFile%' = ahkCodeInsideFile  `n  `n  '%wordlistNEW%' = wordlistNEW  `n (line:%A_LineNumber%) `n 
+; Clipboard := ActionListFilterPath
+; MsgBox, '%ahkCode%' = ahkCode  `n  `n '%ahkCodeInsideFile%' = ahkCodeInsideFile  `n  `n  '%ActionListNEW%' = ActionListNEW  `n (line:%A_LineNumber%) `n 
+; MsgBox, '%ahkCode%' = ahkCode  `n  `n '%ahkCodeInsideFile%' = ahkCodeInsideFile  `n  `n  '%ActionListNEW%' = ActionListNEW  `n (line:%A_LineNumber%) `n 
 ;~ ToolTip, %ahkCode% , 10,10
 ;~ Sleep,1000
-return wordlistNEW
+return ActionListNEW
 }
 
-createEmptyFilterInNewDir(wordlistDir, wordlistFilterPath,ahkCode, isInternMsgTransportIsClipboard){
+createEmptyFilterInNewDir(ActionListDir, ActionListFilterPath,ahkCode, isInternMsgTransportIsClipboard){
 global g_lineNumberFeedback
  g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
-if(!FileExist(wordlistDir)){
+if(!FileExist(ActionListDir)){
 global g_lineNumberFeedback
  g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
-   FileCreateDir, % wordlistDir
-   ;~ FileAppend, , % wordlistFilterPath
+   FileCreateDir, % ActionListDir
+   ;~ FileAppend, , % ActionListFilterPath
 }
 ;~ if(!isInternMsgTransportIsClipboard) 
-   if(!FileExist( wordlistFilterPath ) ){
+   if(!FileExist( ActionListFilterPath ) ){
       g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
-      FileAppend, % ahkCode , % wordlistFilterPath
+      FileAppend, % ahkCode , % ActionListFilterPath
     }
 return true
 }
@@ -949,7 +955,7 @@ if(0){ ; check if this is arrived 30.04.2017 09:43
 
              if( activeTitle == activeTitleOLD && activeClass <> activeClassOLD ){
                  ; if this ever happend ? of is this function ovsolete? 30.04.2017 09:59 :D i dont knew
-                 ; Msgbox, title is the same but class differs. a new wordlist shod be used. (%A_LineFile%~%A_LineNumber%)
+                 ; Msgbox, title is the same but class differs. a new ActionList shod be used. (%A_LineFile%~%A_LineNumber%)
 
                  if ( 0) {
                  ; yeeeaaahhh now it happens first time 30.04.2017 10:54 :)

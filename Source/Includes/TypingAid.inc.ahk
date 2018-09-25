@@ -1,8 +1,8 @@
-; Indentation_style: https://de.wikipedia.org/wiki/Einrückungsstil#SL5small-Stil
+﻿; Indentation_style: https://de.wikipedia.org/wiki/EinrÃ¼ckungsstil#SL5small-Stil
 global g_lineNumberFeedback
-global wordlistDirBase
-global wordlistActive
-global wordlistOLD
+global ActionListDirBase
+global ActionListActive
+global ActionListOLD
 global baseDir
 global sourceDir
 global activeTitleOLD
@@ -10,7 +10,7 @@ global activeTitle
 global activeClassOLD
 global activeClass
 
-Receive_wordlistAddress(CopyOfData){
+Receive_ActionListAddress(CopyOfData){
    msgbox, Received:`n%CopyOfData% `n ( %A_LineFile%(inc)~%A_LineNumber% ) `n
    msgbox, Received:`n%CopyOfData% `n ( %A_LineFile%(inc)~%A_LineNumber% ) `n
    msgbox, Received:`n%CopyOfData% `n ( %A_LineFile%(inc)~%A_LineNumber% ) `n
@@ -22,24 +22,24 @@ Receive_wordlistAddress(CopyOfData){
     ;CopyOfData := StrGet(StringAddress)  ; Copy the string out of the structure.
     ; Show it with ToolTip vs. MsgBox so we can return in a timely fashion:
     msgbox, %A_LineFile%`nReceived:`n%CopyOfData%
-    ;RegRead, wordlistActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, CopyOfData
+    ;RegRead, ActionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, CopyOfData
 
-    global wordlistOLD
-    global wordlist
+    global ActionListOLD
+    global ActionList
 
-;    wordlistNEWarchivePath := CopyOfData
-;    wordlistActivePath  := CopyOfData
-;    wordlistNEW := CopyOfData
+;    ActionListNEWarchivePath := CopyOfData
+;    ActionListActivePath  := CopyOfData
+;    ActionListNEW := CopyOfData
 
 ; AHKcode = #Include ..\..\Source\incDynAhk\sendDayTimeHello.ahk `n c := RegExReplace( substr(clipboard,1,99) , "^.*?(\w)(\w+).*", "$u1$l2") `n #Include incDynAhk\sendFreundBody.ahk
 
 
-    if( 1 && wordlistOLD <> wordlist){
+    if( 1 && ActionListOLD <> ActionList){
        ToolTip, Received:`n%CopyOfData% `n ( %A_LineFile%(inc)~%A_LineNumber% ) `n
        Sleep,2000
 
-                                       wordlist := CopyOfData
-       tooltip,'%wordlistNEW%' = wordlistNEW `n ( %A_LineFile%(inc)~%A_LineNumber% ) `n
+                                       ActionList := CopyOfData
+       tooltip,'%ActionListNEW%' = ActionListNEW `n ( %A_LineFile%(inc)~%A_LineNumber% ) `n
 
        CloseListBox()
 
@@ -48,18 +48,18 @@ Receive_wordlistAddress(CopyOfData){
        SuspendOn()
 
 
-    ;feedbackMsgBox("wordlistOLD <> wordlist",wordlistOLD . " <> " . wordlist . "`n" . A_ScriptName . "(inc)~" . A_LineNumber)
-         tooltip,LOAD NEW '%wordlist%' = wordlist `n ( %A_LineFile%(inc)~%A_LineNumber% ) `n
-        ;setGlobalWordlist(wordlistActive)
+    ;feedbackMsgBox("ActionListOLD <> ActionList",ActionListOLD . " <> " . ActionList . "`n" . A_ScriptName . "(inc)~" . A_LineNumber)
+         tooltip,LOAD NEW '%ActionList%' = ActionList `n ( %A_LineFile%(inc)~%A_LineNumber% ) `n
+        ;setGlobalActionList(ActionListActive)
         ;InitializeListBox()
         ;BlockInput, Send ; Send:  The user's keyboard and mouse input is ignored while a Send or SendRaw is in progress
         InitializeHotKeys()
         DisableKeyboardHotKeys()
         ; SetBatchLines, -1 ;Change the Running performance speed (Priority changed to High in GetIncludedActiveWindow)
-        ;feedbackMsgBox("ReadInTheWordList()",wordlist . "`n" . activeTitle . " = activeTitle  `n " .  A_ScriptName . "(inc)~" . A_LineNumber)
-        ReadInTheWordList()
+        ;feedbackMsgBox("ReadInTheActionList()",ActionList . "`n" . activeTitle . " = activeTitle  `n " .  A_ScriptName . "(inc)~" . A_LineNumber)
+        ReadInTheActionList()
         ;prefs_Length := setLength(ParseWordsCount, maxLinesOfCode4length1)
-        wordlistOLD := wordlist
+        ActionListOLD := ActionList
         ;MainLoop()
 
          ;RebuildMatchList() ; line addet 19.03.2018 20:57
@@ -76,15 +76,15 @@ Receive_wordlistAddress(CopyOfData){
 ;InitializeHotKeys()
 ;DisableKeyboardHotKeys()
 ;SetBatchLines, -1 ;Change the Running performance speed (Priority changed to High in GetIncludedActiveWindow)
-;ReadInTheWordList()
+;ReadInTheActionList()
 MainLoop()
     return true  ; Returning 1 (true) is the traditional way to acknowledge this message.
 }
 ; 
-ReadInTheWordList(){ ;Read in the WordList
+ReadInTheActionList(){ ;Read in the ActionList
    global ParseWordsCount
    global prefs_Length
-   ParseWordsCount := ReadWordList()
+   ParseWordsCount := ReadActionList()
    prefs_Length := setLength(ParseWordsCount, maxLinesOfCode4length1)
    return
 }
@@ -101,6 +101,9 @@ ReadInTheWordList(){ ;Read in the WordList
 ;<<<<<<<< MainLoop <<<< 180208192114 <<<< 08.02.2018 19:21:14 <<<<
 ;<<<<<<<< MainLoop <<<< 180208192114 <<<< 08.02.2018 19:21:14 <<<<
 MainLoop(){
+
+
+
    global g_TerminatingEndKeys
    Loop 
    { 
@@ -118,7 +121,7 @@ MainLoop(){
       ;Get one key at a time 
       Input, InputChar, L1 V I, {BS}%g_TerminatingEndKeys%
    
-      Critical ; Wenn der erste Parameter fehlt (oder das Wort On ist), wird der aktuelle Thread als kritisch eingestuft; das heißt, dass dieser Thread nicht von anderen Threads unterbrochen werden kann. ; If the first parameter is omitted (or the word On), the current thread is made critical, meaning that it cannot be interrupted by another thread.
+      Critical ; Wenn der erste Parameter fehlt (oder das Wort On ist), wird der aktuelle Thread als kritisch eingestuft; das heiÃŸt, dass dieser Thread nicht von anderen Threads unterbrochen werden kann. ; If the first parameter is omitted (or the word On), the current thread is made critical, meaning that it cannot be interrupted by another thread.
     EndKey := ErrorLevel
    
       ProcessKey(InputChar,EndKey)
@@ -275,15 +278,15 @@ global g_doSaveLogFiles
 
 ;<<<<<<<< RecomputeMatches <<<< 180319210937 <<<< 19.03.2018 21:09:37 <<<<
 RecomputeMatches(){
-   ; This function will take the given word, and will recompile the list of matches and redisplay the wordlist.
+   ; This function will take the given word, and will recompile the list of matches and redisplay the ActionList.
    global g_MatchTotal
    global g_SingleMatch
    global g_SingleMatchDescription
    global g_SingleMatchReplacement
    global g_Word
-   global g_WordListDB
-   global wordlist
-   global g_wordListID
+   global g_ActionListDB
+   global ActionList
+   global g_ActionListID
    global prefs_ArrowKeyMethod
    global prefs_LearnMode
    global prefs_ListBoxRows
@@ -366,9 +369,9 @@ RecomputeMatches(){
             }
    }
    
-   WhereQuery := " WHERE wordindexed GLOB '" . WordMatchEscaped . "*' " . SuppressMatchingWordQuery . WordAccentQuery  " AND wordListID = '" g_wordListID "'"
+   WhereQuery := " WHERE wordindexed GLOB '" . WordMatchEscaped . "*' " . SuppressMatchingWordQuery . WordAccentQuery  " AND ActionListID = '" g_ActionListID "'"
    
-   NormalizeTable := g_WordListDB.Query("SELECT MIN(count) AS normalize FROM Words" . WhereQuery . " AND count IS NOT NULL LIMIT " . LimitTotalMatches . ";")
+   NormalizeTable := g_ActionListDB.Query("SELECT MIN(count) AS normalize FROM Words" . WhereQuery . " AND count IS NOT NULL LIMIT " . LimitTotalMatches . ";")
    
    for each, row in NormalizeTable.Rows
    {
@@ -392,7 +395,7 @@ RecomputeMatches(){
    
    OrderByQuery .= " end, CASE WHEN count IS NOT NULL then ( (count - " . Normalize . ") * ( 1 - ( '0.75' / (LENGTH(word) - " . WordLen . ")))) end DESC, Word"
       
-   Matches := g_WordListDB.Query("SELECT word, worddescription, wordreplacement FROM Words" . WhereQuery . OrderByQuery . " LIMIT " . LimitTotalMatches . ";")
+   Matches := g_ActionListDB.Query("SELECT word, worddescription, wordreplacement FROM Words" . WhereQuery . OrderByQuery . " LIMIT " . LimitTotalMatches . ";")
    
    g_SingleMatch := Object()
    g_SingleMatchDescription := Object()
@@ -670,6 +673,7 @@ if(lenKey>3){
     SendRaw,%Key%
 }
 ; 000   0  0 1234567890000000000
+
 
 global g_sending_is_buggy 
 if( g_sending_is_buggy ){
@@ -1189,6 +1193,7 @@ lll(A_LineNumber, A_LineFile, "Run, %" . ScriptPath64 . "%, %" . A_WorkingDir . 
 InactivateAll_Suspend_ListBox_WinHook(){
    ;Force unload of Keyboard Hook and WinEventHook
    Input
+
    SuspendOn()
 
 lll(A_LineNumber, A_LineFile, "CloseListBox()")
@@ -1432,6 +1437,6 @@ run,log\%A_LineFile%.log.txt
 #Include %A_ScriptDir%\Includes\Sending.ahk
 #Include %A_ScriptDir%\Includes\Settings.ahk
 #Include %A_ScriptDir%\Includes\Window.ahk
-#Include %A_ScriptDir%\Includes\Wordlist.ahk
+#Include %A_ScriptDir%\Includes\ActionList.ahk
 #Include <DBA>
 #Include <_Struct>

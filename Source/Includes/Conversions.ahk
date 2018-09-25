@@ -1,10 +1,10 @@
-; Indentation_style: https://de.wikipedia.org/wiki/Einrückungsstil#SL5small-Stil
+﻿; Indentation_style: https://de.wikipedia.org/wiki/Einrückungsstil#SL5small-Stil
 ; these functions handle database conversion
 ; always set the SetDbVersion default argument to the current highest version
 
 SetDbVersion(dBVersion = 7){
-	global g_WordListDB
-	g_WordListDB.Query("INSERT OR REPLACE INTO LastState VALUES ('databaseVersion', '" . dBVersion . "', NULL);")
+	global g_ActionListDB
+	g_ActionListDB.Query("INSERT OR REPLACE INTO LastState VALUES ('databaseVersion', '" . dBVersion . "', NULL);")
 }
 
 ;<<<<<<<< MaybeConvertDatabase <<<< 180223091829 <<<< 23.02.2018 09:18:29 <<<<
@@ -13,8 +13,8 @@ MaybeConvertDatabase(){
 	ToolTip5sec("MaybeConvertDatabase() return false " A_LineNumber . " " . A_LineFile )
 	return false
 
-	global g_WordListDB
-	databaseVersionRows := g_WordListDB.Query("SELECT lastStateNumber FROM LastState WHERE lastStateItem = 'databaseVersion';")
+	global g_ActionListDB
+	databaseVersionRows := g_ActionListDB.Query("SELECT lastStateNumber FROM LastState WHERE lastStateItem = 'databaseVersion';")
 	if (databaseVersionRows){
 		for each, row in databaseVersionRows.Rows
 		{
@@ -23,19 +23,19 @@ MaybeConvertDatabase(){
 	}
 	
 	if (!databaseVersion){
-		   tableConverted := g_WordListDB.Query("SELECT tableconverted FROM LastState;")
+		   tableConverted := g_ActionListDB.Query("SELECT tableconverted FROM LastState;")
 	} else {
-		tableConverted := g_WordListDB.Query("SELECT lastStateNumber FROM LastState WHERE lastStateItem = 'tableConverted';")
+		tableConverted := g_ActionListDB.Query("SELECT lastStateNumber FROM LastState WHERE lastStateItem = 'tableConverted';")
 	}
    
 	if (tableConverted){
 		for each, row in tableConverted.Rows
 		{
-			WordlistConverted := row[1]
+			ActionListConverted := row[1]
 		}
 	}
 	
-	IfNotEqual, WordlistConverted, 1
+	IfNotEqual, ActionListConverted, 1
 	{
 		Msgbox,RebuildDatabase()`n RebuildDatabase= %RebuildDatabase%`n `n `n (%A_LineFile%~%A_LineNumber%)
 		RebuildDatabase()
@@ -44,7 +44,7 @@ MaybeConvertDatabase(){
 	
 	if (!databaseVersion)
 	{
-		RunConversionOne(WordlistConverted)
+		RunConversionOne(ActionListConverted)
 	}
 	
 	if (databaseVersion < 2)
@@ -81,7 +81,7 @@ MaybeConvertDatabase(){
 }
 
 
-; Rebuilds the Database from scratch as we have to redo the wordlist anyway.
+; Rebuilds the Database from scratch as we have to redo the ActionList anyway.
 RebuildDatabase(){
 	if(0){
 		tip := "FALSE NOOO RebuildDatabase `n " A_LineNumber . " " . A_LineFile
@@ -90,83 +90,83 @@ RebuildDatabase(){
 		return false
 	}
 ;
-	global g_WordListDB
-	g_WordListDB.BeginTransaction()
-	g_WordListDB.Query("DROP TABLE Words;")
-	g_WordListDB.Query("DROP INDEX WordIndex;")
-	g_WordListDB.Query("DROP TABLE LastState;")
-	g_WordListDB.Query("DROP TABLE Wordlists;")
+	global g_ActionListDB
+	g_ActionListDB.BeginTransaction()
+	g_ActionListDB.Query("DROP TABLE Words;")
+	g_ActionListDB.Query("DROP INDEX WordIndex;")
+	g_ActionListDB.Query("DROP TABLE LastState;")
+	g_ActionListDB.Query("DROP TABLE ActionLists;")
 	
 	CreateWordsTable()
 	CreateWordIndex()
 
 	CreateLastStateTable()
-	CREATE_TABLE_Wordlists()
+	CREATE_TABLE_ActionLists()
 	
 	SetDbVersion()
-	g_WordListDB.EndTransaction()
+	g_ActionListDB.EndTransaction()
 }
 
 ;Runs the first conversion
-RunConversionOne(WordlistConverted)
+RunConversionOne(ActionListConverted)
 {
-	global g_WordListDB
-	g_WordListDB.BeginTransaction()
+	global g_ActionListDB
+	g_ActionListDB.BeginTransaction()
 	
-	g_WordListDB.Query("ALTER TABLE LastState RENAME TO OldLastState;")
+	g_ActionListDB.Query("ALTER TABLE LastState RENAME TO OldLastState;")
 	
 	CreateLastStateTable()
 	
-	g_WordListDB.Query("DROP TABLE OldLastState;")
-	g_WordListDB.Query("INSERT OR REPLACE INTO LastState VALUES ('tableConverted', '" . WordlistConverted . "', NULL);")
+	g_ActionListDB.Query("DROP TABLE OldLastState;")
+	g_ActionListDB.Query("INSERT OR REPLACE INTO LastState VALUES ('tableConverted', '" . ActionListConverted . "', NULL);")
 	
 	;superseded by conversion 3
-	;g_WordListDB.Query("ALTER TABLE Words ADD COLUMN worddescription TEXT;")
+	;g_ActionListDB.Query("ALTER TABLE Words ADD COLUMN worddescription TEXT;")
 	
 	SetDbVersion(1)
-	g_WordListDB.EndTransaction()
+	g_ActionListDB.EndTransaction()
 	
 }
 
 RunConversionTwo()
 {
-	global g_WordListDB
+	global g_ActionListDB
 	
 	;superseded by conversion 3
-	;g_WordListDB.Query("ALTER TABLE Words ADD COLUMN wordreplacement TEXT;")
+	;g_ActionListDB.Query("ALTER TABLE Words ADD COLUMN wordreplacement TEXT;")
 	
 	;SetDbVersion(2)
 }
 
 RunConversionThree()
 {
-	global g_WordListDB
-	g_WordListDB.BeginTransaction()
+	global g_ActionListDB
+	g_ActionListDB.BeginTransaction()
 	
 	CreateWordsTable("Words2")
 	
-	g_WordListDB.Query("UPDATE Words SET wordreplacement = '' WHERE wordreplacement IS NULL;")
+	g_ActionListDB.Query("UPDATE Words SET wordreplacement = '' WHERE wordreplacement IS NULL;")
 	
-	g_WordListDB.Query("INSERT INTO Words2 SELECT * FROM Words;")
+	g_ActionListDB.Query("INSERT INTO Words2 SELECT * FROM Words;")
 	
-	g_WordListDB.Query("DROP TABLE Words;")
+	g_ActionListDB.Query("DROP TABLE Words;")
 	
-	g_WordListDB.Query("ALTER TABLE Words2 RENAME TO Words;")
+	g_ActionListDB.Query("ALTER TABLE Words2 RENAME TO Words;")
 	
 	CreateWordIndex()
 	
 	SetDbVersion(3)
-	g_WordListDB.EndTransaction()
+	g_ActionListDB.EndTransaction()
 }
 
 ; normalize accented characters
 RunConversionFour()
 {
-	global g_WordListDB
+	global g_ActionListDB
 	;superseded by conversion 6
-	/*g_WordListDB.BeginTransaction()
+	/*g_ActionListDB.BeginTransaction()
 	
-	Words := g_WordListDB.Query("SELECT word, wordindexed, wordreplacement FROM Words;")
+	Words := g_ActionListDB.Query("SELECT word, wordindexed, wordreplacement FROM Words;")
    
 	for each, row in Words.Rows
 	{
@@ -181,25 +181,25 @@ RunConversionFour()
 		StringReplace, WordIndexEscaped, WordIndexed, ', '', All
 		StringReplace, WordReplacementEscaped, WordReplacement, ', '', All
 		
-		g_WordListDB.Query("UPDATE Words SET wordindexed = '" . WordIndexedTransformedEscaped . "' WHERE word = '" . WordEscaped . "' AND wordindexed = '" . WordIndexEscaped . "' AND wordreplacement = '" . WordReplacementEscaped . "';")
+		g_ActionListDB.Query("UPDATE Words SET wordindexed = '" . WordIndexedTransformedEscaped . "' WHERE word = '" . WordEscaped . "' AND wordindexed = '" . WordIndexEscaped . "' AND wordreplacement = '" . WordReplacementEscaped . "';")
 	}
 	; Yes, wordindexed is the transformed word that is actually searched upon.
 
 	SetDbVersion(4)
-	g_WordListDB.EndTransaction()
+	g_ActionListDB.EndTransaction()
 	*/
 }
 
-;Creates the Wordlists table
+;Creates the ActionLists table
 RunConversionFive()
 {
-	global g_WordListDB
-	g_WordListDB.BeginTransaction()
+	global g_ActionListDB
+	g_ActionListDB.BeginTransaction()
 	
-	CREATE_TABLE_Wordlists()
+	CREATE_TABLE_ActionLists()
 	
 	SetDbVersion(5)
-	g_WordListDB.EndTransaction()
+	g_ActionListDB.EndTransaction()
 }
 
 ; normalize accented characters
@@ -211,10 +211,10 @@ RunConversionSix()
 ; normalize accented characters
 RunConversionSeven()
 {
-	global g_WordListDB
-	g_WordListDB.BeginTransaction()
+	global g_ActionListDB
+	g_ActionListDB.BeginTransaction()
 	
-	Words := g_WordListDB.Query("SELECT word, wordindexed, wordreplacement FROM Words;")
+	Words := g_ActionListDB.Query("SELECT word, wordindexed, wordreplacement FROM Words;")
 	WordDescription = 
    
 	for each, row in Words.Rows
@@ -227,21 +227,21 @@ RunConversionSeven()
 		
 		StringReplace, OldWordIndexedTransformed, WordIndexed, ', '', All
 		
-		g_WordListDB.Query("UPDATE Words SET wordindexed = '" . WordIndexedTransformed . "' WHERE word = '" . WordTransformed . "' AND wordindexed = '" . OldWordIndexedTransformed . "' AND wordreplacement = '" . WordReplacementTransformed . "';")
+		g_ActionListDB.Query("UPDATE Words SET wordindexed = '" . WordIndexedTransformed . "' WHERE word = '" . WordTransformed . "' AND wordindexed = '" . OldWordIndexedTransformed . "' AND wordreplacement = '" . WordReplacementTransformed . "';")
 	}
 	
 	SetDbVersion(7)
-	g_WordListDB.EndTransaction()
+	g_ActionListDB.EndTransaction()
 }
 
 CreateLastStateTable()
 {
-	global g_WordListDB
+	global g_ActionListDB
 
-	IF not g_WordListDB.Query("CREATE TABLE LastState (lastStateItem TEXT PRIMARY KEY, lastStateNumber INTEGER, otherInfo TEXT) WITHOUT ROWID;")
+	IF not g_ActionListDB.Query("CREATE TABLE LastState (lastStateItem TEXT PRIMARY KEY, lastStateNumber INTEGER, otherInfo TEXT) WITHOUT ROWID;")
 	{
-		ErrMsg := g_WordListDB.ErrMsg()
-		ErrCode := g_WordListDB.ErrCode()
+		ErrMsg := g_ActionListDB.ErrMsg()
+		ErrCode := g_ActionListDB.ErrCode()
 		MsgBox Cannot Create LastState Table - fatal error: %ErrCode% - %ErrMsg%
 		ExitApp
 	}
@@ -249,28 +249,28 @@ CreateLastStateTable()
 
 CreateWordsTable(WordsTableName:="Words"){
 lll(A_LineNumber, A_LineFile, "lin1 at CREATE_TABLE_wordS")
-	global g_WordListDB
-	if(!g_WordListDB)
-    	g_WordListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", A_ScriptDir . "\WordlistLearned.db" ) ;
+	global g_ActionListDB
+	if(!g_ActionListDB)
+    	g_ActionListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", A_ScriptDir . "\ActionListLearned.db" ) ;
 ;
 sql =
 (
 CREATE TABLE IF NOT EXISTS %WordsTableName%  (
-wordListID INTEGER NOT NULL
+ActionListID INTEGER NOT NULL
 , wordindexed TEXT NOT NULL
 , word TEXT NOT NULL
 , count INTEGER
 , worddescription TEXT
 , wordreplacement TEXT NOT NULL
-, PRIMARY KEY `(wordListID, word, wordreplacement) );
+, PRIMARY KEY `(ActionListID, word, wordreplacement) );
 )
-; wordListID,
+; ActionListID,
 ;clipboard := sql
 tooltip, % sql
-	IF not g_WordListDB.Query(sql)
+	IF not g_ActionListDB.Query(sql)
 	{
-		ErrMsg := g_WordListDB.ErrMsg() . "`n" . sql . "`n"
-		ErrCode := g_WordListDB.ErrCode()
+		ErrMsg := g_ActionListDB.ErrMsg() . "`n" . sql . "`n"
+		ErrCode := g_ActionListDB.ErrCode()
 		clipboard := sql
 		msgbox Cannot Create %WordsTableName% Table - fatal error: %ErrCode% - %ErrMsg%
 		ExitApp
@@ -278,49 +278,49 @@ tooltip, % sql
 }
 
 CreateWordIndex(){
-	global g_WordListDB
+	global g_ActionListDB
 
-	IF not g_WordListDB.Query("CREATE INDEX WordIndex ON Words (wordListID, wordindexed);")
+	IF not g_ActionListDB.Query("CREATE INDEX WordIndex ON Words (ActionListID, wordindexed);")
 	{
-		ErrMsg := g_WordListDB.ErrMsg()
-		ErrCode := g_WordListDB.ErrCode()
+		ErrMsg := g_ActionListDB.ErrMsg()
+		ErrCode := g_ActionListDB.ErrCode()
 		msgbox Cannot Create WordIndex Index - fatal error: %ErrCode% - %ErrMsg%
 		ExitApp
 	}
 }
 ;
 
-;<<<<<<<< CREATE_TABLE_Wordlists <<<< 180218062159 <<<< 18.02.2018 06:21:59 <<<<
-CREATE_TABLE_Wordlists(){
-    lll(A_LineNumber, A_LineFile, "lin1 at CREATE_TABLE_Wordlists")
-	global g_WordListDB
-	if(!g_WordListDB)
-    	g_WordListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", A_ScriptDir . "\WordlistLearned.db" ) ;
+;<<<<<<<< CREATE_TABLE_ActionLists <<<< 180218062159 <<<< 18.02.2018 06:21:59 <<<<
+CREATE_TABLE_ActionLists(){
+    lll(A_LineNumber, A_LineFile, "lin1 at CREATE_TABLE_ActionLists")
+	global g_ActionListDB
+	if(!g_ActionListDB)
+    	g_ActionListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", A_ScriptDir . "\ActionListLearned.db" ) ;
 
-	sql := "CREATE TABLE IF NOT EXISTS Wordlists (id INTEGER PRIMARY KEY AUTOINCREMENT, wordlist TEXT, wordlistmodified DATETIME, wordlistsize INTEGER)"
-	IF not g_WordListDB.Query(sql)
+	sql := "CREATE TABLE IF NOT EXISTS ActionLists (id INTEGER PRIMARY KEY AUTOINCREMENT, ActionList TEXT, ActionListmodified DATETIME, ActionListsize INTEGER)"
+	IF not g_ActionListDB.Query(sql)
 	{
-		ErrMsg := g_WordListDB.ErrMsg()
-		ErrCode := g_WordListDB.ErrCode()
+		ErrMsg := g_ActionListDB.ErrMsg()
+		ErrCode := g_ActionListDB.ErrCode()
 		clipboard := sql
-		msgbox, Cannot Create Wordlists Table - fatal error: %ErrCode% - %ErrMsg%  `n sql= %sql% `n  (%A_LineFile%~%A_LineNumber%)
+		msgbox, Cannot Create ActionLists Table - fatal error: %ErrCode% - %ErrMsg%  `n sql= %sql% `n  (%A_LineFile%~%A_LineNumber%)
 		ExitApp
 	}
 }
-;>>>>>>>> CREATE_TABLE_Wordlists >>>> 180218062205 >>>> 18.02.2018 06:22:05 >>>>
+;>>>>>>>> CREATE_TABLE_ActionLists >>>> 180218062205 >>>> 18.02.2018 06:22:05 >>>>
 
-CreateWordlistsTable()
+CreateActionListsTable()
 {
 	Msgbox,deprecated ==> return `n (%A_LineFile%~%A_LineNumber%)
 	return
 
-	global g_WordListDB
+	global g_ActionListDB
 	
-	IF not g_WordListDB.Query("CREATE TABLE Wordlists (wordlist TEXT PRIMARY KEY, wordlistmodified DATETIME, wordlistsize INTEGER) WITHOUT ROWID;")
+	IF not g_ActionListDB.Query("CREATE TABLE ActionLists (ActionList TEXT PRIMARY KEY, ActionListmodified DATETIME, ActionListsize INTEGER) WITHOUT ROWID;")
 	{
-		ErrMsg := g_WordListDB.ErrMsg()
-		ErrCode := g_WordListDB.ErrCode()
-		msgbox Cannot Create Wordlists Table - fatal error: %ErrCode% - %ErrMsg%
+		ErrMsg := g_ActionListDB.ErrMsg()
+		ErrCode := g_ActionListDB.ErrCode()
+		msgbox Cannot Create ActionLists Table - fatal error: %ErrCode% - %ErrMsg%
 		ExitApp
 	}
 }

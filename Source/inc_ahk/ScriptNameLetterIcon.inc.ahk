@@ -1,4 +1,4 @@
-; Indentation_style: https://de.wikipedia.org/wiki/Einrückungsstil#SL5small-Stil
+﻿; Indentation_style: https://de.wikipedia.org/wiki/EinrÃ¼ckungsstil#SL5small-Stil
 ScriptNameLetter := SubStr(A_ScriptName, 1 , 1)
 ScriptNameLetter2 := SubStr(A_ScriptName, 1 , 2)
 ;~ tatam
@@ -14,7 +14,7 @@ else
   ; probably very good icon programm: http://www.mitec.cz/iconex.html
   
   ;~ May useful : http://antifavicon.com/
-  ; http://www.grsites.com/generate/group/9000/ hübsch? aber sicher?
+  ; http://www.grsites.com/generate/group/9000/ hÃ¼bsch? aber sicher?
   ; batch pix to icon http://www.axialis.com/tutorials/tutorial-iw001.html
 
 ;~ http://pcwizkidstechtalk.com/index.php/win7-icons.html

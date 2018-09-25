@@ -12,7 +12,7 @@ This is almost the same in g_IntelliSense:
 __ (opens the list) and then tap a number (1 to 9).
 
 Example for compatibility (to a, b):
-The simplest wordlists are text files. 
+The simplest ActionLists are text files.
 Just copy a text from Wikipedia into the list, done.
 
 Example for compatibility (to a, b):
@@ -36,8 +36,8 @@ whey d) simple?
 all you need to remember is to type __ .
 
 place for e) experts?
-for e.g. you change the superGlobal wordlist (inherit).
-for e.g. you change the global wordlist (inherit). its inside the class folder.
+for e.g. you change the superGlobal ActionList (inherit).
+for e.g. you change the global ActionList (inherit). its inside the class folder.
 for e.g. you could change/programm the place to save lists by regular expressions.
 for e.g. you could trigger, run your own scipts instead of using a word ... try, help, supprt, comment it. thanks :)
 

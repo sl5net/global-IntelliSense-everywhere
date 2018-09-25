@@ -1,5 +1,6 @@
-; Indentation_style: https://de.wikipedia.org/wiki/Einrückungsstil#SL5small-Stil
+﻿; Indentation_style: https://de.wikipedia.org/wiki/EinrÃ¼ckungsstil#SL5small-Stil
 #NoTrayIcon
+
 SetWorkingDir %A_ScriptDir%\Source
 
 DetectHiddenWindows,on

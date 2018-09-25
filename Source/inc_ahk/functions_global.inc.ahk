@@ -1,4 +1,4 @@
-; Indentation_style: https://de.wikipedia.org/wiki/Einrückungsstil#SL5small-Stil
+﻿; Indentation_style: https://de.wikipedia.org/wiki/EinrÃ¼ckungsstil#SL5small-Stil
 #Include *i %A_ScriptDir%\inc_ahk\init_global.init.inc.ahk
 #Include *i %A_ScriptDir%\inc_ahk\copy2clipBoard.functions.inc.ahk
 
@@ -16,23 +16,23 @@ isInteger(var) {
  
 
 getCaretPos(activedoProtectOutOfWindowPos:=true){
-   CaretX := A_CaretX
-   CaretY := A_CaretY 
-   if(activedoProtectOutOfWindowPos){
-	   WinGetPos,wX,wY,wW,wH,A
-	   if(CaretX < wX || CaretY < wY || CaretX > (wX+wH) || CaretY > (wX+wH)){
-		  ToolTip5sec(A_LineNumber . " " .  A_LineFile . " (copy2clipBoard.functions.inc.ahk : 47)" )
-		  CaretX := g_CaretX_Old 
-		  CaretY := g_CaretY_Old 
-	   }
-   if(CaretX < wX || CaretY < wY || CaretX > (wX+wH) || CaretY > (wX+wH)){
-		msg=line29 :( thats out. `n Caret = (%CaretX%,%CaretY%) `n
-		ToolTip5sec(msg . A_LineNumber . " " .  A_LineFile . " " . A_ThisFunc ,0,0 )
-      return
-   }
+	CaretX := A_CaretX
+	CaretY := A_CaretY 
+	if(activedoProtectOutOfWindowPos){
+		WinGetPos,wX,wY,wW,wH,A
+		if(CaretX < wX || CaretY < wY || CaretX > (wX+wH) || CaretY > (wX+wH)){
+			ToolTip5sec(A_LineNumber " " A_LineFile " (copy2clipBoard.functions.inc.ahk : 24)" )
+			CaretX := g_CaretX_Old 
+			CaretY := g_CaretY_Old 
+		} 
+		if(CaretX < wX || CaretY < wY || CaretX > (wX+wH) || CaretY > (wX+wH)){
+			msg=line29 :( thats out. `n Caret = (%CaretX%,%CaretY%) `n
+			ToolTip5sec(msg . A_LineNumber . " " .  A_LineFile . " " . A_ThisFunc ,0,0 )
+			return
+		}
 	}
-   g_CaretX_Old := CaretX
-   g_CaretY_Old := CaretY
+	g_CaretX_Old := CaretX
+	g_CaretY_Old := CaretY
 	msg=line35: Caret = (%CaretX%,%CaretY%) `n
 	ToolTip5sec(msg . A_LineNumber . " " .  A_LineFile . " " . A_ThisFunc ,0,0 )
 	p := {x:CaretX, y:CaretY}
@@ -173,7 +173,7 @@ if(!Instr(logFileName,scriptName)){ ; plausibillity check . hopefully never happ
 		MsgBox, functions_global.inc.ahk `n ln=%ln% `n  scriptName = %scriptName% `n parameter FILE must not be empty `n `n you find this now inside your clipboard : %Clipboard% `n `n move to line %ln% and fix the bug. `n `n or let run the SL5_AHK_preparser.ahk
 		return -1
 	}
-	;~ tipp: use notepadd++ , diverses> ohne r�ckfraen aktuallisieren
+	;~ tipp: use notepadd++ , diverses> ohne rï¿½ckfraen aktuallisieren
 	;~ tipp: use notepadd++ , diverses> nach aktuallisierung zum ende springen
 	msg:=""
 	;~ msg.= ";<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<`n"
@@ -372,7 +372,7 @@ return 1
 }
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-;~ whats shift + f5 ?��?�
+;~ whats shift + f5 ?ï¿½ï¿½?ï¿½
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 changeAllIncludeDir(f,preFix)
 { 
@@ -560,7 +560,7 @@ contextHelp(HardDriveLetter){
 	WinGetActiveTitle, ActiveTitle
 	ActiveTitle2:=ActiveTitle
 
-	wText=dummy ; wText abzufragen w�re vermutlich zu �bertrieben.
+	wText=dummy ; wText abzufragen wï¿½re vermutlich zu ï¿½bertrieben.
 	wText2:=wText
 	;WinGetText, wText, %ActiveTitle%
 
@@ -576,8 +576,8 @@ contextHelp(HardDriveLetter){
 ;###############################
 	temp := RegExReplace(ActiveClass, "\W+", "", ReplacementCount)  ;
 
-  ; nur anfangsbuchstaben des titells, maximal begrentzt st�ck
-  ; nur anfangsbuchstaben des titells, maximal begrentzt st�ck
+  ; nur anfangsbuchstaben des titells, maximal begrentzt stï¿½ck
+  ; nur anfangsbuchstaben des titells, maximal begrentzt stï¿½ck
 	temT := SubStr( RegExReplace(ActiveTitle, "([\d\w])\w*\W*", "$1", ReplacementCount) , 1 , 6 ) 
 
 	ToolTip3sec(temT )
@@ -648,7 +648,7 @@ Return
 runCopyQ_Ctrl_Shift_v(){
 	;~ MsgBox,Ctrl Shift v `n  dont work actually. `n please use Ctrl Shift 1. `n Sorry about that. thanks. 15.06.2015
 	;~ return
-	; �<LEER> - CopyQ ahk_cl!A_ScriptDir!A_ScriptDir!A_ScriptDiraA_ScriptDirA_ScriptDirss QWidget...� (3 Zeilen) - CopyQ ahk_class1`11`n`n`n
+	; ï¿½<LEER> - CopyQ ahk_cl!A_ScriptDir!A_ScriptDir!A_ScriptDiraA_ScriptDirA_ScriptDirss QWidget...ï¿½ (3 Zeilen) - CopyQ ahk_class1`11`n`n`n
 		SetTitleMatchMode,2
 		DetectHiddenWindows,on
 	IfWinNotExist,CopyQ ahk_class QWidget
@@ -782,7 +782,7 @@ runContextHelpFile(fNameContextHelp, HardDriveLetter, ActiveClass, ActiveTitle)
     FileCreateDir, %HardDriveLetter%:\fre\private
   IfNotExist, %path%
     FileCreateDir, %path%
-		FileAppend, `n`n`n%ActiveClass%-%ActiveTitle% - ShortCut-Notizen und �hnliches:`n`;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<`n%path%, %fAdressContextHelp%
+		FileAppend, `n`n`n%ActiveClass%-%ActiveTitle% - ShortCut-Notizen und ï¿½hnliches:`n`;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<`n%path%, %fAdressContextHelp%
   }
 	Run,%fAdressContextHelp%
 	Sleep,100
@@ -923,6 +923,8 @@ clipboardPaste(s)
   Send,^v
   Suspend,off
   clipboard := clipboardOld
+
+
   return true
 }
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -1391,65 +1393,66 @@ setSearchAreaToWinTitleArea(winTitle){
 
 DynaRun(TempScript, pipename=""){
 	; TempScript := "#" . "ErrorStdOut`n" . TempScript
-   static _:="uint",@:="Ptr"
-try  ; i dont want disturbing error messages
-{
+	TempScript := "" . "FileEncoding, UTF-8`n" . TempScript
+	static _:="uint",@:="Ptr"
+	try  ; i dont want disturbing error messages
+	{
 	;fn := SubStr( jj , 1,3 )
-   If pipename =
-      name := "AHK" A_TickCount "ln" A_LineNumber "fn_functions_global"
-   Else
-      name := pipename
-   __PIPE_GA_ := DllCall("CreateNamedPipe","str","\\.\pipe\" name,_,2,_,0,_,255,_,0,_,0,@,0,@,0)
-   __PIPE_    := DllCall("CreateNamedPipe","str","\\.\pipe\" name,_,2,_,0,_,255,_,0,_,0,@,0,@,0)
-   if (__PIPE_=-1 or __PIPE_GA_=-1)
-      Return 0
+		If pipename =
+			name := "AHK" A_TickCount "ln" A_LineNumber "fn_functions_global"
+		Else
+			name := pipename
+		__PIPE_GA_ := DllCall("CreateNamedPipe","str","\\.\pipe\" name,_,2,_,0,_,255,_,0,_,0,@,0,@,0)
+		__PIPE_    := DllCall("CreateNamedPipe","str","\\.\pipe\" name,_,2,_,0,_,255,_,0,_,0,@,0,@,0)
+		if (__PIPE_=-1 or __PIPE_GA_=-1)
+			Return 0
 	;if(!FileExist(A_AhkPath . "\\.\pipe\" . name))
 	;  Return 0
 	;IfNotExist, %A_AhkPath% "\\.\pipe\%name%"
-   Run, %A_AhkPath% "\\.\pipe\%name%",,UseErrorLevel HIDE, PID
-   If ErrorLevel
-      tooltip, % "Could not open file:`n" __AHK_EXE_ """\\.\pipe\" name """"
-   DllCall("ConnectNamedPipe",@,__PIPE_GA_,@,0)
-   DllCall("CloseHandle",@,__PIPE_GA_)
-   DllCall("ConnectNamedPipe",@,__PIPE_,@,0)
-   script := (A_IsUnicode ? chr(0xfeff) : (chr(239) . chr(187) . chr(191))) TempScript
+		Run, %A_AhkPath% "\\.\pipe\%name%",,UseErrorLevel HIDE, PID
+		If ErrorLevel
+			tooltip, % "Could not open file:`n" __AHK_EXE_ """\\.\pipe\" name """"
+		DllCall("ConnectNamedPipe",@,__PIPE_GA_,@,0)
+		DllCall("CloseHandle",@,__PIPE_GA_)
+		DllCall("ConnectNamedPipe",@,__PIPE_,@,0)
+		script := (A_IsUnicode ? chr(0xfeff) : (chr(239) . chr(187) . chr(191))) TempScript
 ;	clipboard := script
-
-
-   if !DllCall("WriteFile",@,__PIPE_,"str",script,_,(StrLen(script)+1)*(A_IsUnicode ? 2 : 1),_ "*",0,@,0)
-        Return A_LastError,DllCall("CloseHandle",@,__PIPE_)
-   DllCall("CloseHandle",@,__PIPE_)
-}
-catch e  ; Handles the first error/exception raised by the block above.
-{
-	tip := "Exception in DynaRun:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
-	lll(A_LineNumber, A_LineFile, tip)
-	tooltip, `% tip
-	FileAppend, `% TempScript, `% name
-}
-SetTitleMatchMode,1
-if(1 && WinExist(substr(name,1,-5))) ; helps debugging
-	FileAppend, `% TempScript, `% name
-
-while(1 && name && WinExist(substr(name,1,-5)) && A_Index < 9)
+		
+		
+		if !DllCall("WriteFile",@,__PIPE_,"str",script,_,(StrLen(script)+1)*(A_IsUnicode ? 2 : 1),_ "*",0,@,0)
+			Return A_LastError,DllCall("CloseHandle",@,__PIPE_)
+		DllCall("CloseHandle",@,__PIPE_)
+	}
+	catch e  ; Handles the first error/exception raised by the block above.
+	{
+		tip := "Exception in DynaRun:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
+		lll(A_LineNumber, A_LineFile, tip)
+		tooltip, `% tip
+		FileAppend, `% TempScript, `% name
+	}
+	SetTitleMatchMode,1
+	if(1 && WinExist(substr(name,1,-5))) ; helps debugging
+		FileAppend, `% TempScript, `% name
+	
+	while(1 && name && WinExist(substr(name,1,-5)) && A_Index < 9)
 		WinClose,
-
+	
    ; clipboard := TempScript
-   Return PID
+	Return PID
 }
 ;>>>>>>>> DynaRun >>>> 180228151009 >>>>
 
 ;<<<<<<<< removesSymbolicLinksFromFileAdress <<<< 180305085209 <<<< 05.03.2018 08:52:09 <<<<
-removesSymbolicLinksFromFileAdress(wordlist){
+removesSymbolicLinksFromFileAdress(ActionList){
 	pLength := 0
-	while(pLength <> StrLen(wordlist )){
+	while(pLength <> StrLen(ActionList )){
 	; tooltip,`% A_index . "# Line:" . A_LineNumber . " Name:" . A_ScriptName . " "
-	pLength := StrLen(wordlist )
-	wordlist := RegExReplace(wordlist ,"(\\[^\\]+\\\.\.)+") ; works. removes all symbolic links 24.02.2018  cleanPath
+	pLength := StrLen(ActionList )
+	ActionList := RegExReplace(ActionList ,"(\\[^\\]+\\\.\.)+") ; works. removes all symbolic links 24.02.2018  cleanPath
 	}
-	wordlist := RegExReplace(wordlist,"\\\.\\")  ; works. removes all symbolic link 24.02.2018 cleanPath
-	wordlist := RegExReplace(wordlist,"^\.\\")  ; works. removes all symbolic link 24.02.2018  cleanPath
-	 return wordlist
+	ActionList := RegExReplace(ActionList,"\\\.\\")  ; works. removes all symbolic link 24.02.2018 cleanPath
+	ActionList := RegExReplace(ActionList,"^\.\\")  ; works. removes all symbolic link 24.02.2018  cleanPath
+	 return ActionList
 }
 ;>>>>>>>> removesSymbolicLinksFromFileAdress >>>> 180305085214 >>>> 05.03.2018 08:502:14 >>>>
 

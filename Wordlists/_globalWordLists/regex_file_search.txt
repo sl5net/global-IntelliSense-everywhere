@@ -1,8 +1,0 @@
-Eugens letzte Änderungen TXT|r|D\:\\eyeVis\\TRP_firmware_eyeVis_11juli2017.*\.(c|h)$
-
-
-Not in Wordlists TXT|r|.*^((?!Wordlists).).*Everything.*\.txt$
-Only in Wordlists TXT|r|\\Wordlists\\.*regex.*\.txt$
-regex Wordlists TXT|r|\\Wordlists\\.*regex.*\.txt$
-Only in Wordlists TXT|r|\\Wordlists\\.*Everything.*\.txt$
-

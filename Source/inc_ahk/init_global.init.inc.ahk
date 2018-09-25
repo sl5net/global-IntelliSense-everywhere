@@ -1,10 +1,11 @@
-; Problem with include: https://autohotkey.com/boards/viewtopic.php?f=5&t=46608&p=210142#p210142
+﻿; Problem with include: https://autohotkey.com/boards/viewtopic.php?f=5&t=46608&p=210142#p210142
 
-; Indentation_style: https://de.wikipedia.org/wiki/Einrückungsstil#SL5small-Stil
+; Indentation_style: https://de.wikipedia.org/wiki/EinrÃ¼ckungsstil#SL5small-Stil
 #SingleInstance force
 
+
 ;<<<<<<<< g_ignReg <<<< 180224082501 <<<< 24.02.2018 08:25:01 <<<<
-if(InStr(A_ComputerName,"SL5")) ; do ignore nothing. development computer
+if(InStr(A_ComputerName,"xxxxxxxxx SL5")) ; do ignore nothing. development computer
 global g_ignReg := { feedbackMsgBox:{tit:".^", text:".^"} ,          saveLogFiles: {ln:".^", scriptName:"\b(Window|ListBox)\.ahk", text:"(WordIndex|CloseListBox|HotKeys|g_ListBox_Id)\b"},                    sqlQuery: {ln:".^", scriptName:".^", text:".^"},                    hotKeyStuff: {ln:".^", scriptName:".^", text:".^"},                    runLogFile: {ln:".^", scriptName:".^", text:".^"} } ;;;; regEx ignoreConfigList ;;;;
 ; please use it like this:     if( 1<RegExMatch(0 . A_ScriptName, g_ignReg["saveLogFiles"]["scriptName"])	|| ......
 		; OR: the regEx .^ never match anything. if you use .^ i recomand using: if( RegExMatch(ln, g_ignReg["saveLogFiles"]["ln"])	|| ......
@@ -34,11 +35,10 @@ if(instr(A_LineFile,A_ScriptName)){
 ; 16-01-19_23-11
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-;Wenn es dir auch auf den Keks geht, dass die [Capslock]-Taste (die über die [Umschalt]-Taste), immer wieder ausversehen aktiviert wird, dann schreibe folgendes in dein Script:
+;Wenn es dir auch auf den Keks geht, dass die [Capslock]-Taste (die Ã¼ber die [Umschalt]-Taste), immer wieder ausversehen aktiviert wird, dann schreibe folgendes in dein Script:
 ; CapsLock::SetCapsLockState, AlwaysOff
 SetCapsLockState,Off
-
-SetScrollLockState,Off ; Im Übrigen reagieren nur noch einige Uralt-Programme, etwa Word 5 für DOS, auf diese Taste. Damit bietet sie sich als idealer Kandidat für selbst definierte Hotkeys an.
+SetScrollLockState,Off ; Im Ãœbrigen reagieren nur noch einige Uralt-Programme, etwa Word 5 fÃ¼r DOS, auf diese Taste. Damit bietet sie sich als idealer Kandidat fÃ¼r selbst definierte Hotkeys an.
 SetNumLockState, AlwaysOn
 
 

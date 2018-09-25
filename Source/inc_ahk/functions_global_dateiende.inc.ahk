@@ -1,5 +1,5 @@
-; Indentation_style: https://de.wikipedia.org/wiki/Einrückungsstil#SL5small-Stil
-;~ subroutinen m�ssen ans ende sonst blocken die
+﻿; Indentation_style: https://de.wikipedia.org/wiki/EinrÃ¼ckungsstil#SL5small-Stil
+;~ subroutinen mï¿½ssen ans ende sonst blocken die
 ;~ #Include *i %A_ScriptDir%\inc_ahk\functions_global_dateiende.inc.ahk
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
@@ -56,7 +56,7 @@ return
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 
-;~ subroutinen m�ssen ans ende sonst blocken die
+;~ subroutinen mï¿½ssen ans ende sonst blocken die
 ;~ #Include *i %A_ScriptDir%\inc_ahk\functions_global_dateiende.inc.ahk
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ModiTime_pilawa_OLD:=0
@@ -75,7 +75,7 @@ UPDATEDSCRIPTpilawa:
     SplashTextOn,,,Updated pilawa-sl5-de,
     Sleep,500
     SplashTextOff,Updated pilawa-sl5-de
-    Reload      ; Script wird neu geladen,neu ausgef�hrt
+    Reload      ; Script wird neu geladen,neu ausgefï¿½hrt
   }
   ModiTime_pilawa_OLD:=ModiTime_pilawa
   ;Last_A_This:=A_ThisFunc . A_ThisLabel 
@@ -102,7 +102,7 @@ UPDATEDSCRIPTfunctions_global:
     SplashTextOn,,,Updated functions_global,
     Sleep,500
     SplashTextOff,Updated functions_global
-    Reload      ; Script wird neu geladen,neu ausgef�hrt
+    Reload      ; Script wird neu geladen,neu ausgefï¿½hrt
   }
   ModiTime_functions_global_OLD := ModiTime_functions_global
 Return
@@ -129,7 +129,7 @@ UPDATEDSCRIPTfunctions_global_dateiende:
     SplashTextOn,,,Updated functions_global_dateiende,
     Sleep,500
     SplashTextOff,Updated functions_global_dateiende
-    Reload      ; Script wird neu geladen,neu ausgef�hrt
+    Reload      ; Script wird neu geladen,neu ausgefï¿½hrt
   }
   ModiTime_functions_global_dateiende_OLD := ModiTime_functions_global_dateiende
 
@@ -232,10 +232,10 @@ bToolTip(s)
   s1 := RegExReplace(s, "(\w+)", " . "" $1 = "" . $1 ")  ; Returns "aaaXYZzzz" by means of the $1 backreference.            
   s2 := RegExReplace(s, "(\w+)", " $1 = %$1% ")  ; Returns "aaaXYZzzz" by means of the $1 backreference.            
 
-  temp1:= " fromline . ""�"" . A_LineNumber . "":``n"" . " . SubStr(s1 , 4, StrLen(s1) - 4)  
+  temp1:= " fromline . ""ï¿½"" . A_LineNumber . "":``n"" . " . SubStr(s1 , 4, StrLen(s1) - 4)  
   temp1 := "temp := " . temp1
   
-  temp2:= " %fromline% � %A_LineNumber%:``n " . SubStr(s2 , 4, StrLen(s2) - 4)  
+  temp2:= " %fromline% ï¿½ %A_LineNumber%:``n " . SubStr(s2 , 4, StrLen(s2) - 4)  
   temp2 := "temp = " . temp2
   
   temp := temp1  
@@ -264,7 +264,7 @@ bStringProzentNotation(s)
   StringReplace,s,s,`,, %A_SPACE% , All
   ;s2 := RegExReplace(s, "(\w+)", " $1 = %$1% ")  ; Returns "aaaXYZzzz" by means of the $1 backreference.            
   s2 := RegExReplace(s, "(\w+)", " $1 = %$1% ``n ")  ; Returns "aaaXYZzzz" by means of the $1 backreference.            
-  temp2:= " %fromline% � %A_LineNumber%: ``n``n " . s2 ; . SubStr(s2 , 4, StrLen(s2) - 4)  
+  temp2:= " %fromline% ï¿½ %A_LineNumber%: ``n``n " . s2 ; . SubStr(s2 , 4, StrLen(s2) - 4)  
   temp2 := "temp = " . temp2
   temp := temp2  
   s := temp . "`nif(isDevellopperMode:= true)`nMsgBox,%temp% `; ToolTip3sec(temp) "
@@ -277,7 +277,7 @@ bStringPunktNotation(s)
   ; Achtung hier keinen rekursiven aufruf!!!     
   StringReplace,s,s,`,, %A_SPACE% , All
   s1 := RegExReplace(s, "(\w+)", " . "" $1 = "" . $1 ")  ; Returns "aaaXYZzzz" by means of the $1 backreference.            
-  temp1:= " fromline . ""�"" . A_LineNumber . "": "" . " . SubStr(s1 , 4, StrLen(s1) - 4)  
+  temp1:= " fromline . ""ï¿½"" . A_LineNumber . "": "" . " . SubStr(s1 , 4, StrLen(s1) - 4)  
   temp1 := "temp := " . temp1
   temp := temp1  
   s := temp . "`nToolTip3sec(temp) `; MsgBox,%temp% "      

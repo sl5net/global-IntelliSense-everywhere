@@ -1,4 +1,4 @@
-; Indentation_style: https://de.wikipedia.org/wiki/Einrückungsstil#SL5small-Stil
+﻿; Indentation_style: https://de.wikipedia.org/wiki/Einrückungsstil#SL5small-Stil
 SendKey(Key){
    IfEqual, Key, $^Enter
    {
@@ -19,14 +19,14 @@ SendKey(Key){
 getLineOfIndex(id) {
   global g_SingleMatch
     ;~ erste zeile mit eintrag im wörterbuch: g_SingleMatch[1] 10.07.2017 12:13
-  global WordlistFileName
-  global wordlist
-  ;WordlistFileName = wordlist.txt
-  WordlistFileName := wordlist
-  if(!FileExist(WordlistFileName))
+  global ActionListFileName
+  global ActionList
+  ;ActionListFileName = ActionList.txt
+  ActionListFileName := ActionList
+  if(!FileExist(ActionListFileName))
     Msgbox,:( `n (%A_LineFile%~%A_LineNumber%) )
 
-    Loop, Read, %WordlistFileName%
+    Loop, Read, %ActionListFileName%
     {
         if ErrorLevel
             break
@@ -39,21 +39,21 @@ getLineOfIndex(id) {
             return A_Index
          }
     }
-    ; MsgBox, '%WordlistFileName%' = WordlistFileName  n (line:%A_LineNumber%) n `n The end of the file has been reached or there was a problem.
+    ; MsgBox, '%ActionListFileName%' = ActionListFileName  n (line:%A_LineNumber%) n `n The end of the file has been reached or there was a problem.
     return
 
 }
 getWordIndex(word) {
   global g_SingleMatch
     ;~ erste zeile mit eintrag im wörterbuch: g_SingleMatch[1] 10.07.2017 12:13
-  global WordlistFileName
-  global wordlist
-  ;WordlistFileName = wordlist.txt
-  WordlistFileName := wordlist
-  if(!FileExist(WordlistFileName))
+  global ActionListFileName
+  global ActionList
+  ;ActionListFileName = ActionList.txt
+  ActionListFileName := ActionList
+  if(!FileExist(ActionListFileName))
     Msgbox,:( `n (%A_LineFile%~%A_LineNumber%) )
 
-    Loop, Read, %WordlistFileName%
+    Loop, Read, %ActionListFileName%
     {
         if ErrorLevel
             break
@@ -66,7 +66,7 @@ getWordIndex(word) {
             return A_Index
          }
     }
-    ; MsgBox, '%WordlistFileName%' = WordlistFileName  n (line:%A_LineNumber%) n `n The end of the file has been reached or there was a problem.
+    ; MsgBox, '%ActionListFileName%' = ActionListFileName  n (line:%A_LineNumber%) n `n The end of the file has been reached or there was a problem.
     return
 }
 
@@ -82,14 +82,14 @@ getLineOfWord(word) {
 ;~ erste zeile mit eintrag im wörterbuch: g_SingleMatch[1] 10.07.2017 12:13
 ;~ letzte zeile mit eintrag im wörterbuch: g_SingleMatch[1] 10.07.2017 12:13
 
-  global WordlistFileName
-  global wordlist
-  ;WordlistFileName = wordlist.txt
-  WordlistFileName := wordlist
-  if(!FileExist(WordlistFileName))
+  global ActionListFileName
+  global ActionList
+  ;ActionListFileName = ActionList.txt
+  ActionListFileName := ActionList
+  if(!FileExist(ActionListFileName))
     Msgbox,:( `n (%A_LineFile%~%A_LineNumber%) )
 
-    Loop, Read, %WordlistFileName%
+    Loop, Read, %ActionListFileName%
     {
         if ErrorLevel
             break
@@ -107,7 +107,7 @@ getLineOfWord(word) {
     if(0)
     Loop,9999
     {
-        FileReadLine, thisLine , %WordlistFileName%, %A_Index%
+        FileReadLine, thisLine , %ActionListFileName%, %A_Index%
         if ErrorLevel
             break
 
@@ -120,7 +120,7 @@ getLineOfWord(word) {
             return a_index
          }
     }
-    ; MsgBox, '%WordlistFileName%' = WordlistFileName  n (line:%A_LineNumber%) n `n The end of the file has been reached or there was a problem.
+    ; MsgBox, '%ActionListFileName%' = ActionListFileName  n (line:%A_LineNumber%) n `n The end of the file has been reached or there was a problem.
 return
 
 
@@ -158,34 +158,34 @@ firstLine := g_SingleMatch[1]
   ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
   if(false){ ; funktioniert nicht, noch nicht. egal 10.07.2017 13:15. keie Zeit
-  global g_WordListDB
+  global g_ActionListDB
   loop,9999
   {
-    if(!g_WordListDB[a_index]){
+    if(!g_ActionListDB[a_index]){
         aindexBackup := a_index
        break
     }
   }
-  lastWord := g_WordListDB[A_Index-1] ; for e.g. 6 if you hit "___" 10.07.2017
+  lastWord := g_ActionListDB[A_Index-1] ; for e.g. 6 if you hit "___" 10.07.2017
 
 ;~   select = SELECT id FROM Words WHERE word ="%word%" ;
     StringReplace, SearchValueEscaped, word, ', '', All
-    global g_wordListID
-  where := " AND wordListID = '" g_wordListID "' "
+    global g_ActionListID
+  where := " AND ActionListID = '" g_ActionListID "' "
   select := "SELECT * FROM Words WHERE word LIKE '" . SearchValueEscaped . "%' " where
   select := "SELECT * FROM Words WHERE word LIKE 'Trim%' " where
   select := "SELECT * FROM Words WHERE word = 'Trim(String)' " where
   msgbox, '%select%' = select  n (line:%A_LineNumber%) n
   ; ______________________' ' = SearchValue  n (line:69) n17-07-10_12-21 index= 1
-  table := g_WordListDB.Query( select )
- g_WordListDB.BeginTransaction()
+  table := g_ActionListDB.Query( select )
+ g_ActionListDB.BeginTransaction()
  For each, row in myTable.Rows
  {
     SearchValue0 := row[0]
     SearchValue := row[1]
     Msgbox,'%SearchValue%' = SearchValue  n (line:%A_LineNumber%) n
  }
- g_WordListDB.EndTransaction()
+ g_ActionListDB.EndTransaction()
 ; ____' ' = SearchValue  n (line:68) n17-07-10_12-21 index= 1
 ; ____ ____' ' = SearchValue  n (line:67) n17-07-10_12-21 index= 1
 ; send,'%SearchValue0% %SearchValue%' = SearchValue  n (line:%A_LineNumber%) n
@@ -215,14 +215,14 @@ SendWord(WordIndex){
    global g_SingleMatch
    global g_SingleMatchReplacement
 
-global wordlist
+global ActionList
 
-wordlistFolderOfThisWordlistRELATIVE := RegExReplace(wordlist,"\\[^\\]+$","")
-wordlistFolderOfThisWordlist := A_ScriptDir  "\" RegExReplace(wordlist,"\\[^\\]+$","")
-wordlistFolderOfThisWordlist := removesSymbolicLinksFromFileAdress(wordlistFolderOfThisWordlist) ; user should could includes direcly from his txt wordlist, without editing the address 05.03.2018 08:15
-if(!FileExist(wordlistFolderOfThisWordlist)){ ; Checks for the existence of a file or folder
-clipboard := wordlistFolderOfThisWordlist
-    tooltip,ups:`n ! FileExist(%wordlistFolderOfThisWordlist% `n (%A_LineFile%~%A_LineNumber%)
+ActionListFolderOfThisActionListRELATIVE := RegExReplace(ActionList,"\\[^\\]+$","")
+ActionListFolderOfThisActionList := A_ScriptDir  "\" RegExReplace(ActionList,"\\[^\\]+$","")
+ActionListFolderOfThisActionList := removesSymbolicLinksFromFileAdress(ActionListFolderOfThisActionList) ; user should could includes direcly from his ahk ActionList, without editing the address 05.03.2018 08:15
+if(!FileExist(ActionListFolderOfThisActionList)){ ; Checks for the existence of a file or folder
+clipboard := ActionListFolderOfThisActionList
+    tooltip,ups:`n ! FileExist(%ActionListFolderOfThisActionList% `n (%A_LineFile%~%A_LineNumber%)
     return false
 }
 
@@ -400,6 +400,46 @@ msgbox,% tip
 
 ; indirect3 hello :-) 10.07.2017 14:27
 
+
+
+if(isAHKcode){
+    isStartingUnderline := ("___" == substr( lineOfIndex , 1, 3 ) )
+    is_OpenA_edit_open_lib := RegExMatch( " " lineOfIndex , "i)(edit|open|lib)" )
+    isDeprecated_OpenA_edit_open_lib := ( isAHKcode && isStartingUnderline && is_OpenA_edit_open_lib && RegExMatch( AHKcode , "^\s*(?:run)\s*,?(.+\.ahk)\s*$" ,  m ))
+    ; msgbox, % isAHKcode "`=isAHKcode`n`n " lineOfIndex "`n=lineOfIndex`n`n is_OpenA_edit_open_lib=`n" is_OpenA_edit_open_lib " `n`n isDeprecated_OpenA_edit_open_lib=`n" isDeprecated_OpenA_edit_open_lib "`n`n" AHKcode
+}
+if(isDeprecated_OpenA_edit_open_lib || isAHKcode && ( RegExMatch( AHKcode , "^\s*(?:AHK-Studio)\s*,?(.+\.ahk)\s*$\b$" ,  m ) || isDeprecated_OpenA_edit_open_lib ) ) { ; edit open script
+   ; ___global generated open|rr||ahk|run,..\_globalActionListsGenerated\_global.ahk
+    m1CorrectedAhkFileAddress := ActionListFolderOfThisActionList "\" m1
+    m1ListFileName := RegExReplace(m1,"i)([\w\d_-\.]+\.ahk)\b$","$1")
+    if(!FileExist(m1CorrectedAhkFileAddress)){
+        Msgbox,:( action list `n %m1CorrectedAhkFileAddress% `n is not exist. `n (%A_LineFile%~%A_LineNumber%)
+        return false
+    }
+    if(!FileExist("..\AHK-Studio\AHK-Studio.ahk")){
+        Msgbox,:( AHK-Studio.ahk `n is not exist. `n (%A_LineFile%~%A_LineNumber%)
+        return false
+    }
+    runString = AHK-Studio.ahk "%m1CorrectedAhkFileAddress%"
+    run,% runString, ..\AHK-Studio
+    ; a_Piratenpad_Google_Chrome.ahk ahk_class #32770
+    winWait,% m1ListFileName " ahk_class #32770"
+    winclose,% m1ListFileName " ahk_class #32770" ; thats disturbing opening ahk-studio. if closed ahk-studio opens
+    winkill,% m1ListFileName " ahk_class #32770" ; thats disturbing opening ahk-studio. if closed ahk-studio opens
+    ; msgbox,% m1ListFileName " ahk_class #32770 ??? "  ; thats disturbing opening ahk-studio. if closed ahk-studio opens
+    msg=%runString% `n %m1% `n deprecated: `n please open by using AHK-Studio instead run`n
+    ;msgbox, % msg "`n" A_LineNumber   " "   A_LineFile   " "   Last_A_This
+    ToolTip5sec(msg A_LineNumber   " "   A_LineFile   " "   Last_A_This)
+    return
+}
+
+
+
+
+
+
+
+
    if(isAHKcode && RegExMatch( AHKcode , "^\s*q=\s*(.+)\s*$" ,  m ) ) { ; q=
         line := getCorrectedStringUAOSS( getLineOfWord( m1 )) ; that works :) 10.07.2017 14:18
         isAHKcode := false
@@ -446,8 +486,8 @@ msgbox,% tip
        sending := "" ; thats very fast. may use it in other casese 10.04.2017 13:29
        AHKcode := lineOfIndex
 
-       ; lets open the wordlist inside notepad++ or so 19.04.2017 19:16
-;       Msgbox,'%wordlistActive%' = wordlistActive  n (line:%A_LineNumber%) n   n (from: %A_LineFile%~%A_LineNumber%)
+       ; lets open the ActionList inside notepad++ or so 19.04.2017 19:16
+;       Msgbox,'%ActionListActive%' = ActionListActive  n (line:%A_LineNumber%) n   n (from: %A_LineFile%~%A_LineNumber%)
 ; Msgbox,n (from: %A_LineFile%~%A_LineNumber%)
 
 
@@ -479,29 +519,29 @@ if(false){
     ;msgbox, isAHKcode = %isAHKcode%AHKdyn example super simple example
 
 ; https://github.com/sl5net/global-IntelliSense-everywhere/blob/master/Source/help/CHANGELOG.txt#L1 05.03.2018 10:40
-aScriptDir2wordlistFolder := removesSymbolicLinksFromFileAdress(A_ScriptDir "\..\Wordlists") ; user should could includes direcly from his txt wordlist, without editing the address 05.03.2018 08:15
-;msgbox, aScriptDir2wordlistFolder  = %aScriptDir2wordlistFolder%  `n (%A_LineFile%~%A_LineNumber%)
+aScriptDir2ActionListFolder := removesSymbolicLinksFromFileAdress(A_ScriptDir "\..\ActionLists") ; user should could includes direcly from his ahk ActionList, without editing the address 05.03.2018 08:15
+;msgbox, aScriptDir2ActionListFolder  = %aScriptDir2ActionListFolder%  `n (%A_LineFile%~%A_LineNumber%)
 ;exitapp\
 
 if( isKTScode ){
-    ; "E:\fre\private\HtmlDevelop\AutoHotKey\global-IntelliSense-everywhere\Wordlists\_kts\kotlinc\bin\kotlinc"
+    ; "E:\fre\private\HtmlDevelop\AutoHotKey\global-IntelliSense-everywhere\ActionLists\_kts\kotlinc\bin\kotlinc"
     ;
 
-    fExistCode := FileExist(wordlistFolderOfThisWordlist "\" KTScode)
+    fExistCode := FileExist(ActionListFolderOfThisActionList "\" KTScode)
     if(fExistCode){
-        scriptAddress := wordlistFolderOfThisWordlist "\" KTScode
+        scriptAddress := ActionListFolderOfThisActionList "\" KTScode
     }else{
-        scriptAddress := removesSymbolicLinksFromFileAdress( A_ScriptDir "\..\Wordlists\_kts\KotlinLove.kts" )
+        scriptAddress := removesSymbolicLinksFromFileAdress( A_ScriptDir "\..\ActionLists\_kts\KotlinLove.kts" )
         KTScode := RegExReplace(KTScode, "``n" , "`n")
         FileSave(KTScode, scriptAddress )
     }
-    resultAddress := removesSymbolicLinksFromFileAdress( A_ScriptDir "\..\Wordlists\_kts\cmdResult2.txt" ) ; ; %A_Temp%\
-    kotlincExeAddress := removesSymbolicLinksFromFileAdress (A_ScriptDir "\..\Wordlists\_kts\kotlinc\bin\kotlinc")
+    resultAddress := removesSymbolicLinksFromFileAdress( A_ScriptDir "\..\ActionLists\_kts\cmdResult2.ahk" ) ; ; %A_Temp%\
+    kotlincExeAddress := removesSymbolicLinksFromFileAdress (A_ScriptDir "\..\ActionLists\_kts\kotlinc\bin\kotlinc")
     ; run,cmd.exe /c "%kotlincExeAddress%" -script KotlinLove.kts > cmdResult.txt,, Hide"
     runString = cmd.exe /c "%kotlincExeAddress%" -script %scriptAddress% > %resultAddress%
     run,% runString,, Hide
     ; Clipboard := runString
-        ;  Wordlists\_kts\kotlinc\bin\kotlinc""
+        ;  ActionLists\_kts\kotlinc\bin\kotlinc""
     ; FileReadLine, thisLine , %A_Temp%\cmdResult.txt, 1
     sleep,100
     FileRead, cmdResult, % resultAddress
@@ -516,7 +556,7 @@ if( isKTScode ){
 ; AHKcode2 .= "#" . "NoTrayIcon `n "
 AHKcode2 .= "#" "MaxHotkeysPerInterval 99000000 `n "
 AHKcode2 .= "#" "HotkeyInterval 99000000 `n "
-AHKcode2 .= "SetWorkingDir, " . aScriptDir2wordlistFolder . "`n" ; doesent work has no effect ScriptDir|rr||ahk|send, % A_ScriptDir ; \\.\pipe 03.04.2017 11:17 17-04-03_11-17
+AHKcode2 .= "SetWorkingDir, " . aScriptDir2ActionListFolder . "`n" ; doesent work has no effect ScriptDir|rr||ahk|send, % A_ScriptDir ; \\.\pipe 03.04.2017 11:17 17-04-03_11-17
 AHKcode2 .= "SetBatchLines, -1 `n "
 AHKcode2 .= "SetKeyDelay, -1, -1 `n "
 AHKcode2 .= "SetWinDelay, -1 `n "
@@ -530,7 +570,7 @@ AHKcode2 .= dynaRunFunctionImplementationSource  . "`n"
 
 
 if(0){
-    AHKcode2 .= "wordlist = , " . wordlistNEW . "`n" ; i cant do this :D becouse the script cant know this :D 12.08.2017 11:12
+    AHKcode2 .= "ActionList = , " . ActionListNEW . "`n" ; i cant do this :D becouse the script cant know this :D 12.08.2017 11:12
     Msgbox,% AHKcode2 . "`n`n = AHKcode2 `n (%A_LineFile%~%A_LineNumber%)"
 }
 ; doesent work has no effect ScriptDir|rr||ahk|send, % A_ScriptDir ; \\.\pipe 03.04.2017 11:17 17-04-03_11-17
@@ -552,9 +592,9 @@ if( RegExMatch( activeTitle , "\.(json|ts|css|html) - PhpStorm" ) && substr( lin
 }
 
 ; https://github.com/sl5net/global-IntelliSense-everywhere/blob/master/Source/help/CHANGELOG.txt#L1
-;AHKcode := RegExReplace(AHKcode, "#include[ ]*,[ ]*(\w)"           , "#include " . aScriptDir2wordlistFolder . "\\$1" ) ; dayTimeHello|rr||ahk|#include,incDynAhk\sendDayTimeHello.ahk
-;AHKcode := RegExReplace(AHKcode, "#include[ ]*,[ ]*([\.]{1,2}\\\w)", "#include " . aScriptDir2wordlistFolder . "\\$1" ) ; dayTimeHello|rr||ahk|#include,..\xyz\sendDayTimeHello.ahk
-; AHKcode := RegExReplace(AHKcode, "#include[ ]+([\.]{1,2}\\\w)", "#include " . aScriptDir2wordlistFolder . "\\$1" ) ; dayTimeHello|rr||ahk|#include ..\xyz\sendDayTimeHello.ahk
+;AHKcode := RegExReplace(AHKcode, "#include[ ]*,[ ]*(\w)"           , "#include " . aScriptDir2ActionListFolder . "\\$1" ) ; dayTimeHello|rr||ahk|#include,incDynAhk\sendDayTimeHello.ahk
+;AHKcode := RegExReplace(AHKcode, "#include[ ]*,[ ]*([\.]{1,2}\\\w)", "#include " . aScriptDir2ActionListFolder . "\\$1" ) ; dayTimeHello|rr||ahk|#include,..\xyz\sendDayTimeHello.ahk
+; AHKcode := RegExReplace(AHKcode, "#include[ ]+([\.]{1,2}\\\w)", "#include " . aScriptDir2ActionListFolder . "\\$1" ) ; dayTimeHello|rr||ahk|#include ..\xyz\sendDayTimeHello.ahk
 
 ; ___create own project dir or this 1|rr||ahk|#Include,..\activeClassManipulation.inc.ahk `n activeClass := RegExReplace( activeClass, "[\W_]+", "") `n d1
 ;
@@ -562,8 +602,8 @@ regEx := "i)(http|https):"
 regEx2 := "(#include|run)[ ]*( |,)[ ]*\b(?!\w\:\\)" ; should not work with thinks like: ; run, C:\tata only relative paths 8.5.2018 14:27 , see: https://www.regextester.com/15
 regEx2 := "(#include|run)[ ]*( |,)[ ]*(?!( |\w:\\))" ; should not work with thinks like: ; run, C:\tata only relative paths 8.5.2018 14:27 , see: https://www.regextester.com/15
 if(!RegExMatch(AHKcode, regEx))
-    AHKcode := RegExReplace(AHKcode, "i)" regEx2, "$1$2$3" . wordlistFolderOfThisWordlist . "\" ) ; dayTimeHello|rr||ahk|#include ..\xyz\sendDayTimeHello.ahk
-;    AHKcode := RegExReplace(AHKcode, "i)(#include|run)[ ]*( |,)[ ]*(?!\w\:\\)", "$1$2" . wordlistFolderOfThisWordlist . "\" ) ; dayTimeHello|rr||ahk|#include ..\xyz\sendDayTimeHello.ahk
+    AHKcode := RegExReplace(AHKcode, "i)" regEx2, "$1$2$3" . ActionListFolderOfThisActionList . "\" ) ; dayTimeHello|rr||ahk|#include ..\xyz\sendDayTimeHello.ahk
+;    AHKcode := RegExReplace(AHKcode, "i)(#include|run)[ ]*( |,)[ ]*(?!\w\:\\)", "$1$2" . ActionListFolderOfThisActionList . "\" ) ; dayTimeHello|rr||ahk|#include ..\xyz\sendDayTimeHello.ahk
 
 
 
@@ -572,12 +612,12 @@ if(!RegExMatch(AHKcode, regEx))
 
 ; AHKcode := RegExReplace(AHKcode, "#include[ ]*,[ ]*(\w)", "#include \\$1" ) ; dayTimeHello|rr||ahk|#include,incDynAhk\sendDayTimeHello.ahk
 ; AHKcode := RegExReplace(AHKcode, "#include[ ]*,[ ]*[\.]{0,2}\\(\w)", "#include \\$1" ) ; dayTimeHello|rr||ahk|#include,incDynAhk\sendDayTimeHello.ahk
-StringReplace, AHKcode, AHKcode, `%A_ScriptDir`%, %aScriptDir2wordlistFolder%, All
+StringReplace, AHKcode, AHKcode, `%A_ScriptDir`%, %aScriptDir2ActionListFolder%, All
 StringReplace, AHKcode, AHKcode, `%A_WorkingDir`%, %A_WorkingDir%, All ; in some context its not neccasarry becouse its set ... 12.08.2017 11:22
 ; A_ScriptDir == A_WorkingDir is proably the same !! should be in this case :) 12.08.2017 11:26
 
 ; StringReplace, AHKcode, AHKcode, #incDynAhk, #include %A_ScriptDir%\incDynAhk, All ; dayTimeHello|rr||ahk|#incDynAhk\sendDayTimeHello.ahk ; before 09.03.2018 11:03
- StringReplace, AHKcode, AHKcode,#incDynAhk,#include %wordlistFolderOfThisWordlist%\incDynAhk, All ; dayTimeHello|rr||ahk|#incDynAhk\sendDayTimeHello.ahk
+ StringReplace, AHKcode, AHKcode,#incDynAhk,#include %ActionListFolderOfThisActionList%\incDynAhk, All ; dayTimeHello|rr||ahk|#incDynAhk\sendDayTimeHello.ahk
 
 
 
@@ -601,7 +641,7 @@ if(0){
 
         ;msgbox,(%A_LineFile%~%A_LineNumber%) `n %AHKcode2%
         aWorkingDirBackUp := A_WorkingDir
-        SetWorkingDir,%A_WorkingDir%\..\Wordlists 
+        SetWorkingDir,%A_WorkingDir%\..\ActionLists
          ; suspend,on ; if you do thi script sends nothing 13.03.2018 15:30
        DynaRun(AHKcode2)
         ; suspend,off
@@ -613,10 +653,10 @@ if(0){
    ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
    ; the following code was addet by Http://SL5.net 11.03.2017 17:54 17-03-11_17-54 . have fin & enjoy
    sending:=trim( sending )
-   if(RegExMatch( sending , "^[^\s]+(\\[^\\\s]+\\[^\\\s]+\.txt)$", SubPat) ) ; stores in SubPat1. 30.04.2017 12:24 is that buggy ? correct? todo:
-        absWordListAddress = %aScriptDir2wordlistFolder%\..\%sending%
-        ; Msgbox,%absWordListAddress% = absWordListAddress `n (from: %A_LineFile%~%A_LineNumber%)
-        fExistWL := FileExist(absWordListAddress)
+   if(RegExMatch( sending , "^[^\s]+(\\[^\\\s]+\\[^\\\s]+\.ahk)$", SubPat) ) ; stores in SubPat1. 30.04.2017 12:24 is that buggy ? correct? todo:
+        absActionListAddress = %aScriptDir2ActionListFolder%\..\%sending%
+        ; Msgbox,%absActionListAddress% = absActionListAddress `n (from: %A_LineFile%~%A_LineNumber%)
+        fExistWL := FileExist(absActionListAddress)
         fExist := FileExist(sending)
         ; InStr(FileExist("C:\My Folder"), "D") would be true only if the file exists and is a directory.
       if((fExist && InStr(FileExist(fExist), "D"))  || (fExistWL && InStr(FileExist(fExistWL), "D"))  ) {
@@ -627,9 +667,9 @@ if(0){
         if(fExist)
             run, %sending%
         else
-             run, %absWordListAddress%
+             run, %absActionListAddress%
 
-                 ;Msgbox,%absWordListAddress% `n (from: %A_LineFile%~%A_LineNumber%)
+                 ;Msgbox,%absActionListAddress% `n (from: %A_LineFile%~%A_LineNumber%)
 
       }
 
@@ -879,7 +919,7 @@ Clipboard := ClipboardBackup
         ; Msgbox,sending `n >%sending%< `n (%A_LineFile%~%A_LineNumber%)
 
 }else{
-       SendPlay, %sending% ; First do the backspaces, Then send word (Raw because we want the string exactly as in wordlist . txt)
+       SendPlay, %sending% ; First do the backspaces, Then send word (Raw because we want the string exactly as in ActionList . ahk)
         ;lll(A_LineNumber, A_LineFile, "%sending% `n >" . sending . "<  `n token=18-03-13_14-44")
         ; Msgbox,sending `n >%sending%< `n (%A_LineFile%~%A_LineNumber%) 
 }
@@ -941,7 +981,6 @@ SendRaw, 4SendRaw = %SendValue% `n
 ; 1SendEvenewStr := RegExReplace("abc", "i)")
 ; 2SendInpnewStr := RegExReplace("abc", "i)")
 ; 4SendRaw = {Shift Down}{Shift Up}{Shift Down}{Shift Up}{}
-
    if (BackSpaceWord)
    {
       sending = {BS %BackSpaceLen%}{Raw}%SendValue%
@@ -979,7 +1018,7 @@ if( g_sending_is_buggy )
 
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-      SendInput, %sending% ; First do the backspaces, Then send word (Raw because we want the string exactly as in wordlist . txt)
+      SendInput, %sending% ; First do the backspaces, Then send word (Raw because we want the string exactly as in ActionList . ahk)
  ;Msgbox, '%SendValue%' = SendValue  `n `n '%sending%' = sending `n (line:%A_LineNumber%) n
 
  global g_sending_is_buggy
@@ -995,7 +1034,7 @@ if( g_sending_is_buggy )
    if( g_sending_is_buggy )
        lll(A_LineNumber, A_LineFile, " SendEvent, %sending% ")
 
-      SendEvent, %sending% ; First do the backspaces, Then send word (Raw because we want the string exactly as in wordlist . txt)
+      SendEvent, %sending% ; First do the backspaces, Then send word (Raw because we want the string exactly as in ActionList . ahk)
  ;Msgbox, '%SendValue%' = SendValue  `n `n '%sending%' = sending `n (line:%A_LineNumber%) n
       Return
    }
@@ -1763,7 +1802,7 @@ sending := RegExReplace( sending , "Abschlu" nW "", "Abschlu" . Chr(223) ) ; sch
 
 ; sending := RegExReplace( sending , "i)ss", Chr(223) ) ; scharfess http://slayeroffice.com/tools/ascii/ Ausnahmen professionell
 
-; ausschlie?lich
+; ausschlie�lich
 sending := RegExReplace( sending , "i)lie.lich\b","lie" . Chr(223) . "lich") ; scharfess http://slayeroffice.com/tools/ascii/ 
 
 sending := RegExReplace( sending , "i)s" nW "ch","s" . Chr(228) . "ch") ; 

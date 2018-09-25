@@ -1,4 +1,4 @@
-; Indentation_style: https://de.wikipedia.org/wiki/Einrueckungsstil#SL5small-Stil
+ï»¿; Indentation_style: https://de.wikipedia.org/wiki/Einrueckungsstil#SL5small-Stil
 ; # ErrorStdOut
 
 #MaxHotkeysPerInterval 99000000
@@ -16,12 +16,16 @@ SetControlDelay, -1 ; A short delay (sleep) is done automatically after every Co
 
 #Include %A_ScriptDir%\inc_ahk\init_global.init.inc.ahk
 
+FileEncoding, UTF-8
+
 lll(A_LineNumber, A_LineFile, "hi from " A_LineFile)
 
-fnReceive_wordlistAddress := Func("Receive_wordlistAddress").Bind(1)
+
+
+fnReceive_ActionListAddress := Func("Receive_ActionListAddress").Bind(1)
 ; OnMessage(0x4a, "Receive_WM_COPYDATA")  ; 0x4a is WM_COPYDATA  ; deprecated 15.02.2018 10:26
 ; ObjRegisterActive(Stuff, "{93C04B39-0465-4460-8CA0-7BFFF481FF98}")
-ObjRegisterActive(fnReceive_wordlistAddress, "{93C04B39-0465-4460-8CA0-7BFFF481FF98}")  ; Receive_wordlistAddress(CopyOfData){
+ObjRegisterActive(fnReceive_ActionListAddress, "{93C04B39-0465-4460-8CA0-7BFFF481FF98}")  ; Receive_ActionListAddress(CopyOfData){
 class Stuff{
     static abc := 1
     callFunction( name, p* ) { ;allows you to call any function in this script
@@ -49,10 +53,10 @@ global g_regExReplaceInVisibleLine := "^[_]*([^|\n]+)[^\.\n]*?([^|\n]{3,})?$" ; 
 ; the string only before the first "|"
 demoTestData =
 (
-___your library open|rr||ahk|run,SourceTree.txt
+___your library open|rr||ahk|run,SourceTree.ahk
 autoload.ahk
-b&w Wordlists|r|E:\fre\Wordlists\TscShellContainerClass
-Visual Basic|rr||ahk|q=b&w Wordlists
+b&w ActionLists|r|E:\fre\ActionLists\TscShellContainerClass
+Visual Basic|rr||ahk|q=b&w ActionLists
 Recent|r|C:\Users\bla\AppData\Roaming\Microsoft\Windows\Recent
 last used Recent|rr||ahk|q=Recent
 )
@@ -62,20 +66,19 @@ global g_sending_is_buggy := false ; Solved: SendPlay. 29.07.2017 11:21
 global g_doSaveLogFiles := false
 global g_doRunLogFiles := false
 
-global wordlist
-global WordlistOLD
+global ActionList
+global ActionListOLD
 global activeTitle:=""
 
-global g_doAskBevoreChangingWordlist := false ; <== buggy dont know whey 19.03.2018 23:50
-global g_doAskBevoreChangingWordlist := true ; <== works preetty nice :) 19.03.2018 23:51
-global g_minBytesNeedetToAskBevoreChangingWordlist := 81234 ; <== Minimum bytes. then will be asked before the change 20.03.2018 18:22
+global g_doAskBevoreChangingActionList := false ; <== buggy dont know whey 19.03.2018 23:50
+global g_doAskBevoreChangingActionList := true ; <== works preetty nice :) 19.03.2018 23:51
+global g_minBytesNeedetToAskBevoreChangingActionList := 81234 ; <== Minimum bytes. then will be asked before the change 20.03.2018 18:22
 if(1 && InStr(A_ComputerName,"SL5"))
-    g_minBytesNeedetToAskBevoreChangingWordlist := 812345 ; <== Minimum bytes. then will be asked before the change 20.03.2018 18:22
+    g_minBytesNeedetToAskBevoreChangingActionList := 812345 ; <== Minimum bytes. then will be asked before the change 20.03.2018 18:22
 
 global g_FLAGmsgbox := false
 
-global g_wordListID
-
+global g_ActionListID
 
 
 global g_ListBoxFontSize := 16 ; works
@@ -83,7 +86,7 @@ global g_ListBoxFontSize := 2 ; work but its so small i could not read it too
 global g_ListBoxFontSize := 8 ; work but its so small i could not read it too too tool
 listBoxFontSizeOLD := g_ListBoxFontSize
 
-wordlist:=wordlistActive
+ActionList:=ActionListActive
 
 feedbackMsgBoxCloseAllWindows()
 
@@ -92,12 +95,12 @@ global g_doSaveLogFiles
 
     lll("`n" . A_LineNumber, A_ScriptName, temp . " STARTING first lines :) ")
 
-RegRead, wordlist, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlist ; todo: 02.03.2018 12:55 18-03-02_12-55
-if(!fileExist(wordlist)){ 
+RegRead, ActionList, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList ; todo: 02.03.2018 12:55 18-03-02_12-55
+if(!fileExist(ActionList)){
     ; addet 26.4.2018 12:58 becouse of mistourios things
     ; deactivated 10.06.2018 08:36 becouse messeage disturbing every new installed is first time started.
     ; and becouse dont know the use of this lines?
-    msg = :( !fileExist(%wordlist%) `n (%A_LineFile%~%A_LineNumber%)
+    msg = :( !fileExist(%ActionList%) `n (%A_LineFile%~%A_LineNumber%)
     lll("`n" . A_LineNumber, A_ScriptName, msg)
     if(false){
         Msgbox,% msg
@@ -110,8 +113,10 @@ if(!fileExist(wordlist)){
 maxLinesOfCode4length1 := 900 ;
 
 SetTimer, saveIamAllive, 8000 ; setinterval
-SetTimer,checkInRegistryChangedWordlistAddress,1000 ; RegRead, wordlistActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlist
-SetTimer,checkWordlistTXTfile_sizeAndModiTime,3000
+SetTimer,checkInRegistryChangedActionListAddress,1000 ; RegRead, ActionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList
+SetTimer,checkActionListTXTfile_sizeAndModiTime,3000
+SetTimer,check_some_keys_hanging_or_freezed,2000 ; ; 30.08.2018 13:52 it sometimes happesn. and if it happens then its really ugly !!!! :( !!
+
 
 SetTimer,doListBoxFollowMouse,off
 ;SetTimer,doListBoxFollowMouse,off
@@ -201,7 +206,7 @@ g_nextCriticalCommandTimeIdle := A_TimeIdle
 SuspendOn()  ; wieder (10.07.2017 11:51) auskommentiert weils mir zu oft auf suspand on war. wehr oft wenn ich auf skype gewecheelt habe. hoffe die anderen bugFix haben den Seiteneffekt das ich dieses nicht mehr brauche.
 g_nextCriticalCommandString := ""
 
-Gosub, setWordlistFileUpdatedTime ; 29.04.2017 14:03
+Gosub, setActionListFileUpdatedTime ; 29.04.2017 14:03
 
 BuildTrayMenu()      
 
@@ -272,18 +277,18 @@ DisableKeyboardHotKeys()
 ;Change the Running performance speed (Priority changed to High in GetIncludedActiveWindow)
 ; SetBatchLines, -1
 
-g_wordListID := getWordListID(wordlist) ; 24.03.2018 23:02
-ReadInTheWordList()
+g_ActionListID := getActionListID(ActionList) ; 24.03.2018 23:02
+ReadInTheActionList()
 
 
 g_WinChangedCallback := RegisterCallback("WinChanged")
 g_ListBoxScrollCallback := RegisterCallback("ListBoxScroll")
 if !(g_WinChangedCallback){
-   MsgBox, Failed to register callback function
+   MsgBox, Failed to register callback function  `n (%A_LineFile%~%A_LineNumber%)
    ExitApp
 }
 if !(g_ListBoxScrollCallback){
-   MsgBox, Failed to register ListBox Scroll callback function
+   MsgBox, Failed to register ListBox Scroll callback function  `n (%A_LineFile%~%A_LineNumber%)
    ExitApp
 }
    
@@ -292,13 +297,82 @@ GetIncludedActiveWindow() ;Find the ID of the window we are using
 MainLoop()
 
 ; dirty bugfix, https://github.com/sl5net/global-IntelliSense-everywhere/issues/4
+
+;<<<<<<<<<<<<<<<<< workaround <<<<<<<<<<<<<<<<<
+; https://stackoverflow.com/questions/52493547/autohotkey-read-of-two-underscore-keys
+; https://github.com/sl5net/global-IntelliSense-everywhere/issues/4
+countUnderscore :=0
 #IfWinActive,
-:*:___:: ; workaround if it comes sleeping
-  ;run,% "E:\fre\private\HtmlDevelop\AutoHotKey\global-IntelliSense-everywhere\start.ahk"
-   run,% "..\start.ahk"
-  Last_A_This:=A_ThisFunc . A_ThisLabel 
-  ToolTip1sec(A_LineNumber . " " . A_ScriptName . " " . Last_A_This)
+
+:b0*?:__:: ;does not delete the underscores
+    reload_IfNotExist_ListBoxGui()
+return
+
+; #IfWinActive,bullshitNeverExist1248796543214
+; ~_::
+;      countUnderscore++
+;      if(countUnderscore == 2){
+;         countUnderscore := 0
+;         ; Gui, ListBoxGui: Show, NoActivate X%g_ListBoxPosX% Y%ListBoxPosY% H%ListBoxActualSizeH% W%ListBoxActualSizeW%, Word List Appears Here.
+        ; Gui, ListBoxGui: +LastFound +AlwaysOnTop
+;         reload_IfNotExist_ListBoxGui()
+;       }
+; return
+
+
+;>>>>>>>>>>>>>>>>> workaround >>>>>>>>>>>>>>>
+reload_IfNotExist_ListBoxGui(){
+    AHKcode := "#" . "NoTrayIcon `n "
+    AHKcode =
+    (
+    class := "ahk_class AutoHotkeyGUI"
+    winTitle := "Word List Appears Here."
+    WinWait,`%winTitle`% `%class`%,  , 3 ; [, ExcludeTitle, ExcludeText]
+    DetectHiddenText, on
+    ; clipboard := winTitle "----" winText
+    IfWinNotExist, `%winTitle`% `%class`% ; , WinText, ExcludeTitle, ExcludeText]
+       run,`% "..\start.ahk"
+       ; MsgBox, `%winTitle`% NotExist `%class`%  : %A_LineFile%~%A_LineNumber%
+    else{
+        tooltip, winTitle=`%winTitle`% found: winText=`%winText`% :%countUnderscore% = countUnderscore : %A_LineFile%~%A_LineNumber%
+        sleep,2200
+        }
+    )
+    DynaRun(AHKcode)
+    return
+}
+
+
+
+;<<<<<<<<<<<<<<<<< workaround <<<<<<<<<<<<<<<<<
+; https://github.com/sl5net/global-IntelliSense-everywhere/issues/4
+; :*:___:: ; workaround if it comes sleeping
+;   ;run,% "E:\fre\private\HtmlDevelop\AutoHotKey\global-IntelliSense-everywhere\start.ahk"
+;   tooltip, reload every idle time? 31.07.2018 11:44 18-07-31_11-44
+;   pause
+;    run,% "..\start.ahk"
+  ;InitializeListBox() ; don work. produce error... new test 18-06-11_20-00
+;   Last_A_This:=A_ThisFunc . A_ThisLabel
+;   ToolTip4sec("InitializeListBox `n " A_LineNumber . " " . A_ScriptName . " " . Last_A_This)
 return 
+;>>>>>>>>>>>>>>>>> workaround >>>>>>>>>>>>>>>
+
+#IfWinActive,
+^+f5:: ; exit-all-scripts and restart
+    if(1 && InStr(A_ComputerName,"SL5")){
+        setRegistry_toDefault()
+        exit_all_scripts()
+        run,..\start.ahk
+    }
+return
+; ToolTip3sec("^+esc:: exit-all-scripts",1,1)
+ ^+esc:: ; exit-all-scripts. usefull in developer mode
+    if(1 && InStr(A_ComputerName,"SL5")){
+     setRegistry_toDefault()
+     exit_all_scripts()
+     exitapp
+     }
+ return
 
 
 RecomputeMatchesTimer:
@@ -330,7 +404,7 @@ CheckWord("$2")
 return
 
 $3::  ; some users dont have numpad ; 25.03.2018 15:35
-; $§:: ; problem with the paragraph sign. probably becouse of the document format. i dont need it so much. lets deactivate it. 21.04.2017 12:02
+; $ï¿½:: ; problem with the paragraph sign. probably becouse of the document format. i dont need it so much. lets deactivate it. 21.04.2017 12:02
 $Numpad3::
 CheckWord("$3")
 return
@@ -432,7 +506,7 @@ Return
 
 ;<<<<<<<< reloadWordlost <<<< 180208163147 <<<< 08.02.2018 16:31:47 <<<<
 reloadWordlost:
-ParseWordsCount := ReadWordList()
+ParseWordsCount := ReadActionList()
 prefs_Length := setLength(ParseWordsCount, maxLinesOfCode4length1)
  ;feedbackMsgBox("reloadWordlost:",A_LineNumber . " " .  A_LineFile,1,1)
 
@@ -472,16 +546,16 @@ return ; reload is deaktivated today :D 29.07.2017 14:51 17-07-29_14-51 . i usin
 
 
 
-ifWordlistFileWasUpdatedChanged:
+ifActionListFileWasUpdatedChanged:
 msgbox,18-03-02_12-51 return
 return
 
-    FileGetTime, WordlistModiTime, %Wordlist%, M
-    if(WordlistModiTime_OLD <> WordlistModiTime){
-        SetTimer, ifWordlistFileWasUpdatedChanged, Off
-        SetTimer, ifWordlistFileWasUpdatedChanged, 1500 ; one second is really slow. this line is a little obsulete. but better let it be. 31.07.2017 22:45
-        WordlistOLD := Wordlist
-        ParseWordsCount := ReadWordList()
+    FileGetTime, ActionListModiTime, %ActionList%, M
+    if(ActionListModiTime_OLD <> ActionListModiTime){
+        SetTimer, ifActionListFileWasUpdatedChanged, Off
+        SetTimer, ifActionListFileWasUpdatedChanged, 1500 ; one second is really slow. this line is a little obsulete. but better let it be. 31.07.2017 22:45
+        ActionListOLD := ActionList
+        ParseWordsCount := ReadActionList()
         prefs_Length := setLength(ParseWordsCount, maxLinesOfCode4length1)
         ;GoSub, reloadWordlost
         WinGetActiveTitle, ActiveTitle
@@ -491,33 +565,33 @@ return
         ; sometimes it stacks at line 105 105: Suspend,On (573.41)
         ;~ it needs then reloaded 29.04.2017 13:35
         WinGetActiveTitle, ActiveTitle
-        if(ActiveTitleOLD && ActiveTitleOLD <> ActiveTitle && WordlistOLD == Wordlist ){
+        if(ActiveTitleOLD && ActiveTitleOLD <> ActiveTitle && ActionListOLD == ActionList ){
          
-            WordlistModiTime_OLD:=WordlistModiTime
+            ActionListModiTime_OLD:=ActionListModiTime
             i := 0
             isActuallyWrittenToLog := false
-            while(WordlistModiTime_OLD == WordlistModiTime && i++ < 25){
-               ; lets wait a little for new given/copied wordlist 16.07.2017 02:01
+            while(ActionListModiTime_OLD == ActionListModiTime && i++ < 25){
+               ; lets wait a little for new given/copied ActionList 16.07.2017 02:01
                Sleep,100
                if(!isActuallyWrittenToLog){
 global g_doSaveLogFiles
 
-lll(A_LineNumber, A_LineFile, "Title changed, Wordlist(modiTime) NOT changed so fast ... ups `n Wordlist=>" . Wordlist . "< `n Sleep,100")
+lll(A_LineNumber, A_LineFile, "Title changed, ActionList(modiTime) NOT changed so fast ... ups `n ActionList=>" . ActionList . "< `n Sleep,100")
                   isActuallyWrittenToLog := true
                }
-               FileGetTime, WordlistModiTime, %Wordlist%, M
+               FileGetTime, ActionListModiTime, %ActionList%, M
             }
          
             msg = %ActiveTitleOLD%  <> `n%ActiveTitle%
 global g_doSaveLogFiles
 
 lll(A_LineNumber, A_LineFile, "`n Sleep,100 `n" . msg . "`n ==> Goto, doReload")
-           ;feedbackMsgBox("ReadInTheWordList",A_LineNumber . " , " . A_ScriptName,1,1)
-            ReadInTheWordList() ; 07.02.2018 17:28
+           ;feedbackMsgBox("ReadInTheActionList",A_LineNumber . " , " . A_ScriptName,1,1)
+            ReadInTheActionList() ; 07.02.2018 17:28
          }
     }
-    ;Msgbox, wordlist was changed (%A_LineFile%~%A_LineNumber%)
-    WordlistModiTime_OLD:=WordlistModiTime
+    ;Msgbox, ActionList was changed (%A_LineFile%~%A_LineNumber%)
+    ActionListModiTime_OLD:=ActionListModiTime
 
    ; lll(A_LineNumber, A_LineFile, "doReloadIfScriptDontMoveThisLine()")
 
@@ -534,45 +608,45 @@ return
 
 
 ;<<<<<<<< ordlistTXTfile <<<< 180319224633 <<<< 19.03.2018 22:46:33 <<<<
-checkWordlistTXTfile_sizeAndModiTime:
-    SetTimer,checkInRegistryChangedWordlistAddress,Off
+checkActionListTXTfile_sizeAndModiTime:
+    SetTimer,checkInRegistryChangedActionListAddress,Off
 
-    if(!FileExist(wordlist)){
-        wordlist := removesSymbolicLinksFromFileAdress( A_ScriptDir "\..\Wordlists\_globalWordListsGenerated\_global.txt" )
+    if(!FileExist(ActionList)){
+        ActionList := removesSymbolicLinksFromFileAdress( A_ScriptDir "\..\ActionLists\_globalActionListsGenerated\_global.ahk" )
     }
-    if(!FileExist(wordlist)){
-        MsgBox,ups !FileExist(wordlist = %wordlist%) 99999
+    if(!FileExist(ActionList)){
+        MsgBox,ups !FileExist(ActionList = %ActionList%) 99999
     }
 
 
 
-    FileGetSize, WordlistSize, %wordlist%
-    FileGetTime, WordlistModified, %wordlist%, M
-    FormatTime, WordlistModified, %WordlistModified%, yyyy-MM-dd HH:mm:ss
+    FileGetSize, ActionListSize, %ActionList%
+    FileGetTime, ActionListModified, %ActionList%, M
+    FormatTime, ActionListModified, %ActionListModified%, yyyy-MM-dd HH:mm:ss
 
-    SELECTwordlistmodified := "SELECT id, wordlistmodified, wordlistsize FROM Wordlists WHERE wordlist = '" . wordlist . "';"
-    ;clipboard := SELECTwordlistmodified ; SELECT wordlistmodified, wordlistsize FROM Wordlists WHERE wordlist = '..\Wordlists\_globalWordListsGenerated\_global.txt';
-    ; [2018-03-20 11:56:58] [1] [SQLITE_ERROR] SQL error or missing database (no such table: Wordlists)
-    WordsTbl := g_WordListDB.Query(SELECTwordlistmodified)
+    SELECTActionListmodified := "SELECT id, ActionListmodified, ActionListsize FROM ActionLists WHERE ActionList = '" . ActionList . "';"
+    ;clipboard := SELECTActionListmodified ; SELECT ActionListmodified, ActionListsize FROM ActionLists WHERE ActionList = '..\ActionLists\_globalActionListsGenerated\_global.txt';
+    ; [2018-03-20 11:56:58] [1] [SQLITE_ERROR] SQL error or missing database (no such table: ActionLists)
+    WordsTbl := g_ActionListDB.Query(SELECTActionListmodified)
     For each, row in WordsTbl.Rows
     {
-        g_wordListID := row[1]
-        WordlistLastModified := row[2]
-        WordlistLastSize := row[3]
+        g_ActionListID := row[1]
+        ActionListLastModified := row[2]
+        ActionListLastSize := row[3]
         break
     }
-    ; doReadWordlistTXTfile := (WordlistSize && WordlistModified && (WordlistSize <> WordlistLastSize || WordlistModified > WordlistLastModified))
-    doReadWordlistTXTfile := (WordlistSize <> WordlistLastSize || WordlistModified <> WordlistLastModified || !WordlistLastSize || !WordlistLastSize)
-    if(doReadWordlistTXTfile){
-        ;msgbox, doReadWordlistTXTfile 654654654
-        ReadInTheWordList()
-        ;ParseWordsCount := ReadWordList() ; there is also update and select of time of the wordlist
+    ; doReadActionListTXTfile := (ActionListSize && ActionListModified && (ActionListSize <> ActionListLastSize || ActionListModified > ActionListLastModified))
+    doReadActionListTXTfile := (ActionListSize <> ActionListLastSize || ActionListModified <> ActionListLastModified || !ActionListLastSize || !ActionListLastSize)
+    if(doReadActionListTXTfile){
+        ;msgbox, doReadActionListTXTfile 654654654
+        ReadInTheActionList()
+        ;ParseWordsCount := ReadActionList() ; there is also update and select of time of the ActionList
         ;prefs_Length := setLength(ParseWordsCount, maxLinesOfCode4length1)
         ; RebuildDatabase()
-        ; msgbox, have fun with :) `n %wordlist% 18-03-02_18-37  (%A_LineFile%~%A_LineNumber%)
+        ; msgbox, have fun with :) `n %ActionList% 18-03-02_18-37  (%A_LineFile%~%A_LineNumber%)
 
         RecomputeMatches()
-        tip:="doReadWordlistTXTfile=" doReadWordlistTXTfile " ReadInTheWordList()  wordlist=" wordlist " 4567984654888888 "
+        tip:="doReadActionListTXTfile=" doReadActionListTXTfile " ReadInTheActionList()  ActionList=" ActionList " 4567984654888888 "
         sqlLastError := SQLite_LastError()
         tip .= "`n sqlLastError=" sqlLastError " `n( " A_LineFile "~" A_LineNumber ")"
         if( instr(sqlLastError, "no such table") ){
@@ -589,34 +663,33 @@ checkWordlistTXTfile_sizeAndModiTime:
         sleep,100
         ;reload ; hardcore. anyway. thats a way it works
     }
-    SetTimer,checkInRegistryChangedWordlistAddress,On
+    SetTimer,checkInRegistryChangedActionListAddress,On
 return
-;>>>>>>>> checkWordlistTXTfile_sizeAndModiTime >>>> 180319224746 >>>> 19.03.2018 22:47:46 >>>>
+;>>>>>>>> checkActionListTXTfile_sizeAndModiTime >>>> 180319224746 >>>> 19.03.2018 22:47:46 >>>>
 
 
 
-;<<<<<<<< checkInRegistryChangedWordlistAddress <<<< 180319214428 <<<< 19.03.2018 21:44:28 <<<<
-checkInRegistryChangedWordlistAddress:
+;<<<<<<<< checkInRegistryChangedActionListAddress <<<< 180319214428 <<<< 19.03.2018 21:44:28 <<<<
+checkInRegistryChangedActionListAddress:
 
 if(g_config["list"]["change"]["stopRexExTitle"]=="."){
     temp := g_config["list"]["change"]["stopRexExTitle"]
-    tip = stopRexExTitle is >%temp%< %wordlist%
+    tip = stopRexExTitle is >%temp%< %ActionList%
     lineFileName := RegExReplace(A_LineFile, ".*\\([\w\s\.]+)$", "$1")
     ToolTip5sec(tip " (" A_LineNumber " " lineFileName . " )",1,-33 )
     return
 }
-
 if(0 && InStr(A_ComputerName,"SL5"))
-    ToolTip5sec(wordlist " `n(" A_LineNumber " " A_LineFile . " )" )
+    ToolTip5sec(ActionList " `n(" A_LineNumber " " A_LineFile . " )" )
 
-    ;SetTimer,checkWordlistTXTfile_sizeAndModiTime,Off
+    ;SetTimer,checkActionListTXTfile_sizeAndModiTime,Off
 
     global g_SingleMatch
     global g_FLAGmsgbox
 
     SetTitleMatchMode,2
-    if(WordlistSize > g_minBytesNeedetToAskBevoreChangingWordlist)
-        If(WinExist("wordlistChangedInRegistry") ){
+    if(ActionListSize > g_minBytesNeedetToAskBevoreChangingActionList)
+        If(WinExist("ActionListChangedInRegistry") ){
             g_FLAGmsgbox := true
             return ; no update jet
     }
@@ -624,7 +697,7 @@ if(0 && InStr(A_ComputerName,"SL5"))
     if(1){
         ; not needet to check, but maybe mmore pretty coding ?? 20.03.2018 18:34 TODO
         ; its more pretty to have a updated text inside this box, therfore close it first. 20.03.2018 18:35
-        name := "wordlistChangedInRegistry"
+        name := "ActionListChangedInRegistry"
         while(WinExist(name) && A_Index < 9){
             WinClose,% name
             winWaitclose,% name,,1
@@ -633,23 +706,23 @@ if(0 && InStr(A_ComputerName,"SL5"))
             WinKill,% name
             winWaitclose,% name,,1
         }
-        If(WinExist("wordlistChangedInRegistry") ){
-            tooltip,Oops  `n should never happen BUG `n was not able to close wordlistChangedInRegistry `n`n  ==> reload in 9Seconds (%A_LineFile%~%A_LineNumber%) 20.03.2018 18:54
+        If(WinExist("ActionListChangedInRegistry") ){
+            tooltip,Oops  `n should never happen BUG `n was not able to close ActionListChangedInRegistry `n`n  ==> reload in 9Seconds (%A_LineFile%~%A_LineNumber%) 20.03.2018 18:54
             sleep,9000
             reload
             return
         }
     }
 
-    RegRead, wordlistNewTemp, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlist
-    isRegListChanged := (wordlistNewTemp && wordlist <> wordlistNewTemp)
+    RegRead, ActionListNewTemp, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList
+    isRegListChanged := (ActionListNewTemp && ActionList <> ActionListNewTemp)
     if(!isRegListChanged || A_TimeIdle < 1333)
         return
 
     if(g_config["list"]["change"]["stopRexExTitle"]){
         regExPattern := g_config["list"]["change"]["stopRexExTitle"]
         ; regExPattern := g_config\["list"\]\["change"\]\["stopRexExTitle"\]\s*:=\s*(\w+)
-        foundPos := RegExMatch( wordlistNewTemp, regExPattern ,  matchs )
+        foundPos := RegExMatch( ActionListNewTemp, regExPattern ,  matchs )
         if(foundPos)
             return
 
@@ -657,25 +730,27 @@ if(0 && InStr(A_ComputerName,"SL5"))
 
 
 
-    if(!fileExist(wordlistNewTemp)){ ; addet 26.4.2018 12:58 becouse of mistourios things
-        clilpboard := wordlistNewTemp
-        msg = :( list read by RegRead NOT `n wordlistNewTemp=%wordlistNewTemp% `n clilpboard = %wordlistNewTemp% `n  (%A_LineFile%~%A_LineNumber%)
-        Msgbox,% msg
+    if(!fileExist(ActionListNewTemp)){ ; addet 26.4.2018 12:58 becouse of mistourios things
+        clilpboard := ActionListNewTemp
+        msg = :( list read by RegRead NOT exist: `n`n ActionListNewTemp = `n %ActionListNewTemp% `n = clilpboard = `n  (%A_LineFile%~%A_LineNumber%)
+        ; Msgbox,% msg
+        ; feedbackMsgBox(msg,msg,1,1)
+        ToolTip4sec(msg " `n"  . A_LineNumber . " " . A_LineNumber )
         clilpboard := msg
         sleep,5000
     }
 
-    if(g_doAskBevoreChangingWordlist && WordlistSize > g_minBytesNeedetToAskBevoreChangingWordlist){
+    if(g_doAskBevoreChangingActionList && ActionListSize > g_minBytesNeedetToAskBevoreChangingActionList){
         AHKcodeMsgBox := "#" . "NoTrayIcon `n "
-        temp = msgbox,,wordlistChangedInRegistry, Would you use new list now? ``n ``n Say goodbye to? (%WordlistSize% bytes > %g_minBytesNeedetToAskBevoreChangingWordlist%) ``n  %wordlist% ``n exitApp
+        temp = msgbox,,ActionListChangedInRegistry, Would you use new list now? ``n ``n Say goodbye to? (%ActionListSize% bytes > %g_minBytesNeedetToAskBevoreChangingActionList%) ``n  %ActionList% ``n exitApp
 AHKcodeMsgBox .= temp
         if(g_FLAGmsgbox){
             g_FLAGmsgbox := false ; just clicked msgboxWindow
         }else{
             DynaRun(AHKcodeMsgBox) ; wait for user decision
-            tooltip,WinWait wordlistChangedInRegistry
-            ;WinWait,wordlistChangedInRegistry
-            WinWait,wordlistChangedInRegistry,,1
+            tooltip,WinWait ActionListChangedInRegistry
+            ;WinWait,ActionListChangedInRegistry
+            WinWait,ActionListChangedInRegistry,,1
             ;msgbox,18-03-02_17-42 %AHKcodeMsgBox%
             tooltip,
 
@@ -683,32 +758,32 @@ AHKcodeMsgBox .= temp
         }
     }
 
-   if( !FileExist(wordlistNewTemp) ){
-        ; Msgbox,:(  '%wordlistNewTemp%' = wordlistNewTemp `n Wordlist is not a file  (%A_LineFile%~%A_LineNumber%)
-        wordlistOLD := "" ; probably programmer want a reloud soon. quck an dirty ???
+   if( !FileExist(ActionListNewTemp) ){
+        ; Msgbox,:(  '%ActionListNewTemp%' = ActionListNewTemp `n ActionList is not a file  (%A_LineFile%~%A_LineNumber%)
+        ActionListOLD := "" ; probably programmer want a reloud soon. quck an dirty ???
         return
     }
 
-        wordlist := wordlistNewTemp
-        wordlistOLD := wordlist
-        g_wordListID := getWordListID(wordlist) ; 24.03.2018 23:02
+        ActionList := ActionListNewTemp
+        ActionListOLD := ActionList
+        g_ActionListID := getActionListID(ActionList) ; 24.03.2018 23:02
 
-        ;tip=%wordlist% (%WordlistSize%) `n%wordlistOLD% (%WordlistLastSize%) = old `n ( %A_LineFile%~%A_LineNumber% )
+        ;tip=%ActionList% (%ActionListSize%) `n%ActionListOLD% (%ActionListLastSize%) = old `n ( %A_LineFile%~%A_LineNumber% )
         ;ToolTip4sec(tip)
-        ;msgbox,%wordlist%  (%A_LineFile%~%A_LineNumber%)
+        ;msgbox,%ActionList%  (%A_LineFile%~%A_LineNumber%)
 
         ;if(g_FLAGmsgbox == 0)
             RecomputeMatches()
 
-    ; gosub onLink2wordlistChangedInRegistry ; ToolTip3sec(A_LineNumber . " " . A_LineFile . " " . Last_A_This)
+    ; gosub onLink2ActionListChangedInRegistry ; ToolTip3sec(A_LineNumber . " " . A_LineFile . " " . Last_A_This)
 return
-;>>>>>>>> checkInRegistryChangedWordlistAddress >>>> 180319214434 >>>> 19.03.2018 21:44:34 >>>>
+;>>>>>>>> checkInRegistryChangedActionListAddress >>>> 180319214434 >>>> 19.03.2018 21:44:34 >>>>
 
 ; ToolTip1sec(A_LineNumber . " " . A_LineFile . " " . Last_A_This) )
 
 
-;<<<<<<<< onLink2wordlistChangedInRegistry <<<< 180319214441 <<<< 19.03.2018 21:44:41 <<<<
-onLink2wordlistChangedInRegistry:
+;<<<<<<<< onLink2ActionListChangedInRegistry <<<< 180319214441 <<<< 19.03.2018 21:44:41 <<<<
+onLink2ActionListChangedInRegistry:
 
 if(g_doListBoxFollowMouse)
   Return  ; __
@@ -719,36 +794,36 @@ if(g_doListBoxFollowMouse)
     global g_FLAGmsgbox
     SetTitleMatchMode,2
 
-    ;SetTimer,checkInRegistryChangedWordlistAddress,off
+    ;SetTimer,checkInRegistryChangedActionListAddress,off
 
 
-    FileGetTime, WordlistModified, %wordlist%, M
-    FormatTime, WordlistModified, %WordlistModified%, yyyy-MM-dd HH:mm:ss
-    ;ToolTip4sec(wordlist " = wordlist `n"  WordlistModified  " `n" . A_LineNumber . " " . A_ScriptName . " " . Last_A_This,1,1)
-    if(WordlistModiTime_OLD <> WordlistModiTime && WordlistModiTime_OLD ){
-        ;Msgbox,WordlistModiTime_OLD <> WordlistModiTime `n (%A_LineFile%~%A_LineNumber%)
-        ; ParseWordsCount := ReadWordList()
+    FileGetTime, ActionListModified, %ActionList%, M
+    FormatTime, ActionListModified, %ActionListModified%, yyyy-MM-dd HH:mm:ss
+    ;ToolTip4sec(ActionList " = ActionList `n"  ActionListModified  " `n" . A_LineNumber . " " . A_ScriptName . " " . Last_A_This,1,1)
+    if(ActionListModiTime_OLD <> ActionListModiTime && ActionListModiTime_OLD ){
+        ;Msgbox,ActionListModiTime_OLD <> ActionListModiTime `n (%A_LineFile%~%A_LineNumber%)
+        ; ParseWordsCount := ReadActionList()
         ; prefs_Length := setLength(ParseWordsCount, maxLinesOfCode4length1)
 
-        g_wordListID := getWordListID(wordlist) ; 24.03.2018 23:02
-        ReadInTheWordList()
+        g_ActionListID := getActionListID(ActionList) ; 24.03.2018 23:02
+        ReadInTheActionList()
         prefs_Length := setLength(ParseWordsCount, maxLinesOfCode4length1)
         ; RebuildDatabase()
 
-        ;If(WinExist("wordlistChangedInRegistry"))
-        winclose,wordlistChangedInRegistry
+        ;If(WinExist("ActionListChangedInRegistry"))
+        winclose,ActionListChangedInRegistry
 
-        ;SetTimer,checkInRegistryChangedWordlistAddress,on
-        ;ToolTip4sec("RecomputeMatches() `n " wordlist " = wordlist `n"  WordlistModified  " `n" . A_LineNumber . " " . A_ScriptName . " " . Last_A_This,1,1)
+        ;SetTimer,checkInRegistryChangedActionListAddress,on
+        ;ToolTip4sec("RecomputeMatches() `n " ActionList " = ActionList `n"  ActionListModified  " `n" . A_LineNumber . " " . A_ScriptName . " " . Last_A_This,1,1)
         ;RecomputeMatches() ; 27.03.2018 23:51
         return ; no update jet
     }
-    WordlistModiTime_OLD := WordlistModiTime
+    ActionListModiTime_OLD := ActionListModiTime
 
     if(0 && firstLine := g_SingleMatch[1])
         tooltip,%firstLine% `n (%A_LineFile%~%A_LineNumber%)
 
-    ; WinWaitNotActive,wordlistChangedInRegistry ahk_class AutoHotkeyGUI
+    ; WinWaitNotActive,ActionListChangedInRegistry ahk_class AutoHotkeyGUI
 
     ; DetectHiddenWindows,On ; it set the window to no tray icon. i surprized to use now DetectHiddenWindows,On 18-03-03_17-16 Really necasary ??? TODO:need it ?
 
@@ -824,7 +899,7 @@ if(false && ActiveTitleOLD <> ActiveTitle){
     ; sleep,120 ; it needs a little time to copy the files 31.07.2017 21:30
 msg=`n (%A_LineFile%~%A_LineNumber%)
 feedbackMsgBox(msg,msg,1,1)
-    SetTimer, ifWordlistFileWasUpdatedChanged, 100
+    SetTimer, ifActionListFileWasUpdatedChanged, 100
 }
 return
 
@@ -871,28 +946,28 @@ ObjRegisterActive(Object, CLSID, Flags:=0) {
     cookieJar[Object] := cookie
 }
 ;
-setWordlistFileUpdatedTime:
-    ;msgbox, setWordlistFileUpdatedTime 18-03-02_11-49
+setActionListFileUpdatedTime:
+    ;msgbox, setActionListFileUpdatedTime 18-03-02_11-49
     return
 ; lets do this only first time for initializing 29.04.2017 13:40
-   WordlistFileName = wordlist .txt
-   Wordlist = %A_ScriptDir%\%WordlistFileName%
+   ActionListFileName = ActionList.ahk
+   ActionList = %A_ScriptDir%\%ActionListFileName%
 
-    Wordlist := wordlist ; todo: very ugly. no time 02.03.2018 12:54 18-03-02_12-54
+    ActionList := ActionList ; todo: very ugly. no time 02.03.2018 12:54 18-03-02_12-54
 
-   WordlistOLD := Wordlist
+   ActionListOLD := ActionList
 
-   if( !FileExist(Wordlist) || InStr(FileExist(Wordlist), "D") ){
-        Msgbox,:(  '%Wordlist%' = Wordlist  `n Wordlist is not a file  (%A_LineFile%~%A_LineNumber%)
+   if( !FileExist(ActionList) || InStr(FileExist(ActionList), "D") ){
+        Msgbox,:(  '%ActionList%' = ActionList  `n ActionList is not a file  (%A_LineFile%~%A_LineNumber%)
         return
     }
-    FileGetTime, WordlistModiTime, %Wordlist%, M
-    WordlistModiTime_OLD:=WordlistModiTime
+    FileGetTime, ActionListModiTime, %ActionList%, M
+    ActionListModiTime_OLD:=ActionListModiTime
 return
 ;
 
-wordlistTooltip:
-    tip=%wordlist% `n%wordlistOLD% = old `n ( %A_LineFile%~%A_LineNumber% )
+ActionListTooltip:
+    tip=%ActionList% `n%ActionListOLD% = old `n ( %A_LineFile%~%A_LineNumber% )
     ToolTip,% tip
 return
 
@@ -926,6 +1001,10 @@ doListBoxFollowMouse:
       g_ListBoxX := g_ListBoxX - 77
       g_ListBoxY := g_ListBoxY - 77
 
+;    class := "ahk_class AutoHotkeyGUI"
+;    winTitle := "Word List Appears Here."
+;    WinGetPos, X, Y, W, H, %winTitle% %class%
+
       newFontSize := recreateListBox_IfFontSizeChangedAndTimeIdle(listBoxFontSizeOLD , g_ListBoxFontSize )
       if(newFontSize){
         g_ListBoxFontSize := newFontSize
@@ -934,4 +1013,53 @@ doListBoxFollowMouse:
           ShowListBox(g_ListBoxX,g_ListBoxY)
 return
 
-;__ too ha ha
+check_some_keys_hanging_or_freezed:
+  if( A_TimeIdlePhysical < 1000 * 7 )
+    return
+  fixBug_Alt_Shift_Ctrl_hanging_down()
+return
+
+
+setRegistry_toDefault(){
+    globalActionList := "..\ActionLists\_globalActionListsGenerated\_global.ahk"
+    globalActionListDir := "..\ActionList"
+    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionListDir, %globalActionListDir% ; RegWrite , RegSave , Registry
+    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionListActive, %globalActionList% ; RegWrite , RegSave , Registry
+    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionListNEW, %globalActionList% ; RegWrite , RegSave , Registry
+    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList, %globalActionList% ; RegWrite , RegSave , Registry
+    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, toDo, A_ScriptName " " A_LineNumber ": "  . " to many. 2 or 3 enough"  ; RegWrite , RegSave , Registry
+}
+
+exit_all_scripts(){
+        DetectHiddenWindows, On
+        WinGet, List, List, ahk_class AutoHotkey
+        Loop %List%
+          {
+            WinGet, PID, PID, % "ahk_id " List%A_Index%
+            If ( PID <> DllCall("GetCurrentProcessId") )
+                 PostMessage,0x111,65405,0,, % "ahk_id " List%A_Index%
+          }
+}
+
+
+fixBug_Alt_Shift_Ctrl_hanging_down(){
+  ; 30.08.2018 13:52 it sometimes happesn. and if it happens then its really ugly !!!! :( !!
+    Suspend,On
+ if( GetKeyState("Alt","P") ){ 
+    tip := "Alt is down"
+    ToolTip3sec(A_LineNumber . " " . A_ScriptName . " `n " . tip)
+    send,{AltUp}
+  }
+ if( GetKeyState("Ctrl","P") ){ 
+    tip := "Ctrl is down"
+    ToolTip3sec(A_LineNumber . " " . A_ScriptName . " `n " . tip)
+    send,{CtrlUp}
+  }
+ if( GetKeyState("Shift","P") ){ 
+    tip := "Shift is down"
+    ToolTip3sec(A_LineNumber . " " . A_ScriptName . " `n " . tip)
+    send,{ShiftUp}
+  }
+    Suspend, Off
+  return
+} ; endOf: fixBug_Alt_Shift_Ctrl_hanging_down

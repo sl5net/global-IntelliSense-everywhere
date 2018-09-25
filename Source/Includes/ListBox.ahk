@@ -1,4 +1,4 @@
-;These functions and labels are related to the shown list of words
+ï»¿;These functions and labels are related to the shown list of words
 
  
 InitializeListBox(){
@@ -38,9 +38,11 @@ ListBoxClickItem(wParam, lParam, msg, ClickedHwnd){
    Local NewClickedItem
    Local TempRows
    static LastClickedItem
+
    
    TempRows := GetRows()
    
+
    if (ClickedHwnd != g_ListBoxHwnd%TempRows%)
    {
       return
@@ -588,6 +590,7 @@ else
 ShowListBox(paraX:="",paraY:=""){
    global
 
+
    IfNotEqual, g_Match,
    {
       Local BorderWidthX
@@ -658,23 +661,26 @@ else if(0){
        ; x=603,y=16,t=0x380c6a
 }
 else if(0){
-      ; laptop mit 1600 auflösung, skalieung 120prozent
+      ; laptop mit 1600 auflÃ¶sung, skalieung 120prozent
       g_ListBoxPosX := 918 ; was addet from sl5.net 04.04.2017 19:07 17-04-04_19-08
       ListBoxPosY := 500 ; was addet from sl5.net 04.04.2017 19:07 17-04-04_19-08
 }
 else if(1){
-      ; laptop mit 1680 auflösung, skalieung 120prozent
+      ; laptop mit 1680 auflÃ¶sung, skalieung 120prozent
       g_ListBoxPosX := 1681
       ListBoxPosY := (1050 - 798) + 15
 }
 else if(0){
-; mitte lappi mit maximaler auflösung und skalierung von 200proz
-; rechts usb monitor mit höhe von 798 und monitor ganz unten böndig
+; mitte lappi mit maximaler auflÃ¶sung und skalierung von 200proz
+; rechts usb monitor mit hÃ¶he von 798 und monitor ganz unten bÃ¶ndig
       g_ListBoxPosX := 2885 ; was addet from sl5.net 04.04.2017 19:07 17-04-04_19-08
       ListBoxPosY := (1620 - 798) + 15 ; 15 pixel sicherheitshalber wegen vielleicht falscher positionierung 24.04.2017 18:57
 }      ; ListBoxPosY := 798
 }
       ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+
 
       ; In rare scenarios, the Cursor may not have been detected. In these cases, we just won't show the ListBox.
       IF (!(g_ListBoxPosX) || !(ListBoxPosY))

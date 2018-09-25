@@ -1,4 +1,4 @@
-; Indentation_style: https://de.wikipedia.org/wiki/Einrückungsstil#SL5small-Stil
+﻿; Indentation_style: https://de.wikipedia.org/wiki/EinrÃ¼ckungsstil#SL5small-Stil
 /*
 checks script and ifExist the include of it (only one include) and relads if changed 22.03.2017 07:46 17-03-22_07-46
 if its usinge the name scriptname.inc.ahk
@@ -43,7 +43,7 @@ IfWinExist,hideAllAhkTray.ahk
 
 	; sicherlich falsch, korrektur unten 17-11-23_08-45: msg:="A_LineNumber . "" "" . A_ScriptName . "" "" . Last_A_This . ""`nA_ScriptFullPath= "" . A_ScriptFullPath "
 
-msg:= A_LineNumber . "" "" . A_ScriptName . "" (token37) "" . Last_A_This "`nA_ScriptFullPath = (token48f)" . A_ScriptFullPath 
+msg:="A_LineNumber . "" "" . A_ScriptName . "" (token37) "" . Last_A_This `nA_ScriptFullPath= ""(token48)" . A_ScriptFullPath 
 
 ToolTip1sec%blank%(A_ScriptFullPath)
 

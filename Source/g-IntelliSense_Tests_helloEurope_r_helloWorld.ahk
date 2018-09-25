@@ -1,4 +1,4 @@
-; https://stackoverflow.com/questions/4675202/notepad-setting-for-disabling-auto-open-previous-files
+Ôªø; https://stackoverflow.com/questions/4675202/notepad-setting-for-disabling-auto-open-previous-files
 
 #Include %A_ScriptDir%\inc_ahk\init_global.init.inc.ahk
 OnExit("exitFunc")  
@@ -13,7 +13,7 @@ pleaseSeteNotepadPP =
 (
 For versions 6.6+ you need to uncheck 
 "Remember the current session for next launch" on Settings -> Preferences -> Backup.
-Einstellungen -> Optionen -> Backup : UnCheck "Aktuelle Sitzung f¸r den n‰chsten Start merken."
+Einstellungen -> Optionen -> Backup : UnCheck "Aktuelle Sitzung f√ºr den n√§chsten Start merken."
 )
 
 global g_error_log := ""
@@ -93,8 +93,8 @@ tests(){
 
   }
   ; too tooo__
-  ; emty wordlist state. space for new one without question about it:
-  ;RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlist, % "notWorkingFileAdress18-03-31_09-19"
+  ; emty ActionList state. space for new one without question about it:
+  ;RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList, % "notWorkingFileAdress18-03-31_09-19"
 
   ; if(doWorkaroundRerun_gIntelliISense)
   ;  run,..\start.ahk
@@ -109,15 +109,15 @@ tests(){
   WinSet, AlwaysOnTop, On, % openInputBoxTitle
   WinMove, % openInputBoxTitle, , 380 , 200,1500
   Sleep,4500 ; give script time to genere new list address
-  close_wordlistChangedInRegistry()
+  close_ActionListChangedInRegistry()
   
   
-  feedbackMsgBox("try: open wordlist first time", A_LineNumber . " , " . A_ScriptName,1,1)
+  feedbackMsgBox("try: open ActionList first time", A_LineNumber . " , " . A_ScriptName,1,1)
   ;SetTimer,setStatus_created_token,10 ; global g_created_token  ; not working. this window is to fast
-  tWL := open_wordlist_first_time( openInputBoxTitle )
+  tWL := open_ActionList_first_time( openInputBoxTitle )
   WinActivateTry(tWL,9)
   WinGetActiveTitle, tWL
-  check_wrong_wordlists()
+  check_wrong_ActionLists()
   ; now new list is created :) that wunderful :) 
   if(g_error_log) {
     Msgbox,%g_error_log% `n = g_error_log (%A_LineFile%~%A_LineNumber%) 
@@ -135,11 +135,11 @@ tests(){
 
 
 
-  feedbackMsgBox("try: open wordlist second time", A_LineNumber . " , " . A_ScriptName,1,1)
+  feedbackMsgBox("try: open ActionList second time", A_LineNumber . " , " . A_ScriptName,1,1)
   tWLsaved := tWL
-  check_wrong_wordlists()
+  check_wrong_ActionLists()
   WinActivateTry(tWL,9)
-  tWL := open_for_second_time_wordlist_of_this_new_window(openInputBoxTitle)
+  tWL := open_for_second_time_ActionList_of_this_new_window(openInputBoxTitle)
   if(!tWL || !InStr(tWLsaved,tWL)){ ; tWL is maybe only the file name. thats ok
     SoundbeepNoACK()
     Msgbox,:( `ntWLsaved <> tWL `n%tWLsaved% <> %tWL%=tWL `n ( %A_ThisFunc%, %A_LineFile%~%A_LineNumber%) 
@@ -149,7 +149,7 @@ tests(){
   WinActivateTry(tWL,9)
   WinGetActiveTitle, tWL ; need complete title !! becouse of poof saved state of notepadd++
   ; now list is reopend :) that wunderful :) 
-  check_wrong_wordlists()
+  check_wrong_ActionLists()
 
   if(g_error_log) {
     SoundbeepNoACK()
@@ -158,7 +158,7 @@ tests(){
   }
   SoundbeepACK()
   if(true){
-    ;feedbackMsgBox("try:add helloEurope|r|helloWorld to wordlist now", A_LineNumber . " , " . A_ScriptName,1,1)
+    ;feedbackMsgBox("try:add helloEurope|r|helloWorld to ActionList now", A_LineNumber . " , " . A_ScriptName,1,1)
     WinActivateTry(tWL,9)
     IfWinNotExist,% tWL
     {   
@@ -210,7 +210,7 @@ tests(){
     winCloseTry(t)
   }
     
-    address := isWordlistFileExist(openInputBoxTitle) ; warten bis erstellt ist
+    address := isActionListFileExist(openInputBoxTitle) ; warten bis erstellt ist
     FileRead,content, % address
     if(!InStr(content, "helloEurope|r|helloWorld")){
       SoundbeepNoACK()
@@ -223,11 +223,11 @@ tests(){
   SetTitleMatchMode,2
   while(A_Index < 5){
     send2inputBox("__",5,openInputBoxTitle) 
-    IfWinExist,% ".txt._Generated.txt"
+    IfWinExist,% ".ahk._Generated.ahk"
       break
   }
   SoundbeepACK()
-  WinMove,.txt._Generated.txt,, 912,35, 882,1055
+  WinMove,.ahk._Generated.ahk,, 912,35, 882,1055
 
   WinActivateTry(tWL,9)
   
@@ -277,44 +277,44 @@ tests(){
 
 
 
-open_for_second_time_wordlist_of_this_new_window(openInputBoxTitle){
+open_for_second_time_ActionList_of_this_new_window(openInputBoxTitle){
  if(!openInputBoxTitle){
     Msgbox,:( `n (%A_LineFile%~%A_LineNumber%)
     return false
   }
-  tWL := openInputBoxTitle ".txt"
+  tWL := openInputBoxTitle ".ahk"
   
-;############## we inside: open_for_second_time_wordlist_of_this_new_window
+;############## we inside: open_for_second_time_ActionList_of_this_new_window
  ; next step open it again
     ;close_tstamp()   ; first close it
     SetTitleMatchMode,2
     Loop,29
     {
       ;IfWinExist,.txt
-        WinClose,.txt
+        WinClose,.ahk
         WinClose,% tWL
-      WinWaitClose,.txt,,1
-      IfWinNotExist,.txt
+      WinWaitClose,.ahk,,1
+      IfWinNotExist,.ahk
         break
     } 
-    IfWinExist,.txt
+    IfWinExist,.ahk
     {
       Msgbox,:( `n %t% `n  found `n (%A_LineFile%~%A_LineNumber%) 
       return False
     }
      ; Msgbox,all txt now closed ????????????????? `n %t% `n  found `n (%A_LineFile%~%A_LineNumber%) 
     
-;############## we inside: open_for_second_time_wordlist_of_this_new_window
+;############## we inside: open_for_second_time_ActionList_of_this_new_window
     
     openInputBox(openInputBoxTitle)
     ;WinActivateTry(openInputBoxTitle,9)
     ;WinActivate,openInputBoxTitle
     menuNr := 4 
-    t := openInputBoxTitle ".txt"
+    t := openInputBoxTitle ".ahk"
     Loop,24
     {
       WinActivateTry(openInputBoxTitle,9)
-      runMenu("__",menuNr, openInputBoxTitle ) ; open new txt
+      runMenu("__",menuNr, openInputBoxTitle ) ; open new ahk
       SetTitleMatchMode,2
       WinWait,% t,,3
       IfWinExist,% t
@@ -324,7 +324,7 @@ open_for_second_time_wordlist_of_this_new_window(openInputBoxTitle){
         ToolTip4sec(":( freezed ??  `n " A_LineNumber ==>  " "   A_LineFile   " "   Last_A_This) 
         Send,{AltDown}{Tab 3}{AltUp}
         ;run,..\start.ahk1
-        close_wordlistChangedInRegistry()
+        close_ActionListChangedInRegistry()
         Sleep,3100
       }
     }  
@@ -404,7 +404,7 @@ openInputBox(timestampyyMMddHHmmss:=""){
     g_error_log .= ":( " A_ThisFunc " (line=" A_LineNumber ") `n"
     return
   }
-  close_wordlistChangedInRegistry()
+  close_ActionListChangedInRegistry()
   return timestampyyMMddHHmmss
 }
 
@@ -420,7 +420,7 @@ send2inputBox_OLD(text,nr := 1,t:=""){ ; of https://github.com/sl5net/global-Int
   
   SetTitleMatchMode,2
   ;closeDisturbingWindows_without_tstamp_18()
-  close_wordlistChangedInRegistry()
+  close_ActionListChangedInRegistry()
 
 if(1){ ; may better do this
   SendLevel 0
@@ -449,7 +449,7 @@ if(1){ ; may better do this
 
   IfWinNotActive,% t
     return false
-  IfWinActive,% t ".txt"
+  IfWinActive,% t ".ahk"
     return false
 
   Sleep, 2000
@@ -458,7 +458,7 @@ if(1){ ; may better do this
   
   IfWinNotActive,% t
     return false
-  IfWinActive,% t ".txt"
+  IfWinActive,% t ".ahk"
     return false
   
   SendRaw,% nr
@@ -482,7 +482,7 @@ runMenu(text,nr,t,sLevel:=55){ ; of https://github.com/sl5net/global-IntelliSens
   
   SetTitleMatchMode,2
   ;closeDisturbingWindows_without_tstamp_18()
-  close_wordlistChangedInRegistry()
+  close_ActionListChangedInRegistry()
 
 if(1){ ; may better do this
   SendLevel 0
@@ -507,7 +507,7 @@ SetCapsLockState,Off
   ; SetKeyDelay,180,120
   ; SetKeyDelay,80,320 ; works much better !!! :)
 
-  close_wordlistChangedInRegistry()
+  close_ActionListChangedInRegistry()
   WinActivate,% t
   WinWaitActive,% t, , 1
 
@@ -516,7 +516,7 @@ SetCapsLockState,Off
 
   IfWinNotActive,% t
     return false
-  IfWinActive,% t ".txt"
+  IfWinActive,% t ".ahk"
     return false
 
 ; ############### inside runMenu(
@@ -535,22 +535,22 @@ SetCapsLockState,Off
   ;ControlSendRaw, , ____, % t  ; Send directly 
   ;ControlSend, , ____, % t  ; Send directly 
   Sleep,800
-  close_wordlistChangedInRegistry()
+  close_ActionListChangedInRegistry()
 
 ; ############### inside runMenu(
 
 ; ### we inside: runMenu(nr := 1 ...
 
 ;ControlSend, , % nr, % t  ; Send directly 
-  ; send,% nr ; open wordlist / entry one
-  close_wordlistChangedInRegistry()
+  ; send,% nr ; open ActionList / entry one
+  close_ActionListChangedInRegistry()
   ;ControlSendRaw, , % nr, % t  ; Send directly ; dont use it 
-  SendRaw,% nr ; open wordlist / entry one
+  SendRaw,% nr ; open ActionList / entry one
   Sleep,433
   
   IfWinNotActive,% t
     return false
-  IfWinActive,% t ".txt"
+  IfWinActive,% t ".ahk"
     return false
 
 ; ############### inside runMenu(
@@ -562,7 +562,7 @@ SetCapsLockState,Off
 }
 
 lbsFastTime:
-  ;close_wordlistChangedInRegistry()
+  ;close_ActionListChangedInRegistry()
   t = Save ahk_class #32770 ; mouseWindowTitle=0x2fd0f52  ; 
   ControlSend, , n , % t ; dont save
   ;ControlSend,n
@@ -580,25 +580,25 @@ return
 
 
 closeDisturbingWindows_without_tstamp_18(){
-  close_wordlistChangedInRegistry()
+  close_ActionListChangedInRegistry()
   close_ahk_global_txt()
 }
 closeDisturbingWindows(){
   close_tstamp()
-  close_wordlistChangedInRegistry()
+  close_ActionListChangedInRegistry()
   close_ahk_global_txt()
 }
 
-check_wrong_wordlists(){
+check_wrong_ActionLists(){
   isWrong := 1
   while(isWrong){
     if(A_Index > 3){
-      RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlist, % "notWorkingFileAdress18-03-31_09-19"
+      RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList, % "notWorkingFileAdress18-03-31_09-19"
       return
     }
       
-    RegRead, wordlist, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlist ; todo: 02.03.2018 12:55 18-03-02_12-55
-    isWrong := (InStr(wordlist,"\_global.") || InStr(wordlist,"\_ahk_global."))
+    RegRead, ActionList, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList ; todo: 02.03.2018 12:55 18-03-02_12-55
+    isWrong := (InStr(ActionList,"\_global.") || InStr(ActionList,"\_ahk_global."))
     if(isWrong){
       tip= Msgbox,wrong . we dont want loadet "\_global." `n (%A_LineFile%~%A_LineNumber%) 
       ToolTip3sec(tip) 
@@ -606,16 +606,16 @@ check_wrong_wordlists(){
     }
   }
 }
-close_wordlistChangedInRegistry(){
+close_ActionListChangedInRegistry(){
   SetTitleMatchMode,1
-  IfWinNotExist,wordlistChangedInRegistry ahk_class #32770
+  IfWinNotExist,ActionListChangedInRegistry ahk_class #32770
   {
-    RegRead, wordlist, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlist ; todo: 02.03.2018 12:55 18-03-02_12-55
-    if(InStr(wordlist,"\Selected_tab.")) {
+    RegRead, ActionList, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList ; todo: 02.03.2018 12:55 18-03-02_12-55
+    if(InStr(ActionList,"\Selected_tab.")) {
       ; strange, but this is disturbing.
       tip:= "strange but this is disturbing. `n \Selected_tab. `n ==> lets wait a little `n (" A_LineNumber   " "   A_LineFile ") "
       ToolTip3sec(tip) 
-      ;RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, wordlist, % "notWorkingFileAdress18-03-31_09-19"
+      ;RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList, % "notWorkingFileAdress18-03-31_09-19"
       ; run,..\start.ahk
       Sleep,800
       
@@ -624,16 +624,16 @@ close_wordlistChangedInRegistry(){
       IfWinExist,Selected_tab
         MsgBox,strange but this is disturbing. 2
     }
-    if(InStr(wordlist,"_ahk")) ; probably big wordklist blocking this script ==> wait for message box
-      WinWait,wordlistChangedInRegistry ahk_class #32770 ,, 2
+    if(InStr(ActionList,"_ahk")) ; probably big wordklist blocking this script ==> wait for message box
+      WinWait,ActionListChangedInRegistry ahk_class #32770 ,, 2
   }
-  IfWinExist,wordlistChangedInRegistry ahk_class #32770
+  IfWinExist,ActionListChangedInRegistry ahk_class #32770
   {
-    winCloseTry("wordlistChangedInRegistry ahk_class #32770")
-    ;WinClose,wordlistChangedInRegistry ahk_class #32770
-    IfWinExist,wordlistChangedInRegistry ahk_class #32770
+    winCloseTry("ActionListChangedInRegistry ahk_class #32770")
+    ;WinClose,ActionListChangedInRegistry ahk_class #32770
+    IfWinExist,ActionListChangedInRegistry ahk_class #32770
     {
-      Msgbox,:( `n wordlistChangedInRegistry `n found `n (%A_LineFile%~%A_LineNumber%) 
+      Msgbox,:( `n ActionListChangedInRegistry `n found `n (%A_LineFile%~%A_LineNumber%)
     }
     return
   }
@@ -649,11 +649,11 @@ close_tstamp(){
   winCloseTry(timestampyyMMdd)
   IfWinExist,%timestampyyMMdd% ; ahk_class #32770
     g_error_log .= ":( " A_ThisFunc " (line=" A_LineNumber ") `n"
-    ;Msgbox,:( `n %wordlistChangedInRegistry% `n found `n (%A_LineFile%~%A_LineNumber%) 
+    ;Msgbox,:( `n %ActionListChangedInRegistry% `n found `n (%A_LineFile%~%A_LineNumber%)
 }
 close_ahk_global_txt(){
   SetTitleMatchMode,2
-  t:="\Wordlists\_globalWordListsGenerated\_ahk_global.txt"
+  t:="\ActionLists\_globalActionListsGenerated\_ahk_global.ahk"
   winCloseTry(t)
   IfWinNotExist,% t
     return t
@@ -664,49 +664,49 @@ close_ahk_global_txt(){
 
 
 
-open_wordlist_first_time( openInputBoxTitle ){
+open_ActionList_first_time( openInputBoxTitle ){
   IfWinNotExist,% openInputBoxTitle
     Msgbox,:( `n WinNotExist %openInputBoxTitle% `n found `n (%A_LineFile%~%A_LineNumber%) 
   
   Sleep,100
-  if(isWordlistFileExist(openInputBoxTitle))
+  if(isActionListFileExist(openInputBoxTitle))
     menuNr := 3
   else
     menuNr := 1
   
-  ;########## we inside: open_wordlist_first_time
+  ;########## we inside: open_ActionList_first_time
   
     SetTitleMatchMode,2
     Loop,29
     {
-      IfWinExist,.txt
+      IfWinExist,.ahk
         WinClose
-      WinWaitClose,.txt,,1
-      IfWinNotExist,.txt
+      WinWaitClose,.ahk,,1
+      IfWinNotExist,.ahk
         break
     } 
-    IfWinExist,.txt
+    IfWinExist,.ahk
     {
       Msgbox,:( `n %t% `n  found `n  (%A_ThisFunc%> %A_LineFile%~%A_LineNumber%) 
       return False
     }
 
-  ;########## we inside: open_wordlist_first_time
+  ;########## we inside: open_ActionList_first_time
   
   ;Msgbox,%openInputBoxTitle% ==> %menuNr% `n (%A_LineFile%~%A_LineNumber%) 
   
   ;ToolTip,% SubStr(t,1,5) "...`n (" A_LineNumber   " "   A_LineFile ")"
   
   
-  t := openInputBoxTitle ".txt"
+  t := openInputBoxTitle ".ahk"
   address :=""
   Loop,19
   {
     runMenu("__",menuNr, openInputBoxTitle ) ; create or/and open
-    Sleep,300 ; importand to check fast, becouse 1 later opens anoter wordlist. so hurry 18-03-31_18-56
+    Sleep,300 ; importand to check fast, becouse 1 later opens anoter ActionList. so hurry 18-03-31_18-56
     
     ;MsgBox,openInputBoxTitle = %openInputBoxTitle%
-    if(menuNr==1 && address := isWordlistFileExist(openInputBoxTitle)) ; warten bis erstellt ist
+    if(menuNr==1 && address := isActionListFileExist(openInputBoxTitle)) ; warten bis erstellt ist
     {
       ; break ; return t
       ;Sleep,200
@@ -726,17 +726,17 @@ open_wordlist_first_time( openInputBoxTitle ){
   }  
 
   if(!address){
-    address := isWordlistFileExist(openInputBoxTitle) ; warten bis erstellt ist
+    address := isActionListFileExist(openInputBoxTitle) ; warten bis erstellt ist
   if(menuNr==1){
     while(!address && A_Index < 10){ ; warten bis erstellt ist
       ;ToolTip,!address = %address% `n openInputBoxTitle = %openInputBoxTitle%
-      address := isWordlistFileExist(openInputBoxTitle) ; warten bis erstellt ist
+      address := isActionListFileExist(openInputBoxTitle) ; warten bis erstellt ist
       Sleep,100
     }
     if(address)
       ToolTip,:) found`, maybe not opend  (%A_ThisFunc% %A_LineFile%~%A_LineNumber%) 
   }}
-  ;########## we inside: open_wordlist_first_time
+  ;########## we inside: open_ActionList_first_time
 
   if(winWaitLoop(t))
     return t
@@ -759,10 +759,10 @@ open_wordlist_first_time( openInputBoxTitle ){
   {
     WinActivate,openInputBoxTitle
     menuNr := 5
-    t := openInputBoxTitle ".txt"
+    t := openInputBoxTitle ".ahk"
     Loop,4
     {
-      runMenu("__",menuNr, openInputBoxTitle ) ; open new txt
+      runMenu("__",menuNr, openInputBoxTitle ) ; open new ahk
       SetTitleMatchMode,2
       WinWait,% t,,3
       IfWinExist,% t
@@ -770,7 +770,7 @@ open_wordlist_first_time( openInputBoxTitle ){
     }  
   }
   
-  ;########## we inside: open_wordlist_first_time
+  ;########## we inside: open_ActionList_first_time
   
   if(winWaitLoop(t))
     return t
@@ -786,7 +786,7 @@ sendAeUeLines(t){
   t1 := t
   onlyName := RegExReplace(t, ".*(tstamp_[^\.]+).*","$1")
   lineAe := "helloEurope|r|helloWorld`n"
-  lineAe .= "___open generated|rr||ahk|run," onlyName ".txt._Generated.txt`n`n"
+  lineAe .= "___open generated|rr||ahk|run," onlyName ".txt._Generated.ahk`n`n"
   lineAe .= "hi MsgBox|rr||ahk|MsgBox,hi World`n`n"
   lineAe .= "aaaaae|r|" chr(228) "`n"
   lineAe .= "uuuuue|r|" chr(252) "`n" 
@@ -810,8 +810,8 @@ sendAeUeLines(t){
 loop,9
 {
   if(1){
-    tSomeTXT := ".txt"
-    t := ".txt"
+    tSomeTXT := ".ahk"
+    t := ".ahk"
   }
   WinActivateTry(t,9)
   WinGetPos,x,x,w,h,% t
@@ -850,7 +850,7 @@ loop,9
     ;ControlSendRaw, Scintilla1, % lineBoth, % t  ; Send directly 
     ;ControlSendRaw, Scintilla1, % lineBoth, % t  ; Send directly 
     ;ControlSend, Edit1, {b down}{b up}, Untitled - Notepad
-    ; *E:\fre\private\HtmlDevelop\AutoHotKey\global-IntelliSense-everywhere-Nightly-Build\Wordlists\32770\tstamp_180329210641.txt - Notepad++ [Administrator] ahk_class Notepad++ ; mouseWindowTitle=0xb7057e  ; 
+    ; *E:\fre\private\HtmlDevelop\AutoHotKey\global-IntelliSense-everywhere-Nightly-Build\ActionLists\32770\tstamp_180329210641.txt - Notepad++ [Administrator] ahk_class Notepad++ ; mouseWindowTitle=0xb7057e  ;
 }
 
 
@@ -884,14 +884,14 @@ exitFunc(){
   ExitApp
 }
 
-isWordlistFileExist(fileNamePrefix){
-  ; E:\fre\private\HtmlDevelop\AutoHotKey\global-IntelliSense-everywhere-Nightly-Build\Wordlists\32770
-    address := "..\Wordlists\32770\" RegExReplace(fileNamePrefix,"\.txt.*","") ".txt"
+isActionListFileExist(fileNamePrefix){
+  ; E:\fre\private\HtmlDevelop\AutoHotKey\global-IntelliSense-everywhere-Nightly-Build\ActionLists\32770
+    address := "..\ActionLists\32770\" RegExReplace(fileNamePrefix,"\.ahk.*","") ".ahk"
     
     if(FileExist(address))
       return address
 
-    loopFilePattern := "..\Wordlists\32770\ " RegExReplace(fileNamePrefix,"\.txt.*","") "*.txt"
+    loopFilePattern := "..\ActionLists\32770\ " RegExReplace(fileNamePrefix,"\.txt.*","") "*.ahk"
     ;Msgbox,loopFilePattern = %loopFilePattern%`n (%A_LineFile%~%A_LineNumber%) 
   	Loop, %loopFilePattern%, , 0
     {
@@ -903,9 +903,9 @@ isWordlistFileExist(fileNamePrefix){
     return false    
 }
 
-deleteAll_tstamp_in_32770_folder(){ ; Wordlists\32770
+deleteAll_tstamp_in_32770_folder(){ ; ActionLists\32770
   FormatTime, timestampyyMMdd , %A_now%,yyMMdd
-  loopFilePattern := "..\Wordlists\32770\tstamp_" timestampyyMMdd "*.txt"
+  loopFilePattern := "..\ActionLists\32770\tstamp_" timestampyyMMdd "*.ahk"
   Loop, %loopFilePattern%, , 1
   {
       FileDelete,% A_LoopFileFullPath
@@ -1124,7 +1124,7 @@ send2inputBox(text,nr,openInputBoxTitle){
     Msgbox,:( `n (%A_LineFile%~%A_LineNumber%)
     return false
   }
-  tWL := openInputBoxTitle ".txt"
+  tWL := openInputBoxTitle ".ahk"
   
 ;############## we inside: send2inputBox
  ; next step open it again
@@ -1137,11 +1137,11 @@ send2inputBox(text,nr,openInputBoxTitle){
     ;WinActivateTry(openInputBoxTitle,9)
     ;WinActivate,openInputBoxTitle
     menuNr := nr
-    t := openInputBoxTitle ".txt"
+    t := openInputBoxTitle ".ahk"
     Loop,24
     {
       WinActivateTry(openInputBoxTitle,9)
-      runMenu(text,menuNr, openInputBoxTitle ) ; open new txt
+      runMenu(text,menuNr, openInputBoxTitle ) ; open new ahk
       SetTitleMatchMode,2
       WinWait,% t,,3
       IfWinExist,% t
@@ -1151,7 +1151,7 @@ send2inputBox(text,nr,openInputBoxTitle){
         ToolTip4sec(":( freezed ??  `n " A_LineNumber ==>  " "   A_LineFile   " "   Last_A_This) 
         Send,{AltDown}{Tab 3}{AltUp}
         ;run,..\start.ahk1
-        close_wordlistChangedInRegistry()
+        close_ActionListChangedInRegistry()
         Sleep,3100
       }
     }  
@@ -1170,7 +1170,7 @@ send2inputBox(text,nr,openInputBoxTitle){
 
 ae(openInputBoxTitle,aa:="hal",ae:="hallo"){
     msg := "try: action ae.. in inputbox ", A_LineNumber . " , " . A_ScriptName
-    Msgbox,,% msg,,4 ; thats a dirty bug fix. helps script changeing wordlists 31.03.2018 17:55 18-03-31_17-55
+    Msgbox,,% msg,,4 ; thats a dirty bug fix. helps script changeing ActionLists 31.03.2018 17:55 18-03-31_17-55
     ;feedbackMsgBox("try: action ae.. in inputbox ", A_LineNumber . " , " . A_ScriptName,1,1)    
     openInputBox(openInputBoxTitle)
     Sleep,2500
@@ -1186,7 +1186,7 @@ ae(openInputBoxTitle,aa:="hal",ae:="hallo"){
         break
       if( Mod(A_Index, 4) == 0) {
         Send,{AltDown}{Tab 2}{AltUp}
-              close_wordlistChangedInRegistry()
+              close_ActionListChangedInRegistry()
         Sleep,3100
       }
 
@@ -1208,7 +1208,7 @@ send2inputBox_OLD2(text,nr := 1,t:=""){ ; of https://github.com/sl5net/global-In
   
   SetTitleMatchMode,2
   ;closeDisturbingWindows_without_tstamp_18()
-  close_wordlistChangedInRegistry()
+  close_ActionListChangedInRegistry()
 
 if(1){ ; may better do this
   SendLevel 0
@@ -1236,7 +1236,7 @@ if(1){ ; may better do this
 
   IfWinNotActive,% t
     return false
-  IfWinActive,% t ".txt"
+  IfWinActive,% t ".ahk"
     return false
 
   SendRaw,% text
@@ -1244,10 +1244,10 @@ if(1){ ; may better do this
   
   IfWinNotActive,% t
     return false
-  IfWinActive,% t ".txt"
+  IfWinActive,% t ".ahk"
     return false
   
-  SendRaw,% nr ; open wordlist / entry one
+  SendRaw,% nr ; open ActionList / entry one
   ;Sleep,900
   return true
 }
@@ -1256,7 +1256,7 @@ if(1){ ; may better do this
     trickyUglySendTextWorkaround2inputBox(textSend,textExpected , openInputBoxTitle){
     run,..\start.ahk ; dirty bugFix. becourse late in the evening. TODO ceckit out 18-03-31_23-46    
     msg := "try: action " text ".. in inputbox ", A_LineNumber . " , " . A_ScriptName
-    Msgbox,,% msg,,4 ; thats a dirty bug fix. helps script changeing wordlists 31.03.2018 17:55 18-03-31_17-55
+    Msgbox,,% msg,,4 ; thats a dirty bug fix. helps script changeing ActionLists 31.03.2018 17:55 18-03-31_17-55
     ;feedbackMsgBox("try: action ae.. in inputbox ", A_LineNumber . " , " . A_ScriptName,1,1)    
     openInputBox(openInputBoxTitle)
     Sleep,2500
@@ -1270,7 +1270,7 @@ if(1){ ; may better do this
         return true
       if( Mod(A_Index, 4) == 0) {
         Send,{AltDown}{Tab 2}{AltUp}
-              close_wordlistChangedInRegistry()
+              close_ActionListChangedInRegistry()
         Sleep,3100
       }
 

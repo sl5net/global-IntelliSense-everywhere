@@ -1,7 +1,7 @@
-; Indentation_style: https://de.wikipedia.org/wiki/Einrückungsstil#SL5small-Stil
+﻿; Indentation_style: https://de.wikipedia.org/wiki/EinrÃ¼ckungsstil#SL5small-Stil
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ;~ please use this ! as first line in every script before all includes! :)
-isDevellopperMode:= true ; enth�llt auch update script.
+isDevellopperMode:= true ; enthï¿½llt auch update script.
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 #Include *i %A_ScriptDir%\inc_ahk\init_global.init.inc.ahk
 
@@ -42,7 +42,7 @@ IfWinExist, TypingAid - Inactive
       ExitApp 
    
    FileRead,TypingAidContentStatus, TypingAid_programmCounter_LineAndTime.txt
-   TypingAidTimestamp := RegExReplace(TypingAidContentStatus, ".*?(\d+)$", "$1") ; Gibt "abc123xyz" zur�ck, weil durch $ eine �bereinstimmung nur am Ende vorkommen darf. 
+   TypingAidTimestamp := RegExReplace(TypingAidContentStatus, ".*?(\d+)$", "$1") ; Gibt "abc123xyz" zurï¿½ck, weil durch $ eine ï¿½bereinstimmung nur am Ende vorkommen darf. 
    
    FormatTime, timestampyyMMddHHmmss, %A_now%,yyMMddHHmmss
    secondsProgrammIsNotMoving := timestampyyMMddHHmmss - TypingAidTimestamp
