@@ -112,10 +112,11 @@ if(!fileExist(ActionList)){
 
 maxLinesOfCode4length1 := 900 ;
 
-SetTimer, saveIamAllive, 8000 ; setinterval
+; SetTimer, saveIamAllive, 8000 ; setinterval
 SetTimer,checkInRegistryChangedActionListAddress,1000 ; RegRead, ActionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList
 SetTimer,checkActionListTXTfile_sizeAndModiTime,3000
 SetTimer,check_some_keys_hanging_or_freezed,2000 ; ; 30.08.2018 13:52 it sometimes happesn. and if it happens then its really ugly !!!! :( !!
+SetTimer,check_ActionList_GUI_is__hanging_or_freezed,1000 ; ; 26.09.2018 16:38 it sometimes happesn.
 
 
 SetTimer,doListBoxFollowMouse,off
@@ -301,25 +302,12 @@ MainLoop()
 ;<<<<<<<<<<<<<<<<< workaround <<<<<<<<<<<<<<<<<
 ; https://stackoverflow.com/questions/52493547/autohotkey-read-of-two-underscore-keys
 ; https://github.com/sl5net/global-IntelliSense-everywhere/issues/4
-countUnderscore :=0
 #IfWinActive,
 
 :b0*?:__:: ;does not delete the underscores
     reload_IfNotExist_ListBoxGui()
+    ; ~_:: countUnderscore++ if(countUnderscore == 2){ countUnderscore := 0 reload_IfNotExist_ListBoxGui()
 return
-
-; #IfWinActive,bullshitNeverExist1248796543214
-; ~_::
-;      countUnderscore++
-;      if(countUnderscore == 2){
-;         countUnderscore := 0
-;         ; Gui, ListBoxGui: Show, NoActivate X%g_ListBoxPosX% Y%ListBoxPosY% H%ListBoxActualSizeH% W%ListBoxActualSizeW%, Word List Appears Here.
-        ; Gui, ListBoxGui: +LastFound +AlwaysOnTop
-;         reload_IfNotExist_ListBoxGui()
-;       }
-; return
-
-
 ;>>>>>>>>>>>>>>>>> workaround >>>>>>>>>>>>>>>
 reload_IfNotExist_ListBoxGui(){
     AHKcode := "#" . "NoTrayIcon `n "
@@ -600,6 +588,7 @@ lll(A_LineNumber, A_LineFile, "`n Sleep,100 `n" . msg . "`n ==> Goto, doReload")
 Return
 
 saveIamAllive:
+    return
    FormatTime, timestampyyMMddHHmmss, %A_now%,yyMMddHHmmss
    FormatTime, timestampyyMMddHHmmssPretty, %A_now%,yy:MM:dd HH:mm:ss
    FileDelete, TypingAid_programmCounter_LineAndTime.txt
@@ -1013,6 +1002,20 @@ doListBoxFollowMouse:
           ShowListBox(g_ListBoxX,g_ListBoxY)
 return
 
+
+; tooltip to toolt
+
+check_ActionList_GUI_is__hanging_or_freezed:
+  if( A_TimeIdlePhysical < 1000 * 5 )
+    return
+  class := "ahk_class AutoHotkeyGUI"
+  winTitle := "Word List Appears Here."
+  IfWinNotExist, % winTitle
+    return
+  winclose, % winTitle
+  ; Msgbox,is it closed??? `n (%A_LineFile%~%A_LineNumber%)
+return
+
 check_some_keys_hanging_or_freezed:
   if( A_TimeIdlePhysical < 1000 * 7 )
     return
@@ -1021,8 +1024,8 @@ return
 
 
 setRegistry_toDefault(){
-    globalActionList := "..\ActionLists\_globalActionListsGenerated\_global.ahk"
-    globalActionListDir := "..\ActionList"
+    globalActionListDir := "..\ActionLists"
+    globalActionList := globalActionListDir "\_globalActionListsGenerated\_global.ahk"
     RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionListDir, %globalActionListDir% ; RegWrite , RegSave , Registry
     RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionListActive, %globalActionList% ; RegWrite , RegSave , Registry
     RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionListNEW, %globalActionList% ; RegWrite , RegSave , Registry

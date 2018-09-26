@@ -38,8 +38,8 @@ IfWinExist, TypingAid - Inactive
 
    WinWait,TypingAid - Active,,3
    
-   if(!FileExist("TypingAid_programmCounter_LineAndTime.txt"))
-      ExitApp 
+   ; if(!FileExist("TypingAid_programmCounter_LineAndTime.txt")) ; 26.09.2018 16:36 home we dont need it
+   ;   ExitApp
    
    FileRead,TypingAidContentStatus, TypingAid_programmCounter_LineAndTime.txt
    TypingAidTimestamp := RegExReplace(TypingAidContentStatus, ".*?(\d+)$", "$1") ; Gibt "abc123xyz" zurï¿½ck, weil durch $ eine ï¿½bereinstimmung nur am Ende vorkommen darf. 

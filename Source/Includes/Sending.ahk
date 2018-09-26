@@ -426,6 +426,7 @@ if(isDeprecated_OpenA_edit_open_lib || isAHKcode && ( RegExMatch( AHKcode , "^\s
     winWait,% m1ListFileName " ahk_class #32770"
     winclose,% m1ListFileName " ahk_class #32770" ; thats disturbing opening ahk-studio. if closed ahk-studio opens
     winkill,% m1ListFileName " ahk_class #32770" ; thats disturbing opening ahk-studio. if closed ahk-studio opens
+    ; winkill is needet. winclose dont work 26.09.2018 07:37
     ; msgbox,% m1ListFileName " ahk_class #32770 ??? "  ; thats disturbing opening ahk-studio. if closed ahk-studio opens
     msg=%runString% `n %m1% `n deprecated: `n please open by using AHK-Studio instead run`n
     ;msgbox, % msg "`n" A_LineNumber   " "   A_LineFile   " "   Last_A_This
@@ -1752,6 +1753,7 @@ return AHKcode
 
 
 getCorrectedStringUAOSS( sending  ) {
+; return sending " 18-09-26_10-31"
 
 nW := "[^\w\s\.!-_]" ; no word 
 

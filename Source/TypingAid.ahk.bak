@@ -16,6 +16,8 @@ SetControlDelay, -1 ; A short delay (sleep) is done automatically after every Co
 
 #Include %A_ScriptDir%\inc_ahk\init_global.init.inc.ahk
 
+FileEncoding, UTF-8
+
 lll(A_LineNumber, A_LineFile, "hi from " A_LineFile)
 
 
@@ -282,11 +284,11 @@ ReadInTheActionList()
 g_WinChangedCallback := RegisterCallback("WinChanged")
 g_ListBoxScrollCallback := RegisterCallback("ListBoxScroll")
 if !(g_WinChangedCallback){
-   MsgBox, Failed to register callback function
+   MsgBox, Failed to register callback function  `n (%A_LineFile%~%A_LineNumber%)
    ExitApp
 }
 if !(g_ListBoxScrollCallback){
-   MsgBox, Failed to register ListBox Scroll callback function
+   MsgBox, Failed to register ListBox Scroll callback function  `n (%A_LineFile%~%A_LineNumber%)
    ExitApp
 }
    
@@ -295,42 +297,82 @@ GetIncludedActiveWindow() ;Find the ID of the window we are using
 MainLoop()
 
 ; dirty bugfix, https://github.com/sl5net/global-IntelliSense-everywhere/issues/4
+
+;<<<<<<<<<<<<<<<<< workaround <<<<<<<<<<<<<<<<<
+; https://stackoverflow.com/questions/52493547/autohotkey-read-of-two-underscore-keys
+; https://github.com/sl5net/global-IntelliSense-everywhere/issues/4
+countUnderscore :=0
 #IfWinActive,
-;~:*:__:: ; workaround if it comes sleeping
-;tooltip,test 98798978
-;return
-:*:___:: ; workaround if it comes sleeping
-  ;run,% "E:\fre\private\HtmlDevelop\AutoHotKey\global-IntelliSense-everywhere\start.ahk"
 
-  tooltip, reload every idle time? 31.07.2018 11:44 18-07-31_11-44
-  pause
+:b0*?:__:: ;does not delete the underscores
+    reload_IfNotExist_ListBoxGui()
+return
 
-   run,% "..\start.ahk"
+; #IfWinActive,bullshitNeverExist1248796543214
+; ~_::
+;      countUnderscore++
+;      if(countUnderscore == 2){
+;         countUnderscore := 0
+;         ; Gui, ListBoxGui: Show, NoActivate X%g_ListBoxPosX% Y%ListBoxPosY% H%ListBoxActualSizeH% W%ListBoxActualSizeW%, Word List Appears Here.
+        ; Gui, ListBoxGui: +LastFound +AlwaysOnTop
+;         reload_IfNotExist_ListBoxGui()
+;       }
+; return
+
+
+;>>>>>>>>>>>>>>>>> workaround >>>>>>>>>>>>>>>
+reload_IfNotExist_ListBoxGui(){
+    AHKcode := "#" . "NoTrayIcon `n "
+    AHKcode =
+    (
+    class := "ahk_class AutoHotkeyGUI"
+    winTitle := "Word List Appears Here."
+    WinWait,`%winTitle`% `%class`%,  , 3 ; [, ExcludeTitle, ExcludeText]
+    DetectHiddenText, on
+    ; clipboard := winTitle "----" winText
+    IfWinNotExist, `%winTitle`% `%class`% ; , WinText, ExcludeTitle, ExcludeText]
+       run,`% "..\start.ahk"
+       ; MsgBox, `%winTitle`% NotExist `%class`%  : %A_LineFile%~%A_LineNumber%
+    else{
+        tooltip, winTitle=`%winTitle`% found: winText=`%winText`% :%countUnderscore% = countUnderscore : %A_LineFile%~%A_LineNumber%
+        sleep,2200
+        }
+    )
+    DynaRun(AHKcode)
+    return
+}
+
+
+
+;<<<<<<<<<<<<<<<<< workaround <<<<<<<<<<<<<<<<<
+; https://github.com/sl5net/global-IntelliSense-everywhere/issues/4
+; :*:___:: ; workaround if it comes sleeping
+;   ;run,% "E:\fre\private\HtmlDevelop\AutoHotKey\global-IntelliSense-everywhere\start.ahk"
+;   tooltip, reload every idle time? 31.07.2018 11:44 18-07-31_11-44
+;   pause
+;    run,% "..\start.ahk"
   ;InitializeListBox() ; don work. produce error... new test 18-06-11_20-00
-
-  Last_A_This:=A_ThisFunc . A_ThisLabel 
-  ToolTip4sec("InitializeListBox `n " A_LineNumber . " " . A_ScriptName . " " . Last_A_This)
+;   Last_A_This:=A_ThisFunc . A_ThisLabel
+;   ToolTip4sec("InitializeListBox `n " A_LineNumber . " " . A_ScriptName . " " . Last_A_This)
 return 
+;>>>>>>>>>>>>>>>>> workaround >>>>>>>>>>>>>>>
 
-ToolTip3sec("^+esc:: exit-all-scripts",1,1)
+#IfWinActive,
 ^+f5:: ; exit-all-scripts and restart
-    exit_all_scripts()
-    run,..\start.ahk
+    if(1 && InStr(A_ComputerName,"SL5")){
+        setRegistry_toDefault()
+        exit_all_scripts()
+        run,..\start.ahk
+    }
 return
-^+esc:: ; exit-all-scripts
-
-; set to default:
-    globalActionList := "..\ActionList\_globalActionListsGenerated\_global.ahk"
-    globalActionListDir := "..\ActionList"
-    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionListDir, %globalActionListDir% ; RegWrite , RegSave , Registry
-    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionListActive, %globalActionList% ; RegWrite , RegSave , Registry
-    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionListNEW, %globalActionList% ; RegWrite , RegSave , Registry
-    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList, %globalActionList% ; RegWrite , RegSave , Registry
-    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, toDo, A_ScriptName " " A_LineNumber ": "  . " to many. 2 or 3 enough"  ; RegWrite , RegSave , Registry
-
-    exit_all_scripts()
-    exitapp
-return
+; ToolTip3sec("^+esc:: exit-all-scripts",1,1)
+ ^+esc:: ; exit-all-scripts. usefull in developer mode
+    if(1 && InStr(A_ComputerName,"SL5")){
+     setRegistry_toDefault()
+     exit_all_scripts()
+     exitapp
+     }
+ return
 
 
 RecomputeMatchesTimer:
@@ -690,8 +732,10 @@ if(0 && InStr(A_ComputerName,"SL5"))
 
     if(!fileExist(ActionListNewTemp)){ ; addet 26.4.2018 12:58 becouse of mistourios things
         clilpboard := ActionListNewTemp
-        msg = :( list read by RegRead NOT `n ActionListNewTemp=%ActionListNewTemp% `n clilpboard = %ActionListNewTemp% `n  (%A_LineFile%~%A_LineNumber%)
-        Msgbox,% msg
+        msg = :( list read by RegRead NOT exist: `n`n ActionListNewTemp = `n %ActionListNewTemp% `n = clilpboard = `n  (%A_LineFile%~%A_LineNumber%)
+        ; Msgbox,% msg
+        ; feedbackMsgBox(msg,msg,1,1)
+        ToolTip4sec(msg " `n"  . A_LineNumber . " " . A_LineNumber )
         clilpboard := msg
         sleep,5000
     }
@@ -957,6 +1001,10 @@ doListBoxFollowMouse:
       g_ListBoxX := g_ListBoxX - 77
       g_ListBoxY := g_ListBoxY - 77
 
+;    class := "ahk_class AutoHotkeyGUI"
+;    winTitle := "Word List Appears Here."
+;    WinGetPos, X, Y, W, H, %winTitle% %class%
+
       newFontSize := recreateListBox_IfFontSizeChangedAndTimeIdle(listBoxFontSizeOLD , g_ListBoxFontSize )
       if(newFontSize){
         g_ListBoxFontSize := newFontSize
@@ -970,6 +1018,17 @@ check_some_keys_hanging_or_freezed:
     return
   fixBug_Alt_Shift_Ctrl_hanging_down()
 return
+
+
+setRegistry_toDefault(){
+    globalActionList := "..\ActionLists\_globalActionListsGenerated\_global.ahk"
+    globalActionListDir := "..\ActionList"
+    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionListDir, %globalActionListDir% ; RegWrite , RegSave , Registry
+    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionListActive, %globalActionList% ; RegWrite , RegSave , Registry
+    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionListNEW, %globalActionList% ; RegWrite , RegSave , Registry
+    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList, %globalActionList% ; RegWrite , RegSave , Registry
+    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, toDo, A_ScriptName " " A_LineNumber ": "  . " to many. 2 or 3 enough"  ; RegWrite , RegSave , Registry
+}
 
 exit_all_scripts(){
         DetectHiddenWindows, On
