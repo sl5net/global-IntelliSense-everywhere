@@ -164,7 +164,8 @@ from: ActionList.ahk~%A_LineNumber%
       g_ActionListDB.BeginTransaction()
       ;reads list of words from file 
       FileRead, ParseWords, %ActionList%
-      ParseWords := JEE_StrUtf8BytesToText( ParseWords )
+      ; ParseWords := JEE_StrUtf8BytesToText( ParseWords ) ; 26.09.2018 18:40 this function was the reason while ä ü ö was not woring
+      ; JEE_StrUtf8BytesToText 26.09.2018 18:40 was the reason why german äüö not was workig :) Now all sources are in UTF8.
 
 
 

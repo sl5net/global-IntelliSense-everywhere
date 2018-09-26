@@ -241,7 +241,8 @@ disableCopyQ() ; enableCopyQ() ;
    }
 
 ; sending := "getCorrectedStringUAOSS1==" getCorrectedStringUAOSS( sending  )
-sending := getCorrectedStringUAOSS( sending  )
+
+; sending := getCorrectedStringUAOSS( sending  )
 if(false){
 Msgbox, '%sending%' = sending  n (line:%A_LineNumber%)  (line:%A_LineNumber%)
 
@@ -423,7 +424,9 @@ if(isDeprecated_OpenA_edit_open_lib || isAHKcode && ( RegExMatch( AHKcode , "^\s
     runString = AHK-Studio.ahk "%m1CorrectedAhkFileAddress%"
     run,% runString, ..\AHK-Studio
     ; a_Piratenpad_Google_Chrome.ahk ahk_class #32770
+    ToolTip,winWait `n (%A_LineFile%~%A_LineNumber%)
     winWait,% m1ListFileName " ahk_class #32770"
+    ToolTip,
     winclose,% m1ListFileName " ahk_class #32770" ; thats disturbing opening ahk-studio. if closed ahk-studio opens
     winkill,% m1ListFileName " ahk_class #32770" ; thats disturbing opening ahk-studio. if closed ahk-studio opens
     ; winkill is needet. winclose dont work 26.09.2018 07:37
