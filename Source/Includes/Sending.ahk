@@ -426,8 +426,15 @@ if(isDeprecated_OpenA_edit_open_lib || isAHKcode && ( RegExMatch( AHKcode , "^\s
     ; a_Piratenpad_Google_Chrome.ahk ahk_class #32770
     ToolTip,winWait `n (%A_LineFile%~%A_LineNumber%)
     SetTitleMatchMode,1
-    winWait,% m1ListFileName " ahk_class #32770" ; Co_Mozilla_Firefox.ahk ahk_class #32770 ; mouseWindowTitle=0x2970f44  ;
+    winTitleError := m1ListFileName " ahk_class #32770"
+    winWait,% winTitleError ; Co_Mozilla_Firefox.ahk ahk_class #32770 ; mouseWindowTitle=0x2970f44  ;
+    wingettext,winText,  % winTitleError
     ToolTip,
+    ; should consist: "Error: This line does not contain a recognized action."
+    errorText := "This line does not contain a recognized action."
+    if(!Instr(winText,errorText))
+        return
+
     winclose,% m1ListFileName " ahk_class #32770" ; thats disturbing opening ahk-studio. if closed ahk-studio opens
     winkill,% m1ListFileName " ahk_class #32770" ; thats disturbing opening ahk-studio. if closed ahk-studio opens
     ; winkill is needet. winclose dont work 26.09.2018 07:37
