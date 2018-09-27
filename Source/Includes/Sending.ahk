@@ -425,7 +425,8 @@ if(isDeprecated_OpenA_edit_open_lib || isAHKcode && ( RegExMatch( AHKcode , "^\s
     run,% runString, ..\AHK-Studio
     ; a_Piratenpad_Google_Chrome.ahk ahk_class #32770
     ToolTip,winWait `n (%A_LineFile%~%A_LineNumber%)
-    winWait,% m1ListFileName " ahk_class #32770"
+    SetTitleMatchMode,1
+    winWait,% m1ListFileName " ahk_class #32770" ; Co_Mozilla_Firefox.ahk ahk_class #32770 ; mouseWindowTitle=0x2970f44  ;
     ToolTip,
     winclose,% m1ListFileName " ahk_class #32770" ; thats disturbing opening ahk-studio. if closed ahk-studio opens
     winkill,% m1ListFileName " ahk_class #32770" ; thats disturbing opening ahk-studio. if closed ahk-studio opens
@@ -1753,6 +1754,7 @@ return AHKcode
 ;clipboard := AHKcode
  ; (literal semicolon). Note: This is necessary only if a semicolon has a space or tab to its left. If it does not, it will be recognized correctly without being escaped.
 ; AHKcode := RegExReplace(AHKcode, "`;", "X")
+
 
 
 getCorrectedStringUAOSS( sending  ) {
