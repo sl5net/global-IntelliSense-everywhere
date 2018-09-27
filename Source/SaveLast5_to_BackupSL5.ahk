@@ -59,7 +59,7 @@ IfWinExist,% activeTitle
 	   WinActivate,% activeTitle
 	   WinWaitActive,% activeTitle ,,1
 	   Send,{Enter}
-		ToolTip,% A_index
+		ToolTip,% A_index  `n (%A_LineFile%~%A_LineNumber%)
 		Sleep,100
 	}
 	; feedbackMsgBoxCloseAllWindows()

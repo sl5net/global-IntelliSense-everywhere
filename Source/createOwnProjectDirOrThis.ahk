@@ -15,14 +15,14 @@ activeClass := RegExReplace( activeClass, "[\W_]+", "")
 d1 = %ActionListsDir%\%activeClass%
 fileExist := FileExist(d1)
 if(fileExist){
-  tooltip,ups folder already exist 13.05.2018 06:55
+  tooltip,ups folder already exist 13.05.2018 06:55  `n (%A_LineFile%~%A_LineNumber%)
 }
 if(false){
   globalTxt := d1 "\_global.ahk"
   fileExist := FileExist(globalTxt)
   if(fileExist){
     run,% globalTxt
-    tooltip, WinWaitActive`, globalTxt
+    tooltip, WinWaitActive`, globalTxt  `n (%A_LineFile%~%A_LineNumber%)
     clipboard := globalTxt
     msgbox,ups globalTxt (its copied to clipboard) already exist `n ExitApp `n 13.05.2018 06:58
     WinWaitActive,% globalTxt

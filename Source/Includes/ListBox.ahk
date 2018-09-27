@@ -214,8 +214,11 @@ CloseListBox(){
 }
 
 DestroyListBox(){
+    global g_ListBoxTitle
+    ; Msgbox,DestroyListBox`n (%A_LineFile%~%A_LineNumber%)
    Gui, ListBoxGui:Destroy
    ListBoxEnd()
+   g_ListBoxTitle := ""
    Return
 }
 
@@ -225,7 +228,8 @@ ListBoxEnd() {
    global g_ListBox_Id
    global g_WM_LBUTTONUP
    global g_WM_LBUTTONDBLCLK
-   
+
+   ;Msgbox, ListBoxEnd() `n (%A_LineFile%~%A_LineNumber%)
    g_ListBox_Id =
    
    OnMessage(g_WM_LBUTTONUP, "")
@@ -589,6 +593,8 @@ else
 ; Any changes to this function may need to be reflected in ComputeListBoxMaxLength()
 ShowListBox(paraX:="",paraY:=""){
    global
+    g_ListBoxTitle := "käsewurscht"
+    g_ListBoxTitle_firstTimeInMilli := A_TickCount ; milliseconds
 
 
    IfNotEqual, g_Match,
@@ -736,8 +742,14 @@ else if(0){
       }
 
 try {
-      Gui, ListBoxGui: Show, NoActivate X%g_ListBoxPosX% Y%ListBoxPosY% H%ListBoxActualSizeH% W%ListBoxActualSizeW%, Word List Appears Here. 
+       g_ListBoxTitle := "ListBoxTitle (sec=" A_Sec ")"
+      Gui, ListBoxGui: Show, NoActivate X%g_ListBoxPosX% Y%ListBoxPosY% H%ListBoxActualSizeH% W%ListBoxActualSizeW%,% g_ListBoxTitle
       Gui, ListBoxGui: +LastFound +AlwaysOnTop
+      g_ListBoxTitle_firstTimeInMilli := A_TickCount ; milliseconds
+      ; Msgbox,ListBoxGui created`n (%A_LineFile%~%A_LineNumber%)
+          ; ToolTip,%g_ListBoxTitle% = g_ListBoxTitle `n (%A_LineFile%~%A_LineNumber%)
+         ; Msgbox,%g_ListBoxTitle% = g_ListBoxTitle `n (%A_LineFile%~%A_LineNumber%)
+
 } catch {
    lll(A_LineNumber, A_LineFile, "ERROR Gui, ListBoxGui proably not ready ")
    return 
@@ -750,7 +762,7 @@ try {
          EnableKeyboardHotKeys()
       }
       
-      WinGet, g_ListBox_Id, ID, Word List Appears Here.
+      WinGet, g_ListBox_Id, ID, % g_ListBoxTitle
       
       ListBoxThread := DllCall("GetWindowThreadProcessId", "Ptr", g_ListBox_Id, "Ptr", g_NULL)
       if (g_ScrollEventHook && (ListBoxThread != g_ScrollEventHookThread)){

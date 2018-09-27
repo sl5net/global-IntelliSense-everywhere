@@ -39,6 +39,8 @@ global g_config := { list:{ change: { stopRexExTitle: false } } }
 
 global g_ListBoxX
 global g_ListBoxY
+; global g_ListBoxTitle
+; global g_ListBoxTitle_firstTimeInMilli
 g_ListBoxX := 0 ; if g_ListBoxX (not false > 0) it never usses CaretXorMouseXfallback . if you want go back to default, reload the
 g_ListBoxY := 0 ; if g_ListBoxX (not false > 0) it never usses CaretXorMouseXfallback . if you want go back to default, reload the
 
@@ -303,26 +305,26 @@ MainLoop()
 ; https://stackoverflow.com/questions/52493547/autohotkey-read-of-two-underscore-keys
 ; https://github.com/sl5net/global-IntelliSense-everywhere/issues/4
 #IfWinActive,
-
 :b0*?:__:: ;does not delete the underscores
     reload_IfNotExist_ListBoxGui()
     ; ~_:: countUnderscore++ if(countUnderscore == 2){ countUnderscore := 0 reload_IfNotExist_ListBoxGui()
 return
 ;>>>>>>>>>>>>>>>>> workaround >>>>>>>>>>>>>>>
+
 reload_IfNotExist_ListBoxGui(){
     AHKcode := "#" . "NoTrayIcon `n "
     AHKcode =
     (
     class := "ahk_class AutoHotkeyGUI"
     winTitle := "Word List Appears Here."
-    WinWait,`%winTitle`% `%class`%,  , 3 ; [, ExcludeTitle, ExcludeText]
+    WinWait,`%winTitle`% `%class`%,  , 5 ; [, ExcludeTitle, ExcludeText]
     DetectHiddenText, on
     ; clipboard := winTitle "----" winText
     IfWinNotExist, `%winTitle`% `%class`% ; , WinText, ExcludeTitle, ExcludeText]
        run,`% "..\start.ahk"
        ; MsgBox, `%winTitle`% NotExist `%class`%  : %A_LineFile%~%A_LineNumber%
     else{
-        tooltip, winTitle=`%winTitle`% found: winText=`%winText`% :%countUnderscore% = countUnderscore : %A_LineFile%~%A_LineNumber%
+        tooltip, winTitle=`%winTitle`% found: winText=`%winText`% :%countUnderscore% = countUnderscore : %A_LineFile%~%A_LineNumber%,1,1
         sleep,2200
         }
     )
@@ -349,18 +351,24 @@ return
 ^+f5:: ; exit-all-scripts and restart
     if(1 && InStr(A_ComputerName,"SL5")){
         setRegistry_toDefault()
-        exit_all_scripts()
+        ; exit_all_scripts()
         run,..\start.ahk
     }
 return
+settitlematchmode,2
+; #IfWinActive,Word List Appears Here. ahk_class AutoHotkeyGUI
+; #IfWinActive,ahk_class AutoHotkeyGUI
+#IfWinActive,"ListBoxTitle (sec="
 ; ToolTip3sec("^+esc:: exit-all-scripts",1,1)
  ^+esc:: ; exit-all-scripts. usefull in developer mode
     if(1 && InStr(A_ComputerName,"SL5")){
      setRegistry_toDefault()
      exit_all_scripts()
+     ; MsgBox, `n (%A_LineFile%~%A_LineNumber%)
      exitapp
-     }
+    }
  return
+#IfWinActive, ; thats probably needet. 27.09.2018 10:29 was problem that hitting 1 , 2 , 3 ... not triggered any. triggers notihng.. with this line it works again.
 
 
 RecomputeMatchesTimer:
@@ -1006,10 +1014,11 @@ return
 ; tooltip to toolt
 
 check_ActionList_GUI_is__hanging_or_freezed:
-  if( A_TimeIdlePhysical < 1000 * 5 )
+  if( A_TimeIdlePhysical < 1000 * 9 )
     return
+  ; g_ListBox_Id
   class := "ahk_class AutoHotkeyGUI"
-  winTitle := "Word List Appears Here."
+  winTitle := g_ListBoxTitle
   IfWinNotExist, % winTitle
     return
   winclose, % winTitle
