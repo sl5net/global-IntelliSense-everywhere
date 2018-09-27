@@ -303,12 +303,12 @@ MainLoop()
 ; https://stackoverflow.com/questions/52493547/autohotkey-read-of-two-underscore-keys
 ; https://github.com/sl5net/global-IntelliSense-everywhere/issues/4
 #IfWinActive,
-
 :b0*?:__:: ;does not delete the underscores
     reload_IfNotExist_ListBoxGui()
     ; ~_:: countUnderscore++ if(countUnderscore == 2){ countUnderscore := 0 reload_IfNotExist_ListBoxGui()
 return
 ;>>>>>>>>>>>>>>>>> workaround >>>>>>>>>>>>>>>
+
 reload_IfNotExist_ListBoxGui(){
     AHKcode := "#" . "NoTrayIcon `n "
     AHKcode =
@@ -1012,7 +1012,7 @@ return
 ; tooltip to toolt
 
 check_ActionList_GUI_is__hanging_or_freezed:
-  if( A_TimeIdlePhysical < 1000 * 5 )
+  if( A_TimeIdlePhysical < 1000 * 9 )
     return
   class := "ahk_class AutoHotkeyGUI"
   winTitle := "Word List Appears Here."
