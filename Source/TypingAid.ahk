@@ -315,14 +315,14 @@ reload_IfNotExist_ListBoxGui(){
     (
     class := "ahk_class AutoHotkeyGUI"
     winTitle := "Word List Appears Here."
-    WinWait,`%winTitle`% `%class`%,  , 3 ; [, ExcludeTitle, ExcludeText]
+    WinWait,`%winTitle`% `%class`%,  , 5 ; [, ExcludeTitle, ExcludeText]
     DetectHiddenText, on
     ; clipboard := winTitle "----" winText
     IfWinNotExist, `%winTitle`% `%class`% ; , WinText, ExcludeTitle, ExcludeText]
        run,`% "..\start.ahk"
        ; MsgBox, `%winTitle`% NotExist `%class`%  : %A_LineFile%~%A_LineNumber%
     else{
-        tooltip, winTitle=`%winTitle`% found: winText=`%winText`% :%countUnderscore% = countUnderscore : %A_LineFile%~%A_LineNumber%
+        tooltip, winTitle=`%winTitle`% found: winText=`%winText`% :%countUnderscore% = countUnderscore : %A_LineFile%~%A_LineNumber%,1,1
         sleep,2200
         }
     )
@@ -349,18 +349,24 @@ return
 ^+f5:: ; exit-all-scripts and restart
     if(1 && InStr(A_ComputerName,"SL5")){
         setRegistry_toDefault()
-        exit_all_scripts()
+        ; exit_all_scripts()
         run,..\start.ahk
     }
 return
+settitlematchmode,2
+; #IfWinActive,Word List Appears Here. ahk_class AutoHotkeyGUI
+; #IfWinActive,ahk_class AutoHotkeyGUI
+#IfWinActive,Word List Appears Here.
 ; ToolTip3sec("^+esc:: exit-all-scripts",1,1)
  ^+esc:: ; exit-all-scripts. usefull in developer mode
     if(1 && InStr(A_ComputerName,"SL5")){
      setRegistry_toDefault()
      exit_all_scripts()
+     ; MsgBox, `n (%A_LineFile%~%A_LineNumber%)
      exitapp
-     }
+    }
  return
+#IfWinActive, ; thats probably needet. 27.09.2018 10:29 was problem that hitting 1 , 2 , 3 ... not triggered any. triggers notihng.. with this line it works again.
 
 
 RecomputeMatchesTimer:
