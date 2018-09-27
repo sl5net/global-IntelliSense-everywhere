@@ -447,6 +447,7 @@ if(isDeprecated_OpenA_edit_open_lib || isAHKcode && ( RegExMatch( AHKcode , "^\s
         winWaitClose,% winTitleError,,1
         ifwinnotexist,% winTitleError
             break
+        sleep,99
         ; winkill is needet. winclose dont work 26.09.2018 07:37
         ; msgbox,% m1ListFileName " ahk_class #32770 ??? "  ; thats disturbing opening ahk-studio. if closed ahk-studio opens
     }
@@ -458,13 +459,9 @@ if(isDeprecated_OpenA_edit_open_lib || isAHKcode && ( RegExMatch( AHKcode , "^\s
 
 
 
-; ____
-
-
-
-
    if(isAHKcode && RegExMatch( AHKcode , "^\s*q=\s*(.+)\s*$" ,  m ) ) { ; q=
-        line := getCorrectedStringUAOSS( getLineOfWord( m1 )) ; that works :) 10.07.2017 14:18
+        line := getLineOfWord( m1 ) ; that works :) 10.07.2017 14:18
+        ; line := getCorrectedStringUAOSS( getLineOfWord( m1 )) ; that works :) 10.07.2017 14:18
         isAHKcode := false
         if(RegExMatch( line , regIsAHKcode ,  m )) { ; repeat / overwrite last regex 10.07.2017 14:24
          isAHKcode := true
