@@ -242,7 +242,7 @@ disableCopyQ() ; enableCopyQ() ;
 
 ; sending := "getCorrectedStringUAOSS1==" getCorrectedStringUAOSS( sending  )
 
-; sending := getCorrectedStringUAOSS( sending  )
+; sending := getCorrectedStringUAOSS( sending  ) ; https://autohotkey.com/boards/viewtopic.php?f=5&t=44955&p=203512&hilit=JEE_StrUtf8BytesToText#p203512
 if(false){
 Msgbox, '%sending%' = sending  n (line:%A_LineNumber%)  (line:%A_LineNumber%)
 
@@ -250,7 +250,7 @@ sending := "JEE_StrTextToUtf8Bytes" JEE_StrTextToUtf8Bytes( sending )
 sending := getCorrectedStringUAOSS( sending  )
 Msgbox, '%sending%' = sending  n (line:%A_LineNumber%)  (line:%A_LineNumber%)
 
-sending := JEE_StrUtf8BytesToText( sending )
+sending := JEE_StrUtf8BytesToText( sending ) ; https://autohotkey.com/boards/viewtopic.php?f=5&t=44955&p=203512&hilit=JEE_StrUtf8BytesToText#p203512
 sending := getCorrectedStringUAOSS( sending  )
 Msgbox, '%sending%' = sending  n (line:%A_LineNumber%)  (line:%A_LineNumber%)
 
