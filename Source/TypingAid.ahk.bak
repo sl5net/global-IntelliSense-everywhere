@@ -39,8 +39,6 @@ global g_config := { list:{ change: { stopRexExTitle: false } } }
 
 global g_ListBoxX
 global g_ListBoxY
-; global g_ListBoxTitle
-; global g_ListBoxTitle_firstTimeInMilli
 g_ListBoxX := 0 ; if g_ListBoxX (not false > 0) it never usses CaretXorMouseXfallback . if you want go back to default, reload the
 g_ListBoxY := 0 ; if g_ListBoxX (not false > 0) it never usses CaretXorMouseXfallback . if you want go back to default, reload the
 
@@ -118,7 +116,7 @@ maxLinesOfCode4length1 := 900 ;
 SetTimer,checkInRegistryChangedActionListAddress,1000 ; RegRead, ActionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList
 SetTimer,checkActionListTXTfile_sizeAndModiTime,3000
 SetTimer,check_some_keys_hanging_or_freezed,2000 ; ; 30.08.2018 13:52 it sometimes happesn. and if it happens then its really ugly !!!! :( !!
-SetTimer,check_ActionList_GUI_is__hanging_or_freezed,1000 ; ; 26.09.2018 16:38 it sometimes happesn.
+SetTimer,check_ActionList_GUI_is_hanging_or_freezed,1000 ; ; 26.09.2018 16:38 it sometimes happesn.
 
 
 SetTimer,doListBoxFollowMouse,off
@@ -209,7 +207,7 @@ g_nextCriticalCommandTimeIdle := A_TimeIdle
 SuspendOn()  ; wieder (10.07.2017 11:51) auskommentiert weils mir zu oft auf suspand on war. wehr oft wenn ich auf skype gewecheelt habe. hoffe die anderen bugFix haben den Seiteneffekt das ich dieses nicht mehr brauche.
 g_nextCriticalCommandString := ""
 
-Gosub, setActionListFileUpdatedTime ; 29.04.2017 14:03
+; Gosub, setActionListFileUpdatedTime ; 29.04.2017 14:03
 
 BuildTrayMenu()      
 
@@ -351,14 +349,15 @@ return
 ^+f5:: ; exit-all-scripts and restart
     if(1 && InStr(A_ComputerName,"SL5")){
         setRegistry_toDefault()
-        ; exit_all_scripts()
+        exit_all_scripts()
         run,..\start.ahk
     }
 return
 settitlematchmode,2
 ; #IfWinActive,Word List Appears Here. ahk_class AutoHotkeyGUI
 ; #IfWinActive,ahk_class AutoHotkeyGUI
-#IfWinActive,"ListBoxTitle (sec="
+; #IfWinActive,"ListBoxTitle (sec="
+#IfWinActive,
 ; ToolTip3sec("^+esc:: exit-all-scripts",1,1)
  ^+esc:: ; exit-all-scripts. usefull in developer mode
     if(1 && InStr(A_ComputerName,"SL5")){
@@ -745,7 +744,7 @@ AHKcodeMsgBox .= temp
             g_FLAGmsgbox := false ; just clicked msgboxWindow
         }else{
             DynaRun(AHKcodeMsgBox) ; wait for user decision
-            tooltip,WinWait ActionListChangedInRegistry
+            tooltip,WinWait ActionListChangedInRegistry  `n (%A_LineFile%~%A_LineNumber%)
             ;WinWait,ActionListChangedInRegistry
             WinWait,ActionListChangedInRegistry,,1
             ;msgbox,18-03-02_17-42 %AHKcodeMsgBox%
@@ -1013,17 +1012,6 @@ return
 
 ; tooltip to toolt
 
-check_ActionList_GUI_is__hanging_or_freezed:
-  if( A_TimeIdlePhysical < 1000 * 9 )
-    return
-  ; g_ListBox_Id
-  class := "ahk_class AutoHotkeyGUI"
-  winTitle := g_ListBoxTitle
-  IfWinNotExist, % winTitle
-    return
-  winclose, % winTitle
-  ; Msgbox,is it closed??? `n (%A_LineFile%~%A_LineNumber%)
-return
 
 check_some_keys_hanging_or_freezed:
   if( A_TimeIdlePhysical < 1000 * 7 )
@@ -1075,3 +1063,45 @@ fixBug_Alt_Shift_Ctrl_hanging_down(){
     Suspend, Off
   return
 } ; endOf: fixBug_Alt_Shift_Ctrl_hanging_down
+
+check_ActionList_GUI_is_hanging_or_freezed:
+  ; g_ListBox_Id
+  ;if( A_TimeIdlePhysical < 1000 * 9 )
+  ;      return
+  ;  ToolTip,%g_ListBox_Id% = g_ListBox_Id `n %g_ListBoxTitle% = g_ListBoxTitle `n %g_ListBoxTitle_firstTimeInMilli% = g_ListBoxTitle_firstTimeInMilli `n (%A_LineFile%~%A_LineNumber%),,1
+
+    ; msgbox,%g_ListBoxTitle% = g_ListBoxTitle `n (%A_LineFile%~%A_LineNumber%)
+    if(!g_ListBoxTitle)
+        return ; probably no problem
+    SetTitleMatchMode,1
+    DetectHiddenWindows,Off
+    IfWinNotExist, % g_ListBoxTitle
+        return ; probably no problem
+    if(!g_ListBoxTitle_firstTimeInMilli){
+         MsgBox, % ":( milli is empty  `n should never happens `n g_ListBoxTitle=" g_ListBoxTitle " `n g_ListBoxTitle_firstTimeInMilli = " g_ListBoxTitle_firstTimeInMilli "`n(" A_LineFile "~" A_LineNumber ")"
+        return
+    }
+    ;tooltip too too too__too
+
+    elapsedMilli := A_TickCount - g_ListBoxTitle_firstTimeInMilli
+    elapsedSec := ceil(elapsedMilli/1000)
+    ; tip = %g_ListBoxTitle% = g_ListBoxTitle `n %elapsedSec% = elapsedSec `n (%A_LineFile%~%A_LineNumber%)
+    ; ToolTip,%g_ListBoxTitle% = g_ListBoxTitle `n %elapsedSec% = elapsedSec `n (%A_LineFile%~%A_LineNumber%)
+    ;MsgBox, % tip "`n`n" elapsedMilli  "millisec = " elapsedSec "sec have elapsed. (" A_LineFile "~" A_LineNumber ")"
+    if(elapsedSec > 11){
+     ;winclose, % g_ListBoxTitle
+     ToolTip3sec("DestroyListBox()`n`n" A_LineNumber " " A_ScriptName )
+     DestroyListBox()
+
+     ; script hangs at this position
+     ;winclose, % g_ListBoxTitle
+     ;winkill, % g_ListBoxTitle
+     reload
+
+     ;MsgBox, % tip "`n`n" elapsedMilli  "millisec = " elapsedSec "sec have elapsed. (" A_LineFile "~" A_LineNumber ")"
+     ;Msgbox,is it closed??? `n (%A_LineFile%~%A_LineNumber%)
+    }
+    return
+  clipboard := tip
+  ; too too too
+return

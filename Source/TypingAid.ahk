@@ -349,15 +349,15 @@ return
 ^+f5:: ; exit-all-scripts and restart
     if(1 && InStr(A_ComputerName,"SL5")){
         setRegistry_toDefault()
-        exit_all_scripts()
+        ; exit_all_scripts()
         run,..\start.ahk
     }
 return
 settitlematchmode,2
 ; #IfWinActive,Word List Appears Here. ahk_class AutoHotkeyGUI
 ; #IfWinActive,ahk_class AutoHotkeyGUI
-; #IfWinActive,"ListBoxTitle (sec="
-#IfWinActive,
+#IfWinActive,"ListBoxTitle (sec="
+; #IfWinActive,
 ; ToolTip3sec("^+esc:: exit-all-scripts",1,1)
  ^+esc:: ; exit-all-scripts. usefull in developer mode
     if(1 && InStr(A_ComputerName,"SL5")){
@@ -1096,7 +1096,7 @@ check_ActionList_GUI_is_hanging_or_freezed:
      ; script hangs at this position
      ;winclose, % g_ListBoxTitle
      ;winkill, % g_ListBoxTitle
-     reload
+     reload ; script hangs if gui was not used. here we could check if its hanging. 27.09.2018 19:21 if ListBox was not used and not closed. reload helps to get script running again.
 
      ;MsgBox, % tip "`n`n" elapsedMilli  "millisec = " elapsedSec "sec have elapsed. (" A_LineFile "~" A_LineNumber ")"
      ;Msgbox,is it closed??? `n (%A_LineFile%~%A_LineNumber%)
