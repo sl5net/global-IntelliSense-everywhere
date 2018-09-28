@@ -421,7 +421,7 @@ if(isDeprecated_OpenA_edit_open_lib || isAHKcode && ( RegExMatch( AHKcode , "^\s
         Msgbox,:( AHK-Studio.ahk `n is not exist. `n (%A_LineFile%~%A_LineNumber%)
         return false
     }
-    if(0){
+    if(1){
         ; 28.09.2018 15:48 2,6 MB opens with error warnings
         runString = AHK-Studio.ahk "%m1CorrectedAhkFileAddress%"
         run,% runString, ..\AHK-Studio
