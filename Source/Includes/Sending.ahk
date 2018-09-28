@@ -429,25 +429,29 @@ if(isDeprecated_OpenA_edit_open_lib || isAHKcode && ( RegExMatch( AHKcode , "^\s
     winTitleError := m1ListFileName " ahk_class #32770"
 
 
-; __
-
     SetTitleMatchMode,2
     winTitleError := ".ahk ahk_class #32770"
-    winWait,% winTitleError ; Co_Mozilla_Firefox.ahk ahk_class #32770 ; mouseWindowTitle=0x2970f44  ;
+    winWait,% winTitleError,,3 ; Co_Mozilla_Firefox.ahk ahk_class #32770 ; mouseWindowTitle=0x2970f44  ;
+    ifwinnotexist,% winTitleError
+        return
     wingettext,winText,  % winTitleError
     ToolTip,
     ; should consist: "Error: This line does not contain a recognized action."
     errorText := "This line does not contain a recognized action."
     if(!Instr(winText,errorText))
         return
-    loop,9
+    loop,20
     {
-        winclose,% m1ListFileName " ahk_class #32770" ; thats disturbing opening ahk-studio. if closed ahk-studio opens
-        winkill,% m1ListFileName " ahk_class #32770" ; thats disturbing opening ahk-studio. if closed ahk-studio opens
+        winclose,% winTitleError ; thats disturbing opening ahk-studio. if closed ahk-studio opens
+        winkill,% winTitleError ; thats disturbing opening ahk-studio. if closed ahk-studio opens
         winWaitClose,% winTitleError,,1
         ifwinnotexist,% winTitleError
             break
-        sleep,99
+        sleep,100
+        wingettext,winText,  % winTitleError
+        if(!Instr(winText,errorText))
+            break
+
         ; winkill is needet. winclose dont work 26.09.2018 07:37
         ; msgbox,% m1ListFileName " ahk_class #32770 ??? "  ; thats disturbing opening ahk-studio. if closed ahk-studio opens
     }
