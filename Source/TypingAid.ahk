@@ -327,6 +327,7 @@ reload_IfNotExist_ListBoxGui(){
         }
     )
     DynaRun(AHKcode)
+
     return
 }
 
@@ -368,7 +369,6 @@ settitlematchmode,2
     }
  return
 #IfWinActive, ; thats probably needet. 27.09.2018 10:29 was problem that hitting 1 , 2 , 3 ... not triggered any. triggers notihng.. with this line it works again.
-
 
 RecomputeMatchesTimer:
    Thread, NoTimers
@@ -1014,7 +1014,7 @@ return
 
 
 check_some_keys_hanging_or_freezed:
-  if( A_TimeIdlePhysical < 1000 * 7 )
+  if( A_TimeIdlePhysical <= 1000 * 5 )
     return
   fixBug_Alt_Shift_Ctrl_hanging_down()
 return
@@ -1041,7 +1041,6 @@ exit_all_scripts(){
           }
 }
 
-
 fixBug_Alt_Shift_Ctrl_hanging_down(){
   ; 30.08.2018 13:52 it sometimes happesn. and if it happens then its really ugly !!!! :( !!
     Suspend,On
@@ -1059,6 +1058,11 @@ fixBug_Alt_Shift_Ctrl_hanging_down(){
     tip := "Shift is down"
     ToolTip3sec(A_LineNumber . " " . A_ScriptName . " `n " . tip)
     send,{ShiftUp}
+  }
+ if( !GetKeyState("NumLock","T") ){
+    tip := "NumLock was not on. we need numpad"
+    ToolTip3sec(A_LineNumber . " " . A_ScriptName . " `n " . tip)
+    send,{NumLock}
   }
     Suspend, Off
   return
