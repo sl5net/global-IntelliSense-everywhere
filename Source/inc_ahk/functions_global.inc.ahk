@@ -21,20 +21,20 @@ getCaretPos(activedoProtectOutOfWindowPos:=true){
 	if(activedoProtectOutOfWindowPos){
 		WinGetPos,wX,wY,wW,wH,A
 		if(CaretX < wX || CaretY < wY || CaretX > (wX+wH) || CaretY > (wX+wH)){
-			ToolTip5sec(A_LineNumber " " A_LineFile " (copy2clipBoard.functions.inc.ahk : 24)" )
+			ToolTip5sec(A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "")  " (copy2clipBoard.functions.inc.ahk : 24)" )
 			CaretX := g_CaretX_Old 
 			CaretY := g_CaretY_Old 
 		} 
 		if(CaretX < wX || CaretY < wY || CaretX > (wX+wH) || CaretY > (wX+wH)){
 			msg=line29 :( thats out. `n Caret = (%CaretX%,%CaretY%) `n
-			ToolTip5sec(msg . A_LineNumber . " " .  A_LineFile . " " . A_ThisFunc ,0,0 )
+			ToolTip5sec(msg . A_LineNumber . " " .  RegExReplace(A_LineFile, ".*\\", "")  . " " . A_ThisFunc ,0,0 )
 			return
 		}
 	}
 	g_CaretX_Old := CaretX
 	g_CaretY_Old := CaretY
 	msg=line35: Caret = (%CaretX%,%CaretY%) `n
-	ToolTip5sec(msg . A_LineNumber . " " .  A_LineFile . " " . A_ThisFunc ,0,0 )
+	ToolTip5sec(msg . A_LineNumber . " " .  RegExReplace(A_LineFile, ".*\\", "")  . " " . A_ThisFunc ,0,0 )
 	p := {x:CaretX, y:CaretY}
 	return p
 }
@@ -551,7 +551,7 @@ WinActivateTry(wintit,tries){
 
 ;<<<<<<<< contextHelp <<<< 180304133425 <<<< 04.03.2018 13:34:25 <<<<
 contextHelp(HardDriveLetter){
-	ToolTip1sec(A_LineNumber . " " .  A_LineFile . " " . A_ThisFunc . A_ThisLabel)
+	ToolTip1sec(A_LineNumber . " " .  RegExReplace(A_LineFile, ".*\\", "")  . " " . A_ThisFunc . A_ThisLabel)
 	SetTitleMatchMode, 1 ; must start match
 
 	;WinGetActiveStats, ActiveTitle, w, h, x, y 
@@ -662,7 +662,7 @@ runCopyQ_Ctrl_Shift_v(){
     Last_A_This:=A_ThisFunc . A_ThisLabel . " p"
     lll(A_LineNumber, A_LineFile,Last_A_This)
 	
-    ToolTip1sec(A_LineNumber . " " .  A_LineFile . " " . Last_A_This)
+    ToolTip1sec(A_LineNumber . " " .  RegExReplace(A_LineFile, ".*\\", "")  . " " . Last_A_This)
 ; 
 SetKeyDelay,80,80
 		
@@ -911,7 +911,7 @@ convert123To_NumPad123(t)
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 clipboardPaste(s)
 {
-  ToolTip1sec(A_LineNumber . " " .  A_LineFile . " " . A_ThisFunc . A_ThisLabel)
+  ToolTip1sec(A_LineNumber . " " .  RegExReplace(A_LineFile, ".*\\", "")  . " " . A_ThisFunc . A_ThisLabel)
 	if(!s){
 		MsgBox, :(  clipboardPaste(s)  '%s%' = s (line:%A_LineNumber%) `n 
 		return false
@@ -1124,7 +1124,7 @@ feedbackMsgBoxNr := feedbackMsgBoxNrPre + 1
 
 MAXcountMsgBoxNr := 5
 if(feedbackMsgBoxNrPre > MAXcountMsgBoxNr || feedbackMsgBoxNr > MAXcountMsgBoxNr){
-	TOolTip5sec(":( Oops `n feedbackMsgBoxNr>MAX `n " . A_LineNumber . " " .  A_LineFile . " " . Last_A_This,1,1)
+	ToolTip5sec(":( Oops `n feedbackMsgBoxNr>MAX `n " . A_LineNumber . " " .  RegExReplace(A_LineFile, ".*\\", "")  . " " . Last_A_This,1,1)
 	; for some reasion sometimes there anyway to many windows. therfor this dirty-bugFix:
 	SetTitleMatchMode,1
 	DetectHiddenWindows,Off
@@ -1241,7 +1241,7 @@ AHKcode := "#" . "NoTrayIcon" . "`n" . AHKcode
 ;>>>>>>>> AHKcode >>>> 170814212827 >>>> 14.08.2017 21:28:27 >>>>
 ; tooltip,%AHKcode%`n `n (%A_LineFile%~%A_LineNumber%)
 ; Msgbox,`n (%A_LineFile%~%A_LineNumber%) `
-;ToolTip4sec(A_LineNumber . " " .  A_LineFile . " `n" . at)
+;ToolTip4sec(A_LineNumber . " " .  RegExReplace(A_LineFile, ".*\\", "")  . " `n" . at)
 ;If(!WinExist(feedbackMsgBoxNr . ":")) ; shuld never happens
 SetTitleMatchMode,1
 while(0 && WinExist(feedbackMsgBoxNr . ":")){

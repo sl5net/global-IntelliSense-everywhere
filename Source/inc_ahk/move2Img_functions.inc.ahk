@@ -158,7 +158,7 @@ CoordMode, Menu, %coord%
       MouseMove,-%offset139%,-%offset139%,%speed%,R
    }
    
-   ;ToolTip3sec(ImageSearchStrig . "`n`n" . A_LineNumber . " " .  A_LineFile . " " . Last_A_This)
+   ;ToolTip3sec(ImageSearchStrig . "`n`n" . A_LineNumber . " " .  RegExReplace(A_LineFile, ".*\\", "")  . " " . Last_A_This)
    ;msgbox,% ImageSearchStrig . "`n`n" . A_LineNumber . " " .  A_LineFile . " " . Last_A_This
    ;~ ImageSearch, XPos, YPos, 0, 0, A_ScreenWidth, A_ScreenHeight,  %i%
       ;~ MsgBox,%ErrorLevel% = ErrorLevel (line:%A_LineNumber%) `n %textInfo% = textInfo `n 
@@ -167,7 +167,7 @@ CoordMode, Menu, %coord%
    {
       ; 2 if there was a problem that prevented the command from conducting the search (such as failure to open the image file or a badly formatted option).
       tip := ImageSearchStrig . "`n`n" . " ErrorLevel = " . ErrorLevel . "`n  :( Die Suche konnte nicht durchgeführt werden.  `n textInfo =`n" . textInfo
-      ToolTip3sec(tip . "`n`n" . A_LineNumber . " " .  A_LineFile . " " . Last_A_This)
+      ToolTip3sec(tip . "`n`n" . A_LineNumber . " " .  RegExReplace(A_LineFile, ".*\\", "")  . " " . Last_A_This)
       msgbox, % tip . "`n`n" . A_LineNumber . " " .  A_LineFile . " " . Last_A_This
       Sleep,3000
       IfNotExist,%i%

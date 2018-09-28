@@ -34,7 +34,7 @@ getLineOfIndex(id) {
         if ( id == A_Index  ) {
             ;msgBox, %A_LoopReadLine% 18-03-02_09-26
             ;tooltip,'%A_LoopReadLine%' = A_LoopReadLine `n (line:%A_LineNumber%)
-            ;ToolTip1sec(A_LoopReadLine . "`n" . A_LineNumber . " " .  A_LineFile . " " .    Last_A_This)
+            ;ToolTip1sec(A_LoopReadLine . "`n" . A_LineNumber . " " .  RegExReplace(A_LineFile, ".*\\", "")  . " " .    Last_A_This)
             return, JEE_StrUtf8BytesToText( A_LoopReadLine )
             return A_Index
          }
@@ -62,7 +62,7 @@ getWordIndex(word) {
         if ( foundPos  ) {
             ;msgBox, %A_LoopReadLine% 18-03-02_09-26
             ;tooltip,'%A_LoopReadLine%' = A_LoopReadLine `n (line:%A_LineNumber%)
-            ;ToolTip1sec(A_LoopReadLine . "`n" . A_LineNumber . " " .  A_LineFile . " " .    Last_A_This)
+            ;ToolTip1sec(A_LoopReadLine . "`n" . A_LineNumber . " " .  RegExReplace(A_LineFile, ".*\\", "")  . " " .    Last_A_This)
             return A_Index
          }
     }
@@ -98,7 +98,7 @@ getLineOfWord(word) {
         if ( foundPos  ) {
             ;msgBox, %A_LoopReadLine% 18-03-02_09-26
             ;tooltip,'%A_LoopReadLine%' = A_LoopReadLine `n (line:%A_LineNumber%)
-            ;ToolTip1sec(A_LoopReadLine . "`n" . A_LineNumber . " " .  A_LineFile . " " .    Last_A_This)
+            ;ToolTip1sec(A_LoopReadLine . "`n" . A_LineNumber . " " .  RegExReplace(A_LineFile, ".*\\", "")  . " " .    Last_A_This)
             return, JEE_StrUtf8BytesToText( A_LoopReadLine )
             ; return A_Index
          }
@@ -115,7 +115,7 @@ getLineOfWord(word) {
         if ( foundPos  ) {
             ;msgBox, %thisLine% 17-07-10_13-28
             ;tooltip,'%thisLine%' = thisLine  `n (line:%A_LineNumber%)
-            ;ToolTip1sec(thisLine . "`n" . A_LineNumber . " " .  A_LineFile . " " .    Last_A_This)
+            ;ToolTip1sec(thisLine . "`n" . A_LineNumber . " " .  RegExReplace(A_LineFile, ".*\\", "")  . " " .    Last_A_This)
             return, thisLine
             return a_index
          }
@@ -372,7 +372,7 @@ tooltip,% tip
 msgbox,% tip
 }
         if(!rX["code"]){
-            ToolTip3sec("found synonym `n ("   A_LineFile " ," A_LineNumber  ") "   )
+            ToolTip3sec("found synonym `n ("   RegExReplace(A_LineFile, ".*\\", "")  " ," A_LineNumber  ") "   )
             id := getWordIndex(m1)
             while(!rX["code"] && id>1){
                 id -= 1
@@ -421,19 +421,32 @@ if(isDeprecated_OpenA_edit_open_lib || isAHKcode && ( RegExMatch( AHKcode , "^\s
         Msgbox,:( AHK-Studio.ahk `n is not exist. `n (%A_LineFile%~%A_LineNumber%)
         return false
     }
-    runString = AHK-Studio.ahk "%m1CorrectedAhkFileAddress%"
-    run,% runString, ..\AHK-Studio
+    if(0){
+        ; 28.09.2018 15:48 2,6 MB opens with error warnings
+        runString = AHK-Studio.ahk "%m1CorrectedAhkFileAddress%"
+        run,% runString, ..\AHK-Studio
+    }else{
+        ; 28.09.2018 15:48 6,1 MB opens without error warnings
+        runString = AutoGUI.ahk "%m1CorrectedAhkFileAddress%"
+        run,% runString, ..\AutoGUI
+        return
+    }
     ; a_Piratenpad_Google_Chrome.ahk ahk_class #32770
     ToolTip,winWait `n (%A_LineFile%~%A_LineNumber%)
     SetTitleMatchMode,1
     winTitleError := m1ListFileName " ahk_class #32770"
 
+; ms Msgbox,(`%A_LineFile`%~`%A_LineNumber`%)
+; Msgbox,(`%A_LineFile`%~`%A_LineNumber`%)
 
     SetTitleMatchMode,2
     winTitleError := ".ahk ahk_class #32770"
     winWait,% winTitleError,,3 ; Co_Mozilla_Firefox.ahk ahk_class #32770 ; mouseWindowTitle=0x2970f44  ;
     ifwinnotexist,% winTitleError
+    {
+        Msgbox,:( not expected by using ahk-studio 28.09.2018 09:36 `n its not a critical issue `n winnotexist %winTitleError% `n (%A_LineFile%~%A_LineNumber%)
         return
+    }
     wingettext,winText,  % winTitleError
     ToolTip,
     ; should consist: "Error: This line does not contain a recognized action."
@@ -457,7 +470,7 @@ if(isDeprecated_OpenA_edit_open_lib || isAHKcode && ( RegExMatch( AHKcode , "^\s
     }
     msg=%runString% `n %m1% `n deprecated: `n please open by using AHK-Studio instead run`n
     ;msgbox, % msg "`n" A_LineNumber   " "   A_LineFile   " "   Last_A_This
-    ToolTip5sec(msg A_LineNumber   " "   A_LineFile   " "   Last_A_This)
+    ToolTip5sec(msg A_LineNumber   " "   RegExReplace(A_LineFile, ".*\\", "")    " "   Last_A_This)
     return
 }
 
@@ -906,7 +919,7 @@ if(g_method == "Clipboard" ){
     ;DisableKeyboardHotKeys()
 ;sendClipboard(sending) ; funny not work here ; 01.04.2018 09:46 18-04-01_09-46
 
-ToolTip4sec("A_SendLevel = " A_SendLevel "`n`n" A_LineNumber   " "   A_LineFile   " "   Last_A_This) ; The built-in variable A_SendLevel contains the current setting.
+ToolTip4sec("A_SendLevel = " A_SendLevel "`n`n" A_LineNumber   " "   RegExReplace(A_LineFile, ".*\\", "")    " "   Last_A_This) ; The built-in variable A_SendLevel contains the current setting.
 
 ClipboardBackup := Clipboard
 ;Sleep,10

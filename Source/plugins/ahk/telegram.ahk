@@ -64,12 +64,12 @@ lblLButton:
         WinSetTitle, ahk_class Qt5QWindowIcon, , Telegram , ToolTip
         ;MsgBox,test 18-06-10_13-55 %at%  %at2% (%A_LineFile%)
         ;ToolTip, 18-06-10_13-55 %at%  %at2% (%A_LineFile%)
-        ToolTip5sec(c A_LineNumber . " " . A_ScriptName . " " . Last_A_This)
+        ToolTip5sec(c A_LineNumber . " " . RegExReplace(A_LineFile, ".*\\", "")  . " " . Last_A_This)
     }
     MouseClick
     Suspend,Off
     ;ToolTip, % A_LineNumber " : " A_LineFile 
-    ToolTip5sec(c A_LineNumber . " " . A_ScriptName . " " . Last_A_This)
+    ToolTip5sec(c A_LineNumber . " " . RegExReplace(A_LineFile, ".*\\", "")  . " " . Last_A_This)
 return
 
 
@@ -78,7 +78,7 @@ workWithNewWindow(tc,at,ac){
     needle=Telegram ahk_class Qt5QWindowIcon ; mouseWindowTitle=0x500908  ; 
       if( 1 AND (InStr(tc, needle) ))
       {
-         ;ToolTip1sec(A_LineNumber . " " . A_ScriptName . " " . Last_A_This)
+         ;ToolTip1sec(A_LineNumber . " " . RegExReplace(A_LineFile, ".*\\", "")  . " " . Last_A_This)
          WinGetPos, X, Y, Width, Height, % needle
          ;MouseClick, WhichButton [, X, Y, ClickCount, Speed, D|U, R], left, % X + Width/2 , Y 
          ;MouseClick, left, % X + Width/2 , Y + 55 , 1 , 1 , ,
@@ -115,7 +115,7 @@ workWithNewWindow(tc,at,ac){
 
       ;MsgBox, % c " A_LineNumber=" A_LineNumber
       WinSetTitle, % needle, , % c " - Telegram" , ToolTip
-      ;ToolTip5sec(c A_LineNumber . " " . A_ScriptName . " " . Last_A_This)
+      ;ToolTip5sec(c A_LineNumber . " " . RegExReplace(A_LineFile, ".*\\", "")  . " " . Last_A_This)
         ;Pause
 
       }

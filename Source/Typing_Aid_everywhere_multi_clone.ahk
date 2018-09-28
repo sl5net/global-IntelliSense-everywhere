@@ -311,7 +311,7 @@ global g_lineNumberFeedback
             m=!ActionListNEW `n '%activeTitle%' = activeTitle  `n  '%activeClass%' = activeClass `n'%ActionListDir%' = ActionListDir `n==> return (line:`%A_LineNumber`%) `n 17-03-19_14-09
             g_tooltipText:=m
             Msgbox,%m%`n (from: %A_LineFile%~%A_LineNumber%) 17-08-11_23-42
-           ; ToolTip5sec(m . " `n" . A_LineNumber . " " .  A_LineFile . " " . Last_A_This)
+           ; ToolTip5sec(m . " `n" . A_LineNumber . " " .  RegExReplace(A_LineFile, ".*\\", "")  . " " . Last_A_This)
             ; return ; we are inside a while loop ;) return probably makes now since there ;) 24.03.2017 20:29 17-03-24_20-29
 
 sleepMili := 1000
@@ -751,7 +751,7 @@ if( worlistExtension  <> ".ahk" ) {
 global g_lineNumberFeedback
  g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
    m = '%ActionListNEW%' = ActionListNEW  `n 
-      ToolTip5sec(A_LineNumber . "THATS VERY QUICK AND DIRTY AND MAYBEEEE IT HALPS NOT!!!! " . A_ScriptName . " " . m) ;
+      ToolTip5sec(A_LineNumber . "THATS VERY QUICK AND DIRTY AND MAYBEEEE IT HALPS NOT!!!! " . RegExReplace(A_LineFile, ".*\\", "")  . " " . m) ;
 ; return,  "superSimple.txt"
       ; ################################################
       ; ################################################
@@ -986,7 +986,7 @@ activeTitleOLD: %activeTitleOLD%
 
 lll(A_LineNumber, A_LineFile, tip "reload 17-08-04_14-42")
                 tooltip, =>Reload  `n  `n (%A_LineFile%~%A_LineNumber%)
-ToolTip5sec(tip A_LineNumber . " " . A_LineFile)
+ToolTip5sec(tip A_LineNumber . " " . RegExReplace(A_LineFile, ".*\\", "") )
                  sleep,1500
                  return
              }

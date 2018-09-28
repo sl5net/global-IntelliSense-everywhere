@@ -128,7 +128,7 @@ from: ActionList.ahk~%A_LineNumber%
     }
 ; regex ; __ __
 
-  ToolTip5sec("DatabaseRebuilt = " DatabaseRebuilt "`nLoadActionList = " LoadActionList "`n" A_LineNumber . " " . A_LineFile )
+  ToolTip5sec("DatabaseRebuilt = " DatabaseRebuilt "`nLoadActionList = " LoadActionList "`n" A_LineNumber . " " . RegExReplace(A_LineFile, ".*\\", "")  )
    if (!isTblWordsEmpty && !DatabaseRebuilt) {
     ; thats inside ReadActionList() ---------------------------------------------
 
@@ -296,7 +296,7 @@ global do_tooltipReadActionList
       ;reads list of words from file
      if(InStr(ActionListLearnedTXTaddress,"ActionListLearned.ahk")){
         tip=thats deprecated `n ordlistLearnedTXTaddress = `n %ActionListLearnedTXTaddress% `n (%A_LineFile%~%A_LineNumber%)
-        ToolTip3sec(tip "`n" A_LineNumber " " A_LineFile " " Last_A_This)
+        ToolTip3sec(tip "`n" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "")  " " Last_A_This)
         Return ParseWordsCount
     }else
       FileRead, ParseWords, %ActionListLearnedTXTaddress%

@@ -102,8 +102,6 @@ ReadInTheActionList(){ ;Read in the ActionList
 ;<<<<<<<< MainLoop <<<< 180208192114 <<<< 08.02.2018 19:21:14 <<<<
 MainLoop(){
 
-
-
    global g_TerminatingEndKeys
    Loop 
    { 
@@ -666,12 +664,12 @@ if(foundPos){
 
 ; if(A_UserName == "Administrator")
 ;    SendInput,%Key%
-;else }}}}} }}}}}}0000000000001230 ToolTip1sec(A_LineNumber   " "   A_LineFile   " "   Last_A_This); 75+ lines in Live Edit Live_Edit Pseudo Live Edit for Chrome Firefox PhpStorm.ahk
+;else }}}}} }}}}}}0000000000001230 ToolTip1sec(A_LineNumber   " "   RegExReplace(RegExReplace(A_LineFile, ".*\\", "") , ".*\", "") " " Last_A_This); 75+ lines in Live Edit Live_Edit Pseudo Live Edit for Chrome Firefox PhpStorm.ahk
 if(lenKey>3){
-    ;ToolTip3sec(Key "`n`n" A_LineNumber   " "   A_LineFile   " "   Last_A_This) 
+    ;ToolTip3sec(Key "`n`n" A_LineNumber   " "   RegExReplace(A_LineFile, ".*\\", "")    " "   Last_A_This)
     send,{%keyBackup%}
 }else{
-    ;ToolTip3sec(Key "`n" keyBackup "`n" A_LineNumber   " "   A_LineFile   " "   Last_A_This) 
+    ;ToolTip3sec(Key "`n" keyBackup "`n" A_LineNumber   " "   RegExReplace(A_LineFile, ".*\\", "")    " "   Last_A_This)
     SendRaw,%Key%
 }
 ; 000   0  0 1234567890000000000
@@ -1208,7 +1206,7 @@ lll(A_LineNumber, A_LineFile, "CloseListBox()")
 
 SuspendOn(){
    global g_ScriptTitle
-   ;ToolTip2sec("Suspend deaktivad TEST " A_LineNumber   " "   A_LineFile   " "   Last_A_This)
+   ;ToolTip2sec("Suspend deaktivad TEST " A_LineNumber   " "   RegExReplace(A_LineFile, ".*\\", "")    " "   Last_A_This)
    ;Suspend, On  ; deaktivated now. for testing reasons 16.07.2017 11:34 17-07-16_11-34
    Menu, Tray, Tip, %g_ScriptTitle% - Inactive
    If A_IsCompiled

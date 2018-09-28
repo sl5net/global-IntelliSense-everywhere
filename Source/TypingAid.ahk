@@ -342,7 +342,7 @@ reload_IfNotExist_ListBoxGui(){
 ;    run,% "..\start.ahk"
   ;InitializeListBox() ; don work. produce error... new test 18-06-11_20-00
 ;   Last_A_This:=A_ThisFunc . A_ThisLabel
-;   ToolTip4sec("InitializeListBox `n " A_LineNumber . " " . A_ScriptName . " " . Last_A_This)
+;   ToolTip4sec("InitializeListBox `n " A_LineNumber . " " . RegExReplace(A_LineFile, ".*\\", "")  . " " . Last_A_This)
 return 
 ;>>>>>>>>>>>>>>>>> workaround >>>>>>>>>>>>>>>
 
@@ -357,9 +357,10 @@ return
 settitlematchmode,2
 ; #IfWinActive,Word List Appears Here. ahk_class AutoHotkeyGUI
 ; #IfWinActive,ahk_class AutoHotkeyGUI
-#IfWinActive,"ListBoxTitle (sec="
+;#IfWinActive,"ListBoxTitle (sec="
 ; #IfWinActive,
 ; ToolTip3sec("^+esc:: exit-all-scripts",1,1)
+#IfWinActive, Typing
  ^+esc:: ; exit-all-scripts. usefull in developer mode
     if(1 && InStr(A_ComputerName,"SL5")){
      setRegistry_toDefault()
@@ -374,6 +375,8 @@ RecomputeMatchesTimer:
    Thread, NoTimers
    RecomputeMatches()
 Return
+
+; Msgbox,(`%A_LineFile`%~`%A_LineNumber`%)
 
 #MaxThreadsPerHotkey 1
 
@@ -676,7 +679,7 @@ if(g_config["list"]["change"]["stopRexExTitle"]=="."){
     return
 }
 if(0 && InStr(A_ComputerName,"SL5"))
-    ToolTip5sec(ActionList " `n(" A_LineNumber " " A_LineFile . " )" )
+    ToolTip5sec(ActionList " `n(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "")  . " )" )
 
     ;SetTimer,checkActionListTXTfile_sizeAndModiTime,Off
 
@@ -771,11 +774,11 @@ AHKcodeMsgBox .= temp
         ;if(g_FLAGmsgbox == 0)
             RecomputeMatches()
 
-    ; gosub onLink2ActionListChangedInRegistry ; ToolTip3sec(A_LineNumber . " " . A_LineFile . " " . Last_A_This)
+    ; gosub onLink2ActionListChangedInRegistry ; ToolTip3sec(A_LineNumber . " " . RegExReplace(A_LineFile, ".*\\", "")  . " " . Last_A_This)
 return
 ;>>>>>>>> checkInRegistryChangedActionListAddress >>>> 180319214434 >>>> 19.03.2018 21:44:34 >>>>
 
-; ToolTip1sec(A_LineNumber . " " . A_LineFile . " " . Last_A_This) )
+; ToolTip1sec(A_LineNumber . " " . RegExReplace(A_LineFile, ".*\\", "")  . " " . Last_A_This) )
 
 
 ;<<<<<<<< onLink2ActionListChangedInRegistry <<<< 180319214441 <<<< 19.03.2018 21:44:41 <<<<
@@ -795,7 +798,7 @@ if(g_doListBoxFollowMouse)
 
     FileGetTime, ActionListModified, %ActionList%, M
     FormatTime, ActionListModified, %ActionListModified%, yyyy-MM-dd HH:mm:ss
-    ;ToolTip4sec(ActionList " = ActionList `n"  ActionListModified  " `n" . A_LineNumber . " " . A_ScriptName . " " . Last_A_This,1,1)
+    ;ToolTip4sec(ActionList " = ActionList `n"  ActionListModified  " `n" . A_LineNumber . " " . RegExReplace(A_LineFile, ".*\\", "")  . " " . Last_A_This,1,1)
     if(ActionListModiTime_OLD <> ActionListModiTime && ActionListModiTime_OLD ){
         ;Msgbox,ActionListModiTime_OLD <> ActionListModiTime `n (%A_LineFile%~%A_LineNumber%)
         ; ParseWordsCount := ReadActionList()
@@ -1046,22 +1049,22 @@ fixBug_Alt_Shift_Ctrl_hanging_down(){
     Suspend,On
  if( GetKeyState("Alt","P") ){ 
     tip := "Alt is down"
-    ToolTip3sec(A_LineNumber . " " . A_ScriptName . " `n " . tip)
+    ToolTip3sec(A_LineNumber . " " . RegExReplace(A_LineFile, ".*\\", "")  . " `n " . tip)
     send,{AltUp}
   }
  if( GetKeyState("Ctrl","P") ){ 
     tip := "Ctrl is down"
-    ToolTip3sec(A_LineNumber . " " . A_ScriptName . " `n " . tip)
+    ToolTip3sec(A_LineNumber . " " . RegExReplace(A_LineFile, ".*\\", "")  . " `n " . tip)
     send,{CtrlUp}
   }
  if( GetKeyState("Shift","P") ){ 
     tip := "Shift is down"
-    ToolTip3sec(A_LineNumber . " " . A_ScriptName . " `n " . tip)
+    ToolTip3sec(A_LineNumber . " " . RegExReplace(A_LineFile, ".*\\", "")  . " `n " . tip)
     send,{ShiftUp}
   }
  if( !GetKeyState("NumLock","T") ){
     tip := "NumLock was not on. we need numpad"
-    ToolTip3sec(A_LineNumber . " " . A_ScriptName . " `n " . tip)
+    ToolTip3sec(A_LineNumber . " " . RegExReplace(A_LineFile, ".*\\", "")  . " `n " . tip)
     send,{NumLock}
   }
     Suspend, Off
