@@ -308,6 +308,7 @@ if (g_SingleMatch[WordIndex]) {
 regIsAHKcode := "^([^\|\n]+?)\|rr\|([^\n]*?)\|ahk\|([^\n]*?)$"
 regIsKTScode := "^([^\|\n]+?)\|rr\|([^\n]*?)\|kts\|([^\n]*?)$"
 regIsXXXcode := "^([^\|\n]+?)\|(rr)\|([^\n]*?)\|(ahk|kts)\|([^\n]*?)$"
+regIsXXXcode := "^([^\|\n]+?)\|(rr)\|([^\n]*?)(?:\|(ahk|kts)\|)*([^\n]*?)$"
 
 
 regIsSynonym := "^([^\|\n]+?)\|(rr)\|$"
@@ -342,11 +343,15 @@ msgbox,% tip
             while(!rX["code"] && id>1){
                 id -= 1
                 lineOfIndex := getLineOfIndex(id)
-                RegExMatch( lineOfIndex , regIsXXXcode ,  m )
+                ; regIsXXXcode := "^([^\|\n]+?)\|(rr)\|([^\n]*?)\|(ahk|kts)\|([^\n]*?)$"
+                ; dayTimeHello.ahk|rr|
+                RegExMatch( lineOfIndex , regIsXXXcode  ,  m )
                 rX := {key:m1, rr:m2, send:m3, lang:m4 ,code:m5}
 
                 if(!rX["rr"]){
-                    tip=%lineOfIndex% `n (%A_LineFile%~%A_LineNumber%)
+                    tip=%lineOfIndex% `n
+                    tip .= "`n regIsXXXcode= " rX["regIsXXXcode"] "`n key= " rX["key"] "`n rr= " rX["rr"] " `n send= " rX["send"] " `n lang= " rX["lang"] " `n code= " rX["code"]
+                    ;Msgbox,% " `n" tip "`n no code tag inside `n(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
                     ToolTip3sec(tip)
                     sending := lineOfIndex
                     break ; no code tag inside
@@ -354,7 +359,8 @@ msgbox,% tip
                 if(rX["code"]){
                         tip=%lineOfIndex% `n (%A_LineFile%~%A_LineNumber%)
                         ToolTip3sec(tip)
-                        break ; no code tag inside
+                        ;Msgbox,% "code inside `n(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
+                        break ; code inside
                 }
    }   }    }
 
@@ -427,13 +433,12 @@ if(isDeprecated_OpenA_edit_open_lib || isAHKcode && ( RegExMatch( AHKcode , "^\s
         ; 28.09.2018 15:48 2,6 MB opens with error warnings
         runString = AHK-Studio.ahk "%m1CorrectedAhkFileAddress%"
         run,% runString, ..\AHK-Studio
-    }else if(1 && isEditorExist_AutoGUI){
+    }else if(1 && isEditorExist_AutoGUI){ ; fallback
         ; 28.09.2018 15:48 6,1 MB opens without error warnings
         runString = AutoGUI.ahk "%m1CorrectedAhkFileAddress%"
         run,% runString, ..\AutoGUI
         return
-    }else if(1){
-        ; 28.09.2018 15:48 6,1 MB opens without error warnings
+    }else if(1){ ; fallback
         runString = notepad "%m1CorrectedAhkFileAddress%"
         run,% runString
         return
