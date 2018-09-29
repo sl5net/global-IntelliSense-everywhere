@@ -417,18 +417,25 @@ if(isDeprecated_OpenA_edit_open_lib || isAHKcode && ( RegExMatch( AHKcode , "^\s
         Msgbox,:( action list `n %m1CorrectedAhkFileAddress% `n is not exist. `n (%A_LineFile%~%A_LineNumber%)
         return false
     }
-    if(!FileExist("..\AHK-Studio\AHK-Studio.ahk")){
-        Msgbox,:( AHK-Studio.ahk `n is not exist. `n (%A_LineFile%~%A_LineNumber%)
-        return false
-    }
-    if(1){
+
+    editorName := "AHK-Studio"
+    isEditorExist_AHKStudio := FileExist("..\" editorName "\" editorName ".ahk")
+    editorName := "AutoGUI"
+    isEditorExist_AutoGUI := FileExist("..\" editorName "\" editorName ".ahk")
+
+    if(1 && isEditorExist_AHKStudio){
         ; 28.09.2018 15:48 2,6 MB opens with error warnings
         runString = AHK-Studio.ahk "%m1CorrectedAhkFileAddress%"
         run,% runString, ..\AHK-Studio
-    }else{
+    }else if(1 && isEditorExist_AutoGUI){
         ; 28.09.2018 15:48 6,1 MB opens without error warnings
         runString = AutoGUI.ahk "%m1CorrectedAhkFileAddress%"
         run,% runString, ..\AutoGUI
+        return
+    }else if(1){
+        ; 28.09.2018 15:48 6,1 MB opens without error warnings
+        runString = notepad "%m1CorrectedAhkFileAddress%"
+        run,% runString
         return
     }
     ; a_Piratenpad_Google_Chrome.ahk ahk_class #32770
@@ -436,6 +443,7 @@ if(isDeprecated_OpenA_edit_open_lib || isAHKcode && ( RegExMatch( AHKcode , "^\s
     SetTitleMatchMode,1
     winTitleError := m1ListFileName " ahk_class #32770"
 
+;________ __
 ; ms Msgbox,(`%A_LineFile`%~`%A_LineNumber`%)
 ; Msgbox,(`%A_LineFile`%~`%A_LineNumber`%)
 
