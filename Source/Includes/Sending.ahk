@@ -309,8 +309,19 @@ regIsAHKcode := "^([^\|\n]+?)\|rr\|([^\n]*?)\|ahk\|([^\n]*?)$"
 regIsKTScode := "^([^\|\n]+?)\|rr\|([^\n]*?)\|kts\|([^\n]*?)$"
 regIsXXXcode := "^([^\|\n]+?)\|(rr)\|([^\n]*?)\|(ahk|kts)\|([^\n]*?)$"
 regIsXXXcode := "^([^\|\n]+?)\|(rr)\|([^\n]*?)(?:\|(ahk|kts)\|)*([^\n]*?)$"
+regIsXXXcode := "^([^\|\n]+?)\|(rr)\|(?:([^\n]*?)(?:\|(ahk|kts)\|)+([^\n]*?)$)*"
+; key:$1 __ rr:$2 __ send:$3 __ lang:$4 __ code:$5
+; if change regex please dont foget to test synonyms (se,29.09.2018 11:01) :
+; Hallo sendDayTimeHello.ahk|rr||ahk|#incDynAhk\sendDayTimeHello.ahk
+; key|rr|send|ahk|code
+; key|rr||ahk|code
+; synonom|rr|
 
+; lll lll(A_LineNumber, A_LineFile, "")
+; ToolTip4sec(A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") " " Last_A_This)
+; ToolWindow
 
+; rX := {key:m1, rr:m2, send:"", lang:"" ,code:""}
 regIsSynonym := "^([^\|\n]+?)\|(rr)\|$"
 
 lineOfIndex := g_SingleMatch[WordIndex]
@@ -343,7 +354,6 @@ msgbox,% tip
             while(!rX["code"] && id>1){
                 id -= 1
                 lineOfIndex := getLineOfIndex(id)
-                ; regIsXXXcode := "^([^\|\n]+?)\|(rr)\|([^\n]*?)\|(ahk|kts)\|([^\n]*?)$"
                 ; dayTimeHello.ahk|rr|
                 RegExMatch( lineOfIndex , regIsXXXcode  ,  m )
                 rX := {key:m1, rr:m2, send:m3, lang:m4 ,code:m5}
@@ -423,14 +433,21 @@ if(isDeprecated_OpenA_edit_open_lib || isAHKcode && ( RegExMatch( AHKcode , "^\s
         Msgbox,:( action list `n %m1CorrectedAhkFileAddress% `n is not exist. `n (%A_LineFile%~%A_LineNumber%)
         return false
     }
+    if(!FileExist(m1CorrectedAhkFileAddress)){
+
+        Msgbox,:( action list `n %m1CorrectedAhkFileAddress% `n is not exist. `n (%A_LineFile%~%A_LineNumber%)
+        return false
+    }
 
     editorName := "AHK-Studio"
     isEditorExist_AHKStudio := FileExist("..\" editorName "\" editorName ".ahk")
     editorName := "AutoGUI"
     isEditorExist_AutoGUI := FileExist("..\" editorName "\" editorName ".ahk")
 
-    if(1 && isEditorExist_AHKStudio){
+    if(false){
+    }else if(1 && isEditorExist_AHKStudio){
         ; 28.09.2018 15:48 2,6 MB opens with error warnings
+        ; i got problems relacing some with umlaute (ue) 29.09.2018 12:04
         runString = AHK-Studio.ahk "%m1CorrectedAhkFileAddress%"
         run,% runString, ..\AHK-Studio
     }else if(1 && isEditorExist_AutoGUI){ ; fallback
