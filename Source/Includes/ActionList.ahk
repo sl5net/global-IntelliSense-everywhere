@@ -240,7 +240,7 @@ from: ActionList.ahk~%A_LineNumber%
 
 				AddWordToList(ALoopField,0,"ForceLearn",LearnedWordsCount)
 				; LearnedWordsCount := addFuzzySearch_in_generatedList(ALoopField, ActionList,LearnedWordsCount)
-				if(a_index<100)
+				if(a_index<555)
 				    addFuzzySearch_in_generatedList(ALoopField, ActionList,LearnedWordsCount)
 				;     AddWordToList("rübennase" A_now,1,"ForceLearn")
 

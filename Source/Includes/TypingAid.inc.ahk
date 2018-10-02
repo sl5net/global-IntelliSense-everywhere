@@ -1322,22 +1322,24 @@ MaybeFixFileEncoding(File,Encoding){
         return
     }
 
-; Ã¼ ü
-; Ã¶ ö
-; Ã¼ ü
+    ;
 
-    nW := "[^{}öüäß\w\s\n\t\r\.!-_|]+" ; no word z.b. ? �
-    if((1 && InStr(A_ComputerName,"SL5")) && foundPos := RegExMatch(Contents,"i)[a-z]{3,}" nW "[a-z]{3,}") ){
-        startPos := (foundPos<7) ? 1 : foundPos - 5
-        corruptedContend := substr(Contents, startPos , 45) ; https://autohotkey.com/board/topic/13335-tip-use-of-ternary-operator-in-concatenation/
-         Msgbox,% ":( your file is corrupted propably. `n`n...>" corruptedContend "<...`n`n" nW "`n is found `n`n" File "`n______________`n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\")
-        return
+    ; nW := "[^{}öüäß\w\s\n\t\r\.!-_|]+" ; no word z.b. ?
+    if((0 && InStr(A_ComputerName,"SL5")) && Contents && foundPos := RegExMatch(Contents,"i)[a-z]{3,}" nW "[a-z]{3,}") ){
+
+        ; startPos := (foundPos<7) ? 1 : foundPos - 5 ; todo: quick and dirty 03.10.2018 00:27
+
+        ; corruptedContend := substr(Contents, startPos , 45)
+
+        ; https://autohotkey.com/board/topic/13335-tip-use-of-ternary-operator-in-concatenation/
+         ; Msgbox,% ":( your file is corrupted propably. `n`n...>" corruptedContend "<...`n`n" nW "`n is found `n`n" File "`n______________`n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\")
+        ; return
     }
 
    FileCopy, %File%, %File%.preconvB.bak
    FileDelete, %File%
    FileAppend, %Contents%, %File%, %Encoding%
-   tooltip,% File " was saved backup you find here: `n" %File%.preconvB.bak "`n______________`n"  "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\")
+   ; tooltip,% File " was saved backup you find here: `n" %File%.preconvB.bak "`n______________`n"  "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\")
 Return
 }
    IfGreaterOrEqual, A_AhkVersion, 1.0.90.0
