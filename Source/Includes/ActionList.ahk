@@ -418,6 +418,23 @@ addFuzzySearch_in_generatedList(ActionStr, ActionList, ByRef LearnedWordsCount){
     	if(valueCounter++ > 3)
     	    break
     	value := v "|rr|"
+
+        regEx := "O)[a-z]([A-Z][a-z]+)" ; position, length and value of the overall match and of each captured subpattern, if present.
+        StartingPosition  := 1
+        while(foundPos := RegexMatch( v, regEx, Match, StartingPosition )){
+            ; Match.Value(N): Returns the overall match or a captured subpattern.
+            ; Match.Pos(N): Returns the position of the overall match or a captured subpattern.
+            ; Match.Len(N): Returns the length of the overall match or a captured subpattern.
+            StartingPosition := Match.Pos(1) + Match.Len(1)
+
+            if(matchs2)
+                value := Match.Value(1) matchs2
+            else
+                value := Match.Value(1) "|r|" matchs1
+            AddWordToList(value ,0,"ForceLearn", LearnedWordsCount)  ; geht vermutlich auch springt dann in zeile 490 ungefähr
+        	; Msgbox,% value " `n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+        }
+
     	if(matchs2)
     	    value := v matchs2
         else
