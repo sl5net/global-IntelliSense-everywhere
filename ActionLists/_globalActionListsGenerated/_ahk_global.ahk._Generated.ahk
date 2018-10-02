@@ -29,6 +29,7 @@ Tooltip, `n (from: %A_LineFile%~%A_LineNumber%)
 #include,testInclude.ahk ! i)^[abcdefg]+
 
 ___generated open|rr||ahk|run,..\_globalActionListsGenerated\_ahk_global.ahk.Generated.ahk
+; if this german au is readable your UTF8 is probalby correct: �
 
 regEx find AHK functios definitions|r|^[ ]*?\w[\w\d_]{5,}\s*\([^()+<>]+\)[\s\S]{0,5}?\{
 
@@ -757,7 +758,7 @@ Registercallback
 regread,editcommand,HKey_Classes_root,Autohotkeyscript\shell\edit\command 
 Regwrite
 Relative
-Reload      ; Script wird neu geladen,neu ausgefï¿½hrt 
+Reload      ; Script wird neu geladen,neu ausgef�hrt 
 Rename(pdic, "Result1", "Result3") 
 Repeat
 Resize
@@ -955,7 +956,7 @@ ComObjFlags|r| if ComObjFlags(arr) & 1
 ComObjGet|r| wmi :=  ComObjGet ("winmgmts:") 
 ComObjQuery|r| if !(pci := ComObjQuery(obj, IID_IProvideClassInfo))
 ComObjType|r| Variablentyp := ComObjType(d) ; Immer 9 bei script-aufrufbare Objekte. 
-Continue|r| ; Bei den ersten 5 DurchlÃ¤ufen veranlasst der Continue-Befehl 
+Continue|r| ; Bei den ersten 5 Durchl�ufen veranlasst der Continue-Befehl 
 Control|r|Control, HideDropDown, , ComboBox1, Beliebiger Fenstertitel
 ControlClick|r|ControlClick, OK, Beliebiger Fenstertitel ; Klickt den OK-Button
 ControlFocus|r|ControlFocus, OK, Beliebiger Fenstertitel ; Setzt den Fokus auf den OK-Button
@@ -975,31 +976,31 @@ DetectHiddenWindows,Off; if this is off it does not find in tray 27.04.2017|rr|D
 
 
 
-WelcherButton := DllCall("MessageBox", "Int", "0", "Str", "Ja oder Nein drÃ¼cken", "Str", "Titel der Box", "Int", 4)
+WelcherButton := DllCall("MessageBox", "Int", "0", "Str", "Ja oder Nein dr�cken", "Str", "Titel der Box", "Int", 4)
 Drive|r|Drive, Label, D:, Backup-Laufwerk
 DriveGet|r| DriveGet, Liste, list
 DriveSpaceFree|r|DriveSpaceFree, FreeSpace, c:\
-Edit|r|Edit ; Das Script wird zur Bearbeitung geÃ¶ffnet.
+Edit|r|Edit ; Das Script wird zur Bearbeitung ge�ffnet.
 Else|r|Else 
-EnvAdd|r|EnvAdd, MeineZÃ¤hlung, 2
-EnvDiv|r|EnvDiv, MeineZÃ¤hlung, 2 
+EnvAdd|r|EnvAdd, MeineZ�hlung, 2
+EnvDiv|r|EnvDiv, MeineZ�hlung, 2 
 EnvGet|r|EnvGet, AusgabeVar, LogonServer
-EnvMult|r|EnvMult, MeineZÃ¤hlung, 2 
-EnvSet|r|EnvSet, AutGUI, Beliebiger Text fÃ¼r die Variable.
-EnvSub|r|EnvSub, MeineZÃ¤hlung, 2 
+EnvMult|r|EnvMult, MeineZ�hlung, 2 
+EnvSet|r|EnvSet, AutGUI, Beliebiger Text f�r die Variable.
+EnvSub|r|EnvSub, MeineZ�hlung, 2 
 EnvUpdate|r|EnvUpdate
 Exit|r|Exit MsgBox, Diese MsgBox wird aufgrund von EXIT nie erscheinen. 
 ExitApp|r|#x::ExitApp ; Weise einen Hotkey zu, um diesen Script zu beenden.
 FileAppend|r|FileAppend, Eine weitere Zeile.`n, C:\Meine Dokumente\Test.ahk
-FileCopy|r|FileCopy, C:\Meine Dokumente\Liste1.ahk, D:\Backup\ ; Macht eine Kopie, aber behÃ¤lt den originalen Namen.
+FileCopy|r|FileCopy, C:\Meine Dokumente\Liste1.ahk, D:\Backup\ ; Macht eine Kopie, aber beh�lt den originalen Namen.
 FileCopyDir|r|FileCopyDir, C:\Mein Ordner, C:\Kopie von Mein Ordner
 FileCreateDir|r|FileCreateDir, C:\Test1\Meine Bilder\Ordner2
-FileCreateShortcut|r| FileCreateShortcut, Notepad.exe, %A_Desktop%\Meine VerknÃ¼pfung.lnk, C:\, "%A_ScriptFullPath%", Meine Beschreibung, C:\Mein Icon.ico, i
+FileCreateShortcut|r| FileCreateShortcut, Notepad.exe, %A_Desktop%\Meine Verkn�pfung.lnk, C:\, "%A_ScriptFullPath%", Meine Beschreibung, C:\Mein Icon.ico, i
 FileDelete|r|FileDelete, C:\Temp-Dateien\*.tmp
 FileGetAttrib|r|FileGetAttrib, AusgabeVar, C:\Neuer Ordner
-FileGetShortcut|r| FileGetShortcut, %Datei%, Ziel, Verzeichnis, Parameter, Beschreibung, Icon, Iconnummer, AusfÃ¼hrungsstatus
-FileGetSize|r|FileGetSize, AusgabeVar, C:\Meine Dokumente\test.doc ; Ermittelt die GrÃ¶ÃŸe in Bytes.
-FileGetTime|r|FileGetTime, AusgabeVar, C:\Meine Dokumente\test.doc ; Ermittelt standardmÃ¤ÃŸig das Ã„nderungsdatum.
+FileGetShortcut|r| FileGetShortcut, %Datei%, Ziel, Verzeichnis, Parameter, Beschreibung, Icon, Iconnummer, Ausf�hrungsstatus
+FileGetSize|r|FileGetSize, AusgabeVar, C:\Meine Dokumente\test.doc ; Ermittelt die Gr��e in Bytes.
+FileGetTime|r|FileGetTime, AusgabeVar, C:\Meine Dokumente\test.doc ; Ermittelt standardm��ig das �nderungsdatum.
 FileGetVersion|r|FileGetVersion, version, C:\Meine Anwendung.exe
 FileInstall|r|FileInstall, C:\Meine Dokumente\Meine Datei.ahk, %A_ProgramFiles%\Meine Anwendung\Readme.ahk, 1
 FileMove|r|FileMove, C:\Meine Dokumente\Liste1.ahk, D:\Backup\ ; Verschiebt die Datei, ohne sie umzubenennen.
@@ -1010,7 +1011,7 @@ FileReadLine|r| FileReadLine, Zeile, C:\Meine Dokumente\Kontaktliste.ahk, %A_Ind
 FileRecycle|r|FileRecycle, C:\Temp-Dateien\*.tmp
 FileRecycleEmpty|r|FileRecycleEmpty, C:\
 FileRemoveDir|r|FileRemoveDir, C:\Download-Temp
-FileSelectFile|r|FileSelectFile, AusgewÃ¤hlteDatei, 3, , Datei Ã¶ffnen, Text-Dokumente (*.ahk; *.doc)
+FileSelectFile|r|FileSelectFile, Ausgew�hlteDatei, 3, , Datei �ffnen, Text-Dokumente (*.ahk; *.doc)
 FileSelectFolder|r|FileSelectFolder, AusgabeVar, , 3
 FileSetAttrib|r|FileSetAttrib, +RH, C:\MeineDateien\*.*, 1 ; +RH ist identisch mit +R+H
 FileSetTime|r| FileSetTime, , C:\temp\*.ahk
@@ -1022,11 +1023,11 @@ GetKeyState|r| GetKeyState, Status, RButton ; Rechte Maustaste.
 Gosub|r|Gosub, Label1 
 Goto|r|Goto, MeinLabel 
 GroupActivate|r|GroupActivate, MeineGruppe, R
-GroupAdd|r| GroupAdd, MSIE, ahk_class IEFrame ; FÃ¼gt nur den Internet Explorer zur Gruppe hinzu. 
+GroupAdd|r| GroupAdd, MSIE, ahk_class IEFrame ; F�gt nur den Internet Explorer zur Gruppe hinzu. 
 GroupClose|r|GroupClose, MeineGruppe, R
-GroupDeactivate|r|GroupDeactivate, MeineLieblingsfenster ; Besucht nicht-favorisierte Fenster zum AufrÃ¤umen desktops.
+GroupDeactivate|r|GroupDeactivate, MeineLieblingsfenster ; Besucht nicht-favorisierte Fenster zum Aufr�umen desktops.
 Gui|r| Gui, +AlwaysOnTop +Disabled -SysMenu +Owner ; +Owner verhindert einen Button in der Taskleiste.
-GuiControl|r|GuiControl,, MeineListBox, |Rot|GrÃ¼n|Blau ; Ersetzt die aktuelle Liste mit einer neuen Liste.
+GuiControl|r|GuiControl,, MeineListBox, |Rot|Gr�n|Blau ; Ersetzt die aktuelle Liste mit einer neuen Liste.
 GuiControlGet|r|GuiControlGet, MeinEdit 
 Hotkey|r|Hotkey, ^!z, MeinLabel 
 IfExist|r|IfExist, D:\
@@ -1059,7 +1060,7 @@ MouseClick|r| MouseClick, left
 MouseClickDrag|r|MouseClickDrag, left, 0, 200, 600, 400 
 MouseGetPos|r|MouseGetPos, xpos, ypos 
 MouseMove|r| MouseMove, 200, 100
-MsgBox|r|MsgBox Das ist der Einzelparametermodus. Kommas (,) mÃ¼ssen nicht mit einem Escapezeichen versehen werden.
+MsgBox|r|MsgBox Das ist der Einzelparametermodus. Kommas (,) m�ssen nicht mit einem Escapezeichen versehen werden.
 ObjAddRef|r| ObjAddRef(ptr) 
 OnExit|r| OnExit, ExitSub 
 OnMessage|r| OnMessage(0x201, "WM_LBUTTONDOWN") 
@@ -1071,16 +1072,16 @@ Process|r| Process, priority, %NeuePID%, High
 Progress|r|Progress, b w200, Mein Untertext, Mein Haupttext, Mein Titel 
 Random|r|Random, rand, 1, 10 
 RegDelete|r|RegDelete, HKEY_LOCAL_MACHINE, Software\BeliebigeAnwendung, Testwert
-RegExMatch|r|Fundposition := RegExMatch("xxxabc123xyz", "abc.*xyz") ; Gibt 4 zurÃ¼ck, weil das die Position ist, auf der die Ãœbereinstimmung gefunden wurde. 
-RegExReplace|r|NeuerStr := RegExReplace("abc123123", "123$", "xyz") ; Gibt "abc123xyz" zurÃ¼ck, weil durch $ eine Ãœbereinstimmung nur am Ende vorkommen darf. 
+RegExMatch|r|Fundposition := RegExMatch("xxxabc123xyz", "abc.*xyz") ; Gibt 4 zur�ck, weil das die Position ist, auf der die �bereinstimmung gefunden wurde. 
+RegExReplace|r|NeuerStr := RegExReplace("abc123123", "123$", "xyz") ; Gibt "abc123xyz" zur�ck, weil durch $ eine �bereinstimmung nur am Ende vorkommen darf. 
 RegRead|r| RegRead, AusgabeVar, HKEY_LOCAL_MACHINE<span class="red">,  SOFTWARE\Microsoft\Windows\CurrentVersion, ProgramFilesDir 
 RegWrite|r|RegWrite, REG_SZ, HKEY_LOCAL_MACHINE, SOFTWARE\Testkey, MeinWertname, Testwert 
-RegisterCallback|r| ; Aus Performance- und SpeichergrÃ¼nden wird RegisterCallback() nur einmal fÃ¼r einen bestimmten Callback aufgerufen:
+RegisterCallback|r| ; Aus Performance- und Speichergr�nden wird RegisterCallback() nur einmal f�r einen bestimmten Callback aufgerufen:
 Reload|r|^!r::Reload ; Verwendet STRG+ALT+R als Hotkey zum Neustarten des Scripts.
 Return|r|  Return  
 Run|r|Run, Notepad.exe, C:\Meine Dokumente, max 
 RunAs|r|RunAs, Administrator, MeinPasswort 
-Send|r|Send Mit freundlichen GrÃ¼ÃŸen,{enter}John Smith ; Schreibt eine zweizeilige Signatur.
+Send|r|Send Mit freundlichen Gr��en,{enter}John Smith ; Schreibt eine zweizeilige Signatur.
 SendLevel|r|SendLevel 1
 SendMode|r|SendMode Input 
 SetBatchLines|r|SetBatchLines, 10ms 
@@ -1091,19 +1092,19 @@ SetKeyDelay|r|SetKeyDelay, 0
 SetMouseDelay|r|SetMouseDelay, 0
 SetRegView|r| SetRegView 32
 SetStoreCapslockMode|r|SetStoreCapslockMode, off
-SetTimer|r| SetTimer, MailWarnungenSchlieÃŸen, 250
+SetTimer|r| SetTimer, MailWarnungenSchlie�en, 250
 SetTitleMatchMode|r|SetTitleMatchMode 2 
 SetWinDelay|r|SetWinDelay, 10
 SetWorkingDir|r|SetWorkingDir %A_ScriptDir% 
 Shutdown|r| Shutdown, 6
 Sleep|r|Sleep, 1000 ; 1 Sekunde
 Sort|r|  Sort  MeineVar, N D, ; Numerisch sortieren und Komma als Trennzeichen verwenden. 
-SoundBeep|r|SoundBeep ; Abspielen der Standard-TonhÃ¶he und -dauer. 
+SoundBeep|r|SoundBeep ; Abspielen der Standard-Tonh�he und -dauer. 
 SoundGet|r|SoundGet, master_volume 
 SoundGetWaveVolume|r|SoundGetWaveVolume, AusgabeVar 
 SoundPlay|r|SoundPlay, %A_WinDir%\Media\ding.wav 
-SoundSet|r| SoundSet, 50 ; Setzt die GesamtlautstÃ¤rke auf 50% 
-SoundSetWaveVolume|r|SoundSetWaveVolume, 50 ; Setzt auf halbe LautstÃ¤rke. 
+SoundSet|r| SoundSet, 50 ; Setzt die Gesamtlautst�rke auf 50% 
+SoundSetWaveVolume|r|SoundSetWaveVolume, 50 ; Setzt auf halbe Lautst�rke. 
 SplashTextOn|r|SplashTextOn, , , Zeigt nur die Titelleiste an. 
 SplitPath|r| SplitPath, KompletterDateiname, Dateiname 
 StatusBarGetText|r|StatusBarGetText, AbgerufenerText, 1, Suchergebnisse 
@@ -1111,7 +1112,7 @@ StatusBarWait|r|  StatusBarWait, gefunden, 30
 StringCaseSense|r|StringCaseSense Locale
 StringGetPos|r| StringGetPos, Pos, Heuhaufen, %Nadel% 
 StringLeft|r| StringLeft, AusgabeVar, String, 3 ; Speichert den String "Das" in AusgabeVar. 
-StringLen|r| StringLen, LÃ¤nge, EingabeVar 
+StringLen|r| StringLen, L�nge, EingabeVar 
 StringLower|r| StringLower, String2, String2 
 StringMid|r| StringMid, Wort_das, Quelle, 7, 3 
 StringReplace|r| StringReplace, Clipboard, Clipboard, `r`n, , All
@@ -1119,10 +1120,10 @@ StringSplit|r| StringSplit, wort_array, TestString, %A_Space%, . ; Punkte weglas
 StringTrimLeft|r| StringTrimLeft, AusgabeVar, String, 4 ; Speichert den String "ist ein Test." in AusgabeVar. 
 Suspend|r|^!s::Suspend ; Weist einem Hotkey die Umschaltfunktion von Suspend zu.
 SysGet|r| SysGet, Maustastenanzahl, 43
-Thread|r|Thread, priority, 1 ; Setzt die PrioritÃ¤t des aktuellen Threads etwas hÃ¶her als normal.
+Thread|r|Thread, priority, 1 ; Setzt die Priorit�t des aktuellen Threads etwas h�her als normal.
 Transform|r|Transform, AusgabeVar, Asc, A ; Ermittelt den ASCII-Code des Buchstaben A.
 TrayTip|r|TrayTip, Mein Titel, Mehrzeiliger`nText, 20, 17
-TreeView|r| ; Es erstellt und zeigt eine TreeView an, die alle StartmenÃ¼ordner von allen Benutzer enthÃ¤lt. Wenn der
+TreeView|r| ; Es erstellt und zeigt eine TreeView an, die alle Startmen�ordner von allen Benutzer enth�lt. Wenn der
 Trim|r| MsgBox % "Ohne Trim:`t '" Text "'" 
 Try|r|Try ; Beispiel #1: Das Grundkonzept von try/catch/throw. 
 URLDownloadToFile|r|URLDownloadToFile, http://ahkscript.org/download/1.1/version.ahk, C:\Aktuellste AutoHotkey-Version.ahk
@@ -1135,16 +1136,16 @@ WinActive|r|IfWinActive, Unbenannt - Editor
 WinClose|r| WinClose ; zuletzt gefundenes Fenster verwenden 
 WinExist|r| IfWinExist, Unbenannt - Editor
 WinGet|r| WinGet, AktiveID, ID, A
-WinGetActiveStats|r|WinGetActiveStats, Titel, Breite, HÃ¶he, X, Y 
+WinGetActiveStats|r|WinGetActiveStats, Titel, Breite, H�he, X, Y 
 WinGetActiveTitle|r|WinGetActiveTitle, Titel 
 WinGetClass|r|WinGetClass, Klasse, A 
-WinGetPos|r|WinGetPos, X, Y, Breite, HÃ¶he, Rechner 
+WinGetPos|r|WinGetPos, X, Y, Breite, H�he, Rechner 
 WinGetText|r| WinGetText, Text ; Das oben gefundene Fenster wird verwendet. 
 WinGetTitle|r|WinGetTitle, Titel, A 
 WinHide|r| WinHide ; verwendet das oben gefundene Fenster 
 WinKill|r| WinKill ; verwendet das oben gefundene Fenster
 WinMaximize|r| WinMaximize ; verwendet das zuletzt gefundene Fenster 
-WinMenuSelectItem|r| WinMenuSelectItem, Unbenannt - Editor, , Datei, Ã–ffnen 
+WinMenuSelectItem|r| WinMenuSelectItem, Unbenannt - Editor, , Datei, Öffnen 
 WinMinimize|r| WinMinimize ; verwendet das zuletzt gefundene Fenster 
 WinMinimizeAll|r|WinMinimizeAll 
 WinMove|r| WinMove, 0, 0 ; Verschiebt das gefundene Fenster von WinWait in die obere linke Ecke des Bildschirms. 
@@ -1470,7 +1471,7 @@ StringDifference(string1, string2, maxOffset=1)
 stringLower(s) 
 isUrlAvailable(URL) 
 lll(A_LineNumber, A_LineFile, text="")|rr|lll(A_LineNumber, A_LineFile, "")|ahk|Send,{left 2}
-lll(A_LineNumber, A_LineFile, msg)
+; lll(A_LineNumber, A_LineFile, msg)
 lll(ln, sn, text="") 
 file_put_contents(f, c, overwrite=true) 
 SendStrgC(trycount) 

@@ -310,16 +310,23 @@ regIsKTScode := "^([^\|\n]+?)\|rr\|([^\n]*?)\|kts\|([^\n]*?)$"
 regIsXXXcode := "^([^\|\n]+?)\|(rr)\|([^\n]*?)\|(ahk|kts)\|([^\n]*?)$"
 regIsXXXcode := "^([^\|\n]+?)\|(rr)\|([^\n]*?)(?:\|(ahk|kts)\|)*([^\n]*?)$"
 regIsXXXcode := "^([^\|\n]+?)\|(rr)\|(?:([^\n]*?)(?:\|(ahk|kts)\|)+([^\n]*?)$)*"
-; key:$1 __ rr:$2 __ send:$3 __ lang:$4 __ code:$5
+; may remember this vor later implementation: ^([^\|\n]+?)(?:\|(rr)\|(?:([^\n]*?)(?:\|(ahk|kts)\|)+([^\n]*?)$)*)*$
+; https://regex101.com/r/XvcvV4/3/      https://autohotkey.com/boards/viewtopic.php?f=6&t=45684&p=241492#p241492
+;<<<<< tests <<<< 1810106253 <<<< 01.10.2018 6:26:53
 ; if change regex please dont foget to test synonyms (se,29.09.2018 11:01) :
+; key:$1 __ rr:$2 __ send:$3 __ lang:$4 __ code:$5
+; keyValue|rr|sendValue|ahk|codeValue
+; keyValue|rr||ahk|codeValue
+; synonomValue|rr|
+; synonymValue|rr||ahk|q=keyValue
+; and there are some special commands not listed above
+;>>>>>>>> tests >>>> 1810106}722 >>>> 1.1.201 06:27:22 >>>>
 ; Hallo sendDayTimeHello.ahk|rr||ahk|#incDynAhk\sendDayTimeHello.ahk
-; key|rr|send|ahk|code
-; key|rr||ahk|code
-; synonom|rr|
 
-; lll lll(A_LineNumber, A_LineFile, "")
-; ToolTip4sec(A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") " " Last_A_This)
-; ToolWindow
+; ;<<<<<<<< playground <<<< 1810100213 <<<< 01.10.2018 <<<<
+; ToolTip5sec(A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") " " Last_A_This)
+; Msgbox,% "(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
+;>>>>>>>> playground >>>> 18101080}49 >>>> 01.10.2018  >>>>
 
 ; rX := {key:m1, rr:m2, send:"", lang:"" ,code:""}
 regIsSynonym := "^([^\|\n]+?)\|(rr)\|$"
@@ -411,8 +418,9 @@ msgbox,% tip
 
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ; enable to use quellenangaben in ahk pseudo code.
-; Beispiel:
+; Beispiel: synonyms
 ;~ indirect hello AHKdyn Example|rr||ahk|q=indirect3
+; synonymValue|rr||ahk|q=keyValue
 ;~ indirect3|rr|indirect3 hello :-) 10.07.2017 14:27|ahk|
 
 ; indirect3 hello :-) 10.07.2017 14:27
@@ -424,85 +432,12 @@ if(isAHKcode){
     is_OpenA_edit_open_lib := RegExMatch( " " lineOfIndex , "i)(edit|open|lib)" )
     isDeprecated_OpenA_edit_open_lib := ( isAHKcode && isStartingUnderline && is_OpenA_edit_open_lib && RegExMatch( AHKcode , "^\s*(?:run)\s*,?(.+\.ahk)\s*$" ,  m ))
     ; msgbox, % isAHKcode "`=isAHKcode`n`n " lineOfIndex "`n=lineOfIndex`n`n is_OpenA_edit_open_lib=`n" is_OpenA_edit_open_lib " `n`n isDeprecated_OpenA_edit_open_lib=`n" isDeprecated_OpenA_edit_open_lib "`n`n" AHKcode
-}
-if(isDeprecated_OpenA_edit_open_lib || isAHKcode && ( RegExMatch( AHKcode , "^\s*(?:AHK-Studio)\s*,?(.+\.ahk)\s*$\b$" ,  m ) || isDeprecated_OpenA_edit_open_lib ) ) { ; edit open script
-   ; ___global generated open|rr||ahk|run,..\_globalActionListsGenerated\_global.ahk
-    m1CorrectedAhkFileAddress := ActionListFolderOfThisActionList "\" m1
-    m1ListFileName := RegExReplace(m1,"i)([\w\d_-\.]+\.ahk)\b$","$1")
-    if(!FileExist(m1CorrectedAhkFileAddress)){
-        Msgbox,:( action list `n %m1CorrectedAhkFileAddress% `n is not exist. `n (%A_LineFile%~%A_LineNumber%)
-        return false
-    }
-    if(!FileExist(m1CorrectedAhkFileAddress)){
 
-        Msgbox,:( action list `n %m1CorrectedAhkFileAddress% `n is not exist. `n (%A_LineFile%~%A_LineNumber%)
-        return false
-    }
-
-    editorName := "AHK-Studio"
-    isEditorExist_AHKStudio := FileExist("..\" editorName "\" editorName ".ahk")
-    editorName := "AutoGUI"
-    isEditorExist_AutoGUI := FileExist("..\" editorName "\" editorName ".ahk")
-
-    if(false){
-    }else if(1 && isEditorExist_AHKStudio){
-        ; 28.09.2018 15:48 2,6 MB opens with error warnings
-        ; i got problems relacing some with umlaute (ue) 29.09.2018 12:04
-        runString = AHK-Studio.ahk "%m1CorrectedAhkFileAddress%"
-        run,% runString, ..\AHK-Studio
-    }else if(1 && isEditorExist_AutoGUI){ ; fallback
-        ; 28.09.2018 15:48 6,1 MB opens without error warnings
-        runString = AutoGUI.ahk "%m1CorrectedAhkFileAddress%"
-        run,% runString, ..\AutoGUI
+    ; Msgbox,% AHKcode "(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
+    was_a_Editor_open_command := openInEditor(ActionListFolderOfThisActionList, isAHKcode, AHKcode, isStartingUnderline, is_OpenA_edit_open_lib, isDeprecated_OpenA_edit_open_lib)
+    if(was_a_Editor_open_command)
         return
-    }else if(1){ ; fallback
-        runString = notepad "%m1CorrectedAhkFileAddress%"
-        run,% runString
-        return
-    }
-    ; a_Piratenpad_Google_Chrome.ahk ahk_class #32770
-    ToolTip,winWait `n (%A_LineFile%~%A_LineNumber%)
-    SetTitleMatchMode,1
-    winTitleError := m1ListFileName " ahk_class #32770"
-
-;________ __
-; ms Msgbox,(`%A_LineFile`%~`%A_LineNumber`%)
-; Msgbox,(`%A_LineFile`%~`%A_LineNumber`%)
-
-    SetTitleMatchMode,2
-    winTitleError := ".ahk ahk_class #32770"
-    winWait,% winTitleError,,3 ; Co_Mozilla_Firefox.ahk ahk_class #32770 ; mouseWindowTitle=0x2970f44  ;
-    ifwinnotexist,% winTitleError
-    {
-        Msgbox,:( not expected by using ahk-studio 28.09.2018 09:36 `n its not a critical issue `n winnotexist %winTitleError% `n (%A_LineFile%~%A_LineNumber%)
-        return
-    }
-    wingettext,winText,  % winTitleError
-    ToolTip,
-    ; should consist: "Error: This line does not contain a recognized action."
-    errorText := "This line does not contain a recognized action."
-    if(!Instr(winText,errorText))
-        return
-    loop,20
-    {
-        winclose,% winTitleError ; thats disturbing opening ahk-studio. if closed ahk-studio opens
-        winkill,% winTitleError ; thats disturbing opening ahk-studio. if closed ahk-studio opens
-        winWaitClose,% winTitleError,,1
-        ifwinnotexist,% winTitleError
-            break
-        sleep,100
-        wingettext,winText,  % winTitleError
-        if(!Instr(winText,errorText))
-            break
-
-        ; winkill is needet. winclose dont work 26.09.2018 07:37
-        ; msgbox,% m1ListFileName " ahk_class #32770 ??? "  ; thats disturbing opening ahk-studio. if closed ahk-studio opens
-    }
-    msg=%runString% `n %m1% `n deprecated: `n please open by using AHK-Studio instead run`n
-    ;msgbox, % msg "`n" A_LineNumber   " "   A_LineFile   " "   Last_A_This
-    ToolTip5sec(msg A_LineNumber   " "   RegExReplace(A_LineFile, ".*\\", "")    " "   Last_A_This)
-    return
-}
+} ; Endof if(isAHKcode)
 
 
 
@@ -732,10 +667,11 @@ if(0){
          MsgBox, 4, Open library? (id=1703171452) , would you open your library file? (Press YES or NO) `n `n ... %SubPat1% ; this window will not closed by reloading couse of his idetify code (1703171452). See in source below. 17-03-17_15-00
     IfMsgBox yes
         if(fExist)
-            run, %sending%
+            ; run, %sending%
+            openInEditor("..\ActionLists\" . ActiveClass, true, "run," sending, true, true, true)
         else
-             run, %absActionListAddress%
-
+             ; run, %absActionListAddress%
+             openInEditor("..\ActionLists\" . ActiveClass, true, "run," absActionListAddress, true, true, true)
                  ;Msgbox,%absActionListAddress% `n (from: %A_LineFile%~%A_LineNumber%)
 
       }
@@ -1820,9 +1756,20 @@ return AHKcode
 
 
 getCorrectedStringUAOSS( sending  ) {
+
+; If Unicode is supported, Number is a Unicode character code between 0 and 0x10FFFF (or 0xFFFF prior to [v1.1.21]); otherwise it is an ANSI character code between 0 and 255.
+
+tooltip,danger Chr(252) may not work in utf8??? `n (line:%A_LineNumber%)
+; lÃ¶scht
+; k�rzlich ver�ffentlicht l�uft
+; return sending
 ; return sending " 18-09-26_10-31"
 
-nW := "[^\w\s\.!-_]" ; no word 
+
+nW := "[^\w\s\.!-_]+" ; no word z.b. ? �
+; nW := "[^a-zA-Z\s\.!-_]+" ; no word
+
+
 
 sending := RegExReplace( sending , "i)Ã¼", Chr(252) ) ; ue http://slayeroffice.com/tools/ascii/
 sending := RegExReplace( sending , "Ãœ", Chr(220) ) ; UE http://slayeroffice.com/tools/ascii/ Ãœbrigens
@@ -1837,6 +1784,8 @@ sending := RegExReplace( sending , "\bmu\ste\b", "musste" )
 sending := RegExReplace( sending , "ueber", "" . Chr(252) .  "ber" ) ; ue http://slayeroffice.com/tools/ascii/
 sending := RegExReplace( sending , "i)\bfÃ¼r\b","f" . Chr(252) . "r") ; ue http://slayeroffice.com/tools/ascii/
 sending := RegExReplace( sending , "i)\bf" nW "r\b","f" . Chr(252) . "r") ; ue http://slayeroffice.com/tools/ascii/
+sending := RegExReplace( sending , "i)\bgew" nW "nscht\b","gew" . Chr(252) . "nscht") ; ue gew?nscht http://slayeroffice.com/tools/ascii/
+;
 
 sending := RegExReplace( sending , "i)\bwÃ¼rd","w" . Chr(252) . "rd") ; ue http://slayeroffice.com/tools/ascii/
 sending := RegExReplace( sending , "i)\bw" nW "rd","w" . Chr(252) . "rd") ; ue http://slayeroffice.com/tools/ascii/

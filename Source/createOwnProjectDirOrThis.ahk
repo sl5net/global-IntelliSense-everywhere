@@ -67,16 +67,19 @@ contend =
 #Include ..\%ActiveClass%\_global.ahk
 
 ; #Include ..\_globalActionLists\examplesForBeginners.txt
-___open global library|rr||ahk|run,..\_globalActionLists\_global.ahk
-___open class library|rr||ahk|run,_global.ahk
-___open window library |rr||ahk|run,%ActionListNEW%
+___open _globalActionLists\_global|rr||ahk|run,..\_globalActionLists\_global.ahk
+___open _global|rr||ahk|run,_global.ahk
+___open ActionList|rr||ahk|run,%ActionListNEW%
+; if you could read this germen special character (umlaute) your file format is correct (please use UTF8)
+; ä = thats a au
 )
 globalClassTxtAddress := "..\ActionLists\" . ActiveClass . "\_global.ahk"
 if(!FileExist(globalClassTxtAddress))
   FileAppend,% "", % globalClassTxtAddress
 ActionListNEWAddress := "..\ActionLists\" . ActiveClass . "\" . ActionListNEW
 if( FileExist( ActionListNEWAddress ) ){
-    run, % ActionListNEWAddress
+    ; run, % ActionListNEWAddress ; this works for .txt extension. that we dont use anymore 01.10.2018 11:12
+
     Msgbox,ups ActionListNEW = >>>>%ActionListNEW%<<< `n exist already ==> EXIT `n (%A_LineFile%~%A_LineNumber%) )
     EXIT
 }
@@ -89,11 +92,14 @@ if( !FileExist(ActionListNEWAddress) ){
     Msgbox,ups ==> EXIT `n (%A_LineFile%~%A_LineNumber%) )
 EXIT
 }
-     Sleep,100
+Sleep,100
      ; msgbox,%ActionListNEW% = ActionListNEW ,`%ActionListNEW`% = ActionListNEW 18-03-06_13-31 `n (%A_LineFile%~%A_LineNumber%)
 
+ ; run, % ActionListNEWAddress ; this works for .txt extension. that we dont use anymore 01.10.2018 11:12
      run, % ActionListNEWAddress
-
+; openInEditor(isAHKcode, AHKcode, isStartingUnderline, is_OpenA_edit_open_lib, isDeprecated_OpenA_edit_open_lib)
+; openInEditor(ActionListFolderOfThisActionList, isAHKcode, AHKcode, isStartingUnderline, is_OpenA_edit_open_lib, isDeprecated_OpenA_edit_open_lib){
+;  openInEditor("..\ActionLists\" . ActiveClass, true, "run," ActionListNEW, true, true, true)
 
 
 
@@ -105,10 +111,9 @@ reload
 
 
 #Include *i %A_ScriptDir%\inc_ahk\functions_global.inc.ahk
-;#Include %A_ScriptDir%\inc_ahk\copy2clipBoard.functions.inc.ahk
-;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-;~ subroutinen beispielsweise mï¿½sen ans Dateiende
 #Include *i %A_ScriptDir%\inc_ahk\functions_global_dateiende.inc.ahk
-;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 #Include *i %A_ScriptDir%\inc_ahk\UPDATEDSCRIPT_global.inc.ahk
 
+; # Include %A_ScriptDir%\inc_ahk\openInEditor_actionList.inc.ahk
+;__ __ __
+;

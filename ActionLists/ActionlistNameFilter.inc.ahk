@@ -70,15 +70,15 @@ ToolTipSlowMotion(ActionListNEW, A_LineNumber)
 
 
 getActionListNEW173129( activeTitle, ActiveClass, ActionListNEW, ActionListDir ) {
-
-
+	
+	
  ; 'Q-Dir 6.49.7 [3]' = at  
  ; Bild Ã¶ffnen ahk_class #32770 
  ; Exportieren ahk_class #32770 aus openoffice zu pdf 01.07.2017 20:22
  ; Select Path SunAwtDialog
  ; Open File or Project ahk_class SunAwtDialog
  ; Anhang speichern ahk_class #32770
- 
+	
 ; Sourcetree ahk_class HwndWrapper[SourceTree.exe;;2705bdea-7ac8-4b39-b851-91e598ce9055] ; mouseWindowTitle=0xd508d8   
 tip=%activeTitle%=activeTitle`n %ActiveClass%=ActiveClass`n (%A_LineFile%~%A_LineNumber%) 
 ToolTip,%tip%
@@ -116,19 +116,6 @@ if (0 && RegExMatch( ActiveClass , "VirtualConsole" ) ) {
      return "..\_globalActionLists\VirtualConsoleClassGhost\Human-Connection"
 }
 
-; AnlageEKS_ba013054_Jobcenter-EKS_04_2018_PDF-XChange_Editor.ahk
-if (1 && RegExMatch( activeTitle , "AnlageEKS" ) ) {
-      tip =
-      (
-            %ActiveClass%=ActiveClass
-            %activeTitle%=activeTitle
-      )
-     ;tooltip,%tip% `n (%A_LineFile%~%A_LineNumber%)
-     tooltip4sec(tip A_LineNumber   A_LineFile   )
-     ; E:\fre\private\HtmlDevelop\AutoHotKey\tools\TypingAid-master\ActionLists\_globalActionLists\PDF\Anlage_EKS\EKS.ahk
-     ; Msgbox,found EKS :) `n (%A_LineFile%~%A_LineNumber%)
-     return "..\_globalActionLists\PDF\Anlage_EKS\EKS"
-}
 
 if (ActiveClass == "VirtualConsoleClassGhost" && RegExMatch( activeTitle , "Human-Connection" ) ) {
         ; https://g-intellisense.myjetbrains.com/youtrack/issue/GIS-27 dirty bugFix

@@ -53,7 +53,7 @@ ReadActionList() {
 ; msgbox,ActionList = %ActionList% `n (%A_LineFile%~%A_LineNumber%)
 
    MaybeFixFileEncoding(ActionList,"UTF-8")
-   MaybeFixFileEncoding(ActionListLearned,"UTF-8")
+   ; MaybeFixFileEncoding(ActionListLearned,"UTF-8")
 
 ;msgbox,ActionList = %ActionList% `n (%A_LineFile%~%A_LineNumber%)
 

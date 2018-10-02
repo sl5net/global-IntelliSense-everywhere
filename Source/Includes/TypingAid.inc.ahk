@@ -1427,6 +1427,7 @@ run,log\%A_LineFile%.log.txt
 #Include %A_ScriptDir%\inc_ahk\ToolTipSec_RemoveToolTip.inc.ahk
 #Include %A_ScriptDir%\inc_ahk\ToolTipSec.inc.ahk
 #Include %A_ScriptDir%\inc_ahk\functions_global_dateiende.inc.ahk
+#Include %A_ScriptDir%\inc_ahk\openInEditor_actionList.inc.ahk
 
 #Include *i %A_ScriptDir%\inc_ahk\UPDATEDSCRIPT_global.inc.ahk
 

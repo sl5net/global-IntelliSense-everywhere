@@ -234,6 +234,9 @@ global g_lineNumberFeedback
         ;tooltip, WinWaitNotActive,ActionListChangedInRegistry  `n (%A_LineFile%~%A_LineNumber%)
         WinWaitNotActive, % temp
         tooltip,
+        msg:="mission completed. your menu should change. `n use it in seconds (__ ...)" ; thats all 13.05.2018 19:01
+        msg.= "(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
+        MsgBox , 64 , mission completed, % msg, 4 ; project created
       continue ;
     }
     if(activeTitleOLD == activeTitle && activeClassOLD == activeClass ){

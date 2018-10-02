@@ -158,30 +158,6 @@ g_nextCriticalCommandString := "104:Suspend, On"
 ;msgbox,% A_LineNumber " " A_LineFile "`n SuspendOn()`n"
 Suspend, On ; wieder (10.07.2017 11:47) auskommentiert weils mir zu oft auf suspand on war. wehr oft wenn ich auf skype gewecheelt habe. hoffe die anderen bugFix haben den Seiteneffekt das ich dieses nicht mehr brauche.
 
-;WinSetTitle, TypingAid - Active, , TypingAid - Active wait4sec
-;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-if(0){
-f:= "problemHandler104SuspendOn.ahk"
-f:= "problemHandler104SuspendOn.ahk"
-ff := A_ScriptDir . "\" . f
-DetectHiddenWindows,On
-if( !WinExist(f) ){
-   run,%ff% 
-    WinWait,%f% ,,1
-} ;
-if( !WinExist(f) ){
-   msg=%ff% NOTfound => ExitApp `n (from. %A_LineFile%~%A_LineNumber%)
-    tooltip,% msg
-    feedbackMsgBox(msg,msg,1,1)
-   Sleep,3000
-global g_doSaveLogFiles
-
-    lll(A_LineNumber, A_LineFile, "Sleep,3000")
-   ExitApp 
-}
-}
-;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
 g_nextCriticalCommandString := ""
 Gosub, saveIamAllive
 
@@ -360,7 +336,7 @@ settitlematchmode,2
 ;#IfWinActive,"ListBoxTitle (sec="
 ; #IfWinActive,
 ; ToolTip3sec("^+esc:: exit-all-scripts",1,1)
-#IfWinActive, Typing
+#IfWinActive, global-IntelliSense
  ^+esc:: ; exit-all-scripts. usefull in developer mode
     if(1 && InStr(A_ComputerName,"SL5")){
      setRegistry_toDefault()

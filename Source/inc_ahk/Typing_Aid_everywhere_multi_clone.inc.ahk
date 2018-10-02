@@ -1136,7 +1136,9 @@ ActionListFileName := RegExReplace(ActionListNEWarchivePath,".*\\([^\\]+)$","$1"
 initialActionList =
 (
 ; #Include ..\_globalActionLists\examplesForBeginners.txt ; updated: 21.03.2018 07:33
-___your library open|rr||ahk|run,%ActionListFileName%
+___open ActionList|rr||ahk|run,%ActionListFileName%
+; if you could read this germen special character (umlaute) your file format is correct (please use UTF8)
+; ä = thats a au
 )
 ; EndOf filling the template variable with useful examples 12.07.2017 21:18
 return initialActionList
