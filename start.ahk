@@ -54,6 +54,9 @@ while(WinExist(name) && A_Index < 9)
 
 ; msgbox, lets start 17.02.2018 22:14
 
+FileDelete, ActionListLearned.db
+Sleep,100
+
 run,TypingAid.ahk,%A_ScriptDir%\Source
 Sleep,1000
 run,Typing_Aid_everywhere_multi_clone.ahk,%A_ScriptDir%\Source

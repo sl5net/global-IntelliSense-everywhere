@@ -13,14 +13,14 @@ ActionListNEW_time_between := ActionListNEW
 ; if you want you could use the follwong global variables fot calculating you new ActionListNEW : ActionListDir, ActionListNEW, ActiveClass, activeTitle
 if (!ActionListNEW ){
  global g_lineNumberFeedback
- g_lineNumberFeedback=G:\downloads\p\global-IntelliSense-everywhere-Nightly-Build-master\Source\inc_ahk\Typing_Aid_everywhere_multi_clone.inc.ahk~getAhkCodeInsideFile~969
+ g_lineNumberFeedback=E:\fre\private\HtmlDevelop\AutoHotKey\global-IntelliSense-everywhere-Nightly-Build\Source\inc_ahk\Typing_Aid_everywhere_multi_clone.inc.ahk~getAhkCodeInsideFile~969
 
     MsgBox, ERROR ActionListNEW is EMPTY 17-03-05_14-51
     exitapp
 }
 if (!ActionListDir ){
  global g_lineNumberFeedback
- g_lineNumberFeedback=G:\downloads\p\global-IntelliSense-everywhere-Nightly-Build-master\Source\inc_ahk\Typing_Aid_everywhere_multi_clone.inc.ahk~getAhkCodeInsideFile~969
+ g_lineNumberFeedback=E:\fre\private\HtmlDevelop\AutoHotKey\global-IntelliSense-everywhere-Nightly-Build\Source\inc_ahk\Typing_Aid_everywhere_multi_clone.inc.ahk~getAhkCodeInsideFile~969
 
     MsgBox, ERROR ActionListDir is EMPTY 17-03-19_11-52
     exitapp
@@ -37,5 +37,5 @@ if( SubStr( ActionListNEW , -3 ) <> ".ahk" ) ; 06.03.2018 13:09
 
 
 ; Clipboard := ActionListNEW    we dont need that anymore. becouse now we work without the clipboard 09.03.2017 21:21 isInternMsgTransportIsClipboard := false ; false. then using fileSystem: readfile, include copyfile
-; Clipboard := ActionListNEW `n G:\downloads\p\global-IntelliSense-everywhere-Nightly-Build-master\Source\inc_ahk\Typing_Aid_everywhere_multi_clone.inc.ahk~getAhkCodeInsideFile~969 `n we dont need that anymore. becouse now we work without the clipboard 09.03.2017 21:21 isInternMsgTransportIsClipboard := false ; false. then using fileSystem: readfile, include copyfile
+; Clipboard := ActionListNEW `n E:\fre\private\HtmlDevelop\AutoHotKey\global-IntelliSense-everywhere-Nightly-Build\Source\inc_ahk\Typing_Aid_everywhere_multi_clone.inc.ahk~getAhkCodeInsideFile~969 `n we dont need that anymore. becouse now we work without the clipboard 09.03.2017 21:21 isInternMsgTransportIsClipboard := false ; false. then using fileSystem: readfile, include copyfile
 ; tooltip,%Clipboard% = Clipboard 123496854

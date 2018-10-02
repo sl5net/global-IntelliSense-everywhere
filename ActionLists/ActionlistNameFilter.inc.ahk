@@ -119,7 +119,7 @@ if (0 && RegExMatch( ActiveClass , "VirtualConsole" ) ) {
 
 if (ActiveClass == "VirtualConsoleClassGhost" && RegExMatch( activeTitle , "Human-Connection" ) ) {
         ; https://g-intellisense.myjetbrains.com/youtrack/issue/GIS-27 dirty bugFix
-      tip =
+		tip =
       (
             %ActiveClass%=ActiveClass
             %activeTitle%=activeTitle
@@ -127,10 +127,10 @@ if (ActiveClass == "VirtualConsoleClassGhost" && RegExMatch( activeTitle , "Huma
       )
      ; clipboard := tip 
      ; tooltip,%tip% `n (%A_LineFile%~%A_LineNumber%) 
-     return "..\VirtualConsoleClassGhost\Human-Connection"
-}
-if (0 && ActiveClass == "VirtualConsoleClassGhost"  ) {
-      tip =
+		return "..\VirtualConsoleClassGhost\Human-Connection"
+	}
+	if (0 && ActiveClass == "VirtualConsoleClassGhost"  ) {
+		tip =
       (
             %ActiveClass%=ActiveClass
             %activeTitle%=activeTitle
@@ -138,104 +138,109 @@ if (0 && ActiveClass == "VirtualConsoleClassGhost"  ) {
       )
      ; clipboard := tip 
      ; tooltip,%tip% `n (%A_LineFile%~%A_LineNumber%) 
-     return "..\VirtualConsoleClassGhost\_global"
-}
-
-if ( RegExMatch( activeTitle , "i)Sourcetree" ) || RegExMatch( ActiveClass , "i)SourceTree" )  ) {
+		return "..\VirtualConsoleClassGhost\_global"
+	}
+	
+	if ( RegExMatch( activeTitle , "i)Sourcetree" ) || RegExMatch( ActiveClass , "i)SourceTree" )  ) {
 	  ; Msgbox,%ActiveClass%=ActiveClass`n (%A_LineFile%~%A_LineNumber%) 
-      return "..\_globalActionLists\SourceTree"
-}	  
-if ( RegExMatch( activeTitle , "\b(docker)\b" ) ) 
-      return "..\_globalActionLists\docker"
-
+		return "..\_globalActionLists\SourceTree"
+	}	  
+	if ( RegExMatch( activeTitle , "\b(docker)\b" ) ) 
+		return "..\_globalActionLists\docker"
+	
 ; Select File - AHK-Studio.ahk ahk_class #32770 ; mouseWindowTitle=0x1604f6  ; 
-
-
-if ( RegExMatch( activeTitle , "(Double Commander|FreeCommander|Q-Dir \d|Bild Ã¶ffnen|Anhang speichern|Datei speichern|Speichern|Speichern unter|ffnen|Dateien/Ordner suchen|Exportieren|Dokument speichern|Select Path|Open File or Project|Select File)" ) ) 
-      return "..\_globalActionLists\pfade"
+	
+	
+	if ( RegExMatch( activeTitle , "(Double Commander|FreeCommander|Q-Dir \d|Bild Ã¶ffnen|Anhang speichern|Datei speichern|Speichern|Speichern unter|ffnen|Dateien/Ordner suchen|Exportieren|Dokument speichern|Select Path|Open File or Project|Select File)" ) ) 
+		return "..\_globalActionLists\pfade"
 ;Speichern is used with ToDoList_c_AbstractSpoon
-
-
+	
+	
+	if ( RegExMatch( activeTitle , "(AutoHotkey Community)" ) ) 
+		return "..\_globalActionLists\AutoHotkey_Community"
+;Speichern is used with ToDoList_c_AbstractSpoon
+	
+	
+	
 ; g_IntelliSense-everywhere - AutoHotkey Community - Google Chrome ahk_class Chrome_WidgetWin_1
-if (0 && RegExMatch( activeTitle , "(\.ahk)" ) ){
-    if(false && activeClass == "ChromeWidgetWin1") {  ; want to know that. debugging 26.4.218 12:18}
+	if (0 && RegExMatch( activeTitle , "(\.ahk)" ) ){
+		if(false && activeClass == "ChromeWidgetWin1") {  ; want to know that. debugging 26.4.218 12:18}
         ; need to be discussed: https://g-intellisense.myjetbrains.com/youtrack/issue/GIS-22
-        tooltip,% activeTitle activeClass
-        clipboard := activeTitle activeClass
-        sleep,9000
-        log =
+			tooltip,% activeTitle activeClass
+			clipboard := activeTitle activeClass
+			sleep,9000
+			log =
         (
         https://g-intellisense.myjetbrains.com/youtrack/issue/GIS-22
         blabla.ahk - AutoHotKey - Visual Studio Code [Administrator]
         ahk_class Chrome_WidgetWin_1
         ahk_exe Code.exe
         )
-    }
-    return "..\_globalActionListsGenerated\_ahk_global.ahk._Generated" ; seems works not 18-04-26_12-44
-    return "..\_globalActionListsGenerated\_ahk_global.ahk._Generated.ahk" ; seems works not 18-04-26_12-44
-}
-
-
-
-SetTitleMatchMode,2 ; 2: A window's title can contain WinTitle anywhere inside it to be a match.
-
-if( instr( activeTitle , "\ActionLists\")  ) {
+		}
+		return "..\_globalActionListsGenerated\_ahk_global.ahk._Generated" ; seems works not 18-04-26_12-44
+		return "..\_globalActionListsGenerated\_ahk_global.ahk._Generated.ahk" ; seems works not 18-04-26_12-44
+	}
+	
+	
+	SetTitleMatchMode,2 ; 2: A window's title can contain WinTitle anywhere inside it to be a match.
+	
+	if( instr( activeTitle , "\ActionLists\")  ) {
 ;      Msgbox, `n (%A_LineFile%~%A_LineNumber%) 
 ; if( RegExMatch( activeTitle  , "i)(\.ahk)" ) || instr( activeTitle , "\ActionLists\")  ) {
-
-      wLGeneratedDIRname = _globalActionListsGenerated
-      wLGeneratedDIR := scriptDIR . "\..\" . wLGeneratedDIRname
-      wlRelativePath := "..\SciTEWindow\_global" ; relative old
-      wlRelativePath := "..\" . wLGeneratedDIRname ; relative newd 
-      wlRelative := "..\" . wLGeneratedDIRname . "\_ahk_global.ahk"
-      wl := wLGeneratedDIR . "\_ahk_global.ahk"
-      sciteAhkGlobal = ..\ActionLists\SciTEWindow\_global.ahk
-      if(!Fileexist(wl)){
-      if(!Fileexist(wLGeneratedDIR))   {
-        FileCreateDir, % wLGeneratedDIR
-              Sleep, 60
-      }
-      FileAppend, _____global generated lib|r|%wl%`n , % wl
-      FileAppend, _____global generated lib|rr||ahk|run,%wl%`n, % wl
-      FileAppend, _____global generated lib|rr||ahk|run,..\_globalActionListsGenerated\_ahk_global.ahk`n, % wl
-
-      Sleep, 100
-      
-      if(!FileExist(scriptDIR)){
-            MsgBox, :-( !FileExist(scriptDIR) 17-03-19_15-16 exitApp
-            ExitApp
-      }
-      
-      f :=  scriptDIR . "\_global.ahk"
-      if(!FileExist(f)){
-            MsgBox, :-( !FileExist(f=%f%) 17-03-19_15-23 exitApp
-            ExitApp
-      }
-      Fileread, fileContent1 , % f
-      Sleep,100
-      if(!fileContent1){
-            MsgBox, :-( !fileContent `n f=%f% `n 17-03-19_15-21 exitApp
-            ExitApp
-      }
+		
+		wLGeneratedDIRname = _globalActionListsGenerated
+		wLGeneratedDIR := scriptDIR . "\..\" . wLGeneratedDIRname
+		wlRelativePath := "..\SciTEWindow\_global" ; relative old
+		wlRelativePath := "..\" . wLGeneratedDIRname ; relative newd 
+		wlRelative := "..\" . wLGeneratedDIRname . "\_ahk_global.ahk"
+		wl := wLGeneratedDIR . "\_ahk_global.ahk"
+		sciteAhkGlobal = ..\ActionLists\SciTEWindow\_global.ahk
+		if(!Fileexist(wl)){
+			if(!Fileexist(wLGeneratedDIR))   {
+				FileCreateDir, % wLGeneratedDIR
+				Sleep, 60
+			}
+			FileAppend, _____global generated lib|r|%wl%`n , % wl
+			FileAppend, _____global generated lib|rr||ahk|run,%wl%`n, % wl
+			FileAppend, _____global generated lib|rr||ahk|run,..\_globalActionListsGenerated\_ahk_global.ahk`n, % wl
+			
+			Sleep, 100
+			
+			if(!FileExist(scriptDIR)){
+				MsgBox, :-( !FileExist(scriptDIR) 17-03-19_15-16 exitApp
+				ExitApp
+			}
+			
+			f :=  scriptDIR . "\_global.ahk"
+			if(!FileExist(f)){
+				MsgBox, :-( !FileExist(f=%f%) 17-03-19_15-23 exitApp
+				ExitApp
+			}
+			Fileread, fileContent1 , % f
+			Sleep,100
+			if(!fileContent1){
+				MsgBox, :-( !fileContent `n f=%f% `n 17-03-19_15-21 exitApp
+				ExitApp
+			}
       ;FileCopy,% scriptDIR . "\_global.ahk", % wl
-      f = ..\..\foundFunctionsActionList.ahk
-      Fileread,fileContent2, % f
-      Sleep,100
-      if(!fileContent2){
-            MsgBox, :-( !fileContent `n f=%f% `n 17-03-19_15-21 exitApp
-            ExitApp
-      }
-      FileAppend, % fileContent1 . fileContent2  ,% wl
-      Sleep, 300
-    }
-      return ,% wlRelative
-  }
-
- if(!RegExMatch(ActionListNEW,"_global$")) {
-   ActionListNEW := RegExReplace( ActionListNEW, "^[_-]+" , "")
-  ActionListNEW := RegExReplace( ActionListNEW, "[_-]+$" , "")
-}
-return ActionListNEW
+			f = ..\..\foundFunctionsActionList.ahk
+			Fileread,fileContent2, % f
+			Sleep,100
+			if(!fileContent2){
+				MsgBox, :-( !fileContent `n f=%f% `n 17-03-19_15-21 exitApp
+				ExitApp
+			}
+			FileAppend, % fileContent1 . fileContent2  ,% wl
+			Sleep, 300
+		}
+		return ,% wlRelative
+	}
+	
+	if(!RegExMatch(ActionListNEW,"_global$")) {
+		ActionListNEW := RegExReplace( ActionListNEW, "^[_-]+" , "")
+		ActionListNEW := RegExReplace( ActionListNEW, "[_-]+$" , "")
+	}
+	return ActionListNEW
 } ; endOf: getActionListNEW173129
 
 getActionListNEW173129addFileExtension(ActionListNEW ){
@@ -373,9 +378,9 @@ contend =
 #Include ..\%ActiveClass%\_global.ahk
 
 ; #Include ..\_globalActionLists\examplesForBeginners.ahk
-___open global library|rr||ahk|run,..\_globalActionLists\_global.ahk
-___open class library|rr||ahk|run,_global.ahk
 ___open window library |rr||ahk|run,%ActionListNEW%
+; if this german au is readable your UTF8 is probalby correct: ä
+
 )
      FileAppend,% "",   % "..\ActionLists\" . ActiveClass . "\_global.ahk"
 if( FileExist("..\ActionLists\" . ActiveClass . "\" . ActionListNEW) ){
@@ -388,13 +393,19 @@ if( !FileExist("..\ActionLists\" . ActiveClass . "\_global.ahk") ){
 }
      FileAppend,% contend,   % "..\ActionLists\" . ActiveClass . "\" . ActionListNEW
 if( !FileExist("..\ActionLists\" . ActiveClass . "\" . ActionListNEW) ){
-    Msgbox,ups ==> EXIT `n (%A_LineFile%~%A_LineNumber%) )
+    Msgbox,:-( ups !FileExist %ActionListNEW% ==> EXIT `n (%A_LineFile%~%A_LineNumber%) )
 EXIT
 }
      Sleep,100
      ; msgbox,%ActionListNEW% = ActionListNEW ,`%ActionListNEW`% = ActionListNEW 18-03-06_13-31 `n (%A_LineFile%~%A_LineNumber%)
 
-     run,                    % "..\ActionLists\" . ActiveClass . "\" . ActionListNEW
+     ; run,                    % "..\ActionLists\" . ActiveClass . "\" . ActionListNEW
+     ; isInEditorSoon := openInEditor("..\ActionLists\" . ActiveClass, true, "run," ActionListNEW, true, true, true)
+     ; openInEditor(ActionListFolderOfThisActionList, isAHKcode, AHKcode, isStartingUnderline, is_OpenA_edit_open_lib, isDeprecated_OpenA_edit_open_lib)
+	; if(!isInEditorSoon)
+    ; msgbox, ,please open your new ActionList by using __  `n (%A_LineFile%~%A_LineNumber%), 2
+
+; __ ____
 
      return, % ActionListNEW
 } ; ENDof: maybeSuperglobalActionList
@@ -405,3 +416,5 @@ EXIT
 ; thats like a backup, bevore ... \className\ActionListNameFilter.inc.ahk will include this file :) and change ActionListNEW but reuse ActionListNEW_time_between  at  the end :)  12.08.2017 09:44
 ActionListNEW_time_between := ActionListNEW
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+; # Include ..\Source\inc_ahk\openInEditor_actionList.inc.ahk
