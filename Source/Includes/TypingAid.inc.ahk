@@ -1327,7 +1327,7 @@ MaybeFixFileEncoding(File,Encoding){
 ; Ã¼ ü
 
     nW := "[^{}öüäß\w\s\n\t\r\.!-_|]+" ; no word z.b. ? �
-   if( foundPos := RegExMatch(Contents,"i)[a-z]{3,}" nW "[a-z]{3,}") ){
+    if((1 && InStr(A_ComputerName,"SL5")) && foundPos := RegExMatch(Contents,"i)[a-z]{3,}" nW "[a-z]{3,}") ){
         corruptedContend := substr(Contents, foundPos - 5, 45)
          Msgbox,% ":( your file is corrupted propably. `n`n...>" corruptedContend "<...`n`n" nW "`n is found `n`n" File "`n______________`n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\")
         return
