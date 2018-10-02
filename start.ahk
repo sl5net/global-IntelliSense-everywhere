@@ -22,7 +22,7 @@ while(WinExist(name) && A_Index < 9)
 
 
 	
-DetectHiddenWindows,Off
+;DetectHiddenWindows,Off ; <== never do this again. all in taskbar was not closed !! 02.10.2018 12:33
 SetTitleMatchMode,2
 	
 name=TypingAid.ahk ahk_class AutoHotkey
@@ -53,6 +53,13 @@ while(WinExist(name) && A_Index < 9)
 	WinKill,
 
 ; msgbox, lets start 17.02.2018 22:14
+
+; DetectHiddenText, On
+DetectHiddenWindows,On
+IfWinExist,TypingAid
+	Msgbox,% ":( TypingAid exist `n(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
+IfWinExist,Typing_Aid_everywhere_multi_clone
+	Msgbox,% ":( Typing_Aid_everywhere_multi_clone exist `n(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
 
 run,TypingAid.ahk,%A_ScriptDir%\Source
 Sleep,1000
