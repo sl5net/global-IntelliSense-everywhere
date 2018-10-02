@@ -230,7 +230,7 @@ ActionListDir = '%ActionListDir%'
 					g_ignReg["feedbackMsgBox"]["text"] =.^
 					feedbackMsgBox("isIncludeFileInside = " isIncludeFileInside,A_LineNumber . " " .  A_LineFile,1,1)
 					msg='%ActionListNEWarchivePath%' = ActionListNEWarchivePath `n '%foundPos%' = foundPos  `n '%includeFilePath%' = includeFilePath  `n '%exist_includeFilePath%' = exist_includeFilePath `n  ActionListDir = '%ActionListDir%' `n (line:%A_LineFile%~%A_LineNumber%)
-					ToolTip5sec(msg  . " `n " . A_LineNumber . " " .  RegExReplace(RegExReplace(A_LineFile, ".*\\", "") , ".*\", "") " " Last_A_This)
+					ToolTip5sec(msg  . " `n " . A_LineNumber . " " .  RegExReplace(RegExReplace(A_LineFile,".*\\") , ".*\", "") " " Last_A_This)
 					msgbox,% msg
 				}
 				
@@ -563,7 +563,7 @@ IfWinNotExist,TypingAid
  g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
    Last_A_This:=A_ThisFunc . A_ThisLabel 
-   ToolTip1sec(A_LineNumber . " " .  RegExReplace(RegExReplace(A_LineFile, ".*\\", "") , ".*\", "") " " Last_A_This) ;
+   ToolTip1sec(A_LineNumber . " " .  RegExReplace(RegExReplace(A_LineFile,".*\\") , ".*\", "") " " Last_A_This) ;
    msg = 
    (
    :-(
@@ -579,7 +579,7 @@ IfWinNotExist,TypingAid
  g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
    Last_A_This:=A_ThisFunc . A_ThisLabel 
-   ToolTip1sec(A_LineNumber . " " .  RegExReplace(RegExReplace(A_LineFile, ".*\\", "") , ".*\", "") " " Last_A_This) ;
+   ToolTip1sec(A_LineNumber . " " .  RegExReplace(RegExReplace(A_LineFile,".*\\") , ".*\", "") " " Last_A_This) ;
    msg_sourceDir = `n '%sourceDir%' = sourceDir  `n (line:%A_LineNumber%) `n
    MsgBox, :(  `n  ! Exist(sourceDir) %msg_sourceDir%
    }

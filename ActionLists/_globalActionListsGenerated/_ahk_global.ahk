@@ -7,10 +7,10 @@ Channel IRQ: #ahk
 
 
 Msgbox lineFileName|rr|Msgbox,(%A_LineFile%~%A_LineNumber%)|ahk|Send,{shift down}{left 33}{shift up}
-ToolTip2sec lineFileName|rr|ToolTip2sec(A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") " " Last_A_This)|ahk|Send,{CtrlDown}{left 8}{CtrlUp}
-ToolTip2sec lineFileName|rr|ToolTip2sec(A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") " " Last_A_This)|ahk|Send,{CtrlDown}{left 8}{CtrlUp}
-ToolTip4sec lineFileName|rr|ToolTip4sec(A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") " " Last_A_This)|ahk|Send,{CtrlDown}{left 8}{CtrlUp}
-ToolTip5sec lineFileName|rr|ToolTip5sec(A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") " " Last_A_This)|ahk|Send,{CtrlDown}{left 8}{CtrlUp}
+ToolTip2sec lineFileName|rr|ToolTip2sec(A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)|ahk|Send,{CtrlDown}{left 8}{CtrlUp}
+ToolTip2sec lineFileName|rr|ToolTip2sec(A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)|ahk|Send,{CtrlDown}{left 8}{CtrlUp}
+ToolTip4sec lineFileName|rr|ToolTip4sec(A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)|ahk|Send,{CtrlDown}{left 8}{CtrlUp}
+ToolTip5sec lineFileName|rr|ToolTip5sec(A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)|ahk|Send,{CtrlDown}{left 8}{CtrlUp}
 
 Msgbox|rr|Msgbox,(%A_LineFile%~%A_LineNumber%)|ahk|Send,{shift down}{left 33}{shift up}
 ToolTip2sec|rr|ToolTip2sec(A_LineNumber " " A_LineFile " " Last_A_This)|ahk|Send,{CtrlDown}{left 8}{CtrlUp}
@@ -20,7 +20,7 @@ ToolTip5sec|rr|ToolTip5sec(A_LineNumber " " A_LineFile " " Last_A_This)|ahk|Send
 ToolTipSec(t,x=123,y=321,sec=1000)
 Tooltip, `n (from: %A_LineFile%~%A_LineNumber%)
 
-lineFileName := RegExReplace(A_LineFile, ".*\\", "")
+lineFileName := RegExReplace(A_LineFile,".*\\")
 
 
 ToolTipSec(t,x=123,y=321,sec=1000)

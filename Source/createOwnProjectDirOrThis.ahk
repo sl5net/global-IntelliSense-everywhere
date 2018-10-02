@@ -79,6 +79,7 @@ if(!FileExist(globalClassTxtAddress))
 ActionListNEWAddress := "..\ActionLists\" . ActiveClass . "\" . ActionListNEW
 if( FileExist( ActionListNEWAddress ) ){
     ; run, % ActionListNEWAddress ; this works for .txt extension. that we dont use anymore 01.10.2018 11:12
+    openInEditor("..\ActionLists\" . ActiveClass, true, "run," ActionListNEW, true, true, true)
 
     Msgbox,ups ActionListNEW = >>>>%ActionListNEW%<<< `n exist already ==> EXIT `n (%A_LineFile%~%A_LineNumber%) )
     EXIT
@@ -96,10 +97,10 @@ Sleep,100
      ; msgbox,%ActionListNEW% = ActionListNEW ,`%ActionListNEW`% = ActionListNEW 18-03-06_13-31 `n (%A_LineFile%~%A_LineNumber%)
 
  ; run, % ActionListNEWAddress ; this works for .txt extension. that we dont use anymore 01.10.2018 11:12
-     run, % ActionListNEWAddress
+; ActionListNEWAddress := "..\ActionLists\" . ActiveClass . "\" . ActionListNEW
 ; openInEditor(isAHKcode, AHKcode, isStartingUnderline, is_OpenA_edit_open_lib, isDeprecated_OpenA_edit_open_lib)
 ; openInEditor(ActionListFolderOfThisActionList, isAHKcode, AHKcode, isStartingUnderline, is_OpenA_edit_open_lib, isDeprecated_OpenA_edit_open_lib){
-;  openInEditor("..\ActionLists\" . ActiveClass, true, "run," ActionListNEW, true, true, true)
+  openInEditor("..\ActionLists\" . ActiveClass, true, "run," ActionListNEW, true, true, true)
 
 
 
@@ -114,6 +115,6 @@ reload
 #Include *i %A_ScriptDir%\inc_ahk\functions_global_dateiende.inc.ahk
 #Include *i %A_ScriptDir%\inc_ahk\UPDATEDSCRIPT_global.inc.ahk
 
-; # Include %A_ScriptDir%\inc_ahk\openInEditor_actionList.inc.ahk
+#Include %A_ScriptDir%\inc_ahk\openInEditor_actionList.inc.ahk
 ;__ __ __
 ;

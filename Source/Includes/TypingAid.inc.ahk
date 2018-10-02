@@ -82,11 +82,11 @@ MainLoop()
 }
 ; 
 ReadInTheActionList(){ ;Read in the ActionList
-   global ParseWordsCount
-   global prefs_Length
-   ParseWordsCount := ReadActionList()
-   prefs_Length := setLength(ParseWordsCount, maxLinesOfCode4length1)
-   return
+    global ParseWordsCount
+    global prefs_Length
+    ParseWordsCount := ReadActionList()
+    prefs_Length := setLength(ParseWordsCount, maxLinesOfCode4length1)
+    return ParseWordsCount
 }
 
 
@@ -198,7 +198,7 @@ ProcessKey(InputChar,EndKey) {
             Return
             
          ; add the word if switching lines
-         AddWordToList(g_Word,0)
+         ;AddWordToList(g_Word,0)
          ClearAllVars(true)
          g_Word := InputChar
          Return         
@@ -228,7 +228,7 @@ ProcessKey(InputChar,EndKey) {
       ;learn and blank word, then assign number pressed to the word
       IfNotEqual, g_LastInput_Id, %g_Active_Id%
       {
-         AddWordToList(g_Word,0)
+         ;AddWordToList(g_Word,0)
          ClearAllVars(true)
          g_Word := InputChar
          g_LastInput_Id := g_Active_Id
@@ -237,13 +237,13 @@ ProcessKey(InputChar,EndKey) {
    
       if InputChar in %prefs_ForceNewWordCharacters%
       {
-         AddWordToList(g_Word,0)
+         ;AddWordToList(g_Word,0)
          ClearAllVars(true)
          g_Word := InputChar
       } else if InputChar in %prefs_EndWordCharacters%
       {
          g_Word .= InputChar
-         AddWordToList(g_Word, 1)
+         ;AddWordToList(g_Word, 1)
          ClearAllVars(true)
       } else { 
          g_Word .= InputChar
@@ -254,7 +254,7 @@ ProcessKey(InputChar,EndKey) {
       ;Don't do anything if we aren't in the original window and aren't starting a new word
       Return
    } else {
-      AddWordToList(g_Word,0)
+      ;AddWordToList(g_Word,0)
       ClearAllVars(true)
       Return
    }
@@ -471,7 +471,7 @@ CheckForCaretMove(MouseButtonClick, UpdatePosition := false){
          if (( g_OldCaretY != CaretYorMouseYfallback() ) || (g_OldCaretX != CaretXorMouseXfallback() ))
          {
             ; add the word if switching lines
-            AddWordToList(g_Word,0)
+            ;AddWordToList(g_Word,0)
             ClearAllVars(true)
          }
       }
@@ -664,12 +664,12 @@ if(foundPos){
 
 ; if(A_UserName == "Administrator")
 ;    SendInput,%Key%
-;else }}}}} }}}}}}0000000000001230 ToolTip1sec(A_LineNumber   " "   RegExReplace(RegExReplace(A_LineFile, ".*\\", "") , ".*\", "") " " Last_A_This); 75+ lines in Live Edit Live_Edit Pseudo Live Edit for Chrome Firefox PhpStorm.ahk
+;else }}}}} }}}}}}0000000000001230 ToolTip1sec(A_LineNumber   " "   RegExReplace(RegExReplace(A_LineFile,".*\\") , ".*\", "") " " Last_A_This); 75+ lines in Live Edit Live_Edit Pseudo Live Edit for Chrome Firefox PhpStorm.ahk
 if(lenKey>3){
-    ;ToolTip3sec(Key "`n`n" A_LineNumber   " "   RegExReplace(A_LineFile, ".*\\", "")    " "   Last_A_This)
+    ;ToolTip3sec(Key "`n`n" A_LineNumber   " "   RegExReplace(A_LineFile,".*\\")    " "   Last_A_This)
     send,{%keyBackup%}
 }else{
-    ;ToolTip3sec(Key "`n" keyBackup "`n" A_LineNumber   " "   RegExReplace(A_LineFile, ".*\\", "")    " "   Last_A_This)
+    ;ToolTip3sec(Key "`n" keyBackup "`n" A_LineNumber   " "   RegExReplace(A_LineFile,".*\\")    " "   Last_A_This)
     SendRaw,%Key%
 }
 ; 000   0  0 1234567890000000000
@@ -1113,7 +1113,7 @@ ReturnLineWrong(){
       
    Return, ( g_OldCaretY != CaretYorMouseYfallback() )
 }
-
+; tooltip tooltip
 AddSelectedWordToList(){
 disableCopyQ() ; enableCopyQ() ;
    ClipboardSave := ClipboardAll
@@ -1123,7 +1123,7 @@ disableCopyQ() ; enableCopyQ() ;
    ClipWait, 0
    IfNotEqual, Clipboard, 
    {
-      AddWordToList(Clipboard,1,"ForceLearn")
+      ;AddWordToList(Clipboard,1,"ForceLearn")
    }
    Clipboard = %ClipboardSave%
    enableCopyQ() ;
@@ -1206,7 +1206,7 @@ lll(A_LineNumber, A_LineFile, "CloseListBox()")
 
 SuspendOn(){
    global g_ScriptTitle
-   ;ToolTip2sec("Suspend deaktivad TEST " A_LineNumber   " "   RegExReplace(A_LineFile, ".*\\", "")    " "   Last_A_This)
+   ;ToolTip2sec("Suspend deaktivad TEST " A_LineNumber   " "   RegExReplace(A_LineFile,".*\\")    " "   Last_A_This)
    ;Suspend, On  ; deaktivated now. for testing reasons 16.07.2017 11:34 17-07-16_11-34
    Menu, Tray, Tip, %g_ScriptTitle% - Inactive
    If A_IsCompiled
@@ -1301,23 +1301,53 @@ FileAppendDispatch(Text,FileName,ForceEncoding=0){
 }
 
 MaybeFixFileEncoding(File,Encoding){
+   ; doWriteInAnyCasese := true ;
+       if( RegExMatch(File,"Bewerbung") ){
+
+   FileCopy, %File%, %File%.preconv.bak
+  FileRead, Contents, %File%
+  Contents := getCorrectedStringUAOSS( Contents )
+  if(!Contents)
+    return
+
+    if(instr(Contents,"Ã¶")){
+         Msgbox,% ":( your file is corrupted propably. Ã¶ is found `n`n" File "`n______________`n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\")
+        return
+    }
+
+    ; if(instr(Contents,"�")){ ; L�sungen
+     if( foundPos := RegExMatch(Contents,"i)[a-z]�[a-z]") ){
+         Msgbox,% ":( your file is corrupted propably. � is found `n`n..." corruptedContend "`n`n" File "`n______________`n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\")
+         ;Msgbox,% ":( your file is corrupted propably. `n`n...>" corruptedContend "<...`n  `n" nW "`n is found `n`n" File "`n______________`n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\")
+        return
+    }
+
+; Ã¼ ü
+; Ã¶ ö
+; Ã¼ ü
+
+    nW := "[^{}öüäß\w\s\n\t\r\.!-_|]+" ; no word z.b. ? �
+   if( foundPos := RegExMatch(Contents,"i)[a-z]{3,}" nW "[a-z]{3,}") ){
+        corruptedContend := substr(Contents, foundPos - 5, 45)
+         Msgbox,% ":( your file is corrupted propably. `n`n...>" corruptedContend "<...`n`n" nW "`n is found `n`n" File "`n______________`n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\")
+        return
+    }
+
+   FileCopy, %File%, %File%.preconvB.bak
+   FileDelete, %File%
+   FileAppend, %Contents%, %File%, %Encoding%
+   tooltip,% File " was saved backup you find here: `n" %File%.preconvB.bak "`n______________`n"  "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\")
+Return
+}
    IfGreaterOrEqual, A_AhkVersion, 1.0.90.0
    {
-      
-      IfExist, %File%
-      {    
-         IfNotEqual, A_IsUnicode, 1
-         {
+      If(FileExist(File)){
+         If(A_IsUnicode <> 1)
             Encoding =
-         }
-         
-         
          EncodingCheck := FileOpen(File,"r")
          
-         If EncodingCheck
-         {
-            If Encoding
-            {
+         If(EncodingCheck){
+            If(Encoding){
                IF !(EncodingCheck.Encoding = Encoding)
                   WriteFile = 1
             } else
@@ -1325,10 +1355,10 @@ MaybeFixFileEncoding(File,Encoding){
                IF (SubStr(EncodingCheck.Encoding, 1, 3) = "UTF")
                   WriteFile = 1
             }
-         
-            IF WriteFile
-            {
+            IF(WriteFile){
                Contents := EncodingCheck.Read()
+               ;Contents := getCorrectedStringUAOSS( Contents )
+
                EncodingCheck.Close()
                EncodingCheck =
                FileCopy, %File%, %File%.preconv.bak
@@ -1336,6 +1366,7 @@ MaybeFixFileEncoding(File,Encoding){
                FileAppend, %Contents%, %File%, %Encoding%
                
                Contents =
+
             } else
             {
                EncodingCheck.Close()

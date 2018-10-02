@@ -9,7 +9,7 @@ name=Typing_Aid_everywhere_multi_clone.ahk ahk_class AutoHotkey
 ;name := "Typing_Aid_everywhere_multi_clone" ; .ahk ; ahk_class AutoHotkey
 ;name=TypingAid ahk_class AutoHotkey
 while(WinExist(name) && A_Index < 999){
-	ToolTip, % A_Index
+	ToolTip, %A_Index%  `n (%A_LineFile%~%A_LineNumber%)
 	WinClose,% name
 }
 ;run,TypingAid.ahk ; ,%A_ScriptDir%\Source
@@ -53,13 +53,6 @@ while(WinExist(name) && A_Index < 9)
 	WinKill,
 
 ; msgbox, lets start 17.02.2018 22:14
-
-; DetectHiddenText, On
-DetectHiddenWindows,On
-IfWinExist,TypingAid
-	Msgbox,% ":( TypingAid exist `n(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
-IfWinExist,Typing_Aid_everywhere_multi_clone
-	Msgbox,% ":( Typing_Aid_everywhere_multi_clone exist `n(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
 
 run,TypingAid.ahk,%A_ScriptDir%\Source
 Sleep,1000

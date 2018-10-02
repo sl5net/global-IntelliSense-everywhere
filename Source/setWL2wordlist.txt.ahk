@@ -12,7 +12,7 @@ lll(A_LineNumber, A_LineFile, " hi :) just started. ")
 ; MsgBox,% A_LineFile . "`n hi :) ??? feedbackMsgBox visible ???? "
 ; php too too too to __ Über future Training & Consulting GmbH habe ich bis Ende März 2015 auch Python und andere Programmiersprachen (JavaSkript, PHP, HTML, Python C++, Java) unterrichtet. Python gefällt mir sehr und würde mich freuen, wenn sich mal wieder die Gelegenheit ergibt.
 
-; ToolTip1sec(A_LineNumber . " " .  RegExReplace(A_LineFile, ".*\\", "")  . " " . Last_A_This)
+; ToolTip1sec(A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\")  . " " . Last_A_This)
 ; html php too
 
 ActionList := "..\ActionLists\_globalActionLists\_global.ahk"

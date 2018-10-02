@@ -446,12 +446,12 @@ AddToMatchList(position, MaxLength, HalfLength, LongestBaseLength, ComputeBaseLe
       ; we don't need to compute the base length if there
       ; is no Replacement or Description
 
-      ; ToolTip1sec(BaseLength "= BaseLength `n (" A_LineNumber   " "   RegExReplace(A_LineFile, ".*\\", "")    ")")
+      ; ToolTip1sec(BaseLength "= BaseLength `n (" A_LineNumber   " "   RegExReplace(A_LineFile,".*\\")    ")")
       Return, 0
    } else {
       BaseLength := MaxLength ; was default before 01.04.2018 14:23 18-04-01_14-23
       BaseLength := HalfLength ; addet at 01.04.2018 14:24 18-04-01_14-24 so |rr| replacements also work more prety
-      ;ToolTip1sec(BaseLength "= BaseLength `n (" A_LineNumber   " "   RegExReplace(A_LineFile, ".*\\", "")    ")")
+      ;ToolTip1sec(BaseLength "= BaseLength `n (" A_LineNumber   " "   RegExReplace(A_LineFile,".*\\")    ")")
    }
 
    CurrentMatchLength := StrLen(CurrentMatch) + prefixlen
@@ -636,7 +636,7 @@ IfWinActive,SciTE4AutoHotkey ahk_class SciTEWindow
   g_ListBoxPosX += 160 ; was addet from sl5.net 11.03.2017 21:51 17-03-11_21-51
 
 if(WinActive("PhpStorm", "", ".ahk") || WinActive("New File ahk_class SunAwtDialog") || WinActive("Rename ahk_class SunAwtDialog") )  {
-   ;ToolTip9sec(A_LineNumber   " "   RegExReplace(A_LineFile, ".*\\", "")    " "   Last_A_This)
+   ;ToolTip9sec(A_LineNumber   " "   RegExReplace(A_LineFile,".*\\")    " "   Last_A_This)
 ; SetKeyDelay,290,125 ; <=== this doesent has any effect.
 
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<

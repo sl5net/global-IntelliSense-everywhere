@@ -91,7 +91,7 @@ SetWorkingDir, % scriptDir ; thats not worked. Line later A_ScriptDir was not ch
  
  ;<<<<<<<< SaveLast5_to_BackupSL5 <<<< 171003084729 <<<< 03.10.2017 08:47:29 <<<<
  ; i want copy it in the same path and into a google drive path
-ToolTip2sec("RunWait `n `n `n " . A_LineNumber . " " .  RegExReplace(A_LineFile, ".*\\", "")  . " " . Last_A_This)
+ToolTip2sec("RunWait `n `n `n " . A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\")  . " " . Last_A_This)
 RunWait, %scriptDir%\SaveLast5_to_BackupSL5.ahk "%ScriptFullPath%", %scriptDir%
 RunWait, %scriptDir%\SaveLast5_to_BackupSL5.ahk "%ScriptFullPath%" "c:/fre/private/Google_Drive/fax.sl5net/backup", %scriptDir%
 ;>>>>>>>> SaveLast5_to_BackupSL5 >>>> 171003084736 >>>> 03.10.2017 08.47:36 >>>>

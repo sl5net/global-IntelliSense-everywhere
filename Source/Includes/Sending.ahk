@@ -34,7 +34,7 @@ getLineOfIndex(id) {
         if ( id == A_Index  ) {
             ;msgBox, %A_LoopReadLine% 18-03-02_09-26
             ;tooltip,'%A_LoopReadLine%' = A_LoopReadLine `n (line:%A_LineNumber%)
-            ;ToolTip1sec(A_LoopReadLine . "`n" . A_LineNumber . " " .  RegExReplace(A_LineFile, ".*\\", "")  . " " .    Last_A_This)
+            ;ToolTip1sec(A_LoopReadLine . "`n" . A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\")  . " " .    Last_A_This)
             return, JEE_StrUtf8BytesToText( A_LoopReadLine )
             return A_Index
          }
@@ -62,7 +62,7 @@ getWordIndex(word) {
         if ( foundPos  ) {
             ;msgBox, %A_LoopReadLine% 18-03-02_09-26
             ;tooltip,'%A_LoopReadLine%' = A_LoopReadLine `n (line:%A_LineNumber%)
-            ;ToolTip1sec(A_LoopReadLine . "`n" . A_LineNumber . " " .  RegExReplace(A_LineFile, ".*\\", "")  . " " .    Last_A_This)
+            ;ToolTip1sec(A_LoopReadLine . "`n" . A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\")  . " " .    Last_A_This)
             return A_Index
          }
     }
@@ -98,7 +98,7 @@ getLineOfWord(word) {
         if ( foundPos  ) {
             ;msgBox, %A_LoopReadLine% 18-03-02_09-26
             ;tooltip,'%A_LoopReadLine%' = A_LoopReadLine `n (line:%A_LineNumber%)
-            ;ToolTip1sec(A_LoopReadLine . "`n" . A_LineNumber . " " .  RegExReplace(A_LineFile, ".*\\", "")  . " " .    Last_A_This)
+            ;ToolTip1sec(A_LoopReadLine . "`n" . A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\")  . " " .    Last_A_This)
             return, JEE_StrUtf8BytesToText( A_LoopReadLine )
             ; return A_Index
          }
@@ -115,7 +115,7 @@ getLineOfWord(word) {
         if ( foundPos  ) {
             ;msgBox, %thisLine% 17-07-10_13-28
             ;tooltip,'%thisLine%' = thisLine  `n (line:%A_LineNumber%)
-            ;ToolTip1sec(thisLine . "`n" . A_LineNumber . " " .  RegExReplace(A_LineFile, ".*\\", "")  . " " .    Last_A_This)
+            ;ToolTip1sec(thisLine . "`n" . A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\")  . " " .    Last_A_This)
             return, thisLine
             return a_index
          }
@@ -324,8 +324,8 @@ regIsXXXcode := "^([^\|\n]+?)\|(rr)\|(?:([^\n]*?)(?:\|(ahk|kts)\|)+([^\n]*?)$)*"
 ; Hallo sendDayTimeHello.ahk|rr||ahk|#incDynAhk\sendDayTimeHello.ahk
 
 ; ;<<<<<<<< playground <<<< 1810100213 <<<< 01.10.2018 <<<<
-; ToolTip5sec(A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") " " Last_A_This)
-; Msgbox,% "(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
+; ToolTip5sec(A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
+; Msgbox,% "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
 ;>>>>>>>> playground >>>> 18101080}49 >>>> 01.10.2018  >>>>
 
 ; rX := {key:m1, rr:m2, send:"", lang:"" ,code:""}
@@ -368,7 +368,7 @@ msgbox,% tip
                 if(!rX["rr"]){
                     tip=%lineOfIndex% `n
                     tip .= "`n regIsXXXcode= " rX["regIsXXXcode"] "`n key= " rX["key"] "`n rr= " rX["rr"] " `n send= " rX["send"] " `n lang= " rX["lang"] " `n code= " rX["code"]
-                    ;Msgbox,% " `n" tip "`n no code tag inside `n(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
+                    ;Msgbox,% " `n" tip "`n no code tag inside `n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
                     ToolTip3sec(tip)
                     sending := lineOfIndex
                     break ; no code tag inside
@@ -376,7 +376,7 @@ msgbox,% tip
                 if(rX["code"]){
                         tip=%lineOfIndex% `n (%A_LineFile%~%A_LineNumber%)
                         ToolTip3sec(tip)
-                        ;Msgbox,% "code inside `n(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
+                        ;Msgbox,% "code inside `n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
                         break ; code inside
                 }
    }   }    }
@@ -395,7 +395,7 @@ tooltip,% tip
 msgbox,% tip
 }
         if(!rX["code"]){
-            ToolTip3sec("found synonym `n ("   RegExReplace(A_LineFile, ".*\\", "")  " ," A_LineNumber  ") "   )
+            ToolTip3sec("found synonym `n ("   RegExReplace(A_LineFile,".*\\")  " ," A_LineNumber  ") "   )
             id := getWordIndex(m1)
             while(!rX["code"] && id>1){
                 id -= 1
@@ -433,7 +433,7 @@ if(isAHKcode){
     isDeprecated_OpenA_edit_open_lib := ( isAHKcode && isStartingUnderline && is_OpenA_edit_open_lib && RegExMatch( AHKcode , "^\s*(?:run)\s*,?(.+\.ahk)\s*$" ,  m ))
     ; msgbox, % isAHKcode "`=isAHKcode`n`n " lineOfIndex "`n=lineOfIndex`n`n is_OpenA_edit_open_lib=`n" is_OpenA_edit_open_lib " `n`n isDeprecated_OpenA_edit_open_lib=`n" isDeprecated_OpenA_edit_open_lib "`n`n" AHKcode
 
-    ; Msgbox,% AHKcode "(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
+    ; Msgbox,% AHKcode "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
     was_a_Editor_open_command := openInEditor(ActionListFolderOfThisActionList, isAHKcode, AHKcode, isStartingUnderline, is_OpenA_edit_open_lib, isDeprecated_OpenA_edit_open_lib)
     if(was_a_Editor_open_command)
         return
@@ -885,7 +885,7 @@ if(g_method == "Clipboard" ){
     ;DisableKeyboardHotKeys()
 ;sendClipboard(sending) ; funny not work here ; 01.04.2018 09:46 18-04-01_09-46
 
-ToolTip4sec("A_SendLevel = " A_SendLevel "`n`n" A_LineNumber   " "   RegExReplace(A_LineFile, ".*\\", "")    " "   Last_A_This) ; The built-in variable A_SendLevel contains the current setting.
+ToolTip4sec("A_SendLevel = " A_SendLevel "`n`n" A_LineNumber   " "   RegExReplace(A_LineFile,".*\\")    " "   Last_A_This) ; The built-in variable A_SendLevel contains the current setting.
 
 ClipboardBackup := Clipboard
 ;Sleep,10

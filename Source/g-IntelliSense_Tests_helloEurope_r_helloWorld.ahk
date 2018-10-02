@@ -320,8 +320,8 @@ open_for_second_time_ActionList_of_this_new_window(openInputBoxTitle){
       IfWinExist,% t
         break
       if(A_Index > 1 && Mod(A_Index, 4) == 0){
-        ;ToolTip4sec(":( freezed ?? ==> start.ahk `n " A_LineNumber   " "   RegExReplace(A_LineFile, ".*\\", "")    " "   Last_A_This)
-        ToolTip4sec(":( freezed ??  `n " A_LineNumber ==>  " "   RegExReplace(A_LineFile, ".*\\", "")    " "   Last_A_This)
+        ;ToolTip4sec(":( freezed ?? ==> start.ahk `n " A_LineNumber   " "   RegExReplace(A_LineFile,".*\\")    " "   Last_A_This)
+        ToolTip4sec(":( freezed ??  `n " A_LineNumber ==>  " "   RegExReplace(A_LineFile,".*\\")    " "   Last_A_This)
         Send,{AltDown}{Tab 3}{AltUp}
         ;run,..\start.ahk1
         close_ActionListChangedInRegistry()
@@ -897,7 +897,7 @@ isActionListFileExist(fileNamePrefix){
     {
         return A_LoopFileFullPath
     }
-    ;ToolTip1sec(A_LineNumber   " "   RegExReplace(A_LineFile, ".*\\", "")    " "   Last_A_This)
+    ;ToolTip1sec(A_LineNumber   " "   RegExReplace(A_LineFile,".*\\")    " "   Last_A_This)
     ;ToolTip,%address% = address`n (%A_LineFile%~%A_LineNumber%) 
     ;ToolTip,(A_LineNumber   " "   A_LineFile   " "   Last_A_This) 
     return false    
@@ -1147,8 +1147,8 @@ send2inputBox(text,nr,openInputBoxTitle){
       IfWinExist,% t
         break
       if(A_Index > 1 && Mod(A_Index, 4) == 0){
-        ;ToolTip4sec(":( freezed ?? ==> start.ahk `n " A_LineNumber   " "   RegExReplace(A_LineFile, ".*\\", "")    " "   Last_A_This)
-        ToolTip4sec(":( freezed ??  `n " A_LineNumber ==>  " "   RegExReplace(A_LineFile, ".*\\", "")    " "   Last_A_This)
+        ;ToolTip4sec(":( freezed ?? ==> start.ahk `n " A_LineNumber   " "   RegExReplace(A_LineFile,".*\\")    " "   Last_A_This)
+        ToolTip4sec(":( freezed ??  `n " A_LineNumber ==>  " "   RegExReplace(A_LineFile,".*\\")    " "   Last_A_This)
         Send,{AltDown}{Tab 3}{AltUp}
         ;run,..\start.ahk1
         close_ActionListChangedInRegistry()

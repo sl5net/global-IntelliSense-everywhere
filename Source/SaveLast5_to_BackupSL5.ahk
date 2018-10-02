@@ -55,7 +55,7 @@ IfWinExist,% activeTitle
 		; SendMessage,{esc},,,,SaveLast5_to_BackupSL5.ahk ahk_class #32770 ahk_exe AutoHotkey.exe
 		IfWinNotExist,% activeTitle
 			break
-		ToolTip9sec(A_LineNumber   " "   RegExReplace(A_LineFile, ".*\\", "")    " WinActivate," activeTitle)
+		ToolTip9sec(A_LineNumber   " "   RegExReplace(A_LineFile,".*\\")    " WinActivate," activeTitle)
 	   WinActivate,% activeTitle
 	   WinWaitActive,% activeTitle ,,1
 	   Send,{Enter}
@@ -328,7 +328,7 @@ global folderAddressBackUps
 		
 		
 		if(m_show_tooltip)
-			ToolTip2sec(RegExReplace(A_LineFile, ".*\\", "")  . ": FolderAdrBackUp=" . FolderAdrBackUp)
+			ToolTip2sec(RegExReplace(A_LineFile,".*\\")  . ": FolderAdrBackUp=" . FolderAdrBackUp)
 		
 		msg = 
 (
@@ -394,7 +394,7 @@ fileCreateDirS(%FolderAdrBackUp%,"")  `n (%A_LineFile%~%A_LineNumber%)
 		sizeTxtFilePath=%FolderAdrBackUp%\size_txt
 		
 		;~ if(m_show_tooltip)
-			;~ ToolTip5sec(RegExReplace(A_LineFile, ".*\\", "")  . ": `nFolderAdrBackUp=" . FolderAdrBackUp . "`nsizeTxtFilePath=" . sizeTxtFilePath)
+			;~ ToolTip5sec(RegExReplace(A_LineFile,".*\\")  . ": `nFolderAdrBackUp=" . FolderAdrBackUp . "`nsizeTxtFilePath=" . sizeTxtFilePath)
 
 		fileCreateDirS(sizeTxtFilePath,"")
 		

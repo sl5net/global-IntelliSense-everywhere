@@ -2,7 +2,7 @@
 openInEditor(ActionListFolderOfThisActionList, isAHKcode, AHKcode, isStartingUnderline, is_OpenA_edit_open_lib, isDeprecated_OpenA_edit_open_lib){
     if(!AHKcode){
         Clipboard := AHKcode
-        Msgbox,% AHKcode "=AHKcode `n (" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
+        Msgbox,% AHKcode "=AHKcode `n (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
         ExitApp, 
     }
     foundPos := RegExMatch( AHKcode , "^\s*(?:AHK-Studio|AutoGUI|run)\s*,?(.+\.ahk)\s*$\b$" ,  m )
@@ -13,10 +13,10 @@ openInEditor(ActionListFolderOfThisActionList, isAHKcode, AHKcode, isStartingUnd
    ; ___global generated open|rr||ahk|run,..\_globalActionListsGenerated\_global.ahk
    ; __________ __ tool too
     m1CorrectedAhkFileAddress := ActionListFolderOfThisActionList "\" m1
-    ;Msgbox,% m1CorrectedAhkFileAddress "=m1CorrectedAhkFileAddress `n (" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
+    ;Msgbox,% m1CorrectedAhkFileAddress "=m1CorrectedAhkFileAddress `n (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
     m1ListFileName := RegExReplace(m1,"i)([\w\d_-\.]+\.ahk)\b\s*$","$1")
-    ;Msgbox,% m1 "=m1 `n (" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
-    ;Msgbox,% m1ListFileName "=m1ListFileName `n (" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
+    ;Msgbox,% m1 "=m1 `n (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+    ;Msgbox,% m1ListFileName "=m1ListFileName `n (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
     ; ____
     if(!FileExist(m1CorrectedAhkFileAddress)){
         Msgbox,:( action list `n %m1CorrectedAhkFileAddress% `n is not exist. `n (%A_LineFile%~%A_LineNumber%)
@@ -38,7 +38,7 @@ openInEditor(ActionListFolderOfThisActionList, isAHKcode, AHKcode, isStartingUnd
         ; 28.09.2018 15:48 2,6 MB opens with error warnings
         ; i got problems relacing some with umlaute (ue) 29.09.2018 12:04
         runString = AHK-Studio.ahk "%m1CorrectedAhkFileAddress%"
-        ;Msgbox,% runString " (" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
+        ;Msgbox,% runString " (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
         ;Pause
         run,% runString, ..\AHK-Studio
     }else if(1 && isEditorExist_AutoGUI){ ; fallback
@@ -108,7 +108,7 @@ openInEditor(ActionListFolderOfThisActionList, isAHKcode, AHKcode, isStartingUnd
     }
     msg=%runString% `n %m1% `n deprecated: `n please open by using AHK-Studio instead run`n
     ;msgbox, % msg "`n" A_LineNumber   " "   A_LineFile   " "   Last_A_This
-    ToolTip5sec(msg A_LineNumber   " "   RegExReplace(A_LineFile, ".*\\", "")    " "   Last_A_This)
+    ToolTip5sec(msg A_LineNumber   " "   RegExReplace(A_LineFile,".*\\")    " "   Last_A_This)
     return true
 }
 ;>>>>>>>> openInEditor >>>> 18101115}417 >>>> 01.1.218 11:54:17 >>>>
