@@ -16,8 +16,8 @@ ReadActionList() {
    ;mark the ActionList as not done
 	g_ActionListDone = 0
 	
-
-
+	
+	
   ;ActionList = ..\ActionLists\ChromeWidgetWin1\wn654_Piratenpad_Google_Chrome.txt._Generated.txt
 	
 	g_ActionListID := getActionListID(ActionList) ; 24.03.2018 23:02
@@ -169,23 +169,23 @@ from: ActionList.ahk~%A_LineNumber%
       ; JEE_StrUtf8BytesToText 26.09.2018 18:40 was the reason why german äüö not was workig :) Now all sources are in UTF8.
 		
 		ParseWords := addListOpenAction_ifNotAlreadyInTheList(ParseWords,ActionList)
-
-        if(false){ ; todo: braucht man für die aktualliserung der listen niht. gerade getestet. gerade was hinzugefügt
-            foundOpenLibLine := 0
-            Loop, Parse, ParseWords, `n, `r
-            {
-                ParseWordsCount++
-                if(false && !foundOpenLibLine){
-                    pattern := "^\s*__+open[^`n]*\|rr\|\|ahk\|"
-                    foundOpenLibLine  := RegExMatch(A_LoopField, pattern )
-                    if( foundOpenLibLine ){
-                        Tooltip, %A_LoopField% `n found :) `n (from: %A_LineFile%~%A_LineNumber%)
-                    }
-                }
-            } ; end of loop
+		
+		if(false){ ; todo: braucht man für die aktualliserung der listen niht. gerade getestet. gerade was hinzugefügt
+			foundOpenLibLine := 0
+			Loop, Parse, ParseWords, `n, `r
+			{
+				ParseWordsCount++
+				if(false && !foundOpenLibLine){
+					pattern := "^\s*__+open[^`n]*\|rr\|\|ahk\|"
+					foundOpenLibLine  := RegExMatch(A_LoopField, pattern )
+					if( foundOpenLibLine ){
+						Tooltip, %A_LoopField% `n found :) `n (from: %A_LineFile%~%A_LineNumber%)
+					}
+				}
+			} ; end of loop
 		} ; endOf if(false)
-
-
+		
+		
 		if(false && !foundOpenLibLine){
 			temp := "___open library|rr||ahk|FileReadLine,ActionListFileAdress, ActionList.txt.status.txt, 1 `n ActionListFileAdress := RegExReplace(ActionListFileAdress, ""\._Generated\.ahk\s*$"", """") `n run,% ActionListFileAdress"
             ; AddWordToList(AddWord,ForceCountNewOnly,ForceLearn:= false, ByRef LearnedWordsCount := false) {
@@ -237,13 +237,13 @@ from: ActionList.ahk~%A_LineNumber%
 				ALoopField := A_LoopField
 				ALoopField  := RegExReplace(ALoopField, "^\s+" , "" ) ; anfangs leerzeichen raus 06.11.2017 18:28
                 ; msgbox, %ALoopField% 06.11.2017 18:34
-
+				
 				AddWordToList(ALoopField,0,"ForceLearn",LearnedWordsCount)
 				; LearnedWordsCount := addFuzzySearch_in_generatedList(ALoopField, ActionList,LearnedWordsCount)
-				if(a_index<555)
-				    addFuzzySearch_in_generatedList(ALoopField, ActionList,LearnedWordsCount)
+				if(a_index<455)
+					addFuzzySearch_in_generatedList(ALoopField, ActionList,LearnedWordsCount)
 				;     AddWordToList("rübennase" A_now,1,"ForceLearn")
-
+				
 			}
 		}
 		if(false && ParseWordsCount>0)
@@ -252,10 +252,10 @@ from: ActionList.ahk~%A_LineNumber%
 		ParseWords =
 		g_ActionListDB.EndTransaction()
       ;Progress, Off
-
-
+		
+		
 ; too __
-
+		
 		if (LoadActionList == "Update") {
 			UPDATE := "UPDATE ActionLists SET ActionListmodified = '" . ActionListModified . "', ActionListsize = '" . ActionListSize . "' WHERE ActionList = '" . ActionListFileName . "';"
 			g_ActionListDB.Query(UPDATE)
@@ -310,13 +310,13 @@ from: ActionList.ahk~%A_LineNumber%
 		{
 		    ; thats the place where actually typed word are addet !!!!!!
 		    ; while you are typing every word goes in here: 18-10-02_18-11
-		    Msgbox,% "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+			Msgbox,% "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
 		    ; ^-- this mesage box never triggerd. so we could delte it.
 		    ; käsewurst
-		    ToolTip4sec(A_LoopField "`n" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
+			ToolTip4sec(A_LoopField "`n" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
  			AddWordToList(A_LoopField,0,"ForceLearn",LearnedWordsCount)
  			; thats strang   ;  ms msb too
-
+			
 		}
 		ParseWords =
 		g_ActionListDB.EndTransaction()
@@ -351,22 +351,22 @@ addListOpenAction_ifNotAlreadyInTheList(contentActionList,ActionList){
 ; thats a way how you could add ActionList lines vocabularies inside onlive 12.08.2017 23:24
 ; if you may destroy your path to your config file, thats a way to find it again.
 ;                        foundOpenLibLine := 0
-			pattern := "m)^\s*__+[^`n]*open[^`n]*\|rr\|\|ahk\|"
+	pattern := "m)^\s*__+[^`n]*open[^`n]*\|rr\|\|ahk\|"
 ;                        foundOpenLibLine  := RegExMatch(A_LoopField, pattern )
-			contentActionList432indes := SubSTr( contentActionList , 1 , 432 ) ; we dont wann search the complete file. takes to much time :) 12.08.2017 23:02 17-08-12_23-02
-			
+	contentActionList432indes := SubSTr( contentActionList , 1 , 432 ) ; we dont wann search the complete file. takes to much time :) 12.08.2017 23:02 17-08-12_23-02
+	
 ; adds a ___open library if not into the ActionList
-			if( !RegExMatch(contentActionList432indes, pattern ) ){
-				ToolTip,% ActionList "`n`n " A_LineNumber   " "   A_LineFile   " "   Last_A_This
-				SplitPath, ActionList, , , , OutNameNoExt
+	if( !RegExMatch(contentActionList432indes, pattern ) ){
+		ToolTip,% ActionList "`n`n " A_LineNumber   " "   A_LineFile   " "   Last_A_This
+		SplitPath, ActionList, , , , OutNameNoExt
     ; or: regPatt := "^[^\n]*?([^\.\\\n]+)[^\\\n]*$"
     ; temp := RegExReplace(temp, "\._Generated\.txt\s*$", "")
-				temp := "___open library " OutNameNoExt "(ActionList.ahk~" A_LineNumber "|rr||ahk|run," OutNameNoExt ".ahk"
-				contentActionList .= "`n" . temp  ; thats not performantly. :/ but works 12.08.2017 22:31 sl5.net todo:
+		temp := "___open library " OutNameNoExt "(ActionList.ahk~" A_LineNumber "|rr||ahk|run," OutNameNoExt ".ahk"
+		contentActionList .= "`n" . temp  ; thats not performantly. :/ but works 12.08.2017 22:31 sl5.net todo:
     ; info := SubSTr( contentActionList , 1 , 150 ) ;     tooltip,%info% ... `n (%A_LineFile%~%A_LineNumber%) `
 				; Msgbox,% temp "`n into `n`n" ActionList "`(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
-			}
-			return contentActionList
+	}
+	return contentActionList
 }
 
 
@@ -375,93 +375,110 @@ addListOpenAction_ifNotAlreadyInTheList(contentActionList,ActionList){
 
 ; addFuzzySearch_in_generatedList(ALoopField)
 addFuzzySearch_in_generatedList(ActionStr, ActionList, ByRef LearnedWordsCount){
-         ;_ahk_global.ahk._Generated.ahk
-	if( !ActionStr ){
-		return false
-    }
-	if(!instr(ActionList,"Generated.ahk")){
+
+    ; || !instr(ActionList,"Generated.ahk")
+	if( !ActionStr ){ ;_ahk_global.ahk._Generated.ahk
         ; examples log 02.10.2018 19:56: ..\ActionLists\_globalActionLists\pfade.ahk(378 ActionList.ahk)
 	    ; Msgbox,% ActionList "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+        if(0 && instr(ActionList,"Notepad_Administrator"))
+            Msgbox,% ActionList " `nlast=" substr(ActionStr ,0) "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
 		return false
-    }
+	}
+	
+	
+    ;Msgbox,% ActionStr " `nlast=" substr(ActionStr ,0) "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+	if( substr(ActionStr,0) == "|" ){
+        if(0 && instr(ActionList,"Notepad_Administrator"))
+            Msgbox,% ActionStr " `nlast=" substr(ActionStr ,0) "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+		return false ; dont create synonyms from synonyms
+	}
 	pattern := "i)^[ ]*[^#_;\n]+\w"
 	if( !RegExMatch(ActionStr, pattern ) ){
 	    ; Msgbox,% ActionStr "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
 		return false
-    }
-
-	; Msgbox,% value " `n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
-	; AddWordToList(ActionStr " from addFuzzySearch_in_generatedList " A_now,1,"ForceLearn")
-
-    regEx := "(^[^|]+)(?:.*)"
-    regEx := "(^[^|]+)(.*)"
-    foundPos := RegExMatch(ActionStr, regEx, matchs)
-    if(!foundPos)
-          Return  false
-
-; synonomValue|rr|
-; synonymValue|rr||ahk|q=keyValue
-
-
-	;value := matchs1 " from addFuzzySearch_in_generatedList" matchs2
-
-    AddWordToList(value ,0,"ForceLearn", LearnedWordsCount)  ; geht vermutlich auch springt dann in zeile 490 ungefähr
-    array := StrSplit(matchs1," ","`t")
-    valueCounter := 0
-    For k,v in array  ; iterate through
-    {
-    	if(strlen(v)<5)
-    	    continue
-    	v:=ltrim(v)
-        if(RegExMatch(v, "i)^[^a-z]"))
-    	    continue
-    	if(valueCounter++ > 3)
-    	    break
-    	value := v "|rr|"
-
-        regEx := "O)[a-z]([A-Z][a-z]+)" ; position, length and value of the overall match and of each captured subpattern, if present.
-        StartingPosition  := 1
-        while(foundPos := RegexMatch( v, regEx, Match, StartingPosition )){
-            ; Match.Value(N): Returns the overall match or a captured subpattern.
-            ; Match.Pos(N): Returns the position of the overall match or a captured subpattern.
-            ; Match.Len(N): Returns the length of the overall match or a captured subpattern.
-            StartingPosition := Match.Pos(1) + Match.Len(1)
-
-            if(matchs2)
-                value := Match.Value(1) matchs2
-            else
-                value := Match.Value(1) "|r|" matchs1
-            AddWordToList(value ,0,"ForceLearn", LearnedWordsCount)  ; geht vermutlich auch springt dann in zeile 490 ungefähr
-        	; Msgbox,% value " `n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+	}
+	
+    ; synonomValue|rr|     ; synonymValue|rr||ahk|q=keyValue
+    ; Msgbox,% "ActionStr= " ActionStr "`n " `n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+    ;tooltip,% value " `n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+	
+	if(pos1 := InStr( ActionStr , "|" )){
+		ActionStrKey := substr(ActionStr  ,1, pos1 - 1 )
+		ActionStrVal := substr(ActionStr , pos1 )
+		; Msgbox,% ActionStr "`n`nk= " ActionStrKey ", v= " ActionStrVal "`n `n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+	}else{
+		ActionStrKey := ActionStr
+		ActionStrVal := ""
+	}
+	
+	
+    ; asdlkasdlf alsdk aösldkf aösldkfjasdölfkj  
+	
+	camelCaseOr := "([^A-Z])[A-Z][a-z]+"
+	normalOr := "([\W_-])[a-z]+"
+	regEx := "(?:(" camelCaseOr "|" normalOr "))"
+	StartingPosition  := 2
+	while(foundPos := RegexMatch( " " ActionStrKey, "O)" regEx, Match, StartingPosition - 1 )){
+		StartingPosition := Match.Pos(1) + Match.Len(1)
+		
+		if(a_index >= 6)
+			break
+		if(a_index == 1) ; the first is stored into the complete ActionList
+			continue
+		preCar1 := Match.Value(2)
+		preCar2 := Match.Value(3)
+		;if(preCar1=="|" || preCar2=="|")
+		;	break
+		keyTemp := Match.Value(1)
+        if(0 && instr(ActionList,"Notepad_Administrator"))
+		    MsgBox,% keyTemp "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+		if(strlen(keyTemp)-1 < 3){
+    		if(0 && instr(ActionList,"Notepad_Administrator"))
+                MsgBox,% keyTemp "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+			continue
         }
+		key := SubStr(   keyTemp  , 2)
+		; MsgBox,% key " , " keyTemp "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
 
-    	if(matchs2)
-    	    value := v matchs2
-        else
-    	    value := v "|r|" matchs1
-        AddWordToList(value ,0,"ForceLearn", LearnedWordsCount)  ; geht vermutlich auch springt dann in zeile 490 ungefähr
-    	; Msgbox,% a_index " `n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
-    	; tooltip,% value " `n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
-    	; Msgbox,% value " `n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
-    }
+		if(ActionStrVal)
+            newListSynonym := key "|rr|" ; <=== eigentlich sollte es ja so gehen
+		;	newListSynonym := key ActionStrVal
+		else
+			newListSynonym := key "|r|" ActionStr
+        ; newListSynonym := key "|rr|" ; <=== eigentlich sollte es ja so gehen
+		
+        ; Msgbox,% a_index ":`n" ActionStr "`n`n" newListSynonym "`n`n`n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+        if(0)
+		msg =
+		(
+%ActionStr%
 
-	;AddWordToList(value "##" A_LineNumber ,0,"ForceLearn", LearnedWordsCount)  ; geht vermutlich auch springt dann in zeile 490 ungefähr
-	;^---
+v= %ActionStrVal%
+k= %ActionStrKey%
 
-	; AddWordToList(value "##" A_LineNumber ,1,"ForceLearn") ; geht vermutlich auch springt dann in zeile 489 ungefähr
-	; ^--- füt nur werte hinzu die noch nicht in der datenbank sind
+new = %newListSynonym%
+		)
+		msg .= "`n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+		if(0 && instr(ActionList,"Notepad_Administrator")){
+            ; feedbackMsgBox(RegExReplace(A_LineFile,".*\\") ">" A_LineNumber, msg )
+            tooltip,% msg , 1 ,1
+            ;MsgBox,% msg
+            sleep,3000
+        }
+		; AddWordToList(newListSynonym ,0,"ForceLearn")  ; springt dann in zeile 490 ungefähr
+        AddWordToList(newListSynonym ,0,"ForceLearn",LearnedWordsCount)
+		; tooltip,% newListSynonym " `n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+	} ; endOf while
+	return
+} ; endIf addFuzzySearch_in_generatedList
 
 
-    ; AddWordToList(AddWord,ForceCountNewOnly,ForceLearn:= false, ByRef LearnedWordsCount := false) {
-    ; AddWordToList(temp,1,"ForceLearn") ; works but AHK is not succedet :( 12.08.2017 22:28
-    ; return LearnedWordsCount
-}
 
-; too too too too too __ tool msgbox tooo too  regexr
-; Server IRQ: chat.freenode.net
-; msgbox __ too tool tool msg __ msg __ msgbox
-; regex regex
+; ToolTip4sec(A_LineNumber " " RegExReplace
+; tip sex mess box mmas too Mot  (A_LineFile,".*\\") " " Last_A_This)
 
+
+;
 
 
 
@@ -512,12 +529,12 @@ AddWordToList(AddWord,ForceCountNewOnly,ForceLearn:= false, ByRef LearnedWordsCo
 	global g_ActionListDB
 	global ActionList
 ;  foundPos := RegExMatch( "str" , "i)" )
-
+	
    ;AddWord = Word to add to the list
-   if(0 && AddWord)
-      tooltip, % "AddWord = " AddWord  "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+	if(0 && AddWord)
+		tooltip, % "AddWord = " AddWord  "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
    ;
-
+	
 	if !(LearnedWordsCount) {
 		StringSplit, SplitAddWord,  AddWord, | ; old method 17.03.2017 17:54 17-03-17_17-54
          ; SplitAddWord := StrSplit(AddWord, "|")
@@ -969,4 +986,4 @@ INSERT_INTO_ActionLists(ActionList, ActionListModified, ActionListSize ){
 }
 
 
-;
+

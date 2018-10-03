@@ -11,9 +11,9 @@ activeTitle := RegExReplace(activeTitle, Chr(37) . ".*", "") ; delete prozent. s
 global g_lineNumberFeedback
 g_lineNumberFeedback=G:\fre\git\github\2\Source\Typing_Aid_everywhere_multi_clone.ahk~~358
 ActionListDir = .\..\ActionLists\ChromeWidgetWin1
-activeTitle = GitHub Desktop
+activeTitle = G:\downloads\first_fuzzy_version-18-10-02_21-54\l
 activeClass = ChromeWidgetWin1
-ActionListNEW = GitHub Desktop 
+ActionListNEW = G:\downloads\first_fuzzy_version-18-10-02_21-54\l 
 ActionListFilterPath2 = .\..\ActionLists\ChromeWidgetWin1\ActionListNameFilter.inc.ahk 
 ActionListFilterPath2Abs = G:\fre\git\github\2\Source\..\ActionLists\ChromeWidgetWin1\ActionListNameFilter.inc.ahk 
 fileEx := FileExist ( ActionListFilterPath2Abs ) 
@@ -27,7 +27,7 @@ ExitApp
 } 
 #Include *i G:\fre\git\github\2\Source\..\ActionLists\ChromeWidgetWin1\ActionListNameFilter.inc.ahk  ; thats the subfolder  wordlost inside class 
 varInjects1 := mvarInjects(ActionListDir, ActionListNEW, activeClass, activeTitle) 
-ActionListOLD = Neuer Tab - Google Chrome 
+ActionListOLD = l [G:\downloads\first_fuzzy_version-18-10-02_21-54\l] - IntelliJ IDEA (Administrator) 
 typingAidSourcePath =  
 ActionListActive  =  
 
