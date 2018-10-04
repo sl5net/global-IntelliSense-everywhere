@@ -202,7 +202,7 @@ examples =
     ; includeFilePath := "ActionLists\" includeFilePath
 					exist_includeFilePath := (FileExist(includeFilePath)) ? 1 : 0
 					if(!exist_includeFilePath){
-                        msg := ":( includeFile NOT exist here: "  includeFilePath " = includeFilePath  `n"
+                        msg .= "`n`n :( includeFile NOT exist here: "  includeFilePath " = includeFilePath  `n"
                         msg .= exist_includeFilePath " = exist_includeFilePath  `n`n"
                         lll(A_LineNumber, A_LineFile, msg )
                         feedbackMsgBox(RegExReplace(A_LineFile,".*\\") ">" A_LineNumber, msg, 1,1 )
