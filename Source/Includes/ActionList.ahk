@@ -33,7 +33,7 @@ ReadActionList() {
 		
 		g_ActionListID := getActionListID(ActionList) ; 24.03.2018 23:02
 		if(!g_ActionListID){
-			Msgbox,Oops `n ==> exitapp `n (%A_LineFile%~%A_LineNumber%)
+			Msgbox,% ":-( Oops `n !g_ActionListID ==> exitapp `n (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
 			exitapp
 		}
 		isTblWordsEmpty := true
@@ -351,7 +351,7 @@ addListOpenAction_ifNotAlreadyInTheList(contentActionList,ActionList){
 ; thats a way how you could add ActionList lines vocabularies inside onlive 12.08.2017 23:24
 ; if you may destroy your path to your config file, thats a way to find it again.
 ;                        foundOpenLibLine := 0
-	pattern := "m)^\s*__+[^`n]*open[^`n]*\|rr\|\|ahk\|"
+	pattern := "m)^\s*__+[^`n]*\|rr\|\|ahk\|"
 ;                        foundOpenLibLine  := RegExMatch(A_LoopField, pattern )
 	contentActionList432indes := SubSTr( contentActionList , 1 , 432 ) ; we dont wann search the complete file. takes to much time :) 12.08.2017 23:02 17-08-12_23-02
 	
@@ -359,12 +359,19 @@ addListOpenAction_ifNotAlreadyInTheList(contentActionList,ActionList){
 	if( !RegExMatch(contentActionList432indes, pattern ) ){
 		ToolTip,% ActionList "`n`n " A_LineNumber   " "   A_LineFile   " "   Last_A_This
 		SplitPath, ActionList, , , , OutNameNoExt
-    ; or: regPatt := "^[^\n]*?([^\.\\\n]+)[^\\\n]*$"
-    ; temp := RegExReplace(temp, "\._Generated\.txt\s*$", "")
-		temp := "___open library " OutNameNoExt "(ActionList.ahk~" A_LineNumber "|rr||ahk|run," OutNameNoExt ".ahk"
-		contentActionList .= "`n" . temp  ; thats not performantly. :/ but works 12.08.2017 22:31 sl5.net todo:
-    ; info := SubSTr( contentActionList , 1 , 150 ) ;     tooltip,%info% ... `n (%A_LineFile%~%A_LineNumber%) `
-				; Msgbox,% temp "`n into `n`n" ActionList "`(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
+		temp := "___open " OutNameNoExt "(ActionList.ahk~" A_LineNumber "|rr||ahk|run," OutNameNoExt ".ahk"
+
+        if(true){
+            AddWordToList(temp,0,"ForceLearn",LearnedWordsCount)   ; springt dann in zeile 490 ungefähr
+        }else{
+
+            ; ; work but now we use the database direcly 18-10-03_21-51 OR???? ; work but now we use the database direcly 18-10-03_21-51 todo: need to be discussed. not importend
+            ; or: regPatt := "^[^\n]*?([^\.\\\n]+)[^\\\n]*$"
+            ; temp := RegExReplace(temp, "\._Generated\.txt\s*$", "")
+                contentActionList .= "`n" . temp  ; thats not performantly. :/ but works 12.08.2017 22:31 sl5.net todo:
+            ; info := SubSTr( contentActionList , 1 , 150 ) ;     tooltip,%info% ... `n (%A_LineFile%~%A_LineNumber%) `
+                        ; Msgbox,% temp "`n into `n`n" ActionList "`(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
+        }
 	}
 	return contentActionList
 }
@@ -398,7 +405,7 @@ addFuzzySearch_in_generatedList(ActionStr, ActionList, ByRef LearnedWordsCount){
 		return false
 	}
 	
-    ; synonomValue|rr|     ; synonymValue|rr||ahk|q=keyValue
+    ; synonymValue|rr|     ; synonymValue|rr||ahk|q=keyValue
     ; Msgbox,% "ActionStr= " ActionStr "`n " `n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
     ;tooltip,% value " `n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
 	
@@ -465,20 +472,14 @@ new = %newListSynonym%
             ;MsgBox,% msg
             sleep,3000
         }
-		; AddWordToList(newListSynonym ,0,"ForceLearn")  ; springt dann in zeile 490 ungefähr
-        AddWordToList(newListSynonym ,0,"ForceLearn",LearnedWordsCount)
+		; AddWordToList(newListSynonym ,0,"ForceLearn") ; <==== NOT WORKING !!!
+        AddWordToList(newListSynonym ,0,"ForceLearn",LearnedWordsCount)   ; springt dann in zeile 490 ungefähr
 		; tooltip,% newListSynonym " `n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
 	} ; endOf while
 	return
 } ; endIf addFuzzySearch_in_generatedList
 
 
-
-; ToolTip4sec(A_LineNumber " " RegExReplace
-; tip sex mess box mmas too Mot  (A_LineFile,".*\\") " " Last_A_This)
-
-
-;
 
 
 

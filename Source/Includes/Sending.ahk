@@ -317,7 +317,7 @@ regIsXXXcode := "^([^\|\n]+?)\|(rr)\|(?:([^\n]*?)(?:\|(ahk|kts)\|)+([^\n]*?)$)*"
 ; key:$1 __ rr:$2 __ send:$3 __ lang:$4 __ code:$5
 ; keyValue|rr|sendValue|ahk|codeValue
 ; keyValue|rr||ahk|codeValue
-; synonomValue|rr|
+; synonymValue|rr|
 ; synonymValue|rr||ahk|q=keyValue
 ; and there are some special commands not listed above
 ;>>>>>>>> tests >>>> 1810106}722 >>>> 1.1.201 06:27:22 >>>>

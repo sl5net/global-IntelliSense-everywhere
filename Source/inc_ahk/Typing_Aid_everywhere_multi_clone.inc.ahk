@@ -27,7 +27,7 @@ global g_ignReg := { feedbackMsgBox:{tit:".^", text:".^"} ,          saveLogFile
 
 
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-; hier wird das active �berschrieben: 12.07.2017 21:33
+; hier wird das active ueberschrieben: 12.07.2017 21:33
 ActionListNEWactivate( ActionListDir , ActionListNEW, ActionListActive , typingAidSourcePath, activeClass := "" , activeTitle := "" ) {
 ; return, 1 ; return spielt keine rolle, quasi void 30.07.2017 12:52 17-07-30_12-52
 	
@@ -78,7 +78,7 @@ ActionListDir = '%ActionListDir%'
 	
 	
 	if(!ActionListNEWarchivePath)
-		Msgbox,Oops !ActionListNEWarchivePath `n (Typing_Aid_everywhere_multi_clone.inc.ahk~%A_ThisFunc%~%A_`LineNumber%) `
+		Msgbox,Oops !ActionListNEWarchivePath `n (Typing_Aid_everywhere_multi_clone.inc.ahk~%A_ThisFunc%~%LineNumber%) `
 	
    ; ActionListActivePath := typingAidSourcePath .  "\" . ActionListActive
 	ActionListActivePath := A_ScriptDir . "\" . ActionListActive
@@ -166,33 +166,45 @@ ActionListDir = '%ActionListDir%'
 ; include[ ]*(?:,|\s)[ ]*([^|!\n]+)[ ]*(?:((\||\!))[ ]*([^\n]+))?[ ]*
             ; ?: is used to denote non capturing group.
 			regEx := "i)^[ ]*#include[ ]*(?:,| )[ ]*([^|!\n]+)[ ]*(?:((\||\!))[ ]*([^\n]+))?[ ]*"
-			foundPos := RegexMatch( A_LoopReadLine, regEx, matchs)
-			
+			foundPos := RegexMatch( A_LoopReadLine, regEx, matchs) ; later matchs1 is used 04.10.2018 09:04 18-10-04_09-04
+examples =
+(
+#include dir\something.ahk
+)
+
 			msg := " ??? " foundPos " = foundPos `n"
 			msg .= A_WorkingDir " = A_WorkingDir `n"
 			msg .= A_ScriptDir " = A_ScriptDir `n"
 			msg .= A_ScriptFullPath " = A_ScriptFullPath `n"
 			lll(A_LineNumber, A_LineFile, msg )
             ;Msgbox,%msg%`n (%A_LineFile%~%A_LineNumber%)
-			
+
 			if(foundPos){
 				isIncludeFileInside := true
 				
-				includeFilePath     := trim(matchs1)
+				includeFilePath     := ActionListDir "\" trim(matchs1)
 				exist_includeFilePath := (FileExist(includeFilePath)) ? 1 : 0
 				if(!exist_includeFilePath){ ; 11.03.201:23 new style/format of adress writing, but try stay compativle to old scripts. TODO deletie it.
 					
-					msg := ":( "  includeFilePath " = includeFilePath  `n"
+					msg := ":( includeFile NOT exist here: "  includeFilePath " = includeFilePath  `n"
+					msg .= ActionListDir " =  ActionListDir `n"
 					msg .= A_WorkingDir " = A_WorkingDir `n"
 					msg .= A_ScriptDir " = A_ScriptDir `n"
 					msg .= A_ScriptFullPath " = A_ScriptFullPath `n"
 					msg .= exist_includeFilePath " = exist_includeFilePath  `n`n"
-    ;msgbox,% msg "(" A_LineFile "~" A_LineNumber ")"\
-					lll(A_LineNumber, A_LineFile, msg )
+					lll(A_LineNumber, RegExReplace(A_LineFile,".*\\"), msg )
 					
 					includeFilePath := RegExReplace(includeFilePath ,"^\.\." , "..\ActionLists")
     ; includeFilePath := "ActionLists\" includeFilePath
 					exist_includeFilePath := (FileExist(includeFilePath)) ? 1 : 0
+					if(!exist_includeFilePath){
+                        msg := ":( includeFile NOT exist here: "  includeFilePath " = includeFilePath  `n"
+                        msg .= exist_includeFilePath " = exist_includeFilePath  `n`n"
+                        lll(A_LineNumber, A_LineFile, msg )
+                        feedbackMsgBox(RegExReplace(A_LineFile,".*\\") ">" A_LineNumber, msg, 1,1 )
+                        msgbox,% msg "(" A_LineFile "~" A_LineNumber ")"
+					}
+                    msgbox,% msg "(" A_LineFile "~" A_LineNumber ")"
 				}
 				
 				
