@@ -946,15 +946,6 @@ ActionListTooltip:
     ToolTip,% tip
 return
 
-Printscreen::
-    ; Msgbox,% "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
-    ToolTip5sec("klarspühler" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
-    AddWordToList("rübennase" A_now,1,"ForceLearn")
-    AddWordToList("klarspühler" A_now,1,"ForceLearn")
-    ;AddWordToList(Clipboard,1,"ForceLearn")
-    ; klarspühler20181002190808 rübennase20181002190808  rü
-Return
-
 WheelUp::
     global g_ListBoxFontSize
     g_ListBoxFontSize := g_ListBoxFontSize + 1

@@ -240,9 +240,9 @@ from: ActionList.ahk~%A_LineNumber%
 				
 				AddWordToList(ALoopField,0,"ForceLearn",LearnedWordsCount)
 				; LearnedWordsCount := addFuzzySearch_in_generatedList(ALoopField, ActionList,LearnedWordsCount)
-				if(a_index<455)
+				if(g_config["FuzzySearch"]["enable"] && a_index<455)
 					addFuzzySearch_in_generatedList(ALoopField, ActionList,LearnedWordsCount)
-				;     AddWordToList("rübennase" A_now,1,"ForceLearn")
+				;     AddWordToList("rübennase" A_now,1,"ForceLearn", g_config["FuzzySearch"]["keysMAXperEntry"], g_config["FuzzySearch"]["doValueCopy"])
 				
 			}
 		}
@@ -381,7 +381,7 @@ addListOpenAction_ifNotAlreadyInTheList(contentActionList,ActionList){
 
 
 ; addFuzzySearch_in_generatedList(ALoopField)
-addFuzzySearch_in_generatedList(ActionStr, ActionList, ByRef LearnedWordsCount, addKeysMAX := 6){
+addFuzzySearch_in_generatedList(ActionStr, ActionList, ByRef LearnedWordsCount, addKeysMAX := 6, doValueCopy := true){
 	
     ; || !instr(ActionList,"Generated.ahk")
 	if( !ActionStr ){ ;_ahk_global.ahk._Generated.ahk
@@ -448,6 +448,7 @@ addFuzzySearch_in_generatedList(ActionStr, ActionList, ByRef LearnedWordsCount, 
 		key := SubStr(   keyTemp  , 2)
 		; MsgBox,% key " , " keyTemp "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
 		
+        ; global g_config := { FuzzySearch:{ enable: true, keysMAXperEntry : 6, doValueCopy : false } } ; difficult to implement symlink copy for not rr lines doValueCopy. todo: issue . doValueCopy : false  is not fully implemented
 		if(ActionStrVal)
 			newListSynonym := key "|rr|" ; <=== eigentlich sollte es ja so gehen
 		;	newListSynonym := key ActionStrVal

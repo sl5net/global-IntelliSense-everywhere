@@ -369,8 +369,11 @@ msgbox,% tip
                     tip=%lineOfIndex% `n
                     tip .= "`n regIsXXXcode= " rX["regIsXXXcode"] "`n key= " rX["key"] "`n rr= " rX["rr"] " `n send= " rX["send"] " `n lang= " rX["lang"] " `n code= " rX["code"]
                     ;Msgbox,% " `n" tip "`n no code tag inside `n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
-                    ToolTip3sec(tip)
+                    ;ToolTip3sec(tip)
                     sending := lineOfIndex
+                    ;MsgBox,% rX["key"] "#" rX["rr"] "#" rX["send"]  "#" rX["code"] "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+                    ;pause
+
                     break ; no code tag inside
                 }
                 if(rX["code"]){
