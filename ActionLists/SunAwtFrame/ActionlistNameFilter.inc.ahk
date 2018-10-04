@@ -11,6 +11,16 @@ ActionListNEW_time_between := ActionListNEW
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 ; if you want you could use the follwong global variables fot calculating you new ActionListNEW : ActionListDir, ActionListNEW, ActiveClass, activeTitle
+
+;AHK Studio - ... ahk_class AutoHotkeyGUI ; mouseWindowTitle=0xec10b4  ;
+; window_event_listener.ahk - Visual Studio Code [Administrator] ahk_class Chrome_WidgetWin_1 ; mouseWindowTitle=0x19b0e36  ;
+
+
+ActiveClassJetbrains := "SunAwtFrame"
+isJetbrainsAHK := ( ActiveClass==ActiveClassJetbrains && RegExMatch(activeTitle,"(HtmlDevelop\AutoHotKey)" ) )
+if( ActiveClass==ActiveClassJetbrains || RegExMatch(activeTitle,"(AHK Studio|Visual Studio Code)")) ; dirty bug fix TODO: not pretty
+	ActionListNEW := "..\_globalActionListsGenerated\_ahk_global.ahk._Generated.ahk"
+
 if (!ActionListNEW ){
  global g_lineNumberFeedback
  g_lineNumberFeedback=E:\fre\private\HtmlDevelop\AutoHotKey\global-IntelliSense-everywhere-Nightly-Build\Source\inc_ahk\Typing_Aid_everywhere_multi_clone.inc.ahk~getAhkCodeInsideFile~969
