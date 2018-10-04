@@ -183,6 +183,10 @@ examples =
 				isIncludeFileInside := true
 				
 				includeFilePath     := ActionListDir "\" trim(matchs1)
+				includeFilePath := RegExReplace(includeFilePath ,"(\\[^\\]+\\\.\.)+") ; works. removes all symbolic links 24.02.2018  cleanPath
+                ; Msgbox,%includeFilePath%`n (%A_LineFile%~%A_LineNumber%)
+
+
 				exist_includeFilePath := (FileExist(includeFilePath)) ? 1 : 0
 				if(!exist_includeFilePath){ ; 11.03.201:23 new style/format of adress writing, but try stay compativle to old scripts. TODO deletie it.
 					
