@@ -381,22 +381,22 @@ addListOpenAction_ifNotAlreadyInTheList(contentActionList,ActionList){
 
 
 ; addFuzzySearch_in_generatedList(ALoopField)
-addFuzzySearch_in_generatedList(ActionStr, ActionList, ByRef LearnedWordsCount){
-
+addFuzzySearch_in_generatedList(ActionStr, ActionList, ByRef LearnedWordsCount, addKeysMAX := 6){
+	
     ; || !instr(ActionList,"Generated.ahk")
 	if( !ActionStr ){ ;_ahk_global.ahk._Generated.ahk
         ; examples log 02.10.2018 19:56: ..\ActionLists\_globalActionLists\pfade.ahk(378 ActionList.ahk)
 	    ; Msgbox,% ActionList "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
-        if(0 && instr(ActionList,"Notepad_Administrator"))
-            Msgbox,% ActionList " `nlast=" substr(ActionStr ,0) "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+		if(0 && instr(ActionList,"Notepad_Administrator"))
+			Msgbox,% ActionList " `nlast=" substr(ActionStr ,0) "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
 		return false
 	}
 	
 	
     ;Msgbox,% ActionStr " `nlast=" substr(ActionStr ,0) "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
 	if( substr(ActionStr,0) == "|" ){
-        if(0 && instr(ActionList,"Notepad_Administrator"))
-            Msgbox,% ActionStr " `nlast=" substr(ActionStr ,0) "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+		if(0 && instr(ActionList,"Notepad_Administrator"))
+			Msgbox,% ActionStr " `nlast=" substr(ActionStr ,0) "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
 		return false ; dont create synonyms from synonyms
 	}
 	pattern := "i)^[ ]*[^#_;\n]+\w"
@@ -425,10 +425,11 @@ addFuzzySearch_in_generatedList(ActionStr, ActionList, ByRef LearnedWordsCount){
 	normalOr := "([\W_-])[a-z]+"
 	regEx := "(?:(" camelCaseOr "|" normalOr "))"
 	StartingPosition  := 2
+	addedKeysCounter := 0
 	while(foundPos := RegexMatch( " " ActionStrKey, "O)" regEx, Match, StartingPosition - 1 )){
 		StartingPosition := Match.Pos(1) + Match.Len(1)
 		
-		if(a_index >= 6)
+		if(addedKeysCounter >= addKeysMAX)
 			break
 		if(a_index == 1) ; the first is stored into the complete ActionList
 			continue
@@ -437,26 +438,26 @@ addFuzzySearch_in_generatedList(ActionStr, ActionList, ByRef LearnedWordsCount){
 		;if(preCar1=="|" || preCar2=="|")
 		;	break
 		keyTemp := Match.Value(1)
-        if(0 && instr(ActionList,"Notepad_Administrator"))
-		    MsgBox,% keyTemp "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+		if(0 && instr(ActionList,"Notepad_Administrator"))
+			MsgBox,% keyTemp "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
 		if(strlen(keyTemp)-1 < 3){
-    		if(0 && instr(ActionList,"Notepad_Administrator"))
-                MsgBox,% keyTemp "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+			if(0 && instr(ActionList,"Notepad_Administrator"))
+				MsgBox,% keyTemp "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
 			continue
-        }
+		}
 		key := SubStr(   keyTemp  , 2)
 		; MsgBox,% key " , " keyTemp "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
-
+		
 		if(ActionStrVal)
-            newListSynonym := key "|rr|" ; <=== eigentlich sollte es ja so gehen
+			newListSynonym := key "|rr|" ; <=== eigentlich sollte es ja so gehen
 		;	newListSynonym := key ActionStrVal
 		else
 			newListSynonym := key "|r|" ActionStr
         ; newListSynonym := key "|rr|" ; <=== eigentlich sollte es ja so gehen
 		
         ; Msgbox,% a_index ":`n" ActionStr "`n`n" newListSynonym "`n`n`n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
-        if(0)
-		msg =
+		if(0)
+			msg =
 		(
 %ActionStr%
 
@@ -468,12 +469,13 @@ new = %newListSynonym%
 		msg .= "`n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
 		if(0 && instr(ActionList,"Notepad_Administrator")){
             ; feedbackMsgBox(RegExReplace(A_LineFile,".*\\") ">" A_LineNumber, msg )
-            tooltip,% msg , 1 ,1
+			tooltip,% msg , 1 ,1
             ;MsgBox,% msg
-            sleep,3000
-        }
+			sleep,3000
+		}
 		; AddWordToList(newListSynonym ,0,"ForceLearn") ; <==== NOT WORKING !!!
         AddWordToList(newListSynonym ,0,"ForceLearn",LearnedWordsCount)   ; springt dann in zeile 490 ungefähr
+		addedKeysCounter++
 		; tooltip,% newListSynonym " `n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
 	} ; endOf while
 	return

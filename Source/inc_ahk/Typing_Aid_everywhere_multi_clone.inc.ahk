@@ -202,7 +202,8 @@ examples =
                         msg .= exist_includeFilePath " = exist_includeFilePath  `n`n"
                         lll(A_LineNumber, A_LineFile, msg )
                         feedbackMsgBox(RegExReplace(A_LineFile,".*\\") ">" A_LineNumber, msg, 1,1 )
-                        msgbox,% msg "(" A_LineFile "~" A_LineNumber ")"
+                        MsgBox,% msg "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+                        ; __ __
 					}
                     msgbox,% msg "(" A_LineFile "~" A_LineNumber ")"
 				}
@@ -939,15 +940,8 @@ getWelcomeMsg(){
 msg = 
 (
 this `n `n  %A_LineFile% `n 
-copies the activAid for every window class you are using automatically
-runs this and close/kills the other activAid
 
 if you try to find which file belongs to your ActionList type _____ it hopefully helps
-   
-ActionListLearned.ahk is a global ActionList.
-for activate your updates in this file please 
-close TypingAid and
-delete ActionListLearned.db
    
 descriptions:
 <word>|d|<description>
@@ -957,6 +951,8 @@ This could be used for things like definitions, translation aids, or function ar
 04.03.017 16:16 from https://github.com/ManiacDC/TypingAid
 
 replacements:
+<word>|rr|<description> todo: descrip
+
 <word>|r|<description>
 "Word replacements can be added to 'ActionList.ahk' that will appear in the ActionList next to the word. These replacements should be in the form of
 <word>|r|<description>, e.g., fire|r|fuego. 
