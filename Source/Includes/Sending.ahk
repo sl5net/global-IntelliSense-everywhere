@@ -215,7 +215,7 @@ SendWord(WordIndex){
    global g_SingleMatch
    global g_SingleMatchReplacement
 
-global ActionList
+    global ActionList
 
 ActionListFolderOfThisActionListRELATIVE := RegExReplace(ActionList,"\\[^\\]+$","")
 ActionListFolderOfThisActionList := A_ScriptDir  "\" RegExReplace(ActionList,"\\[^\\]+$","")

@@ -1,22 +1,29 @@
 ﻿; These functions and labels are related maintenance of the ActionList
 
 
+
+
 ;<<<<<<<<<<<<<< ReadActionList <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ;<<<<<<<<<<<<<< ReadActionList <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ;<<<<<<<<<<<<<< ReadActionList <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ;<<<<<<<<<<<<<< ReadActionList <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-ReadActionList() {
+ReadActionList(){
+
 	global g_LegacyLearnedWords
 	global g_ScriptTitle
 	global g_ActionListDone
 	global g_ActionListDB
 	global ActionList
 	global g_ActionListID
+
+    INSERT_function_call_time_millis_since_midnight( A_LineFile , A_ThisFunc , A_LineNumber)
+
+
 	ParseWordsCount :=0
    ;mark the ActionList as not done
 	g_ActionListDone = 0
 	
-	
+
 	
   ;ActionList = ..\ActionLists\ChromeWidgetWin1\wn654_Piratenpad_Google_Chrome.txt._Generated.txt
 	
@@ -133,7 +140,6 @@ from: ActionList.ahk~%A_LineNumber%
 	if (!isTblWordsEmpty && !DatabaseRebuilt) {
     ; thats inside ReadActionList() ---------------------------------------------
 		
-      ; LearnedWordsTable := g_ActionListDB.Query("SELECT ActionListmodified, ActionListsize FROM ActionLists WHERE ActionList = 'ActionList.txt';")
 		LearnedWordsTable := g_ActionListDB.Query("SELECT ActionListmodified, ActionListsize FROM ActionLists WHERE ActionList = '" . ActionListFileName . "';")
 		
 		LoadActionList := "Insert"
@@ -149,10 +155,10 @@ from: ActionList.ahk~%A_LineNumber%
 				tip = LoadActionList = "%LoadActionList%"`n source ahk has changed. update database next. `n %ActionList% `n (%A_LineFile%~%A_LineNumber%)
 				tooltip,% tip
 				lll(A_LineNumber, A_LineFile, tip)
-				CleanupActionListAll_ofLittleWordCount()
+				CleanupActionListAll_ofLittleWordCount() ; i dont konw what for that is. try it without 18-10-06_21-40
 			} else {
 				LoadActionList =
-				CleanupActionListAll_ofLittleWordCount(true)
+				CleanupActionListAll_ofLittleWordCount(true) ; i dont konw what for that is. try it without 18-10-06_21-40
 			}
 		}
 	} else {
@@ -162,6 +168,9 @@ from: ActionList.ahk~%A_LineNumber%
 	
 	if (LoadActionList) {
       ; Progress, M, Please wait..., Loading ActionList, %g_ScriptTitle%
+
+      INSERT_function_call_time_millis_since_midnight( A_LineFile , A_ThisFunc , A_LineNumber)
+
 		g_ActionListDB.BeginTransaction()
       ;reads list of words from file 
 		FileRead, ParseWords, %ActionList%
@@ -170,6 +179,8 @@ from: ActionList.ahk~%A_LineNumber%
 		
 		ParseWords := addListOpenAction_ifNotAlreadyInTheList(ParseWords,ActionList)
 		
+      INSERT_function_call_time_millis_since_midnight( A_LineFile , A_ThisFunc , A_LineNumber)
+
 		if(false){ ; todo: braucht man für die aktualliserung der listen niht. gerade getestet. gerade was hinzugefügt
 			foundOpenLibLine := 0
 			Loop, Parse, ParseWords, `n, `r
@@ -208,7 +219,9 @@ from: ActionList.ahk~%A_LineNumber%
 		
 		if(false && ParseWordsCount>0)
 			Msgbox, %ParseWordsCount%  (line:%A_LineNumber%)
-		
+
+      INSERT_function_call_time_millis_since_midnight( A_LineFile , A_ThisFunc , A_LineNumber)
+
 		Loop, Parse, ParseWords, `n, `r1
 		{
 		    ; thats the place very updates from the file are inserted into the database. this you shuld never delte.
@@ -246,6 +259,11 @@ from: ActionList.ahk~%A_LineNumber%
 				
 			}
 		}
+
+      INSERT_function_call_time_millis_since_midnight( A_LineFile , A_ThisFunc , A_LineNumber)
+
+
+
 		if(false && ParseWordsCount>0)
 			Msgbox, %ParseWordsCount%  (line:%A_LineNumber%)
 		
@@ -253,8 +271,6 @@ from: ActionList.ahk~%A_LineNumber%
 		g_ActionListDB.EndTransaction()
       ;Progress, Off
 		
-		
-; too __
 		
 		if (LoadActionList == "Update") {
 			UPDATE := "UPDATE ActionLists SET ActionListmodified = '" . ActionListModified . "', ActionListsize = '" . ActionListSize . "' WHERE ActionList = '" . ActionListFileName . "';"
@@ -306,6 +322,8 @@ from: ActionList.ahk~%A_LineNumber%
 ; ___open library|rr||ahk|FileReadLine,ActionListFileAdress, ActionList.txt.status.txt, 1 `n ActionListFileAdress := RegExReplace(ActionListFileAdress, "\._Generated\.txt\s*$", "") `n run,% ActionListFileAdress
 ;
         ; inside function ReadActionList
+      INSERT_function_call_time_millis_since_midnight( A_LineFile , A_ThisFunc , A_LineNumber)
+
 		Loop, Parse, ParseWords, `n, `r
 		{
 		    ; thats the place where actually typed word are addet !!!!!!
@@ -320,7 +338,9 @@ from: ActionList.ahk~%A_LineNumber%
 		}
 		ParseWords =
 		g_ActionListDB.EndTransaction()
-		
+
+      INSERT_function_call_time_millis_since_midnight( A_LineFile , A_ThisFunc , A_LineNumber)
+
 ;      Progress, 50, Please wait..., Converting learned words, %g_ScriptTitle%
 		
 ; -- here we are inside ReadActionList()\
@@ -348,6 +368,8 @@ from: ActionList.ahk~%A_LineNumber%
 ;------------------------------------------------------------------------
 
 addListOpenAction_ifNotAlreadyInTheList(contentActionList,ActionList){
+    INSERT_function_call_time_millis_since_midnight( A_LineFile , A_ThisFunc , A_LineNumber)
+
 ; thats a way how you could add ActionList lines vocabularies inside onlive 12.08.2017 23:24
 ; if you may destroy your path to your config file, thats a way to find it again.
 ;                        foundOpenLibLine := 0
@@ -377,11 +399,11 @@ addListOpenAction_ifNotAlreadyInTheList(contentActionList,ActionList){
 }
 
 
-
-
-
 ; addFuzzySearch_in_generatedList(ALoopField)
 addFuzzySearch_in_generatedList(ActionStr, ActionList, ByRef LearnedWordsCount, addKeysMAX := 6, doValueCopy := true){
+
+    INSERT_function_call_time_millis_since_midnight( A_LineFile , A_ThisFunc , A_LineNumber)
+
 	
     ; || !instr(ActionList,"Generated.ahk")
 	if( !ActionStr ){ ;_ahk_global.ahk._Generated.ahk
@@ -491,12 +513,15 @@ new = %newListSynonym%
 
 
 ReverseWordNums(LearnedWordsCount){
+
+
    ; This function will reverse the read numbers since now we know the total number of words
 	global prefs_LearnCount
 	global g_ActionListDB
 	global ActionList
 	global g_ActionListID
-	
+
+    INSERT_function_call_time_millis_since_midnight( A_LineFile , A_ThisFunc , A_LineNumber)
 	LearnedWordsCount+= (prefs_LearnCount - 1)
 	
 	sql := "SELECT word FROM Words WHERE count IS NOT NULL ActionList = '" ActionList "';"
@@ -520,6 +545,8 @@ ReverseWordNums(LearnedWordsCount){
 ;------------------------------------------------------------------------
 
 AddWordToList(AddWord,ForceCountNewOnly,ForceLearn:= false, ByRef LearnedWordsCount := false) {
+
+
    ;AddWord = Word to add to the list
    ;ForceCountNewOnly = force this word to be permanently learned even if learnmode is off
    ;ForceLearn = disables some checks in CheckValid
@@ -533,7 +560,8 @@ AddWordToList(AddWord,ForceCountNewOnly,ForceLearn:= false, ByRef LearnedWordsCo
 	global g_ActionListDB
 	global ActionList
 ;  foundPos := RegExMatch( "str" , "i)" )
-	
+    INSERT_function_call_time_millis_since_midnight( A_LineFile , A_ThisFunc , A_LineNumber)
+
    ;AddWord = Word to add to the list
 	if(0 && AddWord)
 		tooltip, % "AddWord = " AddWord  "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
@@ -659,8 +687,10 @@ AddWordToList(AddWord,ForceCountNewOnly,ForceLearn:= false, ByRef LearnedWordsCo
 	Return
 }
 
-CheckValid(Word,ForceLearn:= false)
-{
+CheckValid(Word,ForceLearn:= false){
+
+    INSERT_function_call_time_millis_since_midnight( A_LineFile , A_ThisFunc , A_LineNumber)
+
 	
 	Ifequal, Word,  ;If we have no word to add, skip out.
 	Return
@@ -699,6 +729,9 @@ CheckValid(Word,ForceLearn:= false)
 
 ;<<<<<<<< TransformWord <<<< 180319190854 <<<< 19.03.2018 19:08:54 <<<<
 TransformWord(AddWord, AddWordReplacement, AddWordDescription, ByRef AddWordTransformed, ByRef AddWordIndexTransformed, ByRef AddWordReplacementTransformed, ByRef AddWordDescriptionTransformed) {
+
+    INSERT_function_call_time_millis_since_midnight( A_LineFile , A_ThisFunc , A_LineNumber)
+
     ; TransformWord normalizes the word, converting it to uppercase and removing certain accented characters.
 	
 	AddWordIndex := AddWord
@@ -722,10 +755,13 @@ TransformWord(AddWord, AddWordReplacement, AddWordDescription, ByRef AddWordTran
 
 ;<<<<<<<< DeleteWordFromList <<<< 180319190926 <<<< 19.03.2018 19:09:26 <<<<
 DeleteWordFromList(DeleteWord){
+
+
 	global prefs_LearnMode
 	global g_ActionListDB
 	global ActionList
-	
+
+    INSERT_function_call_time_millis_since_midnight( A_LineFile , A_ThisFunc , A_LineNumber)
 	Ifequal, DeleteWord,  ;If we have no word to delete, skip out.
 	Return
 	
@@ -746,8 +782,11 @@ DeleteWordFromList(DeleteWord){
 
 UpdateWordCount(word,SortOnly)
 {
+
+
 	global prefs_LearnMode
 	global g_ActionListDB
+    INSERT_function_call_time_millis_since_midnight( A_LineFile , A_ThisFunc , A_LineNumber)
    ;Word = Word to increment count for
    ;SortOnly = Only sort the words, don't increment the count
 	
@@ -768,6 +807,9 @@ UpdateWordCount(word,SortOnly)
 
 ;<<<<<<<< CleanupActionListOfThisActionList <<<<
 CleanupActionListOfThisActionList(ActionList){
+
+    INSERT_function_call_time_millis_since_midnight( A_LineFile , A_ThisFunc , A_LineNumber)
+
    ;Function cleans up all words from given ActionList
 	Msgbox,not yet implemented `n (%A_LineFile%~%A_LineNumber%)
 	g_ActionListDB.Query("DELETE FROM Words WHERE ActionListID = '" . g_ActionListID . "';")
@@ -776,6 +818,7 @@ CleanupActionListOfThisActionList(ActionList){
 
 ;<<<<<<<< CleanupActionListAll_ofLittleWordCount <<<< 180319192431 <<<< 19.03.2018 19:24:31 <<<<
 CleanupActionListAll_ofLittleWordCount(LearnedWordsOnly := false){
+
    ;Function cleans up all words that are less than the LearnCount threshold or have a NULL for count
    ;(NULL in count represents a 'ActionList . txt' word, as opposed to a learned word)
 	global g_ScriptTitle
@@ -783,6 +826,7 @@ CleanupActionListAll_ofLittleWordCount(LearnedWordsOnly := false){
 	global ActionList
 	global prefs_LearnCount
 ;   Progress, M, Please wait..., Cleaning ActionList, %g_ScriptTitle%
+    INSERT_function_call_time_millis_since_midnight( A_LineFile , A_ThisFunc , A_LineNumber)
 	if (LearnedWordsOnly) {
 		g_ActionListDB.Query("DELETE FROM Words WHERE count < " . prefs_LearnCount . " AND count IS NOT NULL AND ActionListID = '" . g_ActionListID . "';")
 	} else {
@@ -852,8 +896,10 @@ MaybeUpdateActionList(){
 ; Removes marks from letters.  Requires Windows Vista or later.
 ; Code by Lexikos, based on MS documentation
 StrUnmark(string) {
+
 	global g_OSVersion
 	global g_NormalizationKD
+    INSERT_function_call_time_millis_since_midnight( A_LineFile , A_ThisFunc , A_LineNumber)
 	if (g_OSVersion < 6.0)
 	{
 		return string
@@ -884,7 +930,9 @@ StrUnmark(string) {
 
 ;<<<<<<<< getActionListID <<<< 180324230510 <<<< 24.03.2018 23:05:10 <<<<
 getActionListID(ActionList){
+
 	global g_ActionListDB
+    INSERT_function_call_time_millis_since_midnight( A_LineFile , A_ThisFunc , A_LineNumber)
 	if(!g_ActionListDB)
 		g_ActionListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", A_ScriptDir . "\ActionListLearned.db" ) ;
 	
@@ -957,6 +1005,7 @@ ActionList = '%ActionList%' ;
 
 
 INSERT_INTO_ActionLists_ifNotExist(ActionList, ActionListModified, ActionListSize ){
+
 	global g_ActionListDB
 	if(!g_ActionListDB)
 		g_ActionListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", A_ScriptDir . "\ActionListLearned.db" ) ;
@@ -969,7 +1018,9 @@ INSERT_INTO_ActionLists_ifNotExist(ActionList, ActionListModified, ActionListSiz
 	INSERT_INTO_ActionLists(ActionList, ActionListModified, ActionListSize )
 }
 INSERT_INTO_ActionLists(ActionList, ActionListModified, ActionListSize ){
+
 	global g_ActionListDB
+    INSERT_function_call_time_millis_since_midnight( A_LineFile , A_ThisFunc , A_LineNumber)
 	sql := "INSERT INTO ActionLists "
 	sql .= " (id, ActionList, ActionListmodified, ActionListsize) VALUES "
 	sql .= " (null, '" ActionList "', '" ActionListModified "', '" ActionListSize "' );"
@@ -988,6 +1039,5 @@ INSERT_INTO_ActionLists(ActionList, ActionListModified, ActionListSize ){
 		msgbox, % tip
 	}
 }
-
 
 

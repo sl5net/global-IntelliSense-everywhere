@@ -205,7 +205,7 @@ examples =
                         msg .= "`n`n :( includeFile NOT exist here: "  includeFilePath " = includeFilePath  `n"
                         msg .= exist_includeFilePath " = exist_includeFilePath  `n`n"
                         lll(A_LineNumber, A_LineFile, msg )
-                        feedbackMsgBox(RegExReplace(A_LineFile,".*\\") ">" A_LineNumber, msg, 1,1 )
+                        feedbackMsgBox(RegExReplace(A_LineFile,".*\\(.*?)\.ahk","$1") ">" A_LineNumber, msg, 1,1 ) ; temp.ahk is often ignored by config 05.10.2018 08:46
                         MsgBox,% msg "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
                         ; __ __
 					}
@@ -376,7 +376,7 @@ examples =
 ; lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   "'" . ActionListGeneratedPath . "' = ActionListGeneratedPath `n'" . ActionListNEWarchivePath . " = ActionListNEWarchivePath " )
 		
 		if(isIncludeFileInside && ActionListGeneratedPath){
-			ActionListNEWarchivePath := ActionListGeneratedPath ; that it will be used as your wordllist with all sugestions :) 12.07.2017 22:58
+			ActionListNEWarchivePath := ActionListGeneratedPath ; that it will be used as your actionlist with all sugestions :) 12.07.2017 22:58
 			
 			ExitAPP_if_NOT_ActionListGeneratedPath (A_LineNumber, A_ThisFunc, ActionListNEWarchivePath, ActionListGeneratedPath , ActionListNEW)
             ;ExitAPP_if_NOT_ActionListNEWarchivePath_and_NOT_ActionListNEW(A_LineNumber, A_ThisFunc, ActionListNEWarchivePath, ActionListGeneratedPath , ActionListNEW)

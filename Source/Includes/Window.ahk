@@ -57,37 +57,31 @@ DisableWinHook(){
 }
 
 ; Hook function to detect change of focus (and remove ListBox when changing active window) 
-WinChanged(hWinEventHook, event, wchwnd, idObject, idChild, dwEventThread, dwmsEventTime)
-{
+WinChanged(hWinEventHook, event, wchwnd, idObject, idChild, dwEventThread, dwmsEventTime){
    global g_inSettings
    global g_ManualActivate
    global g_OldCaretY
    global prefs_DetectMouseClickMove
    
-   If (event <> 3)
-   {
+   If (event <> 3){
       return
    }
    
-   if (g_ManualActivate := true)
-   {
+   if (g_ManualActivate := true){
       ; ignore activations we've set up manually and clear the flag
       g_ManualActivate = 
       return
    }      
    
-   if (g_inSettings := true )
-   {
+   if (g_inSettings := true ){
       return
    }
    
-   if (SwitchOffListBoxIfActive())
-   {
+   if (SwitchOffListBoxIfActive()){
       return
    }
    
-   IF ( ReturnWinActive() )
-   {
+   IF ( ReturnWinActive() ){
       IfNotEqual, prefs_DetectMouseClickMove, On 
       {
          IfNotEqual, g_OldCaretY,
@@ -222,7 +216,7 @@ GetIncludedActiveWindowGuts() {
          ;Wait for any window to be active
 
          tip="WinWaitActive, , , , ZZZYouWillNeverFindThisStringInAWindowTitleZZZ`n" A_LineNumber . " " .  A_LineFile . " " . Last_A_This
-         tooltip,% tip
+         ToolTip4sec(tip " (" A_LineNumber " " A_LineFile " " Last_A_This)
          ; msgbox,% tip
          WinWaitActive, , , , ZZZYouWillNeverFindThisStringInAWindowTitleZZZ
          Continue

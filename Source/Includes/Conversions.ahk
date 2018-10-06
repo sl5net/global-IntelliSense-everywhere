@@ -3,7 +3,9 @@
 ; always set the SetDbVersion default argument to the current highest version
 
 SetDbVersion(dBVersion = 7){
+
 	global g_ActionListDB
+    INSERT_function_call_time_millis_since_midnight( A_LineFile , A_ThisFunc , A_LineNumber)
 	g_ActionListDB.Query("INSERT OR REPLACE INTO LastState VALUES ('databaseVersion', '" . dBVersion . "', NULL);")
 }
 
@@ -102,15 +104,18 @@ RebuildDatabase(){
 
 	CreateLastStateTable()
 	CREATE_TABLE_ActionLists()
+
+	Create_PerformanceMeasurementOf_Functions_Table()
 	
 	SetDbVersion()
 	g_ActionListDB.EndTransaction()
 }
 
 ;Runs the first conversion
-RunConversionOne(ActionListConverted)
-{
+RunConversionOne(ActionListConverted){
+
 	global g_ActionListDB
+    INSERT_function_call_time_millis_since_midnight( A_LineFile , A_ThisFunc , A_LineNumber)
 	g_ActionListDB.BeginTransaction()
 	
 	g_ActionListDB.Query("ALTER TABLE LastState RENAME TO OldLastState;")
@@ -191,26 +196,21 @@ RunConversionFour()
 }
 
 ;Creates the ActionLists table
-RunConversionFive()
-{
+RunConversionFive(){
 	global g_ActionListDB
 	g_ActionListDB.BeginTransaction()
-	
 	CREATE_TABLE_ActionLists()
-	
 	SetDbVersion(5)
 	g_ActionListDB.EndTransaction()
 }
 
 ; normalize accented characters
-RunConversionSix()
-{
+RunConversionSix(){
 	; superseded by conversion 7
 }
 
 ; normalize accented characters
-RunConversionSeven()
-{
+RunConversionSeven(){
 	global g_ActionListDB
 	g_ActionListDB.BeginTransaction()
 	
@@ -234,8 +234,7 @@ RunConversionSeven()
 	g_ActionListDB.EndTransaction()
 }
 
-CreateLastStateTable()
-{
+CreateLastStateTable(){
 	global g_ActionListDB
 
 	IF not g_ActionListDB.Query("CREATE TABLE LastState (lastStateItem TEXT PRIMARY KEY, lastStateNumber INTEGER, otherInfo TEXT) WITHOUT ROWID;")
@@ -247,13 +246,176 @@ CreateLastStateTable()
 	}
 }
 
-CreateWordsTable(WordsTableName:="Words"){
-lll(A_LineNumber, A_LineFile, "lin1 at CREATE_TABLE_wordS")
+
+JEE_millis_since_midnight(vOpt:=""){ ; renamed from JEE_TimeNowMSec
+    VarSetCapacity(SYSTEMTIME, 16, 0)
+    if (vOpt = "UTC")
+        DllCall("kernel32\GetSystemTime", Ptr,&SYSTEMTIME)
+    else
+        DllCall("kernel32\GetLocalTime", Ptr,&SYSTEMTIME)
+    vHour := NumGet(&SYSTEMTIME, 8, "UShort") ;wHour
+    vMin := NumGet(&SYSTEMTIME, 10, "UShort") ;wMinute
+    vSec := NumGet(&SYSTEMTIME, 12, "UShort") ;wSecond
+    vMSec := NumGet(&SYSTEMTIME, 14, "UShort") ;wMilliseconds
+    return vHour*3600000 + vMin*60000 + vSec*1000 + vMSec
+}
+
+
+INSERT_function_call_time_millis_since_midnight( aLineFile , aThisFunc , aLineNumber){
+
+    return
+    ; select ROWID,p.small_LineFile,p.A_ThisFunc,p.ActionList,p.ActionListsize,p.millisec_dif_to_next_function_call from performance p order by p.millisec_dif_to_next_function_call desc limit 3;
 	global g_ActionListDB
-	if(!g_ActionListDB)
-    	g_ActionListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", A_ScriptDir . "\ActionListLearned.db" ) ;
+	global ActionList
+	global ActionListsize
+
+if( !ActionListSize && ActionList)
+    FileGetSize, ActionListSize, %ActionList%
+
+millis_since_midnight := JEE_millis_since_midnight(vOpt:="")
+small_LineFile := RegExReplace(aLineFile,".*\\")
+sizeHere := (ActionListsize)? ActionListsize: 0
+
+; 
+        sql := "select * from performance"
+        sql := "SELECT last_insert_rowid()"
+        sql := "select seq from sqlite_sequence where name=""performance"""
+        sql := "select ROWID from performance order by ROWID desc limit 1"
+        sql := "select ROWID, millis_since_midnight from performance order by ROWID desc limit 1"
+		IF not g_ActionListDB.Query(sql)
+		{
+			ErrMsg := g_ActionListDB.ErrMsg() . "`n" . sql . "`n"
+			ErrCode := g_ActionListDB.ErrCode()
+
+            ;tool tip msgbox too too too mmgw() msg t MsgBox,% msg "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+            ; tooltip
+
+            sqlLastError := SQLite_LastError()
+            if( instr(sqlLastError, "no such table") ){
+    			Create_PerformanceMeasurementOf_Functions_Table()
+    			MsgBox,% ErrMsg " (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+               return
+            }
+
+
+			return
+			; clipboard := sql
+			; msgbox Cannot select performance Table - fatal error: %ErrCode% - %ErrMsg%
+			, ExitApp
+		}
+        res := g_ActionListDB.Query(sql)
+        For each, id in res.Rows
+        {
+            last_insert_rowid := id[1]
+            last_millis_since_midnight := id[2]
+            ; msgbox,% last_millis_since_midnight  " = last_millis_since_midnight(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+        }
+        ; msgbox,% res  "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+
+                sql := "select ROWID, millis_since_midnight from performance order by ROWID desc limit 1"
+
 ;
-sql =
+millis_since_midnight := JEE_millis_since_midnight(vOpt:="")
+if(last_millis_since_midnight && millis_since_midnight){
+    if(millis_since_midnight < last_millis_since_midnight){
+        msgbox,":( that could not happen (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+        return
+    }
+    millisec_dif_to_next_function_call := millis_since_midnight - last_millis_since_midnight
+    millisec_dif_to_next_function_call := (millisec_dif_to_next_function_call)? millisec_dif_to_next_function_call: 0
+    UPDATE := "Update performance SET millisec_dif_to_next_function_call = " millisec_dif_to_next_function_call " where ROWID = " last_insert_rowid ";"
+    g_ActionListDB.Query(UPDATE)
+}
+
+
+; ToolTip4sec("InitializeListBox `n " A_LineNumber . " " . RegExReplace(A_LineFile,".*\\")  . " " . Last_A_This)
+	sql := "INSERT INTO performance ("
+	temp =
+(
+
+small_LineFile
+, A_ThisFunc
+, ActionList
+, ActionListsize
+, A_LineNumber
+, A_TickCount
+, millis_since_midnight
+)
+sql .= temp
+	sql .= ") VALUES ("
+temp =
+(
+'%small_LineFile%'
+, '%aThisFunc%'
+, '%ActionList%'
+, %sizeHere%
+, %aLineNumber%
+, %A_TickCount%
+, %millis_since_midnight%
+)
+sql .= temp ")"
+    IF not g_ActionListDB.Query(sql)
+    {
+        ErrMsg := g_ActionListDB.ErrMsg() . "`n" . sql . "`n"
+        ErrCode := g_ActionListDB.ErrCode()
+        ; clipboard := sql
+        msg := "Cannot insert performance Table - fatal error: " ErrCode " - " ErrMsg "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+        ; msgbox, % "Cannot insert performance Table - fatal error: " ErrCode " - " ErrMsg "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+        ToolTip4sec(msg " (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
+        return
+        ;ExitApp
+    }
+    ;clipboard := sql
+    ;msgbox, % sql  "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+}
+
+
+
+; sqlite  auto-incrementing :
+; You get one for free, called ROWID. This is in every SQLite table whether you ask for it or not.
+; If you include a column of type INTEGER PRIMARY KEY, that column points at (is an alias for) the automatic ROWID column.
+; you can use ROWID in your select statement e.g. select rowid from people;
+
+; Performance_measurement_functions_Table
+Create_PerformanceMeasurementOf_Functions_Table(performanceTableName := "performance"){
+	lll(A_LineNumber, A_LineFile, "lin1 at CREATE_TABLE_performance")
+	global g_ActionListDB
+	global ActionList
+	sql =
+(
+CREATE TABLE IF NOT EXISTS %performanceTableName%  (
+small_LineFile TEXT NOT NULL
+, A_ThisFunc TEXT NOT NULL
+, ActionList TEXT NOT NULL
+, ActionListsize INTEGER
+, A_LineNumber INTEGER
+, A_TickCount INTEGER
+, millis_since_midnight INTEGER
+, millisec_dif_to_next_function_call INTEGER );
+)
+;clipboard := sql
+; tooltip, % sql
+	IF not g_ActionListDB.Query(sql)
+	{
+		ErrMsg := g_ActionListDB.ErrMsg() . "`n" . sql . "`n"
+		ErrCode := g_ActionListDB.ErrCode()
+		clipboard := sql
+		msg := "Cannot Create " performanceTableName " Table - fatal error: " ErrCode " - " ErrMsg
+		ToolTip4sec(msg " (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
+		MsgBox,% msg "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+		ExitApp
+	}
+} ; endOfFunction
+	
+	
+	
+	CreateWordsTable(WordsTableName:="Words"){
+		lll(A_LineNumber, A_LineFile, "lin1 at CREATE_TABLE_wordS")
+		global g_ActionListDB
+		if(!g_ActionListDB)
+			g_ActionListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", A_ScriptDir . "\ActionListLearned.db" ) ;
+;
+		sql =
 (
 CREATE TABLE IF NOT EXISTS %WordsTableName%  (
 ActionListID INTEGER NOT NULL
@@ -266,61 +428,61 @@ ActionListID INTEGER NOT NULL
 )
 ; ActionListID,
 ;clipboard := sql
-tooltip, % sql
-	IF not g_ActionListDB.Query(sql)
-	{
-		ErrMsg := g_ActionListDB.ErrMsg() . "`n" . sql . "`n"
-		ErrCode := g_ActionListDB.ErrCode()
-		clipboard := sql
-		msgbox Cannot Create %WordsTableName% Table - fatal error: %ErrCode% - %ErrMsg%
-		ExitApp
-	}
-}
-
-CreateWordIndex(){
-	global g_ActionListDB
-
-	IF not g_ActionListDB.Query("CREATE INDEX WordIndex ON Words (ActionListID, wordindexed);")
-	{
-		ErrMsg := g_ActionListDB.ErrMsg()
-		ErrCode := g_ActionListDB.ErrCode()
-		msgbox Cannot Create WordIndex Index - fatal error: %ErrCode% - %ErrMsg%
-		ExitApp
-	}
-}
-;
-
-;<<<<<<<< CREATE_TABLE_ActionLists <<<< 180218062159 <<<< 18.02.2018 06:21:59 <<<<
-CREATE_TABLE_ActionLists(){
-    lll(A_LineNumber, A_LineFile, "lin1 at CREATE_TABLE_ActionLists")
-	global g_ActionListDB
-	if(!g_ActionListDB)
-    	g_ActionListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", A_ScriptDir . "\ActionListLearned.db" ) ;
-
-	sql := "CREATE TABLE IF NOT EXISTS ActionLists (id INTEGER PRIMARY KEY AUTOINCREMENT, ActionList TEXT, ActionListmodified DATETIME, ActionListsize INTEGER)"
-	IF not g_ActionListDB.Query(sql)
-	{
-		ErrMsg := g_ActionListDB.ErrMsg()
-		ErrCode := g_ActionListDB.ErrCode()
-		clipboard := sql
-		msgbox, Cannot Create ActionLists Table - fatal error: %ErrCode% - %ErrMsg%  `n sql= %sql% `n  (%A_LineFile%~%A_LineNumber%)
-		ExitApp
-	}
-}
-;>>>>>>>> CREATE_TABLE_ActionLists >>>> 180218062205 >>>> 18.02.2018 06:22:05 >>>>
-
-CreateActionListsTable()
-{
-	Msgbox,deprecated ==> return `n (%A_LineFile%~%A_LineNumber%)
-	return
-
-	global g_ActionListDB
+		tooltip, % sql
+		IF not g_ActionListDB.Query(sql)
+		{
+			ErrMsg := g_ActionListDB.ErrMsg() . "`n" . sql . "`n"
+			ErrCode := g_ActionListDB.ErrCode()
+			clipboard := sql
+			msgbox Cannot Create %WordsTableName% Table - fatal error: %ErrCode% - %ErrMsg%
+			ExitApp
+		}
+	} ; endOfFunction
 	
-	IF not g_ActionListDB.Query("CREATE TABLE ActionLists (ActionList TEXT PRIMARY KEY, ActionListmodified DATETIME, ActionListsize INTEGER) WITHOUT ROWID;")
-	{
-		ErrMsg := g_ActionListDB.ErrMsg()
-		ErrCode := g_ActionListDB.ErrCode()
-		msgbox Cannot Create ActionLists Table - fatal error: %ErrCode% - %ErrMsg%
-		ExitApp
+	CreateWordIndex(){
+		global g_ActionListDB
+		
+		IF not g_ActionListDB.Query("CREATE INDEX WordIndex ON Words (ActionListID, wordindexed);")
+		{
+			ErrMsg := g_ActionListDB.ErrMsg()
+			ErrCode := g_ActionListDB.ErrCode()
+			msgbox Cannot Create WordIndex Index - fatal error: %ErrCode% - %ErrMsg%
+			ExitApp
+		}
 	}
-}
+;
+	
+;<<<<<<<< CREATE_TABLE_ActionLists <<<< 180218062159 <<<< 18.02.2018 06:21:59 <<<<
+	CREATE_TABLE_ActionLists(){
+		lll(A_LineNumber, A_LineFile, "lin1 at CREATE_TABLE_ActionLists")
+		global g_ActionListDB
+		if(!g_ActionListDB)
+			g_ActionListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", A_ScriptDir . "\ActionListLearned.db" ) ;
+		
+		sql := "CREATE TABLE IF NOT EXISTS ActionLists (id INTEGER PRIMARY KEY AUTOINCREMENT, ActionList TEXT, ActionListmodified DATETIME, ActionListsize INTEGER)"
+		IF not g_ActionListDB.Query(sql)
+		{
+			ErrMsg := g_ActionListDB.ErrMsg()
+			ErrCode := g_ActionListDB.ErrCode()
+			clipboard := sql
+			msgbox, Cannot Create ActionLists Table - fatal error: %ErrCode% - %ErrMsg%  `n sql= %sql% `n  (%A_LineFile%~%A_LineNumber%)
+			ExitApp
+		}
+	}
+;>>>>>>>> CREATE_TABLE_ActionLists >>>> 180218062205 >>>> 18.02.2018 06:22:05 >>>>
+	
+	CreateActionListsTable()
+	{
+		Msgbox,deprecated ==> return `n (%A_LineFile%~%A_LineNumber%)
+		return
+		
+		global g_ActionListDB
+		
+		IF not g_ActionListDB.Query("CREATE TABLE ActionLists (ActionList TEXT PRIMARY KEY, ActionListmodified DATETIME, ActionListsize INTEGER) WITHOUT ROWID;")
+		{
+			ErrMsg := g_ActionListDB.ErrMsg()
+			ErrCode := g_ActionListDB.ErrCode()
+			msgbox Cannot Create ActionLists Table - fatal error: %ErrCode% - %ErrMsg%
+			ExitApp
+		}
+	}
