@@ -381,8 +381,7 @@ msgbox,% tip
                         ToolTip3sec(tip)
                         ;Msgbox,% "code inside `n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
                         break ; code inside
-                }
-   }   }    }
+   }    }   }   }
 
 
 

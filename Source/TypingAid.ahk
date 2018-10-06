@@ -286,7 +286,10 @@ MainLoop()
 ; https://github.com/sl5net/global-IntelliSense-everywhere/issues/4
 #IfWinActive,
 :b0*?:__:: ;does not delete the underscores
-    reload_IfNotExist_ListBoxGui()
+    SetTimer, show_ListBox_Id, 600 ; setinterval
+    Sleep,100
+    g_reloadIf_ListBox_Id_notExist := true
+    ; reload_IfNotExist_ListBoxGui()
     ; ~_:: countUnderscore++ if(countUnderscore == 2){ countUnderscore := 0 reload_IfNotExist_ListBoxGui()
 return
 ;>>>>>>>>>>>>>>>>> workaround >>>>>>>>>>>>>>>
@@ -1094,3 +1097,20 @@ check_ActionList_GUI_is_hanging_or_freezed:
   clipboard := tip
   ; too too too
 return
+
+show_ListBox_Id:
+    SetTimer, show_ListBox_Id, Off ; setinterval
+
+    global g_ListBox_Id
+    global g_reloadIf_ListBox_Id_notExist
+    ;ToolTip1sec(g_ListBox_Id " (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This,1,1)
+    if(!g_ListBox_Id && g_reloadIf_ListBox_Id_notExist)
+        run,% "..\start.ahk"
+        ;reload
+        ;MsgBox, , repair Manue, repair Manue, 1
+    g_reloadIf_ListBox_Id_notExist := false
+        ;MsgBox, [ Options, Title, Text, Timeout]
+        ;
+return
+
+;  too __
