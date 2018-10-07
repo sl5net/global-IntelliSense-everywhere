@@ -4,6 +4,10 @@ Gi is a search suggest drop-down list, a query feature used to show shortcuts (n
 
 Before the query is complete, a drop-down list with the suggested actions appears to provide options to select. The suggested queries then enable the searcher to complete the required search quickly. 
 
+Gi behaves window specific, different in each window. The actions can be reused and inherited.
+
+The data is read from files into a sqlite database. The names for the files are assigned automatically (default, there are exceptions).
+
 In contrast to search suggestions, as they are known by search engines, with GI can be offered not only text completions, but actions. text completions is a subset of acions. Actions are typically small programming modules, but can also be large, permanent programs. There are no limits to the Imagination.
 
 The Drop-down list is located near the Mouse, when it was not moved with the Mouse. Theire size can also be changed. Please refer to the documentation for further Details.

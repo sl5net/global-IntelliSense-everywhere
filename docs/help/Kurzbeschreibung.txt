@@ -1,0 +1,13 @@
+Global-intellisense-überall im folgenden Gi.
+
+Gi ist eine Suchvorschlag-Dropdown-Liste, eine Abfragefunktion zum Anzeigen von Verknüpfungen (Zahlen 0-9), während die Abfrage eingegeben wird. Gi hat keine eigene GUI, läuft aber parallel zu jeder anderen GUI (es gibt Ausnahmen).
+
+Bevor die Abfrage abgeschlossen ist, werden in einer Dropdown-Liste mit den vorgeschlagenen Aktionen Optionen angezeigt. Die vorgeschlagenen Suchanfragen ermöglichen es dann dem Suchenden, die erforderliche Suche schnell durchzuführen.
+
+Gi verhällt sich fensterspezifisch, in jedem Fenster anders. Die Actions können wiederverwendet und vererbt werden.
+
+Die Daten werden aus Dateien in eine Sqlite-Datenbank eingelesen. Die Namen für die Dateien werden automatisch vergeben (default, es gibt Aussnahmen).
+
+Im Gegensatz zu Suchvorschlägen, wie sie von Suchmaschinen bekannt sind, können mit GI nicht nur Textvervollständigungen, sondern Aktionen angeboten werden. Text Completions ist eine Teilmenge von Acions. Aktionen sind typischerweise kleine Programmiermodule, können aber auch große, permanente Programme sein. Der Fantasie sind keine Grenzen gesetzt.
+
+Die Dropdown-Liste befindet sich in der Nähe der Maus, wenn sie nicht mit der Maus verschoben wurde. Ihre Größe kann auch geändert werden. Weitere Informationen finden Sie in der Dokumentation.
