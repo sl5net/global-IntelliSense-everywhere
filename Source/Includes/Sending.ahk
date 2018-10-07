@@ -35,7 +35,8 @@ getLineOfIndex(id) {
             ;msgBox, %A_LoopReadLine% 18-03-02_09-26
             ;tooltip,'%A_LoopReadLine%' = A_LoopReadLine `n (line:%A_LineNumber%)
             ;ToolTip1sec(A_LoopReadLine . "`n" . A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\")  . " " .    Last_A_This)
-            return, JEE_StrUtf8BytesToText( A_LoopReadLine )
+            return, A_LoopReadLine
+            return, JEE_StrUtf8BytesToText( A_LoopReadLine ) ; dont need this anymore. if anybody using utf. 07.10.2018 19:49 18-10-07_19-49
             return A_Index
          }
     }
@@ -244,25 +245,25 @@ disableCopyQ() ; enableCopyQ() ;
 
 ; sending := getCorrectedStringUAOSS( sending  ) ; https://autohotkey.com/boards/viewtopic.php?f=5&t=44955&p=203512&hilit=JEE_StrUtf8BytesToText#p203512
 if(false){
-Msgbox, '%sending%' = sending  n (line:%A_LineNumber%)  (line:%A_LineNumber%)
+    Msgbox, '%sending%' = sending  n (line:%A_LineNumber%)  (line:%A_LineNumber%)
 
-sending := "JEE_StrTextToUtf8Bytes" JEE_StrTextToUtf8Bytes( sending )
-sending := getCorrectedStringUAOSS( sending  )
-Msgbox, '%sending%' = sending  n (line:%A_LineNumber%)  (line:%A_LineNumber%)
+    sending := "JEE_StrTextToUtf8Bytes" JEE_StrTextToUtf8Bytes( sending )
+    sending := getCorrectedStringUAOSS( sending  )
+    Msgbox, '%sending%' = sending  n (line:%A_LineNumber%)  (line:%A_LineNumber%)
 
-sending := JEE_StrUtf8BytesToText( sending ) ; https://autohotkey.com/boards/viewtopic.php?f=5&t=44955&p=203512&hilit=JEE_StrUtf8BytesToText#p203512
-sending := getCorrectedStringUAOSS( sending  )
-Msgbox, '%sending%' = sending  n (line:%A_LineNumber%)  (line:%A_LineNumber%)
+    sending := JEE_StrUtf8BytesToText( sending ) ; https://autohotkey.com/boards/viewtopic.php?f=5&t=44955&p=203512&hilit=JEE_StrUtf8BytesToText#p203512
+    sending := getCorrectedStringUAOSS( sending  )
+    Msgbox, '%sending%' = sending  n (line:%A_LineNumber%)  (line:%A_LineNumber%)
 
-sending := "getCorrectedStringUAOSS" getCorrectedStringUAOSS( sending  )
-sending := getCorrectedStringUAOSS( sending  )
-Msgbox, '%sending%' = sending  n (line:%A_LineNumber%)  (line:%A_LineNumber%)
+    sending := "getCorrectedStringUAOSS" getCorrectedStringUAOSS( sending  )
+    sending := getCorrectedStringUAOSS( sending  )
+    Msgbox, '%sending%' = sending  n (line:%A_LineNumber%)  (line:%A_LineNumber%)
 
-sending := getCorrectedStringUAOSS( sending  )
-Msgbox, '%sending%' = sending  n (line:%A_LineNumber%)  (line:%A_LineNumber%)
+    sending := getCorrectedStringUAOSS( sending  )
+    Msgbox, '%sending%' = sending  n (line:%A_LineNumber%)  (line:%A_LineNumber%)
 
-sleep,150
- ;MsgBox, % vText := JEE_StrUtf8BytesToText(vUtf8Bytes)
+    sleep,150
+     ;MsgBox, % vText := JEE_StrUtf8BytesToText(vUtf8Bytes)
 }
 
 ; sending := "getCorrectedStringUAOSS2==" getCorrectedStringUAOSS( sending  )
@@ -310,6 +311,7 @@ regIsKTScode := "^([^\|\n]+?)\|rr\|([^\n]*?)\|kts\|([^\n]*?)$"
 regIsXXXcode := "^([^\|\n]+?)\|(rr)\|([^\n]*?)\|(ahk|kts)\|([^\n]*?)$"
 regIsXXXcode := "^([^\|\n]+?)\|(rr)\|([^\n]*?)(?:\|(ahk|kts)\|)*([^\n]*?)$"
 regIsXXXcode := "^([^\|\n]+?)\|(rr)\|(?:([^\n]*?)(?:\|(ahk|kts)\|)+([^\n]*?)$)*"
+regIsXXXcode := "^([^\|\n]+?)\|(rr)\|(?:([^\n]*?)(?:\|(ahk|kts)\|)+(.*?)$)*" ; since today we using ahk blocks. newline could be posible
 ; may remember this vor later implementation: ^([^\|\n]+?)(?:\|(rr)\|(?:([^\n]*?)(?:\|(ahk|kts)\|)+([^\n]*?)$)*)*$
 ; https://regex101.com/r/XvcvV4/3/      https://autohotkey.com/boards/viewtopic.php?f=6&t=45684&p=241492#p241492
 ;<<<<< tests <<<< 1810106253 <<<< 01.10.2018 6:26:53
@@ -440,6 +442,32 @@ if(isAHKcode){
     if(was_a_Editor_open_command)
         return
 } ; Endof if(isAHKcode)
+
+   if(isAHKcode && !AHKcode){
+        ahkBlock := ""
+        lineOfIndex := g_SingleMatch[WordIndex]
+        id := getWordIndex(lineOfIndex)
+        key := rX["key"]
+        wordIndexOfKey := getWordIndex(key)
+        id := wordIndexOfKey
+        while(id++ < 12345678 ){ ; 123456789 is random top numer. not importand 07.10.2018 18:50
+            line := getLineOfIndex(id)
+            if(!line)
+                break
+            ahkBlock .= line "`n"
+            ;ToolTip4sec(line " (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
+            ; MsgBox,% id ": " line " rX[key]= " rX["key"] "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+        }
+         AHKcode := ahkBlock
+        ; msg := " ahkBlock = `n `n " ahkBlock
+        ; MsgBox,% msg "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+   }
+
+
+    ; tooltip ,% AHKcode "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+    ; msgbox ,% "sending=" sending "`n" AHKcode "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+
+
 
 
 

@@ -248,12 +248,31 @@ from: ActionList.ahk~%A_LineNumber%
                  ;Parse  := RegExReplace(pattern, "^\s+" , "" ) ; anfangs leerzeichen raus 06.11.2017 18:28
 				
 				ALoopField := A_LoopField
-				ALoopField  := RegExReplace(ALoopField, "^\s+" , "" ) ; anfangs leerzeichen raus 06.11.2017 18:28
-                ; msgbox, %ALoopField% 06.11.2017 18:34
-				
+
+                if(!doCollectAhkBlock)
+                    ALoopField  := RegExReplace(ALoopField, "^\s+" , "" ) ; anfangs leerzeichen raus 06.11.2017 18:28
+                else{
+                    if(trim(ALoopField)){
+                        AddWordBlock := AddWordBlock "`n" ALoopField
+                        continue
+                    }else{
+                        doCollectAhkBlock := false
+                        ALoopField := AddWordBlock
+                        ; MsgBox,% ">" AddWordBlock "< (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+                    }
+                }
+
+                if(RegExMatch( ALoopField , "i).+\|ahk\|\s*$" )){
+                    doCollectAhkBlock := true
+                    AddWordBlock := ALoopField
+                    continue
+                    ; MsgBox,% ALoopField "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+                }
+
+
 				AddWordToList(ALoopField,0,"ForceLearn",LearnedWordsCount)
 				; LearnedWordsCount := addFuzzySearch_in_generatedList(ALoopField, ActionList,LearnedWordsCount)
-				if(g_config["FuzzySearch"]["enable"] && a_index<455)
+				if(g_config["FuzzySearch"]["enable"] && a_index < g_config["FuzzySearch"]["MAXlines"])
 					addFuzzySearch_in_generatedList(ALoopField, ActionList,LearnedWordsCount)
 				;     AddWordToList("rübennase" A_now,1,"ForceLearn", g_config["FuzzySearch"]["keysMAXperEntry"], g_config["FuzzySearch"]["doValueCopy"])
 				
@@ -343,7 +362,7 @@ from: ActionList.ahk~%A_LineNumber%
 
 ;      Progress, 50, Please wait..., Converting learned words, %g_ScriptTitle%
 		
-; -- here we are inside ReadActionList()\
+; -- here we are inside ReadActionList()
 		
 		
       ;reverse the numbers of the word counts in memory
@@ -601,7 +620,7 @@ AddWordToList(AddWord,ForceCountNewOnly,ForceLearn:= false, ByRef LearnedWordsCo
 			}
 		}
 	}
-	
+
 	if !(CheckValid(AddWord,ForceLearn))
 		return
 	
@@ -693,18 +712,20 @@ CheckValid(Word,ForceLearn:= false){
 
 	
 	Ifequal, Word,  ;If we have no word to add, skip out.
-	Return
+	    Return
 	
 	if Word is space ;If Word is only whitespace, skip out.
 		Return
 	
 	if ( Substr(Word,1,1) = ";" ) ;If first char is ";", clear word and skip out.
-	{
 		Return
-	}
-	
-	IF ( StrLen(Word) <= prefs_Length ) ; don't add the word if it's not longer than the minimum length
-	{
+
+;	if ( Substr(Word,1,1) = " " ) ; If first char is " ", clear word and skip out. spaces now have a special meaning. with spaces is not a kay. with spaces it could be eventually a value of a block
+;		Return
+    ; ALoopField  := RegExReplace(ALoopField, "^\s+" , "" ) ; anfangs leerzeichen raus 06.11.2017 18:28
+
+
+	IF ( StrLen(Word) <= prefs_Length ){ ; don't add the word if it's not longer than the minimum length
 		Return
 	}
 	

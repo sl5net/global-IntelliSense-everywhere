@@ -272,11 +272,11 @@ INSERT_function_call_time_millis_since_midnight( aLineFile , aThisFunc , aLineNu
 if( !ActionListSize && ActionList)
     FileGetSize, ActionListSize, %ActionList%
 
-millis_since_midnight := JEE_millis_since_midnight(vOpt:="")
+; millis_since_midnight := JEE_millis_since_midnight(vOpt:="") ; <=== works great but for moment also its ok to use := A_Hour*3600000+A_Min*60000+A_Sec*1000+A_MSec
+millis_since_midnight := A_Hour*3600000+A_Min*60000+A_Sec*1000+A_MSec ; <== buggy sometimes but maybe faster ????? 18-10-07_09-49 ; todo make desicion
 small_LineFile := RegExReplace(aLineFile,".*\\")
 sizeHere := (ActionListsize)? ActionListsize: 0
 
-; 
         sql := "select * from performance"
         sql := "SELECT last_insert_rowid()"
         sql := "select seq from sqlite_sequence where name=""performance"""

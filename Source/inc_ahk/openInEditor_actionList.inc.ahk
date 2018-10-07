@@ -1,8 +1,9 @@
 ﻿;<<<<<<<< openInEditor <<<< 1810111507 <<<< 01.10.2018 11:54:07 <<<<
 openInEditor(ActionListFolderOfThisActionList, isAHKcode, AHKcode, isStartingUnderline, is_OpenA_edit_open_lib, isDeprecated_OpenA_edit_open_lib){
     if(!AHKcode){
+        return false
         Clipboard := AHKcode
-        Msgbox,% AHKcode "=AHKcode `n (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+        Msgbox,% ":( ups is empty: " AHKcode "=AHKcode `n (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
         ExitApp, 
     }
     foundPos := RegExMatch( AHKcode , "^\s*(?:AHK-Studio|AutoGUI|run)\s*,?(.+\.ahk)\s*$\b$" ,  m )

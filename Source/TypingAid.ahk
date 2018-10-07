@@ -295,22 +295,49 @@ return
 ;>>>>>>>>>>>>>>>>> workaround >>>>>>>>>>>>>>>
 
 reload_IfNotExist_ListBoxGui(){
+   global g_ListBox_Id
+
+
+if(true){
+    winTitle := "Word List Appears Here."
+    class := "ahk_class AutoHotkeyGUI"
+
+    ; DetectHiddenText, on
+    DetectHiddenWindows, on
+    WinWait,%winTitle% %class%, , 5
+    WinGet, listBox_Id, ID, Word List Appears Here.
+    msg := listBox_Id " - g_ListBox_Id : " g_ListBox_Id
+    ;ToolTip4sec(msg " = msg (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
+    tooltip,% msg "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+    ;MsgBox,% msg "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+    IfWinExist, %winTitle% %class%, , 5
+        MsgBox,% msg "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+    ;__ __ __ __ __ __ ______ __
+
+}
+
     AHKcode := "#" . "NoTrayIcon `n "
     AHKcode =
-    (
-    class := "ahk_class AutoHotkeyGUI"
+(
+    ; class := "ahk_class AutoHotkeyGUI"
+    SetTitleMatchMode, 2
+    ; DetectHiddenText, on
+    DetectHiddenWindows, on
     winTitle := "Word List Appears Here."
-    WinWait,`%winTitle`% `%class`%,  , 5 ; [, ExcludeTitle, ExcludeText]
-    DetectHiddenText, on
-    ; clipboard := winTitle "----" winText
-    IfWinNotExist, `%winTitle`% `%class`% ; , WinText, ExcludeTitle, ExcludeText]
+    WinWait,`%winTitle`% `%class`%, , 1
+    WinGet, listBox_Id, ID, Word List Appears Here.
+    IfWinNotExist, `%winTitle`% ; `%class`% __
+    {
+    ; if(!listBox_Id){
+       MsgBox, `%winTitle`% NOT Exist `%class`%  : %A_LineFile%~%A_LineNumber%
        run,`% "..\start.ahk"
-       ; MsgBox, `%winTitle`% NotExist `%class`%  : %A_LineFile%~%A_LineNumber%
-    else{
+    } else {
         tooltip, winTitle=`%winTitle`% found: winText=`%winText`% :%countUnderscore% = countUnderscore : %A_LineFile%~%A_LineNumber%,1,1
+        MsgBox, `%winTitle`% Exist `%class`%  : %A_LineFile%~%A_LineNumber%
         sleep,2200
-        }
-    )
+    }
+    exitapp
+)
     DynaRun(AHKcode)
 
     return
@@ -595,8 +622,11 @@ return
 checkActionListTXTfile_sizeAndModiTime:
     SetTimer,checkInRegistryChangedActionListAddress,Off
 
-    if(!FileExist(ActionList)){
+    if(!FileExist(ActionList)){ ; todo: is this deadlink? never uses? 07.10.2018 10:14 18-10-07_10-14
         ActionList := removesSymbolicLinksFromFileAdress( A_ScriptDir "\..\ActionLists\_globalActionListsGenerated\_global.ahk" )
+        ; ActionList := removesSymbolicLinksFromFileAdress( A_ScriptDir "\..\ActionLists\_globalActionListsGenerated\isNotAProject.ahk" )
+        msg := "!FileExist(ActionList = " ActionList ")"
+        MsgBox,% msg "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
     }
     if(!FileExist(ActionList)){
         MsgBox,ups !FileExist(ActionList = %ActionList%) 99999
@@ -1011,6 +1041,8 @@ return
 setRegistry_toDefault(){
     globalActionListDir := "..\ActionLists"
     globalActionList := globalActionListDir "\_globalActionListsGenerated\_global.ahk"
+    ; globalActionList := globalActionListDir   "\_globalActionListsGenerated\isNotAProject.ahk" ;  todo: is this deadlink? never uses? 07.10.2018 10:14 18-10-07_10-14
+
     RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionListDir, %globalActionListDir% ; RegWrite , RegSave , Registry
     RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionListActive, %globalActionList% ; RegWrite , RegSave , Registry
     RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionListNEW, %globalActionList% ; RegWrite , RegSave , Registry
