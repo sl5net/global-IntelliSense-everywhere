@@ -4,6 +4,9 @@ Server IRQ: chat.freenode.net
 Port IRQ: 6667 (6697 for SSL)
 Channel IRQ: #ahk
 
+ActionLists
+Source
+
 MsgBox lineFileName|rr|MsgBox,% msg "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"|ahk|Send,{CtrlDown}{left 14}{CtrlUp}
 ToolTip2sec lineFileName|rr|ToolTip2sec(msg " (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)|ahk|Send,{CtrlDown}{left 8}{CtrlUp}
 ToolTip2sec lineFileName|rr|ToolTip2sec(msg " (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)|ahk|Send,{CtrlDown}{left 8}{CtrlUp}
@@ -205,7 +208,6 @@ A_TimeIdle
 A_TimeIdlePhysical
 A_TimeSincePriorHotkey
 A_TimeSinceThisHotkey
-A_TitleMatchMode
 A_TitleMatchModeSpeed
 A_UserName
 A_WDay
@@ -804,7 +806,7 @@ SetNumLockState, Off
 SetScrollLockState, Off 
 SetStoreCapslockMode, off 
 SetTimer, UpdateInfo, %CbbUpdateInterval% 
-SetTitleMatchMode,2 ; if 1 it does not find in tray 27.04.2017|rr|SetTitleMatchMode,2 ; if 1 it does not find in tray 27.04.2017|ahk|lc:=42 `n Send, {shift down}{left %lc%}{shift up}
+SetTitleMatchMode,regEx
 SetWinDelay, 100 
 SetWorkingDir, %A_ScriptDir% 
 Shift

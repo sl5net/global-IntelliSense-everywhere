@@ -183,7 +183,10 @@ examples =
 				isIncludeFileInside := true
 				
 				includeFilePath     := ActionListDir "\" trim(matchs1)
-				includeFilePath := RegExReplace(includeFilePath ,"(\\[^\\]+\\\.\.)+") ; works. removes all symbolic links 24.02.2018  cleanPath
+
+				; includeFilePath := RegExReplace(includeFilePath ,"(\\[^\\]+\\\.\.)+") ; works. removes all symbolic links 24.02.2018  cleanPath
+				includeFilePath := removesSymbolicLinksFromFileAdress(includeFilePath) ; same as above -^
+
                 ; Msgbox,%includeFilePath%`n (%A_LineFile%~%A_LineNumber%)
 
 
