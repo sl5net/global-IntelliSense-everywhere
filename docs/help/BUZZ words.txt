@@ -1,0 +1,8 @@
+﻿
+Autocomplete > Context_completion > Action completion
+"Action completion in applications are standalone tools that add autocomplete functionality to an existing applications or all existing applications of a OS, based on the current context. The main advantage of Action completion is the ability to predict anticipated actions. The main disadvantage is the need of a data set. Most common use of Action completion is seen in advanced programming language editors and IDEs. But there are also action completion tools that work globally, in parallel, across all applications of the entire PC without (very) hindering the action completition of the respective applications." (07.10.2018)
+https://en.wikipedia.org/wiki/Autocomplete#Context_completion
+
+"search suggest drop-down list is a query feature used in computing to show the searcher shortcuts, while the query is typed ... Before the query is complete, a drop-down list with the suggested completions appears to provide options..." (07.10.2018
+https://en.wikipedia.org/wiki/Search_suggest_drop-down_list
+
