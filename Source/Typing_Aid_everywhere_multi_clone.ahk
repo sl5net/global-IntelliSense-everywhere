@@ -173,7 +173,8 @@ global g_lineNumberFeedback
     ActionListFilterPathNEW := ActionListFilterPathNEWdir . filterFileName
     if( !fileExist(ActionListFilterPathNEWdir) ){
                 ActiveClass := "_globalActionListsGenerated"
-                activeTitle := "_global"
+                ; activeTitle := "_global" ; used till 07.10.2018 10:12 18-10-07_10-12
+                activeTitle := "isNotAProject" ; isNotAProject.ahk
 
                 msg = !fileExist(ActionListFilterPathNEWdir === >%ActionListFilterPathNEWdir%<)  `n '%activeTitle%'=activeTitle , '%activeClass%' = activeClass
                 lineFileName := RegExReplace(A_LineFile, ".*\\([\w\s\.]+)$", "$1")
