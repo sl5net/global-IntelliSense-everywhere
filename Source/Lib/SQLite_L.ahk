@@ -109,8 +109,12 @@ SQLite_Startup() {
       
       ver := SQLite_LibVersion()
       
-      if(SubStr(RegExReplace(ver, "\."), 1, 2) < MinVersion)
-         throw Exception("SQLite ERROR: Version " . ver .  " of SQLite3.dll is not supported!", -1)
+      if(SubStr(RegExReplace(ver, "\."), 1, 2) < MinVersion){
+         msg := "SQLite ERROR: Version `n" ver " < " MinVersion "`n of SQLite3.dll is not supported!`n`n was copied to Clipboard"
+         Clipboard := msg
+         ToolTip5sec(msg " (" A_LineNumber " " A_LineFile " " Last_A_This)
+         ; throw Exception(msg, -1)
+      }
       
       _SQLite_ModuleHandle(DLL)
    } else

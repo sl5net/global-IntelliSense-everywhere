@@ -1031,7 +1031,7 @@ return
 
 
 check_some_keys_hanging_or_freezed:
-  if( A_TimeIdlePhysical <= 1000 * 5 )
+  if( A_TimeIdlePhysical <= 1000 * 3 )
     return
   fixBug_Alt_Shift_Ctrl_hanging_down()
 return
