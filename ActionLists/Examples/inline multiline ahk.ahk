@@ -17,8 +17,18 @@ MouseMove,0,52, 9, R
 MouseMove,-52,0, 9, R
 MouseMove,0,-52, 9, R
 
-multi text|r| ; thats not possible for the moment.
-line 1
-line 2
+send msg multi |rr||ahk|
+; Gi: do_indexFollowingLines4search := true
+msg = 
+(
+Thanks for your message.
+When is best time for you make a call?
+Best regards
+)
+send,% msg
 
+multi text|r| ; thats not possible for the moment.
+Thanks for your message.
+When is best time for you make a call?
+Best regards
 
