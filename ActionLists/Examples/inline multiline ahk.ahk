@@ -11,7 +11,7 @@ MouseMove,-51,0, 9, R
 MouseMove,0,-51, 9, R
 
 multi 2|rr||ahk|
-; Gi: indexFollowingLines4search = true 
+; Gi: do_indexFollowingLines4search = true 
 MouseMove,52,0, 9, R
 MouseMove,0,52, 9, R
 MouseMove,-52,0, 9, R

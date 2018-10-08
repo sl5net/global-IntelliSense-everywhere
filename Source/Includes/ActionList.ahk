@@ -248,7 +248,7 @@ from: ActionList.ahk~%A_LineNumber%
 
 
                 if(doCollectAhkBlock){
-                   if(RegExMatch( A_LoopField , "i);\s*Gi\s*:\s*indexFollowingLines4search\s*=\s*true\b" )) { ; do_indexFollowingLines4search
+                   if(RegExMatch( A_LoopField , "i)\bGi\s*:\s*do_indexFollowingLines4search\s*=\s*true\b" )) { ; do_indexFollowingLines4search
     				    ; AddWordToList(AddWordBlock,0,"ForceLearn",LearnedWordsCount) ;
     				    AddWordToList(ALoopField,0,"ForceLearn",LearnedWordsCount) ; ^- line above does the same
     				    doCollectAhkBlock := false
