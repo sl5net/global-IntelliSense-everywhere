@@ -222,6 +222,8 @@ from: ActionList.ahk~%A_LineNumber%
 
       INSERT_function_call_time_millis_since_midnight( A_LineFile , A_ThisFunc , A_LineNumber)
 
+        isIndexedAhkBlock := false
+        doCollectAhkBlock := false
 		Loop, Parse, ParseWords, `n, `r1
 		{
 		    ; thats the place very updates from the file are inserted into the database. this you shuld never delte.
@@ -248,10 +250,12 @@ from: ActionList.ahk~%A_LineNumber%
 
 
                 if(doCollectAhkBlock){
-                   if(RegExMatch( A_LoopField , "i)\bGi\s*:\s*do_indexFollowingLines4search\s*=\s*true\b" )) { ; do_indexFollowingLines4search
+                   if(RegExMatch( A_LoopField , "i)\bGi\s*\:\s*do_indexFollowingLines4search\s*[\:]?=\s*true\b" )) { ; do_indexFollowingLines4search
+                        ; Gi: do_indexFollowingLines4search := true
     				    ; AddWordToList(AddWordBlock,0,"ForceLearn",LearnedWordsCount) ;
     				    AddWordToList(ALoopField,0,"ForceLearn",LearnedWordsCount) ; ^- line above does the same
     				    doCollectAhkBlock := false
+    				    isIndexedAhkBlock := true
     				    ; MsgBox,% ":-) found: " A_LoopField "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")" ; __
 				}  }
 
@@ -266,19 +270,24 @@ from: ActionList.ahk~%A_LineNumber%
                     }else{
                         doCollectAhkBlock := false
                         ALoopField := AddWordBlock
-                        ; MsgBox,% ">" AddWordBlock "< (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+                        ; tooltip,% "AddWordBlock = `n >" AddWordBlock "< (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
                     }
                 }
 
-                if(RegExMatch( ALoopField , "i).+\|ahk\|\s*$" )){
+                if(RegExMatch( ALoopField , "i)^[^; ]*[^\n]+\|ahk\|[ ]*$" )){
                     doCollectAhkBlock := true
+                    isIndexedAhkBlock := false ; maybe its set in next line
                     AddWordBlock := ALoopField
                     continue
                     ; MsgBox,% ALoopField "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
                 }
 
+				if(!AddWordToList(ALoopField,0,"ForceLearn",LearnedWordsCount, isIndexedAhkBlock)){
+				    ; set to defaults:
+                    doCollectAhkBlock := false
+                    isIndexedAhkBlock := false
+				}
 
-				AddWordToList(ALoopField,0,"ForceLearn",LearnedWordsCount)
 				; LearnedWordsCount := addFuzzySearch_in_generatedList(ALoopField, ActionList,LearnedWordsCount)
 				if(g_config["FuzzySearch"]["enable"] && a_index < g_config["FuzzySearch"]["MAXlines"])
 					addFuzzySearch_in_generatedList(ALoopField, ActionList,LearnedWordsCount)
@@ -573,7 +582,7 @@ ReverseWordNums(LearnedWordsCount){
 
 ;------------------------------------------------------------------------
 
-AddWordToList(AddWord,ForceCountNewOnly,ForceLearn:= false, ByRef LearnedWordsCount := false) {
+AddWordToList(AddWord,ForceCountNewOnly,ForceLearn:= false, ByRef LearnedWordsCount := false, isIndexedAhkBlock := false) {
 
 
    ;AddWord = Word to add to the list
@@ -631,8 +640,8 @@ AddWordToList(AddWord,ForceCountNewOnly,ForceLearn:= false, ByRef LearnedWordsCo
 		}
 	}
 
-	if !(CheckValid(AddWord,ForceLearn))
-		return
+    if(!CheckValid(AddWord,ForceLearn, isIndexedAhkBlock))
+		return false
 	
    ; TransformWord normalizes the word, converting it to uppercase and removing certain accented characters.
 	TransformWord(AddWord, AddWordReplacement, AddWordDescription, AddWordTransformed, AddWordIndexTransformed, AddWordReplacementTransformed, AddWordDescriptionTransformed)
@@ -677,13 +686,13 @@ AddWordToList(AddWord,ForceCountNewOnly,ForceLearn:= false, ByRef LearnedWordsCo
 			IfNotEqual, ForceCountNewOnly, 1
 			{
 				IF (StrLen(AddWord) < prefs_LearnLength) ; don't add the word if it's not longer than the minimum length for learning if we aren't force learning it
-					Return
+					return false
 				
 				if AddWord contains %prefs_ForceNewWordCharacters%
-					Return
+					return false
 				
 				if AddWord contains %prefs_DoNotLearnStrings%
-					Return
+					return false
 				
 				CountValue = 1
 				
@@ -713,32 +722,39 @@ AddWordToList(AddWord,ForceCountNewOnly,ForceLearn:= false, ByRef LearnedWordsCo
 		}
 	}
 	
-	Return
+	Return true
 }
 
-CheckValid(Word,ForceLearn:= false){
+
+
+
+CheckValid(Word,ForceLearn:= false, isIndexedAhkBlock := false){
 
     INSERT_function_call_time_millis_since_midnight( A_LineFile , A_ThisFunc , A_LineNumber)
 
-	
 	Ifequal, Word,  ;If we have no word to add, skip out.
 	    Return
 	
 	if Word is space ;If Word is only whitespace, skip out.
 		Return
-	
-	if ( Substr(Word,1,1) = ";" ) ;If first char is ";", clear word and skip out.
-		Return
 
-;	if ( Substr(Word,1,1) = " " ) ; If first char is " ", clear word and skip out. spaces now have a special meaning. with spaces is not a kay. with spaces it could be eventually a value of a block
-;		Return
-    ; ALoopField  := RegExReplace(ALoopField, "^\s+" , "" ) ; anfangs leerzeichen raus 06.11.2017 18:28
+	if(isIndexedAhkBlock){
+	    if(!RegExMatch( Word , "\S" )) ; search a nonspace in it
+	        return
+	}else{
+        if ( Substr(Word,1,1) = ";" ) ;If first char is ";", clear word and skip out.
+            Return
+
+    ;	if ( Substr(Word,1,1) = " " ) ; If first char is " ", clear word and skip out. spaces now have a special meaning. with spaces is not a kay. with spaces it could be eventually a value of a block
+    ;		Return
+        ; ALoopField  := RegExReplace(ALoopField, "^\s+" , "" ) ; anfangs leerzeichen raus 06.11.2017 18:28
 
 
-	IF ( StrLen(Word) <= prefs_Length ){ ; don't add the word if it's not longer than the minimum length
-		Return
-	}
-	
+        IF ( StrLen(Word) <= prefs_Length ){ ; don't add the word if it's not longer than the minimum length
+            Return
+        }
+    }
+
    ;Anything below this line should not be checked if we want to Force Learning the word (Ctrl-Shift-C or coming from ActionList . txt)
 	If ForceLearn
 		Return, 1
@@ -935,7 +951,11 @@ StrUnmark(string) {
 	{
 		return string
 	}
-	
+
+    ;return string ; todo disabling has no sideEffects ?
+    ;MsgBox,% "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+
+
 	len := DllCall("Normaliz.dll\NormalizeString", "int", g_NormalizationKD, "wstr", string, "int", StrLen(string), "ptr", 0, "int", 0)  ; Get *estimated* required buffer size.
 	Loop {
 		VarSetCapacity(buf, len * 2)
@@ -948,12 +968,14 @@ StrUnmark(string) {
 	}
    ; Remove combining marks and return result.
 	string := RegExReplace(StrGet(&buf, len, "UTF-16"), "\pM")
-	
-	StringReplace, string, string, ï¿½, ae, All
-	StringReplace, string, string, ï¿½, AE, All
-	StringReplace, string, string, ï¿½, oe, All
-	StringReplace, string, string, ï¿½, OE, All
-	StringReplace, string, string, ï¿½, ss, All   
+
+	if(false){
+        StringReplace, string, string, ï¿½, ae, All
+        StringReplace, string, string, ï¿½, AE, All
+        StringReplace, string, string, ï¿½, oe, All
+        StringReplace, string, string, ï¿½, OE, All
+        StringReplace, string, string, ï¿½, ss, All
+	}
 	
 	return, string  
 	

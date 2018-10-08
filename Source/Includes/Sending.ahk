@@ -459,9 +459,9 @@ if(isAHKcode){
             ;ToolTip4sec(line " (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
             ; MsgBox,% id ": " line " rX[key]= " rX["key"] "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
         }
-         AHKcode := ahkBlock
+        AHKcode := ahkBlock
         ; msg := " ahkBlock = `n `n " ahkBlock
-        ; MsgBox,% msg "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+        ; MsgBox,% "ahkBlock=" ahkBlock  ", lineOfIndex=" lineOfIndex " (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
    }
 
 
