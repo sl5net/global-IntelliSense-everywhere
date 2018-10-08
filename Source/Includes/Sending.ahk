@@ -276,7 +276,8 @@ if(false){
 ; thats great :) here we find the complete line :) inside sending 17.03.2017 18:23 17-03-17_18-23
  ; SciTEWindow\_global.txt
  ;~ Msgbox,'%WordIndex%' = WordIndex  `n (%A_LineFile%~%A_LineNumber%)
-;Msgbox, '%sending%' = sending  n (line:%A_LineNumber%)  (line:%A_LineNumber%)
+; msg = '%sending%' = sending
+; MsgBox,% msg "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
 
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ; comments to WordIndex is numeric ID

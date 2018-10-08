@@ -7,7 +7,7 @@ Channel IRQ: #ahk
 ActionLists
 Source
 
-MsgBox lineFileName|rr|MsgBox,% msg "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"|ahk|Send,{CtrlDown}{left 14}{CtrlUp}
+MsgBox lineFileName|rr|MsgBox,% ":( ERROR: " msg "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"|ahk|Send,{CtrlDown}{left 14}{CtrlUp}
 ToolTip2sec lineFileName|rr|ToolTip2sec(msg " (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)|ahk|Send,{CtrlDown}{left 8}{CtrlUp}
 ToolTip2sec lineFileName|rr|ToolTip2sec(msg " (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)|ahk|Send,{CtrlDown}{left 8}{CtrlUp}
 ToolTip4sec lineFileName|rr|ToolTip4sec(msg " (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)|ahk|Send,{CtrlDown}{left 8}{CtrlUp}
@@ -807,7 +807,7 @@ SetScrollLockState, Off
 SetStoreCapslockMode, off 
 SetTimer, UpdateInfo, %CbbUpdateInterval% 
 SetTitleMatchMode,regEx
-SetWinDelay, 100 
+SetWinDelay, 100
 SetWorkingDir, %A_ScriptDir% 
 Shift
 ShiftAltTab

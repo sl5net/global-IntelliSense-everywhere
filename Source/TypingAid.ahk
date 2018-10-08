@@ -1079,6 +1079,11 @@ fixBug_Alt_Shift_Ctrl_hanging_down(){
     ToolTip3sec(A_LineNumber . " " . RegExReplace(A_LineFile,".*\\")  . " `n " . tip)
     send,{ShiftUp}
   }
+ if( GetKeyState("AltGr","P") ){
+    tip := "AltGr is down"
+    ToolTip3sec(A_LineNumber . " " . RegExReplace(A_LineFile,".*\\")  . " `n " . tip)
+    send,{ALTGR}
+  }
  if( !GetKeyState("NumLock","T") ){
     tip := "NumLock was not on. we need numpad"
     ToolTip3sec(A_LineNumber . " " . RegExReplace(A_LineFile,".*\\")  . " `n " . tip)

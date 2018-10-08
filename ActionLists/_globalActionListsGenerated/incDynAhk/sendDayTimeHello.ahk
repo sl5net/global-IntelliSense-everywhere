@@ -8,7 +8,7 @@ getDaytimeHello(){
   if(A_Hour >= 5) 
     helloHour=Guten Morgen
 
-  ; Guten Tag sag ich ,wenn ich fr�h aufgestanden bin, ab 11Uhr.
+  ; Guten Tag sag ich ,wenn ich früh aufgestanden bin, ab 11Uhr.
   if(A_Hour >= 11)
     helloHour=Guten Tag 
 

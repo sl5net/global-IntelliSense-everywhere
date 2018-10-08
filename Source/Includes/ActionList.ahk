@@ -245,12 +245,20 @@ from: ActionList.ahk~%A_LineNumber%
 					break
 				}
 			} else {
-                 ;Parse  := RegExReplace(pattern, "^\s+" , "" ) ; anfangs leerzeichen raus 06.11.2017 18:28
-				
+
+
+                if(doCollectAhkBlock){
+                   if(RegExMatch( A_LoopField , "i);\s*Gi\s*:\s*indexFollowingLines4search\s*=\s*true\b" )) { ; do_indexFollowingLines4search
+    				    ; AddWordToList(AddWordBlock,0,"ForceLearn",LearnedWordsCount) ;
+    				    AddWordToList(ALoopField,0,"ForceLearn",LearnedWordsCount) ; ^- line above does the same
+    				    doCollectAhkBlock := false
+    				    ; MsgBox,% ":-) found: " A_LoopField "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")" ; __
+				}  }
+
 				ALoopField := A_LoopField
 
                 if(!doCollectAhkBlock)
-                    ALoopField  := RegExReplace(ALoopField, "^\s+" , "" ) ; anfangs leerzeichen raus 06.11.2017 18:28
+                    ALoopField  := RegExReplace(ALoopField, "^\s+" , "" ) ; like ltrim or the same? 06.11.2017 18:28
                 else{
                     if(trim(ALoopField)){
                         AddWordBlock := AddWordBlock "`n" ALoopField
@@ -493,8 +501,10 @@ addFuzzySearch_in_generatedList(ActionStr, ActionList, ByRef LearnedWordsCount, 
 		if(ActionStrVal)
 			newListSynonym := key "|rr|" ; <=== eigentlich sollte es ja so gehen
 		;	newListSynonym := key ActionStrVal
-		else
+		else{
 			newListSynonym := key "|r|" ActionStr
+			; MsgBox,% newListSynonym "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+        }
         ; newListSynonym := key "|rr|" ; <=== eigentlich sollte es ja so gehen
 		
         ; Msgbox,% a_index ":`n" ActionStr "`n`n" newListSynonym "`n`n`n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
