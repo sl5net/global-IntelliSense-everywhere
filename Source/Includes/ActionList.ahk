@@ -135,13 +135,31 @@ from: ActionList.ahk~%A_LineNumber%
 		}
 	}
 ; regex ; __ __
-	
-	ToolTip5sec("DatabaseRebuilt = " DatabaseRebuilt "`nLoadActionList = " LoadActionList "`n" A_LineNumber . " " . RegExReplace(A_LineFile, ".*\\", "")  )
+	msg =
+	(
+	ActionList = %ActionList%
+	ActionListFileName = %ActionListFileName%
+	)
+
+    is_ActionList_ActionListFileName := ( ActionList == ActionListFileName )
+	msg =
+	(
+	DatabaseRebuilt = %DatabaseRebuilt%
+
+	  ActionList = %ActionList%
+	  ActionListFileName = %ActionListFileName%
+	is_ActionList_ActionListFileName  = %is_ActionList_ActionListFileName%
+
+	isTblWordsEmpty = %isTblWordsEmpty%
+	)
+
+	ToolTip5sec(msg "`n" A_LineNumber . " " . RegExReplace(A_LineFile, ".*\\", "")  )
 	if (!isTblWordsEmpty && !DatabaseRebuilt) {
     ; thats inside ReadActionList() ---------------------------------------------
 		
-		LearnedWordsTable := g_ActionListDB.Query("SELECT ActionListmodified, ActionListsize FROM ActionLists WHERE ActionList = '" . ActionListFileName . "';")
-		
+		SELECT := "SELECT ActionListmodified, ActionListsize FROM ActionLists WHERE ActionList = '" . ActionListFileName . "';"
+		LearnedWordsTable := g_ActionListDB.Query(SELECT)
+
 		LoadActionList := "Insert"
 		
 		For each, row in LearnedWordsTable.Rows
