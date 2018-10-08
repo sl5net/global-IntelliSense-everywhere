@@ -97,24 +97,22 @@ class gDBA_SQLiteDataType
 
 
 SQLite_Startup() {
-   Static MinVersion := "35"
+   Static MinVersion := "3.5"
    
    sqliteDllPath := SQLite_DLLPath()
    
-   if(FileExist(sqliteDllPath))
-   {
+   if(FileExist(sqliteDllPath)){
       DLL := DllCall("LoadLibrary", "Str", sqliteDllPath)
       if(!DLL)
          throw Exception("Can't load " . sqliteDllPath . "!", -1)
       
-      ver := SQLite_LibVersion()
-
-      verNumber := RegExReplace(ver, "^[^\d]*(\d+[\d\.]*).*","$1")
-      if(verNumber < MinVersion){
-         msg := "SQLite ERROR: Version `n" verNumber " < " MinVersion "`n of SQLite3.dll is not supported!`n`n was copied to Clipboard"
-         Clipboard := msg
-         ToolTip5sec(msg " (" A_LineNumber " " A_LineFile " " Last_A_This)
-         ; throw Exception(msg, -1)
+        ver := SQLite_LibVersion()
+        RegExMatch(ver, "(\d+[\d\.]*)", verNumber)
+        if(verNumber1 < MinVersion){
+            msg := "SQLite ERROR: Version `n" verNumber1 " < " MinVersion "`n of SQLite3.dll is not supported!`n`n was copied to Clipboard"
+            Clipboard := msg
+            ;ToolTip5sec(msg " (" A_LineNumber " " A_LineFile " " Last_A_This)
+            throw Exception(msg, -1)
       }
       
       _SQLite_ModuleHandle(DLL)
