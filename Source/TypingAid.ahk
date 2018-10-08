@@ -622,14 +622,13 @@ return
 checkActionListTXTfile_sizeAndModiTime:
     SetTimer,checkInRegistryChangedActionListAddress,Off
 
-    if(!FileExist(ActionList)){ ; todo: is this deadlink? never uses? 07.10.2018 10:14 18-10-07_10-14
-        ActionList := removesSymbolicLinksFromFileAdress( A_ScriptDir "\..\ActionLists\_globalActionListsGenerated\_global.ahk" )
-        ; ActionList := removesSymbolicLinksFromFileAdress( A_ScriptDir "\..\ActionLists\_globalActionListsGenerated\isNotAProject.ahk" )
-        msg := "!FileExist(ActionList = " ActionList ")"
-        MsgBox,% msg "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+    if(!FileExist(ActionList)){ ; todo: is this deadlink? never uses? 07.10.2018 10:14 18-10-07_10-14 ; no it was happend 08.10.2018 15:15 , 18-10-08_15-15
+        ; ActionList := removesSymbolicLinksFromFileAdress( A_ScriptDir "\..\ActionLists\_globalActionListsGenerated\_global.ahk" )
+        ActionList := removesSymbolicLinksFromFileAdress( A_ScriptDir "\..\ActionLists\_globalActionListsGenerated\isNotAProject.ahk" )
     }
     if(!FileExist(ActionList)){
-        MsgBox,ups !FileExist(ActionList = %ActionList%) 99999
+        msg := "!FileExist(ActionList = " ActionList ")"
+        MsgBox,% "ups" msg "`n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
     }
 
 
