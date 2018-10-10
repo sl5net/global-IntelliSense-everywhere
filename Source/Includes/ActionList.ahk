@@ -48,13 +48,13 @@ ReadActionList(){
 		isTblWordsEmpty := false
 	
 	
-	ActionListFileName := ActionList
-   ; FileReadLine,ActionListFileName  ,ActionList.txt, 1
+;	ActionList := ActionList
+   ; FileReadLine,ActionList  ,ActionList.txt, 1
    ; FileReadLine,activeClass ,ActionList.txt, 2
    ; FileReadLine,activeTitle ,ActionList.txt, 3
 	
    ; ActionListFileAdress := RegExReplace("\._Generated.txt\s*$", "")
-   ; ActionList = %A_ScriptDir%\%ActionListFileName%
+   ; ActionList = %A_ScriptDir%\%ActionList%
 	ActionList = %ActionList%
 	ActionListLearnedTXTaddress= %A_ScriptDir%\ActionListLearned.ahk
 	
@@ -138,26 +138,22 @@ from: ActionList.ahk~%A_LineNumber%
 	msg =
 	(
 	ActionList = %ActionList%
-	ActionListFileName = %ActionListFileName%
+	ActionList = %ActionList%
 	)
 
-    is_ActionList_ActionListFileName := ( ActionList == ActionListFileName )
 	msg =
 	(
-	DatabaseRebuilt = %DatabaseRebuilt%
-
-	  ActionList = %ActionList%
-	  ActionListFileName = %ActionListFileName%
-	is_ActionList_ActionListFileName  = %is_ActionList_ActionListFileName%
-
+	ActionList = %ActionList%
 	isTblWordsEmpty = %isTblWordsEmpty%
+	DatabaseRebuilt = %DatabaseRebuilt%
 	)
 
-	ToolTip5sec(msg "`n" A_LineNumber . " " . RegExReplace(A_LineFile, ".*\\", "")  )
+	ToolTip4sec(msg "`n" A_LineNumber . " " . RegExReplace(A_LineFile, ".*\\", "")  )
 	if (!isTblWordsEmpty && !DatabaseRebuilt) {
     ; thats inside ReadActionList() ---------------------------------------------
 		
-		SELECT := "SELECT ActionListmodified, ActionListsize FROM ActionLists WHERE ActionList = '" . ActionListFileName . "';"
+		SELECT := "SELECT ActionListmodified, ActionListsize FROM ActionLists WHERE ActionList = '" . ActionList . "';"
+    	ToolTip4sec(msg "`n`n" SELECT "`n" A_LineNumber . " " . RegExReplace(A_LineFile, ".*\\", "")  )
 		LearnedWordsTable := g_ActionListDB.Query(SELECT)
 
 		LoadActionList := "Insert"
@@ -327,11 +323,11 @@ from: ActionList.ahk~%A_LineNumber%
 		
 		
 		if (LoadActionList == "Update") {
-			UPDATE := "UPDATE ActionLists SET ActionListmodified = '" . ActionListModified . "', ActionListsize = '" . ActionListSize . "' WHERE ActionList = '" . ActionListFileName . "';"
+			UPDATE := "UPDATE ActionLists SET ActionListmodified = '" . ActionListModified . "', ActionListsize = '" . ActionListSize . "' WHERE ActionList = '" . ActionList . "';"
 			g_ActionListDB.Query(UPDATE)
         ;Msgbox, %UPDATE%  (line:%A_LineNumber%)
 		} else {
-         ;g_ActionListDB.Query("INSERT INTO ActionLists (ActionList, ActionListmodified, ActionListsize) VALUES ('" . ActionListFileName . "','" . ActionListModified . "','" . ActionListSize . "');")
+         ;g_ActionListDB.Query("INSERT INTO ActionLists (ActionList, ActionListmodified, ActionListsize) VALUES ('" . ActionList . "','" . ActionListModified . "','" . ActionListSize . "');")
 			
 			INSERT_INTO_ActionLists_ifNotExist(ActionList, ActionListModified, ActionListSize )
 			g_ActionListID := getActionListID(ActionList) ; 24.03.2018 23:02
@@ -432,7 +428,11 @@ addListOpenAction_ifNotAlreadyInTheList(contentActionList,ActionList){
 	contentActionList432indes := SubSTr( contentActionList , 1 , 432 ) ; we dont wann search the complete file. takes to much time :) 12.08.2017 23:02 17-08-12_23-02
 	
 ; adds a ___open library if not into the ActionList
-	if( !RegExMatch(contentActionList432indes, pattern ) ){
+    postFixGenerated := "._Generated.ahk"
+    ActionListPostFix  := SubStr(ActionList, - StrLen(postFixGenerated) + 1 )
+    itsAGeneratedList := ( postFixGenerated == ActionListPostFix )
+        ; MsgBox,% msg "its a " postFixGenerated "`n ==> leave it hidden (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+	if(!itsAGeneratedList && !RegExMatch(contentActionList432indes, pattern ) ){
 		ToolTip,% ActionList "`n`n " A_LineNumber   " "   A_LineFile   " "   Last_A_This
 		SplitPath, ActionList, , , , OutNameNoExt
 		temp := "___open " OutNameNoExt "(ActionList.ahk~" A_LineNumber "|rr||ahk|run," OutNameNoExt ".ahk"

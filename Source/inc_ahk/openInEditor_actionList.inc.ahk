@@ -6,7 +6,7 @@ openInEditor(ActionListFolderOfThisActionList, isAHKcode, AHKcode, isStartingUnd
         Msgbox,% ":( ups is empty: " AHKcode "=AHKcode `n (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
         ExitApp, 
     }
-    foundPos := RegExMatch( AHKcode , "^\s*(?:AHK-Studio|AutoGUI|run)\s*,?(.+\.ahk)\s*$\b$" ,  m )
+    foundPos := RegExMatch( AHKcode , "^\s*(?:AHK-Studio|AutoGUI|run)\s*,?\s*(.+\.ahk)\s*$\b$" ,  m )
     ifIsIt := (isStartingUnderline && is_OpenA_edit_open_lib && foundPos ) 
     if(!ifIsIt)
         return false

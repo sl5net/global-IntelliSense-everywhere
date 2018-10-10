@@ -35,7 +35,7 @@ class Stuff{
 }
 
 global g_config := { list:{ change: { stopRexExTitle: false } } }
-global g_config := { FuzzySearch:{ enable: true, keysMAXperEntry : 6, doValueCopy : false } } ; difficult to implement symlink copy for not rr lines doValueCopy. todo: issue . doValueCopy : false  is not fully implemented
+global g_config := { FuzzySearch:{ enable: true, MAXlines : 1000, keysMAXperEntry : 6, doValueCopy : false } } ; difficult to implement symlink copy for not rr lines doValueCopy. todo: issue . doValueCopy : false  is not fully implemented
 ; if(g_config["FuzzySearch"]["enable"] && a_index<455)
 ; if(g_config["FuzzySearch"]["keysMAXperEntry"] && a_index<455)
 
@@ -286,28 +286,58 @@ MainLoop()
 ; https://github.com/sl5net/global-IntelliSense-everywhere/issues/4
 #IfWinActive,
 :b0*?:__:: ;does not delete the underscores
-    reload_IfNotExist_ListBoxGui()
+    SetTimer, show_ListBox_Id, 600 ; setinterval
+    Sleep,100
+    g_reloadIf_ListBox_Id_notExist := true
+    ; reload_IfNotExist_ListBoxGui()
     ; ~_:: countUnderscore++ if(countUnderscore == 2){ countUnderscore := 0 reload_IfNotExist_ListBoxGui()
 return
 ;>>>>>>>>>>>>>>>>> workaround >>>>>>>>>>>>>>>
 
 reload_IfNotExist_ListBoxGui(){
+   global g_ListBox_Id
+
+
+if(true){
+    winTitle := "Word List Appears Here."
+    class := "ahk_class AutoHotkeyGUI"
+
+    ; DetectHiddenText, on
+    DetectHiddenWindows, on
+    WinWait,%winTitle% %class%, , 5
+    WinGet, listBox_Id, ID, Word List Appears Here.
+    msg := listBox_Id " - g_ListBox_Id : " g_ListBox_Id
+    ;ToolTip4sec(msg " = msg (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
+    tooltip,% msg "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+    ;MsgBox,% msg "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+    IfWinExist, %winTitle% %class%, , 5
+        MsgBox,% msg "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+    ;__ __ __ __ __ __ ______ __
+
+}
+
     AHKcode := "#" . "NoTrayIcon `n "
     AHKcode =
-    (
-    class := "ahk_class AutoHotkeyGUI"
+(
+    ; class := "ahk_class AutoHotkeyGUI"
+    SetTitleMatchMode, 2
+    ; DetectHiddenText, on
+    DetectHiddenWindows, on
     winTitle := "Word List Appears Here."
-    WinWait,`%winTitle`% `%class`%,  , 5 ; [, ExcludeTitle, ExcludeText]
-    DetectHiddenText, on
-    ; clipboard := winTitle "----" winText
-    IfWinNotExist, `%winTitle`% `%class`% ; , WinText, ExcludeTitle, ExcludeText]
+    WinWait,`%winTitle`% `%class`%, , 1
+    WinGet, listBox_Id, ID, Word List Appears Here.
+    IfWinNotExist, `%winTitle`% ; `%class`% __
+    {
+    ; if(!listBox_Id){
+       MsgBox, `%winTitle`% NOT Exist `%class`%  : %A_LineFile%~%A_LineNumber%
        run,`% "..\start.ahk"
-       ; MsgBox, `%winTitle`% NotExist `%class`%  : %A_LineFile%~%A_LineNumber%
-    else{
+    } else {
         tooltip, winTitle=`%winTitle`% found: winText=`%winText`% :%countUnderscore% = countUnderscore : %A_LineFile%~%A_LineNumber%,1,1
+        MsgBox, `%winTitle`% Exist `%class`%  : %A_LineFile%~%A_LineNumber%
         sleep,2200
-        }
-    )
+    }
+    exitapp
+)
     DynaRun(AHKcode)
 
     return
@@ -592,11 +622,13 @@ return
 checkActionListTXTfile_sizeAndModiTime:
     SetTimer,checkInRegistryChangedActionListAddress,Off
 
-    if(!FileExist(ActionList)){
-        ActionList := removesSymbolicLinksFromFileAdress( A_ScriptDir "\..\ActionLists\_globalActionListsGenerated\_global.ahk" )
+    if(!FileExist(ActionList)){ ; todo: is this deadlink? never uses? 07.10.2018 10:14 18-10-07_10-14 ; no it was happend 08.10.2018 15:15 , 18-10-08_15-15
+        ; ActionList := removesSymbolicLinksFromFileAdress( A_ScriptDir "\..\ActionLists\_globalActionListsGenerated\_global.ahk" )
+        ActionList := removesSymbolicLinksFromFileAdress( A_ScriptDir "\..\ActionLists\_globalActionListsGenerated\isNotAProject.ahk" )
     }
     if(!FileExist(ActionList)){
-        MsgBox,ups !FileExist(ActionList = %ActionList%) 99999
+        msg := "!FileExist(ActionList = " ActionList ")"
+        MsgBox,% "ups" msg "`n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
     }
 
 
@@ -1008,6 +1040,8 @@ return
 setRegistry_toDefault(){
     globalActionListDir := "..\ActionLists"
     globalActionList := globalActionListDir "\_globalActionListsGenerated\_global.ahk"
+    ; globalActionList := globalActionListDir   "\_globalActionListsGenerated\isNotAProject.ahk" ;  todo: is this deadlink? never uses? 07.10.2018 10:14 18-10-07_10-14
+
     RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionListDir, %globalActionListDir% ; RegWrite , RegSave , Registry
     RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionListActive, %globalActionList% ; RegWrite , RegSave , Registry
     RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionListNEW, %globalActionList% ; RegWrite , RegSave , Registry
@@ -1043,6 +1077,11 @@ fixBug_Alt_Shift_Ctrl_hanging_down(){
     tip := "Shift is down"
     ToolTip3sec(A_LineNumber . " " . RegExReplace(A_LineFile,".*\\")  . " `n " . tip)
     send,{ShiftUp}
+  }
+ if( GetKeyState("AltGr","P") ){
+    tip := "AltGr is down"
+    ToolTip3sec(A_LineNumber . " " . RegExReplace(A_LineFile,".*\\")  . " `n " . tip)
+    send,{ALTGR}
   }
  if( !GetKeyState("NumLock","T") ){
     tip := "NumLock was not on. we need numpad"
@@ -1094,3 +1133,20 @@ check_ActionList_GUI_is_hanging_or_freezed:
   clipboard := tip
   ; too too too
 return
+
+show_ListBox_Id:
+    SetTimer, show_ListBox_Id, Off ; setinterval
+
+    global g_ListBox_Id
+    global g_reloadIf_ListBox_Id_notExist
+    ;ToolTip1sec(g_ListBox_Id " (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This,1,1)
+    if(!g_ListBox_Id && g_reloadIf_ListBox_Id_notExist)
+        run,% "..\start.ahk"
+        ;reload
+        ;MsgBox, , repair Manue, repair Manue, 1
+    g_reloadIf_ListBox_Id_notExist := false
+        ;MsgBox, [ Options, Title, Text, Timeout]
+        ;
+return
+
+;  too __
