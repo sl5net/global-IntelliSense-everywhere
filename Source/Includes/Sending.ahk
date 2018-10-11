@@ -313,6 +313,8 @@ regIsXXXcode := "^([^\|\n]+?)\|(rr)\|([^\n]*?)\|(ahk|kts)\|([^\n]*?)$"
 regIsXXXcode := "^([^\|\n]+?)\|(rr)\|([^\n]*?)(?:\|(ahk|kts)\|)*([^\n]*?)$"
 regIsXXXcode := "^([^\|\n]+?)\|(rr)\|(?:([^\n]*?)(?:\|(ahk|kts)\|)+([^\n]*?)$)*"
 regIsXXXcode := "^([^\|\n]+?)\|(rr)\|(?:([^\n]*?)(?:\|(ahk|kts)\|)+(.*?)$)*" ; since today we using ahk blocks. newline could be posible
+regIs_r_replacement := "^([^\|\n]+?)\|r\|(.*?)$"
+; Camtasia mp4|r|G:\fre\private\video\mp4\Camtasia
 ; may remember this vor later implementation: ^([^\|\n]+?)(?:\|(rr)\|(?:([^\n]*?)(?:\|(ahk|kts)\|)+([^\n]*?)$)*)*$
 ; https://regex101.com/r/XvcvV4/3/      https://autohotkey.com/boards/viewtopic.php?f=6&t=45684&p=241492#p241492
 ;<<<<< tests <<<< 1810106253 <<<< 01.10.2018 6:26:53
@@ -362,7 +364,7 @@ msgbox,% tip
             ; msgbox, % tip
             id := getWordIndex(m1)
             while(!rX["code"] && id>1){
-                id -= 1
+                id -= 1 ; we are in synonym lets search up
                 lineOfIndex := getLineOfIndex(id)
                 ; dayTimeHello.ahk|rr|
                 RegExMatch( lineOfIndex , regIsXXXcode  ,  m )
@@ -373,8 +375,17 @@ msgbox,% tip
                     tip .= "`n regIsXXXcode= " rX["regIsXXXcode"] "`n key= " rX["key"] "`n rr= " rX["rr"] " `n send= " rX["send"] " `n lang= " rX["lang"] " `n code= " rX["code"]
                     ;Msgbox,% " `n" tip "`n no code tag inside `n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
                     ;ToolTip3sec(tip)
-                    sending := lineOfIndex
-                    ;MsgBox,% rX["key"] "#" rX["rr"] "#" rX["send"]  "#" rX["code"] "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+
+                    ;/¯¯¯¯ SysnonymR ¯¯ 181011160938 ¯¯ 11.10.2018 16:09:38 ¯¯\
+                    ; https://g-intellisense.myjetbrains.com/youtrack/issue/GIS-36
+                    if(foundPosr_replacement := RegExMatch( lineOfIndex , regIs_r_replacement ,  m )){
+                        rX := {key:m1, rr:"r", send:m2, lang:"" ,code:""}
+                        sending := rX["send"]
+                    }else
+                        sending := lineOfIndex
+                    ;\____ SysnonymR __ 181011160954 __ 11.10.2018 16:09:54 __/
+
+                    ; MsgBox,% rX["key"] "#" rX["rr"] "#" rX["send"]  "#" rX["code"] "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
                     ;pause
 
                     break ; no code tag inside
@@ -444,6 +455,8 @@ if(isAHKcode){
         return
 } ; Endof if(isAHKcode)
 
+
+    ;/¯¯¯¯ ahkBlock ¯¯ 181011155159 ¯¯ 11.10.2018 15:51:59 ¯¯\
    if(isAHKcode && !AHKcode){
         ahkBlock := ""
         lineOfIndex := g_SingleMatch[WordIndex]
@@ -463,7 +476,7 @@ if(isAHKcode){
         ; msg := " ahkBlock = `n `n " ahkBlock
         ; MsgBox,% "ahkBlock=" ahkBlock  ", lineOfIndex=" lineOfIndex " (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
    }
-
+    ;\____ ahkBlock __ 181011155154 __ 11.10.2018 15:51:54 __/
 
     ; tooltip ,% AHKcode "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
     ; msgbox ,% "sending=" sending "`n" AHKcode "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
