@@ -294,6 +294,13 @@ from: ActionList.ahk~%A_LineNumber%
                     AddWordBlock := ALoopField
                     continue
                     ; MsgBox,% ALoopField "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+                }else{
+                    regIs_r_synonym := "^([^\|\n]+?)\|r\|[ ]*$"
+                    if(RegExMatch( ALoopField , regIs_r_synonym ,  m )){
+                        rX := {key:m1, rr:"r", send:"", lang:"" ,code:""}
+                        ; create a working synonym:
+                        ALoopField := rX["key"] "|rr|"
+                    }
                 }
 
 				if(!AddWordToList(ALoopField,0,"ForceLearn",LearnedWordsCount, isIndexedAhkBlock)){
