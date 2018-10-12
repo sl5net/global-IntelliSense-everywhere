@@ -104,7 +104,7 @@ SQLite_Startup() {
    if(FileExist(sqliteDllPath)){
       DLL := DllCall("LoadLibrary", "Str", sqliteDllPath)
       if(!DLL)
-         throw Exception("Can't load " . sqliteDllPath . "!", -1)
+         throw Exception("Can't load " . sqliteDllPath . "! (token:18-10-12_11-52. BTW DllCall is in AHK v2 is case sensitive)", -1)
       
         ver := SQLite_LibVersion()
         RegExMatch(ver, "(\d+[\d\.]*)", verNumber)
@@ -841,7 +841,14 @@ SQLite_LastError(Error = "") {
 
 SQLite_DLLPath(forcedPath = "") {
    static DLLPath := ""
-   static dllname := "SQLite3.dll"
+;   static dllname := "SQLite3.dll" ; filename is not CamelCase "sqlite3.dll" work at most computer 12.10.2018 11:46
+   static dllname := "sqlite3.dll" ; todo reason or error? may not work at jeeswg Sent: Fri Oct 12, 2018 5:04
+    ;/¯¯¯¯ ERROR-Log ¯¯ 181012114804 ¯¯ 12.10.2018 11:48:04 ¯¯\
+    ; ERROR-Log
+   ; Can't load \Source\Lib\SQLite3.dll!
+    ; !!!! DllCall is in v2 is case sensitive https://autohotkey.com/boards/viewtopic.php?t=3280
+   ; 012: SQLite_Startup()
+   ;\____ ERROR-Log __ 181012114808 __ 12.10.2018 11:48:08 __/
 
    if(DLLPath == ""){
       ; search the dll
