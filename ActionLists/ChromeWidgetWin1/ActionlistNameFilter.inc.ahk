@@ -9,16 +9,21 @@ ActionListFilterPath = .\ActionLists\ChromeWidgetWin1\ActionListNameFilter.inc.a
 if(false){ ; needet becouse later we use else if very often 28.09.2018 09:12
 	noop:=0
 }
-; Include *i PRIVATE_ActionListNameFilter.inc.ahk
 #Include *i .\..\ActionLists\ChromeWidgetWin1\PRIVATE_ActionListNameFilter.inc.ahk
 
 else if ( instr( activeTitle , "Benachrichtigung:")  &&  RegExMatch( activeTitle , "Gmail")   )
 	ActionListNEW := "Benachrichtigung_Google_Chrome"
 
-else if (  RegExMatch( activeTitle , "\b(Gmail|Google Contacts - Google Chrome)\b") )
+else 
+	AutoHotkey_Community:
+if ( instr( activeTitle , "AutoHotkey Community")  &&  RegExMatch( activeTitle , "Gmail")   )
+	ActionListNEW := "AutoHotkey_Community"
+
+
+else 
+	Gmail_Google_Chrome:
+if (  RegExMatch( activeTitle , "\b(Gmail|Google Contacts - Google Chrome)\b") )
 	ActionListNEW := "Gmail_Google_Chrome"
-
-
 else if ( RegExMatch( activeTitle , "Google Kalender"  )    )
 	ActionListNEW := "Gmail_Google_Chrome.ahk"
 

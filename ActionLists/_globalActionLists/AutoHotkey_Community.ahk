@@ -4,11 +4,69 @@ ___your library open|rr||ahk|run,AutoHotkey_Community.ahk
 ; if this german au is readable your UTF8 is probalby correct: ä
 
 interesting. what is this? i never saw it.
+interesting. i never heard about it.
 
 change 2 '.ahk AutoHotkey_Community'|rr||ahk|sleep,2000 `n WinSetTitle,A,,.ahk AutoHotkey_Community `n g_config["list"]["change"]["stopRexExTitle"]:="."
 start changeing list automatically|rr||ahk|g_config["list"]["change"]["stopRexExTitle"]:=false
 
-code|rr|[code][/code]|ahk|send,{left 7}{enter 2}{up}{text}%clipboard%
+
+list|rr||ahk|
+s = 
+(
+[list]
+[*]text
+[*]text
+[/list]
+)
+Clipboard := s
+send, ^v
+
+
+
+quote End|r|[/quote]
+quote|rr||ahk|
+s = 
+(
+[quote="userName"]
+%clipboard%
+[/quote]
+)
+Clipboard := s
+send, ^v
+
+
+center|rr||ahk|
+s = 
+(
+[center]%clipboard%[/center]
+)
+Clipboard := s
+send, ^v
+
+
+
+img image|rr||ahk|
+sting = 
+(
+[img]%clipboard%[/img]
+)
+Clipboard := sting
+send, ^v
+
+
+
+code|rr||ahk|
+ahkCode = 
+(
+[code]
+%clipboard%
+[/code]
+)
+Clipboard := ahkCode
+send, ^v
+
+
+
 url|rr|[url=]title[/url]|ahk|send,{left 12}{text}%clipboard% `n send,{CtrlDown}{ShiftDown}{Left}{ShiftUp}{CtrlUp}
 
 TypingAid Command line arg to Start with specific wordList

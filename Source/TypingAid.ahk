@@ -121,7 +121,7 @@ maxLinesOfCode4length1 := 900 ;
 ; SetTimer, saveIamAllive, 8000 ; setinterval
 SetTimer,checkInRegistryChangedActionListAddress,1000 ; RegRead, ActionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList
 SetTimer,checkActionListTXTfile_sizeAndModiTime,3000
-SetTimer,check_some_keys_hanging_or_freezed,2000 ; ; 30.08.2018 13:52 it sometimes happesn. and if it happens then its really ugly !!!! :( !!
+SetTimer,check_some_keys_hanging_or_freezed,1800 ; ; 30.08.2018 13:52 it sometimes happesn. and if it happens then its really ugly !!!! :( !!
 SetTimer,check_ActionList_GUI_is_hanging_or_freezed,1000 ; ; 26.09.2018 16:38 it sometimes happesn.
 
 
@@ -710,7 +710,7 @@ if(0 && InStr(A_ComputerName,"SL5"))
     if(1){
         ; not needet to check, but maybe mmore pretty coding ?? 20.03.2018 18:34 TODO
         ; its more pretty to have a updated text inside this box, therfore close it first. 20.03.2018 18:35
-        name := "ActionListChangedInRegistry"
+        name := "ActionListChangedInRegistry ahk_class #32770"
         while(WinExist(name) && A_Index < 9){
             WinClose,% name
             winWaitclose,% name,,1
@@ -755,7 +755,24 @@ if(0 && InStr(A_ComputerName,"SL5"))
 
     if(g_doAskBevoreChangingActionList && ActionListSize > g_minBytesNeedetToAskBevoreChangingActionList){
         AHKcodeMsgBox := "#" . "NoTrayIcon `n "
-        temp = msgbox,,ActionListChangedInRegistry, Would you use new list now? ``n ``n Say goodbye to? (%ActionListSize% bytes > %g_minBytesNeedetToAskBevoreChangingActionList%) ``n  %ActionList% ``n exitApp
+        ; temp = msgbox,,ActionListChangedInRegistry, Would you use new list now? ``n ``n Say goodbye to? (%ActionListSize% bytes > %g_minBytesNeedetToAskBevoreChangingActionList%) ``n  %ActionList% ``n exitApp
+        temp =
+        (
+        msgbox,262176,ActionListChangedInRegistry, Would you use new list now? ``n ``n Say goodbye to? (%ActionListSize% bytes > %g_minBytesNeedetToAskBevoreChangingActionList%) ``n  %ActionList% ``n  ``n  F1=WebSearch
+        #ifwinactive,ActionListChangedInRegistry
+        f1::
+        run,https://www.google.de/search?q=ActionListChangedInRegistry global-IntelliSense-everywhere
+        WinWaitActive,ActionListChangedInRegistry global-IntelliSense-everywhere,,3
+        sleep,1000
+        IfWinActive,
+        {
+            sleep,60
+            send,^f ActionListChangedInRegistry
+        }
+        return
+        exitApp
+        )
+
 AHKcodeMsgBox .= temp
         if(g_FLAGmsgbox){
             g_FLAGmsgbox := false ; just clicked msgboxWindow

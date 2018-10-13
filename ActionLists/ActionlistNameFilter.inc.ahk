@@ -18,25 +18,25 @@
 isSlowMotion := false
 ; isSlowMotion := true
 if(A_ScriptName == "ActionListNameFilter.inc.ahk" ) { ; thats developer mode. this script is not includet. 08.03.2017 09:14
-activeTitle  = I would like to hire a PHP Developer | Codeigniter | CSS | HTML5 | JSON | PHP - Google Chrome
-activeTitle  = (Unbenannt) * SciTE4AutoHotkey [5 von 5] ahk_class SciTEWindow 
-activeTitle  = (Unbenannt) * SciTE4AutoHotkey [6 von 6]
-activeTitle  = Threema Web - Google Chrome
-
-activeTitle  = dingsbums.ahk
-ActionListDir  := "..\ActionLists\SciTEWindow"
-
- if(!ActionListNEW)
-  ActionListNEW := A_ScriptName
-  ActionListNEW := activeTitle
-
-  isSlowMotion := true
+	activeTitle  = I would like to hire a PHP Developer | Codeigniter | CSS | HTML5 | JSON | PHP - Google Chrome
+	activeTitle  = (Unbenannt) * SciTE4AutoHotkey [5 von 5] ahk_class SciTEWindow 
+	activeTitle  = (Unbenannt) * SciTE4AutoHotkey [6 von 6]
+	activeTitle  = Threema Web - Google Chrome
+	
+	activeTitle  = dingsbums.ahk
+	ActionListDir  := "..\ActionLists\SciTEWindow"
+	
+	if(!ActionListNEW)
+		ActionListNEW := A_ScriptName
+	ActionListNEW := activeTitle
+	
+	isSlowMotion := true
 } ; demo Mode ende. ( A_ScriptName == "ActionListNameFilter.inc.ahk" )
 
-  if(!ActionListDir)
-      ActionListDir := A_ScriptDir
-  if(!scriptDir)
-      scriptDir := ActionListDir
+if(!ActionListDir)
+	ActionListDir := A_ScriptDir
+if(!scriptDir)
+	scriptDir := ActionListDir
 
 
 ;ToolTip,`n (%A_LineFile%~%A_LineNumber%)
@@ -46,11 +46,11 @@ ActionListDir  := "..\ActionLists\SciTEWindow"
 
 
 if (!ActionListNEW && false){
-    m = ERROR ActionListNEW is EMPTY: `n `n '%ActionListNEW%' = ActionListNEW  `n   17-03-05_14-51 `n `n 'ActionLists\ActionListNameFilter.inc.ahk' = ActionListFilterPath  `n (line:%A_LineNumber%) `n %A_ScriptFullPath% = (token293) A_ScriptFullPath   (line: %A_LineNumber%)
-   Clipboard := m
-    tooltip, ERRORmessage is copied to the >>Clipboard<< %m%
+	m = ERROR ActionListNEW is EMPTY: `n `n '%ActionListNEW%' = ActionListNEW  `n   17-03-05_14-51 `n `n 'ActionLists\ActionListNameFilter.inc.ahk' = ActionListFilterPath  `n (line:%A_LineNumber%) `n %A_ScriptFullPath% = (token293) A_ScriptFullPath   (line: %A_LineNumber%)
+	Clipboard := m
+	tooltip, ERRORmessage is copied to the >>Clipboard<< %m%
     ; MsgBox, ERRORmessage is copied to the >>Clipboard<< , %m% , 7
- }
+}
 ; tooltip,%activeTitle%
 
 
@@ -80,31 +80,32 @@ getActionListNEW173129( activeTitle, ActiveClass, ActionListNEW, ActionListDir )
  ; Anhang speichern ahk_class #32770
 	
 ; Sourcetree ahk_class HwndWrapper[SourceTree.exe;;2705bdea-7ac8-4b39-b851-91e598ce9055] ; mouseWindowTitle=0xd508d8   
-tip=%activeTitle%=activeTitle`n %ActiveClass%=ActiveClass`n (%A_LineFile%~%A_LineNumber%) 
-ToolTip,%tip%
+	tip=%activeTitle%=activeTitle`n %ActiveClass%=ActiveClass`n (%A_LineFile%~%A_LineNumber%) 
+	ToolTip,%tip%
 ;Clipboard := tip
-if(!activeTitle && !ActiveClass){
-      Msgbox,%tip% this should never happens `n (%A_LineFile%~%A_LineNumber%) 
-}
-if(0 && !activeTitle){
-      Msgbox,%tip% this should never happens `n (%A_LineFile%~%A_LineNumber%) 
-}
+	if(!activeTitle && !ActiveClass){
+		Msgbox,%tip% this should never happens `n (%A_LineFile%~%A_LineNumber%) 
+	}
+	if(0 && !activeTitle){
+		Msgbox,%tip% this should never happens `n (%A_LineFile%~%A_LineNumber%) 
+	}
 ; E:\fre\private\HtmlDevelop\Human-Connection\WebApp ahk_class VirtualConsoleClassGhost 
-if (0 && !RegExMatch( ActiveClass , "(AutoHotKey|Chrome|Notepad)" ) ) { ; thats only for a bug i search actually 18-05-08_13-03
-      tip =
+	if (0 && !RegExMatch( ActiveClass , "(AutoHotKey|Chrome|Notepad)" ) ) { ; thats only for a bug i search actually 18-05-08_13-03
+		tip =
       (
             %ActiveClass%=ActiveClass
             %activeTitle%=activeTitle
       )
-      temp =
+		temp =
       (
             _globalActionListsGenerated=ActiveClass
             _global=activeTitle
       )
       ; tooltip,%tip% = tip `n (%A_LineFile%~%A_LineNumber%) 
-      clipboard := tip
-      Msgbox,%tip% `n (%A_LineFile%~%A_LineNumber%) 
-}
+		clipboard := tip
+		Msgbox,%tip% `n (%A_LineFile%~%A_LineNumber%) 
+	}
+
 if (0 && RegExMatch( ActiveClass , "VirtualConsole" ) ) {
       tip =
       (
@@ -141,7 +142,7 @@ if (ActiveClass == "VirtualConsoleClassGhost" && RegExMatch( activeTitle , "Huma
 		return "..\VirtualConsoleClassGhost\_global"
 	}
 	
-	if ( RegExMatch( activeTitle , "i)Sourcetree" ) || RegExMatch( ActiveClass , "i)SourceTree" )  ) {
+	if ( RegExMatch( ActiveClass , "i)SourceTree" )  ) {
 	  ; Msgbox,%ActiveClass%=ActiveClass`n (%A_LineFile%~%A_LineNumber%) 
 		return "..\_globalActionLists\SourceTree"
 	}	  
@@ -150,8 +151,7 @@ if (ActiveClass == "VirtualConsoleClassGhost" && RegExMatch( activeTitle , "Huma
 	
 ; Select File - AHK-Studio.ahk ahk_class #32770 ; mouseWindowTitle=0x1604f6  ; 
 	
-	
-	if ( RegExMatch( activeTitle , "(Double Commander|FreeCommander|Q-Dir \d|Bild Ã¶ffnen|Anhang speichern|Datei speichern|Speichern|Speichern unter|ffnen|Dateien/Ordner suchen|Exportieren|Dokument speichern|Select Path|Open File or Project|Select File)" ) ) 
+	if ( RegExMatch( activeTitle , "(Double Commander|FreeCommander|Q-Dir \d|Bild öffnen|Anhang speichern|Datei speichern|Speichern|Speichern unter|ffnen|Dateien/Ordner suchen|Exportieren|Dokument speichern|Select Path|Open File or Project|Select File)" ) ) 
 		return "..\_globalActionLists\pfade"
 ;Speichern is used with ToDoList_c_AbstractSpoon
 	
