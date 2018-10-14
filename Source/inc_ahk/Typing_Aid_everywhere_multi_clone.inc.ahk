@@ -1,5 +1,5 @@
 ﻿if(InStr(A_ComputerName,"SL5")) ; do ignore nothing. development computer
-global g_ignReg := { feedbackMsgBox:{tit:".^", text:".^"} ,          saveLogFiles: {ln:".^", scriptName:"\b(Window|ListBox)\.ahk", text:"(WordIndex|CloseListBox|HotKeys|g_ListBox_Id)\b"},                    sqlQuery: {ln:".^", scriptName:".^", text:".^"},                    hotKeyStuff: {ln:".^", scriptName:".^", text:".^"},                    runLogFile: {ln:".^", scriptName:".^", text:".^"} } ;;;;
+	global g_ignReg := { feedbackMsgBox:{tit:".^", text:".^"} ,          saveLogFiles: {ln:".^", scriptName:"\b(Window|ListBox)\.ahk", text:"(WordIndex|CloseListBox|HotKeys|g_ListBox_Id)\b"},                    sqlQuery: {ln:".^", scriptName:".^", text:".^"},                    hotKeyStuff: {ln:".^", scriptName:".^", text:".^"},                    runLogFile: {ln:".^", scriptName:".^", text:".^"} } ;;;;
 
 
 ; Indentation_style: https://de.wikipedia.org/wiki/Einrückungsstil#SL5small-Stil
@@ -26,7 +26,7 @@ global g_ignReg := { feedbackMsgBox:{tit:".^", text:".^"} ,          saveLogFile
 
 
 
-;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+;/¯¯¯¯ ActionListNEWactivate( ¯¯ 181012014107 ¯¯ 12.10.2018 01:41:07 ¯¯\
 ; hier wird das active ueberschrieben: 12.07.2017 21:33
 ActionListNEWactivate( ActionListDir , ActionListNEW, ActionListActive , typingAidSourcePath, activeClass := "" , activeTitle := "" ) {
 ; return, 1 ; return spielt keine rolle, quasi void 30.07.2017 12:52 17-07-30_12-52
@@ -36,8 +36,7 @@ ActionListNEWactivate( ActionListDir , ActionListNEW, ActionListActive , typingA
 ;Msgbox,n (%A_LineFile%~%A_LineNumber%)
 	
 	if(1)
-		
-	lll(A_LineNumber, A_LineFile, ":) _______________ Hello inside " A_LineFile )
+		lll(A_LineNumber, A_LineFile, ":) _______________ Hello inside " A_LineFile )
     ; lll(A_LineNumber, A_LineFile, ":) _______________ Hello inside temp.ahk _____________"  )
 	
     ; lll(A_LineNumber, A_LineFile, "START function: ActionListNEWactivate"  )
@@ -86,18 +85,17 @@ ActionListDir = '%ActionListDir%'
 		MsgBox, :( '%ActionListActivePath%' = ActionListActivePath  `n (line:%A_LineNumber%) `n 18-01-20_17-12
 ; The active path, that the complete address of the file inc dir, has to be always present. if not then that is an error. 12.07.2017 21:10
 	
-;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+	;/¯¯¯¯ !FileExist(ActionListNEWarchivePath) ¯¯ 181012011354 ¯¯ 12.10.2018 01:13:54 ¯¯\
 	if(!FileExist(ActionListNEWarchivePath)) {
-  ; So hear it's possibly a good idea to generate a new one by using a template. 12.07.2017 21:12
-		
+		; So hear it's possibly a good idea to generate a new one by using a template. 12.07.2017 21:12
 		g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 		
 		WinGetActiveTitle,at
 		strLen_ActionListNEWar := StrLen(ActionListNEWarchivePath)
 		if(strLen_ActionListNEWar < 5)
 			MsgBox, :-( '%strLen_ActionListNEWar%' = strLen_ActionListNEWar  `n (line:%A_LineNumber%) `n
-       ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-       ; Let's generate a pretty short 80 signs long name. 12.07.2017 21:14
+		  ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+		  ; Let's generate a pretty short 80 signs long name. 12.07.2017 21:14
 		if(strLen_ActionListNEWar>70) {
 			global g_lineNumberFeedback
 			g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
@@ -107,30 +105,28 @@ ActionListDir = '%ActionListDir%'
 		} else {
 			ActionListNEWarchivePath80 := ActionListNEWarchivePath
 		}
-   ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-		
+		;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		initialActionList := ltrim(getInitialActionList(ActionListNEWarchivePath,ActionListNEW))
-		
-; _%ActionListNEWarchivePath%|r|Here you could find your library
+		; _%ActionListNEWarchivePath%|r|Here you could find your library
 		
 		StringReplace, lineFileRelative, A_LineFile , % A_ScriptDir,Source, All
-    ;Msgbox,%LineFileRelative%`n (%A_LineFile%~%A_LineNumber%) )
+		;Msgbox,%LineFileRelative%`n (%A_LineFile%~%A_LineNumber%) )
 		
 		FileAppend, `; '%at%' `; (%LineFileRelative%~%A_LineNumber%) `n%initialActionList% `n, % ActionListNEWarchivePath
 		Sleep,500
 		
-   ; End of: if(!FileExist(ActionListNEWarchivePath))
+		; End of: if(!FileExist(ActionListNEWarchivePath))
 		lll(A_LineNumber, A_LineFile,A_ThisFunc ": "    "saved first time: >" . ActionListNEWarchivePath . "< = Now the new examples-template should be saved" )
-    ; Now the new examples-template is saved inside of this file: ActionListNEWarchivePath
-    ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+		; Now the new examples-template is saved inside of this file: ActionListNEWarchivePath
+		;\____ !FileExist(ActionListNEWarchivePath) __ 181012011424 __ 12.10.2018 01:14:24 __/
 	} else {
-    ; No example template was used. The content is already there. Inside on this file. And don't need to be generated. 12.07.2017 21:36
+		; No example template was used. The content is already there. Inside on this file. And don't need to be generated. 12.07.2017 21:36
 		msg:=A_ThisFunc ": "    "startREADING: >" . ActionListNEWarchivePath . "< = ActionListNEWarchivePath"
 		lll(A_LineNumber, A_LineFile,msg)
-    ;Msgbox,%msg%`n (%A_LineFile%~%A_LineNumber%)
+		;Msgbox,%msg%`n (%A_LineFile%~%A_LineNumber%)
 		
-;<<<<<<<<<<<<< startREADING <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-       ; read #include commands
+;/¯¯¯¯ startREADING ¯¯ 181012011928 ¯¯ 12.10.2018 01:19:28 ¯¯\
+		; read #include commands
 		exist_includeFilePath := 0
 		includeFileSContent := ""
 		ActionListGeneratedPath := ""
@@ -139,7 +135,7 @@ ActionListDir = '%ActionListDir%'
 		includeFilePathArray := Object()
 		lineInRegExArray := Object()
 		
-; lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   "'" . ActionListGeneratedPath . "' = ActionListGeneratedPath `n'" . ActionListNEWarchivePath . " = ActionListNEWarchivePath " )
+		; lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   "'" . ActionListGeneratedPath . "' = ActionListGeneratedPath `n'" . ActionListNEWarchivePath . " = ActionListNEWarchivePath " )
 		
 		if(1 && !WinExist("1:" )){
 			msg =
@@ -155,8 +151,8 @@ ActionListDir = '%ActionListDir%'
 			lll(A_LineNumber, A_LineFile, msg )
 		}
 		
-		
-		Loop, read, % ActionListNEWarchivePath
+		;/¯¯¯¯ Loop,read,%ActionListNEWarchivePath ¯¯ 
+		Loop,read, % ActionListNEWarchivePath
 		{
            ; Beispiel:
 ; #Include .\..\ActionLists\Notepad\_global.txt
@@ -167,29 +163,30 @@ ActionListDir = '%ActionListDir%'
             ; ?: is used to denote non capturing group.
 			regEx := "i)^[ ]*#include[ ]*(?:,| )[ ]*([^|!\n]+)[ ]*(?:((\||\!))[ ]*([^\n]+))?[ ]*"
 			foundPos := RegexMatch( A_LoopReadLine, regEx, matchs) ; later matchs1 is used 04.10.2018 09:04 18-10-04_09-04
-examples =
+			examples =
 (
 #include dir\something.ahk
 )
-
+			
 			msg := " ??? " foundPos " = foundPos `n"
 			msg .= A_WorkingDir " = A_WorkingDir `n"
 			msg .= A_ScriptDir " = A_ScriptDir `n"
 			msg .= A_ScriptFullPath " = A_ScriptFullPath `n"
 			lll(A_LineNumber, A_LineFile, msg )
             ;Msgbox,%msg%`n (%A_LineFile%~%A_LineNumber%)
-
+			
+			;/¯¯¯¯ isIncludeFileInside ¯¯ 181012004940 ¯¯ 12.10.2018 00:49:40 ¯¯\
 			if(foundPos){
 				isIncludeFileInside := true
 				
 				includeFilePath     := ActionListDir "\" trim(matchs1)
-
+				
 				; includeFilePath := RegExReplace(includeFilePath ,"(\\[^\\]+\\\.\.)+") ; works. removes all symbolic links 24.02.2018  cleanPath
 				includeFilePath := removesSymbolicLinksFromFileAdress(includeFilePath) ; same as above -^
-
+				
                 ; Msgbox,%includeFilePath%`n (%A_LineFile%~%A_LineNumber%)
-
-
+				
+				
 				exist_includeFilePath := (FileExist(includeFilePath)) ? 1 : 0
 				if(!exist_includeFilePath){ ; 11.03.201:23 new style/format of adress writing, but try stay compativle to old scripts. TODO deletie it.
 					
@@ -201,21 +198,22 @@ examples =
 					msg .= exist_includeFilePath " = exist_includeFilePath  `n`n"
 					lll(A_LineNumber, RegExReplace(A_LineFile,".*\\"), msg )
 					
+					
 					includeFilePath := RegExReplace(includeFilePath ,"^\.\." , "..\ActionLists")
     ; includeFilePath := "ActionLists\" includeFilePath
 					exist_includeFilePath := (FileExist(includeFilePath)) ? 1 : 0
 					if(!exist_includeFilePath){
-                        msg .= "`n`n :( includeFile NOT exist here: "  includeFilePath " = includeFilePath  `n"
-                        msg .= exist_includeFilePath " = exist_includeFilePath  `n`n"
-                        lll(A_LineNumber, A_LineFile, msg )
-                        feedbackMsgBox(RegExReplace(A_LineFile,".*\\(.*?)\.ahk","$1") ">" A_LineNumber, msg, 1,1 ) ; temp.ahk is often ignored by config 05.10.2018 08:46
-                        MsgBox,% msg "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+						msg .= "`n`n :( includeFile NOT exist here: "  includeFilePath " = includeFilePath  `n"
+						msg .= exist_includeFilePath " = exist_includeFilePath  `n`n"
+						lll(A_LineNumber, A_LineFile, msg )
+						feedbackMsgBox(RegExReplace(A_LineFile,".*\\(.*?)\.ahk","$1") ">" A_LineNumber, msg, 1,1 ) ; temp.ahk is often ignored by config 05.10.2018 08:46
+						MsgBox,% msg "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
                         ; __ __
 					}
-                    msgbox,% msg "(" A_LineFile "~" A_LineNumber ")"
+					msgbox,% msg "(" A_LineFile "~" A_LineNumber ")"
 				}
 				
-				
+				;/¯¯¯¯ NOT exist_includeFilePath ¯¯ 181012005821 ¯¯ 12.10.2018 00:58:21 ¯¯\
 				if(!exist_includeFilePath){ ; Backwords compatibible 06.03.2018 11:35 allows old include path; TODO: clean that a day in future. Priority: low. really low TODO: change default. default is inside the if
 					msg := ":( " includeFilePath " = includeFilePath `n"
 					msg .= exist_includeFilePath " = exist_includeFilePath  `n`n"
@@ -231,7 +229,9 @@ examples =
                 ;msgbox,% msg "(" A_LineFile "~" A_LineNumber ")"
 					lll(A_LineNumber, A_LineFile, msg )
                 ;exitapp
+				;\____ NOT exist_includeFilePath __ 181012005935 __ 12.10.2018 00:59:35 __/
 				}else{
+					;/¯¯¯¯ exist_includeFilePath ¯¯ 181012010005 ¯¯ 12.10.2018 01:00:05 ¯¯\
 					msg := ":) " includeFilePath " = includeFilePath  `n"
 					msg .= A_WorkingDir " = A_WorkingDir `n"
 					msg .= A_ScriptDir " = A_ScriptDir `n"
@@ -239,6 +239,7 @@ examples =
 					msg .= exist_includeFilePath " = exist_includeFilePath  `n`n"
                 ;msgbox,% msg "(" A_LineFile "~" A_LineNumber ")"
 					lll(A_LineNumber, A_LineFile, msg )
+					;\____ exist_includeFilePath __ 181012010010 __ 12.10.2018 01:00:10 __/
 				}
 				
 				
@@ -319,8 +320,8 @@ examples =
 						includeFilePathArray.Insert(includeFilePath)
 					}
 					
-				} ; endo of if(exist_includeFilePath){
-; weihnachtsbaum 12.07.2017 23:10
+				} ; endo of if(exist_includeFilePath)
+				;\____ isIncludeFileInside __ 181012005024 __ 12.10.2018 00:50:24 __/
 				
 			} else
 				break
@@ -328,7 +329,8 @@ examples =
 			
 			lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   "'" . ActionListGeneratedPath . "' = ActionListGeneratedPath `n'" . ActionListNEWarchivePath . " = ActionListNEWarchivePath " )
 			
-		}
+		} 
+		;\____ Loop,read,%ActionListNEWarchivePath __ 181012012859 __ 12.10.2018 01:28:59 __/
 		
 		
 ; lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   includeFileSContentWillBeNeedsSaved . " = includeFileSContentWillBeNeedsSaved `n" . ActionListNEWarchivePath . " = ActionListNEWarchivePath `n" . "17-07-16_17-07")
@@ -399,7 +401,7 @@ examples =
 	}
 	return, 1
 } ; EndOf function ActionListNEWactivate( ActionListDir , ActionListNEW, ActionListActive , typingAidSourcePath )
-;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+;\____ ActionListNEWactivate( __ 181012023243 __ 
 
 
 
@@ -809,7 +811,7 @@ MsgBox, 17-03-10_08-04
 }
 ;>>>>>>>>>>>>> FileDeleteAsyncDynaRun >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-DynaRunENDa�sldkjfa�sldkjfl(TempScript, pipename="") {
+DynaRunENDarrsldkjfarrsldkjfl(TempScript, pipename="") {
  global g_lineNumberFeedback
  g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 

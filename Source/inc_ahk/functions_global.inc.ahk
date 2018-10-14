@@ -1122,7 +1122,7 @@ if(!feedbackMsgBoxNrPre)
     feedbackMsgBoxNrPre := 0
 feedbackMsgBoxNr := feedbackMsgBoxNrPre + 1
 
-MAXcountMsgBoxNr := 5
+MAXcountMsgBoxNr := 2
 if(feedbackMsgBoxNrPre > MAXcountMsgBoxNr || feedbackMsgBoxNr > MAXcountMsgBoxNr){
 	ToolTip5sec(":( Oops `n feedbackMsgBoxNr>MAX `n " . A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\")  . " " . Last_A_This,1,1)
 	; for some reasion sometimes there anyway to many windows. therfor this dirty-bugFix:
