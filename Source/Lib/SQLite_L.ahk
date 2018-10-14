@@ -273,7 +273,7 @@ SQLite_GetTable(DB, SQL, ByRef Rows, ByRef Cols, ByRef Names, ByRef Result, MaxR
    }
    Result := Array()
    if (MaxResult = 0) {
-      DllCall("SQLite3\sqlite3_free_table", "Ptr", Table, "Cdecl")   
+      DllCall("sqlite3\sqlite3_free_table", "Ptr", Table, "Cdecl")
       if (ErrorLevel) {
          SQLite_LastError("ERROR: DLLCall sqlite3_close failed!")
          Return False
@@ -301,7 +301,7 @@ SQLite_GetTable(DB, SQL, ByRef Rows, ByRef Cols, ByRef Names, ByRef Result, MaxR
       }
    }
    ; Free Results Memory
-   DllCall("SQLite3\sqlite3_free_table", "Ptr", Table, "Cdecl")   
+   DllCall("sqlite3\sqlite3_free_table", "Ptr", Table, "Cdecl")
    if (ErrorLevel) {
       SQLite_LastError("ERROR: DLLCall sqlite3_close failed!")
       Return False
@@ -860,7 +860,7 @@ SQLite_DLLPath(forcedPath = "") {
       else
          DLLPath := A_ScriptDir . "\Lib\" . dllpath
    }
-   
+
    if (forcedPath != "")
       DLLPath := forcedPath
 

@@ -263,7 +263,7 @@ class DataBaseSQLLite extends DBA.DataBase
 		
 
 	   if (maxResult = 0) {
-		  DllCall("SQLite3\sqlite3_free_table", "Ptr", mytable, "Cdecl")   
+		  DllCall("sqlite3\sqlite3_free_table", "Ptr", mytable, "Cdecl")
 		  If (ErrorLevel) {
 			 SQLite_LastError("ERROR: DLLCall sqlite3_close failed!")
 			 Return False
@@ -299,7 +299,7 @@ class DataBaseSQLLite extends DBA.DataBase
 		tbl := new DBA.Table(myRows, Names)
 		
 		; Free Results Memory
-		DllCall("SQLite3\sqlite3_free_table", "Ptr", mytable, "Cdecl")   
+		DllCall("sqlite3\sqlite3_free_table", "Ptr", mytable, "Cdecl")
 		if (ErrorLevel) {
 			SQLite_LastError("ERROR: DLLCall sqlite3_close failed!")
 			return false
