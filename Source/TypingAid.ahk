@@ -36,6 +36,17 @@ class Stuff{
 
 global g_config := { list:{ change: { stopRexExTitle: false } } }
 global g_config := { FuzzySearch:{ enable: true, MAXlines : 1000, keysMAXperEntry : 6, doValueCopy : false } } ; difficult to implement symlink copy for not rr lines doValueCopy. todo: issue . doValueCopy : false  is not fully implemented
+global g_config := { Send:{ RealisticDelayDynamic: true } }
+global g_config := { Send:{ RealisticDelayDynamic: false } }
+
+;__ __
+
+; getRealisticDelayDynamicSendAHKcode
+;  MsgBox,% ":( ERROR: " msg "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+; ActionLists
+
+; doValueCopy. todo: issue . doValueCopy : false  is not fully implemented
+; if(g_config["Send"]["RealisticDelayDynamic"])
 ; if(g_config["FuzzySearch"]["enable"] && a_index<455)
 ; if(g_config["FuzzySearch"]["keysMAXperEntry"] && a_index<455)
 
@@ -129,6 +140,12 @@ SetTimer,doListBoxFollowMouse,off
 ;SetTimer,doListBoxFollowMouse,off
 Hotkey, WheelUp, off
 Hotkey, WheelDown, off
+
+Hotkey, #s, off ; toggle_RealisticDelayDynamic()
+if(1 && InStr(A_ComputerName,"SL5"))
+    Hotkey, #s, on ; toggle_RealisticDelayDynamic()
+
+; too tii too too __ tooo too ms __ __ __
 
 
 #SingleInstance,Force ; thats sometimes not working : https://autohotkey.com/boards/viewtopic.php?f=5&t=1261&p=144860#p144860
@@ -1029,7 +1046,7 @@ recreateListBox_IfFontSizeChangedAndTimeIdle(g_ListBoxFontSize, newListBoxFontSi
 doListBoxFollowMouse:
       MouseGetPos, g_ListBoxX, g_ListBoxY
       g_ListBoxX := g_ListBoxX - 77
-      g_ListBoxY := g_ListBoxY - 77
+      g_ListBoxY := round(g_ListBoxY / 100) * 100  - 80
 
 ;    class := "ahk_class AutoHotkeyGUI"
 ;    winTitle := "Word List Appears Here."
@@ -1042,9 +1059,6 @@ doListBoxFollowMouse:
        }else
           ShowListBox(g_ListBoxX,g_ListBoxY)
 return
-
-
-; tooltip to toolt
 
 
 check_some_keys_hanging_or_freezed:
@@ -1166,4 +1180,9 @@ show_ListBox_Id:
         ;
 return
 
-;  too __
+#s::
+    toggle_RealisticDelayDynamic(){
+        global g_config
+        g_config["Send"]["RealisticDelayDynamic"] := ( g_config["Send"]["RealisticDelayDynamic"] ) ? false : true
+        ToolTip2sec("RealisticDelayDynamic = " g_config["Send"]["RealisticDelayDynamic"] " `n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This,1,1)
+    }
