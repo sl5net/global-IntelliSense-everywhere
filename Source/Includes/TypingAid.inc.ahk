@@ -1150,29 +1150,26 @@ EvaluateScriptPathAndTitle(){
 
    SplitPath, A_ScriptName,,,ScriptExtension,ScriptNoExtension,
 
-   If A_Is64bitOS
-   {
-      IF (A_PtrSize = 4)
-      {
-         IF A_IsCompiled
-         {
+   ahkIs64version := (A_PtrSize=8 ? "64-bit" : "32-bit")
+   if(!ahkIs64version)
+      MsgBox,% "Error: AHK Version (32-bit) not match to Sqlite Version (64 bit). Please update your ahk-Version or choose another Sqlite Version"
+   ; https://stackoverflow.com/questions/52803477/getting-cant-load-sqlite3-dll-not-found-error-with-autohotkey/
+
+   If(A_Is64bitOS){
+      IF(A_PtrSize = 4){
+         IF(A_IsCompiled){
          ; A_IsCompiled	Contains 1 if the script is running as a compiled EXE and an empty string (which is considered false) if it is not.
             ScriptPath64 := A_ScriptDir . "\" . ScriptNoExtension . "64." . ScriptExtension
 
-            IfExist, %ScriptPath64%
-            {
+            If(FileExist(ScriptPath64)){
                ; gosub,couldIfindMyself
 global g_doSaveLogFiles
 
-lll(A_LineNumber, A_LineFile, "Run, %" . ScriptPath64 . "%, %" . A_WorkingDir . "%")
-               Run, %ScriptPath64%, %A_WorkingDir%
+                lll(A_LineNumber, A_LineFile, "Run, %" . ScriptPath64 . "%, %" . A_WorkingDir . "%")
+                Run, %ScriptPath64%, %A_WorkingDir%
                 feedbackMsgBox(ExitApp , A_LineNumber . " TypingAid.inc.ahk")
                 ExitApp
-               
-            }
-         }
-      }
-   }
+   }  }  }  }
 
    if (SubStr(ScriptNoExtension, StrLen(ScriptNoExtension)-1, 2) == "64" )
    {
