@@ -1,6 +1,4 @@
-﻿; 'place where settings stored? - AutoHotkey Community - Google Chrome' ; (Source\inc_ahk\Typing_Aid_everywhere_multi_clone.inc.ahk~118) 
-; #Include ..\_globalActionLists\examplesForBeginners.txt ; updated: 21.03.2018 07:33
-___your library open|rr||ahk|run,AutoHotkey_Community.ahk
+﻿___your library open|rr||ahk|run,AutoHotkey_Community.ahk
 ; if this german au is readable your UTF8 is probalby correct: ä
 
 interesting. what is this? i never saw it.
@@ -22,18 +20,30 @@ Clipboard := s
 send, ^v
 
 
-
-quote End|r|[/quote]
 quote|rr||ahk|
+ClipboardBackup := Clipboard
+timeoutSec := 9
+userNameDefault := "jeeswg joedf"
+; InputBox, OutputVar , Title, Prompt, HIDE, Width, Height, X, Y, Font, Timeout, Default
+InputBox, userName, userName? (AHK-Community), [quote="%userName%"], , 350, 100,,,,%timeoutSec%,%userNameDefault% 
+if ErrorLevel
+	return
 s = 
 (
-[quote="userName"]
-%clipboard%
-[/quote]
+[quote="%userName%"]
+%ClipboardBackup%[/quote]
 )
-Clipboard := s
-send, ^v
+MsgBox,278564,Insert into AHK-Community?,% s
+IfMsgBox,yes
+{
+	Clipboard := s
+	Sleep,50
+	Suspend,On 
+	send, ^v
+	Suspend,Off
+}
 
+quote End|r|[/quote]
 
 center|rr||ahk|
 s = 

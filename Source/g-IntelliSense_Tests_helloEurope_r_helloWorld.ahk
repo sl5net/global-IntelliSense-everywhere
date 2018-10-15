@@ -1,6 +1,11 @@
 ﻿; https://stackoverflow.com/questions/4675202/notepad-setting-for-disabling-auto-open-previous-files
 
 #Include %A_ScriptDir%\inc_ahk\init_global.init.inc.ahk
+
+Menu, Tray, Icon, shell32.dll, 24
+;~ Menu, Tray, Icon, shell32.dll, 2 ; a ide or floppy
+; MsgBox,% "ExitApp " msg "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+
 OnExit("exitFunc")  
 
 doWorkaroundRerun_gIntelliISense := false 

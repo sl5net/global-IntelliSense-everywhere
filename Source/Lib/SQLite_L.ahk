@@ -103,6 +103,12 @@ SQLite_Startup() {
    
    if(FileExist(sqliteDllPath)){
       DLL := DllCall("LoadLibrary", "Str", sqliteDllPath)
+
+     ahkIs64version := (A_PtrSize=8 ? "64-bit" : "32-bit")
+     if(!ahkIs64version)
+        throw Exception("Error: AHK Version (32-bit) not match to Sqlite Version (64 bit). Please update your ahk-Version or choose another Sqlite Version", -1)
+     ; https://stackoverflow.com/questions/52803477/getting-cant-load-sqlite3-dll-not-found-error-with-autohotkey/
+
       if(!DLL)
          throw Exception("Can't load " . sqliteDllPath . "! (token:18-10-12_11-52. BTW DllCall is in AHK v2 is case sensitive)", -1)
       

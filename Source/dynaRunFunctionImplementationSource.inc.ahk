@@ -25,7 +25,8 @@ try{
       ;throw Exception("Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line, -1)
       tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
       tooltip, % tip
-      FileAppend, `% TempScript, `% name
+     TempScript .= "`n#" "Include " A_ScriptDir "\inc_ahk\functions_global.inc.ahk"
+     FileAppend, `% TempScript, `% name
    }
 
    If ErrorLevel

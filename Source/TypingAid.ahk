@@ -36,7 +36,7 @@ class Stuff{
 
 global g_config := { list:{ change: { stopRexExTitle: false } } }
 global g_config := { FuzzySearch:{ enable: true, MAXlines : 1000, keysMAXperEntry : 6, doValueCopy : false } } ; difficult to implement symlink copy for not rr lines doValueCopy. todo: issue . doValueCopy : false  is not fully implemented
-global g_config := { Send:{ RealisticDelayDynamic: true } }
+; global g_config := { Send:{ RealisticDelayDynamic: true } }
 global g_config := { Send:{ RealisticDelayDynamic: false } }
 
 ;__ __
@@ -138,15 +138,18 @@ SetTimer,check_ActionList_GUI_is_hanging_or_freezed,1000 ; ; 26.09.2018 16:38 it
 
 SetTimer,doListBoxFollowMouse,off
 ;SetTimer,doListBoxFollowMouse,off
+
+
+#IfWinActive,
 Hotkey, WheelUp, off
 Hotkey, WheelDown, off
-
 Hotkey, #s, off ; toggle_RealisticDelayDynamic()
 if(1 && InStr(A_ComputerName,"SL5"))
     Hotkey, #s, on ; toggle_RealisticDelayDynamic()
+; #IfWinActive,AHK Studio ahk_class #32770
+; Hotkey, ^s, on
 
-; too tii too too __ tooo too ms __ __ __
-
+#IfWinActive,
 
 #SingleInstance,Force ; thats sometimes not working : https://autohotkey.com/boards/viewtopic.php?f=5&t=1261&p=144860#p144860
 
@@ -383,23 +386,51 @@ return
         run,..\start.ahk
     }
 return
-settitlematchmode,2
 ; #IfWinActive,Word List Appears Here. ahk_class AutoHotkeyGUI
 ; #IfWinActive,ahk_class AutoHotkeyGUI
 ;#IfWinActive,"ListBoxTitle (sec="
 ; #IfWinActive,
 ; ToolTip3sec("^+esc:: exit-all-scripts",1,1)
-#IfWinActive, global-IntelliSense
- ^+esc:: ; exit-all-scripts. usefull in developer mode
-    if(1 && InStr(A_ComputerName,"SL5")){
+settitlematchmode,2
+#IfWinActive,.ahk
+^+esc:: ; exit-all-scripts. usefull in developer mode
+    if(1 && InStr(A_ComputerName,"SL5") && winExist("global-IntelliSense")){
      setRegistry_toDefault()
      exit_all_scripts()
      ; MsgBox, `n (%A_LineFile%~%A_LineNumber%)
      exitapp
     }
  return
-#IfWinActive, ; thats probably needet. 27.09.2018 10:29 was problem that hitting 1 , 2 , 3 ... not triggered any. triggers notihng.. with this line it works again.
+#IfWinActive,
+WheelUp::
+ global g_ListBoxFontSize
+ g_ListBoxFontSize := g_ListBoxFontSize + 1
+ Tooltip,WheelDown:: Size=%g_ListBoxFontSize% `n (from: %A_LineFile%~%A_LineNumber%) ; to to
+return
+#IfWinActive,
+WheelDown::
+ global g_ListBoxFontSize
+ g_ListBoxFontSize := g_ListBoxFontSize - 1
+ Tooltip,WheelDown:: Size=%g_ListBoxFontSize% `n (from: %A_LineFile%~%A_LineNumber%) ; to to
+return
+#IfWinActive,
+#s::
+ toggle_RealisticDelayDynamic(){
+     global g_config
+     g_config["Send"]["RealisticDelayDynamic"] := ( g_config["Send"]["RealisticDelayDynamic"] ) ? false : true
+     ToolTip2sec("RealisticDelayDynamic = " g_config["Send"]["RealisticDelayDynamic"] " `n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This,1,1)
+ }
+return
+#IfWinActive,AHK Studio ahk_class #32770
+~^s::
+ someFunction(){
+    WinWaitActive,AHK Studio ahk_class #32770,Please close any error messages and try again,1
+     winclose,
+     msgBox,% ":( ERROR: " msg "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+ }
+return
 
+#IfWinActive, ; thats probably needet. 27.09.2018 10:29 was problem that hitting 1 , 2 , 3 ... not triggered any. triggers notihng.. with this line it works again.
 RecomputeMatchesTimer:
    Thread, NoTimers
    RecomputeMatches()
@@ -1018,18 +1049,6 @@ ActionListTooltip:
     ToolTip,% tip
 return
 
-WheelUp::
-    global g_ListBoxFontSize
-    g_ListBoxFontSize := g_ListBoxFontSize + 1
-    Tooltip,WheelDown:: Size=%g_ListBoxFontSize% `n (from: %A_LineFile%~%A_LineNumber%) ; to to
-return
-
-WheelDown::
-    global g_ListBoxFontSize
-    g_ListBoxFontSize := g_ListBoxFontSize - 1
-    Tooltip,WheelDown:: Size=%g_ListBoxFontSize% `n (from: %A_LineFile%~%A_LineNumber%) ; to to
-return
-
 recreateListBox_IfFontSizeChangedAndTimeIdle(g_ListBoxFontSize, newListBoxFontSize){
   if ( A_TimeIdlePhysical < 1000 * 0.5 )
     return false
@@ -1180,9 +1199,3 @@ show_ListBox_Id:
         ;
 return
 
-#s::
-    toggle_RealisticDelayDynamic(){
-        global g_config
-        g_config["Send"]["RealisticDelayDynamic"] := ( g_config["Send"]["RealisticDelayDynamic"] ) ? false : true
-        ToolTip2sec("RealisticDelayDynamic = " g_config["Send"]["RealisticDelayDynamic"] " `n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This,1,1)
-    }

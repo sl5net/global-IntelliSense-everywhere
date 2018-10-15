@@ -1156,7 +1156,7 @@ EvaluateScriptPathAndTitle(){
    ; https://stackoverflow.com/questions/52803477/getting-cant-load-sqlite3-dll-not-found-error-with-autohotkey/
 
    If(A_Is64bitOS){
-      IF(A_PtrSize = 4){
+      IF(A_PtrSize == 4){
          IF(A_IsCompiled){
          ; A_IsCompiled	Contains 1 if the script is running as a compiled EXE and an empty string (which is considered false) if it is not.
             ScriptPath64 := A_ScriptDir . "\" . ScriptNoExtension . "64." . ScriptExtension

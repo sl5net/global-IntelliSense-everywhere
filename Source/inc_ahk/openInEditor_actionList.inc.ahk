@@ -12,7 +12,7 @@ openInEditor(ActionListFolderOfThisActionList, isAHKcode, AHKcode, isStartingUnd
         return false
     ; edit open script
    ; ___global generated open|rr||ahk|run,..\_globalActionListsGenerated\_global.ahk
-   ; __________ __ tool too
+   ;
     m1CorrectedAhkFileAddress := ActionListFolderOfThisActionList "\" m1
     ;Msgbox,% m1CorrectedAhkFileAddress "=m1CorrectedAhkFileAddress `n (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
     m1ListFileName := RegExReplace(m1,"i)([\w\d_-\.]+\.ahk)\b\s*$","$1")
@@ -53,59 +53,24 @@ openInEditor(ActionListFolderOfThisActionList, isAHKcode, AHKcode, isStartingUnd
         return true
     }
 
-    ; a_Piratenpad_Google_Chrome.ahk ahk_class #32770
     ToolTip,winWait `n (%A_LineFile%~%A_LineNumber%)
-    SetTitleMatchMode,1
-    winTitleError := m1ListFileName " ahk_class #32770"
-
-;________ __
-; ms Msgbox,(`%A_LineFile`%~`%A_LineNumber`%)
-; Msgbox,(`%A_LineFile`%~`%A_LineNumber`%)
-
+    winTitleError := " ahk_class #32770"
     SetTitleMatchMode,2
-    winTitleError := ".ahk ahk_class #32770"
-    winWait,% winTitleError,,3 ; Co_Mozilla_Firefox.ahk ahk_class #32770 ; mouseWindowTitle=0x2970f44  ;
-    ifwinnotexist,% winTitleError
+    loop,5
     {
-        Msgbox,:( not expected by using ahk-studio 28.09.2018 09:36 `n its not a critical issue `n winnotexist %winTitleError% `n (%A_LineFile%~%A_LineNumber%)
-        return true
-    }
-    wingettext,winText,  % winTitleError
-    ToolTip,
-    ; should consist: "Error: This line does not contain a recognized action."
-    errorText := "This line does not contain a recognized action."
-    if(!Instr(winText,errorText))
-        return true
-    loop,20
-    {
-        winclose,% winTitleError ; thats disturbing opening ahk-studio. if closed ahk-studio opens
-        winkill,% winTitleError ; thats disturbing opening ahk-studio. if closed ahk-studio opens
-        winWaitClose,% winTitleError,,1
-        ifwinnotexist,% winTitleError
-            break
-        sleep,100
-        wingettext,winText,  % winTitleError
-        if(!Instr(winText,errorText))
-            break
-
-        ; winkill is needet. winclose dont work 26.09.2018 07:37
-        ; msgbox,% m1ListFileName " ahk_class #32770 ??? "  ; thats disturbing opening ahk-studio. if closed ahk-studio opens
-    }
-    msg=%runString% `n %m1% `n deprecated: `n please open by using AHK-Studio instead run`n
-    loop,20
-    {
-        winclose,% winTitleError ; thats disturbing opening ahk-studio. if closed ahk-studio opens
-        winkill,% winTitleError ; thats disturbing opening ahk-studio. if closed ahk-studio opens
-        winWaitClose,% winTitleError,,1
-        ifwinnotexist,% winTitleError
-            break
-        sleep,100
-        wingettext,winText,  % winTitleError
-        if(!Instr(winText,errorText))
-            break
-
-        ; winkill is needet. winclose dont work 26.09.2018 07:37
-        ; msgbox,% m1ListFileName " ahk_class #32770 ??? "  ; thats disturbing opening ahk-studio. if closed ahk-studio opens
+        winWait,% winTitleError,Error,4
+        IfWinNotExist,% winTitleError, Error
+            return true
+        loop,20
+        {
+            winclose,% winTitleError,Error ; thats disturbing opening ahk-studio. if closed ahk-studio opens
+            winkill,% winTitleError,Error ; thats disturbing opening ahk-studio. if closed ahk-studio opens
+            winWaitClose,% winTitleError,Error,1
+            IfWinNotExist,% winTitleError, Error
+                break
+            tooltip,% A_Index  "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+            sleep,200
+        }
     }
     msg=%runString% `n %m1% `n deprecated: `n please open by using AHK-Studio instead run`n
     ;msgbox, % msg "`n" A_LineNumber   " "   A_LineFile   " "   Last_A_This

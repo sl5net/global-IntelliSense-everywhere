@@ -1393,7 +1393,21 @@ setSearchAreaToWinTitleArea(winTitle){
 
 DynaRun(TempScript, pipename=""){
 	; TempScript := "#" . "ErrorStdOut`n" . TempScript
-	TempScript := "" . "FileEncoding, UTF-8`n" . TempScript
+	TempScriptPre := "" . "FileEncoding, UTF-8 `n"
+
+	if(!InStr(TempScript,"aScriptDir :="  )){
+    	; TempScriptPre .= "#" . "include " A_ScriptDir "\inc_ahk\functions_global.inc.ahk `n"
+    	; TempScriptPre .= "#" . "include " A_ScriptDir "\inc_ahk\ToolTipSec_RemoveToolTip.inc.ahk `n"
+    	; TempScriptPre .= "#" . "include " A_ScriptDir "\inc_ahk\ToolTipSec.inc.ahk `n"
+    }else
+        msgbox,% TempScript
+
+	if(!InStr(TempScript,"aScriptDir :="  ))
+        TempScriptPre .= "aScriptDir := """ A_ScriptDir """ `n"
+
+    TempScript := TempScriptPre TempScript "`n"
+    ;msgbox,% TempScript
+
 	static _:="uint",@:="Ptr"
 	try  ; i dont want disturbing error messages
 	{
