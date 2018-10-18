@@ -6,6 +6,16 @@ Is an unobtrusive IntelliSense for all programs, all websites, all apps, all win
 German: Automatisiert kontextsensitives Schreiben und Handeln.
 Ist eine unaufdringliche IntelliSense für alle Programmen, alle Webseiten, alle Apps, alle Fenster, für einfach alles was in Windows läuft.
 
+
+Its Sponsored!
+This project is sponsored by JetBrains.  JetBrains is a software development company whose mission is to make the strongest, most effective developer tools on earth. Their tools speed up production, freeing developers to grow, discover and create. 
+
+[![JetBrains Logo](https://en.wikipedia.org/wiki/JetBrains#/media/File:JetBrains_Logo_2016.svg)](https://www.jetbrains.com/) 
+ 
+This international company has a user base of 4+ million users across 140 countries.  The company has won over 300+ awards.  Their customer base includes, The New York Times, CitiBank, Twitter, Pinterest, NASA, Salesforce and Samsung.
+
+
+
 [![global IntelliSense everywhere examples windows autohotkey](https://img.youtube.com/vi/elLsl8lj0K8/0.jpg)](https://www.youtube.com/watch?v=elLsl8lj0K8)
   
 typical start (english): 
@@ -18,11 +28,11 @@ or: https://autohotkey.com/
 - Start start.ahk
 2. open your win-app, for e.g. notepad++ or a website etc. and wait seconds
 3. Press "_" two or three times (if no list appears, try again in a few seconds)
-4. hit "1" (create own project dir) and edit wordlist and save
+4. hit "1" (create own project dir) and edit ActionList and save
 5. open your win-app, for e.g. notepad++ or a website etc. and wait seconds
 6. start typing ...
 7. if deeper interest:
-- https://github.com/sl5net/global-IntelliSense-everywhere/blob/master/Wordlists/_globalWordLists/examplesForBeginners.txt
+- https://github.com/sl5net/global-IntelliSense-everywhere/blob/master/ActionLists/_globalActionLists/examplesForBeginners.txt
 - https://www.youtube.com/watch?v=elLsl8lj0K8
 - Read this README file
 (Suggestions for improvement, criticism, questions are expressly desired. Many Thanks.)
@@ -41,24 +51,24 @@ oder: https://autohotkey.com/
 5. Öffne ein Windows-Prograamm, z.B. notepad++ oder eine Webseite usw. und warte Sekunden
 6. Beginne irgendetwas zu schreiben ...
 7. Falls tieferem Interesse:
-- https://github.com/sl5net/global-IntelliSense-everywhere/blob/master/Wordlists/_globalWordLists/examplesForBeginners.txt
+- https://github.com/sl5net/global-IntelliSense-everywhere/blob/master/ActionLists/_globalActionLists/examplesForBeginners.txt
 - https://www.youtube.com/watch?v=elLsl8lj0K8
 - Lese diese README Datei
 (Verbesserungsvorschläge, Kritik, Fragen sind ausdrücklich erwünscht. Vielen Dank.)
 
 
-Please configure wordlist by hit _ key.
-and you may wanna edit the wordlistNameFilter.inc.ahk inside your new folder ( Wordlists/YourNewClass/wordlistNameFilter.inc.ahk ).
+Please configure ActionList by hit _ key.
+and you may wanna edit the ActionListNameFilter.inc.ahk inside your new folder ( ActionLists/YourNewClass/ActionListNameFilter.inc.ahk ).
 
 There is also a global 
-/Wordlists/wordlistNameFilter.inc.ahk
-you may wanna edit ( Wordlists/YourNewClass/wordlistNameFilter.inc.ahk ).
+/ActionLists/ActionListNameFilter.inc.ahk
+you may wanna edit ( ActionLists/YourNewClass/ActionListNameFilter.inc.ahk ).
 
-The wordlistNameFilter.inc.ahk files are meant to be redirected to wordlists (superglobal, global or local, ...) if you do not have the normal configuration.
+The ActionListNameFilter.inc.ahk files are meant to be redirected to ActionLists (superglobal, global or local, ...) if you do not have the normal configuration.
 
-Please handle the globals wordlistNameFilter.inc.ahk carefully, as it could be otherwise that the whole script does not work anymore.
+Please handle the globals ActionListNameFilter.inc.ahk carefully, as it could be otherwise that the whole script does not work anymore.
 
-The first steps will probably be that you only edit the Wordlists / YourNewClass / yourNewTitle.txt. The simplest change is just to add one line of text.
+The first steps will probably be that you only edit the ActionLists / YourNewClass / yourNewTitle.txt. The simplest change is just to add one line of text.
 
 
 please report Issues here:
