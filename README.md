@@ -6,6 +6,7 @@ Is an unobtrusive IntelliSense for all programs, all websites, all apps, all win
 German: Automatisiert kontextsensitives Schreiben und Handeln.
 Ist eine unaufdringliche IntelliSense für alle Programmen, alle Webseiten, alle Apps, alle Fenster, für einfach alles was in Windows läuft.
 
+- - -
 
 Its Sponsored!
 This project is sponsored by JetBrains.  JetBrains is a software development company whose mission is to make the strongest, most effective developer tools on earth. Their tools speed up production, freeing developers to grow, discover and create. 
@@ -14,7 +15,7 @@ This project is sponsored by JetBrains.  JetBrains is a software development com
  
 This international company has a user base of 4+ million users across 140 countries.  The company has won over 300+ awards.  Their customer base includes, The New York Times, CitiBank, Twitter, Pinterest, NASA, Salesforce and Samsung.
 
-
+- - -
 
 [![global IntelliSense everywhere examples windows autohotkey](https://img.youtube.com/vi/elLsl8lj0K8/0.jpg)](https://www.youtube.com/watch?v=elLsl8lj0K8)
   
