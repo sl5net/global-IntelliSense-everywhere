@@ -478,6 +478,16 @@ ActionListID INTEGER NOT NULL
 		
 		global g_ActionListDB
 		
+		sql =
+		(
+		CREATE TABLE ActionLists
+		(ActionList TEXT PRIMARY KEY
+		, ActionListmodified DATETIME
+		, ActionListsize INTEGER
+		, lastUsedByUser_since_midnight INTEGER)
+		WITHOUT ROWID;
+		)
+
 		IF not g_ActionListDB.Query("CREATE TABLE ActionLists (ActionList TEXT PRIMARY KEY, ActionListmodified DATETIME, ActionListsize INTEGER) WITHOUT ROWID;")
 		{
 			ErrMsg := g_ActionListDB.ErrMsg()

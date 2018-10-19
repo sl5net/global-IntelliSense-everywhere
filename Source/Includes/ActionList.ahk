@@ -238,6 +238,7 @@ from: ActionList.ahk~%A_LineNumber%
 
         isIndexedAhkBlock := false
         doCollectAhkBlock := false
+        codePrefixChar := ""
 		Loop, Parse, ParseWords, `n, `r1
 		{
 		    ; thats the place very updates from the file are inserted into the database. this you shuld never delte.
@@ -280,20 +281,36 @@ from: ActionList.ahk~%A_LineNumber%
                 else{
                     if(trim(ALoopField)){
                         AddWordBlock := AddWordBlock "`n" ALoopField
+                        ALoopFieldLast := ALoopField
                         continue
                     }else{
                         doCollectAhkBlock := false
+                        if(codePrefixChar == "("){
+                            ; AddWordBlock .= "`nsend,`% it`n"
+                            if(trim(ALoopFieldLast) == ")"){
+                                AddWordBlock .= "`nsend,`% it`n"
+                                ; MsgBox, % ">" codePrefixChar "<== codePrefixChar `n" ALoopField "`n" AddWordBlock "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+                        }
+                        }
                         ALoopField := AddWordBlock
+                        ; MsgBox, % ">" codePrefixChar "<== codePrefixChar `n" ALoopField "`n" AddWordBlock "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
                         ; tooltip,% "AddWordBlock = `n >" AddWordBlock "< (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
                     }
                 }
 
-                if(RegExMatch( ALoopField , "i)^[^; ]*[^\n]+\|ahk\|[ ]*$" )){
+                if(RegExMatch( ALoopField , "i)^([^; ]*[^\n]+\|ahk\|)([^\s]?)[ ]*$",  m )){
                     doCollectAhkBlock := true
                     isIndexedAhkBlock := false ; maybe its set in next line
-                    AddWordBlock := ALoopField
+                    if(m2){
+                        if(m2 == "("){
+                            codePrefixChar := m2
+                            m2 := "`nit = `n("
+                            ; MsgBox,% codePrefixChar "=codePrefixChar(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+                        }
+                    }
+                    AddWordBlock := m1 m2
+                    ; MsgBox,% codePrefixChar "=m1 , " ALoopField "`n" AddWordBlock "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
                     continue
-                    ; MsgBox,% ALoopField "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
                 }else{
                     regIs_r_synonym := "^([^\|\n]+?)\|r\|[ ]*$"
                     if(RegExMatch( ALoopField , regIs_r_synonym ,  m )){
@@ -1010,19 +1027,24 @@ StrUnmark(string) {
 getActionListID(ActionList){
 
 	global g_ActionListDB
+	global g_ActionList_UsedByUser_since_midnight
     INSERT_function_call_time_millis_since_midnight( A_LineFile , A_ThisFunc , A_LineNumber)
 	if(!g_ActionListDB)
 		g_ActionListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", A_ScriptDir . "\ActionListLearned.db" ) ;
 	
 	sqlGetWLid =
     (
-SELECT id FROM ActionLists WHERE
+SELECT id, lastUsedByUser_since_midnight FROM ActionLists WHERE
 ActionList = '%ActionList%' ;
     )
 	try{
 		result := g_ActionListDB.Query(sqlGetWLid)
 		For each, row in result.Rows
-			return row[1]
+		{
+			g_ActionListID := row[1]
+			g_ActionList_UsedByUser_since_midnight[g_ActionListID] := row[2]
+			return g_ActionListID
+		}
 	} catch e{
 		tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
 		lll(A_LineNumber, A_LineFile, tip)
@@ -1066,7 +1088,11 @@ ActionList = '%ActionList%' ;
 		}
 	}
 	For each, row in result.Rows
-		return row[1]
+	{
+        g_ActionListID := row[1]
+        g_ActionList_UsedByUser_since_midnight[g_ActionListID] := row[2]
+        return g_ActionListID
+}
 	msg := sql . "`n" . sqlGetWLid .  "`n" . A_LineNumber . " " .  A_LineFile
 	sqlLastError := trim( SQLite_LastError() )
 	msg .= "`n sqlLastError=" sqlLastError " `n( " A_LineFile "~" A_LineNumber ")"
@@ -1077,6 +1103,14 @@ ActionList = '%ActionList%' ;
           msgbox,% msg
           exitapp
 	}
+
+    m =
+    (
+    ActionList = %ActionList%
+    )
+    tooltip,% m "`n`n`n:( ERROR: this line should never visited(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+	; g_ActionList_UsedByUser_since_midnight[g_ActionListID] := lastUsedByUser_since_midnight
+    ; g_ActionListDB.Query("UPDATE ActionList SET lastUsedByUser_since_midnight = " g_ActionList_UsedByUser_since_midnight[g_ActionListID] " WHERE id = " g_ActionListID ";")
 	return ActionListID
 }
 ;>>>>>>>> getActionListID >>>> 180324230528 >>>> 24.03.2018 23:05:28 >>>>

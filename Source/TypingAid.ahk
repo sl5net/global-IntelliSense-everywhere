@@ -89,9 +89,11 @@ global activeTitle:=""
 
 global g_doAskBevoreChangingActionList := false ; <== buggy dont know whey 19.03.2018 23:50
 global g_doAskBevoreChangingActionList := true ; <== works preetty nice :) 19.03.2018 23:51
-global g_minBytesNeedetToAskBevoreChangingActionList := 81234 ; <== Minimum bytes. then will be asked before the change 20.03.2018 18:22
-if(1 && InStr(A_ComputerName,"SL5"))
+global g_minBytesNeedetToAskBevoreChangingActionList := 2222 ; <== Minimum bytes. then will be asked before the change 20.03.2018 18:22
+if(0 && InStr(A_ComputerName,"SL5"))
     g_minBytesNeedetToAskBevoreChangingActionList := 812345 ; <== Minimum bytes. then will be asked before the change 20.03.2018 18:22
+
+global g_ActionList_UsedByUser_since_midnight := {} ; [g_ActionListID]
 
 global g_FLAGmsgbox := false
 
@@ -130,7 +132,7 @@ if(!fileExist(ActionList)){
 maxLinesOfCode4length1 := 900 ;
 
 ; SetTimer, saveIamAllive, 8000 ; setinterval
-SetTimer,checkInRegistryChangedActionListAddress,1000 ; RegRead, ActionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList
+SetTimer,checkInRegistryChangedActionListAddress,500 ; RegRead, ActionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList
 SetTimer,checkActionListTXTfile_sizeAndModiTime,3000
 SetTimer,check_some_keys_hanging_or_freezed,1800 ; ; 30.08.2018 13:52 it sometimes happesn. and if it happens then its really ugly !!!! :( !!
 SetTimer,check_ActionList_GUI_is_hanging_or_freezed,1000 ; ; 26.09.2018 16:38 it sometimes happesn.
@@ -737,6 +739,9 @@ return
 ;<<<<<<<< checkInRegistryChangedActionListAddress <<<< 180319214428 <<<< 19.03.2018 21:44:28 <<<<
 checkInRegistryChangedActionListAddress:
 
+if(false && g_ActionList_UsedByUser_since_midnight[g_ActionListID]){
+    msgBox,% "g_ActionList_UsedByUser_since_midnight[g_ActionListID]: " g_ActionList_UsedByUser_since_midnight[g_ActionListID] "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+}
 if(g_config["list"]["change"]["stopRexExTitle"]=="."){
     temp := g_config["list"]["change"]["stopRexExTitle"]
     tip = stopRexExTitle is >%temp%< %ActionList%
@@ -745,16 +750,23 @@ if(g_config["list"]["change"]["stopRexExTitle"]=="."){
     return
 }
 if(0 && InStr(A_ComputerName,"SL5"))
-    ToolTip5sec(ActionList " `n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\")  . " )" )
+	ToolTip5sec(ActionList " `n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\")  . " )" )
 
     ;SetTimer,checkActionListTXTfile_sizeAndModiTime,Off
 
-    global g_SingleMatch
-    global g_FLAGmsgbox
+global g_SingleMatch
+global g_FLAGmsgbox
 
-    SetTitleMatchMode,2
-    if(ActionListSize > g_minBytesNeedetToAskBevoreChangingActionList)
-        If(WinExist("ActionListChangedInRegistry") ){
+
+
+SetTitleMatchMode,2
+if( g_ActionList_UsedByUser_since_midnight[g_ActionListID] ){
+	If(WinExist("ActionListChangedInRegistry") )
+	    winClose,ActionListChangedInRegistry
+    winWaitclose,ActionListChangedInRegistry, , 2
+    g_FLAGmsgbox := false
+}else if( ActionListSize > g_minBytesNeedetToAskBevoreChangingActionList)
+	If(WinExist("ActionListChangedInRegistry") ){
             g_FLAGmsgbox := true
             return ; no update jet
     }
@@ -774,7 +786,8 @@ if(0 && InStr(A_ComputerName,"SL5"))
         If(WinExist("ActionListChangedInRegistry") ){
             tooltip,Oops  `n should never happen BUG `n was not able to close ActionListChangedInRegistry `n`n  ==> reload in 9Seconds (%A_LineFile%~%A_LineNumber%) 20.03.2018 18:54
             sleep,9000
-            reload
+            ; reload
+            RecomputeMatches()
             return
         }
     }
@@ -803,14 +816,17 @@ if(0 && InStr(A_ComputerName,"SL5"))
         ToolTip4sec(msg " `n"  . A_LineNumber . " " . A_LineNumber )
         clilpboard := msg
         sleep,5000
-    }
+}
 
-    if(g_doAskBevoreChangingActionList && ActionListSize > g_minBytesNeedetToAskBevoreChangingActionList){
+    ; takes a little time to read data von database. 19.10.2018 12:21
+	if(A_TickCount > 4000 && !g_ActionList_UsedByUser_since_midnight[g_ActionListID] && g_doAskBevoreChangingActionList && ActionListSize > g_minBytesNeedetToAskBevoreChangingActionList){
         AHKcodeMsgBox := "#" . "NoTrayIcon `n "
-        ; temp = msgbox,,ActionListChangedInRegistry, Would you use new list now? ``n ``n Say goodbye to? (%ActionListSize% bytes > %g_minBytesNeedetToAskBevoreChangingActionList%) ``n  %ActionList% ``n exitApp
+        ; temp = msgbox,,ActionListChangedInRegistry, Would you use new list now? ``n (new ``n Say goodbye to? (%ActionListSize% bytes > %g_minBytesNeedetToAskBevoreChangingActionList%) ``n  %ActionList% ``n exitApp
+        ; %ActionList%
         temp =
         (
-        msgbox,262176,ActionListChangedInRegistry, Would you use new list now? ``n ``n Say goodbye to? (%ActionListSize% bytes > %g_minBytesNeedetToAskBevoreChangingActionList%) ``n  %ActionList% ``n  ``n  F1=WebSearch
+        ; msgbox,262176,ActionListChangedInRegistry, Would you use new list now? ``n ``n Say goodbye to? (%ActionListSize% bytes > %g_minBytesNeedetToAskBevoreChangingActionList%) ``n  That msgBox works like change list stopper ``n  ``n  F1=WebSearch
+        msgbox,262176,ActionListChangedInRegistry, Would you use new list now? ``n ``n Say goodbye to  ``n  %ActionList% ``n ? ``n  That msgBox works like change list stopper ``n  (%ActionListSize% bytes > %g_minBytesNeedetToAskBevoreChangingActionList%) ``n  ``n  F1=WebSearch
         #ifwinactive,ActionListChangedInRegistry
         f1::
         run,https://www.google.de/search?q=ActionListChangedInRegistry global-IntelliSense-everywhere
@@ -824,8 +840,7 @@ if(0 && InStr(A_ComputerName,"SL5"))
         return
         exitApp
         )
-
-AHKcodeMsgBox .= temp
+		AHKcodeMsgBox .= temp
         if(g_FLAGmsgbox){
             g_FLAGmsgbox := false ; just clicked msgboxWindow
         }else{
@@ -1178,10 +1193,19 @@ check_ActionList_GUI_is_hanging_or_freezed:
      ; script hangs at this position
      ;winclose, % g_ListBoxTitle
      ;winkill, % g_ListBoxTitle
-     reload ; script hangs if gui was not used. here we could check if its hanging. 27.09.2018 19:21 if ListBox was not used and not closed. reload helps to get script running again.
-
+     ; reload ; script hangs if gui was not used. here we could check if its hanging. 27.09.2018 19:21 if ListBox was not used and not closed. reload helps to get script running again.
+    RecomputeMatches() ; <=== dont know if this helps 19.10.2018 11:24
      ;MsgBox, % tip "`n`n" elapsedMilli  "millisec = " elapsedSec "sec have elapsed. (" A_LineFile "~" A_LineNumber ")"
-     ;Msgbox,is it closed??? `n (%A_LineFile%~%A_LineNumber%)
+    AHKcode := "#" . "NoTrayIcon `n "
+    AHKcode =
+    (
+    SetTitleMatchMode, 2
+    WinWaitActive,menu closed? #32770,is it closed???,1
+    winclose,
+    exitapp,
+     )
+     DynaRun(AHKcode)
+     MsgBox , ,menu closed? , is it closed??? `n (%A_LineFile%~%A_LineNumber%) , 1 ; <== helps closing the listbox probalby 19.10.2018 11:28
     }
     return
   clipboard := tip
@@ -1194,8 +1218,11 @@ show_ListBox_Id:
     global g_ListBox_Id
     global g_reloadIf_ListBox_Id_notExist
     ;ToolTip1sec(g_ListBox_Id " (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This,1,1)
-    if(!g_ListBox_Id && g_reloadIf_ListBox_Id_notExist)
+    if(!g_ListBox_Id && g_reloadIf_ListBox_Id_notExist){
         run,% "..\start.ahk"
+        ; RecomputeMatches() ; <=== hope it helps. not sure 19.10.2018 11:34 ... not helped 19.10.2018 11:37
+        ; goto, lblTopOfScriptLine111 ; <=== hope it helps. ...  not helped 19.10.2018 11:37
+    }
         ;reload
         ;MsgBox, , repair Manue, repair Manue, 1
     g_reloadIf_ListBox_Id_notExist := false

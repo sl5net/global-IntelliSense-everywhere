@@ -135,7 +135,7 @@ Return
 ListBoxScroll(Hook, Event, EventHwnd)
 {
    global
-   
+
    Local MatchEnd
    Local SI
    Local TempRows

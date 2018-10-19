@@ -1314,7 +1314,15 @@ MaybeFixFileEncoding(File,Encoding){
 
     ; if(instr(Contents,"�")){ ; L�sungen
      if( foundPos := RegExMatch(Contents,"i)[a-z]�[a-z]") ){
-         Msgbox,% ":( your file is corrupted propably. � is found `n`n..." corruptedContend "`n`n" File "`n______________`n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\")
+
+     	lineNr := 0
+     	StartingPosition  := 2
+     	while(RegexMatch( m, "Om)(\n)", Match, StartingPosition )){
+     		StartingPosition := Match.Pos(1) + Match.Len(1)
+     		lineNr ++
+     	}
+
+         Msgbox,% ":( your file is corrupted propably. � is found in line " lineNr " `n`n..." corruptedContend "`n`n" File "`n______________`n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\")
          ;Msgbox,% ":( your file is corrupted propably. `n`n...>" corruptedContend "<...`n  `n" nW "`n is found `n`n" File "`n______________`n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\")
         return
     }

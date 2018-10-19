@@ -211,10 +211,28 @@ getLineOfWord(word) {
 
 
 
+;/¯¯¯¯ UPDATE_ActionList_UsedByUser_since_midnight ¯¯ 181019124049 ¯¯ 19.10.2018 12:40:49 ¯¯\
+UPDATE_ActionList_UsedByUser_since_midnight(){
+	global g_ActionListDB
+	global g_ActionListID
+    g_ActionList_UsedByUser_since_midnight[g_ActionListID] := JEE_millis_since_midnight(vOpt:="")
+	UPDATE := "UPDATE ActionLists SET lastUsedByUser_since_midnight =  "g_ActionList_UsedByUser_since_midnight[g_ActionListID] " WHERE id = " g_ActionListID ";"
+    ; clipboard   := UPDATE
+    try{
+	    g_ActionListDB.Query(UPDATE)
+	    ;msgbox,% UPDATE
+		} catch e{
+    		tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
+    		lll(A_LineNumber, A_LineFile, tip)
+    		tooltip, `% tip
+    		feedbackMsgBox(A_LineFile . ">" . A_LineNumber, tip )
+    		Clipboard := tip
+    	}
+}
+;\____ UPDATE_ActionList_UsedByUser_since_midnight __ 181019124053 __ 19.10.2018 12:40:53 __/
 
 
-
-
+; toolTip2sec(msg " (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
 
 
 
@@ -224,11 +242,23 @@ getLineOfWord(word) {
 
 
 SendWord(WordIndex){
-	
+;/¯¯¯¯ used if triggered ...|ahk|... style 19.10.2018 10:24:29 ¯¯\
+; 19.10.2018 10:24
+; msgBox,% "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+;\____ used if triggered ...|ahk|... style __ 19.10.2018 10:24:32 __/
+
+
+
 	global g_SingleMatch
 	global g_SingleMatchReplacement
 	
 	global ActionList
+	global g_ActionListID
+
+	global g_ActionList_UsedByUser_since_midnight
+    global g_ActionListID
+
+
 	INSERT_function_call_time_millis_since_midnight( A_LineFile , A_ThisFunc , A_LineNumber)
 	
 	ActionListFolderOfThisActionListRELATIVE := RegExReplace(ActionList,"\\[^\\]+$","")
@@ -347,7 +377,11 @@ SendWord(WordIndex){
 ; ToolTip5sec(A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
 ; Msgbox,% "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
 ;>>>>>>>> playground >>>> 18101080}49 >>>> 01.10.2018  >>>>
-		
+
+UPDATE_ActionList_UsedByUser_since_midnight()
+
+; msgBox,% "g_ActionList_UsedByUser_since_midnight[g_ActionListID]: " g_ActionList_UsedByUser_since_midnight[g_ActionListID]"(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+
 ; rX := {key:m1, rr:m2, send:"", lang:"" ,code:""}
 		regIsSynonym := "^([^\|\n]+?)\|(rr)\|$"
 		
@@ -1213,14 +1247,22 @@ SendFull(SendValue,ForceBackspace:= false){
 
 
 
-;------------------------------------------------------------------------
+
+;/¯¯¯¯ SendCompatible ¯¯ 181019115817 ¯¯ 19.10.2018 11:58:17 ¯¯\
 SendCompatible(SendValue,ForceSendForInput) {
-	
-	
+;/¯¯¯¯ used if triggered ...|ahk|... style ¯¯ 19.10.2018 10:28:49 ¯¯\
+; 19.10.2018 10:29
+; msgBox,% "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+;\____ used if triggered ...|ahk|... style __ 19.10.2018 10:28:34 __/
+
+
 	lll(A_LineNumber, A_LineFile, "SendCompatible(SendValue,ForceSendForInput) `n SendValue =" . SendValue . " `n 17-07-16_15-01")
 	
 	global g_IgnoreSend
 	global prefs_SendMethod
+	global g_ActionList_UsedByUser_since_midnight
+	global g_ActionListID
+
    ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 	SetKeyDelay, 200, 20, Play ; PressDuration: Use -1 for no delay at all (default) and 0 for the smallest possible delay ; Play applies the above settings to the SendPlay mode
 	Send, %SendValue%
@@ -1233,7 +1275,7 @@ SendCompatible(SendValue,ForceSendForInput) {
 	Return
       ; GetKeyState, LshiftState, Lshift, P; 96+ lines in autocopy.ahk
    ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-	
+
 	IfEqual, ForceSendForInput, 1
 	{
 		g_IgnoreSend = 
@@ -1276,11 +1318,12 @@ SendCompatible(SendValue,ForceSendForInput) {
 	global g_sending_is_buggy
 	if( g_sending_is_buggy )
 		lll(A_LineNumber, A_LineFile, "SendInput, %SendValue% `n >" . SendValue . "<  `n 17-07-29_11-46")
-	
+
+    UPDATE_ActionList_UsedByUser_since_midnight()
+
 	Return
 }
-
-;------------------------------------------------------------------------
+;\____ SendCompatible __ 181019115833 __ 19.10.2018 11:58:33 __/
 
 
 
