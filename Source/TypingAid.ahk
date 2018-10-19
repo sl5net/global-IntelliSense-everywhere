@@ -35,7 +35,7 @@ class Stuff{
 }
 
 global g_config := { list:{ change: { stopRexExTitle: false } } }
-global g_config := { FuzzySearch:{ enable: true, MAXlines : 1000, keysMAXperEntry : 6, doValueCopy : false } } ; difficult to implement symlink copy for not rr lines doValueCopy. todo: issue . doValueCopy : false  is not fully implemented
+global g_config := { FuzzySearch:{ enable: true, MAXlines : 8000, keysMAXperEntry : 6, doValueCopy : false } } ; difficult to implement symlink copy for not rr lines doValueCopy. todo: issue . doValueCopy : false  is not fully implemented
 ; global g_config := { Send:{ RealisticDelayDynamic: true } }
 global g_config := { Send:{ RealisticDelayDynamic: false } }
 

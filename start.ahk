@@ -3,13 +3,20 @@
 
 SetWorkingDir %A_ScriptDir%\Source
 
+SetTitleMatchMode,1
+name=temp.ahk ahk_class #32770
+while(WinExist(name) && A_Index < 9)
+	WinClose,% name
+while(WinExist(name) && A_Index < 9)
+	WinKill,% name
+
 DetectHiddenWindows,on
 SetTitleMatchMode,2
 name=Typing_Aid_everywhere_multi_clone.ahk ahk_class AutoHotkey
 ;name := "Typing_Aid_everywhere_multi_clone" ; .ahk ; ahk_class AutoHotkey
 ;name=TypingAid ahk_class AutoHotkey
 while(WinExist(name) && A_Index < 999){
-	ToolTip, %A_Index%  `n (%A_LineFile%~%A_LineNumber%)
+	; ToolTip, %A_Index%: WinClose `n (%A_LineFile%~%A_LineNumber%)
 	WinClose,% name
 }
 ;run,TypingAid.ahk ; ,%A_ScriptDir%\Source
@@ -24,7 +31,7 @@ while(WinExist(name) && A_Index < 9)
 	
 ;DetectHiddenWindows,Off ; <== never do this again. all in taskbar was not closed !! 02.10.2018 12:33
 SetTitleMatchMode,2
-	
+
 name=TypingAid.ahk ahk_class AutoHotkey
 while(WinExist(name) && A_Index < 9)
 	WinClose,% name
