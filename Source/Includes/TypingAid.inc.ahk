@@ -118,9 +118,20 @@ MainLoop(){
    
       ;Get one key at a time 
       Input, InputChar, L1 V I, {BS}%g_TerminatingEndKeys%
-   
-      Critical ; Wenn der erste Parameter fehlt (oder das Wort On ist), wird der aktuelle Thread als kritisch eingestuft; das heiÃŸt, dass dieser Thread nicht von anderen Threads unterbrochen werden kann. ; If the first parameter is omitted (or the word On), the current thread is made critical, meaning that it cannot be interrupted by another thread.
+
+       ;/¯¯¯¯ Critical, ¯¯ 181021220521 ¯¯ 21.10.2018 22:05:21 ¯¯\
+       ; toolTip2sec(msg " (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
+       ; eventually this was the point of this longlifing bug: https://g-intellisense.myjetbrains.com/youtrack/issue/GIS-1
+       ; ???????????????????
+       ; ???????????????????
+       ; todo: test it. may it helps to do somthing with GetIncludedActiveWindow ??? call it ??
+       ; ???????????????????
+       ; ???????????????????
+       ; ???????????????????
+       ; ???????????????????
+      ; Critical,On ; Wenn der erste Parameter fehlt (oder das Wort On ist), wird der aktuelle Thread als kritisch eingestuft; das heiÃŸt, dass dieser Thread nicht von anderen Threads unterbrochen werden kann. ; If the first parameter is omitted (or the word On), the current thread is made critical, meaning that it cannot be interrupted by another thread.
     EndKey := ErrorLevel
+    ;\____ Critical, __ 181021220525 __ 21.10.2018 22:05:25 __/
    
 
         ; ToolTip,%g_ListBox_Id% = g_ListBox_Id `n %g_ListBoxTitle% = g_ListBoxTitle `n %g_ListBoxTitle_firstTimeInMilli% = g_ListBoxTitle_firstTimeInMilli `n,,1
