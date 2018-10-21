@@ -89,7 +89,7 @@ global activeTitle:=""
 
 global g_doAskBevoreChangingActionList := false ; <== buggy dont know whey 19.03.2018 23:50
 global g_doAskBevoreChangingActionList := true ; <== works preetty nice :) 19.03.2018 23:51
-global g_minBytesNeedetToAskBevoreChangingActionList := 2222 ; <== Minimum bytes. then will be asked before the change 20.03.2018 18:22
+global g_minBytesNeedetToAskBevoreChangingActionList := 9222 ; <== Minimum bytes. then will be asked before the change 20.03.2018 18:22
 if(0 && InStr(A_ComputerName,"SL5"))
     g_minBytesNeedetToAskBevoreChangingActionList := 812345 ; <== Minimum bytes. then will be asked before the change 20.03.2018 18:22
 

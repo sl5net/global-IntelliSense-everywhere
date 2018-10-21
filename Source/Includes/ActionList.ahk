@@ -1049,18 +1049,20 @@ ActionList = '%ActionList%' ;
 		tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
 		lll(A_LineNumber, A_LineFile, tip)
 		tooltip, `% tip
-		feedbackMsgBox(A_LineFile . ">" . A_LineNumber, tip )
-		Clipboard := tip
+		; feedbackMsgBox(A_LineFile . ">" . A_LineNumber, tip )
+		; Clipboard := tip
+
+
+        sqlLastError := SQLite_LastError()
+        if( instr(sqlLastError, "no such column") || instr(sqlLastError, "no such table") ){
+            RebuildDatabase()
+            tooltip,% "  RebuildDatabase() ==> (" A_LineFile "~" A_LineNumber ")"
+            sleep,5000
+            reload
+        }
+
 	}
-	
-	sqlLastError := SQLite_LastError()
-	if( instr(sqlLastError, "no such table") ){
-		RebuildDatabase()
-		tooltip,% "  RebuildDatabase() ==> (" A_LineFile "~" A_LineNumber ")"
-		sleep,5000
-		reload
-	}
-	
+
 	size := 1 ; FIRST TIME EVER schuuld be done by reading the ActionList in other function
 	modified := "1111-11-11" ; FIRST TIME EVER  ; schuuld be done by reading the ActionList in other function
         ; FileGetSize, ActionListSize, % ActionList
@@ -1078,30 +1080,31 @@ ActionList = '%ActionList%' ;
 		tooltip, `% tip
 		feedbackMsgBox(A_LineFile . ">" . A_LineNumber, tip )
 		Clipboard := tip
-		
-		sqlLastError := SQLite_LastError()
-		if( instr(sqlLastError, "no such table") ){
-			RebuildDatabase()
-			tooltip,% "  RebuildDatabase() ==> (" A_LineFile "~" A_LineNumber ")"
-			sleep,5000
-			reload
-		}
 	}
 	For each, row in result.Rows
 	{
         g_ActionListID := row[1]
         g_ActionList_UsedByUser_since_midnight[g_ActionListID] := row[2]
         return g_ActionListID
-}
-	msg := sql . "`n" . sqlGetWLid .  "`n" . A_LineNumber . " " .  A_LineFile
+    }
+	msg := sql . "`n" . sqlGetWLid
 	sqlLastError := trim( SQLite_LastError() )
-	msg .= "`n sqlLastError=" sqlLastError " `n( " A_LineFile "~" A_LineNumber ")"
+	msg .= "`n sqlLastError=" sqlLastError "`n `n (" . A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\") ")"
 	if(sqlLastError){
           lll(A_LineNumber, A_LineFile, msg)
           clipboard := msg
           feedbackMsgBox("clipboard:=sql", msg)
           msgbox,% msg
-          exitapp
+        if( instr(sqlLastError, "no such column") || instr(sqlLastError, "no such table") ){
+            RebuildDatabase()
+            msgbox,% "done: RebuildDatabase()`n `n (" . A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\") ")"
+            tooltip,% "  RebuildDatabase() ==> (" A_LineFile "~" A_LineNumber ")"
+            sleep,5000
+            reload
+        }else{
+            msgbox,% sqlLastError "`n `n (" . A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\") ")"
+        }
+        exitapp
 	}
 
     m =
