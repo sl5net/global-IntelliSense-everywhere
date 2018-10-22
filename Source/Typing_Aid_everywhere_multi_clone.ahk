@@ -180,7 +180,9 @@ global g_lineNumberFeedback
                 lineFileName := RegExReplace(A_LineFile, ".*\\([\w\s\.]+)$", "$1")
                 lineFileNameWithoutPATHandEXT := RegExReplace(A_LineFile, ".*\\([\w\s\._]+)\.\w+$", "$1")
                 tip=%msg% (%lineFileNameWithoutPATHandEXT%~%A_LineNumber%)
-                ToolTip2sec(tip,-1,-30)
+
+                if(InStr(A_ComputerName,"SL5"))
+                    ToolTip2sec(tip,-1,-30)
                 sleep,1500 ; if this is the case slow down ths script a little bit. temporaily
             ; msg=:-O WinExist temp.ahk `n `n %A_LineFile%~%A_LineNumber% ==> continue
             ;feedbackMsgBox("Oops. so lets use global.`n ",msg,1,1) ;

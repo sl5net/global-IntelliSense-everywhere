@@ -3,6 +3,8 @@
 
 
 
+
+
 ;<<<<<<<<<<<<<< ReadActionList <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ;<<<<<<<<<<<<<< ReadActionList <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ;<<<<<<<<<<<<<< ReadActionList <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -22,22 +24,22 @@ ReadActionList(){
 	ParseWordsCount :=0
    ;mark the ActionList as not done
 	g_ActionListDone = 0
-	
 
-	
+
+
   ;ActionList = ..\ActionLists\ChromeWidgetWin1\wn654_Piratenpad_Google_Chrome.txt._Generated.txt
-	
+
 	g_ActionListID := getActionListID(ActionList) ; 24.03.2018 23:02
 	if(!g_ActionListID){ ; fallBack
 		FileGetTime, ActionListModified, %ActionList%, M
 		FormatTime, ActionListModified, %ActionListModified%, yyyy-MM-dd HH:mm:ss
 		FileGetSize, ActionListSize, %ActionList%
-		
+
 		INSERT_INTO_ActionLists(ActionList, ActionListModified, ActionListSize )
         ;Msgbox,Oops `n %insert%`n (%A_LineFile%~%A_LineNumber%)
         ;tooltip,g_ActionListID = %g_ActionListID% `n ActionList = %ActionList% `n %insert%`n (%A_LineFile%~%A_LineNumber%)
         ;sleep,2000
-		
+
 		g_ActionListID := getActionListID(ActionList) ; 24.03.2018 23:02
 		if(!g_ActionListID){
 			Msgbox,% ":-( Oops `n !g_ActionListID ==> exitapp `n (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
@@ -46,29 +48,29 @@ ReadActionList(){
 		isTblWordsEmpty := true
 	}else
 		isTblWordsEmpty := false
-	
-	
+
+
 ;	ActionList := ActionList
    ; FileReadLine,ActionList  ,ActionList.txt, 1
    ; FileReadLine,activeClass ,ActionList.txt, 2
    ; FileReadLine,activeTitle ,ActionList.txt, 3
-	
+
    ; ActionListFileAdress := RegExReplace("\._Generated.txt\s*$", "")
    ; ActionList = %A_ScriptDir%\%ActionList%
 	ActionList = %ActionList%
 	ActionListLearnedTXTaddress= %A_ScriptDir%\ActionListLearned.ahk
-	
+
 ; msgbox,ActionList = %ActionList% `n (%A_LineFile%~%A_LineNumber%)
-	
+
 	MaybeFixFileEncoding(ActionList,"UTF-8")
    ; MaybeFixFileEncoding(ActionListLearned,"UTF-8")
-	
+
 ;msgbox,ActionList = %ActionList% `n (%A_LineFile%~%A_LineNumber%)
-	
-	
+
+
 	g_ActionListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", A_ScriptDir . "\ActionListLearned.db" ) ; https://autohotkey.com/board/topic/86457-dba-16-easy-database-access-mysql-sqlite-ado-ms-sql-access/
 ; END of: Section wait for unsolved error messages. to close them unsolved :D 02.04.2017 14:36 17-04-02_14-36 todo: dirty bugfix
-	
+
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 	if (!g_ActionListDB )
 	{
@@ -92,7 +94,7 @@ Cannot Create Words Table - fatal error: 5 - database is locked
 OK
 ==> there was two TypingAid runniing. how could thats be?
 )
-	
+
 ; How to test if file is_writable and not locked by another program ??
 ; FileGetAttrib, OutputVar, A_ScriptDir . "\ActionListLearned.db"
 ; clipboard := g_ActionListDB
@@ -100,16 +102,16 @@ OK
 		g_ActionListDB.Query("PRAGMA journal_mode = TRUNCATE;")
 	else
 		msgbox,Oops i am triggered :D 17-04-02_13-47 !g_ActionListDB
-	
+
 	DatabaseRebuilt := MaybeConvertDatabase()
-	
+
 	FileGetSize, ActionListSize, %ActionList%
 ;msgbox,ActionListSize = %ActionListSize% `n (%A_LineFile%~%A_LineNumber%)
-	
+
 	if(false && !ActionListSize) {
           m = !ActionListSize: Oops i am triggered :D 17-04-02_13-52 (from: ActionList.ahk~%A_LineNumber%)
 		Sleep,2500
-		
+
  ;lll(A_LineNumber, A_LineFile,Last_A_This . " reload " )
 		global g_doRunLogFiles
 		if(g_doRunLogFiles)
@@ -147,22 +149,21 @@ from: ActionList.ahk~%A_LineNumber%
 	isTblWordsEmpty = %isTblWordsEmpty%
 	DatabaseRebuilt = %DatabaseRebuilt%
 	)
-
 	ToolTip4sec(msg "`n" A_LineNumber . " " . RegExReplace(A_LineFile, ".*\\", "")  )
 	if (!isTblWordsEmpty && !DatabaseRebuilt) {
     ; thats inside ReadActionList() ---------------------------------------------
-		
+
 		SELECT := "SELECT ActionListmodified, ActionListsize FROM ActionLists WHERE ActionList = '" . ActionList . "';"
     	ToolTip4sec(msg "`n`n" SELECT "`n" A_LineNumber . " " . RegExReplace(A_LineFile, ".*\\", "")  )
 		LearnedWordsTable := g_ActionListDB.Query(SELECT)
 
 		LoadActionList := "Insert"
-		
+
 		For each, row in LearnedWordsTable.Rows
 		{
 			ActionListLastModified := row[1]
 			ActionListLastSize := row[2]
-			
+
 			if (isTblWordsEmpty || ActionListSize != ActionListLastSize || ActionListModified != ActionListLastModified) {
 				LoadActionList := "Update" ; updated?
             ;Msgbox,%ActionList% = ActionList `n LoadActionList = "%LoadActionList%"`n source TXT has changed. update database next. `n (%A_LineFile%~%A_LineNumber%)
@@ -178,21 +179,21 @@ from: ActionList.ahk~%A_LineNumber%
 	} else {
 		LoadActionList := "Insert"
 	}
-	
-	
+
+
 	if (LoadActionList) {
       ; Progress, M, Please wait..., Loading ActionList, %g_ScriptTitle%
 
       INSERT_function_call_time_millis_since_midnight( A_LineFile , A_ThisFunc , A_LineNumber)
 
 		g_ActionListDB.BeginTransaction()
-      ;reads list of words from file 
+      ;reads list of words from file
 		FileRead, ParseWords, %ActionList%
       ; ParseWords := JEE_StrUtf8BytesToText( ParseWords ) ; 26.09.2018 18:40 this function was the reason while ä ü ö was not woring
       ; JEE_StrUtf8BytesToText 26.09.2018 18:40 was the reason why german äüö not was workig :) Now all sources are in UTF8.
-		
+
 		ParseWords := addListOpenAction_ifNotAlreadyInTheList(ParseWords,ActionList)
-		
+
       INSERT_function_call_time_millis_since_midnight( A_LineFile , A_ThisFunc , A_LineNumber)
 
 		if(false){ ; todo: braucht man für die aktualliserung der listen niht. gerade getestet. gerade was hinzugefügt
@@ -209,8 +210,8 @@ from: ActionList.ahk~%A_LineNumber%
 				}
 			} ; end of loop
 		} ; endOf if(false)
-		
-		
+
+
 		if(false && !foundOpenLibLine){
 			temp := "___open library|rr||ahk|FileReadLine,ActionListFileAdress, ActionList.txt.status.txt, 1 `n ActionListFileAdress := RegExReplace(ActionListFileAdress, ""\._Generated\.ahk\s*$"", """") `n run,% ActionListFileAdress"
             ; AddWordToList(AddWord,ForceCountNewOnly,ForceLearn:= false, ByRef LearnedWordsCount := false) {
@@ -219,18 +220,18 @@ from: ActionList.ahk~%A_LineNumber%
 		}
 		DynaRun("#" . "NoTrayIcon `n  Tooltip,.SL5. `n Sleep,2300")
       ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-		; 
-		
+		;
+
 		if(false && ParseWordsCount>0)
 			Msgbox, %ParseWordsCount%  (line:%A_LineNumber%)
-		
+
 ; DynaRun("msgbox, (line:" . A_LineNumber . ") `n Sleep,2000  ")
 		global do_tooltipReadActionList
 		if(do_tooltipReadActionList)
 			DynaRun("#" . "NoTrayIcon `n" . "loop,20 `n { `n Tooltip,read (line:" . A_LineNumber . ") `n Sleep,100 `n }  ")
 ; DynaRun("Tooltip, read ActionList (line:" . A_LineNumber . ") ``n Sleep,2000 ``n Exitapp")
 ; DynaRun("Tooltip, read ActionList (line:" . A_LineNumber . ") ``n Sleep,2000 ``n Exitapp")
-		
+
 		if(false && ParseWordsCount>0)
 			Msgbox, %ParseWordsCount%  (line:%A_LineNumber%)
 
@@ -330,7 +331,7 @@ from: ActionList.ahk~%A_LineNumber%
 				if(g_config["FuzzySearch"]["enable"] && a_index < g_config["FuzzySearch"]["MAXlines"])
 					addFuzzySearch_in_generatedList(ALoopField, ActionList,LearnedWordsCount)
 				;     AddWordToList("rübennase" A_now,1,"ForceLearn", g_config["FuzzySearch"]["keysMAXperEntry"], g_config["FuzzySearch"]["doValueCopy"])
-				
+
 			}
 		}
 
@@ -340,40 +341,40 @@ from: ActionList.ahk~%A_LineNumber%
 
 		if(false && ParseWordsCount>0)
 			Msgbox, %ParseWordsCount%  (line:%A_LineNumber%)
-		
+
 		ParseWords =
 		g_ActionListDB.EndTransaction()
       ;Progress, Off
-		
-		
+
+
 		if (LoadActionList == "Update") {
 			UPDATE := "UPDATE ActionLists SET ActionListmodified = '" . ActionListModified . "', ActionListsize = '" . ActionListSize . "' WHERE ActionList = '" . ActionList . "';"
 			g_ActionListDB.Query(UPDATE)
         ;Msgbox, %UPDATE%  (line:%A_LineNumber%)
 		} else {
          ;g_ActionListDB.Query("INSERT INTO ActionLists (ActionList, ActionListmodified, ActionListsize) VALUES ('" . ActionList . "','" . ActionListModified . "','" . ActionListSize . "');")
-			
+
 			INSERT_INTO_ActionLists_ifNotExist(ActionList, ActionListModified, ActionListSize )
 			g_ActionListID := getActionListID(ActionList) ; 24.03.2018 23:02
-			
-			
+
+
 		}
-		
+
 	}
 	if(false && ParseWordsCount>0)
 		Msgbox, %ParseWordsCount%  (line:%A_LineNumber%)
-	
+
 	if (DatabaseRebuilt)
 	{
    ;   Progress, M, Please wait..., Converting learned words, %g_ScriptTitle%
-		
+
       ;Force LearnedWordsCount to 0 if not already set as we are now processing Learned Words
 		IfEqual, LearnedWordsCount,
 		{
 			LearnedWordsCount=0
 		}
       ; Msgbox, n  n n 17-04-27_22-08 (line:%A_LineNumber%)
-		
+
 		g_ActionListDB.BeginTransaction()
       ;reads list of words from file
 		if(InStr(ActionListLearnedTXTaddress,"ActionListLearned.ahk")){
@@ -392,7 +393,7 @@ from: ActionList.ahk~%A_LineNumber%
 ; SciTEWindow\_global.txt
 		if(false && ParseWordsCount>0)
 			Msgbox, %ParseWordsCount%  (line:%A_LineNumber%)
-		
+
 ; ___open library|rr||ahk|FileReadLine,ActionListFileAdress, ActionList.txt.status.txt, 1 `n ActionListFileAdress := RegExReplace(ActionListFileAdress, "\._Generated\.txt\s*$", "") `n run,% ActionListFileAdress
 ;
         ; inside function ReadActionList
@@ -408,7 +409,7 @@ from: ActionList.ahk~%A_LineNumber%
 			ToolTip4sec(A_LoopField "`n" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
  			AddWordToList(A_LoopField,0,"ForceLearn",LearnedWordsCount)
  			; thats strang   ;  ms msb too
-			
+
 		}
 		ParseWords =
 		g_ActionListDB.EndTransaction()
@@ -416,20 +417,20 @@ from: ActionList.ahk~%A_LineNumber%
       INSERT_function_call_time_millis_since_midnight( A_LineFile , A_ThisFunc , A_LineNumber)
 
 ;      Progress, 50, Please wait..., Converting learned words, %g_ScriptTitle%
-		
+
 ; -- here we are inside ReadActionList()
-		
-		
+
+
       ;reverse the numbers of the word counts in memory
 		ReverseWordNums(LearnedWordsCount)
-		
+
 		g_ActionListDB.Query("INSERT INTO LastState VALUES ('tableConverted','1',NULL);")
-		
+
       ;Progress, Off
 	}
 	if(false && ParseWordsCount>0)
 		Msgbox, %ParseWordsCount%  (line:%A_LineNumber%)
-	
+
    ;mark the ActionList as completed
 	g_ActionListDone = 1
    ; DynaRun("#" . "NoTrayIcon `n Tooltip,|SL5|`n Sleep,2300")
@@ -450,8 +451,9 @@ addListOpenAction_ifNotAlreadyInTheList(contentActionList,ActionList){
 	pattern := "m)^\s*__+[^`n]*\|rr\|\|ahk\|"
 ;                        foundOpenLibLine  := RegExMatch(A_LoopField, pattern )
 	contentActionList432indes := SubSTr( contentActionList , 1 , 432 ) ; we dont wann search the complete file. takes to much time :) 12.08.2017 23:02 17-08-12_23-02
-	
+
 ; adds a ___open library if not into the ActionList
+
     postFixGenerated := "._Generated.ahk"
     ActionListPostFix  := SubStr(ActionList, - StrLen(postFixGenerated) + 1 )
     itsAGeneratedList := ( postFixGenerated == ActionListPostFix )
@@ -482,7 +484,7 @@ addFuzzySearch_in_generatedList(ActionStr, ActionList, ByRef LearnedWordsCount, 
 
     INSERT_function_call_time_millis_since_midnight( A_LineFile , A_ThisFunc , A_LineNumber)
 
-	
+
     ; || !instr(ActionList,"Generated.ahk")
 	if( !ActionStr ){ ;_ahk_global.ahk._Generated.ahk
         ; examples log 02.10.2018 19:56: ..\ActionLists\_globalActionLists\pfade.ahk(378 ActionList.ahk)
@@ -491,8 +493,8 @@ addFuzzySearch_in_generatedList(ActionStr, ActionList, ByRef LearnedWordsCount, 
 			Msgbox,% ActionList " `nlast=" substr(ActionStr ,0) "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
 		return false
 	}
-	
-	
+
+
     ;Msgbox,% ActionStr " `nlast=" substr(ActionStr ,0) "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
 	if( substr(ActionStr,0) == "|" ){
 		if(0 && instr(ActionList,"Notepad_Administrator"))
@@ -504,11 +506,11 @@ addFuzzySearch_in_generatedList(ActionStr, ActionList, ByRef LearnedWordsCount, 
 	    ; Msgbox,% ActionStr "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
 		return false
 	}
-	
+
     ; synonymValue|rr|     ; synonymValue|rr||ahk|q=keyValue
     ; Msgbox,% "ActionStr= " ActionStr "`n " `n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
     ;tooltip,% value " `n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
-	
+
 	if(pos1 := InStr( ActionStr , "|" )){
 		ActionStrKey := substr(ActionStr  ,1, pos1 - 1 )
 		ActionStrVal := substr(ActionStr , pos1 )
@@ -517,10 +519,10 @@ addFuzzySearch_in_generatedList(ActionStr, ActionList, ByRef LearnedWordsCount, 
 		ActionStrKey := ActionStr
 		ActionStrVal := ""
 	}
-	
-	
-    ; asdlkasdlf alsdk aösldkf aösldkfjasdölfkj  
-	
+
+
+    ; asdlkasdlf alsdk aösldkf aösldkfjasdölfkj
+
 	camelCaseOr := "([^A-Z])[A-Z][a-z]+"
 	normalOr := "([\W_-])[a-z]+"
 	regEx := "(?:(" camelCaseOr "|" normalOr "))"
@@ -528,7 +530,7 @@ addFuzzySearch_in_generatedList(ActionStr, ActionList, ByRef LearnedWordsCount, 
 	addedKeysCounter := 0
 	while(foundPos := RegexMatch( " " ActionStrKey, "O)" regEx, Match, StartingPosition - 1 )){
 		StartingPosition := Match.Pos(1) + Match.Len(1)
-		
+
 		if(addedKeysCounter >= addKeysMAX)
 			break
 		if(a_index == 1) ; the first is stored into the complete ActionList
@@ -547,7 +549,7 @@ addFuzzySearch_in_generatedList(ActionStr, ActionList, ByRef LearnedWordsCount, 
 		}
 		key := SubStr(   keyTemp  , 2)
 		; MsgBox,% key " , " keyTemp "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
-		
+
         ; global g_config := { FuzzySearch:{ enable: true, keysMAXperEntry : 6, doValueCopy : false } } ; difficult to implement symlink copy for not rr lines doValueCopy. todo: issue . doValueCopy : false  is not fully implemented
 		if(ActionStrVal)
 			newListSynonym := key "|rr|" ; <=== eigentlich sollte es ja so gehen
@@ -557,7 +559,7 @@ addFuzzySearch_in_generatedList(ActionStr, ActionList, ByRef LearnedWordsCount, 
 			; MsgBox,% newListSynonym "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
         }
         ; newListSynonym := key "|rr|" ; <=== eigentlich sollte es ja so gehen
-		
+
         ; Msgbox,% a_index ":`n" ActionStr "`n`n" newListSynonym "`n`n`n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
 		if(0)
 			msg =
@@ -603,12 +605,12 @@ ReverseWordNums(LearnedWordsCount){
 
     INSERT_function_call_time_millis_since_midnight( A_LineFile , A_ThisFunc , A_LineNumber)
 	LearnedWordsCount+= (prefs_LearnCount - 1)
-	
+
 	sql := "SELECT word FROM Words WHERE count IS NOT NULL ActionList = '" ActionList "';"
 	LearnedWordsTable := g_ActionListDB.Query(sql)
 	msgbox,%sql% 18-03-25_06-03
    ; LearnedWordsTable := g_ActionListDB.Query("SELECT word FROM Words WHERE count IS NOT NULL;")
-	
+
 	g_ActionListDB.BeginTransaction()
 	For each, row in LearnedWordsTable.Rows
 	{
@@ -618,7 +620,7 @@ ReverseWordNums(LearnedWordsCount){
 		g_ActionListDB.Query("UPDATE words SET count = (SELECT " . LearnedWordsCount . " - count FROM words " . WhereQuery . ") " . WhereQuery . ";")
 	}
 	g_ActionListDB.EndTransaction()
-	
+
 	Return
 }
 
@@ -646,7 +648,7 @@ AddWordToList(AddWord,ForceCountNewOnly,ForceLearn:= false, ByRef LearnedWordsCo
 	if(0 && AddWord)
 		tooltip, % "AddWord = " AddWord  "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
    ;
-	
+
 	if !(LearnedWordsCount) {
 		StringSplit, SplitAddWord,  AddWord, | ; old method 17.03.2017 17:54 17-03-17_17-54
          ; SplitAddWord := StrSplit(AddWord, "|")
@@ -662,7 +664,7 @@ AddWordToList(AddWord,ForceCountNewOnly,ForceLearn:= false, ByRef LearnedWordsCo
 			if(SplitAddWord4)
 				tooltip, '%SplitAddWord4%' = SplitAddWord4  `n (line:%A_LineNumber%) `n
 		}
-		
+
 		IfEqual, SplitAddWord2, D
 		{
 			AddWordDescription := SplitAddWord3
@@ -684,10 +686,10 @@ AddWordToList(AddWord,ForceCountNewOnly,ForceLearn:= false, ByRef LearnedWordsCo
 
     if(!CheckValid(AddWord,ForceLearn, isIndexedAhkBlock))
 		return false
-	
+
    ; TransformWord normalizes the word, converting it to uppercase and removing certain accented characters.
 	TransformWord(AddWord, AddWordReplacement, AddWordDescription, AddWordTransformed, AddWordIndexTransformed, AddWordReplacementTransformed, AddWordDescriptionTransformed)
-	
+
 	IfEqual, g_ActionListDone, 0 ;if this is read from the ActionList
 	{
 		IfNotEqual,LearnedWordsCount,  ;if this is a stored learned word, this will only have a value when LearnedWords are read in from the ActionList
@@ -703,7 +705,7 @@ AddWordToList(AddWord,ForceCountNewOnly,ForceLearn:= false, ByRef LearnedWordsCo
 			} else {
 				WordReplacementQuery := "''"
 			}
-			
+
 			if (AddWordDescription)
 			{
 				WordDescriptionQuery := "'" . AddWordDescriptionTransformed . "'"
@@ -712,48 +714,48 @@ AddWordToList(AddWord,ForceCountNewOnly,ForceLearn:= false, ByRef LearnedWordsCo
 			}
 			INSERT := "INSERT INTO words (wordindexed, word, worddescription, wordreplacement, ActionListID) VALUES ('" . AddWordIndexTransformed . "','" . AddWordTransformed . "'," . WordDescriptionQuery . "," . WordReplacementQuery . ",'" . g_ActionListID . "');"
 			g_ActionListDB.Query(INSERT)
-			
-			
+
+
 		}
       ; Yes, wordindexed is the transformed word that is actually searched upon.
-		
+
 	} else if (prefs_LearnMode = "On" || ForceCountNewOnly == 1)
-	{ 
+	{
       ; If this is an on-the-fly learned word
 		AddWordInList := g_ActionListDB.Query("SELECT * FROM wordsre WHERE word = '" . AddWordTransformed . "';")
-		
+
 		IF !( AddWordInList.Count() > 0 ) ; if the word is not in the list
 		{
-			
+
 			IfNotEqual, ForceCountNewOnly, 1
 			{
 				IF (StrLen(AddWord) < prefs_LearnLength) ; don't add the word if it's not longer than the minimum length for learning if we aren't force learning it
 					return false
-				
+
 				if AddWord contains %prefs_ForceNewWordCharacters%
 					return false
-				
+
 				if AddWord contains %prefs_DoNotLearnStrings%
 					return false
-				
+
 				CountValue = 1
-				
+
 			} else {
 				CountValue := prefs_LearnCount ;set the count to LearnCount so it gets written to the file
 			}
-			
+
          ; must update wordreplacement since SQLLite3 considers nulls unique
 			g_ActionListDB.Query("INSERT INTO words (wordindexed, word, count, wordreplacement, ActionListID) VALUES ('" . AddWordIndexTransformed . "','" . AddWordTransformed . "','" . CountValue . "','','" . g_ActionListID . "');")
 		} else IfEqual, prefs_LearnMode, On
 		{
-			IfEqual, ForceCountNewOnly, 1                     
+			IfEqual, ForceCountNewOnly, 1
 			{
 				For each, row in AddWordInList.Rows
 				{
 					CountValue := row[3]
 					break
 				}
-				
+
 				IF ( CountValue < prefs_LearnCount )
 				{
 					g_ActionListDB.QUERY("UPDATE words SET count = ('" prefs_LearnCount "') WHERE word = '"  AddWordTransformed "' AND ActionListID = '" . g_ActionListID . "';")
@@ -763,7 +765,7 @@ AddWordToList(AddWord,ForceCountNewOnly,ForceLearn:= false, ByRef LearnedWordsCo
 			}
 		}
 	}
-	
+
 	Return true
 }
 
@@ -776,7 +778,7 @@ CheckValid(Word,ForceLearn:= false, isIndexedAhkBlock := false){
 
 	Ifequal, Word,  ;If we have no word to add, skip out.
 	    Return
-	
+
 	if Word is space ;If Word is only whitespace, skip out.
 		Return
 
@@ -800,11 +802,11 @@ CheckValid(Word,ForceLearn:= false, isIndexedAhkBlock := false){
    ;Anything below this line should not be checked if we want to Force Learning the word (Ctrl-Shift-C or coming from ActionList . txt)
 	If ForceLearn
 		Return, 1
-	
+
    ;if Word does not contain at least one alpha character, skip out.
 	IfEqual, A_IsUnicode, 1
 	{
-		if ( RegExMatch(Word, "S)\pL") = 0 )  
+		if ( RegExMatch(Word, "S)\pL") = 0 )
 		{
 			return
 		}
@@ -812,7 +814,7 @@ CheckValid(Word,ForceLearn:= false, isIndexedAhkBlock := false){
 	{
 		Return
 	}
-	
+
 	Return, 1
 }
 
@@ -822,14 +824,14 @@ TransformWord(AddWord, AddWordReplacement, AddWordDescription, ByRef AddWordTran
     INSERT_function_call_time_millis_since_midnight( A_LineFile , A_ThisFunc , A_LineNumber)
 
     ; TransformWord normalizes the word, converting it to uppercase and removing certain accented characters.
-	
+
 	AddWordIndex := AddWord
-	
+
    ; normalize accented characters
 	AddWordIndex := StrUnmark(AddWordIndex)
-	
+
 	StringUpper, AddWordIndex, AddWordIndex
-	
+
 	StringReplace, AddWordTransformed, AddWord, ', '', All
 	StringReplace, AddWordIndexTransformed, AddWordIndex, ', '', All
 	if (AddWordReplacement) {
@@ -853,18 +855,18 @@ DeleteWordFromList(DeleteWord){
     INSERT_function_call_time_millis_since_midnight( A_LineFile , A_ThisFunc , A_LineNumber)
 	Ifequal, DeleteWord,  ;If we have no word to delete, skip out.
 	Return
-	
+
 	if DeleteWord is space ;If DeleteWord is only whitespace, skip out.
 		Return
-	
+
 	IfNotEqual, prefs_LearnMode, On
 	Return
-	
+
 	StringReplace, DeleteWordEscaped, DeleteWord, ', '', All
    ; g_ActionListDB.Query("DELETE FROM words WHERE word = '" . DeleteWordEscaped . "';")
 	g_ActionListDB.Query("DELETE FROM words WHERE word = '" . DeleteWordEscaped . "' AND ActionListID = '" . g_ActionListID . "';")
-	
-	Return   
+
+	Return
 }
 ;>>><>>>> DeleteWordFromList >>>> 180319190934 >>>> 19.03.2018 19:09:34 >>>>
 ;------------------------------------------------------------------------
@@ -878,17 +880,17 @@ UpdateWordCount(word,SortOnly)
     INSERT_function_call_time_millis_since_midnight( A_LineFile , A_ThisFunc , A_LineNumber)
    ;Word = Word to increment count for
    ;SortOnly = Only sort the words, don't increment the count
-	
-   ;Should only be called when LearnMode is on  
+
+   ;Should only be called when LearnMode is on
 	IfEqual, prefs_LearnMode, Off
 	Return
-	
-	IfEqual, SortOnly, 
+
+	IfEqual, SortOnly,
 	Return
-	
+
 	StringReplace, wordEscaped, word, ', '', All
 	g_ActionListDB.Query("UPDATE words SET count = count + 1 WHERE word = '" . wordEscaped . "';")
-	
+
 	Return
 }
 
@@ -935,7 +937,7 @@ MaybeUpdateActionList(){
 	global g_ActionListID
 	global g_ActionListDone
 	global prefs_LearnCount
-	
+
    ; Update the Learned Words
 	IfEqual, g_ActionListDone, 1
 	{
@@ -944,21 +946,21 @@ MaybeUpdateActionList(){
 		msgbox,% SELECT " 18-03-25_06-05"
         ;Clipboard := SELECT
 		SortActionList := g_ActionListDB.Query(SELECT)
-		
+
 		for each, row in SortActionList.Rows
 		{
 			TempActionList .= row[1] . "`r`n"
 		}
-		
+
 		If ( SortActionList.Count() > 0 )
 		{
 			StringTrimRight, TempActionList, TempActionList, 2
-			
+
 			FileDelete, %A_ScriptDir%\Temp_ActionListLearned.ahk
 			FileAppendDispatch(TempActionList, A_ScriptDir . "\Temp_ActionListLearned.ahk")
 			FileCopy, %A_ScriptDir%\Temp_ActionListLearned.ahk, %A_ScriptDir%\ActionListLearned.ahk, 1
 			FileDelete, %A_ScriptDir%\Temp_ActionListLearned.ahk
-			
+
          ; Convert the Old ActionList file to not have ;LEARNEDWORDS;
 			IfEqual, g_LegacyLearnedWords, 1
 			{
@@ -966,18 +968,18 @@ MaybeUpdateActionList(){
 				FileRead, ParseWords, %A_ScriptDir%\%ActionList%
 				LearnedWordsPos := InStr(ParseWords, "`;LEARNEDWORDS`;",true,1) ;Check for Learned Words
 				TempActionList := SubStr(ParseWords, 1, LearnedwordsPos - 1) ;Grab all non-learned words out of list
-				ParseWords = 
+				ParseWords =
 				FileDelete, %A_ScriptDir%\Temp_ActionList.ahk
 				FileAppendDispatch(TempActionList, A_ScriptDir . "\Temp_ActionList.ahk")
 ;            FileCopy, %A_ScriptDir%\Temp_ActionList.txt, %A_ScriptDir%\ActionList.txt, 1
 				FileCopy, %A_ScriptDir%\Temp_ActionList.ahk, %ActionList%, 1 ; 02.03.2018 12:37 18-03-02_12-37
 				FileDelete, %A_ScriptDir%\Temp_ActionList.ahk
-			}   
+			}
 		}
 	} ; __ __
-	
+
 	g_ActionListDB.Close(),
-	
+
 } ; EndOf: MaybeUpdateActionList
 
 ;------------------------------------------------------------------------
@@ -1103,6 +1105,7 @@ ActionList = '%ActionList%' ;
                 tip := "`n sqlLastError=" sqlLastError "`n g_ActionListDB=" g_ActionListDB " `n( " A_LineFile "~" A_LineNumber ")"
                 tooltip, % tip
                 RebuildDatabase() ; works ? 22.10.2018 05:23 todo:
+                sleep,10
                 return getActionListID(ActionList)
                 ; return ; probalby enough only to wait 22.10.2018 04:56
             ;}

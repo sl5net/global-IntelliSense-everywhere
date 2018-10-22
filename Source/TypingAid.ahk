@@ -89,7 +89,7 @@ global activeTitle:=""
 
 global g_doAskBevoreChangingActionList := false ; <== buggy dont know whey 19.03.2018 23:50
 global g_doAskBevoreChangingActionList := true ; <== works preetty nice :) 19.03.2018 23:51
-global g_minBytesNeedetToAskBevoreChangingActionList := 9222 ; <== Minimum bytes. then will be asked before the change 20.03.2018 18:22
+global g_minBytesNeedetToAskBevoreChangingActionList := 812345 ; <== Minimum bytes. then will be asked before the change 20.03.2018 18:22
 if(0 && InStr(A_ComputerName,"SL5"))
     g_minBytesNeedetToAskBevoreChangingActionList := 812345 ; <== Minimum bytes. then will be asked before the change 20.03.2018 18:22
 
@@ -311,6 +311,8 @@ MainLoop()
 ; https://github.com/sl5net/global-IntelliSense-everywhere/issues/4
 #IfWinActive,
 :b0*?:__:: ;does not delete the underscores
+    ; ToolTip4sec(" (" A_LineNumber " " A_LineFile " " Last_A_This)
+    return
     SetTimer, show_ListBox_Id, 600 ; setinterval
     Sleep,100
     g_reloadIf_ListBox_Id_notExist := true
@@ -1137,7 +1139,12 @@ fixBug_Alt_Shift_Ctrl_hanging_down(){
     ToolTip3sec(A_LineNumber . " " . RegExReplace(A_LineFile,".*\\")  . " `n " . tip)
     send,{AltUp}
   }
- if( GetKeyState("Ctrl","P") ){ 
+ if( GetKeyState("RAlt","P") ){
+    tip := "Alt is down"
+    ToolTip3sec(A_LineNumber . " " . RegExReplace(A_LineFile,".*\\")  . " `n " . tip)
+    send,{RAltUp}
+  }
+ if( GetKeyState("Ctrl","P") ){
     tip := "Ctrl is down"
     ToolTip3sec(A_LineNumber . " " . RegExReplace(A_LineFile,".*\\")  . " `n " . tip)
     send,{CtrlUp}
@@ -1200,11 +1207,12 @@ check_ActionList_GUI_is_hanging_or_freezed:
     AHKcode =
     (
     SetTitleMatchMode, 2
-    WinWaitActive,menu closed? #32770,is it closed???,1
+    WinWaitActive,menu closed? #32770, ,1
     winclose,
     exitapp,
      )
      DynaRun(AHKcode)
+     ; menu closed? ahk_class #32770 ; mouseWindowTitle=0x23d0f68  ;
      MsgBox , ,menu closed? , is it closed??? `n (%A_LineFile%~%A_LineNumber%) , 1 ; <== helps closing the listbox probalby 19.10.2018 11:28
     }
     return
