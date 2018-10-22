@@ -59,6 +59,7 @@ global g_ListBoxY
 g_ListBoxX := 0 ; if g_ListBoxX (not false > 0) it never usses CaretXorMouseXfallback . if you want go back to default, reload the
 g_ListBoxY := 0 ; if g_ListBoxX (not false > 0) it never usses CaretXorMouseXfallback . if you want go back to default, reload the
 
+global g_show_ListBox_Id_EMTY_COUNT := 0
 
 global g_method := "Clipboard"
 
@@ -1229,9 +1230,14 @@ show_ListBox_Id:
     if(!g_ListBox_Id && g_reloadIf_ListBox_Id_notExist){
         ; run,% "..\start.ahk" ; deactivated. test 22.10.2018 05:54
 
+        g_show_ListBox_Id_EMTY_COUNT++
+
         ;/¯¯¯¯ ;ToolTip1sec(g_ListBox_Id ¯¯ 181022055812 ¯¯ 22.10.2018 05:58:12 ¯¯\
         ; tested . it works. dont need to reload or so
-        ToolTip5sec( "DisEn (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This,1,1)
+        ToolTip5sec( g_show_ListBox_Id_EMTY_COUNT ": DisEn (" A_LineNumber " " RegExReplace(A_LineFile,".*\\"),1,1)
+        if(g_show_ListBox_Id_EMTY_COUNT >= 5)
+            reload
+
         DisableWinHook()
         EnableWinHook()
         ;\____ ;ToolTip1sec(g_ListBox_Id __ 181022055815 __ 22.10.2018 05:58:15 __/
