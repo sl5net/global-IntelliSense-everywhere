@@ -1018,9 +1018,9 @@ StrUnmark(string) {
         StringReplace, string, string, ï¿½, OE, All
         StringReplace, string, string, ï¿½, ss, All
 	}
-	
-	return, string  
-	
+
+	return, string
+
 }
 
 ;<<<<<<<< getActionListID <<<< 180324230510 <<<< 24.03.2018 23:05:10 <<<<
@@ -1031,8 +1031,10 @@ getActionListID(ActionList){
     INSERT_function_call_time_millis_since_midnight( A_LineFile , A_ThisFunc , A_LineNumber)
 	if(!g_ActionListDB)
 		g_ActionListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", A_ScriptDir . "\ActionListLearned.db" ) ;
-	
-	sqlGetWLid =
+	if(!g_ActionListDB){
+        msgbox,% "!g_ActionListDB`n `n (" . A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\") ")"
+    }
+ 	sqlGetWLid =
     (
 SELECT id, lastUsedByUser_since_midnight FROM ActionLists WHERE
 ActionList = '%ActionList%' ;
@@ -1090,12 +1092,22 @@ ActionList = '%ActionList%' ;
 	msg := sql . "`n" . sqlGetWLid
 	sqlLastError := trim( SQLite_LastError() )
 	msg .= "`n sqlLastError=" sqlLastError "`n `n (" . A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\") ")"
-	if(sqlLastError){
+	if(!g_ActionListID && sqlLastError){
           ; lll(A_LineNumber, A_LineFile, msg)
           ; clipboard := msg
           ; feedbackMsgBox("clipboard:=sql", msg)
           ; msgbox,% msg
-        if( instr(sqlLastError, "no such column") || instr(sqlLastError, "no such table") ){
+          ; 
+        if(  instr(sqlLastError, "no such table") ){
+            ;if(A_TickCount < 1000){
+                tip := "`n sqlLastError=" sqlLastError "`n g_ActionListDB=" g_ActionListDB " `n( " A_LineFile "~" A_LineNumber ")"
+                tooltip, % tip
+                RebuildDatabase() ; works ? 22.10.2018 05:23 todo:
+                return getActionListID(ActionList)
+                ; return ; probalby enough only to wait 22.10.2018 04:56
+            ;}
+        }
+        else if( instr(sqlLastError, "no such column") ){
             RebuildDatabase()
             msgbox,% "done: RebuildDatabase()`n `n " msg " (" . A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\") ")"
             tooltip,% "  RebuildDatabase() ==> (" A_LineFile "~" A_LineNumber ")"
@@ -1104,6 +1116,7 @@ ActionList = '%ActionList%' ;
         }else{
             lll(A_LineNumber, A_LineFile, msg)
             msgbox,% sqlLastError "`n `n (" . A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\") ")"
+            ; inside: getActionListID
         }
         exitapp
 	}
