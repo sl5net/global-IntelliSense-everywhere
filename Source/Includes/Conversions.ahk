@@ -459,7 +459,7 @@ ActionListID INTEGER NOT NULL
 		if(!g_ActionListDB)
 			g_ActionListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", A_ScriptDir . "\ActionListLearned.db" ) ;
 		
-		sql := "CREATE TABLE IF NOT EXISTS ActionLists (id INTEGER PRIMARY KEY AUTOINCREMENT, ActionList TEXT, ActionListmodified DATETIME, ActionListsize INTEGER)"
+		sql := "CREATE TABLE IF NOT EXISTS ActionLists (id INTEGER PRIMARY KEY AUTOINCREMENT, ActionList TEXT, ActionListmodified DATETIME, ActionListsize INTEGER, lastusedByUser_since_midnight INTEGER)"
 		IF not g_ActionListDB.Query(sql)
 		{
 			ErrMsg := g_ActionListDB.ErrMsg()

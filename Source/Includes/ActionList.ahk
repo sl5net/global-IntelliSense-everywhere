@@ -1091,17 +1091,18 @@ ActionList = '%ActionList%' ;
 	sqlLastError := trim( SQLite_LastError() )
 	msg .= "`n sqlLastError=" sqlLastError "`n `n (" . A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\") ")"
 	if(sqlLastError){
-          lll(A_LineNumber, A_LineFile, msg)
-          clipboard := msg
-          feedbackMsgBox("clipboard:=sql", msg)
-          msgbox,% msg
+          ; lll(A_LineNumber, A_LineFile, msg)
+          ; clipboard := msg
+          ; feedbackMsgBox("clipboard:=sql", msg)
+          ; msgbox,% msg
         if( instr(sqlLastError, "no such column") || instr(sqlLastError, "no such table") ){
             RebuildDatabase()
-            msgbox,% "done: RebuildDatabase()`n `n (" . A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\") ")"
+            msgbox,% "done: RebuildDatabase()`n `n " msg " (" . A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\") ")"
             tooltip,% "  RebuildDatabase() ==> (" A_LineFile "~" A_LineNumber ")"
             sleep,5000
             reload
         }else{
+            lll(A_LineNumber, A_LineFile, msg)
             msgbox,% sqlLastError "`n `n (" . A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\") ")"
         }
         exitapp
