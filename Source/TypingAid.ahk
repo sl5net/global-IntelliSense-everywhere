@@ -312,7 +312,7 @@ MainLoop()
 #IfWinActive,
 :b0*?:__:: ;does not delete the underscores
     ; ToolTip4sec(" (" A_LineNumber " " A_LineFile " " Last_A_This)
-    return
+    ; return
     SetTimer, show_ListBox_Id, 600 ; setinterval
     Sleep,100
     g_reloadIf_ListBox_Id_notExist := true
@@ -1227,7 +1227,15 @@ show_ListBox_Id:
     global g_reloadIf_ListBox_Id_notExist
     ;ToolTip1sec(g_ListBox_Id " (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This,1,1)
     if(!g_ListBox_Id && g_reloadIf_ListBox_Id_notExist){
-        run,% "..\start.ahk"
+        ; run,% "..\start.ahk" ; deactivated. test 22.10.2018 05:54
+
+        ;/¯¯¯¯ ;ToolTip1sec(g_ListBox_Id ¯¯ 181022055812 ¯¯ 22.10.2018 05:58:12 ¯¯\
+        ; tested . it works. dont need to reload or so
+        ToolTip5sec( "DisEn (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This,1,1)
+        DisableWinHook()
+        EnableWinHook()
+        ;\____ ;ToolTip1sec(g_ListBox_Id __ 181022055815 __ 22.10.2018 05:58:15 __/
+
         ; RecomputeMatches() ; <=== hope it helps. not sure 19.10.2018 11:34 ... not helped 19.10.2018 11:37
         ; goto, lblTopOfScriptLine111 ; <=== hope it helps. ...  not helped 19.10.2018 11:37
     }
