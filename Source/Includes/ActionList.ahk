@@ -18,6 +18,11 @@ ReadActionList(){
 	global ActionList
 	global g_ActionListID
 
+	global g_config
+    ; msgBox,% g_config["FuzzySearch"]["keysMAXperEntry"] "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+
+	; global g_config ; ["FuzzySearch"]["enable"]
+
     INSERT_function_call_time_millis_since_midnight( A_LineFile , A_ThisFunc , A_LineNumber)
 
 
@@ -255,6 +260,10 @@ from: ActionList.ahk~%A_LineNumber%
 			}
 			IfEqual, A_LoopField, `;LEARNEDWORDS`;
 			{
+
+
+                if(1 && InStr(A_ComputerName,"SL5"))
+                    msgBox,% "never visited??? " ALoopField "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
 				if (DatabaseRebuilt)
 				{
 					LearnedWordsCount=0
@@ -269,24 +278,44 @@ from: ActionList.ahk~%A_LineNumber%
                    if(RegExMatch( A_LoopField , "i)\bGi\s*\:\s*do_indexFollowingLines4search\s*[\:]?=\s*true\b" )) { ; do_indexFollowingLines4search
                         ; Gi: do_indexFollowingLines4search := true
     				    ; AddWordToList(AddWordBlock,0,"ForceLearn",LearnedWordsCount) ;
-    				    AddWordToList(ALoopField,0,"ForceLearn",LearnedWordsCount) ; ^- line above does the same
     				    doCollectAhkBlock := false
     				    isIndexedAhkBlock := true
     				    ; MsgBox,% ":-) found: " A_LoopField "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")" ; __
 				}  }
+               ;if( isIndexedAhkBlock )  ; do_indexFollowingLines4search
+               ;     AddWordToList(ALoopField,0,"ForceLearn",LearnedWordsCount) ; ^- line above does the same
 
 				ALoopField := A_LoopField
 
-                if(!doCollectAhkBlock)
+                if(!doCollectAhkBlock){
+                    is_multiline_r := false
+                    doCollectAhkBlock := false
                     ALoopField  := RegExReplace(ALoopField, "^\s+" , "" ) ; like ltrim or the same? 06.11.2017 18:28
-                else{
-                    if(trim(ALoopField)){
+                }else{
+                    if(is_multiline_r){
+                        if(RegExMatch( ALoopField , "i)^([^; ]*[^\n]+\|(r|rr)\|)",  m )){
+                            is_multiline_r := false
+                            doCollectAhkBlock := false
+                            AddWordToList(rtrim(AddWordBlock),0,"ForceLearn",LearnedWordsCount, isIndexedAhkBlock)
+                            if(g_config["FuzzySearch"]["enable"] && a_index < g_config["FuzzySearch"]["MAXlines"])
+                                addFuzzySearch_in_generatedList(trim(AddWordBlock), ActionList,LearnedWordsCount,g_config["FuzzySearch"]["keysMAXperEntry"],g_config["FuzzySearch"]["minKeysLen"])
+                            AddWordBlock := ""
+                        }else{
+                            if(isIndexedAhkBlock)
+                                AddWordToList(ALoopField,0,"ForceLearn",LearnedWordsCount, isIndexedAhkBlock)
+                            AddWordBlock := AddWordBlock ALoopField "`r`n"
+                            ; ALoopFieldLast := ALoopField
+                            continue
+                        }
+                    }else if(trim(ALoopField)){
                         AddWordBlock := AddWordBlock "`n" ALoopField
                         ALoopFieldLast := ALoopField
+                        if(isIndexedAhkBlock)
+                            AddWordToList(ALoopField,0,"ForceLearn",LearnedWordsCount, isIndexedAhkBlock)
                         continue
                     }else{
                         doCollectAhkBlock := false
-                        if(codePrefixChar == "("){
+                        if(codePrefixChar == "(" || codePrefixChar == "["){
                             ; AddWordBlock .= "`nsend,`% it`n"
                             if(trim(ALoopFieldLast) == ")"){
                                 AddWordBlock .= "`nsend,`% it`n"
@@ -303,7 +332,9 @@ from: ActionList.ahk~%A_LineNumber%
                     doCollectAhkBlock := true
                     isIndexedAhkBlock := false ; maybe its set in next line
                     if(m2){
-                        if(m2 == "("){
+                        if(m2 == "(" || m2 == "["){
+                            if(m2 == "[")
+                                isIndexedAhkBlock := true
                             codePrefixChar := m2
                             m2 := "`nit = `n("
                             ; MsgBox,% codePrefixChar "=codePrefixChar(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
@@ -313,11 +344,33 @@ from: ActionList.ahk~%A_LineNumber%
                     ; MsgBox,% codePrefixChar "=m1 , " ALoopField "`n" AddWordBlock "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
                     continue
                 }else{
-                    regIs_r_synonym := "^([^\|\n]+?)\|r\|[ ]*$"
-                    if(RegExMatch( ALoopField , regIs_r_synonym ,  m )){
-                        rX := {key:m1, rr:"r", send:"", lang:"" ,code:""}
-                        ; create a working synonym:
-                        ALoopField := rX["key"] "|rr|"
+
+                    if(1){
+                		 regIs_multiline_r  := "^([^\|\n]+?)\|r\|([ ]*?)$"
+                        ; regIs_multiline_r := "i)^([^; ]*\w[^\n]+\|(r|rr)\|)([^\s]+)[ ]*$"
+                        if(RegExMatch( ALoopField , regIs_multiline_r ,  m )){
+                            doCollectAhkBlock := true
+                            is_multiline_r := true
+                            AddWordBlock := rtrim(ALoopField)
+                            ; msgBox,% AddWordBlock  "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+
+                            continue
+                            ; rX := {key:m1, rr:"r", send:"", lang:"" ,code:""}
+                            ; create a working synonym:
+                            ; ALoopField := rX["key"] "|rr||ahk|"
+                            ; msgBox,% ALoopField "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+                        }
+
+
+                    }else{
+                        ; deprecated since 22.10.2018 12:13
+                        regIs_r_synonym := "^([^\|\n]+?)\|r\|[ ]*$"
+                        if(RegExMatch( ALoopField , regIs_r_synonym ,  m )){
+                            rX := {key:m1, rr:"r", send:"", lang:"" ,code:""}
+                            ; create a working synonym:
+                            ALoopField := rX["key"] "|rr||ahk|"
+                            ; msgBox,% ALoopField "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+                        }
                     }
                 }
 
@@ -327,13 +380,26 @@ from: ActionList.ahk~%A_LineNumber%
                     isIndexedAhkBlock := false
 				}
 
-				; LearnedWordsCount := addFuzzySearch_in_generatedList(ALoopField, ActionList,LearnedWordsCount)
+                ; msgBox,% ALoopField "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+				; LearnedWordsCount := addFuzzySearch_in_generatedList(ALoopField , ActionList,LearnedWordsCount,g_config["FuzzySearch"]["keysMAXperEntry"],g_config["FuzzySearch"]["minKeysLen"])
+				if(!CheckValid(ALoopField))
+				    continue
+                ; msgBox,% "Valid:" ALoopField "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
 				if(g_config["FuzzySearch"]["enable"] && a_index < g_config["FuzzySearch"]["MAXlines"])
-					addFuzzySearch_in_generatedList(ALoopField, ActionList,LearnedWordsCount)
-				;     AddWordToList("rübennase" A_now,1,"ForceLearn", g_config["FuzzySearch"]["keysMAXperEntry"], g_config["FuzzySearch"]["doValueCopy"])
+					addFuzzySearch_in_generatedList(ALoopField, ActionList,LearnedWordsCount,g_config["FuzzySearch"]["keysMAXperEntry"],g_config["FuzzySearch"]["minKeysLen"])
+				;     AddWordToList("rübennase" A_now,1,"ForceLearn", g_config["FuzzySearch"]["keysMAXperEntry"],g_config["FuzzySearch"]["minKeysLen"], g_config["FuzzySearch"]["doValueCopy"])
 
-			}
-		}
+			} ; end of never used?? else blokc
+
+            ; msgBox,% " inside loop :" ALoopField " (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+		} ; ENDof Loop
+        if(doCollectAhkBlock && is_multiline_r){
+            doCollectAhkBlock := false
+            is_multiline_r := false
+            AddWordToList(AddWordBlock,0,"ForceLearn",LearnedWordsCount, isIndexedAhkBlock)
+            AddWordBlock := ""
+        }
+
 
       INSERT_function_call_time_millis_since_midnight( A_LineFile , A_ThisFunc , A_LineNumber)
 
@@ -480,7 +546,7 @@ addListOpenAction_ifNotAlreadyInTheList(contentActionList,ActionList){
 
 
 ; addFuzzySearch_in_generatedList(ALoopField)
-addFuzzySearch_in_generatedList(ActionStr, ActionList, ByRef LearnedWordsCount, addKeysMAX := 6, doValueCopy := true){
+addFuzzySearch_in_generatedList(ActionStr, ActionList, ByRef LearnedWordsCount, addKeysMAX := 7, minKeysLen := 4, doValueCopy := true){
 
     INSERT_function_call_time_millis_since_midnight( A_LineFile , A_ThisFunc , A_LineNumber)
 
@@ -542,7 +608,7 @@ addFuzzySearch_in_generatedList(ActionStr, ActionList, ByRef LearnedWordsCount, 
 		keyTemp := Match.Value(1)
 		if(0 && instr(ActionList,"Notepad_Administrator"))
 			MsgBox,% keyTemp "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
-		if(strlen(keyTemp)-1 < 3){
+		if(strlen(keyTemp)-1 < minKeysLen ){
 			if(0 && instr(ActionList,"Notepad_Administrator"))
 				MsgBox,% keyTemp "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
 			continue
@@ -551,16 +617,25 @@ addFuzzySearch_in_generatedList(ActionStr, ActionList, ByRef LearnedWordsCount, 
 		; MsgBox,% key " , " keyTemp "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
 
         ; global g_config := { FuzzySearch:{ enable: true, keysMAXperEntry : 6, doValueCopy : false } } ; difficult to implement symlink copy for not rr lines doValueCopy. todo: issue . doValueCopy : false  is not fully implemented
-		if(ActionStrVal)
-			newListSynonym := key "|rr|" ; <=== eigentlich sollte es ja so gehen
+		if(ActionStrVal){
+
+			; MsgBox,% substr(ActionStrVal,1,4) "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+
+
+		    if(substr(ActionStrVal,1,4)=="|rr|")
+			    newListSynonym := key "" ActionStrVal ; <=== eigentlich sollte es ja so gehen
+			else
+			    newListSynonym := key "|rr|ahk|" ActionStrVal ; <=== eigentlich sollte es ja so gehen
+			; newListSynonym := key "|rr|ahk|" ActionStr ; <=== eigentlich sollte es ja so gehen
 		;	newListSynonym := key ActionStrVal
-		else{
+		}else{
 			newListSynonym := key "|r|" ActionStr
 			; MsgBox,% newListSynonym "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
         }
         ; newListSynonym := key "|rr|" ; <=== eigentlich sollte es ja so gehen
 
-        ; Msgbox,% a_index ":`n" ActionStr "`n`n" newListSynonym "`n`n`n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+        ; Msgbox,% a_index ":`n" newListSynonym "`n ^- newListSynonym`n" newListSynonym "`n`n`n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+        ; Msgbox,% a_index ":`n" ActionStr "`n ^-ActionStr`n" newListSynonym "`n`n`n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
 		if(0)
 			msg =
 		(
@@ -686,6 +761,7 @@ AddWordToList(AddWord,ForceCountNewOnly,ForceLearn:= false, ByRef LearnedWordsCo
 
     if(!CheckValid(AddWord,ForceLearn, isIndexedAhkBlock))
 		return false
+    ; msgBox,% "is valid: " AddWord "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
 
    ; TransformWord normalizes the word, converting it to uppercase and removing certain accented characters.
 	TransformWord(AddWord, AddWordReplacement, AddWordDescription, AddWordTransformed, AddWordIndexTransformed, AddWordReplacementTransformed, AddWordDescriptionTransformed)
@@ -1053,7 +1129,7 @@ ActionList = '%ActionList%' ;
 		tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
 		lll(A_LineNumber, A_LineFile, tip)
 		tooltip, `% tip
-		; feedbackMsgBox(A_LineFile . ">" . A_LineNumber, tip )
+		; feedbackMsgBox(RegExReplace(A_LineFile,".*\\") ">" . A_LineNumber, tip )
 		; Clipboard := tip
 
 
@@ -1082,7 +1158,7 @@ ActionList = '%ActionList%' ;
 		tip .= "`n sqlLastError=" sqlLastError " `n( " A_LineFile "~" A_LineNumber ")"
 		lll(A_LineNumber, A_LineFile, tip)
 		tooltip, `% tip
-		feedbackMsgBox(A_LineFile . ">" . A_LineNumber, tip )
+		feedbackMsgBox(RegExReplace(A_LineFile,".*\\") ">" . A_LineNumber, tip )
 		Clipboard := tip
 	}
 	For each, row in result.Rows
@@ -1166,7 +1242,7 @@ INSERT_INTO_ActionLists(ActionList, ActionListModified, ActionListSize ){
 		tip .= "`n sqlLastError=" sqlLastError "`n sql=" sql " `n( " A_LineFile "~" A_LineNumber ")"
 		lll(A_LineNumber, A_LineFile, tip)
 		tooltip, `% tip
-		feedbackMsgBox(A_LineFile . ">" . A_LineNumber, tip )
+		feedbackMsgBox(RegExReplace(A_LineFile,".*\\") ">" . A_LineNumber, tip )
 		Clipboard := tip
 		msgbox, % tip
 	}

@@ -35,7 +35,18 @@ class Stuff{
 }
 
 global g_config := { list:{ change: { stopRexExTitle: false } } }
-global g_config := { FuzzySearch:{ enable: true, MAXlines : 1000, keysMAXperEntry : 6, doValueCopy : false } } ; difficult to implement symlink copy for not rr lines doValueCopy. todo: issue . doValueCopy : false  is not fully implemented
+global g_config := { FuzzySearch:{ enable: true, MAXlines : 8000, keysMAXperEntry : 6, doValueCopy : false } } ; difficult to implement symlink copy for not rr lines doValueCopy. todo: issue . doValueCopy : false  is not fully implemented
+; global g_config := { Send:{ RealisticDelayDynamic: true } }
+global g_config := { Send:{ RealisticDelayDynamic: false } }
+
+;__ __
+
+; getRealisticDelayDynamicSendAHKcode
+;  MsgBox,% ":( ERROR: " msg "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+; ActionLists
+
+; doValueCopy. todo: issue . doValueCopy : false  is not fully implemented
+; if(g_config["Send"]["RealisticDelayDynamic"])
 ; if(g_config["FuzzySearch"]["enable"] && a_index<455)
 ; if(g_config["FuzzySearch"]["keysMAXperEntry"] && a_index<455)
 
@@ -48,6 +59,7 @@ global g_ListBoxY
 g_ListBoxX := 0 ; if g_ListBoxX (not false > 0) it never usses CaretXorMouseXfallback . if you want go back to default, reload the
 g_ListBoxY := 0 ; if g_ListBoxX (not false > 0) it never usses CaretXorMouseXfallback . if you want go back to default, reload the
 
+global g_show_ListBox_Id_EMTY_COUNT := 0
 
 global g_method := "Clipboard"
 
@@ -78,9 +90,11 @@ global activeTitle:=""
 
 global g_doAskBevoreChangingActionList := false ; <== buggy dont know whey 19.03.2018 23:50
 global g_doAskBevoreChangingActionList := true ; <== works preetty nice :) 19.03.2018 23:51
-global g_minBytesNeedetToAskBevoreChangingActionList := 81234 ; <== Minimum bytes. then will be asked before the change 20.03.2018 18:22
-if(1 && InStr(A_ComputerName,"SL5"))
+global g_minBytesNeedetToAskBevoreChangingActionList := 812345 ; <== Minimum bytes. then will be asked before the change 20.03.2018 18:22
+if(0 && InStr(A_ComputerName,"SL5"))
     g_minBytesNeedetToAskBevoreChangingActionList := 812345 ; <== Minimum bytes. then will be asked before the change 20.03.2018 18:22
+
+global g_ActionList_UsedByUser_since_midnight := {} ; [g_ActionListID]
 
 global g_FLAGmsgbox := false
 
@@ -119,17 +133,29 @@ if(!fileExist(ActionList)){
 maxLinesOfCode4length1 := 900 ;
 
 ; SetTimer, saveIamAllive, 8000 ; setinterval
-SetTimer,checkInRegistryChangedActionListAddress,1000 ; RegRead, ActionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList
+SetTimer,checkInRegistryChangedActionListAddress,500 ; RegRead, ActionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList
 SetTimer,checkActionListTXTfile_sizeAndModiTime,3000
-SetTimer,check_some_keys_hanging_or_freezed,2000 ; ; 30.08.2018 13:52 it sometimes happesn. and if it happens then its really ugly !!!! :( !!
+SetTimer,check_some_keys_hanging_or_freezed,1800 ; ; 30.08.2018 13:52 it sometimes happesn. and if it happens then its really ugly !!!! :( !!
 SetTimer,check_ActionList_GUI_is_hanging_or_freezed,1000 ; ; 26.09.2018 16:38 it sometimes happesn.
 
 
 SetTimer,doListBoxFollowMouse,off
 ;SetTimer,doListBoxFollowMouse,off
+
+; SetTitleMatchMode,regEx
+; #IfWinActive,(Autohotkey|\.ahk)
+; Hotkey, ^+esc, off
+
+#IfWinActive,
 Hotkey, WheelUp, off
 Hotkey, WheelDown, off
+Hotkey, #s, off ; toggle_RealisticDelayDynamic()
+if(1 && InStr(A_ComputerName,"SL5"))
+    Hotkey, #s, on ; toggle_RealisticDelayDynamic()
+; #IfWinActive,AHK Studio ahk_class #32770
+; Hotkey, ^s, on
 
+#IfWinActive,
 
 #SingleInstance,Force ; thats sometimes not working : https://autohotkey.com/boards/viewtopic.php?f=5&t=1261&p=144860#p144860
 
@@ -286,6 +312,8 @@ MainLoop()
 ; https://github.com/sl5net/global-IntelliSense-everywhere/issues/4
 #IfWinActive,
 :b0*?:__:: ;does not delete the underscores
+    ; ToolTip4sec(" (" A_LineNumber " " A_LineFile " " Last_A_This)
+    ; return
     SetTimer, show_ListBox_Id, 600 ; setinterval
     Sleep,100
     g_reloadIf_ListBox_Id_notExist := true
@@ -366,23 +394,52 @@ return
         run,..\start.ahk
     }
 return
-settitlematchmode,2
 ; #IfWinActive,Word List Appears Here. ahk_class AutoHotkeyGUI
 ; #IfWinActive,ahk_class AutoHotkeyGUI
 ;#IfWinActive,"ListBoxTitle (sec="
-; #IfWinActive,
+#IfWinActive,
+WheelUp::
+ global g_ListBoxFontSize
+ g_ListBoxFontSize := g_ListBoxFontSize + 1
+ Tooltip,WheelDown:: Size=%g_ListBoxFontSize% `n (from: %A_LineFile%~%A_LineNumber%) ; to to
+return
+#IfWinActive,
+WheelDown::
+ global g_ListBoxFontSize
+ g_ListBoxFontSize := g_ListBoxFontSize - 1
+ Tooltip,WheelDown:: Size=%g_ListBoxFontSize% `n (from: %A_LineFile%~%A_LineNumber%) ; to to
+return
+#IfWinActive,
+#s::
+ toggle_RealisticDelayDynamic(){
+     global g_config
+     g_config["Send"]["RealisticDelayDynamic"] := ( g_config["Send"]["RealisticDelayDynamic"] ) ? false : true
+     ToolTip2sec("RealisticDelayDynamic = " g_config["Send"]["RealisticDelayDynamic"] " `n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This,1,1)
+ }
+return
+#IfWinActive,AHK Studio ahk_class #32770
+~^s::
+ someFunction(){
+    WinWaitActive,AHK Studio ahk_class #32770,Please close any error messages and try again,1
+     winclose,
+     msgBox,% ":( ERROR: " msg "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+ }
+return
 ; ToolTip3sec("^+esc:: exit-all-scripts",1,1)
-#IfWinActive, global-IntelliSense
- ^+esc:: ; exit-all-scripts. usefull in developer mode
-    if(1 && InStr(A_ComputerName,"SL5")){
+;
+SetTitleMatchMode,regEx
+#IfWinActive,i).*(Autohotkey|\.ahk|IntelliSense)
+; #IfWinActive,
+^+esc:: ; exit-all-scripts. usefull in developer mode
+    if(1 && InStr(A_ComputerName,"SL5") ){
      setRegistry_toDefault()
      exit_all_scripts()
      ; MsgBox, `n (%A_LineFile%~%A_LineNumber%)
      exitapp
     }
  return
-#IfWinActive, ; thats probably needet. 27.09.2018 10:29 was problem that hitting 1 , 2 , 3 ... not triggered any. triggers notihng.. with this line it works again.
 
+#IfWinActive, ; thats probably needet. 27.09.2018 10:29 was problem that hitting 1 , 2 , 3 ... not triggered any. triggers notihng.. with this line it works again.
 RecomputeMatchesTimer:
    Thread, NoTimers
    RecomputeMatches()
@@ -685,6 +742,9 @@ return
 ;<<<<<<<< checkInRegistryChangedActionListAddress <<<< 180319214428 <<<< 19.03.2018 21:44:28 <<<<
 checkInRegistryChangedActionListAddress:
 
+if(false && g_ActionList_UsedByUser_since_midnight[g_ActionListID]){
+    msgBox,% "g_ActionList_UsedByUser_since_midnight[g_ActionListID]: " g_ActionList_UsedByUser_since_midnight[g_ActionListID] "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+}
 if(g_config["list"]["change"]["stopRexExTitle"]=="."){
     temp := g_config["list"]["change"]["stopRexExTitle"]
     tip = stopRexExTitle is >%temp%< %ActionList%
@@ -693,16 +753,23 @@ if(g_config["list"]["change"]["stopRexExTitle"]=="."){
     return
 }
 if(0 && InStr(A_ComputerName,"SL5"))
-    ToolTip5sec(ActionList " `n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\")  . " )" )
+	ToolTip5sec(ActionList " `n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\")  . " )" )
 
     ;SetTimer,checkActionListTXTfile_sizeAndModiTime,Off
 
-    global g_SingleMatch
-    global g_FLAGmsgbox
+global g_SingleMatch
+global g_FLAGmsgbox
 
-    SetTitleMatchMode,2
-    if(ActionListSize > g_minBytesNeedetToAskBevoreChangingActionList)
-        If(WinExist("ActionListChangedInRegistry") ){
+
+
+SetTitleMatchMode,2
+if( g_ActionList_UsedByUser_since_midnight[g_ActionListID] ){
+	If(WinExist("ActionListChangedInRegistry") )
+	    winClose,ActionListChangedInRegistry
+    winWaitclose,ActionListChangedInRegistry, , 2
+    g_FLAGmsgbox := false
+}else if( ActionListSize > g_minBytesNeedetToAskBevoreChangingActionList)
+	If(WinExist("ActionListChangedInRegistry") ){
             g_FLAGmsgbox := true
             return ; no update jet
     }
@@ -710,7 +777,7 @@ if(0 && InStr(A_ComputerName,"SL5"))
     if(1){
         ; not needet to check, but maybe mmore pretty coding ?? 20.03.2018 18:34 TODO
         ; its more pretty to have a updated text inside this box, therfore close it first. 20.03.2018 18:35
-        name := "ActionListChangedInRegistry"
+        name := "ActionListChangedInRegistry ahk_class #32770"
         while(WinExist(name) && A_Index < 9){
             WinClose,% name
             winWaitclose,% name,,1
@@ -722,7 +789,8 @@ if(0 && InStr(A_ComputerName,"SL5"))
         If(WinExist("ActionListChangedInRegistry") ){
             tooltip,Oops  `n should never happen BUG `n was not able to close ActionListChangedInRegistry `n`n  ==> reload in 9Seconds (%A_LineFile%~%A_LineNumber%) 20.03.2018 18:54
             sleep,9000
-            reload
+            ; reload
+            RecomputeMatches()
             return
         }
     }
@@ -751,12 +819,31 @@ if(0 && InStr(A_ComputerName,"SL5"))
         ToolTip4sec(msg " `n"  . A_LineNumber . " " . A_LineNumber )
         clilpboard := msg
         sleep,5000
-    }
+}
 
-    if(g_doAskBevoreChangingActionList && ActionListSize > g_minBytesNeedetToAskBevoreChangingActionList){
+    ; takes a little time to read data von database. 19.10.2018 12:21
+	if(A_TickCount > 4000 && !g_ActionList_UsedByUser_since_midnight[g_ActionListID] && g_doAskBevoreChangingActionList && ActionListSize > g_minBytesNeedetToAskBevoreChangingActionList){
         AHKcodeMsgBox := "#" . "NoTrayIcon `n "
-        temp = msgbox,,ActionListChangedInRegistry, Would you use new list now? ``n ``n Say goodbye to? (%ActionListSize% bytes > %g_minBytesNeedetToAskBevoreChangingActionList%) ``n  %ActionList% ``n exitApp
-AHKcodeMsgBox .= temp
+        ; temp = msgbox,,ActionListChangedInRegistry, Would you use new list now? ``n (new ``n Say goodbye to? (%ActionListSize% bytes > %g_minBytesNeedetToAskBevoreChangingActionList%) ``n  %ActionList% ``n exitApp
+        ; %ActionList%
+        temp =
+        (
+        ; msgbox,262176,ActionListChangedInRegistry, Would you use new list now? ``n ``n Say goodbye to? (%ActionListSize% bytes > %g_minBytesNeedetToAskBevoreChangingActionList%) ``n  That msgBox works like change list stopper ``n  ``n  F1=WebSearch
+        msgbox,262176,ActionListChangedInRegistry, Would you use new list now? ``n ``n Say goodbye to  ``n  %ActionList% ``n ? ``n  That msgBox works like change list stopper ``n  (%ActionListSize% bytes > %g_minBytesNeedetToAskBevoreChangingActionList%) ``n  ``n  F1=WebSearch
+        #ifwinactive,ActionListChangedInRegistry
+        f1::
+        run,https://www.google.de/search?q=ActionListChangedInRegistry global-IntelliSense-everywhere
+        WinWaitActive,ActionListChangedInRegistry global-IntelliSense-everywhere,,3
+        sleep,1000
+        IfWinActive,
+        {
+            sleep,60
+            send,^f ActionListChangedInRegistry
+        }
+        return
+        exitApp
+        )
+		AHKcodeMsgBox .= temp
         if(g_FLAGmsgbox){
             g_FLAGmsgbox := false ; just clicked msgboxWindow
         }else{
@@ -984,18 +1071,6 @@ ActionListTooltip:
     ToolTip,% tip
 return
 
-WheelUp::
-    global g_ListBoxFontSize
-    g_ListBoxFontSize := g_ListBoxFontSize + 1
-    Tooltip,WheelDown:: Size=%g_ListBoxFontSize% `n (from: %A_LineFile%~%A_LineNumber%) ; to to
-return
-
-WheelDown::
-    global g_ListBoxFontSize
-    g_ListBoxFontSize := g_ListBoxFontSize - 1
-    Tooltip,WheelDown:: Size=%g_ListBoxFontSize% `n (from: %A_LineFile%~%A_LineNumber%) ; to to
-return
-
 recreateListBox_IfFontSizeChangedAndTimeIdle(g_ListBoxFontSize, newListBoxFontSize){
   if ( A_TimeIdlePhysical < 1000 * 0.5 )
     return false
@@ -1012,7 +1087,7 @@ recreateListBox_IfFontSizeChangedAndTimeIdle(g_ListBoxFontSize, newListBoxFontSi
 doListBoxFollowMouse:
       MouseGetPos, g_ListBoxX, g_ListBoxY
       g_ListBoxX := g_ListBoxX - 77
-      g_ListBoxY := g_ListBoxY - 77
+      g_ListBoxY := round(g_ListBoxY / 100) * 100  - 80
 
 ;    class := "ahk_class AutoHotkeyGUI"
 ;    winTitle := "Word List Appears Here."
@@ -1027,11 +1102,8 @@ doListBoxFollowMouse:
 return
 
 
-; tooltip to toolt
-
-
 check_some_keys_hanging_or_freezed:
-  if( A_TimeIdlePhysical <= 1000 * 5 )
+  if( A_TimeIdlePhysical <= 1000 * 3 )
     return
   fixBug_Alt_Shift_Ctrl_hanging_down()
 return
@@ -1068,7 +1140,12 @@ fixBug_Alt_Shift_Ctrl_hanging_down(){
     ToolTip3sec(A_LineNumber . " " . RegExReplace(A_LineFile,".*\\")  . " `n " . tip)
     send,{AltUp}
   }
- if( GetKeyState("Ctrl","P") ){ 
+ if( GetKeyState("RAlt","P") ){
+    tip := "Alt is down"
+    ToolTip3sec(A_LineNumber . " " . RegExReplace(A_LineFile,".*\\")  . " `n " . tip)
+    send,{RAltUp}
+  }
+ if( GetKeyState("Ctrl","P") ){
     tip := "Ctrl is down"
     ToolTip3sec(A_LineNumber . " " . RegExReplace(A_LineFile,".*\\")  . " `n " . tip)
     send,{CtrlUp}
@@ -1124,10 +1201,20 @@ check_ActionList_GUI_is_hanging_or_freezed:
      ; script hangs at this position
      ;winclose, % g_ListBoxTitle
      ;winkill, % g_ListBoxTitle
-     reload ; script hangs if gui was not used. here we could check if its hanging. 27.09.2018 19:21 if ListBox was not used and not closed. reload helps to get script running again.
-
+     ; reload ; script hangs if gui was not used. here we could check if its hanging. 27.09.2018 19:21 if ListBox was not used and not closed. reload helps to get script running again.
+    RecomputeMatches() ; <=== dont know if this helps 19.10.2018 11:24
      ;MsgBox, % tip "`n`n" elapsedMilli  "millisec = " elapsedSec "sec have elapsed. (" A_LineFile "~" A_LineNumber ")"
-     ;Msgbox,is it closed??? `n (%A_LineFile%~%A_LineNumber%)
+    AHKcode := "#" . "NoTrayIcon `n "
+    AHKcode =
+    (
+    SetTitleMatchMode, 2
+    WinWaitActive,menu closed? #32770, ,1
+    winclose,
+    exitapp,
+     )
+     DynaRun(AHKcode)
+     ; menu closed? ahk_class #32770 ; mouseWindowTitle=0x23d0f68  ;
+     MsgBox , ,menu closed? , is it closed??? `n (%A_LineFile%~%A_LineNumber%) , 1 ; <== helps closing the listbox probalby 19.10.2018 11:28
     }
     return
   clipboard := tip
@@ -1140,8 +1227,41 @@ show_ListBox_Id:
     global g_ListBox_Id
     global g_reloadIf_ListBox_Id_notExist
     ;ToolTip1sec(g_ListBox_Id " (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This,1,1)
-    if(!g_ListBox_Id && g_reloadIf_ListBox_Id_notExist)
-        run,% "..\start.ahk"
+    if(g_ListBox_Id)
+        global g_show_ListBox_Id_EMTY_COUNT := 0
+    if(!g_ListBox_Id && g_reloadIf_ListBox_Id_notExist){
+        ; run,% "..\start.ahk" ; deactivated. test 22.10.2018 05:54
+
+        g_show_ListBox_Id_EMTY_COUNT++
+
+        ;/¯¯¯¯ ;ToolTip1sec(g_ListBox_Id ¯¯ 181022055812 ¯¯ 22.10.2018 05:58:12 ¯¯\
+        ; tested . it works. dont need to reload or so
+        ToolTip5sec( g_show_ListBox_Id_EMTY_COUNT ": DisEn (" A_LineNumber " " RegExReplace(A_LineFile,".*\\"),1,1)
+        if(g_show_ListBox_Id_EMTY_COUNT == 1){
+            try{
+                DisableWinHook()
+                EnableWinHook()
+        }   }
+        if(g_show_ListBox_Id_EMTY_COUNT >= 2){
+
+            try{
+             RebuildMatchList() ; line addet 19.03.2018 20:57
+             InitializeListBox() ; line addet 19.03.2018 20:57^
+             }
+         ; RecomputeMatches() ; line addet 19.03.2018 21
+        }
+        if(g_show_ListBox_Id_EMTY_COUNT >= 3)
+            RecomputeMatches() ; <=== hope it helps. not sure 22.10.2018 07:59
+
+        if(g_show_ListBox_Id_EMTY_COUNT >= 5)
+            reload
+
+
+        ;\____ ;ToolTip1sec(g_ListBox_Id __ 181022055815 __ 22.10.2018 05:58:15 __/
+
+        ; RecomputeMatches() ; <=== hope it helps. not sure 19.10.2018 11:34 ... not helped 19.10.2018 11:37
+        ; goto, lblTopOfScriptLine111 ; <=== hope it helps. ...  not helped 19.10.2018 11:37
+    }
         ;reload
         ;MsgBox, , repair Manue, repair Manue, 1
     g_reloadIf_ListBox_Id_notExist := false
@@ -1149,4 +1269,3 @@ show_ListBox_Id:
         ;
 return
 
-;  too __

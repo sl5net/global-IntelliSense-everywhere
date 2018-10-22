@@ -34,12 +34,18 @@ class Stuff{
     }
 }
 
-global g_config := { list:{ change: { stopRexExTitle: false } } }
-global g_config := { FuzzySearch:{ enable: true, MAXlines : 8000, keysMAXperEntry : 6, doValueCopy : false } } ; difficult to implement symlink copy for not rr lines doValueCopy. todo: issue . doValueCopy : false  is not fully implemented
-; global g_config := { Send:{ RealisticDelayDynamic: true } }
-global g_config := { Send:{ RealisticDelayDynamic: false } }
+global g_config
+g_config := { list:{ change: { stopRexExTitle: false } } }
+g_config := { FuzzySearch:{ enable: true, MAXlines : 87654, keysMAXperEntry : 6, minKeysLen: 4, doValueCopy : false } } ; difficult to implement symlink copy for not rr lines doValueCopy. todo: issue . doValueCopy : false  is not fully implemented
+global g_config
 
-;__ __
+; msgBox,% g_config["FuzzySearch"]["keysMAXperEntry"] "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+;msgBox,% g_config["FuzzySearch"]["MAXlines"] "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+
+; global g_config := { Send:{ RealisticDelayDynamic: true } }
+g_config .= { Send:{ RealisticDelayDynamic: false } }
+; msgBox,% g_config["FuzzySearch"]["keysMAXperEntry"] "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+
 
 ; getRealisticDelayDynamicSendAHKcode
 ;  MsgBox,% ":( ERROR: " msg "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
@@ -1227,6 +1233,8 @@ show_ListBox_Id:
     global g_ListBox_Id
     global g_reloadIf_ListBox_Id_notExist
     ;ToolTip1sec(g_ListBox_Id " (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This,1,1)
+    if(g_ListBox_Id)
+        global g_show_ListBox_Id_EMTY_COUNT := 0
     if(!g_ListBox_Id && g_reloadIf_ListBox_Id_notExist){
         ; run,% "..\start.ahk" ; deactivated. test 22.10.2018 05:54
 
@@ -1235,11 +1243,26 @@ show_ListBox_Id:
         ;/¯¯¯¯ ;ToolTip1sec(g_ListBox_Id ¯¯ 181022055812 ¯¯ 22.10.2018 05:58:12 ¯¯\
         ; tested . it works. dont need to reload or so
         ToolTip5sec( g_show_ListBox_Id_EMTY_COUNT ": DisEn (" A_LineNumber " " RegExReplace(A_LineFile,".*\\"),1,1)
+        if(g_show_ListBox_Id_EMTY_COUNT == 1){
+            try{
+                DisableWinHook()
+                EnableWinHook()
+        }   }
+        if(g_show_ListBox_Id_EMTY_COUNT >= 2){
+
+            try{
+             RebuildMatchList() ; line addet 19.03.2018 20:57
+             InitializeListBox() ; line addet 19.03.2018 20:57^
+             }
+         ; RecomputeMatches() ; line addet 19.03.2018 21
+        }
+        if(g_show_ListBox_Id_EMTY_COUNT >= 3)
+            RecomputeMatches() ; <=== hope it helps. not sure 22.10.2018 07:59
+
         if(g_show_ListBox_Id_EMTY_COUNT >= 5)
             reload
 
-        DisableWinHook()
-        EnableWinHook()
+
         ;\____ ;ToolTip1sec(g_ListBox_Id __ 181022055815 __ 22.10.2018 05:58:15 __/
 
         ; RecomputeMatches() ; <=== hope it helps. not sure 19.10.2018 11:34 ... not helped 19.10.2018 11:37

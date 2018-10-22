@@ -1,5 +1,6 @@
 ﻿;These functions and labels are related to the active window
 
+; DisableWinHook()
 EnableWinHook(){
    ; tooltip,EnableWinHook => return`n (%A_LineFile%~%A_LineNumber%)
    ; return ; todo: clean it ??

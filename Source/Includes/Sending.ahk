@@ -225,7 +225,7 @@ UPDATE_ActionList_UsedByUser_since_midnight(){
     		tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
     		lll(A_LineNumber, A_LineFile, tip)
     		tooltip, `% tip
-    		feedbackMsgBox(A_LineFile . ">" . A_LineNumber, tip )
+    		feedbackMsgBox(RegExReplace(A_LineFile,".*\\") ">" . A_LineNumber, tip )
     		Clipboard := tip
     	}
 }
@@ -413,8 +413,25 @@ UPDATE_ActionList_UsedByUser_since_midnight()
             ; msgbox, % tip
 				id := getWordIndex(m1)
 				while(!rX["code"] && id>1){
-					id -= 1 ; we are in synonym lets search up
-					lineOfIndex := getLineOfIndex(id)
+				;/¯¯¯¯ Synonym ¯¯ 181021060216 ¯¯ 21.10.2018 06:02:16 ¯¯\
+				; deprecated: https://g-intellisense.myjetbrains.com/youtrack/issue/GIS-46
+				; id -= 1 ; we are in synonym lets search up
+                ;\____ Synonym __ 181021060220 __ 21.10.2018 06:02:20 __/
+                    lineOfIndex := ""
+                  while(lineOfIndex == "" && A_index < 99){
+					  id += 1 ; we are in synonym lets search DOWN ; new since 21.10.2018 06:03
+                     lineOfIndex := getLineOfIndex(id)
+                     if(A_index>=30){
+                        msg := "WARNING: endless loop. Synonsm is at the end of file."
+                        ToolTip5sec(msg " (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
+                        feedbackMsgBox(RegExReplace(A_LineFile,".*\\") ">" . A_LineNumber, msg )
+                        break
+                     }
+					if(0){
+					    sleep,2000
+					    tooltip,% lineOfIndex ":= getLineOfIndex(id) (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+                    }
+                  }
                 ; dayTimeHello.ahk|rr|
 					RegExMatch( lineOfIndex , regIsXXXcode  ,  m )
 					rX := {key:m1, rr:m2, send:m3, lang:m4 ,code:m5}
@@ -434,7 +451,7 @@ UPDATE_ActionList_UsedByUser_since_midnight()
 							sending := lineOfIndex
                     ;\____ SysnonymR __ 181011160954 __ 11.10.2018 16:09:54 __/
 						
-                    ; MsgBox,% rX["key"] "#" rX["rr"] "#" rX["send"]  "#" rX["code"] "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+                     ; MsgBox,% rX["key"] "#" rX["rr"] "#" rX["send"]  "#" rX["code"] "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
                     ;pause
 						
 						break ; no code tag inside
@@ -442,7 +459,7 @@ UPDATE_ActionList_UsedByUser_since_midnight()
 					if(rX["code"]){
 						tip=%lineOfIndex% `n (%A_LineFile%~%A_LineNumber%)
 						ToolTip3sec(tip)
-                        ;Msgbox,% "code inside `n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+                        ; Msgbox,% "code inside `n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
 						break ; code inside
 		}    }   }   }
 		
@@ -462,11 +479,29 @@ UPDATE_ActionList_UsedByUser_since_midnight()
 				ToolTip3sec("found synonym `n ("   RegExReplace(A_LineFile,".*\\")  " ," A_LineNumber  ") "   )
 				id := getWordIndex(m1)
 				while(!rX["code"] && id>1){
-					id -= 1
+                    ;/¯¯¯¯ Synonym ¯¯ 181021060216 ¯¯ 21.10.2018 06:02:16 ¯¯\
+                    ; deprecated: https://g-intellisense.myjetbrains.com/youtrack/issue/GIS-46
+                    ; id -= 1 ; we are in synonym lets search up
+                    ;\____ Synonym __ 181021060220 __ 21.10.2018 06:02:20 __/
+					id += 1 ; we are in synonym lets search DOWN ; new since 21.10.2018 06:03
 					lineOfIndex := getLineOfIndex(id)
+                    MsgBox,% lineOfIndex " - (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+					if(lineOfIndex =="") ; empty lines are allowed. when its terminating?
+					    continue
+					if(!lineOfIndex){
+					    msgBox,% "is this happen? or never happens? (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+					    break
+                    }
 					RegExMatch( lineOfIndex , regIsXXXcode ,  m )
 					m := {key:m1, rr:m2, send:m3, lang:m4 ,code:m5}
+        			if(rX["code"] || (!rX["rr"] && rX["code"] )){
+                        MsgBox,% lineOfIndex " - (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+        			    break
+                    }
+
 				}
+                MsgBox,% lineOfIndex " - (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+
 			}
 			StringLower, mlang, % rX["lang"]
 			rX["lang"] := mlang
@@ -924,7 +959,11 @@ SendFull(SendValue,ForceBackspace:= false){
 		}
 		SendValue := FirstLetter . SendValue
 	}
-	
+
+
+	; msgBox,% ":( ERROR: " SendValue "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+	; feedbackMsgBox(RegExReplace(A_LineFile,".*\\") ">" . A_LineNumber, SendValue  )
+
 	
    ; if the user chose a word with accented characters, then we need to
    ; substitute those letters into the word
@@ -970,12 +1009,14 @@ SendFull(SendValue,ForceBackspace:= false){
 		}
 		
 		NewSendValue .= SubStr(SendValue, SendIndex, StrLen(SendValue) - SendIndex + 1)
-		
+	;feedbackMsgBox(RegExReplace(A_LineFile,".*\\") ">" . A_LineNumber, SendValue  )
+
 		SendValue := NewSendValue
 	}
 	
 	StringCaseSense, %StringCaseSenseOld%
-	
+	;feedbackMsgBox(RegExReplace(A_LineFile,".*\\") ">" . A_LineNumber, SendValue  )
+
    ; If we are not backspacing, remove the typed characters from the string to send
 	if !(BackSpaceWord)
 	{
@@ -985,7 +1026,8 @@ SendFull(SendValue,ForceBackspace:= false){
    ; if autospace is on, add a space to the string to send
 	IfEqual, prefs_AutoSpace, On
 	SendValue .= A_Space
-	
+	;feedbackMsgBox(RegExReplace(A_LineFile,".*\\") ">" . A_LineNumber, SendValue  )
+
       ; thats great :) here we find the complete line :) inside sending 17.03.2017 18:30 17-03-17_18-30
 ;      Msgbox, '%SendValue%' = SendValue  (line:%A_LineNumber%)  (line:%A_LineNumber%)
 	
@@ -1028,7 +1070,8 @@ SendFull(SendValue,ForceBackspace:= false){
             ; Send {Text}baby ^v {Clipboard} ; interpretiert nicht `r, `n, `t and `b usw
 			
 		}
-		
+	;feedbackMsgBox(RegExReplace(A_LineFile,".*\\") ">" . A_LineNumber, SendValue  )
+
 		if(!g_doUseSendPlay){
      ; just tested: words with ahk code goes here. but sending gets the value1 not the value2 with the script or ahk part 13.03.2018 14:43
     ; SendRaw, %sending% ; used till 13.03.2018 14:51
@@ -1069,7 +1112,8 @@ SendFull(SendValue,ForceBackspace:= false){
     ;SendLevel 0
 			} else
 				Send,{Text}%sending%
-			
+	; feedbackMsgBox(RegExReplace(A_LineFile,".*\\") ">" . A_LineNumber, SendValue  )
+
             ;lll(A_LineNumber, A_LineFile, "%sending% `n >" . sending . "<  `n token=18-03-13_14-44")
 			
         ; Msgbox,sending `n >%sending%< `n (%A_LineFile%~%A_LineNumber%)
