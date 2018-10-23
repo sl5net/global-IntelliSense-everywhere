@@ -88,7 +88,11 @@ if( !FileExist( globalClassTxtAddress ) ){
     Msgbox,ups ==> EXIT `n (%A_LineFile%~%A_LineNumber%) )
     EXIT
 }
-     FileAppend,% contend,   % ActionListNEWAddress
+if(1 && InStr(A_ComputerName,"SL5")){
+    ToolTip5sec("FileAppend (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
+    msgBox,% "FileAppend : (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+}
+ FileAppend,% contend,   % ActionListNEWAddress
 if( !FileExist(ActionListNEWAddress) ){
     Msgbox,ups ==> EXIT `n (%A_LineFile%~%A_LineNumber%) )
 EXIT

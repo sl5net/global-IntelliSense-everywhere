@@ -262,11 +262,14 @@ SendWord(WordIndex){
 	INSERT_function_call_time_millis_since_midnight( A_LineFile , A_ThisFunc , A_LineNumber)
 	
 	ActionListFolderOfThisActionListRELATIVE := RegExReplace(ActionList,"\\[^\\]+$","")
-	ActionListFolderOfThisActionList := A_ScriptDir  "\" RegExReplace(ActionList,"\\[^\\]+$","")
+	ActionListFolderOfThisActionList := RegExReplace(ActionList,"\\[^\\]+$","") ; deleted A_ScriptDir "\"  23.10.2018 11:14
 	ActionListFolderOfThisActionList := removesSymbolicLinksFromFileAdress(ActionListFolderOfThisActionList) ; user should could includes direcly from his ahk ActionList, without editing the address 05.03.2018 08:15
 	if(!FileExist(ActionListFolderOfThisActionList)){ ; Checks for the existence of a file or folder
 		clipboard := ActionListFolderOfThisActionList
-		tooltip,ups:`n ! FileExist(%ActionListFolderOfThisActionList% `n (%A_LineFile%~%A_LineNumber%)
+        msg := "`n`n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+		msg = ups:`n ! FileExist(%ActionListFolderOfThisActionList% %msg%
+		tooltip,% msg
+		msgBox,% ":( ERROR: " msg "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
 		return false
 	}
 	

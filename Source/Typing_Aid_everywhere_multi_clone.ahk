@@ -103,7 +103,7 @@ checkFilePathExistens1704291222(ActionListDirBase, destinDir, sourceDir, typingA
 
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 activeTitle:=""
-;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+;/¯¯¯¯ while ¯¯ 181023091625 ¯¯ 23.10.2018 09:16:25 ¯¯\
 while(true) {
 ; IfWinNotExist,TypingAid - Active
 DetectHiddenWindows,On ; if this is off it does not find in tray 27.04.2017
@@ -266,29 +266,33 @@ Msgbox,%activeTitle% `n`n %activeClass% `n`n  (%A_LineFile%~%A_LineNumber%)
     ActionListDir := ActionListDirBase . "\" . activeClass
     ActionListFilterPath := ActionListDirBase . "\" . filterFileName
 
-    ;<<<<<<<<<<<<<<<<< run createEmptyFilterInNewDir <<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-    ;<<<<<<<<<<<<<< createEmptyFilterInNewDir <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    ;<<<<<<<<<<<<<<<<< run createIfFileNotExist_ActionListNameFilter_InNewDir <<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    ;<<<<<<<<<<<<<< createIfFileNotExist_ActionListNameFilter_InNewDir <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     ; make sure we get no errors by including %ActionListFilterPath% ... create ActionList inside className folder
     ActionListFilterPathNEW := ActionListDirBase . "\" . ActiveClass . "\" . filterFileName
     ahkCode1 := getAhkCodeInsideFile(ActionListDir , ActionListFilterPathNEW  )
 
-    ;MsgBox, createEmptyFilterInNewDir( %ActionListDir% , %ActionListFilterPathNEW% ...)  `n (line:%A_LineNumber%) `n
+if(1 && InStr(A_ComputerName,"SL5")){
+    msg = createIfFileNotExist_ActionListNameFilter_InNewDir( %ActionListDir% , %ActionListFilterPathNEW% ...)
+    ; msgBox,% "" msg "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+    ToolTip5sec(msg . " `n`n" . A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\")  )
+}
     ; todo: creating always is useless. please create only if user want create a ActionList explizit
     ; may only do it if _create_own_project.flag is inside....
-    createEmptyFilterInNewDir(       ActionListDir , ActionListFilterPathNEW , ahkCode1, isInternMsgTransportIsClipboard)
-
-    ;
+    fileAddress := ActionListDir "\_create_own_project.flag"
+    if(FileExist(fileAddress) && !InStr(FileExist(fileAddress), "D"))
+        createIfFileNotExist_ActionListNameFilter_InNewDir(       ActionListDir , ActionListFilterPathNEW , ahkCode1, isInternMsgTransportIsClipboard)
 
     if(debugIt) {
-global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
-          ahkCode2 := getAhkCodeInsideFile(ActionListDirBase . "\FunnyWidgetHuHu" , ActionListDirBase . "\FunnyWidgetHuHu\" . filterFileName  ) 
-    createEmptyFilterInNewDir(ActionListDirBase . "\FunnyWidgetHuHu" , ActionListDirBase . "\FunnyWidgetHuHu\" . filterFileName, ahkCode2, isInternMsgTransportIsClipboard) ; FunnyWidgetHuHu
-    if(debugIt)
-    MsgBox, '%ahkCode2%' = ahkCode2  `n (line:%A_LineNumber%) `n
+        global g_lineNumberFeedback
+        g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+        ahkCode2 := getAhkCodeInsideFile(ActionListDirBase . "\FunnyWidgetHuHu" , ActionListDirBase . "\FunnyWidgetHuHu\" . filterFileName  )
+        createIfFileNotExist_ActionListNameFilter_InNewDir(ActionListDirBase . "\FunnyWidgetHuHu" , ActionListDirBase . "\FunnyWidgetHuHu\" . filterFileName, ahkCode2, isInternMsgTransportIsClipboard) ; FunnyWidgetHuHu
+        if(debugIt)
+        MsgBox, '%ahkCode2%' = ahkCode2  `n (line:%A_LineNumber%) `n
     }
-    ;>>>>>>>>>>>>>>>>> run createEmptyFilterInNewDir >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-    ;>>>>>>>>>>>>>> createEmptyFilterInNewDir >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    ;>>>>>>>>>>>>>>>>> run createIfFileNotExist_ActionListNameFilter_InNewDir >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    ;>>>>>>>>>>>>>> createIfFileNotExist_ActionListNameFilter_InNewDir >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
     ActionListNEW := activeTitle
     ActionListNEW := simplifyNameOfActionListNEWstep1( ActionListNEW )
@@ -458,7 +462,8 @@ if(0){
 l2 := StrLen(fileContent)
 if(1 && l1 > l2){ ; proof it test it
     FileSave(fileContent, ActionList )
-    ;msgbox,`% ActionList " 12is saved (l1 > l2) (%A_LineFile%~%A_LineNumber%) (" A_LineFile "~" A_LineNumber ") ---- " fileContent
+    if(1 && InStr(A_ComputerName,"SL5"))
+        msgbox,`% ActionList " 12is saved (l1 > l2) (%A_LineFile%~%A_LineNumber%) (" A_LineFile "~" A_LineNumber ") ---- " fileContent
     tooltip,`% ActionList " 12is saved (l1 > l2) (%A_LineFile%~%A_LineNumber%) (" A_LineFile "~" A_LineNumber ") ---- " fileContent
 }
 
@@ -572,6 +577,7 @@ lll(A_LineNumber, A_LineFile, regEx . " end of while(true)`n '" . activeTitle . 
 } ; end of while(true)
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+;\____ while __ 181023091702 __ 23.10.2018 09:17:02 __/
 
 
 
@@ -700,6 +706,7 @@ global g_lineNumberFeedback
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
  lll(A_LineNumber, A_LineFile, "FileAppend too " ActionListFilterPath)
 ;msgbox, % ActionListFilterPath " asdf77778"
+tooltip,% "FileAppend (" A_ThisFunc "~" A_LineNumber "~" RegExReplace(A_LineFile,".*\") ")"
  FileAppend,  % ahkCodeInsideFile , % ActionListFilterPath ; ActionListNameFilter.inc.ahk
 } 
 return 
@@ -728,6 +735,7 @@ lll(A_LineNumber, A_LineFile ,m)
  ActionListFilterPath := ActionListDir . "\ActionListNameFilter.inc.ahk"
  if(!fileExist(ActionListFilterPath)) {
    ahkCodeInsideFile := getAhkCodeInsideFile(ActionListDir, ActionListFilterPath )
+tooltip,% "FileAppend (" A_ThisFunc "~" A_LineNumber "~" RegExReplace(A_LineFile,".*\") ")"
    FileAppend,  % ahkCodeInsideFile , % ActionListFilterPath ; ActionListNameFilter.inc.ahk
 lll(A_LineNumber, A_LineFile, "FileAppend too " ActionListFilterPath)
    if(!FileExist(ActionListFilterPath))
@@ -804,23 +812,27 @@ Sleep,50
 return ActionListNEW
 }
 
-createEmptyFilterInNewDir(ActionListDir, ActionListFilterPath,ahkCode, isInternMsgTransportIsClipboard){
-global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
-if(!FileExist(ActionListDir)){
-global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
-   FileCreateDir, % ActionListDir
-   ;~ FileAppend, , % ActionListFilterPath
-}
-;~ if(!isInternMsgTransportIsClipboard) 
-   if(!FileExist( ActionListFilterPath ) ){
-      g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
-      FileAppend, % ahkCode , % ActionListFilterPath
+
+
+;/¯¯¯¯ createIfFileNotExist_ActionListNameFilter_InNewDir ¯¯ 181023081846 ¯¯ 23.10.2018 08:18:46 ¯¯\
+createIfFileNotExist_ActionListNameFilter_InNewDir(ActionListDir, ActionListFilterPath,ahkCode, isInternMsgTransportIsClipboard){
+    global g_lineNumberFeedback
+    if(FileExist( ActionListFilterPath ) )
+        return true
+    g_lineNumberFeedback  := "(" A_ThisFunc "~" A_LineNumber "~" RegExReplace(A_LineFile,".*\\") ")"
+    if(!FileExist(ActionListDir)){
+        global g_lineNumberFeedback
+        g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+        FileCreateDir, % ActionListDir
+        ;~ FileAppend, , % ActionListFilterPath
     }
+    g_lineNumberFeedback  := "(" A_ThisFunc "~" A_LineNumber "~" RegExReplace(A_LineFile,".*\\") ")"
+tooltip,% "FileAppend (" A_ThisFunc "~" A_LineNumber "~" RegExReplace(A_LineFile,".*\") ")"
+    FileAppend, % ahkCode , % ActionListFilterPath
 return true
 }
-   
+;\____ createIfFileNotExist_ActionListNameFilter_InNewDir __ 181023081850 __ 23.10.2018 08:18:50 __/
+
 
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<

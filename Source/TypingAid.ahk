@@ -90,6 +90,7 @@ global g_sending_is_buggy := false ; Solved: SendPlay. 29.07.2017 11:21
 global g_doSaveLogFiles := false
 global g_doRunLogFiles := false
 
+global ActionList_isNotAProject := removesSymbolicLinksFromFileAdress( A_ScriptDir "\..\ActionLists\_globalActionListsGenerated\isNotAProject.ahk" )
 global ActionList
 global ActionListOLD
 global activeTitle:=""
@@ -121,6 +122,13 @@ global g_doSaveLogFiles
 
     lll("`n" . A_LineNumber, A_ScriptName, temp . " STARTING first lines :) ")
 
+if(!fileExist(ActionList_isNotAProject)){
+    msg := ":( ERROR: !fileExist(" ActionList_isNotAProject " =ActionList_isNotAProject) `n`n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+    lll("`n" . A_LineNumber, A_ScriptName, msg)
+    Msgbox,% msg
+    clilpboard := msg
+    sleep,5000
+}
 RegRead, ActionList, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList ; todo: 02.03.2018 12:55 18-03-02_12-55
 if(!fileExist(ActionList)){
     ; addet 26.4.2018 12:58 becouse of mistourios things
@@ -677,15 +685,18 @@ saveIamAllive:
    FormatTime, timestampyyMMddHHmmss, %A_now%,yyMMddHHmmss
    FormatTime, timestampyyMMddHHmmssPretty, %A_now%,yy:MM:dd HH:mm:ss
    FileDelete, TypingAid_programmCounter_LineAndTime.txt
+tooltip,% "FileAppend (" A_ThisFunc "~" A_LineNumber "~" RegExReplace(A_LineFile,".*\") ")"
    FileAppend,117_%timestampyyMMddHHmmssPretty%_line_%timestampyyMMddHHmmss% , TypingAid_programmCounter_LineAndTime.txt
 return
 
 
-;<<<<<<<< ordlistTXTfile <<<< 180319224633 <<<< 19.03.2018 22:46:33 <<<<
+;/¯¯¯¯ checkActionListTXTfile_sizeAndModiTime ¯¯ 181023101000 ¯¯ 23.10.2018 10:10:00 ¯¯\
 checkActionListTXTfile_sizeAndModiTime:
     SetTimer,checkInRegistryChangedActionListAddress,Off
 
-    if(!FileExist(ActionList)){ ; todo: is this deadlink? never uses? 07.10.2018 10:14 18-10-07_10-14 ; no it was happend 08.10.2018 15:15 , 18-10-08_15-15
+    if(!FileExist(ActionList)){
+        if(0 && InStr(A_ComputerName,"SL5")) ; 23.10.2018 10:08 was used
+            msgBox,% " is this deadlink? never uses? (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
         ; ActionList := removesSymbolicLinksFromFileAdress( A_ScriptDir "\..\ActionLists\_globalActionListsGenerated\_global.ahk" )
         ActionList := removesSymbolicLinksFromFileAdress( A_ScriptDir "\..\ActionLists\_globalActionListsGenerated\isNotAProject.ahk" )
     }
@@ -741,12 +752,16 @@ checkActionListTXTfile_sizeAndModiTime:
     }
     SetTimer,checkInRegistryChangedActionListAddress,On
 return
-;>>>>>>>> checkActionListTXTfile_sizeAndModiTime >>>> 180319224746 >>>> 19.03.2018 22:47:46 >>>>
+;\____ checkActionListTXTfile_sizeAndModiTime __ 181023101012 __ 23.10.2018 10:10:12 __/
 
 
 
 ;<<<<<<<< checkInRegistryChangedActionListAddress <<<< 180319214428 <<<< 19.03.2018 21:44:28 <<<<
 checkInRegistryChangedActionListAddress:
+if(ActionList == ActionList_isNotAProject){ ; it happens: 23.10.2018 10:33
+    ; msgBox,% "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+    return
+}
 
 if(false && g_ActionList_UsedByUser_since_midnight[g_ActionListID]){
     msgBox,% "g_ActionList_UsedByUser_since_midnight[g_ActionListID]: " g_ActionList_UsedByUser_since_midnight[g_ActionListID] "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
@@ -819,11 +834,14 @@ if( g_ActionList_UsedByUser_since_midnight[g_ActionListID] ){
 
     if(!fileExist(ActionListNewTemp)){ ; addet 26.4.2018 12:58 becouse of mistourios things
         clilpboard := ActionListNewTemp
-        msg = :( list read by RegRead NOT exist: `n`n ActionListNewTemp = `n %ActionListNewTemp% `n = clilpboard = `n  (%A_LineFile%~%A_LineNumber%)
-        ; Msgbox,% msg
+        msg = :( list read by RegRead NOT exist: `n`n ActionListNewTemp = `n %ActionListNewTemp% `n = clilpboard = `n
+        ActionList := ActionList_isNotAProject
+
+
+        ; msgBox,% ":( ERROR: " msg "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
         ; feedbackMsgBox(msg,msg,1,1)
-        ToolTip4sec(msg " `n"  . A_LineNumber . " " . A_LineNumber )
-        clilpboard := msg
+        ToolTip4sec(":( ERROR: " msg " (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
+        ; clilpboard := msg
         sleep,5000
 }
 
@@ -1117,8 +1135,8 @@ return
 
 setRegistry_toDefault(){
     globalActionListDir := "..\ActionLists"
-    globalActionList := globalActionListDir "\_globalActionListsGenerated\_global.ahk"
-    ; globalActionList := globalActionListDir   "\_globalActionListsGenerated\isNotAProject.ahk" ;  todo: is this deadlink? never uses? 07.10.2018 10:14 18-10-07_10-14
+    ; globalActionList := globalActionListDir "\_globalActionListsGenerated\_global.ahk"
+    globalActionList := globalActionListDir   "\_globalActionListsGenerated\isNotAProject.ahk"
 
     RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionListDir, %globalActionListDir% ; RegWrite , RegSave , Registry
     RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionListActive, %globalActionList% ; RegWrite , RegSave , Registry
@@ -1243,11 +1261,15 @@ show_ListBox_Id:
         ;/¯¯¯¯ ;ToolTip1sec(g_ListBox_Id ¯¯ 181022055812 ¯¯ 22.10.2018 05:58:12 ¯¯\
         ; tested . it works. dont need to reload or so
         ToolTip5sec( g_show_ListBox_Id_EMTY_COUNT ": DisEn (" A_LineNumber " " RegExReplace(A_LineFile,".*\\"),1,1)
-        if(g_show_ListBox_Id_EMTY_COUNT == 1){
+        if(g_show_ListBox_Id_EMTY_COUNT > 1){
+            ; DisableWinHook() ; stoped. todo: test 23.10.2018 11:17
             try{
-                DisableWinHook()
                 EnableWinHook()
-        }   }
+            }
+            ;/¯¯¯¯ ReturnWinActive ¯¯ 181022213048 ¯¯ 22.10.2018 21:30:48 ¯¯\
+            ReturnWinActive() ; <=========== addet today as an test. its not disturbing. dont know if its halp
+            ;\____ ReturnWinActive __ 181022213051 __ 22.10.2018 21:30:51 __/
+        }
         if(g_show_ListBox_Id_EMTY_COUNT >= 2){
 
             try{

@@ -86,7 +86,12 @@ ActionListDir = '%ActionListDir%'
 ; The active path, that the complete address of the file inc dir, has to be always present. if not then that is an error. 12.07.2017 21:10
 	
 	;/¯¯¯¯ !FileExist(ActionListNEWarchivePath) ¯¯ 181012011354 ¯¯ 12.10.2018 01:13:54 ¯¯\
-	if(!FileExist(ActionListNEWarchivePath)) {
+    fileAddress_projectFlag := ActionListDir "\_create_own_project.flag"
+    isFileExist_create_own_projectFlag := (FileExist(fileAddress_projectFlag) && !InStr(FileExist(fileAddress), "D"))
+	if(!FileExist(ActionListNEWarchivePath) && isFileExist_create_own_projectFlag ) {
+
+	    FIleDelete,  % fileAddress_projectFlag ; then you need alway generae it explizit via generate project links 23.10.2018 11:29
+
 		; So hear it's possibly a good idea to generate a new one by using a template. 12.07.2017 21:12
 		g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 		
@@ -111,10 +116,11 @@ ActionListDir = '%ActionListDir%'
 		
 		StringReplace, lineFileRelative, A_LineFile , % A_ScriptDir,Source, All
 		;Msgbox,%LineFileRelative%`n (%A_LineFile%~%A_LineNumber%) )
-		
-		FileAppend, `; '%at%' `; (%LineFileRelative%~%A_LineNumber%) `n%initialActionList% `n, % ActionListNEWarchivePath
-		Sleep,500
-		
+
+		    FileAppend, `; '%at%' `; (%LineFileRelative%~%A_LineNumber%) `n%initialActionList% `n, % ActionListNEWarchivePath
+		; Sleep,400
+		 Sleep,150 ; why sleeping ? todo sleeping?
+
 		; End of: if(!FileExist(ActionListNEWarchivePath))
 		lll(A_LineNumber, A_LineFile,A_ThisFunc ": "    "saved first time: >" . ActionListNEWarchivePath . "< = Now the new examples-template should be saved" )
 		; Now the new examples-template is saved inside of this file: ActionListNEWarchivePath
@@ -988,14 +994,17 @@ you may think first letters want replace. yes thats true. thats a feature ;) not
 return msg
 }
 
+
+
+;/¯¯¯¯ getAhkCodeInsideFile ¯¯ 181023081117 ¯¯ 23.10.2018 08:11:17 ¯¯\
 getAhkCodeInsideFile(ActionListDir, ActionListFilterPath ) {
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback  := "(" A_ThisFunc "~" A_LineNumber "~" RegExReplace(A_LineFile,".*\\") ")"
 
 ahkCodeInsideFile =
 (
 #SingleInstance, force
-`; dontDeleteThisPlaceholder
+`; dontDeleteThisPlaceholder %g_lineNumberFeedback%
 #Include %ActionListDir%\..\ActionListNameFilter.inc.ahk `; global ActionList . pleas dont delete this line! 17-03-06_10-59
 ActionListFilterPath = %ActionListFilterPath% `n ; (line:`%A_LineNumber`%) `n
 
@@ -1039,6 +1048,11 @@ if( SubStr( ActionListNEW , -3 ) <> ".ahk" ) ; 06.03.2018 13:09
 
 return ahkCodeInsideFile
 }
+;\____ getAhkCodeInsideFile __ 181023081130 __ 23.10.2018 08:11:30 __/
+
+
+
+
 
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 DynaRunGetClipboard(value){
@@ -1168,8 +1182,13 @@ return initialActionList
 #Include *i %A_ScriptDir%\inc_ahk\functions_global_dateiende.inc.ahk
 
 
-;<<<<<<<<<<<<<<<<<< ExitAPP_if_NOT_ActionListNEWarchivePath_and_NOT_ActionListNEW<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+;/¯¯¯¯ ExitAPP_if_NOT_ActionListNEWarchivePath_and_NOT_ActionListNEW ¯¯ 181023104727 ¯¯ 23.10.2018 10:47:27 ¯¯\
 ExitAPP_if_NOT_ActionListNEWarchivePath_and_NOT_ActionListNEW(ALineNumber, AThisFunc, ActionListNEWarchivePath, ActionListGeneratedPath , ActionListNEW){
+
+    return ; todo: thats only for testing. 23.10.2018 10:50
+    ;
+
+
   if( !FileExist(ActionListNEWarchivePath) ) {
     global g_lineNumberFeedback
     g_lineNumberFeedback=Typing_Aid_everywhere_multi_clone.inc.ahk / %A_LineFile% ~%AThisFunc%~%ALineNumber%
@@ -1185,7 +1204,7 @@ ExitAPP_if_NOT_ActionListNEWarchivePath_and_NOT_ActionListNEW(ALineNumber, AThis
   }
   return
 }
-;>>>>>>>>>>>>>> ExitAPP_if_NOT_ActionListNEWarchivePath_and_NOT_ActionListNEW>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+;\____ ExitAPP_if_NOT_ActionListNEWarchivePath_and_NOT_ActionListNEW __ 181023104733 __ 23.10.2018 10:47:33 __/
 
 
 ;<<<<<<<<<<<<<<<<<< ExitAPP_if_NOT_ActionListGeneratedPath <<<<<<<<<<<<<<<<<<<<<<<<<<<<

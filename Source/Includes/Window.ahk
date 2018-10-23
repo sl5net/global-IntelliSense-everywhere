@@ -57,6 +57,9 @@ DisableWinHook(){
    return
 }
 
+
+
+;/¯¯¯¯ WinChanged ¯¯ 181022212344 ¯¯ 22.10.2018 21:23:44 ¯¯\
 ; Hook function to detect change of focus (and remove ListBox when changing active window) 
 WinChanged(hWinEventHook, event, wchwnd, idObject, idChild, dwEventThread, dwmsEventTime){
    global g_inSettings
@@ -102,8 +105,10 @@ WinChanged(hWinEventHook, event, wchwnd, idObject, idChild, dwEventThread, dwmsE
    Return
 }
 
-SwitchOffListBoxIfActive()
-{   
+
+
+;/¯¯¯¯ SwitchOffListBoxIfActive ¯¯ 181022212325 ¯¯ 22.10.2018 21:23:25 ¯¯\
+SwitchOffListBoxIfActive(){
    global g_Active_Id
    global g_ListBox_Id
    global g_ManualActivate
@@ -121,10 +126,12 @@ SwitchOffListBoxIfActive()
    }
    return, false
 }
-   
-   
-;------------------------------------------------------------------------
+;\____ WinChanged __ 181022212351 __ 22.10.2018 21:23:51 __/
 
+
+
+
+;/¯¯¯¯ GetIncludedActiveWindow ¯¯ 181022212408 ¯¯ 22.10.2018 21:24:08 ¯¯\
 ; Wrapper function to ensure we always enable the WinEventHook after waiting for an active window
 ; Returns true if the current window is included
 GetIncludedActiveWindow() {
@@ -176,7 +183,11 @@ GetIncludedActiveWindow() {
    EnableWinHook()
    Return, CurrentWindowIsActive
 }
+;\____ GetIncludedActiveWindow __ 181022212417 __ 22.10.2018 21:24:17 __/
 
+
+
+;/¯¯¯¯ GetIncludedActiveWindowGuts ¯¯ 181022212430 ¯¯ 22.10.2018 21:24:30 ¯¯\
 GetIncludedActiveWindowGuts() {
    global g_Active_Id
    global g_Active_Pid
@@ -351,11 +362,13 @@ CheckForActive(ActiveProcess,ActiveTitle)
 
    Return, 
 }
+;\____ GetIncludedActiveWindowGuts __ 181022212448 __ 22.10.2018 21:24:48 __/
 
-;------------------------------------------------------------------------
-      
-ReturnWinActive()
-{
+
+
+
+;/¯¯¯¯ ReturnWinActive ¯¯ 181022212502 ¯¯ 22.10.2018 21:25:02 ¯¯\
+ReturnWinActive(){
    global g_Active_Id
    global g_Active_Title
    global g_InSettings
@@ -380,3 +393,4 @@ ReturnWinActive()
    StringReplace, Temp_Title, Temp_Title,-,,All
    Return, (( g_Active_Id == Temp_id ) && ( Last_Title == Temp_Title ))
 }
+;\____ ReturnWinActive __ 181022212545 __ 22.10.2018 21:25:45 __/

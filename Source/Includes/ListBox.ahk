@@ -17,7 +17,8 @@ InitializeListBox(){
    }
       ; to ms ms to
    ; Gui, ListBoxGui:Font, s%prefs_ListBoxFontSize%, %ListBoxFont% ;
-   Tooltip,%g_ListBoxFontSize% = size `n (from: %A_LineFile%~%A_LineNumber%) `
+   if(1 && InStr(A_ComputerName,"SL5"))
+    ToolTip5sec( g_ListBoxFontSize " = font size of ListBoxGui `n (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") )
    Gui, ListBoxGui:Font, s%g_ListBoxFontSize%, %ListBoxFont%
 
    Loop, %prefs_ListBoxRows%
@@ -33,6 +34,11 @@ InitializeListBox(){
    Return
 }
    ; ______
+
+
+
+;/¯¯¯¯ ListBoxClickItem ¯¯ 181022211224 ¯¯ 22.10.2018 21:12:24 ¯¯\
+; needet becouse listbox is moveable by click
 ListBoxClickItem(wParam, lParam, msg, ClickedHwnd){
    global
    Local NewClickedItem
@@ -113,11 +119,17 @@ ListBoxClickItem(wParam, lParam, msg, ClickedHwnd){
 
    Return
 }
+;\____ ListBoxClickItem __ 181022211307 __ 22.10.2018 21:13:07 __/
 
-SetSwitchOffListBoxTimer()
-{
+
+
+
+
+;/¯¯¯¯ SetSwitchOffListBoxTimer ¯¯ 181022211331 ¯¯ 22.10.2018 21:13:31 ¯¯\
+SetSwitchOffListBoxTimer(){
+    ; is for e.g. triggerd if listbox is scrolled 22.10.2018 21:21
    static DoubleClickTime
-   
+
    if !(DoubleClickTime)
    {
       DoubleClickTime := DllCall("GetDoubleClickTime")
@@ -126,14 +138,16 @@ SetSwitchOffListBoxTimer()
    ; before re-activating the edit window to allow double click to work
    SetTimer, SwitchOffListBoxIfActiveSub, -%DoubleClickTime%
 }
-   
+;\____ SetSwitchOffListBoxTimer __ 181022211336 __ 22.10.2018 21:13:36 __/
+
 
 SwitchOffListBoxIfActiveSub:
 SwitchOffListBoxIfActive()
 Return
 
-ListBoxScroll(Hook, Event, EventHwnd)
-{
+
+;/¯¯¯¯ ListBoxScroll ¯¯ 181022211707 ¯¯ 22.10.2018 21:17:07 ¯¯\
+ListBoxScroll(Hook, Event, EventHwnd){
    global
 
    Local MatchEnd
@@ -174,6 +188,9 @@ ListBoxScroll(Hook, Event, EventHwnd)
       SetSwitchOffListBoxTimer()   
    }
 }
+;\____ ListBoxScroll __ 181022211719 __ 22.10.2018 21:17:19 __/
+
+
 
 ; based on code by HotKeyIt
 ;  http://www.autohotkey.com/board/topic/78829-ahk-l-scrollinfo/
