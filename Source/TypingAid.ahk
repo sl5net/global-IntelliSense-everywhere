@@ -201,7 +201,7 @@ SetTitleMatchMode,2  ; if this is 1 it does not find the tool in tray bar 27.04.
 g_nextCriticalCommandString := "104:Suspend, On"
 ; Disables all hotkeys
 
-;msgbox,% A_LineNumber " " A_LineFile "`n SuspendOn()`n"
+;msgbox,% A_LineNumber " " RegExReplace(A_LineFile,".*\\") "`n SuspendOn()`n"
 Suspend, On ; wieder (10.07.2017 11:47) auskommentiert weils mir zu oft auf suspand on war. wehr oft wenn ich auf skype gewecheelt habe. hoffe die anderen bugFix haben den Seiteneffekt das ich dieses nicht mehr brauche.
 
 g_nextCriticalCommandString := ""
@@ -326,7 +326,7 @@ MainLoop()
 ; https://github.com/sl5net/global-IntelliSense-everywhere/issues/4
 #IfWinActive,
 :b0*?:__:: ;does not delete the underscores
-    ; ToolTip4sec(" (" A_LineNumber " " A_LineFile " " Last_A_This)
+    ; ToolTip4sec(" (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
     ; return
     SetTimer, show_ListBox_Id, 600 ; setinterval
     Sleep,100
@@ -735,7 +735,7 @@ checkActionListTXTfile_sizeAndModiTime:
         RecomputeMatches()
         tip:="doReadActionListTXTfile=" doReadActionListTXTfile " ReadInTheActionList()  ActionList=" ActionList " 4567984654888888 "
         sqlLastError := SQLite_LastError()
-        tip .= "`n sqlLastError=" sqlLastError " `n( " A_LineFile "~" A_LineNumber ")"
+        tip .= "`n sqlLastError=" sqlLastError " `n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
         if( instr(sqlLastError, "no such table") ){
             tooltip, % tip
             SuspendOn()
@@ -896,6 +896,10 @@ if( g_ActionList_UsedByUser_since_midnight[g_ActionListID] ){
         ;ToolTip4sec(tip)
         ;msgbox,%ActionList%  (%A_LineFile%~%A_LineNumber%)
 
+    InactivateAll_Suspend_ListBox_WinHook() ; addet 24.10.2018 14:16
+    ClearAllVars(True) ; 24.10.2018 14:16 may help listBoxGUI NEVER HANGS TODO:check it
+
+
         ;if(g_FLAGmsgbox == 0)
             RecomputeMatches()
 
@@ -910,7 +914,7 @@ return
 onLink2ActionListChangedInRegistry:
 
 if(g_doListBoxFollowMouse)
-  Return  ; __
+  Return
 
     ;Msgbox,RETURN OFF`n (%A_LineFile%~%A_LineNumber%)
     ;return
@@ -996,7 +1000,7 @@ IfWinNotExist,% scriptNameWithoutAHK
    ; its to dangerous that a stack overflow happens.
    ; may one good workaround could be, wait a lang time and then try it again or pause the script for ever..... and ever ...
    suspend,On
-      msgbox,% A_LineNumber " " A_LineFile "`n SuspendOn()`n"
+      msgbox,% A_LineNumber " " RegExReplace(A_LineFile,".*\\") "`n SuspendOn()`n"
 
    min := 60 * 1000
    ; sleep, % 9 * min 
@@ -1193,6 +1197,8 @@ fixBug_Alt_Shift_Ctrl_hanging_down(){
   return
 } ; endOf: fixBug_Alt_Shift_Ctrl_hanging_down
 
+
+;/¯¯¯¯ check_ActionList_GUI_is_hanging_or_freezed ¯¯ 181024140430 ¯¯ 24.10.2018 14:04:30 ¯¯\
 check_ActionList_GUI_is_hanging_or_freezed:
   ; g_ListBox_Id
   ;if( A_TimeIdlePhysical < 1000 * 9 )
@@ -1200,14 +1206,14 @@ check_ActionList_GUI_is_hanging_or_freezed:
   ;  ToolTip,%g_ListBox_Id% = g_ListBox_Id `n %g_ListBoxTitle% = g_ListBoxTitle `n %g_ListBoxTitle_firstTimeInMilli% = g_ListBoxTitle_firstTimeInMilli `n (%A_LineFile%~%A_LineNumber%),,1
 
     ; msgbox,%g_ListBoxTitle% = g_ListBoxTitle `n (%A_LineFile%~%A_LineNumber%)
-    if(!g_ListBoxTitle)
-        return ; probably no problem
+    ; if(!g_ListBoxTitle)
+      ;  return ; probably no problem
     SetTitleMatchMode,1
     DetectHiddenWindows,Off
     IfWinNotExist, % g_ListBoxTitle
         return ; probably no problem
     if(!g_ListBoxTitle_firstTimeInMilli){
-         MsgBox, % ":( milli is empty  `n should never happens `n g_ListBoxTitle=" g_ListBoxTitle " `n g_ListBoxTitle_firstTimeInMilli = " g_ListBoxTitle_firstTimeInMilli "`n(" A_LineFile "~" A_LineNumber ")"
+         MsgBox, % ":( milli is empty  `n should never happens `n g_ListBoxTitle=" g_ListBoxTitle " `n g_ListBoxTitle_firstTimeInMilli = " g_ListBoxTitle_firstTimeInMilli "`n(" RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
         return
     }
     ;tooltip too too too__too
@@ -1216,7 +1222,7 @@ check_ActionList_GUI_is_hanging_or_freezed:
     elapsedSec := ceil(elapsedMilli/1000)
     ; tip = %g_ListBoxTitle% = g_ListBoxTitle `n %elapsedSec% = elapsedSec `n (%A_LineFile%~%A_LineNumber%)
     ; ToolTip,%g_ListBoxTitle% = g_ListBoxTitle `n %elapsedSec% = elapsedSec `n (%A_LineFile%~%A_LineNumber%)
-    ;MsgBox, % tip "`n`n" elapsedMilli  "millisec = " elapsedSec "sec have elapsed. (" A_LineFile "~" A_LineNumber ")"
+    ;MsgBox, % tip "`n`n" elapsedMilli  "millisec = " elapsedSec "sec have elapsed. (" RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
     if(elapsedSec > 11){
      ;winclose, % g_ListBoxTitle
      ToolTip3sec("DestroyListBox()`n`n" A_LineNumber " " A_ScriptName )
@@ -1227,7 +1233,7 @@ check_ActionList_GUI_is_hanging_or_freezed:
      ;winkill, % g_ListBoxTitle
      ; reload ; script hangs if gui was not used. here we could check if its hanging. 27.09.2018 19:21 if ListBox was not used and not closed. reload helps to get script running again.
     RecomputeMatches() ; <=== dont know if this helps 19.10.2018 11:24
-     ;MsgBox, % tip "`n`n" elapsedMilli  "millisec = " elapsedSec "sec have elapsed. (" A_LineFile "~" A_LineNumber ")"
+     ;MsgBox, % tip "`n`n" elapsedMilli  "millisec = " elapsedSec "sec have elapsed. (" RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
     AHKcode := "#" . "NoTrayIcon `n "
     AHKcode =
     (
@@ -1244,6 +1250,9 @@ check_ActionList_GUI_is_hanging_or_freezed:
   clipboard := tip
   ; too too too
 return
+;\____ check_ActionList_GUI_is_hanging_or_freezed __ 181024140439 __ 24.10.2018 14:04:39 __/
+
+
 
 show_ListBox_Id:
     SetTimer, show_ListBox_Id, Off ; setinterval

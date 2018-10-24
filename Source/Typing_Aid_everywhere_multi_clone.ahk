@@ -258,6 +258,7 @@ global g_doSaveLogFiles
 
 lll(A_LineNumber, A_LineFile, regEx . " end of while(true)`n '" . activeTitle . "' = activeTitle `n  time:" . timestampHHmmss)
 Msgbox,%activeTitle% `n`n %activeClass% `n`n  (%A_LineFile%~%A_LineNumber%)
+
 ;ExitApp
     }
 
@@ -290,6 +291,7 @@ if(0 && InStr(A_ComputerName,"SL5")){
         createIfFileNotExist_ActionListNameFilter_InNewDir(ActionListDirBase . "\FunnyWidgetHuHu" , ActionListDirBase . "\FunnyWidgetHuHu\" . filterFileName, ahkCode2, isInternMsgTransportIsClipboard) ; FunnyWidgetHuHu
         if(debugIt)
         MsgBox, '%ahkCode2%' = ahkCode2  `n (line:%A_LineNumber%) `n
+
     }
     ;>>>>>>>>>>>>>>>>> run createIfFileNotExist_ActionListNameFilter_InNewDir >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     ;>>>>>>>>>>>>>> createIfFileNotExist_ActionListNameFilter_InNewDir >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -463,8 +465,8 @@ l2 := StrLen(fileContent)
 if(1 && l1 > l2){ ; proof it test it
     FileSave(fileContent, ActionList )
     if(1 && InStr(A_ComputerName,"SL5"))
-        msgbox,`% ActionList " 12is saved (l1 > l2) (%A_LineFile%~%A_LineNumber%) (" A_LineFile "~" A_LineNumber ") ---- " fileContent
-    tooltip,`% ActionList " 12is saved (l1 > l2) (%A_LineFile%~%A_LineNumber%) (" A_LineFile "~" A_LineNumber ") ---- " fileContent
+        msgbox,`% ActionList " 12is saved (l1 > l2) (%A_LineFile%~%A_LineNumber%) (" RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ") ---- " fileContent
+    tooltip,`% ActionList " 12is saved (l1 > l2) (%A_LineFile%~%A_LineNumber%) (" RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ") ---- " fileContent
 }
 
 
@@ -727,7 +729,7 @@ global g_lineNumberFeedback
    m = '%ActionListNEW%' = ActionListNEW  `n '%ActionListDir%' = ActionListDir  `n  '%activeTitle%' = activeTitle  `n 
 global g_doSaveLogFiles
 
-lll(A_LineNumber, A_LineFile ,m)
+lll(A_LineNumber, RegExReplace(A_LineFile,".*\\") ,m)
 
    lineB := "<<<<<<<<<<<<<<<<<<<<<<`n"
    lineE := ";>>>>>>>>>>>>>>>>>>>>>>`n"
@@ -755,12 +757,12 @@ ahkCode := RegExReplace( ahkCodeInsideFile , "`;\s*dontDeleteThisPlaceholder" , 
    m = '%ActionListNEW%' = ActionListNEW  `n '%activeTitle%' = activeTitle  `n 
 global g_doSaveLogFiles
 
-lll(A_LineNumber, A_LineFile , "`n" . m)
+lll(A_LineNumber, RegExReplace(A_LineFile,".*\\") , "`n" . m)
 ActionListNEW := DynaRunGetClipboard(ahkCode)
    m = '%ActionListNEW%' = ActionListNEW  `n '%activeTitle%' = activeTitle  `n 
 global g_doSaveLogFiles
 
-lll(A_LineNumber, A_LineFile , "`n" . m)
+lll(A_LineNumber, RegExReplace(A_LineFile,".*\\") , "`n" . m)
 
 worlistExtension := SubStr(ActionListNEW, -3)
 if( worlistExtension  <> ".ahk" ) {
@@ -832,6 +834,7 @@ tooltip,% "FileAppend (" A_ThisFunc "~" A_LineNumber "~" RegExReplace(A_LineFile
 return true
 }
 ;\____ createIfFileNotExist_ActionListNameFilter_InNewDir __ 181023081850 __ 23.10.2018 08:18:50 __/
+
 
 
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
