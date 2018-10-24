@@ -20,8 +20,12 @@ openInEditor(ActionListFolderOfThisActionList, isAHKcode, AHKcode, isStartingUnd
     ;Msgbox,% m1ListFileName "=m1ListFileName `n (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
     ; ____
     if(!FileExist(m1CorrectedAhkFileAddress)){
-        Msgbox,:( action list `n %m1CorrectedAhkFileAddress% `n is not exist. `n (%A_LineFile%~%A_LineNumber%)
-        return false
+        m1CorrectedAhkFileAddress := RegExReplace(m1CorrectedAhkFileAddress,"WordList", "ActionList") ; my a old database 23.10.2018 12:01
+        m1CorrectedAhkFileAddress := RegExReplace(m1CorrectedAhkFileAddress,"_globalActionListsGenerated\..\_globalActionListsGenerated", "..\_globalActionListsGenerated") ; quikc and dirty 24.10.2018 15:30
+      if(!FileExist(m1CorrectedAhkFileAddress)){
+            Msgbox,:( action list `n %m1CorrectedAhkFileAddress% `n is not exist. `n (%A_LineFile%~%A_LineNumber%)
+            return false
+        }
     }
     if(!FileExist(m1CorrectedAhkFileAddress)){
         Msgbox,:( action list `n %m1CorrectedAhkFileAddress% `n is not exist. `n (%A_LineFile%~%A_LineNumber%)
@@ -73,7 +77,7 @@ openInEditor(ActionListFolderOfThisActionList, isAHKcode, AHKcode, isStartingUnd
         }
     }
     msg=%runString% `n %m1% `n deprecated: `n please open by using AHK-Studio instead run`n
-    ;msgbox, % msg "`n" A_LineNumber   " "   A_LineFile   " "   Last_A_This
+    ;msgbox, % msg "`n" A_LineNumber   " "   RegExReplace(A_LineFile,".*\\")   " "   Last_A_This
     ToolTip5sec(msg A_LineNumber   " "   RegExReplace(A_LineFile,".*\\")    " "   Last_A_This)
     return true
 }
