@@ -17,6 +17,7 @@ MaybeWriteHelperWindowPos()
 
 ReadPreferences(RestoreDefaults := false,RestorePreferences := false)
 {
+
    global dft_IncludeProgramExecutables
    global dft_IncludeProgramTitles
    global dft_ExcludeProgramExecutables
@@ -49,7 +50,7 @@ ReadPreferences(RestoreDefaults := false,RestorePreferences := false)
    global dft_ListBoxNotDPIAwareProgramExecutables
    global dft_HelperWindowProgramExecutables
    global dft_HelperWindowProgramTitles
-   
+
    global prefs_IncludeProgramExecutables
    global prefs_IncludeProgramTitles
    global prefs_ExcludeProgramExecutables
@@ -82,23 +83,25 @@ ReadPreferences(RestoreDefaults := false,RestorePreferences := false)
    global prefs_ListBoxNotDPIAwareProgramExecutables
    global prefs_HelperWindowProgramExecutables
    global prefs_HelperWindowProgramTitles
-   
+
    ;g_PrefsFile is global so it works in Settings.ahk
    global g_PrefsFile
    global g_PrefsSections
    global g_XY
-   
+
+    INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+
    g_PrefsFile = %A_ScriptDir%\Preferences.ini
    Defaults = %A_ScriptDir%\Defaults.ini
    LastState = %A_ScriptDir%\LastState.ini
-   
+
    MaybeFixFileEncoding(g_PrefsFile,"UTF-16")
    MaybeFixFileEncoding(Defaults,"UTF-16")
    MaybeFixFileEncoding(LastState,"UTF-16")
-   
+
    dft_TerminatingCharacters = {enter}{space}{esc}{tab}{Home}{End}{PgUp}{PgDn}{Up}{Down}{Left}{Right}.;`,ï¿½?ï¿½!'"()[]{}{}}{{}``~`%$&*-+=\/><^|@#:
-   
-   
+
+
    ; There was a bug in TypingAid 2.19.7 that broke terminating characters for new preference files, this code repairs it
    BrokenTerminatingCharacters = {enter}{space}{esc}{tab}{Home}{End}{PgUp}{PgDn}{Up}{Down}{Left}{Right}.;
    IfExist, %g_PrefsFile%
@@ -469,14 +472,16 @@ ParseTerminatingCharacters()
 
 SavePreferences(PrefsToSave)
 {
+
    global
    local index
    local element
    local KeyName
    local PrefsExist
-   
+
+    INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
    ValidatePreferences()
-   
+
    IfExist, %g_PrefsFile%
    {
       PrefsExist := true

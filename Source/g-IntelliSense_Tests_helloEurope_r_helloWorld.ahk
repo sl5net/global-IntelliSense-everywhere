@@ -618,7 +618,7 @@ close_ActionListChangedInRegistry(){
     RegRead, ActionList, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList ; todo: 02.03.2018 12:55 18-03-02_12-55
     if(InStr(ActionList,"\Selected_tab.")) {
       ; strange, but this is disturbing.
-      tip:= "strange but this is disturbing. `n \Selected_tab. `n ==> lets wait a little `n (" A_LineNumber   " "   A_LineFile ") "
+      tip:= "strange but this is disturbing. `n \Selected_tab. `n ==> lets wait a little `n (" A_LineNumber   " "   RegExReplace(A_LineFile,".*\\") ") "
       ToolTip3sec(tip) 
       ;RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList, % "notWorkingFileAdress18-03-31_09-19"
       ; run,..\start.ahk
@@ -700,7 +700,7 @@ open_ActionList_first_time( openInputBoxTitle ){
   
   ;Msgbox,%openInputBoxTitle% ==> %menuNr% `n (%A_LineFile%~%A_LineNumber%) 
   
-  ;ToolTip,% SubStr(t,1,5) "...`n (" A_LineNumber   " "   A_LineFile ")"
+  ;ToolTip,% SubStr(t,1,5) "...`n (" A_LineNumber   " "   RegExReplace(A_LineFile,".*\\") ")"
   
   
   t := openInputBoxTitle ".ahk"
@@ -904,7 +904,7 @@ isActionListFileExist(fileNamePrefix){
     }
     ;ToolTip1sec(A_LineNumber   " "   RegExReplace(A_LineFile,".*\\")    " "   Last_A_This)
     ;ToolTip,%address% = address`n (%A_LineFile%~%A_LineNumber%) 
-    ;ToolTip,(A_LineNumber   " "   A_LineFile   " "   Last_A_This) 
+    ;ToolTip,(A_LineNumber   " "   RegExReplace(A_LineFile,".*\\")   " "   Last_A_This)
     return false    
 }
 

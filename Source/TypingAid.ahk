@@ -108,12 +108,14 @@ global g_FLAGmsgbox := false
 global g_ActionListID
 
 
+
 global g_ListBoxFontSize := 16 ; works
 global g_ListBoxFontSize := 2 ; work but its so small i could not read it too
 global g_ListBoxFontSize := 8 ; work but its so small i could not read it too too tool
 listBoxFontSizeOLD := g_ListBoxFontSize
 
 ActionList:=ActionListActive
+
 
 feedbackMsgBoxCloseAllWindows()
 
@@ -317,6 +319,9 @@ if !(g_ListBoxScrollCallback){
    
 GetIncludedActiveWindow() ;Find the ID of the window we are using
 
+
+
+
 MainLoop()
 
 ; dirty bugfix, https://github.com/sl5net/global-IntelliSense-everywhere/issues/4
@@ -399,7 +404,6 @@ if(true){
 ;   ToolTip4sec("InitializeListBox `n " A_LineNumber . " " . RegExReplace(A_LineFile,".*\\")  . " " . Last_A_This)
 return 
 ;>>>>>>>>>>>>>>>>> workaround >>>>>>>>>>>>>>>
-
 #IfWinActive,
 ^+f5:: ; exit-all-scripts and restart
     if(1 && InStr(A_ComputerName,"SL5")){
@@ -896,8 +900,13 @@ if( g_ActionList_UsedByUser_since_midnight[g_ActionListID] ){
         ;ToolTip4sec(tip)
         ;msgbox,%ActionList%  (%A_LineFile%~%A_LineNumber%)
 
+    ;/¯¯¯¯ very_happy ¯¯ 181024144052 ¯¯ 24.10.2018 14:40:52 ¯¯\
     InactivateAll_Suspend_ListBox_WinHook() ; addet 24.10.2018 14:16
+
+    ; This is to blank all vars related to matches, ListBox and (optionally) word
     ClearAllVars(True) ; 24.10.2018 14:16 may help listBoxGUI NEVER HANGS TODO:check it
+    ; I think it might be handy if the search word is already on the next list. Therefore I commented this line out today 24.10.2018 14:48
+    ;\____ very_happy __ 181024144106 __ 24.10.2018 14:41:06 __/
 
 
         ;if(g_FLAGmsgbox == 0)
@@ -1263,18 +1272,35 @@ show_ListBox_Id:
     if(g_ListBox_Id)
         global g_show_ListBox_Id_EMTY_COUNT := 0
     if(!g_ListBox_Id && g_reloadIf_ListBox_Id_notExist){
+
+
+    g_show_ListBox_Id_EMTY_COUNT++
+    ;/¯¯¯¯ happens ¯¯ 181024150019 ¯¯ 24.10.2018 15:00:19 ¯¯\
+    ; it happend 24.10.2018 15:00 will i triggered around so muhc. my foul.
+    ; msgbox, should neerv happens  24.10.2018 14:28
+    ToolTip5sec( g_show_ListBox_Id_EMTY_COUNT ": DisEn `n`n Very rare error which will definitely not happen again. or? (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " al= " RegExReplace(ActionList,".*\\") "  2:" ActionListNEW ,1,1)
+    ; MsgBox, % ":( milli is empty  `n should never happens `n g_ListBoxTitle=" g_ListBoxTitle " `n g_ListBoxTitle_firstTimeInMilli = " g_ListBoxTitle_firstTimeInMilli "`n(" RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
+
+    ;\____ happens __ 181024150022 __ 24.10.2018 15:00:22 __/
+
+
         ; run,% "..\start.ahk" ; deactivated. test 22.10.2018 05:54
 
-        g_show_ListBox_Id_EMTY_COUNT++
 
     InactivateAll_Suspend_ListBox_WinHook() ; addet 24.10.2018 14:16
     ClearAllVars(True) ; 24.10.2018 14:16 may help listBoxGUI NEVER HANGS TODO:check it
+
+            if(g_show_ListBox_Id_EMTY_COUNT >= 1) ; the only think that helps today 24.10.2018 15:11
+                reload
+
 
 
         ;/¯¯¯¯ ;ToolTip1sec(g_ListBox_Id ¯¯ 181022055812 ¯¯ 22.10.2018 05:58:12 ¯¯\
         ; tested . it works. dont need to reload or so
         ToolTip5sec( g_show_ListBox_Id_EMTY_COUNT ": DisEn (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " al= " RegExReplace(ActionList,".*\\") "  2:" ActionListNEW ,1,1)
-        if(g_show_ListBox_Id_EMTY_COUNT > 1){
+
+
+        if(0 && g_show_ListBox_Id_EMTY_COUNT > 1){
             ; DisableWinHook() ; stoped. todo: test 23.10.2018 11:17
             try{
                 EnableWinHook()
@@ -1283,7 +1309,10 @@ show_ListBox_Id:
             ReturnWinActive() ; <=========== addet today as an test. its not disturbing. dont know if its halp
             ;\____ ReturnWinActive __ 181022213051 __ 22.10.2018 21:30:51 __/
         }
-        if(g_show_ListBox_Id_EMTY_COUNT >= 2){
+
+
+
+        if(0 && g_show_ListBox_Id_EMTY_COUNT >= 2){
 
             try{
              RebuildMatchList() ; line addet 19.03.2018 20:57
@@ -1294,8 +1323,6 @@ show_ListBox_Id:
         if(g_show_ListBox_Id_EMTY_COUNT >= 3)
             RecomputeMatches() ; <=== hope it helps. not sure 22.10.2018 07:59
 
-        if(g_show_ListBox_Id_EMTY_COUNT >= 5)
-            reload
 
 
         ;\____ ;ToolTip1sec(g_ListBox_Id __ 181022055815 __ 22.10.2018 05:58:15 __/

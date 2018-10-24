@@ -3,39 +3,38 @@
 ; by HugoV / Maniac
 
 LaunchSettings:
-if (g_InSettings == true)
-{
-   return
-}
-             lll(A_LineNumber, A_LineFile, " InactivateAll_Suspend_ListBox_WinHook() 17-08-04_16-19b")
-             fileAddress := A_ScriptDir . "\log\" . A_ScriptName . ".log.txt"
-             if(FileExist(fileAddress) && !InStr(FileExist(fileAddress), "D") )
-                run,% fileAddress
-            else{
-                msg=:( %fileAddress% NOT exist `n (%A_LineFile%~%A_LineNumber%)
-                Msgbox,%msg%`n
-            }
+    if (g_InSettings == true)
+    {
+       return
+    }
+                 lll(A_LineNumber, A_LineFile, " InactivateAll_Suspend_ListBox_WinHook() 17-08-04_16-19b")
+                 fileAddress := A_ScriptDir . "\log\" . A_ScriptName . ".log.txt"
+                 if(FileExist(fileAddress) && !InStr(FileExist(fileAddress), "D") )
+                    run,% fileAddress
+                else{
+                    msg=:( %fileAddress% NOT exist `n (%A_LineFile%~%A_LineNumber%)
+                    Msgbox,%msg%`n
+                }
 
-msg=LaunchSettings ??? really ??? next is InactivateAll_Suspend_ListBox_WinHook() `n (%A_LineFile%~%A_LineNumber%)
- Msgbox,%msg%`n
-InactivateAll_Suspend_ListBox_WinHook()
+    msg=LaunchSettings ??? really ??? next is InactivateAll_Suspend_ListBox_WinHook() `n (%A_LineFile%~%A_LineNumber%)
+     Msgbox,%msg%`n
+    InactivateAll_Suspend_ListBox_WinHook()
 
-
-Menu, Tray, Disable, Settings
-g_InSettings := true
-ClearAllVars(True)
-Menu_OldLearnCount := prefs_LearnCount
-; initialize this to make sure the object exists
-Menu_ChangedPrefs := Object()
-ConstructGui()
-; Call "HandleMessage" when script receives WM_SETCURSOR message
-OnMessage(g_WM_SETCURSOR, "HandleSettingsMessage")
-; Call "HandleMessage" when script receives WM_MOUSEMOVE message
-OnMessage(g_WM_MOUSEMOVE, "HandleSettingsMessage")
-; clear and re-initialize variables after constructing the GUI as some controls call the edit flag immediately
-Menu_ChangedPrefs =
-Menu_ChangedPrefs := Object()
-Menu_ValueChanged := false
+    Menu, Tray, Disable, Settings
+    g_InSettings := true
+    ClearAllVars(True)
+    Menu_OldLearnCount := prefs_LearnCount
+    ; initialize this to make sure the object exists
+    Menu_ChangedPrefs := Object()
+    ConstructGui()
+    ; Call "HandleMessage" when script receives WM_SETCURSOR message
+    OnMessage(g_WM_SETCURSOR, "HandleSettingsMessage")
+    ; Call "HandleMessage" when script receives WM_MOUSEMOVE message
+    OnMessage(g_WM_MOUSEMOVE, "HandleSettingsMessage")
+    ; clear and re-initialize variables after constructing the GUI as some controls call the edit flag immediately
+    Menu_ChangedPrefs =
+    Menu_ChangedPrefs := Object()
+    Menu_ValueChanged := false
 Return
 
 ConstructGui()
@@ -695,6 +694,7 @@ Return
 
 GetList(TitleType,GetExe)
 {
+
    global Menu_GetExe
    global Menu_TitleType
    global Menu_InProcessList
@@ -707,6 +707,7 @@ GetList(TitleType,GetExe)
    global prefs_HelperWindowProgramTitles
    global prefs_HelperWindowProgramExecutables
 
+    INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 
    Menu_InProcessList := true
    Menu_GetExe := GetExe

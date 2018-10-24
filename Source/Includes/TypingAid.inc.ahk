@@ -11,6 +11,8 @@ global activeClassOLD
 global activeClass
 
 Receive_ActionListAddress(CopyOfData){
+    INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+
    msgbox, Received:`n%CopyOfData% `n ( %A_LineFile%(inc)~%A_LineNumber% ) `n
    msgbox, Received:`n%CopyOfData% `n ( %A_LineFile%(inc)~%A_LineNumber% ) `n
    msgbox, Received:`n%CopyOfData% `n ( %A_LineFile%(inc)~%A_LineNumber% ) `n
@@ -43,7 +45,7 @@ Receive_ActionListAddress(CopyOfData){
 
        CloseListBox()
 
-       msgbox,% A_LineNumber " " A_LineFile "`n SuspendOn()`n"
+       msgbox,% A_LineNumber " " RegExReplace(A_LineFile,".*\\") "`n SuspendOn()`n"
 
        SuspendOn()
 
@@ -140,6 +142,7 @@ MainLoop(){
 }
 
 ProcessKey(InputChar,EndKey) {
+
    global g_Active_Id
    global g_Helper_Id
    global g_IgnoreSend
@@ -436,13 +439,15 @@ RecomputeMatches(){
 
 
 CheckForCaretMove(MouseButtonClick, UpdatePosition := false){
+
    global g_LastInput_Id
    global g_MouseWin_Id
    global g_OldCaretX
    global g_OldCaretY
    global g_Word
    global prefs_DetectMouseClickMove
-   
+
+    INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
    ;If we aren't using the DetectMouseClickMoveScheme, skip out
    IfNotEqual, prefs_DetectMouseClickMove, On
       Return
@@ -610,6 +615,7 @@ lll(A_LineNumber, A_LineFile, "DisableKeyboardHotKeys() { ... 17-07-16_13-31 ")
 
 ; If hotkey was pressed, check wether there's a match going on and send it, otherwise send the number(s) typed 
 CheckWord(Key) {
+
    global g_ListBox_Id
    global g_Match
    global g_MatchStart
@@ -618,6 +624,7 @@ CheckWord(Key) {
    global g_Word
    global prefs_ListBoxRows
    global prefs_NumPresses
+    INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
    ; 0000123
    ; StringRight, Key, Key, 1 ;Grab just the number pushed, trim off the "$"
    Key := SubStr(Key, 2)
@@ -663,7 +670,7 @@ if(!g_ListBox_Id){ ; lines addet to reenable numbers without special functions. 
 foundPos := RegExMatch( Key , "\d" )
 if(foundPos){
     ;Suspend,On ; 01.08.2017 04:28 17-08-01_04-28 with this effect, the first number is normal litle slow, but number later are fast again.
-   ;msgbox,% A_LineNumber " " A_LineFile "`n SuspendOn()`n"
+   ;msgbox,% A_LineNumber " " RegExReplace(A_LineFile,".*\\") "`n SuspendOn()`n"
 }
 
 
@@ -729,7 +736,7 @@ global g_doSaveLogFiles
 lll(A_LineNumber, A_LineFile,"SuspendOn()`n" . Key " = Key `n" . WordIndex " = WordIndex `n"  . prefs_NumPresses . " = prefs_NumPresses `n " . "`n 17-07-16_14-16" )
 
 ;      lll(A_LineNumber, A_LineFile, "SuspendOn()")
-      msgbox,% A_LineNumber " " A_LineFile "`n SuspendOn()`n"
+      msgbox,% A_LineNumber " " RegExReplace(A_LineFile,".*\\") "`n SuspendOn()`n"
       SuspendOn()
   }
 
@@ -932,6 +939,7 @@ lll(A_LineNumber, A_LineFile,"SuspendOn()`n" . Key " = Key `n" . WordIndex " = W
 
 ;If a hotkey related to the up/down arrows was pressed
 EvaluateUpDown(Key){
+
    global g_ListBox_Id
    global g_Match
    global g_MatchPos
@@ -943,7 +951,8 @@ EvaluateUpDown(Key){
    global prefs_ArrowKeyMethod
    global prefs_DisabledAutoCompleteKeys
    global prefs_ListBoxRows
-   
+    INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+
    IfEqual, prefs_ArrowKeyMethod, Off
    {
       if (Key != "$LButton")
@@ -1212,6 +1221,8 @@ lll(A_LineNumber, A_LineFile, "CloseListBox()")
    ;msgbox,done: DisableWinHook()  (%A_LineFile%~%A_LineNumber%) :-)
 }
 
+
+;/¯¯¯¯ SuspendOn ¯¯ 181024140026 ¯¯ 24.10.2018 14:00:26 ¯¯\
 SuspendOn(){
    global g_ScriptTitle
    ;ToolTip2sec("Suspend deaktivad TEST " A_LineNumber   " "   RegExReplace(A_LineFile,".*\\")    " "   Last_A_This)
@@ -1226,7 +1237,9 @@ SuspendOn(){
       ;Menu, tray, Icon, %A_ScriptDir%\%g_ScriptTitle% - Inactive.ico, ,1
    }
 }
+;\____ SuspendOn __ 181024140031 __ 24.10.2018 14:00:31 __/
 
+;/¯¯¯¯ SuspendOff ¯¯ 181024140102 ¯¯ 24.10.2018 14:01:02 ¯¯\
 SuspendOff(){
    global g_ScriptTitle
    Suspend, Off
@@ -1243,8 +1256,11 @@ SuspendOff(){
    }
    ;DynaRun("#" "NoTrayIcon `; `n``n Tooltip,||SL5|| `; `n``n Sleep,2300 `; " A_LineNumber)
 }
+;\____ SuspendOff __ 181024140111 __ 24.10.2018 14:01:11 __/
 
 
+
+;/¯¯¯¯ BuildTrayMenu ¯¯ 181024140140 ¯¯ 24.10.2018 14:01:40 ¯¯\
 BuildTrayMenu(){
 ;feedbackMsgBox("BuildTrayMenu test 17-11-22_13-52","test 17-11-22_13-52",1,1)
 
@@ -1262,11 +1278,15 @@ BuildTrayMenu(){
    ;Initialize Tray Icon
    Menu, Tray, Icon
 }
+;\____ BuildTrayMenu __ 181024140152 __ 24.10.2018 14:01:52 __/
 
 
+;/¯¯¯¯ ClearAllVars ¯¯ 181024140212 ¯¯ 24.10.2018 14:02:12 ¯¯\
 ; This is to blank all vars related to matches, ListBox and (optionally) word 
 ClearAllVars(ClearWord){
+
    global
+    INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
        ; lll(A_LineNumber, A_LineFile, "CloseListBox()")
        ; run,log\%A_LineFile%.log.txt ; this line woks :) but to often ;) may we dont need any more to check it ;) 04.08.2017 15:20
 
@@ -1290,9 +1310,12 @@ ClearAllVars(ClearWord){
    g_OriginalMatchStart=
    Return
 }
+;\____ ClearAllVars __ 181024140219 __ 24.10.2018 14:02:19 __/
 
 
 FileAppendDispatch(Text,FileName,ForceEncoding=0){
+    INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+
    IfEqual, A_IsUnicode, 1
    {
       IfNotEqual, ForceEncoding, 0
@@ -1401,27 +1424,28 @@ GetOSVersion(){
    return ((r := DllCall("GetVersion") & 0xFFFF) & 0xFF) "." (r >> 8)
 }
 
+;/¯¯¯¯ MaybeCoInitializeEx ¯¯ 181024135038 ¯¯ 24.10.2018 13:50:38 ¯¯\
 MaybeCoInitializeEx(){
    global g_NULL
    global g_ScrollEventHook
    global g_WinChangedEventHook
    
-   if (!g_WinChangedEventHook && !g_ScrollEventHook)
-   {
+   if (!g_WinChangedEventHook && !g_ScrollEventHook){
       DllCall("CoInitializeEx", "Ptr", g_NULL, "Uint", g_NULL)
    }
-   
 }
+;\____ MaybeCoInitializeEx __ 181024135044 __ 24.10.2018 13:50:44 __/
 
 
+;/¯¯¯¯ MaybeCoUninitialize ¯¯ 181024135055 ¯¯ 24.10.2018 13:50:55 ¯¯\
 MaybeCoUninitialize(){
    global g_WinChangedEventHook
    global g_ScrollEventHook
-   if (!g_WinChangedEventHook && !g_ScrollEventHook)
-   {
+   if (!g_WinChangedEventHook && !g_ScrollEventHook){
       DllCall("CoUninitialize")
    }
 }
+;\____ MaybeCoUninitialize __ 181024135059 __ 24.10.2018 13:50:59 __/
 
 
 setLength(ParseWordsCount, maxLinesOfCode4length1){

@@ -1,5 +1,6 @@
 ﻿;These functions and labels are related to the active window
 
+;/¯¯¯¯ EnableWinHook ¯¯ 181024134525 ¯¯ 24.10.2018 13:45:25 ¯¯\
 ; DisableWinHook()
 EnableWinHook(){
    ; tooltip,EnableWinHook => return`n (%A_LineFile%~%A_LineNumber%)
@@ -12,10 +13,7 @@ EnableWinHook(){
 ; if (g_PauseState == "Paused"){
 ; Msgbox,g_PauseState == "Paused"`n (%A_LineFile%~%A_LineNumber%)
 
-
-
-
-global g_EVENT_SYSTEM_FOREGROUND
+    global g_EVENT_SYSTEM_FOREGROUND
    global g_NULL
    global g_WINEVENT_SKIPOWNPROCESS
    global g_WinChangedEventHook
@@ -27,19 +25,20 @@ global g_EVENT_SYSTEM_FOREGROUND
       g_WinChangedEventHook := DllCall("SetWinEventHook", "Uint", g_EVENT_SYSTEM_FOREGROUND, "Uint", g_EVENT_SYSTEM_FOREGROUND, "Ptr", g_NULL, "Uint", g_WinChangedCallback, "Uint", g_NULL, "Uint", g_NULL, "Uint", g_WINEVENT_SKIPOWNPROCESS)
       
       if !(g_WinChangedEventHook){
-		
-lll(A_LineNumber, A_LineFile, "Failed to register Event Hook! `n  g_WinChangedEventHook=" . g_WinChangedEventHook . "`n 17-07-16_16-21" )
-
-         tip=A_LineNumber . " " .  A_LineFile . " " . Last_A_This
-         tooltip,% tip
+        msg := "Failed to register Event Hook! `n  g_WinChangedEventHook=" . g_WinChangedEventHook . "`n 17-07-16_16-21"
+        ToolTip5sec(msg " (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " )
+        msgbox, % msg
+        lll(A_LineNumber, A_LineFile, msg )
          return false
          ;ExitApp
       }
    }
-   
    Return
 }
+;\____ EnableWinHook __ 181024134530 __ 24.10.2018 13:45:30 __/
 
+
+;/¯¯¯¯ DisableWinHook ¯¯ 181024141107 ¯¯ 24.10.2018 14:11:07 ¯¯\
 DisableWinHook(){
    global g_WinChangedEventHook
    
@@ -56,6 +55,10 @@ DisableWinHook(){
    }
    return
 }
+;\____ DisableWinHook __ 181024141113 __ 24.10.2018 14:11:13 __/
+
+
+
 
 
 
@@ -227,8 +230,8 @@ GetIncludedActiveWindowGuts() {
          InactivateAll_Suspend_ListBox_WinHook()
          ;Wait for any window to be active
 
-         tip="WinWaitActive, , , , ZZZYouWillNeverFindThisStringInAWindowTitleZZZ`n" A_LineNumber . " " .  A_LineFile . " " . Last_A_This
-         ToolTip4sec(tip " (" A_LineNumber " " A_LineFile " " Last_A_This)
+         tip="WinWaitActive, , , , ZZZYouWillNeverFindThisStringInAWindowTitleZZZ`n" A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\") . " " . Last_A_This
+         ToolTip4sec(tip " (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
          ; msgbox,% tip
          WinWaitActive, , , , ZZZYouWillNeverFindThisStringInAWindowTitleZZZ
          Continue
@@ -297,6 +300,7 @@ GetIncludedActiveWindowGuts() {
 
 CheckForActive(ActiveProcess,ActiveTitle)
 {
+
    ;Check to see if the Window passes include/exclude tests
    global g_InSettings
    global prefs_ExcludeProgramExecutables

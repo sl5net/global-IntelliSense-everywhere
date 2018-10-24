@@ -5,14 +5,14 @@
 SetDbVersion(dBVersion = 7){
 
 	global g_ActionListDB
-    INSERT_function_call_time_millis_since_midnight( A_LineFile , A_ThisFunc , A_LineNumber)
+    INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 	g_ActionListDB.Query("INSERT OR REPLACE INTO LastState VALUES ('databaseVersion', '" . dBVersion . "', NULL);")
 }
 
 ;<<<<<<<< MaybeConvertDatabase <<<< 180223091829 <<<< 23.02.2018 09:18:29 <<<<
 ; returns true if we need to rebuild the whole database
 MaybeConvertDatabase(){
-	ToolTip5sec("MaybeConvertDatabase() return false " A_LineNumber . " " . A_LineFile )
+	ToolTip5sec("MaybeConvertDatabase() return false " A_LineNumber . " " . RegExReplace(A_LineFile,".*\\") )
 	return false
 
 	global g_ActionListDB
@@ -115,7 +115,7 @@ RebuildDatabase(){
 RunConversionOne(ActionListConverted){
 
 	global g_ActionListDB
-    INSERT_function_call_time_millis_since_midnight( A_LineFile , A_ThisFunc , A_LineNumber)
+    INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 	g_ActionListDB.BeginTransaction()
 	
 	g_ActionListDB.Query("ALTER TABLE LastState RENAME TO OldLastState;")
@@ -262,8 +262,8 @@ JEE_millis_since_midnight(vOpt:=""){ ; renamed from JEE_TimeNowMSec
 
 
 INSERT_function_call_time_millis_since_midnight( aLineFile , aThisFunc , aLineNumber){
-
     return
+
     ; select ROWID,p.small_LineFile,p.A_ThisFunc,p.ActionList,p.ActionListsize,p.millisec_dif_to_next_function_call from performance p order by p.millisec_dif_to_next_function_call desc limit 3;
 	global g_ActionListDB
 	global ActionList

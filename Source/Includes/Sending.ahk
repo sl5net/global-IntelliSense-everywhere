@@ -1,6 +1,6 @@
 ﻿; Indentation_style: https://de.wikipedia.org/wiki/Einrückungsstil#SL5small-Stil
 SendKey(Key){
-	INSERT_function_call_time_millis_since_midnight( A_LineFile , A_ThisFunc , A_LineNumber)
+	INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 	
 	IfEqual, Key, $^Enter
 	{
@@ -52,7 +52,7 @@ getWordIndex(word) {
     ;~ erste zeile mit eintrag im wörterbuch: g_SingleMatch[1] 10.07.2017 12:13
 	global ActionListFileName
 	global ActionList
-	INSERT_function_call_time_millis_since_midnight( A_LineFile , A_ThisFunc , A_LineNumber)
+	INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
   ;ActionListFileName = ActionList.txt
 	ActionListFileName := ActionList
 	if(!FileExist(ActionListFileName))
@@ -90,7 +90,7 @@ getLineOfWord(word) {
 	
 	global ActionListFileName
 	global ActionList
-	INSERT_function_call_time_millis_since_midnight( A_LineFile , A_ThisFunc , A_LineNumber)
+	INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
   ;ActionListFileName = ActionList.txt
 	ActionListFileName := ActionList
 	if(!FileExist(ActionListFileName))
@@ -259,7 +259,7 @@ SendWord(WordIndex){
     global g_ActionListID
 
 
-	INSERT_function_call_time_millis_since_midnight( A_LineFile , A_ThisFunc , A_LineNumber)
+	INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 	
 	ActionListFolderOfThisActionListRELATIVE := RegExReplace(ActionList,"\\[^\\]+$","")
 	ActionListFolderOfThisActionList := RegExReplace(ActionList,"\\[^\\]+$","") ; deleted A_ScriptDir "\"  23.10.2018 11:14
@@ -411,7 +411,7 @@ UPDATE_ActionList_UsedByUser_since_midnight()
 			rX := {key:m1, rr:m2, send:"", lang:"" ,code:""}
 			
 			if(!rX["lang"]){
-				tip := "found synonym `n ("   A_LineFile " ," A_LineNumber  ") "
+				tip := "found synonym `n ("   RegExReplace(A_LineFile,".*\\") " ," A_LineNumber  ") "
 				ToolTip3sec( tip )
             ; msgbox, % tip
 				id := getWordIndex(m1)
@@ -607,7 +607,7 @@ UPDATE_ActionList_UsedByUser_since_midnight()
 			}
     ;sleep,3000
 ;    Msgbox, '%sending%' = sending  `n `n AHKcode = %rX["send"]% (line:%A_LineNumber%)
-; (A_LineNumber   " "   A_LineFile   " "   Last_A_This)
+; (A_LineNumber   " "   RegExReplace(A_LineFile,".*\\")   " "   Last_A_This)
 			
 			
 			
@@ -647,8 +647,8 @@ UPDATE_ActionList_UsedByUser_since_midnight()
 
 
 		; toolTip2sec(msg" (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
-		; toolTip5sec(msg" (" A_LineNumber " " A_LineFile " " Last_A_This)
-		; tooltip4sec(msg" (" A_LineNumber " " A_LineFile " " Last_A_This)
+		; toolTip5sec(msg" (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
+		; tooltip4sec(msg" (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
 		; __
 
 				; msg msg __msg ms:( ERROR: " msg "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
@@ -909,7 +909,7 @@ SendFull(SendValue,ForceBackspace:= false){
 	
 	global g_doUseSendPlay
 	
-	INSERT_function_call_time_millis_since_midnight( A_LineFile , A_ThisFunc , A_LineNumber)
+	INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 	SwitchOffListBoxIfActive()
 	
 	if(g_config["Send"]["RealisticDelayDynamic"]){
@@ -923,7 +923,7 @@ SendFull(SendValue,ForceBackspace:= false){
 		}
 		return ; endof SendFull(
 		
-		;  lTiToolTip2sec(msg " (" A_LineNumber " " A_LineFile " " Last_A_This)p
+		;  lTiToolTip2sec(msg " (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)p
 		
 	}	
 
@@ -1315,13 +1315,16 @@ SendCompatible(SendValue,ForceSendForInput) {
 	Send, %SendValue%
 	
 	global g_sending_is_buggy
-	INSERT_function_call_time_millis_since_midnight( A_LineFile , A_ThisFunc , A_LineNumber)
+
+	INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 	if( g_sending_is_buggy )
 		lll(A_LineNumber, A_LineFile, " Send, %SendValue% `n Send, %" . SendValue . "% `n 17-07-29_12-10")
 ; regeregregreg
 	Return
       ; GetKeyState, LshiftState, Lshift, P; 96+ lines in autocopy.ahk
    ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
 
 	IfEqual, ForceSendForInput, 1
 	{
@@ -1377,7 +1380,7 @@ SendCompatible(SendValue,ForceSendForInput) {
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 getTypicalKeyLatency( key, factor = 1 ) {
-	INSERT_function_call_time_millis_since_midnight( A_LineFile , A_ThisFunc , A_LineNumber)
+	INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 	
 ; recordet at 10.04.2017 17:45 from sl5net
 	time2keyPressLog := {}
@@ -1834,7 +1837,7 @@ getTypicalKeyLatency( key, factor = 1 ) {
 
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 convertSendCode2SendPlayCode(AHKcode){
-	INSERT_function_call_time_millis_since_midnight( A_LineFile , A_ThisFunc , A_LineNumber)
+	INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 	
 	AHKcode1 := AHKcode
 ; thats pseudo sendPlay . alternative ; However, SendPlay may have no effect at all on Windows Vista or later if User Account Control is enabled, even if the script is running as an administrator. mySendPlay
@@ -1864,7 +1867,7 @@ convertSendCode2SendPlayCode(AHKcode){
 
 ;/¯¯¯¯ getRealisticDelayDynamicSendAHKcode ¯¯ 181014005212 ¯¯ 14.10.2018 00:52:12 ¯¯\
 getRealisticDelayDynamicSendAHKcode( g_Word , AHKcode ){
-	INSERT_function_call_time_millis_since_midnight( A_LineFile , A_ThisFunc , A_LineNumber)
+	INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 
 
 
@@ -2017,7 +2020,7 @@ getRealisticDelayDynamicSendAHKcode( g_Word , AHKcode ){
 
 
 getCorrectedStringUAOSS( sending  ) {
-	INSERT_function_call_time_millis_since_midnight( A_LineFile , A_ThisFunc , A_LineNumber)
+	INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 	
 	
 ; If Unicode is supported, Number is a Unicode character code between 0 and 0x10FFFF (or 0xFFFF prior to [v1.1.21]); otherwise it is an ANSI character code between 0 and 255.
@@ -2138,7 +2141,7 @@ getCorrectedStringUAOSS( sending  ) {
 
 JEE_StrUtf8BytesToText(ByRef vUtf8Bytes)
 {
-	INSERT_function_call_time_millis_since_midnight( A_LineFile , A_ThisFunc , A_LineNumber)
+	INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 	
 	if A_IsUnicode
 	{
@@ -2156,7 +2159,7 @@ JEE_StrUtf8BytesToText(ByRef vUtf8Bytes)
 
 JEE_StrTextToUtf8Bytes(ByRef vText)
 {
-	INSERT_function_call_time_millis_since_midnight( A_LineFile , A_ThisFunc , A_LineNumber)
+	INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 	
 	VarSetCapacity(vTemp, StrPut(vText, "UTF-8"))
 	StrPut(vText, &vTemp, "UTF-8")

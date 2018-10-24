@@ -9,9 +9,9 @@ Loop,log\*.txt ; ;FileRemoveDir,log,1
 ; too too too
 
 lll(A_LineNumber, A_LineFile, " hi :) just started. ")
-;MsgBox,% A_LineFile . "`n hi :) just started. "
+;MsgBox,% RegExReplace(A_LineFile,".*\\") . "`n hi :) just started. "
 ;feedbackMsgBox("hi :) just started. ", A_LineNumber . " , " . A_ScriptName,1,1)
-; MsgBox,% A_LineFile . "`n hi :) ??? feedbackMsgBox visible ???? "
+; MsgBox,% RegExReplace(A_LineFile,".*\\") . "`n hi :) ??? feedbackMsgBox visible ???? "
 
 
 ActionList := "..\ActionLists\_globalActionLists\_global.ahk"

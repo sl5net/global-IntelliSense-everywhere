@@ -1,4 +1,5 @@
-﻿;<<<<<<<< openInEditor <<<< 1810111507 <<<< 01.10.2018 11:54:07 <<<<
+﻿SetWorkingDir,%A_WorkingDir%\..\ActionLists
+;<<<<<<<< openInEditor <<<< 1810111507 <<<< 01.10.2018 11:54:07 <<<<
 openInEditor(ActionListFolderOfThisActionList, isAHKcode, AHKcode, isStartingUnderline, is_OpenA_edit_open_lib, isDeprecated_OpenA_edit_open_lib){
     if(!AHKcode){
         return false
@@ -21,7 +22,8 @@ openInEditor(ActionListFolderOfThisActionList, isAHKcode, AHKcode, isStartingUnd
     ; ____
     if(!FileExist(m1CorrectedAhkFileAddress)){
         m1CorrectedAhkFileAddress := RegExReplace(m1CorrectedAhkFileAddress,"WordList", "ActionList") ; my a old database 23.10.2018 12:01
-        m1CorrectedAhkFileAddress := RegExReplace(m1CorrectedAhkFileAddress,"_globalActionListsGenerated\..\_globalActionListsGenerated", "..\_globalActionListsGenerated") ; quikc and dirty 24.10.2018 15:30
+         ; ..\_globalActionListsGenerated\_ahk_global.ahk.Generated.ahk
+     m1CorrectedAhkFileAddress :=  StrReplace(m1CorrectedAhkFileAddress, "..\ActionLists\", "..\" ) ; qickk and dirty
       if(!FileExist(m1CorrectedAhkFileAddress)){
             Msgbox,:( action list `n %m1CorrectedAhkFileAddress% `n is not exist. `n (%A_LineFile%~%A_LineNumber%)
             return false

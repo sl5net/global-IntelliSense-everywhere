@@ -36,7 +36,7 @@ ActionListNEWactivate( ActionListDir , ActionListNEW, ActionListActive , typingA
 ;Msgbox,n (%A_LineFile%~%A_LineNumber%)
 	
 	if(1)
-		lll(A_LineNumber, A_LineFile, ":) _______________ Hello inside " A_LineFile )
+		lll(A_LineNumber, A_LineFile, ":) _______________ Hello inside " RegExReplace(A_LineFile,".*\\") )
     ; lll(A_LineNumber, A_LineFile, ":) _______________ Hello inside temp.ahk _____________"  )
 	
     ; lll(A_LineNumber, A_LineFile, "START function: ActionListNEWactivate"  )
@@ -118,8 +118,8 @@ ActionListDir = '%ActionListDir%'
 		;Msgbox,%LineFileRelative%`n (%A_LineFile%~%A_LineNumber%) )
 
 		    FileAppend, `; '%at%' `; (%LineFileRelative%~%A_LineNumber%) `n%initialActionList% `n, % ActionListNEWarchivePath
-		; Sleep,400
-		 Sleep,150 ; why sleeping ? todo sleeping?
+		 Sleep,400
+		 ; Sleep,250 ; why sleeping ? todo sleeping?
 
 		; End of: if(!FileExist(ActionListNEWarchivePath))
 		lll(A_LineNumber, A_LineFile,A_ThisFunc ": "    "saved first time: >" . ActionListNEWarchivePath . "< = Now the new examples-template should be saved" )
@@ -216,7 +216,7 @@ ActionListDir = '%ActionListDir%'
 						MsgBox,% msg "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
                         ; __ __
 					}
-					msgbox,% msg "(" A_LineFile "~" A_LineNumber ")"
+					msgbox,% msg "(" RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
 				}
 				
 				;/¯¯¯¯ NOT exist_includeFilePath ¯¯ 181012005821 ¯¯ 12.10.2018 00:58:21 ¯¯\
@@ -232,7 +232,7 @@ ActionListDir = '%ActionListDir%'
 					msg .= A_ScriptDir " = A_ScriptDir `n"
 					msg .= A_ScriptFullPath " = A_ScriptFullPath `n"
 					msg .= exist_includeFilePath " = exist_includeFilePath  `n`n"
-                ;msgbox,% msg "(" A_LineFile "~" A_LineNumber ")"
+                ;msgbox,% msg "(" RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
 					lll(A_LineNumber, A_LineFile, msg )
                 ;exitapp
 				;\____ NOT exist_includeFilePath __ 181012005935 __ 12.10.2018 00:59:35 __/
@@ -243,7 +243,7 @@ ActionListDir = '%ActionListDir%'
 					msg .= A_ScriptDir " = A_ScriptDir `n"
 					msg .= A_ScriptFullPath " = A_ScriptFullPath `n"
 					msg .= exist_includeFilePath " = exist_includeFilePath  `n`n"
-                ;msgbox,% msg "(" A_LineFile "~" A_LineNumber ")"
+                ;msgbox,% msg "(" RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
 					lll(A_LineNumber, A_LineFile, msg )
 					;\____ exist_includeFilePath __ 181012010010 __ 12.10.2018 01:00:10 __/
 				}

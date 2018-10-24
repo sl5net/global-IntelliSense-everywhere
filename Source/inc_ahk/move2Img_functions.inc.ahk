@@ -78,7 +78,7 @@ move2Img(i , textInfo, mm, variation := 85){
    }
    if(mm["left"] == "" || mm["top"] == "" || !mm["width"] || !mm["height"] )
    {
-      msg=A_LineNumber . " " .  A_LineFile . " " . A_ThisFunc . A_ThisLabel
+      msg=A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\") . " " . A_ThisFunc . A_ThisLabel
       	ToolTip1sec(msg)
 mm_left := mm["left"]
 mm_top := mm["top"]
@@ -159,7 +159,7 @@ CoordMode, Menu, %coord%
    }
    
    ;ToolTip3sec(ImageSearchStrig . "`n`n" . A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\")  . " " . Last_A_This)
-   ;msgbox,% ImageSearchStrig . "`n`n" . A_LineNumber . " " .  A_LineFile . " " . Last_A_This
+   ;msgbox,% ImageSearchStrig . "`n`n" . A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\") . " " . Last_A_This
    ;~ ImageSearch, XPos, YPos, 0, 0, A_ScreenWidth, A_ScreenHeight,  %i%
       ;~ MsgBox,%ErrorLevel% = ErrorLevel (line:%A_LineNumber%) `n %textInfo% = textInfo `n 
 
@@ -168,7 +168,7 @@ CoordMode, Menu, %coord%
       ; 2 if there was a problem that prevented the command from conducting the search (such as failure to open the image file or a badly formatted option).
       tip := ImageSearchStrig . "`n`n" . " ErrorLevel = " . ErrorLevel . "`n  :( Die Suche konnte nicht durchgeführt werden.  `n textInfo =`n" . textInfo
       ToolTip3sec(tip . "`n`n" . A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\")  . " " . Last_A_This)
-      msgbox, % tip . "`n`n" . A_LineNumber . " " .  A_LineFile . " " . Last_A_This
+      msgbox, % tip . "`n`n" . A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\") . " " . Last_A_This
       Sleep,3000
       IfNotExist,%i%
          MsgBox,%i% existiert nicht. `n `n  %i% = i (line:%A_LineNumber%) `n 
@@ -692,7 +692,7 @@ mouseMove( p, speed = 0 ) {
    }
       if(!p["x"] || !p["y"] )
       {
-      msg=A_LineNumber . " " .  A_LineFile . " " . A_ThisFunc . A_ThisLabel
+      msg=A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\") . " " . A_ThisFunc . A_ThisLabel
       ToolTip3sec(msg)
      For key,value in p
       msg .= "`n" key . " = " . value

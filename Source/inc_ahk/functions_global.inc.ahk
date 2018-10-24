@@ -101,7 +101,7 @@ if(0){
 	;	Msgbox,% text " | " g_ignReg["saveLogFiles"]["text"] "445555555"
 
 if(!Instr(logFileName,scriptName)){ ; plausibillity check . hopefully never happesns. addet becouse of strange bug
-	Clipboard := "`n scriptName=" scriptName  "`n logFileName=" logFileName " `n(" A_LineFile "~" A_LineNumber ")"
+	Clipboard := "`n scriptName=" scriptName  "`n logFileName=" logFileName " `n(" RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
 	Msgbox,ups `n Clipboard = `n`n %Clipboard% `n (%A_LineFile%~%A_LineNumber%)
 }
 
@@ -902,7 +902,7 @@ convert123To_NumPad123(t)
   StringReplace, t, t, 9 , {numpad9}, All 
   StringReplace, t, t, 0 , {numpad0}, All 
   msg = '%t%' = t (line:%A_LineNumber%) `n 
-   msg .= A_LineNumber . " " .  A_LineFile . " " . A_ThisFunc . A_ThisLabel
+   msg .= A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\") . " " . A_ThisFunc . A_ThisLabel
 	ToolTip2sec(msg)
   return t
 }  
@@ -1100,7 +1100,7 @@ text := RegExReplace(text,"i)[ ,]+", " ")
 if(!text)
     text:=tit
 
-; msgbox,% "g_ignReg..[tit]=>" . g_ignReg[A_ThisFunc]["tit"] . "< = >" . (RegExMatch(tit, g_ignReg[A_ThisFunc]["tit"])) . "< tit = >" . tit . "< `n `n " . A_LineNumber . " " .  A_LineFile . " "
+; msgbox,% "g_ignReg..[tit]=>" . g_ignReg[A_ThisFunc]["tit"] . "< = >" . (RegExMatch(tit, g_ignReg[A_ThisFunc]["tit"])) . "< tit = >" . tit . "< `n `n " . A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\") . " "
 
 global g_feedbackMsgBoxNr
 if(!g_feedbackMsgBoxNr)
