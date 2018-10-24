@@ -3,6 +3,15 @@
 
 
 
+setTrayIcon(status := "loaded" ){
+    if(status <> "loaded" ){
+    Menu, Tray, Icon, shell32.dll, 44 ; star
+        return
+    }
+    ScriptNameLetter2 := SubStr(A_ScriptName, 1 , 2)
+    iconAdress=%A_ScriptDir%\icon\abc123\%ScriptNameLetter2%.ico
+    Menu, Tray, Icon, %iconAdress%
+}
 
 
 ;<<<<<<<<<<<<<< ReadActionList <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -22,6 +31,9 @@ ReadActionList(){
     ; msgBox,% g_config["FuzzySearch"]["keysMAXperEntry"] "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
 
 	; global g_config ; ["FuzzySearch"]["enable"]
+
+    setTrayIcon(status := "isLoading" )
+
 
     INSERT_function_call_time_millis_since_midnight( A_LineFile , A_ThisFunc , A_LineNumber)
 
@@ -446,6 +458,10 @@ from: ActionList.ahk~%A_LineNumber%
 		if(InStr(ActionListLearnedTXTaddress,"ActionListLearned.ahk")){
 			tip=thats deprecated `n ordlistLearnedTXTaddress = `n %ActionListLearnedTXTaddress% `n (%A_LineFile%~%A_LineNumber%)
 			ToolTip3sec(tip "`n" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "")  " " Last_A_This)
+
+        setTrayIcon()
+
+
 			Return ParseWordsCount
 		}else
 			FileRead, ParseWords, %ActionListLearnedTXTaddress%
@@ -502,6 +518,9 @@ from: ActionList.ahk~%A_LineNumber%
    ; DynaRun("#" . "NoTrayIcon `n Tooltip,|SL5|`n Sleep,2300")
     ;DynaRun("#" "NoTrayIcon `; `n``n Tooltip,||SL5|| `; `n``n Sleep,2300 `; " A_LineNumber)
    ; tooltip,%ParseWordsCount%`n (from: %A_LineFile%~%A_LineNumber%)
+
+           setTrayIcon()
+
 	Return ParseWordsCount
 }
 ;>>>>>>>>>>>>>>>>>>  ReadActionList >>>>>>>>>>>>>>>>>>>>>>>>>>>>

@@ -272,7 +272,7 @@ Msgbox,%activeTitle% `n`n %activeClass% `n`n  (%A_LineFile%~%A_LineNumber%)
     ActionListFilterPathNEW := ActionListDirBase . "\" . ActiveClass . "\" . filterFileName
     ahkCode1 := getAhkCodeInsideFile(ActionListDir , ActionListFilterPathNEW  )
 
-if(1 && InStr(A_ComputerName,"SL5")){
+if(0 && InStr(A_ComputerName,"SL5")){
     msg = createIfFileNotExist_ActionListNameFilter_InNewDir( %ActionListDir% , %ActionListFilterPathNEW% ...)
     ; msgBox,% "" msg "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
     ToolTip5sec(msg . " `n`n" . A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\")  )
