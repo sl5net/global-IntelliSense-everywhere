@@ -66,7 +66,7 @@ ActionListNEW := getActionListNEW173129addFileExtension(ActionListNEW )
 ToolTipSlowMotion(ActionListNEW, A_LineNumber)
 
 
-#Include,.\..\ActionLists\activeClassManipulation.inc.ahk
+; #Include,.\..\ActionLists\activeClassManipulation.inc.ahk
 
 
 getActionListNEW173129( activeTitle, ActiveClass, ActionListNEW, ActionListDir ) {
@@ -155,7 +155,7 @@ if (ActiveClass == "VirtualConsoleClassGhost" && RegExMatch( activeTitle , "Huma
 		return "..\_globalActionLists\pfade"
 ;Speichern is used with ToDoList_c_AbstractSpoon
 	
-	
+	AutoHotkey_Community1:
 	if ( RegExMatch( activeTitle , "(AutoHotkey Community)" ) ) 
 		return "..\_globalActionLists\AutoHotkey_Community"
 ;Speichern is used with ToDoList_c_AbstractSpoon
@@ -163,6 +163,7 @@ if (ActiveClass == "VirtualConsoleClassGhost" && RegExMatch( activeTitle , "Huma
 	
 	
 ; g_IntelliSense-everywhere - AutoHotkey Community - Google Chrome ahk_class Chrome_WidgetWin_1
+	ahk_globalAhk_Generated:
 	if (0 && RegExMatch( activeTitle , "(\.ahk)" ) ){
 		if(false && activeClass == "ChromeWidgetWin1") {  ; want to know that. debugging 26.4.218 12:18}
         ; need to be discussed: https://g-intellisense.myjetbrains.com/youtrack/issue/GIS-22
@@ -244,41 +245,41 @@ if (ActiveClass == "VirtualConsoleClassGhost" && RegExMatch( activeTitle , "Huma
 } ; endOf: getActionListNEW173129
 
 getActionListNEW173129addFileExtension(ActionListNEW ){
-  if( SubStr( ActionListNEW , -3 ) <> ".ahk" )
-    ActionListNEW .= ".ahk"
-  return ActionListNEW
+	if( SubStr( ActionListNEW , -3 ) <> ".ahk" )
+		ActionListNEW .= ".ahk"
+	return ActionListNEW
 }
 getActionListNEW173129simplify( ActionListNEW ) {
-  if( SubStr( activeTitle , 1, 3 ) == "..\" ) ; for example "..\SciTEWindow\_global"
-    return ActionListNEW
- ActionListNEW := RegExReplace( ActionListNEW, "^.+\\([^\\]+)$" , "$1") ; cut away folder name
- if(A_ScriptName == "ActionListNameFilter.inc.ahk" )   ; thats developer mode. this script is not includet. 08.03.2017 09:14
- ActionListNEW := RegExReplace( ActionListNEW, "(SciTE4AutoHotkey|PhpStorm).+" , "") ; cut away ...
- ActionListNEW := RegExReplace( ActionListNEW, "\.(ahk|txt|htm|pdf).+" , "")  ; cut away ...
- ActionListNEW := RegExReplace( ActionListNEW, "i)[^\w\d_-]+" , "_")  ; underscore instead some special chars
- ActionListNEW := RegExReplace( ActionListNEW, "[_-]{2,}" , "_") ; to many undersocre... use onle one
-
+	if( SubStr( activeTitle , 1, 3 ) == "..\" ) ; for example "..\SciTEWindow\_global"
+		return ActionListNEW
+	ActionListNEW := RegExReplace( ActionListNEW, "^.+\\([^\\]+)$" , "$1") ; cut away folder name
+	if(A_ScriptName == "ActionListNameFilter.inc.ahk" )   ; thats developer mode. this script is not includet. 08.03.2017 09:14
+		ActionListNEW := RegExReplace( ActionListNEW, "(SciTE4AutoHotkey|PhpStorm).+" , "") ; cut away ...
+	ActionListNEW := RegExReplace( ActionListNEW, "\.(ahk|txt|htm|pdf).+" , "")  ; cut away ...
+	ActionListNEW := RegExReplace( ActionListNEW, "i)[^\w\d_-]+" , "_")  ; underscore instead some special chars
+	ActionListNEW := RegExReplace( ActionListNEW, "[_-]{2,}" , "_") ; to many undersocre... use onle one
+	
   ; are limited to 255 characters, and the total path length is limited to approximately 32,000 characters. However, you should generally try to limit path lengths to below 260 characters
   ; It's 257 characters. To be precise: NTFS itself does impose a maximum filename-length of several thousand characters (around 30'000 something). However, Windows imposes a 260 maximum length for the Path+Filename. The drive+folder takes up at least 3 characters, so you end up with 257.
-  ActionListNEW := subStr( ActionListNEW ,1, 99)
+	ActionListNEW := subStr( ActionListNEW ,1, 99)
   ; http://stackoverflow.com/questions/265769/maximum-filename-length-in-ntfs-windows-xp-and-windows-vista
-
- return ActionListNEW
+	
+	return ActionListNEW
 } ; EndOf getActionListNEW173129simplify
 
 ToolTipSlowMotion(ActionListNEW, LineNumber){
-  global isSlowMotion
-  if(!isSlowMotion)
-    return
-  ToolTip,%ActionListNEW% `n  '%LineNumber%' = LineNumber  `n (line:%A_LineNumber%) `n
-  Sleep,500
+	global isSlowMotion
+	if(!isSlowMotion)
+		return
+	ToolTip,%ActionListNEW% `n  '%LineNumber%' = LineNumber  `n (line:%A_LineNumber%) `n
+	Sleep,500
 }
 
 ; Clipboard := ActionListNEW ;  we dont transport usually inside this global file via clipboard 06.03.2017 19:41
 ;  MsgBox,  '%ActionListNEW%' = ActionListNEW  `n  17-03-06_18-48 `n `n ( line: %A_LineNumber%)
 if(A_ScriptName == "ActionListNameFilter.inc.ahk" ) {  ; thats developer mode. this script is not includet. 08.03.2017 09:14
 ; Clipboard := ActionListNEW ;  we dont transport usually inside this global file via clipboard 06.03.2017 19:41
- MsgBox,4, %ActionListNEW%, '%ActionListNEW%' = ActionListNEW  `n '%ActionListDir%' = ActionListDir `n  `n %ActiveClass% = ActiveClass `n  17-03-06_18-48 `n `n ( line: %A_LineNumber%), 50
+	MsgBox,4, %ActionListNEW%, '%ActionListNEW%' = ActionListNEW  `n '%ActionListDir%' = ActionListDir `n  `n %ActiveClass% = ActiveClass `n  17-03-06_18-48 `n `n ( line: %A_LineNumber%), 50
  ;MsgBox,4 ,Titel, 5Sek (from: %A_LineFile%~%A_LineNumber%), 5
 }
 
@@ -359,17 +360,17 @@ maybeSuperglobalActionList(ActionListNEW, ActionListNEW_time_between , ActiveCla
      }
           
           ; created token=17-08-10_16-17
-    if(InStr(activeTitle, "token=17-08-10_16-17")){
-      msg= :( script was to slow with updating the `n action rejacted. reload `n 17-08-10_16-27
-      lll(A_LineNumber, A_LineFile, msg )
-      ToolTip,%msg% 17-08-10_16-33
-        Msgbox,%msg%`n (%A_LineFile%~%A_LineNumber%) )
-      SetTitleMatchMode, 2
-      WinWaitNotActive,% activeTitle
-      Reload
-      return
-    }
-
+	if(InStr(activeTitle, "token=17-08-10_16-17")){
+		msg= :( script was to slow with updating the `n action rejacted. reload `n 17-08-10_16-27
+		lll(A_LineNumber, A_LineFile, msg )
+		ToolTip,%msg% 17-08-10_16-33
+		Msgbox,%msg%`n (%A_LineFile%~%A_LineNumber%) )
+		SetTitleMatchMode, 2
+		WinWaitNotActive,% activeTitle
+		Reload
+		return
+	}
+	
      FileDelete, % "..\ActionLists\" . ActiveClass . "\_create_own_project.flag"
 
 contend =
