@@ -1,6 +1,22 @@
 ﻿___your library open|rr||ahk|run,AutoHotkey_Community.ahk
 ; if this german au is readable your UTF8 is probalby correct: ä
 
+; Send,using implicit variably "it" 
+Greetings|rr||ahk|(
+Greetings.
+How are you?
+)
+
+; it = (...)
+multi MsgBox|rr||ahk|(
+huhu
+world
+)
+MsgBox,% it
+
+
+
+
 interesting. what is this? i never saw it.
 interesting. i never heard about it.
 
@@ -62,6 +78,15 @@ sting =
 )
 Clipboard := sting
 send, ^v
+
+docs|rr||ahk|
+ahkCode = 
+(
+[docs] %clipboard%[/docs]
+)
+Clipboard := ahkCode
+send, ^v
+
 
 
 

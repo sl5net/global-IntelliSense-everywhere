@@ -1,9 +1,10 @@
-﻿
+﻿#Include _global.ahk
+____ahk_global|rr||ahk|run,..\_globalAction\_ahk_global.ahk
+
 chat:|r|https://autohotkey.com/boards/viewtopic.php?f=5&t=59
 Server IRQ: chat.freenode.net
 Port IRQ: 6667 (6697 for SSL)
 Channel IRQ: #ahk
-
 
 
 Msgbox lineFileName|rr|Msgbox,(%A_LineFile%~%A_LineNumber%)|ahk|Send,{shift down}{left 33}{shift up}
@@ -13,6 +14,21 @@ ToolTip4sec lineFileName|rr|ToolTip4sec(A_LineNumber " " RegExReplace(A_LineFile
 ToolTip5sec lineFileName|rr|ToolTip5sec(A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)|ahk|Send,{CtrlDown}{left 8}{CtrlUp}
 
 Msgbox|rr|Msgbox,(%A_LineFile%~%A_LineNumber%)|ahk|Send,{shift down}{left 33}{shift up}
+
+
+InputBox, UserInput|rr||ahk
+m =
+(
+InputBox, userName, userName? (AHK-Community), [quote="%userName%"] `n timeoutSec = %timeoutSec%, , 350, 100,,,,%timeoutSec%,%userNameDefault% 
+if ErrorLevel
+	return
+)
+Suspend,On 
+Clipboard := m
+send, ^ v
+Suspend,off
+
+
 ToolTip2sec|rr|ToolTip2sec(A_LineNumber " " A_LineFile " " Last_A_This)|ahk|Send,{CtrlDown}{left 8}{CtrlUp}
 ToolTip2sec|rr|ToolTip2sec(A_LineNumber " " A_LineFile " " Last_A_This)|ahk|Send,{CtrlDown}{left 8}{CtrlUp}
 ToolTip4sec|rr|ToolTip4sec(A_LineNumber " " A_LineFile " " Last_A_This)|ahk|Send,{CtrlDown}{left 8}{CtrlUp}
@@ -26,7 +42,6 @@ lineFileName := RegExReplace(A_LineFile,".*\\")
 ToolTipSec(t,x=123,y=321,sec=1000)
 Tooltip, `n (from: %A_LineFile%~%A_LineNumber%)
 
-tool
 
 runIfNotExist|rr||ahk|s=runIfNotExist(m_r , m_WinTitle = "",m_category="", doFeedbackMsgBox:=258)`nSend,%s%
 

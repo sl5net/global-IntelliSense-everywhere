@@ -536,6 +536,10 @@ UPDATE_ActionList_UsedByUser_since_midnight()
     ; msgbox, % isAHKcode "`=isAHKcode`n`n " lineOfIndex "`n=lineOfIndex`n`n is_OpenA_edit_open_lib=`n" is_OpenA_edit_open_lib " `n`n isDeprecated_OpenA_edit_open_lib=`n" isDeprecated_OpenA_edit_open_lib "`n`n" AHKcode
 				
     ; Msgbox,% AHKcode "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+    msg := ActionListFolderOfThisActionList "`n"
+    msg .= A_WorkingDir " = A_WorkingDir `n"
+    ; Msgbox,% msg "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+
 				was_a_Editor_open_command := openInEditor(ActionListFolderOfThisActionList, isAHKcode, AHKcode, isStartingUnderline, is_OpenA_edit_open_lib, isDeprecated_OpenA_edit_open_lib)
 				if(was_a_Editor_open_command)
 					return ; endOf function: SendWord(WordIndex)

@@ -1,5 +1,4 @@
-﻿SetWorkingDir,%A_WorkingDir%\..\ActionLists
-;<<<<<<<< openInEditor <<<< 1810111507 <<<< 01.10.2018 11:54:07 <<<<
+﻿;<<<<<<<< openInEditor <<<< 1810111507 <<<< 01.10.2018 11:54:07 <<<<
 openInEditor(ActionListFolderOfThisActionList, isAHKcode, AHKcode, isStartingUnderline, is_OpenA_edit_open_lib, isDeprecated_OpenA_edit_open_lib){
     if(!AHKcode){
         return false
@@ -24,8 +23,15 @@ openInEditor(ActionListFolderOfThisActionList, isAHKcode, AHKcode, isStartingUnd
         m1CorrectedAhkFileAddress := RegExReplace(m1CorrectedAhkFileAddress,"WordList", "ActionList") ; my a old database 23.10.2018 12:01
          ; ..\_globalActionListsGenerated\_ahk_global.ahk.Generated.ahk
      m1CorrectedAhkFileAddress :=  StrReplace(m1CorrectedAhkFileAddress, "..\ActionLists\", "..\" ) ; qickk and dirty
+     m1CorrectedAhkFileAddress :=  StrReplace(m1CorrectedAhkFileAddress, "..\_globalActionListsGenerated\..\_globalActionListsGenerated", "..\_globalActionListsGenerated" ) ; qickk and dirty
+      ; ..\_globalActionListsGenerated\..\_globalActionListsGenerated\_ahk_global.ahk.Generated.ahk
+
+
       if(!FileExist(m1CorrectedAhkFileAddress)){
-            Msgbox,:( action list `n %m1CorrectedAhkFileAddress% `n is not exist. `n (%A_LineFile%~%A_LineNumber%)
+            msg := ":( action list is not exist. `n"
+            msg .= "al: " m1CorrectedAhkFileAddress "`n"
+            msg .= A_WorkingDir " = A_WorkingDir `n"
+            Msgbox,% msg "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
             return false
         }
     }

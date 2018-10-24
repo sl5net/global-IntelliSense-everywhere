@@ -1,5 +1,8 @@
 ; please never delete this wordklst 05.08.2017 10:25
-___your library open|rr||ahk|run,..\_globalWordLists\_global.ahk
+___your library open|rr||ahk|run,..\_globalActionLists\_global.ahk
+; if this german au is readable your UTF8 is probalby correct: ä
+
+Hallo von _globalActionLists\_global.ahk
 
 stop changeing list|rr||ahk|g_config["list"]["change"]["stopRexExTitle"]:="."
 dont changeing list|rr||ahk|
@@ -15,7 +18,7 @@ set changeing list automatically on|rr||ahk|
 
 AhkVersion 2 clipBoard|rr||ahk|clipBoard:="AhkVersion: " A_AhkVersion
 
-help online|rr||ahk|run,..\_globalWordLists\incDynAhk\helpOnline.ahk
+help online|rr||ahk|run,..\_globalActionLists\incDynAhk\helpOnline.ahk
 help run selftest|rr||ahk|run,..\..\Source\g-IntelliSense_Tests_helloEurope_r_helloWorld.ahk
 selftest|rr|
 
