@@ -208,6 +208,13 @@ SetTitleMatchMode,2 ; thats my default. do i need it later ? 08.07.2017 14:12
     SetTitleMatchMode,1
     temp :="created token=17-08-10_16-17" ; ahk_class #32770"
     if(RegExMatch(activeTitle, temp )){
+
+        ;/¯¯¯¯ try_faster_reload_if_created ¯¯ 181025152605 ¯¯ 25.10.2018 15:26:05 ¯¯\
+        ; success. that seems working nice. takes about 2 seconds 25.10.2018 15:35
+        ; I hope the with this method is reloaded after creating a new list (much faster). 25.10.2018 15:25
+        run,Typing_Aid_everywhere_multi_clone.ahk
+        ;\____ try_faster_reload_if_created __ 181025153223 __ 25.10.2018 15:32:23 __/
+
         WinClose, % temp
         ; msgbox,closed ???
         ; box has mission completed. it just changed a short time the ActionList. thats all 13.05.2018 19:01
@@ -834,7 +841,8 @@ createIfFileNotExist_ActionListNameFilter_InNewDir(ActionListDir, ActionListFilt
         ;~ FileAppend, , % ActionListFilterPath
     }
     g_lineNumberFeedback  := "(" A_ThisFunc "~" A_LineNumber "~" RegExReplace(A_LineFile,".*\\") ")"
-tooltip,% "FileAppend (" A_ThisFunc "~" A_LineNumber "~" RegExReplace(A_LineFile,".*\") ")"
+    if(1 && InStr(A_ComputerName,"SL5"))
+        tooltip,% "FileAppend " g_lineNumberFeedback
     FileAppend, % ahkCode , % ActionListFilterPath
 return true
 }

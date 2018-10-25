@@ -41,6 +41,16 @@ while(!folderExist && A_Index < 11){
     ExitApp
   }
 
+;/¯¯¯¯ try_faster_reload_if_created ¯¯ 181025152605 ¯¯ 25.10.2018 15:26:05 ¯¯\
+; I hope the with this method is reloaded after creating a new list (much faster). 25.10.2018 15:25
+; no success 25.10.2018 15:30
+globalActionListDir := "..\ActionLists"
+; globalActionList := globalActionListDir "\_globalActionListsGenerated\_global.ahk"
+globalActionList := globalActionListDir   "\_globalActionListsGenerated\isNotAProject.ahk"
+RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionListNEW, %globalActionList% ; RegWrite , RegSave , Registry
+RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList, %globalActionList% ; RegWrite , RegSave , Registry
+;\____ try_faster_reload_if_created __ 181025152609 __ 25.10.2018 15:26:09 __/
+
 FileAppend,"temporary empty file. if exist next view dont use the super _global.ahk", %d1%\_create_own_project.flag
 IfNotExist,%d1%\_global.ahk
     FileAppend,"_global.ahk", %d1%\_global.ahk
