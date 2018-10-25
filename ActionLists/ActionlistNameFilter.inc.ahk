@@ -105,9 +105,38 @@ getActionListNEW173129( activeTitle, ActiveClass, ActionListNEW, ActionListDir )
 		clipboard := tip
 		Msgbox,%tip% `n (%A_LineFile%~%A_LineNumber%) 
 	}
+	
+	
+; AHK Studio - \.ahk;  ahk_class AutoHotkeyGUI ,, 2221,290, 1198,846
+	Banking_4W:
+	if ( RegExMatch( activeTitle , "^Banking 4W" ) )
+		return "..\_globalActionLists\Banking_4W"
+	
+	
+	StackOverflow:
+	if (0 && RegExMatch( activeTitle , "Stack Overflow\b" ) )
+		return "..\_globalActionLists\Stack_Overflow"
+	
+	AHKStudio:
+	if ( RegExMatch( activeTitle , "^AHK Studio -.+\.ahk" ) )
+		return "..\_globalActionLists\AHK_Studio"
+	
+	
+	VirtualConsoleHumanConnection:
+	if (0 && RegExMatch( ActiveClass , "VirtualConsole" ) ) {
+		tip =
+      (
+         %ActiveClass%=ActiveClass
+         %activeTitle%=activeTitle
+      )
+		
+		Msgbox,%tip% `n (%A_LineFile%~%A_LineNumber%)
+		return "..\_globalActionLists\VirtualConsoleClassGhost\Human-Connection"
+	}
+	
+	#Include *i .\..\ActionLists\PRIVATE_ActionListNameFilter.inc.ahk
+	
 
-if (0 && RegExMatch( ActiveClass , "VirtualConsole" ) ) {
-      tip =
       (
             %ActiveClass%=ActiveClass
             %activeTitle%=activeTitle
@@ -319,43 +348,44 @@ fileCreateDirS(dir,addSecondDir) {
 
 line4spaces( s ) {
    ; this funktion adds lines. it founds space sepearted text and adds it to the end. spearte line for the first word and seperate line for the rest of the line. it works recursive. some lines are ignoared. for e.g. comments. 08.04.2017 23:36
-      s := RegExReplace(s,"\n\W+","`n") ; no lieading spaces and no llieading not words 
-      OutputVarCount   :=1
-      startPos :=1
-while( pos := RegExMatch(s , "iP)\n([^/`;_\s]+[^\s]*)([ ]+)([^\n]+)" , m, startPos)){ ; works
+	s := RegExReplace(s,"\n\W+","`n") ; no lieading spaces and no llieading not words 
+	OutputVarCount   :=1
+	startPos :=1
+	while( pos := RegExMatch(s , "iP)\n([^/`;_\s]+[^\s]*)([ ]+)([^\n]+)" , m, startPos)){ ; works
 ;while( pos := RegExMatch(s , "iP)\n([^`;_\s]+[^\s]*)([ ]+)([^\n]+)" , m, startPos)){ ; works
 ; while( pos := RegExMatch(s , "iP)([^\s]+)([ ]+)([^\n]+)" , m, startPos)){ ; works
 ;while( pos := RegExMatch(s , "iP)([^\s]+)([^a-z\d\n]+)([^\n]+)" , m, startPos)){
-      startPos := pos + mLen1 + mLen2 + mLen3
-      m1 := SubStr(s, mPos1 ,  mLen1 )
-      m3 := SubStr(s, mPos3 ,  mLen3 )
-      reg := "i)^[^a-z]+(.*)\s*"
-      m1 := RegExReplace(m1,reg,"$1")
+		startPos := pos + mLen1 + mLen2 + mLen3
+		m1 := SubStr(s, mPos1 ,  mLen1 )
+		m3 := SubStr(s, mPos3 ,  mLen3 )
+		reg := "i)^[^a-z]+(.*)\s*"
+		m1 := RegExReplace(m1,reg,"$1")
       ;m1 := RegExReplace(m1,"i)\W+(.*)","$1")
-      m3 := RegExReplace(m3,reg,"$1")
+		m3 := RegExReplace(m3,reg,"$1")
       ; MsgBox, %m%:`n >%m1%< >%m3%<
-      s .= "`n" . m1 . "`n" . m3
-}
-return s 
+		s .= "`n" . m1 . "`n" . m3
+	}
+	return s 
 }
 
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ; this days i have to many files into here... i want first to activate the superglobal 10.08.2017 09:29
 if( SubStr( ActionListNEW , -3 ) <> ".ahk" ) ; 06.03.2018 13:09
-    ActionListNEW .= ".ahk"
+	ActionListNEW .= ".ahk"
 
 maybeSuperglobalActionList(ActionListNEW, ActionListNEW_time_between , ActiveClass, activeTitle := "" ){
-    if( SubStr( ActionListNEW , -3 ) <> ".ahk" ) ; 06.03.2018 13:09
-        ActionListNEW .= ".ahk"
+	if( SubStr( ActionListNEW , -3 ) <> ".ahk" ) ; 06.03.2018 13:09
+		ActionListNEW .= ".ahk"
      if(ActionListNEW <> ActionListNEW_time_between)
           return, % ActionListNEW
-      ActionListNEWAddress := "..\ActionLists\" . ActiveClass . "\" . ActionListNEW
+	ActionListNEWAddress := "..\ActionLists\" . ActiveClass . "\" . ActionListNEW
      if(FileExist(ActionListNEWAddress))
           return, % ActionListNEW
      
      
      if(!FileExist("..\ActionLists\" . ActiveClass . "\_create_own_project.flag")){
            ; tooltip,ActionListNEWAddress = %ActionListNEWAddress% `n `n (%A_LineFile%~%A_LineNumber%) )
+           ; MsgBox,% "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")" ; happend 07.10.2018 10:33 18-10-07_10-33 inside notepad. dont knoow whey
           return, % "..\_globalActionListsGenerated\_global.ahk" ; ; i think it doesent makes since in some cases 13.05.2018 17:19
      }
           
@@ -372,8 +402,8 @@ maybeSuperglobalActionList(ActionListNEW, ActionListNEW_time_between , ActiveCla
 	}
 	
      FileDelete, % "..\ActionLists\" . ActiveClass . "\_create_own_project.flag"
-
-contend =
+	
+	contend =
 (
 #Include ..\_globalActionLists\_global.ahk
 #Include ..\%ActiveClass%\_global.ahk
@@ -384,30 +414,30 @@ ___open window library |rr||ahk|run,%ActionListNEW%
 
 )
      FileAppend,% "",   % "..\ActionLists\" . ActiveClass . "\_global.ahk"
-if( FileExist("..\ActionLists\" . ActiveClass . "\" . ActionListNEW) ){
-    Msgbox,ups ActionListNEW = %ActionListNEW% exist already ==> EXIT `n (%A_LineFile%~%A_LineNumber%) )
-    EXIT
-}
-if( !FileExist("..\ActionLists\" . ActiveClass . "\_global.ahk") ){
-    Msgbox,ups ==> EXIT `n (%A_LineFile%~%A_LineNumber%) )
-    EXIT
-}
+	if( FileExist("..\ActionLists\" . ActiveClass . "\" . ActionListNEW) ){
+		Msgbox,ups ActionListNEW = %ActionListNEW% exist already ==> EXIT `n (%A_LineFile%~%A_LineNumber%) )
+		EXIT
+	}
+	if( !FileExist("..\ActionLists\" . ActiveClass . "\_global.ahk") ){
+		Msgbox,ups ==> EXIT `n (%A_LineFile%~%A_LineNumber%) )
+		EXIT
+	}
      FileAppend,% contend,   % "..\ActionLists\" . ActiveClass . "\" . ActionListNEW
-if( !FileExist("..\ActionLists\" . ActiveClass . "\" . ActionListNEW) ){
-    Msgbox,:-( ups !FileExist %ActionListNEW% ==> EXIT `n (%A_LineFile%~%A_LineNumber%) )
-EXIT
-}
+	if( !FileExist("..\ActionLists\" . ActiveClass . "\" . ActionListNEW) ){
+		Msgbox,:-( ups !FileExist %ActionListNEW% ==> EXIT `n (%A_LineFile%~%A_LineNumber%) )
+		EXIT
+	}
      Sleep,100
      ; msgbox,%ActionListNEW% = ActionListNEW ,`%ActionListNEW`% = ActionListNEW 18-03-06_13-31 `n (%A_LineFile%~%A_LineNumber%)
-
+	
      ; run,                    % "..\ActionLists\" . ActiveClass . "\" . ActionListNEW
      ; isInEditorSoon := openInEditor("..\ActionLists\" . ActiveClass, true, "run," ActionListNEW, true, true, true)
      ; openInEditor(ActionListFolderOfThisActionList, isAHKcode, AHKcode, isStartingUnderline, is_OpenA_edit_open_lib, isDeprecated_OpenA_edit_open_lib)
 	; if(!isInEditorSoon)
     ; msgbox, ,please open your new ActionList by using __  `n (%A_LineFile%~%A_LineNumber%), 2
-
+	
 ; __ ____
-
+	
      return, % ActionListNEW
 } ; ENDof: maybeSuperglobalActionList
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
