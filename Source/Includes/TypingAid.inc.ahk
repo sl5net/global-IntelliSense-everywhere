@@ -9,6 +9,7 @@ global activeTitleOLD
 global activeTitle
 global activeClassOLD
 global activeClass
+global g_StartTime_TickCountMilli := A_TickCount
 
 Receive_ActionListAddress(CopyOfData){
     INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
@@ -290,8 +291,15 @@ global g_doSaveLogFiles
 
 
 
-;<<<<<<<< RecomputeMatches <<<< 180319210937 <<<< 19.03.2018 21:09:37 <<<<
+
+
+
+;/¯¯¯¯ RecomputeMatches ¯¯ 181025105946 ¯¯ 25.10.2018 10:59:46 ¯¯\
 RecomputeMatches(){
+
+    ; Menu, Tray, Icon, shell32.dll, 266 ; pretty black clock
+    setTrayIcon("RecomputeMatches")
+
    ; This function will take the given word, and will recompile the list of matches and redisplay the ActionList.
    global g_MatchTotal
    global g_SingleMatch
@@ -309,9 +317,10 @@ RecomputeMatches(){
    global prefs_SuppressMatchingWord
 
    ;Msgbox,g_Word = %g_Word% (%A_LineFile%~%A_LineNumber%)
-   if(!g_Word) ; if g_Word is empty and you run, it shows the complete list. you want it? maybe sometimes its helpful 25.03.2018 19:42 18-03-25_19-42
+   if(!g_Word){ ; if g_Word is empty and you run, it shows the complete list. you want it? maybe sometimes its helpful 25.03.2018 19:42 18-03-25_19-42
+        setTrayIcon()
         Return
-
+    }
    ; LoopCount := StrLen(g_Word)
    ; if(LoopCount < 2 ) ; 18-03-31_22-43 addet TOD: proof
       ; return
@@ -321,7 +330,8 @@ RecomputeMatches(){
 
    ;Match part-word with command 
    g_MatchTotal = 0 
-   
+
+   if(false){
    IfEqual, prefs_ArrowKeyMethod, Off
    {
       IfLess, prefs_ListBoxRows, 10
@@ -330,7 +340,9 @@ RecomputeMatches(){
    } else {
       LimitTotalMatches = 200
    }
-   
+   }
+   LimitTotalMatches := 10 ; 25.10.2018 11:08
+
    StringUpper, WordMatchOriginal, g_Word
    
    WordMatch := StrUnmark(WordMatchOriginal)
@@ -428,14 +440,16 @@ RecomputeMatches(){
    IfEqual, g_MatchTotal, 0
    {
       ClearAllVars(false)
-      Return 
+        setTrayIcon()
+      Return
    } 
    
    SetupMatchPosition()
    RebuildMatchList()
    ShowListBox()
+    setTrayIcon()
 }
-;>>>>>>>> RecomputeMatches >>>> 180319210950 >>>> 19.03.2018 21:09:50 >>>>
+;\____ RecomputeMatches __ 181025110000 __ 25.10.2018 11:00:00 __/
 
 
 CheckForCaretMove(MouseButtonClick, UpdatePosition := false){

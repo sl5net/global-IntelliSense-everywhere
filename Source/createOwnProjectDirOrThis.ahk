@@ -42,6 +42,8 @@ while(!folderExist && A_Index < 11){
   }
 
 FileAppend,"temporary empty file. if exist next view dont use the super _global.ahk", %d1%\_create_own_project.flag
+IfNotExist,%d1%\_global.ahk
+    FileAppend,"_global.ahk", %d1%\_global.ahk
 ; MsgBox,0,created token=17-08-10_16-17,token=17-08-10_16-17,1 ; thats only trick. so it should reload another wordklist.
 MsgBox,0,created token=17-08-10_16-17,token=17-08-10_16-17,99 ; thats only trick. so it should reload another wordklist.
 ; it not need to be closed active bevor 13.05.2018 19:23. now we close it active. so its litle faster then a second . thats nice

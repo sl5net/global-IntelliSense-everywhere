@@ -4,15 +4,19 @@
 
 
 setTrayIcon(status := "loaded" ){
+    if(status == "RecomputeMatches" ){
+        Menu, Tray, Icon, shell32.dll, 266 ; pretty black clock
+        return
+    }
     if(status <> "loaded" ){
-    Menu, Tray, Icon, shell32.dll, 44 ; star
+        Menu, Tray, Icon, shell32.dll, 44 ; star
         return
     }
     ScriptNameLetter2 := SubStr(A_ScriptName, 1 , 2)
     iconAdress=%A_ScriptDir%\icon\abc123\%ScriptNameLetter2%.ico
     Menu, Tray, Icon, %iconAdress%
 }
-
+;
 
 ;<<<<<<<<<<<<<< ReadActionList <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ;<<<<<<<<<<<<<< ReadActionList <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -1219,16 +1223,28 @@ ActionList = '%ActionList%' ;
         exitapp
 	}
 
+if(A_TickCount - g_StartTime_TickCountMilli > 900 ){ ; its ok if happens at the very beginning
     m =
     (
+    ERROR: this line should never visited
+
     ActionList = %ActionList%
+    ActionListID = %ActionListID%
+    sqlLastError = %sqlLastError%
+
+    %sqlGetWLid%
     )
-    tooltip,% m "`n`n`n:( ERROR: this line should never visited(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+
+
+    tooltip,% m "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+    lll(A_LineNumber, A_LineFile, m)
+    msgbox,% m "`n `n (" . A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\") ")"
+}
 	; g_ActionList_UsedByUser_since_midnight[g_ActionListID] := lastUsedByUser_since_midnight
     ; g_ActionListDB.Query("UPDATE ActionList SET lastUsedByUser_since_midnight = " g_ActionList_UsedByUser_since_midnight[g_ActionListID] " WHERE id = " g_ActionListID ";")
 	return ActionListID
 }
-;>>>>>>>> getActionListID >>>> 180324230528 >>>> 24.03.2018 23:05:28 >>>>
+;\____ getActionListID __ 181025115249 __ 25.10.2018 11:52:49 __/
 
 
 INSERT_INTO_ActionLists_ifNotExist(ActionList, ActionListModified, ActionListSize ){

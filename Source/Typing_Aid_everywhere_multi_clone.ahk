@@ -128,7 +128,7 @@ SetTitleMatchMode,2 ; thats my default. do i need it later ? 08.07.2017 14:12
 
 
 ;If (A_TimeIdle < 50 || GetKeyState("ctrl", "P") || GetKeyState("Alt", "P") || GetKeyState("Shift", "P") || GetKeyState("LWin", "P") || GetKeyState("RWin", "P")  || GetKeyState("LButton", "P") ){
-If (true){
+    If (true){
     if(GetKeyState("ctrl", "P"))
         KeyWait, ctrl
 
@@ -149,11 +149,11 @@ If (true){
 
         if(GetKeyState("RButton", "P"))
             KeyWait, RButton
-}
+    }
 
 
-global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+    global g_lineNumberFeedback
+    g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
 
 
     activeTitleOLD:=activeTitle
@@ -203,6 +203,27 @@ global g_lineNumberFeedback
     }
     ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+    ;/¯¯¯¯ missionCompleted ¯¯ 181024170958 ¯¯ 24.10.2018 17:09:58 ¯¯\
+    ; inside while(true)
+    SetTitleMatchMode,1
+    temp :="created token=17-08-10_16-17" ; ahk_class #32770"
+    if(RegExMatch(activeTitle, temp )){
+        WinClose, % temp
+        ; msgbox,closed ???
+        ; box has mission completed. it just changed a short time the ActionList. thats all 13.05.2018 19:01
+
+                             ; created_token_17-08-10_16-17
+        ;tooltip, WinWaitNotActive,ActionListChangedInRegistry  `n (%A_LineFile%~%A_LineNumber%)
+        WinWaitNotActive, % temp
+        tooltip,
+        msg:="mission completed. your menu should change. `n use it in seconds (__ ...)" ; thats all 13.05.2018 19:01
+        msg.= "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+
+        MsgBox , 64 , mission completed, % msg, 3 ; project created
+      continue ;
+    }
+    ;\____ missionCompleted __ 181024170947 __ 24.10.2018 17:09:47 __/
+
 
     if(RegExMatch(activeTitle,"^\d:.+")){
       ;Clipboard:=activeClass
@@ -226,24 +247,8 @@ global g_lineNumberFeedback
       continue ;
     }
 
-    SetTitleMatchMode,1
-    temp :="created token=17-08-10_16-17" ; ahk_class #32770"
-    if(RegExMatch(activeTitle, temp )){
 
 
-        WinClose, % temp
-        ; msgbox,closed ???
-        ; box has mission completed. it just changed a short time the ActionList. thats all 13.05.2018 19:01
-
-                             ; created_token_17-08-10_16-17
-        ;tooltip, WinWaitNotActive,ActionListChangedInRegistry  `n (%A_LineFile%~%A_LineNumber%)
-        WinWaitNotActive, % temp
-        tooltip,
-        msg:="mission completed. your menu should change. `n use it in seconds (__ ...)" ; thats all 13.05.2018 19:01
-        msg.= "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
-        MsgBox , 64 , mission completed, % msg, 4 ; project created
-      continue ;
-    }
     if(activeTitleOLD == activeTitle && activeClassOLD == activeClass ){
         ; WinWaitNotActive, %activeTitle% ahk_class %activeClass%
         if(0){

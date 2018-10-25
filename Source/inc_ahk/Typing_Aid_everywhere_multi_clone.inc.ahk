@@ -174,7 +174,7 @@ ActionListDir = '%ActionListDir%'
 #include dir\something.ahk
 )
 			
-			msg := " ??? " foundPos " = foundPos `n"
+			msg := "#include foundPos = >" foundPos "< in `n" ActionListNEWarchivePath "`n"
 			msg .= A_WorkingDir " = A_WorkingDir `n"
 			msg .= A_ScriptDir " = A_ScriptDir `n"
 			msg .= A_ScriptFullPath " = A_ScriptFullPath `n"
@@ -266,7 +266,7 @@ ActionListDir = '%ActionListDir%'
 				lineInRegEx         := (matchs4) ? matchs3 . matchs4 : "|.*" ; | ist a positvie rule. alle matching lines goes inside the new file.
 				lll(A_LineNumber, A_LineFile,A_ThisFunc ": "  matchs1 "," matchs2 "," matchs3 "," matchs4 )
 				lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   "lineInRegEx=>" . lineInRegEx . "<" )
-				
+
             ; Msgbox,'%lineInRegEx%' = lineInRegEx  n (line:%A_LineNumber%) n
 				lineInRegExArray.Insert(lineInRegEx)
 				if(!exist_includeFilePath){

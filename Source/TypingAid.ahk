@@ -760,7 +760,7 @@ return
 
 
 
-;<<<<<<<< checkInRegistryChangedActionListAddress <<<< 180319214428 <<<< 19.03.2018 21:44:28 <<<<
+;/¯¯¯¯ checkInRegistryChangedActionListAddress ¯¯ 181025104242 ¯¯ 25.10.2018 10:42:42 ¯¯\
 checkInRegistryChangedActionListAddress:
 if(ActionList == ActionList_isNotAProject){ ; it happens: 23.10.2018 10:33
     ; msgBox,% "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
@@ -824,6 +824,16 @@ if( g_ActionList_UsedByUser_since_midnight[g_ActionListID] ){
     isRegListChanged := (ActionListNewTemp && ActionList <> ActionListNewTemp)
     if(!isRegListChanged || A_TimeIdle < 1333)
         return
+    if(	InStr( ActionListNewTemp, "\.ahk")){ ; without file name 25.10.2018 11:33
+        ; Msgbox,InStr( ActionListNewTemp, "\.ahk") ==> RETURN `n (%A_LineFile%~%A_LineNumber%)
+        log =
+        (
+        ; it happens: 25.10.2018 12:06
+        ActionListNewTemp[30 of 259]: ..\ActionLists\AutoHotkey\.ahk
+        ActionListOLD[33 of 63]: ..\ActionLists\noName\Cortana.ahk
+        )
+        return
+    }
 
     if(g_config["list"]["change"]["stopRexExTitle"]){
         regExPattern := g_config["list"]["change"]["stopRexExTitle"]
@@ -914,7 +924,7 @@ if( g_ActionList_UsedByUser_since_midnight[g_ActionListID] ){
 
     ; gosub onLink2ActionListChangedInRegistry ; ToolTip3sec(A_LineNumber . " " . RegExReplace(A_LineFile,".*\\")  . " " . Last_A_This)
 return
-;>>>>>>>> checkInRegistryChangedActionListAddress >>>> 180319214434 >>>> 19.03.2018 21:44:34 >>>>
+;\____ checkInRegistryChangedActionListAddress __ 181025104318 __ 25.10.2018 10:43:18 __/
 
 ; ToolTip1sec(A_LineNumber . " " . RegExReplace(A_LineFile,".*\\")  . " " . Last_A_This) )
 
