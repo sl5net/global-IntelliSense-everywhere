@@ -136,18 +136,24 @@ getActionListNEW173129( activeTitle, ActiveClass, ActionListNEW, ActionListDir )
 	
 	#Include *i .\..\ActionLists\PRIVATE_ActionListNameFilter.inc.ahk
 	
-
+	
+; AnlageEKS_ba013054_Jobcenter-EKS_04_2018_PDF-XChange_Editor.ahk
+	EKS:
+	if (1 && RegExMatch( activeTitle , "AnlageEKS" ) ) {
+		tip =
       (
             %ActiveClass%=ActiveClass
             %activeTitle%=activeTitle
       )
-
-      Msgbox,%tip% `n (%A_LineFile%~%A_LineNumber%) 
-     return "..\_globalActionLists\VirtualConsoleClassGhost\Human-Connection"
-}
-
-
-if (ActiveClass == "VirtualConsoleClassGhost" && RegExMatch( activeTitle , "Human-Connection" ) ) {
+     ;tooltip,%tip% `n (%A_LineFile%~%A_LineNumber%)
+		tooltip4sec(tip A_LineNumber   A_LineFile   )
+     ; E:\fre\private\HtmlDevelop\AutoHotKey\tools\TypingAid-master\ActionLists\_globalActionLists\PDF\Anlage_EKS\EKS.ahk
+     ; Msgbox,found EKS :) `n (%A_LineFile%~%A_LineNumber%)
+		return "..\_globalActionLists\PDF\Anlage_EKS\EKS"
+	}
+	
+	HumanConnection:
+	if (ActiveClass == "VirtualConsoleClassGhost" && RegExMatch( activeTitle , "Human-Connection" ) ) {
         ; https://g-intellisense.myjetbrains.com/youtrack/issue/GIS-27 dirty bugFix
 		tip =
       (
@@ -159,6 +165,8 @@ if (ActiveClass == "VirtualConsoleClassGhost" && RegExMatch( activeTitle , "Huma
      ; tooltip,%tip% `n (%A_LineFile%~%A_LineNumber%) 
 		return "..\VirtualConsoleClassGhost\Human-Connection"
 	}
+	
+	VirtualConsoleClassGhost:
 	if (0 && ActiveClass == "VirtualConsoleClassGhost"  ) {
 		tip =
       (
@@ -171,15 +179,20 @@ if (ActiveClass == "VirtualConsoleClassGhost" && RegExMatch( activeTitle , "Huma
 		return "..\VirtualConsoleClassGhost\_global"
 	}
 	
+	SourceTree:
 	if ( RegExMatch( ActiveClass , "i)SourceTree" )  ) {
 	  ; Msgbox,%ActiveClass%=ActiveClass`n (%A_LineFile%~%A_LineNumber%) 
 		return "..\_globalActionLists\SourceTree"
-	}	  
+	}
+	
+	docker:
 	if ( RegExMatch( activeTitle , "\b(docker)\b" ) ) 
 		return "..\_globalActionLists\docker"
 	
-; Select File - AHK-Studio.ahk ahk_class #32770 ; mouseWindowTitle=0x1604f6  ; 
 	
+; Select File - AHK-Studio.ahk ahk_class #32770 ; mouseWindowTitle=0x1604f6  ;
+	
+	pfade:
 	if ( RegExMatch( activeTitle , "(Double Commander|FreeCommander|Q-Dir \d|Bild öffnen|Anhang speichern|Datei speichern|Speichern|Speichern unter|ffnen|Dateien/Ordner suchen|Exportieren|Dokument speichern|Select Path|Open File or Project|Select File)" ) ) 
 		return "..\_globalActionLists\pfade"
 ;Speichern is used with ToDoList_c_AbstractSpoon
@@ -389,6 +402,7 @@ maybeSuperglobalActionList(ActionListNEW, ActionListNEW_time_between , ActiveCla
           return, % "..\_globalActionListsGenerated\_global.ahk" ; ; i think it doesent makes since in some cases 13.05.2018 17:19
      }
           
+	
           ; created token=17-08-10_16-17
 	if(InStr(activeTitle, "token=17-08-10_16-17")){
 		msg= :( script was to slow with updating the `n action rejacted. reload `n 17-08-10_16-27
