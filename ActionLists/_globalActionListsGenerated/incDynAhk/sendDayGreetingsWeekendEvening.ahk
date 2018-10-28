@@ -1,35 +1,35 @@
-; Indentation_style: https://de.wikipedia.org/wiki/EinrÃ¼ckungsstil#SL5small-Stil
+ï»¿; Indentation_style: https://de.wikipedia.org/wiki/EinrÃƒÂ¼ckungsstil#SL5small-Stil
 ; 
 
 temp =
 (
-Herzliche Grüße/Herzlichen Gruß
-Schöne Grüße/Schönen Gruß
-Liebe Grüße/Lieben Gruß
-Viele Grüße
-Beste Grüße
-Freundliche Grüße
-Einen guten Start in die Woche/… ins Wochenende
+Herzliche GrÃ¼ÃŸe/Herzlichen GruÃŸ
+SchÃ¶ne GrÃ¼ÃŸe/SchÃ¶nen GruÃŸ
+Liebe GrÃ¼ÃŸe/Lieben GruÃŸ
+Viele GrÃ¼ÃŸe
+Beste GrÃ¼ÃŸe
+Freundliche GrÃ¼ÃŸe
+Einen guten Start in die Woche/â€¦ ins Wochenende
 Ein tolles Wochenende
-Ein schönes Wochenende
+Ein schÃ¶nes Wochenende
 Eine tolle Woche
 Noch eine erfolgreiche Woche
-Noch einen schönen [Montag]/angenehmen Wochenausklang
-Mit den besten Wünschen für …
-… in diesem Sinne schöne Grüße
+Noch einen schÃ¶nen [Montag]/angenehmen Wochenausklang
+Mit den besten WÃ¼nschen fÃ¼r â€¦
+â€¦ in diesem Sinne schÃ¶ne GrÃ¼ÃŸe
 Ich freue mich auf [ein Wiedersehen, das Treffen etc.]
-Alles Gute und viele Grüße
+Alles Gute und viele GrÃ¼ÃŸe
 Vielen Dank und bis bald!
-Ich freue mich auf Ihre Rückmeldung und verbleibe mit herzlichen Grüßen …
-Liebe Grüße aus [Wien] nach [München]
-Schöne/herbstliche/frühlingshafte Grüße aus dem heute sonnigen [Wien]
+Ich freue mich auf Ihre RÃ¼ckmeldung und verbleibe mit herzlichen GrÃ¼ÃŸen â€¦
+Liebe GrÃ¼ÃŸe aus [Wien] nach [MÃ¼nchen]
+SchÃ¶ne/herbstliche/frÃ¼hlingshafte GrÃ¼ÃŸe aus dem heute sonnigen [Wien]
 )
-; Noch einen schönen MontagEinen guten Start in die Woche
-; Noch einen schönen [Montag]/angenehmen Wochenausklang
+; Noch einen schÃ¶nen MontagEinen guten Start in die Woche
+; Noch einen schÃ¶nen [Montag]/angenehmen Wochenausklang
 ; Einen guten Start in die Woche
 Random,r,1,10
 if(r == 10 )
-  send,Noch einen schönen %A_DDDD% ; Montag / Dienstag usw.
+  send,Noch einen schÃ¶nen %A_DDDD% ; Montag / Dienstag usw.
 else
 ; A_WDay Current 1-digit day of the week (1-7). 1 is Sunday in all locales. 
 if ( A_WDay  == 6  )  ; 6 freitag
@@ -38,19 +38,19 @@ else
 if ( A_WDay  == 7 OR A_WDay  == 1 ) { ; 7 samstag ,  1 sonntag
   ; http://www.zeitblueten.com/news/grussformeln/
   ; https://www.google.de/webhp?q=gru%C3%9Fformeln
-;  Einen guten Start in die Woche/… ins Wochenende
+;  Einen guten Start in die Woche/â€¦ ins Wochenende
 
 ; Ein tolles Wochenende
 Random, r ,1,2
 if( r == 1 )
-  Send, Ein schönes Wochenende`,
+  Send, Ein schÃ¶nes Wochenende`,
 else
   Send, Einen guten Start ins Wochenende`,
 } else
 if ( A_WDay  == 2  ) { ; 2 montag 
   ; http://www.zeitblueten.com/news/grussformeln/
   ; https://www.google.de/webhp?q=gru%C3%9Fformeln
-;  Einen guten Start in die Woche/… ins Wochenende
+;  Einen guten Start in die Woche/â€¦ ins Wochenende
 
 ; Ein tolles Wochenende
 Send, Ihnen einen guten Start in die Woche`,
@@ -61,15 +61,15 @@ if ( A_WDay  == 3  ) { ; 2 dienstag
 ; Noch eine gute / erfolgreiche Woche
 ; Send, Ihnen einen guten Start in die Woche`,
 ; Send, Ihnen einen guten Start in die Woche`,
-Send, Beste Grüße, ; gute Alternative für alle, die eine Variante zwischen freundlichen und herzlichen Grüßen suchen. (https://www.impulse.de/management/unternehmensfuehrung/grussformeln/2182826.html)
-; „Viele Grüße“ sind als Grußformel geeignet, wenn man informell und wiederholt schreibt. ( https://www.impulse.de/management/unternehmensfuehrung/grussformeln/2182826.html )
+Send, Beste GrÃ¼ÃŸe, ; gute Alternative fÃ¼r alle, die eine Variante zwischen freundlichen und herzlichen GrÃ¼ÃŸen suchen. (https://www.impulse.de/management/unternehmensfuehrung/grussformeln/2182826.html)
+; â€Viele GrÃ¼ÃŸeâ€œ sind als GruÃŸformel geeignet, wenn man informell und wiederholt schreibt. ( https://www.impulse.de/management/unternehmensfuehrung/grussformeln/2182826.html )
 }  else
-  Send, Beste Grüße,
-  ;Send, Viele Grüße,
+  Send, Beste GrÃ¼ÃŸe,
+  ;Send, Viele GrÃ¼ÃŸe,
 ; Guten Abend
 
 ;
 ; Send , % A_WDay 
-; 22Einen guten Start in die Woche/… ins Wochenende
-;  "... bis dahin verbleibe ich mit freundlichen Grüßen" 
-; Sonnige Grüße - wenn es die Wetterlage zulässt
+; 22Einen guten Start in die Woche/â€¦ ins Wochenende
+;  "... bis dahin verbleibe ich mit freundlichen GrÃ¼ÃŸen" 
+; Sonnige GrÃ¼ÃŸe - wenn es die Wetterlage zulÃ¤sst

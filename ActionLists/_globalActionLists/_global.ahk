@@ -1,6 +1,6 @@
-; please never delete this wordklst 05.08.2017 10:25
+﻿; please never delete this wordklst 05.08.2017 10:25
 ___your library open|rr||ahk|run,..\_globalActionLists\_global.ahk
-; if this german au is readable your UTF8 is probalby correct: �
+; if this german au is readable your UTF8 is probalby correct: ä
 
 Hallo von _globalActionLists\_global.ahk
 
