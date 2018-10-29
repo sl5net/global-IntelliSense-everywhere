@@ -53,13 +53,17 @@ openInEditor(ActionListFolderOfThisActionList, isAHKcode, AHKcode, isStartingUnd
         Msgbox,:( action list `n %m1CorrectedAhkFileAddress% `n is not exist. `n (%A_LineFile%~%A_LineNumber%)
         return false
     }
+    return openInEditorFromIntern(m1CorrectedAhkFileAddress)
+}
+;\____ openInEditor __ 181028104756 __ 28.10.2018 10:47:56 __/
 
+;/¯¯¯¯ openInEditor ¯¯ 181028104913 ¯¯ 28.10.2018 10:49:13 ¯¯\
+openInEditorFromIntern(m1CorrectedAhkFileAddress){
     editorName := "AHK-Studio"
     isEditorExist_AHKStudio := FileExist("..\" editorName "\" editorName ".ahk")
     editorName := "AutoGUI"
     isEditorExist_AutoGUI := FileExist("..\" editorName "\" editorName ".ahk")
 
-    ; ___ ___
     if(false){
         noOp := 1
     }else if(1 && isEditorExist_AHKStudio){

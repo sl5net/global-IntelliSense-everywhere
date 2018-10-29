@@ -141,6 +141,10 @@ FileAppend, `#%Include% _global.ahk `n`; '%at%' `; (%LineFileRelative%~%A_LineNu
 		; End of: if(!FileExist(ActionListNEWarchivePath))
 		lll(A_LineNumber, A_LineFile,A_ThisFunc ": "    "saved first time: >" . ActionListNEWarchivePath . "< = Now the new examples-template should be saved" )
 		; Now the new examples-template is saved inside of this file: ActionListNEWarchivePath
+
+         was_a_Editor_open_command := openInEditorFromIntern(ActionListNEWarchivePath)
+
+
 		;\____ !FileExist(ActionListNEWarchivePath) __ 181012011424 __ 12.10.2018 01:14:24 __/
 	} else {
 		; No example template was used. The content is already there. Inside on this file. And don't need to be generated. 12.07.2017 21:36
@@ -1196,6 +1200,9 @@ ___open ActionList|rr||ahk|openInEditor,%ActionListFileName%
 return initialActionList
 }
 ;>>>>>>>>>>>>>>>>>>>>> getInitialActionList >>>>>>>>>>>>>>>>>>>>>>>>>
+
+#include, inc_ahk\openInEditor_actionList.inc.ahk
+
 
 #Include *i %A_ScriptDir%\inc_ahk\functions_global.inc.ahk
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
