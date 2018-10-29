@@ -130,7 +130,11 @@ ActionListDir = '%ActionListDir%'
 		StringReplace, lineFileRelative, A_LineFile , % A_ScriptDir,Source, All
 		;Msgbox,%LineFileRelative%`n (%A_LineFile%~%A_LineNumber%) )
 
-		    FileAppend, `; '%at%' `; (%LineFileRelative%~%A_LineNumber%) `n%initialActionList% `n, % ActionListNEWarchivePath
+        calledFromStr := A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+        Include := "Include"
+
+		    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, FileAppend , % A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+FileAppend, `#%Include% _global.ahk `n`; '%at%' `; (%LineFileRelative%~%A_LineNumber%) `n%initialActionList% `n, % ActionListNEWarchivePath
 		 Sleep,400
 		 ; Sleep,250 ; why sleeping ? todo sleeping?
 
@@ -1180,9 +1184,10 @@ if(!ActionListNEWarchivePath)
 
 ActionListFileName := RegExReplace(ActionListNEWarchivePath,".*\\([^\\]+)$","$1") ; 20.03.2018 00:15
 
+calledFromStr := A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
 initialActionList =
 (
-; #Include ..\_globalActionLists\examplesForBeginners.txt ; updated: 21.03.2018 07:33
+; only meta info (not importand): %calledFromStr%
 ___open ActionList|rr||ahk|openInEditor,%ActionListFileName%
 ; if you could read this germen special character (umlaute) your file format is correct (please use UTF8)
 ; ä = thats a au
