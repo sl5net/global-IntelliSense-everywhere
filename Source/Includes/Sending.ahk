@@ -555,7 +555,20 @@ UPDATE_ActionList_UsedByUser_since_midnight()
 
     ; that fixed the problem, that if i usend ahk ocmmands, they was not triggered without hiting esc-key or so 28.10.2018 15:41
     ; dont move the lie to beigning of fungion beocuse g_Word is deleted.
+     CloseListBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
+
+    global g_Word
+    BackSpaceLen := StrLen(g_Word)
     ClearAllVars(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),true)
+     ; sending .= "{BS " . BackSpaceLen . "}"
+     Send,{Backspace %BackSpaceLen%} ; workaround :) 29.07.2017 12:51 17-07-29_12-51 by sl5net
+    ;CloseListBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
+
+
+       ;MaybeSaveHelperWindowPos()
+       ; DisableWinHook()
+       ;
+
 ;\____ ClearAllVars(A_ThisFunc __ 181028154146 __ 28.10.2018 15:41:46 __/
 
 
@@ -590,7 +603,8 @@ UPDATE_ActionList_UsedByUser_since_midnight()
     ;\____ ahkBlock __ 181011155154 __ 11.10.2018 15:51:54 __/
 			
     ; tooltip ,% AHKcode "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
-    ; msgbox ,% "sending=" sending "`n" AHKcode "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+    if(0 && InStr(A_ComputerName,"SL5") )
+     msgbox ,% "sending=" sending "`n AHKcode=`n" AHKcode "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
 			
 			
 			
@@ -745,8 +759,10 @@ UPDATE_ActionList_UsedByUser_since_midnight()
 		AHKcode2 .= "Process, Priority,, H `n "
 		
 ;>>>>>>>> DynaRun >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+if( RegExMatch( AHKcode , "mPi)\bDynaRun[ ]*\("  ) ) {
 		FileRead,dynaRunFunctionImplementationSource,dynaRunFunctionImplementationSource.inc.ahk
 		AHKcode2 .= dynaRunFunctionImplementationSource  . "`n"
+}
 ;>>>>>>>>>> DynaRun >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		
 
@@ -833,12 +849,19 @@ UPDATE_ActionList_UsedByUser_since_midnight()
          ; suspend,on ; if you do thi script sends nothing 13.03.2018 15:30
 
          ;/¯¯¯¯ ClearAllVars(A_ThisFunc ¯¯ 181028154133 ¯¯ 28.10.2018 15:41:33 ¯¯\
+                 if(1 && InStr(A_ComputerName,"SL5") && activeTitle == "isNotAProject")
                          ToolTip4sec("is this the right position? bakcspace is not ocrreclty deleing typed. may deleting to muhc??? (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
 
              ; that fixed the problem, that if i usend ahk ocmmands, they was not triggered without hiting esc-key or so 28.10.2018 15:41
              ; dont move the lie to beigning of fungion beocuse g_Word is deleted.
              ClearAllVars(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),true)
          ;\____ ClearAllVars(A_ThisFunc __ 181028154146 __ 28.10.2018 15:41:46 __/
+
+
+		    if(0 && InStr(A_ComputerName,"SL5") ){
+             tooltip ,% "`nAHKcode=`n" AHKcode  "`nAHKcode2=`n" AHKcode2 "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+             clipboard := AHKcode2
+             }
 
 		DynaRun(AHKcode2)
         ; suspend,off
