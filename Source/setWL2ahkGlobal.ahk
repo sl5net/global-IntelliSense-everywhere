@@ -16,7 +16,7 @@ lll(A_LineNumber, A_LineFile, " hi :) just started. ")
 
 ActionList := "..\ActionLists\_globalActionLists\_global.ahk"
 ActionList := "..\ActionLists\_globalActionListsGenerated\_ahk_global.ahk"
-ActionList := "E:\fre\private\HtmlDevelop\AutoHotKey\tools\TypingAid-master\Source\..\ActionLists\_globalActionListsGenerated\_ahk_global.ahk"
+ActionList := "E:\fre\private\HtmlDevelop\AutoHotKey\tools\gi-everywhere-master\Source\..\ActionLists\_globalActionListsGenerated\_ahk_global.ahk"
 
 pLength := 0
 while(pLength <> StrLen(ActionList )){

@@ -1,4 +1,9 @@
 ﻿;<<<<<<<< openInEditor <<<< 1810111507 <<<< 01.10.2018 11:54:07 <<<<
+; called from 				was_a_Editor_open_command := openInEditor(ActionListFolderOfThisActionList, isAHKcode, AHKcode, isStartingUnderline, is_OpenA_edit_open_lib, isDeprecated_OpenA_edit_open_lib) if(was_a_Editor_open_command) return ; endOf function: SendWord(WordIndex)
+
+
+
+;/¯¯¯¯ openInEditor ¯¯ 181028104913 ¯¯ 28.10.2018 10:49:13 ¯¯\
 openInEditor(ActionListFolderOfThisActionList, isAHKcode, AHKcode, isStartingUnderline, is_OpenA_edit_open_lib, isDeprecated_OpenA_edit_open_lib){
     if(!AHKcode){
         return false
@@ -6,11 +11,20 @@ openInEditor(ActionListFolderOfThisActionList, isAHKcode, AHKcode, isStartingUnd
         Msgbox,% ":( ups is empty: " AHKcode "=AHKcode `n (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
         ExitApp, 
     }
-    foundPos := RegExMatch( AHKcode , "^\s*(?:AHK-Studio|AutoGUI|run)\s*,?\s*(.+\.ahk)\s*$\b$" ,  m )
+    foundPos := RegExMatch( AHKcode , "^\s*(?:AHK-Studio|AutoGUI|openInEditor)\s*,?\s*(.+\.ahk)\s*$\b$" ,  m )
     ifIsIt := (isStartingUnderline && is_OpenA_edit_open_lib && foundPos ) 
-    if(!ifIsIt)
+    if(!ifIsIt){
+        m =
+        (
+        isStartingUnderline = %isStartingUnderline%
+        is_OpenA_edit_open_lib = %is_OpenA_edit_open_lib%
+        foundPos = %foundPos%
+        )
+        ; msgbox,% "return false `n" m "(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
         return false
+    }
     ; edit open script
+    ; msgb tool ___ ___ ___
    ; ___global generated open|rr||ahk|run,..\_globalActionListsGenerated\_global.ahk
    ;
     m1CorrectedAhkFileAddress := ActionListFolderOfThisActionList "\" m1
@@ -45,7 +59,7 @@ openInEditor(ActionListFolderOfThisActionList, isAHKcode, AHKcode, isStartingUnd
     editorName := "AutoGUI"
     isEditorExist_AutoGUI := FileExist("..\" editorName "\" editorName ".ahk")
 
-    ; ______
+    ; ___ ___
     if(false){
         noOp := 1
     }else if(1 && isEditorExist_AHKStudio){
@@ -72,7 +86,7 @@ openInEditor(ActionListFolderOfThisActionList, isAHKcode, AHKcode, isStartingUnd
     (
     winTitleError := " ahk_class #32770"
     SetTitleMatchMode,2
-        loop,50
+        loop,70
         {
             winclose,`% winTitleError,Error ; thats disturbing opening ahk-studio. if closed ahk-studio opens
             winkill,`% winTitleError,Error ; thats disturbing opening ahk-studio. if closed ahk-studio opens
@@ -90,7 +104,9 @@ openInEditor(ActionListFolderOfThisActionList, isAHKcode, AHKcode, isStartingUnd
     ;ToolTip5sec(msg A_LineNumber   " "   RegExReplace(A_LineFile,".*\\")    " "   Last_A_This)
     return true
 }
-;>>>>>>>> openInEditor >>>> 18101115}417 >>>> 01.1.218 11:54:17 >>>>
+;\____ openInEditor __ 181028104756 __ 28.10.2018 10:47:56 __/
+
+
 
 ; #Include %A_ScriptDir%\inc_ahk\copy2clipBoard.functions.inc.ahk
 #Include %A_ScriptDir%\inc_ahk\functions_global.inc.ahk

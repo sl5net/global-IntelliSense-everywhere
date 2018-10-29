@@ -1,5 +1,5 @@
 ﻿; please never delete this wordklst 05.08.2017 10:25
-___open \_global|rr||ahk|run,..\_global.ahk
+___open \_global|rr||ahk|openInEditor,..\_global.ahk
 ; if this german au is readable your UTF8 is probalby correct: ä
 
 __

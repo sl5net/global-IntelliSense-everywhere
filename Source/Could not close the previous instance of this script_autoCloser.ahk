@@ -39,7 +39,7 @@ if(counter >= 15 && !isShutdownCommandSend ){
   
 temp = 
 (
-TypingAid.ahk
+gi-everywhere.ahk
 ahk_class #32770
 ahk_exe AutoHotkey.exe
 
@@ -48,24 +48,24 @@ ahk_exe AutoHotkey.exe
 Could not close the previous instance of this script.  Keep waiting?
 )
 
-; TypingAid.ahk ahk_class #32770
+; gi-everywhere.ahk ahk_class #32770
 
   text1=Could not close the previous instance of this script.  Keep waiting?
   text2=Could not close the previous instance of this script.
   
   
-  WinWait,TypingAid.ahk ahk_class #32770,Could not close the previous instance of this script.  Keep waiting?
-  WinClose,TypingAid.ahk ahk_class #32770,Could not close the previous instance of this script.  Keep waiting? ; this try not woks. it not closese the window. and there are nearly every 2 seconds an new such window. 12.07.2017 20:25
-  WinActivate, TypingAid.ahk ahk_class #32770
-  WinWaitActive,TypingAid.ahk ahk_class #32770,,1
+  WinWait,gi-everywhere.ahk ahk_class #32770,Could not close the previous instance of this script.  Keep waiting?
+  WinClose,gi-everywhere.ahk ahk_class #32770,Could not close the previous instance of this script.  Keep waiting? ; this try not woks. it not closese the window. and there are nearly every 2 seconds an new such window. 12.07.2017 20:25
+  WinActivate, gi-everywhere.ahk ahk_class #32770
+  WinWaitActive,gi-everywhere.ahk ahk_class #32770,,1
   send,j ; yes keep waiting. it woks :) but now wie have two typing AID script. for shurt time. and now its only one. so maybe it solves the prolem !!!!! 12.07.2017 20:22
 
   ; next 3 lines are not tested. probably woks same as the line above. 12.07.2017 20:31
-  WinActivate, TypingAid.ahk ahk_class #32770,%text2%
-  WinWaitActive,TypingAid.ahk ahk_class #32770,%text2%,1
+  WinActivate, gi-everywhere.ahk ahk_class #32770,%text2%
+  WinWaitActive,gi-everywhere.ahk ahk_class #32770,%text2%,1
 ;  send,j
 
-  IfWinActive,TypingAid.ahk ahk_class #32770,%text2%
+  IfWinActive,gi-everywhere.ahk ahk_class #32770,%text2%
   send,n ; no dont keep waiting . do this also. if it may not was closed . 12.07.2017 20:39 
   ToolTip,Typing: Could not close the previous instance of this script. `n %A_LineFile%:%A_LineNumber% `n %counter% = counter
 }

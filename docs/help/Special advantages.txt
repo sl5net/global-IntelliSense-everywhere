@@ -1,4 +1,4 @@
-English: Special advantages (updated: 08.02.2018):
+﻿English: Special advantages (updated: 08.02.2018):
 
 There are no conflicts with any hotkeys because the script 
 does not use hotkeys;) Off course.
@@ -9,7 +9,7 @@ This means you can use multiple IntelliSense at the same time
 It works everywhere. You can easily reuse 
 word lists by including them or adjusting your filter rules (for experts).
 
-Creating wordlists is very easy. 
+Creating ActionLists is very easy.
 It is enough if you copy text (for example from Wikipedia). 
 However, each entry should be in one line. Not multiple entries in one line.
 You can make complicated entries (for experts) in which 
@@ -23,19 +23,19 @@ da das Script keine Hotkeys verwendet ;) Off course.
 
 Das bedeutet du kannst gleichzeitig mehrere IntelliSense 
 verwenden (die von deinem Lieblings-Editor und 
-deine eigene zusätlich). 
-Vielleicht möchtest du nur ein paar spezielle Einträge 
-deinem Lieblingseditor hinzufügen.
+deine eigene zusÃ¤tlich). 
+Vielleicht mÃ¶chtest du nur ein paar spezielle EintrÃ¤ge 
+deinem Lieblingseditor hinzufÃ¼gen.
 
-Es funktioniert überall. Du kannst Wortlisten einfach wiederverwenden 
+Es funktioniert Ã¼berall. Du kannst Wortlisten einfach wiederverwenden 
 indem du diese 
-includest (RegEx dort auch möglich) oder Deine Filter-Regeln anpasst (für Experten).
+includest (RegEx dort auch mÃ¶glich) oder Deine Filter-Regeln anpasst (fÃ¼r Experten).
 
-Das erstellen von Wordlisten ist sehr einfach. 
+Das erstellen von ActionListen ist sehr einfach.
 Es reicht wenn du Text kopierst (z.B. aus Wikipedia). 
-Allerdings sollte jeder Eintrag in einer Zeile stehen. Nicht mehrere Einträge in einer Zeile.
-Du kannst komplizierte Einträge machen (für Experten) in dem du 
-ganz normalen Autohotkey Quelltext dort ausführen lässt (für Experten).
+Allerdings sollte jeder Eintrag in einer Zeile stehen. Nicht mehrere EintrÃ¤ge in einer Zeile.
+Du kannst komplizierte EintrÃ¤ge machen (fÃ¼r Experten) in dem du 
+ganz normalen Autohotkey Quelltext dort ausfÃ¼hren lÃ¤sst (fÃ¼r Experten).
 
 DE: Die Installation ist sehr einfach. Du musst nichts konfigurieren. 
 Einfach downoad und start.ahk starten. Allerdings sind zu beginn nur Beispiel Wortlisten vorhanden (also fast leer). Wenn Du hier hilfe brauchst zum erstellen einer Wortliste lese bitte ein bisschen in der Doku oder frage nach.
@@ -45,7 +45,7 @@ Just start downoad and start.ahk. However, at the beginning only example word li
 
 16.03.2018 00:45:
 now it understands kotlin Script. But you need to unzip CotlinScript into
-this directory Wordlists\_kts\kotlinc You could get it here: https://kotlinlang.org/docs/tutorials/command-line.html
+this directory ActionLists\_kts\kotlinc You could get it here: https://kotlinlang.org/docs/tutorials/command-line.html
 Examples: 
 kotlin example|rr||kts|KotlinLove.kts
 kotlin example|rr||kts|import java.io.File`n val folders = File("c:").listFiles { file -> file.isDirectory() }`n folders?.forEach { folder -> println(folder) }

@@ -102,7 +102,7 @@ ReadPreferences(RestoreDefaults := false,RestorePreferences := false)
    dft_TerminatingCharacters = {enter}{space}{esc}{tab}{Home}{End}{PgUp}{PgDn}{Up}{Down}{Left}{Right}.;`,ï¿½?ï¿½!'"()[]{}{}}{{}``~`%$&*-+=\/><^|@#:
 
 
-   ; There was a bug in TypingAid 2.19.7 that broke terminating characters for new preference files, this code repairs it
+   ; There was a bug in gi-everywhere 2.19.7 that broke terminating characters for new preference files, this code repairs it
    BrokenTerminatingCharacters = {enter}{space}{esc}{tab}{Home}{End}{PgUp}{PgDn}{Up}{Down}{Left}{Right}.;
    IfExist, %g_PrefsFile%
    {
@@ -240,6 +240,7 @@ ValidatePreferences()
    if prefs_Length is not integer
    {
       prefs_Length := dft_Length
+      msgbox,% "(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
    }
    
    if (prefs_Length < 1) {

@@ -1078,6 +1078,8 @@ feedbackMsgBoxNr(tit := "",text := "" ,x:=1,y:=1){
     return feedbackMsgBox(tit ,text ,x,y)
 }
 
+
+;/¯¯¯¯ feedbackMsgBox ¯¯ 181027092614 ¯¯ 27.10.2018 09:26:14 ¯¯\
 feedbackMsgBox(tit := "",text := "" ,x:=1,y:=1){
 	WinGetActiveTitle,at
 	at := RegExReplace(at, "m)\n.*", "") ; title should never is multioline. this proof is hoprefulle1
@@ -1087,8 +1089,8 @@ feedbackMsgBox(tit := "",text := "" ,x:=1,y:=1){
 	}
 
 
-tit := RegExReplace(tit,"i)[\s,]+", " ")
-text := RegExReplace(text,"i)[ ,]+", " ")
+    tit := RegExReplace(tit,"i)[\s,]+", " ")
+    text := RegExReplace(text,"i)[ ,]+", " ")
 
 	; g_ignReg := { feedbackMsgBox:{tit:"", text:"."} , ...
 	; ; please use it like this: if( RegExMatch( ln, g_ignReg["saveLogFiles"]["ln"])	|| ......
@@ -1274,9 +1276,11 @@ if(at && !RegExMatch(at, "^(\d:|temp\.ahk)")){ ; check for probably wrong title.
 	if(!WinActive(at))
 		feedbackMsgBox(":( ups !WinActive(at)", A_ScriptName . "~" . A_LineNumber)
 }
-return, feedbackMsgBoxNr
+    WinActivate,%at% ; <== useless?? 27.10.2018 09:35
+    return, feedbackMsgBoxNr
 }
-;>>>>>>>> feedbackMsgBox >>>> 170814121755 >>>> 14.08.2017 12:17:55 >>>> 
+;>>>>>>>> feedbackMsgBox >>>> 170814121755 >>>> 14.08.2017 12:17:55 >>>>
+
 
 
 

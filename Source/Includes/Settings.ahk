@@ -1,5 +1,5 @@
 ﻿; Indentation_style: https://de.wikipedia.org/wiki/Einrückungsstil#SL5small-Stil
-; GUI for TypingAid configuration
+; GUI for gi-everywhere configuration
 ; by HugoV / Maniac
 
 LaunchSettings:
@@ -22,7 +22,7 @@ LaunchSettings:
 
     Menu, Tray, Disable, Settings
     g_InSettings := true
-    ClearAllVars(True)
+    ClearAllVars(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),True)
     Menu_OldLearnCount := prefs_LearnCount
     ; initialize this to make sure the object exists
     Menu_ChangedPrefs := Object()
@@ -646,7 +646,7 @@ Full support for UTF-8 character set.
    Gui, MenuGui:Add, Button,   xp+%MenuRowThreeButtonNext% yp          w%MenuRowThreeButtonWidth%    gRestore, Restore default
    Gui, MenuGui:Add, Button,   xp+%MenuRowThreeButtonNext% yp          w%MenuRowThreeButtonWidth%    gCancelButton , Cancel
 
-   if (g_ScriptTitle == "TypingAid")
+   if (g_ScriptTitle == "gi-everywhere")
    {
       Gui, MenuGui:Font, cBlack bold
       Gui, MenuGui:Add, Text, x%MenuGroup2of2EditX% Yp-10, %g_ScriptTitle%
@@ -767,7 +767,7 @@ GetList(TitleType,GetExe)
 VisitForum:
 MsgBox , 36 , Visit %g_ScriptTitle% forum (www.autohotkey.com), Do you want to visit the %g_ScriptTitle% forum on www.autohotkey.com?
 IfMsgBox, Yes
-	Run, http://www.autohotkey.com/board/topic/49517-ahk-11typingaid-v2198-word-autocompletion-utility/
+	Run, http://www.autohotkey.com/board/topic/49517-ahk-11gi-everywhere-v2198-word-autocompletion-utility/
 Return
 
 Restore:

@@ -29,39 +29,39 @@ gosub,couldIfindMyself
 
 
 SetTitleMatchMode,1
-IfWinExist, TypingAid - Inactive
+IfWinExist, gi-everywhere - Inactive
 {
    WinClose,
-   lll(A_LineNumber, A_LineFile, "34: RunWait,TypingAid.ahk")
-   RunWait,TypingAid.ahk
+   lll(A_LineNumber, A_LineFile, "34: RunWait,gi-everywhere.ahk")
+   RunWait,gi-everywhere.ahk
 }
 
-   WinWait,TypingAid - Active,,3
+   WinWait,gi-everywhere - Active,,3
    
-   ; if(!FileExist("TypingAid_programmCounter_LineAndTime.txt")) ; 26.09.2018 16:36 home we dont need it
+   ; if(!FileExist("gi-everywhere_programmCounter_LineAndTime.txt")) ; 26.09.2018 16:36 home we dont need it
    ;   ExitApp
    
-   FileRead,TypingAidContentStatus, TypingAid_programmCounter_LineAndTime.txt
-   TypingAidTimestamp := RegExReplace(TypingAidContentStatus, ".*?(\d+)$", "$1") ; Gibt "abc123xyz" zurï¿½ck, weil durch $ eine ï¿½bereinstimmung nur am Ende vorkommen darf. 
+   FileRead,gi-everywhereContentStatus, gi-everywhere_programmCounter_LineAndTime.txt
+   gi-everywhereTimestamp := RegExReplace(gi-everywhereContentStatus, ".*?(\d+)$", "$1") ; Gibt "abc123xyz" zurï¿½ck, weil durch $ eine ï¿½bereinstimmung nur am Ende vorkommen darf.
    
    FormatTime, timestampyyMMddHHmmss, %A_now%,yyMMddHHmmss
-   secondsProgrammIsNotMoving := timestampyyMMddHHmmss - TypingAidTimestamp
+   secondsProgrammIsNotMoving := timestampyyMMddHHmmss - gi-everywhereTimestamp
    
    if(secondsProgrammIsNotMoving > 15 || true) {
       
-         ; Alternativ is auch gut das TypingAid.ahk.log modified Datum auszulesen
-         FileGetTime, logModifiedTimeYYYYMMDDHH24MISS, TypingAid.ahk.log  ; Retrieves the modification time by default.
+         ; Alternativ is auch gut das gi-everywhere.ahk.log modified Datum auszulesen
+         FileGetTime, logModifiedTimeYYYYMMDDHH24MISS, gi-everywhere.ahk.log  ; Retrieves the modification time by default.
          secondsSincelogModified := timestampyyMMddHHmmss - SubStr(logModifiedTimeYYYYMMDDHH24MISS,3)
 ;         MsgBox,% SubStr(logModifiedTimeYYYYMMDDHH24MISS,3)
          ; MsgBox, %secondsSincelogModified% = %timestampyyMMddHHmmss% - %logModifiedTimeYYYYMMDDHH24MISS%
          if(secondsSincelogModified  <= 15) 
             continue
       
-         WinClose, TypingAid - Active ; :( dosent work 10.07.2017 20:47
-         WinClose, TypingAid - Inactive ; :( dosent work 10.07.2017 20:47
-         ; Msgbox,:-( ist not moving since %secondsProgrammIsNotMoving% sec (%timestampyyMMddHHmmss% - %TypingAidTimestamp%) `n (%A_LineFile%~%A_LineNumber%)
-         ; IfWinNotExist,TypingAid
-            Run,TypingAid.ahk
+         WinClose, gi-everywhere - Active ; :( dosent work 10.07.2017 20:47
+         WinClose, gi-everywhere - Inactive ; :( dosent work 10.07.2017 20:47
+         ; Msgbox,:-( ist not moving since %secondsProgrammIsNotMoving% sec (%timestampyyMMddHHmmss% - %gi-everywhereTimestamp%) `n (%A_LineFile%~%A_LineNumber%)
+         ; IfWinNotExist,gi-everywhere
+            Run,gi-everywhere.ahk
 
    }
 }

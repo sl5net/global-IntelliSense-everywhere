@@ -1,6 +1,6 @@
 ﻿;These functions and labels are related to the shown list of words
 
- 
+
 InitializeListBox(){
    global
    
@@ -25,8 +25,8 @@ InitializeListBox(){
 
    Loop, %prefs_ListBoxRows%
    {
-      ;msg= 1: vg_ListBox%A_Index% ,2: R%A_Index% X0 Y0 ,3: T%prefs_ListBoxFontSize% T32 ,4: hwndg_ListBoxHwnd%A_Index%
-      ;feedbackMsgBox(g_ListBox%A_Index%,A_LineNumber . " ListBox.ahk")
+      ; msg= 1: vg_ListBox%A_Index% ,2: R%A_Index% X0 Y0 ,3: T%prefs_ListBoxFontSize% T32 ,4: hwndg_ListBoxHwnd%A_Index%
+      ; feedbackMsgBox(g_ListBox%A_Index%,A_LineNumber . " ListBox.ahk")
       GuiControl, ListBoxGui:-Redraw, g_ListBox%A_Index%
       ;can't use a g-label here as windows sometimes passes the click message when spamming the scrollbar arrows
       ;Gui, ListBoxGui: Add, ListBox, vg_ListBox%A_Index% R%A_Index% X0 Y0 T%prefs_ListBoxFontSize% T32 hwndg_ListBoxHwnd%A_Index%
@@ -180,13 +180,11 @@ ListBoxScroll(Hook, Event, EventHwnd){
       
       SI:=GetScrollInfo(g_ListBoxHwnd%TempRows%)
    
-      if (!SI.npos)
-      {
+      if (!SI.npos){
          return
       }
    
-      if (SI.npos == g_MatchStart)
-      {
+      if (SI.npos == g_MatchStart){
          return
       }
    
@@ -223,11 +221,14 @@ ListBoxChooseItem(Row)
    GuiControl, ListBoxGui: Choose, g_ListBox%Row%, %g_MatchPos%
 }
 
+; tooo tool msgbo too
+
 ;------------------------------------------------------------------------
 ; SciTEWindow\_global.txt __SunAwtFrame\.txt
 ; __SciTEWindow\_global.txt
-CloseListBox(){
+CloseListBox(calledFromStr){
    global g_ListBox_Id
+   RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, % A_ThisFunc , % calledFromStr
    IfNotEqual, g_ListBox_Id,
    {
    ; thats the place were listbox will be closed  17-03-17_17-12 17.03.2017 17:12
@@ -273,7 +274,7 @@ ListBoxEnd() {
    DisableKeyboardHotKeys()
    return
 }
-
+;
 ;------------------------------------------------------------------------
 
 SavePriorMatchPosition(){
@@ -377,6 +378,7 @@ SetupMatchPosition(){
    g_OldMatchStart = 
    Return
 }
+
 
 RebuildMatchList(){
    global g_Match

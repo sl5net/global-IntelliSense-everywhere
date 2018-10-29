@@ -1,9 +1,9 @@
-if your using everything for searching
+﻿if your using everything for searching
 http://www.voidtools.com/support/everything/searching/
 then i recommand using this
-for searching a wordlist. this is sometimes useful. 
+for searching a ActionList. this is sometimes useful.
 for example: you want include oter worddlists an need to find a matching one:
-path:\Wordlists\ endwith:.txt YourSearchedFileName
+path:\ActionLists\ endwith:.txt YourSearchedFileName
 (updated: 16.02.2018 08:51)
 
 Diese Seiten auf deutsch lesen mit google-translater:

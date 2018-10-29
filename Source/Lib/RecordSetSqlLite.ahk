@@ -66,7 +66,7 @@ class RecordSetSqlLite extends DBA.RecordSet
 			this._eof := true
 			return false
 		}
-		rc := DllCall("SQlite3\sqlite3_step", "UInt", this._query, "Cdecl Int")
+		rc := DllCall("sqlite3\sqlite3_step", "UInt", this._query, "Cdecl Int")
 
 		if (rc != this._db.ReturnCode("SQLITE_ROW")) {
 			if (rc = this._db.ReturnCode("SQLITE_DONE")) {
@@ -80,7 +80,7 @@ class RecordSetSqlLite extends DBA.RecordSet
 			this._eof := true
 			return false
 		}
-		rc := DllCall("SQlite3\sqlite3_data_count", UInt, this._query, "Cdecl Int")
+		rc := DllCall("sqlite3\sqlite3_data_count", UInt, this._query, "Cdecl Int")
 		
 		if (rc < 1) {
 			this.ErrorMsg := "RecordSet is empty!"
@@ -93,7 +93,7 @@ class RecordSetSqlLite extends DBA.RecordSet
 		;_currentRow := new Row()
 		fields := new Collection()
 		Loop, %rc% {
-			ctype := DllCall("SQlite3\sqlite3_column_type", UInt, this._query, Int, A_Index - 1, "Cdecl Int")
+			ctype := DllCall("sqlite3\sqlite3_column_type", UInt, this._query, Int, A_Index - 1, "Cdecl Int")
 			
 			if (ctype == gDBA_SQLiteDataType.SQLITE_NULL) {
 				
@@ -101,8 +101,8 @@ class RecordSetSqlLite extends DBA.RecordSet
 				
 			}else if(ctype == gDBA_SQLiteDataType.SQLITE_BLOB){
 
-				blobSize := DllCall("SQlite3\sqlite3_column_bytes", UInt, this._query, Int, A_Index -1, "Cdecl UInt")
-				blobPtr := DllCall("SQlite3\sqlite3_column_blob", UInt, this._query, Int, A_Index - 1, "Cdecl Ptr")
+				blobSize := DllCall("sqlite3\sqlite3_column_bytes", UInt, this._query, Int, A_Index -1, "Cdecl UInt")
+				blobPtr := DllCall("sqlite3\sqlite3_column_blob", UInt, this._query, Int, A_Index - 1, "Cdecl Ptr")
 
 				if ( blobPtr )
 				{
@@ -111,7 +111,7 @@ class RecordSetSqlLite extends DBA.RecordSet
 					fields[A_Index] := DBA.DataBase.NULL
 				}
 			} else {
-				strPtr := DllCall("SQlite3\sqlite3_column_text", UInt, this._query, Int, A_Index - 1, "Cdecl UInt")
+				strPtr := DllCall("sqlite3\sqlite3_column_text", UInt, this._query, Int, A_Index - 1, "Cdecl UInt")
 				fields[A_Index] := StrGet(strPtr, "UTF-8")
 			}
 		}
@@ -130,7 +130,7 @@ class RecordSetSqlLite extends DBA.RecordSet
 			this.ErrorMsg := "Invalid query handle!"
 			return false
 		}
-		rc := DllCall("SQlite3\sqlite3_reset", UInt, this._query, "Cdecl Int")
+		rc := DllCall("sqlite3\sqlite3_reset", UInt, this._query, "Cdecl Int")
 
 		if (rc) {
 			this.ErrorMsg := This._db.ErrMsg()
@@ -149,7 +149,7 @@ class RecordSetSqlLite extends DBA.RecordSet
 		if(this._query == 0)
 			return true
 		
-		rc := DllCall("SQlite3\sqlite3_finalize", "UInt", this._query, "Cdecl Int")
+		rc := DllCall("sqlite3\sqlite3_finalize", "UInt", this._query, "Cdecl Int")
 
 		if (rc) {
 			this.ErrorMsg := this._db.ErrMsg()

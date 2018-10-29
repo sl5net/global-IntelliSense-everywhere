@@ -270,6 +270,8 @@ SendWord(WordIndex){
 		msg = ups:`n ! FileExist(%ActionListFolderOfThisActionList% %msg%
 		tooltip,% msg
 		msgBox,% ":( ERROR: " msg "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+        RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, return , % A_ThisFunc ":"  A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+
 		return false
 	}
 	
@@ -380,6 +382,11 @@ SendWord(WordIndex){
 ; ToolTip5sec(A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
 ; Msgbox,% "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
 ;>>>>>>>> playground >>>> 18101080}49 >>>> 01.10.2018  >>>>
+
+; tool tool tool msgbox tooToolTip2sec lineFileName|rr|ToolTip2sec(A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)|ahk|Send,{CtrlDown}{left 8}{CtrlUp}
+; msgMsgbox,% "(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
+
+
 
 UPDATE_ActionList_UsedByUser_since_midnight()
 
@@ -516,7 +523,9 @@ UPDATE_ActionList_UsedByUser_since_midnight()
 				isKTScode := true
 				KTScode := rX["code"]
 			}
-			
+
+
+; tooToolTip2sec(A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
 			
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ; enable to use quellenangaben in ahk pseudo code.
@@ -540,9 +549,21 @@ UPDATE_ActionList_UsedByUser_since_midnight()
     msg .= A_WorkingDir " = A_WorkingDir `n"
     ; Msgbox,% msg "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
 
+;/¯¯¯¯ ClearAllVars(A_ThisFunc ¯¯ 181028154133 ¯¯ 28.10.2018 15:41:33 ¯¯\
+        if(1 && InStr(A_ComputerName,"SL5") && activeTitle == "isNotAProject")
+                ToolTip4sec("is this the right position? bakcspace is not ocrreclty deleing typed. may deleting to muhc??? (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
+
+    ; that fixed the problem, that if i usend ahk ocmmands, they was not triggered without hiting esc-key or so 28.10.2018 15:41
+    ; dont move the lie to beigning of fungion beocuse g_Word is deleted.
+    ClearAllVars(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),true)
+;\____ ClearAllVars(A_ThisFunc __ 181028154146 __ 28.10.2018 15:41:46 __/
+
+
 				was_a_Editor_open_command := openInEditor(ActionListFolderOfThisActionList, isAHKcode, AHKcode, isStartingUnderline, is_OpenA_edit_open_lib, isDeprecated_OpenA_edit_open_lib)
-				if(was_a_Editor_open_command)
+				if(was_a_Editor_open_command) {
+                    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, return , % g_Word "=key|" A_ThisFunc ":"  A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
 					return ; endOf function: SendWord(WordIndex)
+					}
 			} ; Endof if(isAHKcode)
 			
 			
@@ -673,6 +694,7 @@ UPDATE_ActionList_UsedByUser_since_midnight()
 	if(0){
 		Clipboard = %AHKcode%
 		msgbox, %AHKcode% 18-10-14_00-27 14.10.2018 00:27
+                    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, return , % A_ThisFunc ":"  A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
 		return
 	}
 ;  too(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This) too(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)   ;msgbox, isAHKcode = %isAHKcode%AHKdyn example super simple example
@@ -752,7 +774,7 @@ UPDATE_ActionList_UsedByUser_since_midnight()
 		if((!isAHKcode && g_config["Send"]["RealisticDelayDynamic"]
     || RegExMatch( activeTitle , "\.(json|ts|css|html) - PhpStorm" ) )
     && substr( lineOfIndex, 1 , 2 ) != "__" ) {
-			global g_Word ; thats the beginning of the word user already typed. 27.04.2017 18:52
+			; g_Word ; thats the beginning of the word user already typed. 27.04.2017 18:52
 			AHKcode := getRealisticDelayDynamicSendAHKcode(g_Word,AHKcode)
 			MsgBox,% "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
 		}
@@ -763,7 +785,7 @@ UPDATE_ActionList_UsedByUser_since_midnight()
 ; AHKcode := RegExReplace(AHKcode, "#include[ ]+([\.]{1,2}\\\w)", "#include " . aScriptDir2ActionListFolder . "\\$1" ) ; dayTimeHello|rr||ahk|#include ..\xyz\sendDayTimeHello.ahk
 		
 ; ___create own project dir or this 1|rr||ahk|#Include,..\activeClassManipulation.inc.ahk `n activeClass := RegExReplace( activeClass, "[\W_]+", "") `n d1
-;
+; test
 		regEx := "i)(http|https):"
 		regEx2 := "(#include|run)[ ]*( |,)[ ]*\b(?!\w\:\\)" ; should not work with thinks like: ; run, C:\tata only relative paths 8.5.2018 14:27 , see: https://www.regextester.com/15
 		regEx2 := "(#include|run)[ ]*( |,)[ ]*(?!( |\w:\\))" ; should not work with thinks like: ; run, C:\tata only relative paths 8.5.2018 14:27 , see: https://www.regextester.com/15
@@ -809,13 +831,21 @@ UPDATE_ActionList_UsedByUser_since_midnight()
 		aWorkingDirBackUp := A_WorkingDir
 		SetWorkingDir,%A_WorkingDir%\..\ActionLists
          ; suspend,on ; if you do thi script sends nothing 13.03.2018 15:30
+
+         ;/¯¯¯¯ ClearAllVars(A_ThisFunc ¯¯ 181028154133 ¯¯ 28.10.2018 15:41:33 ¯¯\
+                         ToolTip4sec("is this the right position? bakcspace is not ocrreclty deleing typed. may deleting to muhc??? (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
+
+             ; that fixed the problem, that if i usend ahk ocmmands, they was not triggered without hiting esc-key or so 28.10.2018 15:41
+             ; dont move the lie to beigning of fungion beocuse g_Word is deleted.
+             ClearAllVars(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),true)
+         ;\____ ClearAllVars(A_ThisFunc __ 181028154146 __ 28.10.2018 15:41:46 __/
+
 		DynaRun(AHKcode2)
         ; suspend,off
 		SetWorkingDir,%aWorkingDirBackUp%
 	}
    ;>>>>>>>> isAHKcode >>>> 180315221926 >>>> 15.03.2018 22:19:26 >>>>
-	
-	ClearAllVars(true)
+	; ClearAllVars(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),true)
    ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
    ; the following code was addet by Http://SL5.net 11.03.2017 17:54 17-03-11_17-54 . have fin & enjoy
 	sending:=trim( sending )
@@ -844,7 +874,14 @@ UPDATE_ActionList_UsedByUser_since_midnight()
    ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 	
 	unpressAllPressedKeys() ; addet at 05.04.2018 13:13
-	
+
+   ; InactivateAll_Suspend_ListBox_WinHook()
+   CloseListBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
+   DisableWinHook()
+   DisableKeyboardHotKeys()
+   g_Word := ""
+
+
 	enableCopyQ() ;
 	
 	
@@ -866,7 +903,7 @@ UPDATE_ActionList_UsedByUser_since_midnight()
 		}
 	}
 	
-	; __
+    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, return , % g_Word "=key|" A_ThisFunc ":"  A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
 	Return  ; endOf function: SendWord(WordIndex)
 }  
 ;------------------------------------------------------------------------
@@ -1090,7 +1127,10 @@ SendFull(SendValue,ForceBackspace:= false){
 				
     ;DisableKeyboardHotKeys()
 ;sendClipboard(sending) ; funny not work here ; 01.04.2018 09:46 18-04-01_09-46
-				
+
+;
+
+        	if(1 && InStr(A_ComputerName,"SL5"))
 				ToolTip4sec("A_SendLevel = " A_SendLevel "`n`n" A_LineNumber   " "   RegExReplace(A_LineFile,".*\\")    " "   Last_A_This) ; The built-in variable A_SendLevel contains the current setting.
 				
 				ClipboardBackup := Clipboard

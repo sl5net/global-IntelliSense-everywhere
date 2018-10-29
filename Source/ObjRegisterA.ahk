@@ -1,4 +1,4 @@
-#Include *i %A_ScriptDir%\inc_ahk\init_global.init.inc.ahk
+﻿#Include *i %A_ScriptDir%\inc_ahk\init_global.init.inc.ahk
 #SingleInstance,force
 
 #Persistent

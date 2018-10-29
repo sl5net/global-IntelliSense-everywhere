@@ -71,18 +71,22 @@ ToolTipSlowMotion(ActionListNEW, A_LineNumber)
 
 getActionListNEW173129( activeTitle, ActiveClass, ActionListNEW, ActionListDir ) {
 	
-	
+
  ; 'Q-Dir 6.49.7 [3]' = at  
  ; Bild Ã¶ffnen ahk_class #32770 
  ; Exportieren ahk_class #32770 aus openoffice zu pdf 01.07.2017 20:22
  ; Select Path SunAwtDialog
  ; Open File or Project ahk_class SunAwtDialog
  ; Anhang speichern ahk_class #32770
-	
-; Sourcetree ahk_class HwndWrapper[SourceTree.exe;;2705bdea-7ac8-4b39-b851-91e598ce9055] ; mouseWindowTitle=0xd508d8   
-	tip=%activeTitle%=activeTitle`n %ActiveClass%=ActiveClass`n (%A_LineFile%~%A_LineNumber%) 
-	ToolTip,%tip%
-;Clipboard := tip
+
+	if(1 && InStr(A_ComputerName,"SL5")){
+        ; Sourcetree ahk_class HwndWrapper[SourceTree.exe;;2705bdea-7ac8-4b39-b851-91e598ce9055] ; mouseWindowTitle=0xd508d8
+        tip=%activeTitle% = activeTitle`n %ActiveClass% = ActiveClass`n
+        tip .= "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+        ToolTip,%tip%
+        ;
+        ;Clipboard := tip
+    }
 	if(!activeTitle && !ActiveClass){
 		Msgbox,%tip% this should never happens `n (%A_LineFile%~%A_LineNumber%) 
 	}
@@ -136,22 +140,7 @@ getActionListNEW173129( activeTitle, ActiveClass, ActionListNEW, ActionListDir )
 	
 	#Include *i .\..\ActionLists\PRIVATE_ActionListNameFilter.inc.ahk
 	
-	
-; AnlageEKS_ba013054_Jobcenter-EKS_04_2018_PDF-XChange_Editor.ahk
-	EKS:
-	if (1 && RegExMatch( activeTitle , "AnlageEKS" ) ) {
-		tip =
-      (
-            %ActiveClass%=ActiveClass
-            %activeTitle%=activeTitle
-      )
-     ;tooltip,%tip% `n (%A_LineFile%~%A_LineNumber%)
-		tooltip4sec(tip A_LineNumber   A_LineFile   )
-     ; E:\fre\private\HtmlDevelop\AutoHotKey\tools\TypingAid-master\ActionLists\_globalActionLists\PDF\Anlage_EKS\EKS.ahk
-     ; Msgbox,found EKS :) `n (%A_LineFile%~%A_LineNumber%)
-		return "..\_globalActionLists\PDF\Anlage_EKS\EKS"
-	}
-	
+
 	HumanConnection:
 	if (ActiveClass == "VirtualConsoleClassGhost" && RegExMatch( activeTitle , "Human-Connection" ) ) {
         ; https://g-intellisense.myjetbrains.com/youtrack/issue/GIS-27 dirty bugFix
@@ -221,9 +210,10 @@ getActionListNEW173129( activeTitle, ActiveClass, ActionListNEW, ActionListDir )
         )
 		}
 		return "..\_globalActionListsGenerated\_ahk_global.ahk._Generated" ; seems works not 18-04-26_12-44
-		return "..\_globalActionListsGenerated\_ahk_global.ahk._Generated.ahk" ; seems works not 18-04-26_12-44
+		return "..\_globalActionListsGenerated\_ahk_global.ahk._Generated.ahk" ; seems works not 18-04--26_12-44
 	}
-	
+
+	; ll ll ppp ppp ppp ppp
 	
 	SetTitleMatchMode,2 ; 2: A window's title can contain WinTitle anywhere inside it to be a match.
 	
@@ -394,9 +384,18 @@ maybeSuperglobalActionList(ActionListNEW, ActionListNEW_time_between , ActiveCla
 	ActionListNEWAddress := "..\ActionLists\" . ActiveClass . "\" . ActionListNEW
      if(FileExist(ActionListNEWAddress))
           return, % ActionListNEW
-     
-     
-     if(!FileExist("..\ActionLists\" . ActiveClass . "\_create_own_project.flag")){
+
+    RegRead, CreatedDir, HKEY_CURRENT_USER, SOFTWARE\sl5net, CreatedDir
+
+    if(!CreatedDir)
+        return
+     RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, CreatedDir, % "" ; RegWrite , RegSave , Registry
+
+     RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, lastImportant_ScriptName, % A_ScriptName ; RegWrite , RegSave , Registry
+     RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, lastImportant_LineFileShort, % RegExReplace(A_LineFile,".*\\") ; RegWrite ,
+     RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, lastImportant_LineFileShort, % RegExReplace(A_LineFile,".*\\") ; RegWrite ,
+
+     if(0 && !FileExist("..\ActionLists\" . ActiveClass . "\_create_own_project.flag")){
            ; tooltip,ActionListNEWAddress = %ActionListNEWAddress% `n `n (%A_LineFile%~%A_LineNumber%) )
            ; MsgBox,% "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")" ; happend 07.10.2018 10:33 18-10-07_10-33 inside notepad. dont knoow whey
           return, % "..\_globalActionListsGenerated\_global.ahk" ; ; i think it doesent makes since in some cases 13.05.2018 17:19
@@ -404,7 +403,7 @@ maybeSuperglobalActionList(ActionListNEW, ActionListNEW_time_between , ActiveCla
           
 	
           ; created token=17-08-10_16-17
-	if(InStr(activeTitle, "token=17-08-10_16-17")){
+	if(1 && InStr(activeTitle, "token=17-08-10_16-17")){
 		msg= :( script was to slow with updating the `n action rejacted. reload `n 17-08-10_16-27
 		lll(A_LineNumber, A_LineFile, msg )
 		ToolTip,%msg% 17-08-10_16-33
@@ -414,16 +413,16 @@ maybeSuperglobalActionList(ActionListNEW, ActionListNEW_time_between , ActiveCla
 		Reload
 		return
 	}
-	
-     FileDelete, % "..\ActionLists\" . ActiveClass . "\_create_own_project.flag"
-	
+
+     FileDelete, % "..\ActionLists\" ActiveClass "\_create_own_project.flag"
+
 	contend =
 (
 #Include ..\_globalActionLists\_global.ahk
 #Include ..\%ActiveClass%\_global.ahk
 
 ; #Include ..\_globalActionLists\examplesForBeginners.ahk
-___open window library |rr||ahk|run,%ActionListNEW%
+___open window library |rr||ahk|openInEditor,%ActionListNEW%
 ; if this german au is readable your UTF8 is probalby correct: ä
 
 )

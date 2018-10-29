@@ -1,1 +1,1 @@
-del *.bak
+﻿del *.bak

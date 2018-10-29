@@ -96,7 +96,7 @@ WinChanged(hWinEventHook, event, wchwnd, idObject, idChild, dwEventThread, dwmsE
             if ( g_OldCaretY != CaretYorMouseYfallback() )
             {
             ;   ToolTip,lost focus 17-03-12_16-14
-               CloseListBox()
+               CloseListBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
             }
          }
       }
@@ -290,7 +290,7 @@ GetIncludedActiveWindowGuts() {
       CheckForCaretMove("LButton")
       ShowListBox()
    } else
-      CloseListBox()
+      CloseListBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
    g_Active_Id :=  ActiveId
    g_Active_Pid := ActivePid
    g_Active_Process := ActiveProcess

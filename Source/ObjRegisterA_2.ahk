@@ -1,4 +1,4 @@
-#Include *i %A_ScriptDir%\inc_ahk\init_global.init.inc.ahk
+﻿#Include *i %A_ScriptDir%\inc_ahk\init_global.init.inc.ahk
 
 NewAHKScript("ObjRegisterActive", "SomeCode", "Lexikos")				; no license/terms of use --> "Maximum protection (set by the state)" applies
 NewAHKScript("ObjRegisterActive", "SomeCode", "Lexikos", "WTFPL")		; WTFPL  --> "WTFPL" applies

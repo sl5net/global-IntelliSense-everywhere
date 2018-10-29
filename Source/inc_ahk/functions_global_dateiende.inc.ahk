@@ -102,6 +102,7 @@ UPDATEDSCRIPTfunctions_global:
     SplashTextOn,,,Updated functions_global,
     Sleep,500
     SplashTextOff,Updated functions_global
+    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, Reload , % A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
     Reload      ; Script wird neu geladen,neu ausgefï¿½hrt
   }
   ModiTime_functions_global_OLD := ModiTime_functions_global
@@ -129,6 +130,7 @@ UPDATEDSCRIPTfunctions_global_dateiende:
     SplashTextOn,,,Updated functions_global_dateiende,
     Sleep,500
     SplashTextOff,Updated functions_global_dateiende
+    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, Reload , % A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
     Reload      ; Script wird neu geladen,neu ausgefï¿½hrt
   }
   ModiTime_functions_global_dateiende_OLD := ModiTime_functions_global_dateiende

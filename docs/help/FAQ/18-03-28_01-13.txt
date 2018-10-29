@@ -1,4 +1,4 @@
-f: I looked at the video (about a third of it, but I could not really understand it).
+﻿f: I looked at the video (about a third of it, but I could not really understand it).
 a: In the video, I think the end is especially interesting. maybe you should watch it from the back. If you do not understand the end, you should look further ahead. It is quite a long time, I think.
 
 f: There must be some walkthroughs. TextBaustein. AutoText.
@@ -43,8 +43,8 @@ Currently I am working intensively on the acceleration of the database. The nigh
 f: Ich habe mir das Video angeschaut (ca. ein Drittel davon, aber ich konnte es nicht wirklich nachvollziehen).
 a: Bei dem Video ist glaube ich vor allem das Ende interessant. vielleicht sollte man es von hinten anschauen. Wenn man das Ende nicht versteht, sollte man es weiter vorne an schauen. Es ist doch ziemlich lange finde ich.
 
-f: Es müssen exemplarischen Vorgehensweisen gezeigt werden. Textbausteinverwaltung. Autotext.
-a: Ja guter Gedanke. Ich glaube ich sollte eher von Actions reden. Eine Action die ausgelöst wird über Tastatureingaben. Kontextspezifisch.
+f: Es mÃ¼ssen exemplarischen Vorgehensweisen gezeigt werden. Textbausteinverwaltung. Autotext.
+a: Ja guter Gedanke. Ich glaube ich sollte eher von Actions reden. Eine Action die ausgelÃ¶st wird Ã¼ber Tastatureingaben. Kontextspezifisch.
 Zur Vorgehensweise:
 Sie ist eigentlich immer gleich.
 Du hast es auch schon richtig gemacht wenn ich deinen Text von dem Forum richtig verstanden habe.
@@ -54,9 +54,9 @@ f: Ich kann keinen einzigen Eintrag erstellen. Ich kann kein benanntes Projekt e
 a:
 Projekt erstellen:
 Vereinfacht gesagt besteht ein Projekt immer aus einem Ordner und einer (mindestens einer) Textdatei.
-Ich verwnde den Begriff Projekt eientlich nicht. Ich sprach bisher eher von Wortlisten. Wortlisten die mit Actions gefüllt sind. Aber es stimmt. Diesse stecken in einem Ordner, den man vielleicht auch Projekt nennen könnte. Oder vielleicht Bundle.
+Ich verwnde den Begriff Projekt eientlich nicht. Ich sprach bisher eher von Wortlisten. Wortlisten die mit Actions gefÃ¼llt sind. Aber es stimmt. Diesse stecken in einem Ordner, den man vielleicht auch Projekt nennen kÃ¶nnte. Oder vielleicht Bundle.
 
-Beides (Ordner und Datei) sllte automatisch erstellt werden, wenn man diese Unterstriche drückt und dann die 1. Dass kennst du ja schon.
+Beides (Ordner und Datei) sllte automatisch erstellt werden, wenn man diese Unterstriche drÃ¼ckt und dann die 1. Dass kennst du ja schon.
 
 Nun dazu wie man einen Eintrag erstellt. Oder anders gesagt: Wie man eine Action erstellt.
 
@@ -65,18 +65,18 @@ Ich denke damit sollte man erst einmal beginnen. So gibt es ein schnelles Erfolg
 
 f: Beispiel zu  | r | und | rr | .
 a: Es gibt Beispiele zu r und rr.
-r ist eine einfache Ersetzung ohne die Möglichkeit zu pogrammieren.
+r ist eine einfache Ersetzung ohne die MÃ¶glichkeit zu pogrammieren.
 Bei rr kann man programmieren. Dazu nicht mehr am Anfang, an dieser Stelle.
 
-f: Wenn ich "__" in Notepad eingebe, scheint es, einen Eintrag zu generieren, der Editor öffnet sich, und generiert ein Token.
-a: Ja dieses "__" funktioniert eben überall (sollte es).
-Das Token ist nur temporär wichtig. Das kann man auch sofoft wieder löschen. Sollte eigentlich automatisch gelöscht werden. In einer späteren Version wird das sicher einfacher werden.
+f: Wenn ich "__" in Notepad eingebe, scheint es, einen Eintrag zu generieren, der Editor Ã¶ffnet sich, und generiert ein Token.
+a: Ja dieses "__" funktioniert eben Ã¼berall (sollte es).
+Das Token ist nur temporÃ¤r wichtig. Das kann man auch sofoft wieder lÃ¶schen. Sollte eigentlich automatisch gelÃ¶scht werden. In einer spÃ¤teren Version wird das sicher einfacher werden.
 
-f: Wirklich, wirklich hilfreich wäre ein SHORT-Video. Wie man einen einzelnen Eintrag erstellt. 
-a: Danke für den Tipp zudem Kurz-Video. Verstehe. Ein kleines kurzes Video zu einer einzigen Frage.
+f: Wirklich, wirklich hilfreich wÃ¤re ein SHORT-Video. Wie man einen einzelnen Eintrag erstellt. 
+a: Danke fÃ¼r den Tipp zudem Kurz-Video. Verstehe. Ein kleines kurzes Video zu einer einzigen Frage.
 
-f: Ein Fehlerbericht: Beim Beenden wird nur eines der beiden Scripte beendet. Der andere muss vom Task-Manager gelöscht werden.
-a: Danke für den Fehlerbericht das muss auch noch irgendwie besser werden demnächst.
+f: Ein Fehlerbericht: Beim Beenden wird nur eines der beiden Scripte beendet. Der andere muss vom Task-Manager gelÃ¶scht werden.
+a: Danke fÃ¼r den Fehlerbericht das muss auch noch irgendwie besser werden demnÃ¤chst.
 Aktuell arbeite ich intensiv an der Beschleunigung der Datenbank. Die nightly Version ist aktuell schneller (anderes Repository].
 
 
@@ -100,17 +100,17 @@ Aktuell arbeite ich intensiv an der Beschleunigung der Datenbank. Die nightly Ve
 
 
 
-Hi, das klingt interessant. Ich muss es aber tatsächlich für mich arbeiten lassen.
+Hi, das klingt interessant. Ich muss es aber tatsÃ¤chlich fÃ¼r mich arbeiten lassen.
 Ich habe mir das Video angeschaut (ca. ein Drittel davon, aber ich konnte es nicht wirklich nachvollziehen), lies alle Anweisungen (auch die sind in deutscher Sprache sind.) Vollkommen gelungen. : Rolle:: x
 
-Meiner Meinung nach müssen die Anweisungen detailliert sein, es müssen exemplarischen Vorgehensweisen und keine Kenntnisse seitens des Benutzers vorausgesetzt werden. For the mosts least is textbausteinverwaltung. Autotext, aber weiteres Sollte man nicht erwarten :)
+Meiner Meinung nach mÃ¼ssen die Anweisungen detailliert sein, es mÃ¼ssen exemplarischen Vorgehensweisen und keine Kenntnisse seitens des Benutzers vorausgesetzt werden. For the mosts least is textbausteinverwaltung. Autotext, aber weiteres Sollte man nicht erwarten :)
 
 Ich kann keinen einzigen Eintrag erstellen. Ich kann kein benanntes Projekt erstellen.
 
-Alle Einträge, die ich versuche zu erstellen, enden mit einem ChromeWidget-Ordner unter dem Startordner, aber es ist nichts, was darin nützlich wäre. Es gibt keine Option zum Benennen des Projekts und keine Möglichkeit, die darin enthaltenen Einträge über das Skript selbst zu bearbeiten.
+Alle EintrÃ¤ge, die ich versuche zu erstellen, enden mit einem ChromeWidget-Ordner unter dem Startordner, aber es ist nichts, was darin nÃ¼tzlich wÃ¤re. Es gibt keine Option zum Benennen des Projekts und keine MÃ¶glichkeit, die darin enthaltenen EintrÃ¤ge Ã¼ber das Skript selbst zu bearbeiten.
 
 Die Unterscheidung zwischen | r | und | rr | muss klar gemacht werden - es sollte ein Beispiel geben, das den Unterschied zeigt.
 
-Wenn Sie "__" in Notepad (Not Notepad ++) eingeben, scheint es, einen Eintrag zu generieren, der Editor öffnet, und generiert ein Token, das nicht erläutert wird (nicht seine Verwendung, noch wo es in der Ordner-Hierarchie angezeigt werden soll).
+Wenn Sie "__" in Notepad (Not Notepad ++) eingeben, scheint es, einen Eintrag zu generieren, der Editor Ã¶ffnet, und generiert ein Token, das nicht erlÃ¤utert wird (nicht seine Verwendung, noch wo es in der Ordner-Hierarchie angezeigt werden soll).
 
-Die Eingabe von "__" auf dem Desktop führt zu allen Arten von Chaos - Einträgen, die mit Dingen erstellt werden, die ich nicht ausführen wollte. Und alles, was ich tat, war die Nummer drücken.
+Die Eingabe von "__" auf dem Desktop fÃ¼hrt zu allen Arten von Chaos - EintrÃ¤gen, die mit Dingen erstellt werden, die ich nicht ausfÃ¼hren wollte. Und alles, was ich tat, war die Nummer drÃ¼cken.

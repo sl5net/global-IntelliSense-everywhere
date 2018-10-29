@@ -2,9 +2,28 @@
 
 **/_create_own_project.flag
 
+Settings.xml
 
 # ActionLists/ChromeWidgetWin1
-# ActionLists/*
+ActionLists/*
+AHK-Studio/*
+AutoGUI/*
+BACKUP*/*
+**/*backup*
+Source -*/*
+**/*.ini
+**/*.db
+.gitmodules
+.gitignore
+**/created token*.*
+**/*.txt
+Source/icon/*
+Source/plugins/*
+Source/_global
+Source/Could not close the previous instance of this script_autoCloser.ahk
+
+
+
 ActionLists/ChromeWidgetWin1/*Suche_Google_Chrome.txt*
 ActionLists/**/privat*
 ActionLists/**/*privat
@@ -114,8 +133,28 @@ ActionLists/_globalActionLists/*Threema*
 ActionLists/_globalActionLists/*Bewerbung*
 ActionLists/_globalActionLists/*PDF*
 ActionLists/_globalActionLists/*eyeVis*
-ActionLists/_globalActionLists/**/*ActionList AHK*
-ActionLists/_globalActionLists/**/*chats*
+# ActionLists/_globalActionLists/**/*ActionList AHK*
+# ActionLists/_globalActionLists/**/*chats*
+
+
+# Allow
+!ActionLists/activeClassManipulation.inc.ahk
+!ActionLists/_global.ahk
+!ActionLists/ActionListNameFilter.inc.ahk
+!ActionLists/_globalActionLists/_global.ahk
+!ActionLists/_globalActionLists/AutoHotkey_Community.ahk
+!ActionLists/_globalActionLists/Markdown_Quick_Reference.ahk
+!ActionLists/_globalActionLists/gmail_search.ahk
+!ActionLists/_globalActionLists/ActionListNameFilter.inc.ahk
+!ActionLists/_globalActionListsGenerated/_global.ahk
+!ActionLists/_globalActionListsGenerated/_ahk_global.ahk
+!ActionLists/_globalActionListsGenerated/isNotAProject.ahk
+!ActionLists/_globalActionListsGenerated/ActionListNameFilter.inc.ahk
+# !static/css/main.css
+# !static/css/font-*.css
+# !static/font/*
+# !static/media/default.png
+# !static/robots.txt
 
 
 **/Source/**/temp*
@@ -127,6 +166,8 @@ ActionLists/_globalActionLists/**/*chats*
 
 **/*.status.txt
 **/[0-9]*
+**\\*.ahk.bak
+**\\*.inc.ahk.bak
 **/*.ahk.bak
 **/*.inc.ahk.bak
 **/*.bak

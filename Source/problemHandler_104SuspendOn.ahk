@@ -1,7 +1,7 @@
 ﻿; Indentation_style: https://de.wikipedia.org/wiki/EinrÃ¼ckungsstil#SL5small-Stil
 #SingleInstance,force
 
-FileRead,TypingAidContentStatus, TypingAid_programmCounter_LineAndTime.txt
+FileRead,gi-everywhereContentStatus, gi-everywhere_programmCounter_LineAndTime.txt
 
 loop,9999
 {
@@ -19,14 +19,14 @@ Msgbox,ist not moving since %secondsProgrammIsNotMoving% sec :-( `n (%A_LineFile
 
    if(false){
       DetectHiddenWindows,On
-      WinWait, TypingAid - Active wait4sec
-      IfWinExist, TypingAid - Active wait4sec
+      WinWait, gi-everywhere - Active wait4sec
+      IfWinExist, gi-everywhere - Active wait4sec
       {
-         WinClose, TypingAid - Active wait4sec
-         RunWait,TypingAid.ahk
+         WinClose, gi-everywhere - Active wait4sec
+         RunWait,gi-everywhere.ahk
       }
    }
-      ; WinClose, TypingAid - active
+      ; WinClose, gi-everywhere - active
 }
 
 

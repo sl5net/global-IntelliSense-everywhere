@@ -1,18 +1,18 @@
-#Include ..\ statt #Include ..\Wordlists  
+﻿#Include ..\ statt #Include ..\ActionLists
 
-Für eine bessere Benutzerfreundlichkeit in deinem Lieblingstexteditor, 
+FÃ¼r eine bessere Benutzerfreundlichkeit in deinem Lieblingstexteditor, 
 wird von andern Listen nun folgendermasen geerbt:
 #Include ..\ActiveClass\WinTitel.txt
 nicht mehr
-#Include ..\Wordlists\ActiveClass\WinTitel.txt
-Damit kannst du nun aus notepad++ ganz einfach über das 
-Kontextmenü die Datei unter dem kurser öffnen (
-Kontextmenü und Date D bzw. F bei englischer Tastatur) öffnen.
+#Include ..\ActionLists\ActiveClass\WinTitel.txt
+Damit kannst du nun aus notepad++ ganz einfach Ã¼ber das 
+KontextmenÃ¼ die Datei unter dem kurser Ã¶ffnen (
+KontextmenÃ¼ und Date D bzw. F bei englischer Tastatur) Ã¶ffnen.
 Vielleicht kann dein Texteditor das auch durch einen 
 Doppelklick auf die Dateiadresse.
 Damit ist jedoch eine kleine Inkonsistenz erzeugt, weil:
-Weiterhin gilt als Basisadresse (Root-Ordner) für die Scritpte Source Ordner. 
-Beispiel zum ausführen eine Datei (bzw. hier auch öffnen):
+Weiterhin gilt als Basisadresse (Root-Ordner) fÃ¼r die Scritpte Source Ordner. 
+Beispiel zum ausfÃ¼hren eine Datei (bzw. hier auch Ã¶ffnen):
 run,..\Notepad\_global.txt
 also nicht
 run,..\Notepad\_global.txt
@@ -23,7 +23,7 @@ For better usability in your favorite text editor,
 other lists now inherit as follows:
 #Include .. \ ActiveClass \ WinTitel.txt
 not anymore
-#Include .. \ Wordlists \ ActiveClass \ WinTitel.txt
+#Include .. \ ActionLists \ ActiveClass \ WinTitel.txt
 Now you can easily open the file from the notepad ++ 
 via the context menu under the cursor 
 (context menu and Date D or F on English keyboard).

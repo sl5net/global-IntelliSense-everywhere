@@ -59,17 +59,17 @@ class DataBaseSQLLite extends DBA.DataBase
 	
 	
    ErrMsg() {
-      if (RC := DllCall("SQLite3\sqlite3_errmsg", "UInt", this._handleDB, "Cdecl UInt"))
+      if (RC := DllCall("sqlite3\sqlite3_errmsg", "UInt", this._handleDB, "Cdecl UInt"))
          return StrGet(RC, "UTF-8")
       return ""
    }
 
    ErrCode() {
-      return DllCall("SQLite3\sqlite3_errcode", "UInt", this._handleDB, "Cdecl UInt")
+      return DllCall("sqlite3\sqlite3_errcode", "UInt", this._handleDB, "Cdecl UInt")
    }
 
    Changes() {
-      return DllCall("SQLite3\sqlite3_changes", "UInt", this._handleDB, "Cdecl UInt")
+      return DllCall("sqlite3\sqlite3_changes", "UInt", this._handleDB, "Cdecl UInt")
    }
 	
 	
@@ -246,7 +246,7 @@ class DataBaseSQLLite extends DBA.DataBase
 		Err := 0
 		
 		_SQLite_StrToUTF8(SQL, UTF8)
-		RC := DllCall("SQlite3\sqlite3_get_table", "Ptr", dbh, "Ptr", &UTF8, "Ptr*", mytable
+		RC := DllCall("sqlite3\sqlite3_get_table", "Ptr", dbh, "Ptr", &UTF8, "Ptr*", mytable
 				   , "Ptr*", rows, "Ptr*", cols, "Ptr*", err, "Cdecl Int")
 				   
 		If (ErrorLevel) {
@@ -255,7 +255,7 @@ class DataBaseSQLLite extends DBA.DataBase
 		}
 		If (rc) {
 		  SQLite_LastError(StrGet(err, "UTF-8"))
-		  DllCall("SQLite3\sqlite3_free", "Ptr", err, "cdecl")
+		  DllCall("sqlite3\sqlite3_free", "Ptr", err, "cdecl")
 		  ErrorLevel := rc
 		  return false
 		}

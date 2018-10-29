@@ -30,7 +30,7 @@ ActionList := RegExReplace(ActionList,"^\.\\")  ; works. removes all symbolic li
 
 RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList, % ActionList
 RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionListActive, % ActionList
-RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionListDir, E:\fre\private\HtmlDevelop\AutoHotKey\tools\TypingAid-master\Source\
+RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionListDir, E:\fre\private\HtmlDevelop\AutoHotKey\tools\gi-everywhere-master\Source\
 RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionListNEW, ActionList.ahk
 ExitApp 
 

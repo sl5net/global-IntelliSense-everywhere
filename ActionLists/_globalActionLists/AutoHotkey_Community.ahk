@@ -1,5 +1,7 @@
-﻿___your library open|rr||ahk|run,AutoHotkey_Community.ahk
+﻿___your library open|rr||ahk|openInEditor,AutoHotkey_Community.ahk
 ; if this german au is readable your UTF8 is probalby correct: ä
+
+Please more details, e.g. your previous source code
 
 ; Send,using implicit variably "it" 
 Greetings|rr||ahk|(
@@ -34,7 +36,6 @@ s =
 )
 Clipboard := s
 send, ^v
-
 
 quote|rr||ahk|
 ClipboardBackup := Clipboard
@@ -71,6 +72,7 @@ send, ^v
 
 
 
+
 img image|rr||ahk|
 sting = 
 (
@@ -104,8 +106,8 @@ send, ^v
 
 url|rr|[url=]title[/url]|ahk|send,{left 12}{text}%clipboard% `n send,{CtrlDown}{ShiftDown}{Left}{ShiftUp}{CtrlUp}
 
-TypingAid Command line arg to Start with specific wordList
-TypingAid keyboard hotkey to quickly switch word lists = ^!+t|r|[url=https://github.com/ManiacDC/TypingAid/issues/32]TypingAid keyboard hotkey to quickly switch word lists = ^!+t[/url]
+gi-everywhere Command line arg to Start with specific wordList
+gi-everywhere keyboard hotkey to quickly switch word lists = ^!+t|r|[url=https://github.com/ManiacDC/gi-everywhere/issues/32]gi-everywhere keyboard hotkey to quickly switch word lists = ^!+t[/url]
 
 
 AHK-Studio|r|[url=https://github.com/maestrith/AHK-Studio]AHK-Studio[/url]

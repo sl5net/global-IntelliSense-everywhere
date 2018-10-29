@@ -1,15 +1,16 @@
 ﻿; These functions and labels are related maintenance of the ActionList
 
 
-
+;
 
 setTrayIcon(status := "loaded" ){
     if(status == "RecomputeMatches" ){
-        Menu, Tray, Icon, shell32.dll, 266 ; pretty black clock
+       Menu, Tray, Icon, shell32.dll, 240 ; pretty green clock
         return
     }
     if(status <> "loaded" ){
-        Menu, Tray, Icon, shell32.dll, 44 ; star
+        Menu, Tray, Icon, shell32.dll, 266 ; pretty black clock
+    ;  Menu, Tray, Icon, shell32.dll, 44 ; star
         return
     }
     ScriptNameLetter2 := SubStr(A_ScriptName, 1 , 2)
@@ -22,25 +23,44 @@ setTrayIcon(status := "loaded" ){
 ;<<<<<<<<<<<<<< ReadActionList <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ;<<<<<<<<<<<<<< ReadActionList <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ;<<<<<<<<<<<<<< ReadActionList <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-ReadActionList(){
-
+;/¯¯¯¯ ReadActionList ¯¯ 181028133202 ¯¯ 28.10.2018 13:32:02 ¯¯\
+ReadActionList( calledFromStr ){
 	global g_LegacyLearnedWords
 	global g_ScriptTitle
 	global g_ActionListDone
 	global g_ActionListDB
 	global ActionList
 	global g_ActionListID
+	global g_ActionListDBfileAdress
 
 	global g_config
     ; msgBox,% g_config["FuzzySearch"]["keysMAXperEntry"] "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
 
 	; global g_config ; ["FuzzySearch"]["enable"]
 
+    ;/¯¯¯¯ \.ahk ¯¯ 181025172431 ¯¯ 25.10.2018 17:24:31 ¯¯\
+    if(	InStr( ActionList, "\.ahk")){ ; without file name is bullshit 25.10.2018 17:18 ; Please check outside
+        log =
+        (
+        Oops: InStr( ActionList, "\.ahk")
+        This may happen for example with Java applications. JetBrains IDE Search Window or so.
+        A_ThisFunc = %A_ThisFunc%
+        Log:
+        ActionListNewTemp_withoutExt[30 of 259]: ..\ActionLists\AutoHotkey\.ahk
+        ActionListOLD[33 of 63]: ..\ActionLists\noName\Cortana.ahk
+        )
+        log .= "`n (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+        if(1 && InStr(A_ComputerName,"SL5"))
+            feedbackMsgBox(RegExReplace(A_LineFile,".*\\") ">" A_LineNumber, log )
+            ;msgBox,% log " ==> RETURN `n (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+    }
+    ;\____ \.ahk __ 181025172444 __ 25.10.2018 17:24:44 __/
+
     setTrayIcon(status := "isLoading" )
+    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, % A_ThisFunc , % calledFromStr
 
 
     INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
-
 
 	ParseWordsCount :=0
    ;mark the ActionList as not done
@@ -89,7 +109,7 @@ ReadActionList(){
 ;msgbox,ActionList = %ActionList% `n (%A_LineFile%~%A_LineNumber%)
 
 
-	g_ActionListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", A_ScriptDir . "\ActionListLearned.db" ) ; https://autohotkey.com/board/topic/86457-dba-16-easy-database-access-mysql-sqlite-ado-ms-sql-access/
+	g_ActionListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", g_ActionListDBfileAdress ) ; https://autohotkey.com/board/topic/86457-dba-16-easy-database-access-mysql-sqlite-ado-ms-sql-access/
 ; END of: Section wait for unsolved error messages. to close them unsolved :D 02.04.2017 14:36 17-04-02_14-36 todo: dirty bugfix
 
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -113,11 +133,11 @@ ERROR: Invalid database handle 10222256 Return Code: 1
 02.04.2017 14:06 , 17-04-02_14-06
 Cannot Create Words Table - fatal error: 5 - database is locked
 OK
-==> there was two TypingAid runniing. how could thats be?
+==> there was two gi-everywhere runniing. how could thats be?
 )
 
 ; How to test if file is_writable and not locked by another program ??
-; FileGetAttrib, OutputVar, A_ScriptDir . "\ActionListLearned.db"
+; FileGetAttrib, OutputVar, g_ActionListDBfileAdress
 ; clipboard := g_ActionListDB
 	if(g_ActionListDB)
 		g_ActionListDB.Query("PRAGMA journal_mode = TRUNCATE;")
@@ -167,15 +187,23 @@ from: ActionList.ahk~%A_LineNumber%
 	msg =
 	(
 	ActionList = %ActionList%
+	activeTitle = '%activeTitle%'
 	isTblWordsEmpty = %isTblWordsEmpty%
 	DatabaseRebuilt = %DatabaseRebuilt%
 	)
-	ToolTip4sec(msg "`n" A_LineNumber . " " . RegExReplace(A_LineFile, ".*\\", "")  )
+        if(1 && InStr(A_ComputerName,"SL5") && activeTitle == "isNotAProject")
+            ToolTip4sec(msg "`n" A_LineNumber . " " . RegExReplace(A_LineFile, ".*\\", "")  )
 	if (!isTblWordsEmpty && !DatabaseRebuilt) {
-    ; thats inside ReadActionList() ---------------------------------------------
+    ; thats inside ReadActionList(calledFromStr) ---------------------------------------------
+
+
+
+CoordMode, ToolTip,Screen
 
 		SELECT := "SELECT ActionListmodified, ActionListsize FROM ActionLists WHERE ActionList = '" . ActionList . "';"
-    	ToolTip4sec(msg "`n`n" SELECT "`n" A_LineNumber . " " . RegExReplace(A_LineFile, ".*\\", "")  )
+        if(1 && InStr(A_ComputerName,"SL5") && activeTitle == "isNotAProject")
+                ToolTip4sec(msg "`n`n" SELECT "`n" A_LineNumber . " " . RegExReplace(A_LineFile, ".*\\", ""),1,1  )
+            ;ifwinactive,ahk_class SunAwtFrame
 		LearnedWordsTable := g_ActionListDB.Query(SELECT)
 
 		LoadActionList := "Insert"
@@ -185,14 +213,32 @@ from: ActionList.ahk~%A_LineNumber%
 			ActionListLastModified := row[1]
 			ActionListLastSize := row[2]
 
-			if (isTblWordsEmpty || ActionListSize != ActionListLastSize || ActionListModified != ActionListLastModified) {
+            diffSize := Abs(ActionListSize - ActionListLastSize)
+            ;diffModified := Abs(ActionListModified - ActionListLastModified) ; <==== acnt diff timestams this way todo:
+            ;diffModified := ActionListModified - ActionListLastModified ; <==== acnt diff timestams this way todo:
+            isModified := (ActionListModified <> ActionListLastModified)
+            tooltip,isModified=%isModified% `n diffModified := %diffModified% := %ActionListModified% - %ActionListLastModified%
+            if(!ActionListModified && !ActionListLastModified)
+                msgbox,18-10-28_13-43
+			if (isTblWordsEmpty || diffSize || isModified) {
 				LoadActionList := "Update" ; updated?
             ;Msgbox,%ActionList% = ActionList `n LoadActionList = "%LoadActionList%"`n source TXT has changed. update database next. `n (%A_LineFile%~%A_LineNumber%)
-				tip = LoadActionList = "%LoadActionList%"`n source ahk has changed. update database next. `n %ActionList% `n (%A_LineFile%~%A_LineNumber%)
+				tip =
+				(
+				LoadActionList = "%LoadActionList%"
+				source has changed.
+				%ActionList% = ActionList
+				%isTblWordsEmpty% = isTblWordsEmpty
+				%diffModified%    = diffModified
+				%diffSize%        = diffSize
+				==> update database next.
+				(%A_LineFile%~%A_LineNumber%)
+				)
 				tooltip,% tip
 				lll(A_LineNumber, A_LineFile, tip)
 				CleanupActionListAll_ofLittleWordCount() ; i dont konw what for that is. try it without 18-10-06_21-40
 			} else {
+
 				LoadActionList =
 				CleanupActionListAll_ofLittleWordCount(true) ; i dont konw what for that is. try it without 18-10-06_21-40
 			}
@@ -200,7 +246,7 @@ from: ActionList.ahk~%A_LineNumber%
 	} else {
 		LoadActionList := "Insert"
 	}
-
+; msgbox,% LoadActionList "= LoadActionList(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
 
 	if (LoadActionList) {
       ; Progress, M, Please wait..., Loading ActionList, %g_ScriptTitle%
@@ -276,6 +322,7 @@ from: ActionList.ahk~%A_LineNumber%
 			}
 			IfEqual, A_LoopField, `;LEARNEDWORDS`;
 			{
+                MsgBox,% "never uses if Block? delete if block??? 27.10.2018 : " A_LoopField "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
 
 
                 if(1 && InStr(A_ComputerName,"SL5"))
@@ -391,6 +438,9 @@ from: ActionList.ahk~%A_LineNumber%
                     }
                 }
 
+
+                ; MsgBox,262208,% "found:" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ,% ":-) found: " A_LoopField "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")" ; info icon, always on top
+
 				if(!AddWordToList(ALoopField,0,"ForceLearn",LearnedWordsCount, isIndexedAhkBlock)){
 				    ; set to defaults:
                     doCollectAhkBlock := false
@@ -406,7 +456,7 @@ from: ActionList.ahk~%A_LineNumber%
 					addFuzzySearch_in_generatedList(ALoopField, ActionList,LearnedWordsCount,g_config["FuzzySearch"]["keysMAXperEntry"],g_config["FuzzySearch"]["minKeysLen"])
 				;     AddWordToList("rübennase" A_now,1,"ForceLearn", g_config["FuzzySearch"]["keysMAXperEntry"],g_config["FuzzySearch"]["minKeysLen"], g_config["FuzzySearch"]["doValueCopy"])
 
-			} ; end of never used?? else blokc
+			} ; EndOf ELSE-Block massive used
 
             ; msgBox,% " inside loop :" ALoopField " (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
 		} ; ENDof Loop
@@ -430,9 +480,25 @@ from: ActionList.ahk~%A_LineNumber%
       ;Progress, Off
 
 
-		if (LoadActionList == "Update") {
+		if ( LoadActionList == "Update") {
 			UPDATE := "UPDATE ActionLists SET ActionListmodified = '" . ActionListModified . "', ActionListsize = '" . ActionListSize . "' WHERE ActionList = '" . ActionList . "';"
-			g_ActionListDB.Query(UPDATE)
+				try{
+        			g_ActionListDB.Query(UPDATE)
+            	} catch e{
+            		tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
+            		sqlLastError := SQLite_LastError()
+            		tip .= "`n sqlLastError=" sqlLastError "`n sql=" UPDATE " `n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
+            		lll(A_LineNumber, A_LineFile, tip)
+            		tooltip, `% tip
+            		feedbackMsgBox(RegExReplace(A_LineFile,".*\\") ">" . A_LineNumber, tip )
+            		Clipboard := tip
+            		msgbox, % tip
+            	}
+
+    ; msgb msgbo tpp tool1 tool tooTip2sec(A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
+
+			; msgbox,% "(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
+
         ;Msgbox, %UPDATE%  (line:%A_LineNumber%)
 		} else {
          ;g_ActionListDB.Query("INSERT INTO ActionLists (ActionList, ActionListmodified, ActionListsize) VALUES ('" . ActionList . "','" . ActionListModified . "','" . ActionListSize . "');")
@@ -470,7 +536,7 @@ from: ActionList.ahk~%A_LineNumber%
 			Return ParseWordsCount
 		}else
 			FileRead, ParseWords, %ActionListLearnedTXTaddress%
-; -- here we are inside ReadActionList()
+; -- here we are inside ReadActionList(calledFromStr)
 		if(InStr(A_ComputerName,"SL5"))
 			DynaRun("#" . "NoTrayIcon `n" . "loop,20 `n { `n Tooltip,read ActionListLearnedTXTaddress``n" ActionListLearnedTXTaddress "``n (" RegExReplace(A_LineFile,".*\\") ">" A_LineNumber ") `n Sleep,2000 `n }  ")
 		else
@@ -505,7 +571,7 @@ from: ActionList.ahk~%A_LineNumber%
 
 ;      Progress, 50, Please wait..., Converting learned words, %g_ScriptTitle%
 
-; -- here we are inside ReadActionList()
+; -- here we are inside ReadActionList(calledFromStr)
 
 
       ;reverse the numbers of the word counts in memory
@@ -782,10 +848,10 @@ AddWordToList(AddWord,ForceCountNewOnly,ForceLearn:= false, ByRef LearnedWordsCo
 		}
 	}
 
-    if(!CheckValid(AddWord,ForceLearn, isIndexedAhkBlock))
+    if(!CheckValid(AddWord,ForceLearn, isIndexedAhkBlock)){
 		return false
-    ; msgBox,% "is valid: " AddWord "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
-
+    }
+        ; msgBox,% "is valid: " AddWord "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
    ; TransformWord normalizes the word, converting it to uppercase and removing certain accented characters.
 	TransformWord(AddWord, AddWordReplacement, AddWordDescription, AddWordTransformed, AddWordIndexTransformed, AddWordReplacementTransformed, AddWordDescriptionTransformed)
 
@@ -1128,10 +1194,11 @@ StrUnmark(string) {
 getActionListID(ActionList){
 
 	global g_ActionListDB
+	global g_ActionListDBfileAdress
 	global g_ActionList_UsedByUser_since_midnight
     INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 	if(!g_ActionListDB)
-		g_ActionListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", A_ScriptDir . "\ActionListLearned.db" ) ;
+		g_ActionListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", g_ActionListDBfileAdress ) ;
 	if(!g_ActionListDB){
         msgbox,% "!g_ActionListDB`n `n (" . A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\") ")"
     }
@@ -1250,8 +1317,9 @@ if(A_TickCount - g_StartTime_TickCountMilli > 900 ){ ; its ok if happens at the 
 INSERT_INTO_ActionLists_ifNotExist(ActionList, ActionListModified, ActionListSize ){
 
 	global g_ActionListDB
+	global g_ActionListDBfileAdress
 	if(!g_ActionListDB)
-		g_ActionListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", A_ScriptDir . "\ActionListLearned.db" ) ;
+		g_ActionListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", g_ActionListDBfileAdress ) ;
 	ActionListID := getActionListID(ActionList) ; 24.03.2018 23:02
 	if(ActionListID){
 		tip=Oops ActionListID already exist `n ActionListID = %ActionListID% `n ActionList=%ActionList% `n  27.03.2018 22:37
@@ -1263,12 +1331,13 @@ INSERT_INTO_ActionLists_ifNotExist(ActionList, ActionListModified, ActionListSiz
 INSERT_INTO_ActionLists(ActionList, ActionListModified, ActionListSize ){
 
 	global g_ActionListDB
+	global g_ActionListDBfileAdress
     INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 	sql := "INSERT INTO ActionLists "
 	sql .= " (id, ActionList, ActionListmodified, ActionListsize) VALUES "
 	sql .= " (null, '" ActionList "', '" ActionListModified "', '" ActionListSize "' );"
 	if(!g_ActionListDB)
-		g_ActionListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", A_ScriptDir . "\ActionListLearned.db" ) ;
+		g_ActionListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", g_ActionListDBfileAdress ) ;
 	try{
 		g_ActionListDB.Query(sql)
 	} catch e{
