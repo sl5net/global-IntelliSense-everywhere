@@ -1393,6 +1393,34 @@ setSearchAreaToWinTitleArea(winTitle){
 }
 ;>>>>>>>> setSearchAreaToWinTitleArea >>>> 171024094739 >>>> 24.10.2017 09:47:39 >>>>
 
+DynaRunFROMAhkSudio(Script,Wait:=true,name:="Untitled"){
+	static exec,started,filename
+	if(!IsObject(v.Running))
+		v.Running:=[]
+	filename:=name,MainWin.Size(),exec.Terminate()
+	if(Script~="i)m(.*)\{"=0)
+		Script.="`n" "m(x*){`nfor a,b in x`nlist.=b Chr(10)`nMsgBox,,AHK Studio,% list`n}"
+	if(Script~="i)t(.*)\{"=0)
+		Script.="`n" "t(x*){`nfor a,b in x`nlist.=b Chr(10)`nToolTip,% list`n}"
+	shell:=ComObjCreate("WScript.Shell"),exec:=shell.Exec("AutoHotkey.exe /ErrorStdOut *"),exec.StdIn.Write(Script),exec.StdIn.Close(),started:=A_Now
+	v.Running[Name]:=exec
+	SetTimer,CheckForError,120
+	return
+	CheckForError:
+	Process,Exist,% exec.ProcessID
+	if(!ErrorLevel){
+		if(text:=exec.StdERR.ReadAll()){
+			if(!v.debug.sc)
+				MainWin.DebugWindow()
+			tooltip,% A_ThisFunc ":DynaRun: `nScript Exited, ExitCode: " exec.ExitCode "`n" text
+		}else
+			tooltip,% A_ThisFunc ":DynaRun: Script Exited, ExitCode: "
+		SetTimer,CheckForError,Off
+		return 1
+	}
+	; SetStatus(filename " running. Run-Time: " A_Now-started " Seconds",3)
+	return
+}
 
 ;/¯¯¯¯ DynaRun ¯¯ 181029190515 ¯¯ 29.10.2018 19:05:15 ¯¯\
 DynaRun(TempScript, pipename=""){

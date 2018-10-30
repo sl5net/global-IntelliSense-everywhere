@@ -479,7 +479,18 @@ SetTitleMatchMode,regEx
 RecomputeMatchesTimer:
    Thread, NoTimers
    if(1 && InStr(A_ComputerName,"SL5"))
-       tooltip,% "RecomputeMatchesTimer: (" A_ThisFunc "~" A_LineNumber "~" RegExReplace(A_LineFile,".*\") ")",1,1
+        tooltip,% "RecomputeMatchesTimer: " g_Word "(" StrLen(g_Word) ") (" A_ThisFunc "~" A_LineNumber "~" RegExReplace(A_LineFile,".*\") ")",1,1
+
+    if(!g_reloadIf_ListBox_Id_notExist && StrLen(g_Word) == prefs_Length ){
+        toolTip, % g_Word "(" StrLen(g_Word) ")," prefs_Length "=prefs_Length:" A_LineNumber " " RegExReplace(A_LineFile,".*\\"),1,1
+        ; reload_IfNotExist_ListBoxGui()
+        SetTimer, show_ListBox_Id, 600 ; setinterval ; 28.10.2018 02:39: fallback bugfix workaround help todo:
+        ;Sleep,100
+        g_reloadIf_ListBox_Id_notExist := true
+        ; msgbox,% "g_reloadIf_ListBox_Id_notExist:= true(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
+    }
+
+
    RecomputeMatches(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")) ; RecomputeMatchesTimer:
 Return
 

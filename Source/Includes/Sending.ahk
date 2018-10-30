@@ -510,7 +510,10 @@ UPDATE_ActionList_UsedByUser_since_midnight()
                     }
 
 				}
-                MsgBox,% lineOfIndex " - (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+		    if(1 && InStr(A_ComputerName,"SL5") ){
+                tooltip,% lineOfIndex " - (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+                ; hapens by using a simple replaec like: alsdkasd|rlkjlkj   30.10.2018 22:12
+            }
 
 			}
 			StringLower, mlang, % rX["lang"]

@@ -926,7 +926,9 @@ FileWrite(sayHelloCode, sayHelloFunctionInc){
    Sleep,100
    lll(A_LineNumber, A_LineFile, "FileAppend too " sayHelloFunctionInc)
     ;msgbox,% sayHelloCode
-   FileAppend, % sayHelloCode, % sayHelloFunctionInc
+if(1 && InStr(A_ComputerName,"SL5") )
+   RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, FileAppend , % A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+FileAppend, % sayHelloCode, % sayHelloFunctionInc
    return 1
 }
 mvarInjects(ActionListDir, ActionListNEW, ActiveClass, activeTitle){
@@ -1292,12 +1294,16 @@ if(!ActionListNEWarchivePath){
         FileDelete, %ActionListGeneratedPath%
     Sleep,60
     lll(A_LineNumber, A_LineFile, "FileAppend too " ActionListGeneratedPath)
-    FileAppend,% includeFileSContent, % ActionListGeneratedPath
+if(1 && InStr(A_ComputerName,"SL5") )
+    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, FileAppend , % A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+FileAppend,% includeFileSContent, % ActionListGeneratedPath
     ; Sleep,20
     FileRead, fileContent, %ActionListNEWarchivePath%
     ;Sleep,20
     lll(A_LineNumber, A_LineFile, "FileAppend too " ActionListGeneratedPath)
-    FileAppend,% fileContent, % ActionListGeneratedPath
+if(1 && InStr(A_ComputerName,"SL5") )
+    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, FileAppend , % A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+FileAppend,% fileContent, % ActionListGeneratedPath
     if(false)lll(A_LineNumber, A_LineFile, "SAVED: " . ActionListGeneratedPath)
     Sleep,60
     return

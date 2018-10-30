@@ -791,7 +791,7 @@ sendAeUeLines(t){
   t1 := t
   onlyName := RegExReplace(t, ".*(tstamp_[^\.]+).*","$1")
   lineAe := "helloEurope|r|helloWorld`n"
-  lineAe .= "___open generated|rr||ahk|run," onlyName ".txt._Generated.ahk`n`n"
+  lineAe .= "___open generated|rr||ahk|openInEditor," onlyName ".txt._Generated.ahk`n`n"
   lineAe .= "hi MsgBox|rr||ahk|MsgBox,hi World`n`n"
   lineAe .= "aaaaae|r|" chr(228) "`n"
   lineAe .= "uuuuue|r|" chr(252) "`n" 
