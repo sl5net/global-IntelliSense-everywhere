@@ -224,8 +224,8 @@ ListBoxChooseItem(Row)
 ; tooo tool msgbo too
 
 ;------------------------------------------------------------------------
-; SciTEWindow\_global.txt __SunAwtFrame\.txt
-; __SciTEWindow\_global.txt
+; SciTEWindow\_global.ahk __SunAwtFrame\.txt
+; __SciTEWindow\_global.ahk
 CloseListBox(calledFromStr){
    global g_ListBox_Id
    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, % A_ThisFunc , % calledFromStr

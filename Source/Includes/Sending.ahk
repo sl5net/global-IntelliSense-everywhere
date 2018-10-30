@@ -322,7 +322,7 @@ SendWord(WordIndex){
 ; ein eineins|rr|zwei|ahk|autohotkey source code
 ; eins|rr|zwei|ahk|autohotkey source code
 ; thats great :) here we find the complete line :) inside sending 17.03.2017 18:23 17-03-17_18-23
- ; SciTEWindow\_global.txt
+ ; SciTEWindow\_global.ahk
  ;~ Msgbox,'%WordIndex%' = WordIndex  `n (%A_LineFile%~%A_LineNumber%)
 ; msg = '%sending%' = sending
 ; MsgBox,% msg "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
@@ -340,7 +340,7 @@ SendWord(WordIndex){
 ;global g_Word
 ;Msgbox, % g_Word[2] ; ; i dont know what this is. most of time its emptty . rght? 10.07.2017 14:06
 ;  Msgbox, % g_SingleMatchReplacement[WordIndex] ; thats only the text behind the pipe |
-; ________SciTEWindow\_global.txt
+; ________SciTEWindow\_global.ahk
 ; zwei
 ; Msgbox, '%sending%' = sending  n (line:%A_LineNumber%)  (line:%A_LineNumber%)
 	AHKcode := "" ; AHKcode2 .= ... AHKcode ... so later its in AHKcode2
@@ -593,12 +593,14 @@ UPDATE_ActionList_UsedByUser_since_midnight()
 					if(!line)
 						break
 					ahkBlock .= line "`n"
-            ;ToolTip4sec(line " (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
+        if(1 && InStr(A_ComputerName,"SL5") )
+            ToolTip4sec(line " (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
             ; MsgBox,% id ": " line " rX[key]= " rX["key"] "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
 				}
 				AHKcode := ahkBlock
         ; msg := " ahkBlock = `n `n " ahkBlock
-        ; MsgBox,% "ahkBlock=" ahkBlock  ", lineOfIndex=" lineOfIndex " (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+        if(1 && InStr(A_ComputerName,"SL5") )
+            MsgBox,% "ahkBlock=" ahkBlock  ", lineOfIndex=" lineOfIndex " (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
 			}
     ;\____ ahkBlock __ 181011155154 __ 11.10.2018 15:51:54 __/
 			
@@ -763,6 +765,9 @@ if( RegExMatch( AHKcode , "mPi)\bDynaRun[ ]*\("  ) ) {
 		FileRead,dynaRunFunctionImplementationSource,dynaRunFunctionImplementationSource.inc.ahk
 		AHKcode2 .= dynaRunFunctionImplementationSource  . "`n"
 }
+if( RegExMatch( AHKcode , "mPi)\bSoundBeep[ *\("  ) ) {
+    ToolTip4sec("SoundBeep inside DynaRun is buggy`n not recomandet to use it `n 29.10.2018 14:46 `n" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
+}
 ;>>>>>>>>>> DynaRun >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		
 
@@ -854,7 +859,7 @@ if( RegExMatch( AHKcode , "mPi)\bDynaRun[ ]*\("  ) ) {
 
              ; that fixed the problem, that if i usend ahk ocmmands, they was not triggered without hiting esc-key or so 28.10.2018 15:41
              ; dont move the lie to beigning of fungion beocuse g_Word is deleted.
-             ClearAllVars(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),true)
+             ; ClearAllVars(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),true)
          ;\____ ClearAllVars(A_ThisFunc __ 181028154146 __ 28.10.2018 15:41:46 __/
 
 
@@ -902,7 +907,7 @@ if( RegExMatch( AHKcode , "mPi)\bDynaRun[ ]*\("  ) ) {
    CloseListBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
    DisableWinHook()
    DisableKeyboardHotKeys()
-   g_Word := ""
+   ; g_Word := ""
 
 
 	enableCopyQ() ;

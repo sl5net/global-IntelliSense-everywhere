@@ -157,7 +157,7 @@ maxLinesOfCode4length1 := 900 ;
 
 ; SetTimer, saveIamAllive, 8000 ; setinterval
 SetTimer,checkInRegistryChangedActionListAddress,500 ; RegRead, ActionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList
-SetTimer,checkActionListTXTfile_sizeAndModiTime,3000
+SetTimer,checkActionListAHKfile_sizeAndModiTime,3000
 SetTimer,check_some_keys_hanging_or_freezed,1800 ; ; 30.08.2018 13:52 it sometimes happesn. and if it happens then its really ugly !!!! :( !!
 SetTimer,check_ActionList_GUI_is_hanging_or_freezed,1000 ; ; 26.09.2018 16:38 it sometimes happesn.
 
@@ -718,9 +718,9 @@ return
 
 
 
-;/¯¯¯¯ checkActionListTXTfile_sizeAndModiTime ¯¯ 181023101000 ¯¯ 23.10.2018 10:10:00 ¯¯\
-checkActionListTXTfile_sizeAndModiTime:
-    SetTimer,checkInRegistryChangedActionListAddress,Off
+;/¯¯¯¯ checkActionListAHKfile_sizeAndModiTime ¯¯ 181023101000 ¯¯ 23.10.2018 10:10:00 ¯¯\
+checkActionListAHKfile_sizeAndModiTime:
+    ;SetTimer,checkInRegistryChangedActionListAddress,Off
 
     if(!FileExist(ActionList)){
         if(0 && InStr(A_ComputerName,"SL5")) ; 23.10.2018 10:08 was used
@@ -740,7 +740,7 @@ checkActionListTXTfile_sizeAndModiTime:
     FormatTime, ActionListModified, %ActionListModified%, yyyy-MM-dd HH:mm:ss
 
     SELECTActionListmodified := "SELECT id, ActionListmodified, ActionListsize FROM ActionLists WHERE ActionList = '" . ActionList . "';"
-    ;clipboard := SELECTActionListmodified ; SELECT ActionListmodified, ActionListsize FROM ActionLists WHERE ActionList = '..\ActionLists\_globalActionListsGenerated\_global.txt';
+    ;clipboard := SELECTActionListmodified ; SELECT ActionListmodified, ActionListsize FROM ActionLists WHERE ActionList = '..\ActionLists\_globalActionListsGenerated\_global.ahk';
     ; [2018-03-20 11:56:58] [1] [SQLITE_ERROR] SQL error or missing database (no such table: ActionLists)
     WordsTbl := g_ActionListDB.Query(SELECTActionListmodified)
     For each, row in WordsTbl.Rows
@@ -783,7 +783,7 @@ checkActionListTXTfile_sizeAndModiTime:
              )
             msgbox,% msg "`n(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
         }
-        ReadInTheActionList("checkActionListTXTfile_sizeAndModiTime:" doReadActionListTXTfileSTR " " A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
+        ReadInTheActionList("checkActionListAHKfile_sizeAndModiTime:" doReadActionListTXTfileSTR " " A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
         ;ParseWordsCount := ReadActionList(calledFromStr) ; there is also update and select of time of the ActionList
         ;prefs_Length := getMinLength_Needetthat_ListBecomesVisible(ParseWordsCount, maxLinesOfCode4length1)
         ; RebuildDatabase()
@@ -807,9 +807,9 @@ checkActionListTXTfile_sizeAndModiTime:
         sleep,100
         ;reload ; hardcore. anyway. thats a way it works
     }
-    SetTimer,checkInRegistryChangedActionListAddress,On
+    ; SetTimer,checkInRegistryChangedActionListAddress,On
 return
-;\____ checkActionListTXTfile_sizeAndModiTime __ 181023101012 __ 23.10.2018 10:10:12 __/
+;\____ checkActionListAHKfile_sizeAndModiTime __ 181023101012 __ 23.10.2018 10:10:12 __/
 
 
 
@@ -846,7 +846,7 @@ if(g_config["list"]["change"]["stopRexExTitle"]=="."){
 if(0 && InStr(A_ComputerName,"SL5"))
 	ToolTip5sec(ActionList " `n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\")  . " )" )
 
-    ;SetTimer,checkActionListTXTfile_sizeAndModiTime,Off
+    ;SetTimer,checkActionListAHKfile_sizeAndModiTime,Off
 
 global g_SingleMatch
 global g_FLAGmsgbox

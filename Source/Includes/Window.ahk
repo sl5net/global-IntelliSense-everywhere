@@ -100,7 +100,7 @@ WinChanged(hWinEventHook, event, wchwnd, idObject, idChild, dwEventThread, dwmsE
             }
          }
       }
-      ; SciTEWindow\_global.txt
+      ; SciTEWindow\_global.ahk
       ; ____
    } else {
       GetIncludedActiveWindow()
