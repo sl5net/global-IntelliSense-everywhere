@@ -619,7 +619,7 @@ addListOpenAction_ifNotAlreadyInTheList(contentActionList,ActionList){
 	if(!itsAGeneratedList && !RegExMatch(contentActionList432indes, pattern ) ){
 		ToolTip,% ActionList "`n`n " A_LineNumber   " "   RegExReplace(A_LineFile,".*\\")   " "   Last_A_This
 		SplitPath, ActionList, , , , OutNameNoExt
-		temp := "___open " OutNameNoExt "(ActionList.ahk~" A_LineNumber "|rr||ahk|run," OutNameNoExt ".ahk"
+		temp := "___open " OutNameNoExt "(ActionList.ahk~" A_LineNumber "|rr||ahk|openInEditor," OutNameNoExt ".ahk"
 
         if(true){
             AddWordToList(temp,0,"ForceLearn",LearnedWordsCount)   ; springt dann in zeile 490 ungefähr
