@@ -55,11 +55,14 @@ IfWinExist,% activeTitle
 		; SendMessage,{esc},,,,SaveLast5_to_BackupSL5.ahk ahk_class #32770 ahk_exe AutoHotkey.exe
 		IfWinNotExist,% activeTitle
 			break
-		ToolTip9sec(A_LineNumber   " "   RegExReplace(A_LineFile,".*\\")    " WinActivate," activeTitle)
+		ToolTip4sec(A_LineNumber   " "   RegExReplace(A_LineFile,".*\\")    " WinActivate," activeTitle)
 	   WinActivate,% activeTitle
 	   WinWaitActive,% activeTitle ,,1
 	   Send,{Enter}
-		ToolTip,% A_index  `n (%A_LineFile%~%A_LineNumber%)
+
+; ___ 1
+
+		ToolTip,% A_index "`n (" A_LineFile "~" A_LineNumber ")"
 		Sleep,100
 	}
 	; feedbackMsgBoxCloseAllWindows()
@@ -67,7 +70,9 @@ IfWinExist,% activeTitle
 }
 ;>>>>>>>> previous >>>> 171030113557 >>>> 30.10.2017 11:35:57 >>>>
 
-if(false)
+;
+
+if(0)
 {
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ;~ open navigation for ahk-developer

@@ -182,7 +182,7 @@ ActionListDir = '%ActionListDir%'
 		Loop,read, % ActionListNEWarchivePath
 		{
            ; Beispiel:
-; #Include .\..\ActionLists\Notepad\_global.txt
+; #Include .\..\ActionLists\Notepad\_global.ahk
 ; #Include ..\_globalActionLists\Bewerbung\Firmware_Entwicklung.txt
 			
 ;           regEx := "i)^\s*#include\s*( |,)\s*([^|!]+)\s*(?:((\||\!))\s*(.+))?\s*"

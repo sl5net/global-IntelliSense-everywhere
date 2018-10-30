@@ -1394,7 +1394,7 @@ setSearchAreaToWinTitleArea(winTitle){
 ;>>>>>>>> setSearchAreaToWinTitleArea >>>> 171024094739 >>>> 24.10.2017 09:47:39 >>>>
 
 
-
+;/¯¯¯¯ DynaRun ¯¯ 181029190515 ¯¯ 29.10.2018 19:05:15 ¯¯\
 DynaRun(TempScript, pipename=""){
 	; TempScript := "#" . "ErrorStdOut`n" . TempScript
 	TempScriptPre := "" . "FileEncoding, UTF-8 `n"
