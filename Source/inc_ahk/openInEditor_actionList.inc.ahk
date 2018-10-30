@@ -53,6 +53,18 @@ openInEditor(ActionListFolderOfThisActionList, isAHKcode, AHKcode, isStartingUnd
         Msgbox,:( action list `n %m1CorrectedAhkFileAddress% `n is not exist. `n (%A_LineFile%~%A_LineNumber%)
         return false
     }
+
+    ; SaveLast5_to_BackupSL5.ahk "..\ActionLists\_globalActionListsGenerated\_ahk_global.ahk" "..\..\gi-ActionLists-Bakcups"
+    ; ActionList := removesSymbolicLinksFromFileAdress(ActionList)
+; SaveLast5_to_BackupSL5.ahk "..\ActionLists\_globalActionListsGenerated\_ahk_global.ahk" "..\..\gi-ActionLists-Bakcups"
+; SaveLast5_to_BackupSL5.ahk "G:\fre\git\github\global-IntelliSense-everywhere-Nightly-Build\ActionLists\_globalActionListsGenerated\_ahk_global.ahk" "G:\fre\git\github\gi-ActionLists-Backups"
+
+    para1FileAddress := removesSymbolicLinksFromFileAdress( A_ScriptDir "\" m1CorrectedAhkFileAddress )
+    para2BackupFolder := removesSymbolicLinksFromFileAdress(A_ScriptDir "\..\..\gi-ActionLists-Backups")
+       commandLine := "SaveLast5_to_BackupSL5.ahk """ para1FileAddress """ """ para2BackupFolder """"
+    ; clipboard := commandLine
+    ; msgbox,% commandLine "(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
+    RunWait, % commandLine, % A_ScriptDir
     return openInEditorFromIntern(m1CorrectedAhkFileAddress)
 }
 ;\____ openInEditor __ 181028104756 __ 28.10.2018 10:47:56 __/
@@ -61,11 +73,24 @@ openInEditor(ActionListFolderOfThisActionList, isAHKcode, AHKcode, isStartingUnd
 openInEditorFromIntern(m1CorrectedAhkFileAddress){
     editorName := "AHK-Studio"
     isEditorExist_AHKStudio := FileExist("..\" editorName "\" editorName ".ahk")
+
+    editorName := "Notepad++"
+    NotepadPPExe := "..\" editorName "\unicode\" editorName ".exe"
+    isEditorExist_NotepadPP := FileExist(NotepadPPExe)
+
     editorName := "AutoGUI"
     isEditorExist_AutoGUI := FileExist("..\" editorName "\" editorName ".ahk")
 
     if(false){
         noOp := 1
+    }else if(1 ){
+        runString = notepad.exe "%m1CorrectedAhkFileAddress%"
+        run,% runString
+        return true
+    }else if(1 && isEditorExist_NotepadPP){
+        runString = %NotepadPPExe% "%m1CorrectedAhkFileAddress%"
+        run,% runString
+        return true
     }else if(1 && isEditorExist_AHKStudio){
         ; 28.09.2018 15:48 2,6 MB opens with error warnings
         ; i got problems relacing some with umlaute (ue) 29.09.2018 12:04
@@ -79,7 +104,7 @@ openInEditorFromIntern(m1CorrectedAhkFileAddress){
         run,% runString, ..\AutoGUI
         return true
     }else if(1){ ; fallback
-        runString = notepad "%m1CorrectedAhkFileAddress%"
+        runString = %NotepadPPExe% "%m1CorrectedAhkFileAddress%"
         run,% runString
         return true
     }

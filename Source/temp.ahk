@@ -11,9 +11,9 @@ activeTitle := RegExReplace(activeTitle, Chr(37) . ".*", "") ; delete prozent. s
 global g_lineNumberFeedback
 g_lineNumberFeedback=G:\fre\git\github\2\Source\Typing_Aid_everywhere_multi_clone.ahk~~390
 ActionListDir = .\..\ActionLists\ChromeWidgetWin1
-activeTitle = GitHub Desktop
+activeTitle = G:\downloads\gi-18-10-29_10-08\gi
 activeClass = ChromeWidgetWin1
-ActionListNEW = GitHub Desktop 
+ActionListNEW = G:\downloads\gi-18-10-29_10-08\gi 
 ActionListFilterPath2 = .\..\ActionLists\ChromeWidgetWin1\ActionListNameFilter.inc.ahk 
 ActionListFilterPath2Abs = G:\fre\git\github\2\Source\..\ActionLists\ChromeWidgetWin1\ActionListNameFilter.inc.ahk 
 fileEx := FileExist ( ActionListFilterPath2Abs ) 
@@ -27,7 +27,7 @@ ExitApp
 } 
 #Include *i G:\fre\git\github\2\Source\..\ActionLists\ChromeWidgetWin1\ActionListNameFilter.inc.ahk  ; thats the subfolder  wordlost inside class 
 varInjects1 := mvarInjects(ActionListDir, ActionListNEW, activeClass, activeTitle) 
-ActionListOLD = lubuntu-bitnami-shopware | Piratenpad - Google Chrome 
+ActionListOLD = G:\downloads\gi-18-10-29_10-08 
 gi_everywhereSourcePath =  
 ActionListActive  =  
 
