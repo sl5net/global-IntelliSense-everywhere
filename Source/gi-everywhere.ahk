@@ -1228,7 +1228,7 @@ global-IntelliSense-everywhere-Nightly-Build [G:\fre\git\github\global-IntelliSe
     if(g_itsProbablyArecentUpdate)
         SetTimer,checkInRegistryChangedActionListAddress,off ; will set on again inside WinChanged( 31.10.2018 18:52
 
-    if(ActionListOLD <> ActionList)
+    if(ActionListOLD <> ActionList && !instr(ActionList,"\isNotAProject"))
         Speak(ActionListFileName " found ", "PROD" )  ;  (DEV, TEST, STAGING, PROD),
     ActionListOLD := ActionList
     g_ActionListID := getActionListID(ActionList) ; 24.03.2018 23:02
