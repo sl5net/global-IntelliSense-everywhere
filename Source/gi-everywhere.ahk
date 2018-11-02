@@ -48,11 +48,16 @@ g_doSound := false
 if(1 && InStr(A_ComputerName,"SL5") )
     g_doSound := 0
 
-if(g_doSound){
+if(1){
     global g_ttSpeakObject
     g_ttSpeakObject := new TTS()
     ; s.SetRate(-2)
-    g_ttSpeakObject.SetRate(5) ; speed higher value is faster. 2 is about 200 procent. 1 sounds like normal speak
+
+    ; DEV mode :
+    ; g_ttSpeakObject.SetRate(5) ; speed higher value is faster. 2 is about 200 procent. 1 sounds like normal speak
+
+    ; PROD mode:
+    g_ttSpeakObject.SetRate(2)
     ; -1 is very slow
     ; -5 is terrible slow
     ; 0 seems normal
@@ -70,7 +75,7 @@ Speak("gestartet")
 ; SoundbeepString2Sound("zx")
 ; SoundbeepGameOver()
 
-; ___1
+; ToolTip2sec(A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
 
 ; msgBox,% g_config["FuzzySearch"]["keysMAXperEntry"] "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
 ;msgBox,% g_config["FuzzySearch"]["MAXlines"] "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
@@ -1223,6 +1228,8 @@ global-IntelliSense-everywhere-Nightly-Build [G:\fre\git\github\global-IntelliSe
     if(g_itsProbablyArecentUpdate)
         SetTimer,checkInRegistryChangedActionListAddress,off ; will set on again inside WinChanged( 31.10.2018 18:52
 
+    if(ActionListOLD <> ActionList)
+        Speak(ActionListFileName " found ", "PROD" )  ;  (DEV, TEST, STAGING, PROD),
     ActionListOLD := ActionList
     g_ActionListID := getActionListID(ActionList) ; 24.03.2018 23:02
 
@@ -1322,6 +1329,7 @@ return
                         ; 111123456789
                     }
                     Speak("Action List New Temp without Extension in line " A_LineNumber)
+                     ; (DEV, TEST, STAGING, PROD),
                     return ActionListNewTemp_withoutExt
         }
         ;\____ ActionListNewTemp_withoutExt __ 181031091858 __ 31.10.2018 09:18:58 __/

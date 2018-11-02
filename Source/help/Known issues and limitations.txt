@@ -1,4 +1,4 @@
-Known issues and limitations:
+﻿Known issues and limitations:
 
 Very limited testing.
 
@@ -11,7 +11,7 @@ EN: If there are hits in your word list, it will appear with suggestions and may
  obscure important areas (for example, your favorite editor's word list).
 Then it is helpful to make the position of the word list appear context-specific 
 (for experts). You have to do a little bit in the source code.
-DE: Wenn es Treffer in deiner Wortliste gibt, erscheint diese mit Vorschlägen und
+DE: Wenn es Treffer in deiner Wortliste gibt, erscheint diese mit VorschlÃ¤gen und
  verdeckt eventuell dir wichtige bereiche (z.B. die Wortliste deines Lieblingseditors).
 Dann ist es hilfreich, die Position der Wortliste kontextspezifisch erscheinen zu
- lassen (für Experten). Dazu muss man aktuell ein bisschen in den Quelltext.
+ lassen (fÃ¼r Experten). Dazu muss man aktuell ein bisschen in den Quelltext.

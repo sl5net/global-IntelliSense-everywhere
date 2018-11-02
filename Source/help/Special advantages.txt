@@ -1,4 +1,4 @@
-English: Special advantages (updated: 08.02.2018):
+﻿English: Special advantages (updated: 08.02.2018):
 
 There are no conflicts with any hotkeys because the script 
 does not use hotkeys;) Off course.
@@ -23,19 +23,19 @@ da das Script keine Hotkeys verwendet ;) Off course.
 
 Das bedeutet du kannst gleichzeitig mehrere IntelliSense 
 verwenden (die von deinem Lieblings-Editor und 
-deine eigene zusätlich). 
-Vielleicht möchtest du nur ein paar spezielle Einträge 
-deinem Lieblingseditor hinzufügen.
+deine eigene zusÃ¤tlich). 
+Vielleicht mÃ¶chtest du nur ein paar spezielle EintrÃ¤ge 
+deinem Lieblingseditor hinzufÃ¼gen.
 
-Es funktioniert überall. Du kannst Wortlisten einfach wiederverwenden 
+Es funktioniert Ã¼berall. Du kannst Wortlisten einfach wiederverwenden 
 indem du diese 
-includest (RegEx dort auch möglich) oder Deine Filter-Regeln anpasst (für Experten).
+includest (RegEx dort auch mÃ¶glich) oder Deine Filter-Regeln anpasst (fÃ¼r Experten).
 
 Das erstellen von ActionListen ist sehr einfach.
 Es reicht wenn du Text kopierst (z.B. aus Wikipedia). 
-Allerdings sollte jeder Eintrag in einer Zeile stehen. Nicht mehrere Einträge in einer Zeile.
-Du kannst komplizierte Einträge machen (für Experten) in dem du 
-ganz normalen Autohotkey Quelltext dort ausführen lässt (für Experten).
+Allerdings sollte jeder Eintrag in einer Zeile stehen. Nicht mehrere EintrÃ¤ge in einer Zeile.
+Du kannst komplizierte EintrÃ¤ge machen (fÃ¼r Experten) in dem du 
+ganz normalen Autohotkey Quelltext dort ausfÃ¼hren lÃ¤sst (fÃ¼r Experten).
 
 DE: Die Installation ist sehr einfach. Du musst nichts konfigurieren. 
 Einfach downoad und start.ahk starten. Allerdings sind zu beginn nur Beispiel Wortlisten vorhanden (also fast leer). Wenn Du hier hilfe brauchst zum erstellen einer Wortliste lese bitte ein bisschen in der Doku oder frage nach.
