@@ -539,7 +539,7 @@ if(1){
     itsAGeneratedList := ( postFixGenerated == ActionListPostFix )
 
     If(!itsAGeneratedList && !FileExist( ActionList "._Generated.ahk")) ; dirty bugFix TODO: prettyFy it
-      ActionList .= "._Generated.ahk"
+      c .= "._Generated.ahk"
   ; msgbox, `% ActionList
 }
     if(!RegExMatch(ActionList,"created_token_17-08-10_16-17")) ; todo: whey control here? wrong place. quck dirty 25.03.2018 01:36
@@ -548,11 +548,12 @@ if(1){
     RegRead, CreatedDir, HKEY_CURRENT_USER, SOFTWARE\sl5net, CreatedDir
     if(CreatedDir){
         RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, CreatedDir, `% "" ; RegWrite , RegSave , Registry
-        openInEditorFromIntern( ActionList ) ; we dont know the ecact name from here
+        ActionListOpen := StrReplace(ActionList, "._Generated.ahk")
+        openInEditorFromIntern( ActionListOpen )
     }
 #Include,RegWrite181031.ahk
 }
-) ; endOf temp
+) ; endOf temp 
 	ahkSource .= "`n" temp
 	
     ; following lines are debrecated
