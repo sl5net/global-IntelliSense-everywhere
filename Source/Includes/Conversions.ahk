@@ -251,19 +251,6 @@ CreateLastStateTable(){
 }
 
 
-JEE_millis_since_midnight(vOpt:=""){ ; renamed from JEE_TimeNowMSec
-    VarSetCapacity(SYSTEMTIME, 16, 0)
-    if (vOpt = "UTC")
-        DllCall("kernel32\GetSystemTime", Ptr,&SYSTEMTIME)
-    else
-        DllCall("kernel32\GetLocalTime", Ptr,&SYSTEMTIME)
-    vHour := NumGet(&SYSTEMTIME, 8, "UShort") ;wHour
-    vMin := NumGet(&SYSTEMTIME, 10, "UShort") ;wMinute
-    vSec := NumGet(&SYSTEMTIME, 12, "UShort") ;wSecond
-    vMSec := NumGet(&SYSTEMTIME, 14, "UShort") ;wMilliseconds
-    return vHour*3600000 + vMin*60000 + vSec*1000 + vMSec
-}
-
 
 INSERT_function_call_time_millis_since_midnight( aLineFile , aThisFunc , aLineNumber){
     return

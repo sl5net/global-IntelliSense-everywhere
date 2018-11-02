@@ -81,9 +81,21 @@ openInEditorFromIntern(m1CorrectedAhkFileAddress){
     editorName := "AutoGUI"
     isEditorExist_AutoGUI := FileExist("..\" editorName "\" editorName ".ahk")
 
+temp =
+(
+inside ahk-studio:
+Default_Project_Folder(){ ...
+FileSelectFolder,directory,`% "*" Dir,3,`% "Current Default Folder: " Settings.SSN("//directory").text
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\AHK-Studio\shell\edit\command]
+@="\"G:\\fre\\git\\github\\global-IntelliSense-everywhere-Nightly-Build\\AHK-Studio\\AHK-Studio.ahk\" \"`%1\""
+the emeditor.ahk is going to be the name of the program then the file extension. the path can be edited to whatever you want. Works in windows 7.
+)
+
+
     if(false){
         noOp := 1
-    }else if(1 ){
+    }else if( 0 ){
         runString = notepad.exe "%m1CorrectedAhkFileAddress%"
         run,% runString
         return true

@@ -68,7 +68,7 @@ lblLButton:
     }
     MouseClick
     Suspend,Off
-    ;ToolTip, % A_LineNumber " : " A_LineFile 
+    ;ToolTip, % A_LineNumber " : " RegExReplace(A_LineFile,".*\\")
     ToolTip5sec(c A_LineNumber . " " . RegExReplace(A_LineFile,".*\\")  . " " . Last_A_This)
 return
 

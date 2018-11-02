@@ -31,6 +31,25 @@ ActionListNEWactivate( ActionListDir , ActionListNEW, ActionListActive , gi_ever
 ; return, 1 ; return spielt keine rolle, quasi void 30.07.2017 12:52 17-07-30_12-52
 	
 	global g_lineNumberFeedback
+
+
+
+	if(1 && InStr(A_ComputerName,"SL5") )
+        g_doSound := true
+
+    if(g_doSound){
+        global g_ttSpeakObject
+        g_ttSpeakObject := new TTS()
+        ; s.SetRate(-2)
+        g_ttSpeakObject.SetRate(5) ; speed higher value is faster. 2 is about 200 procent. 1 sounds like normal speak
+        ; -1 is very slow
+        ; -5 is terrible slow
+        ; 0 seems normal
+        ; 2 little faster
+        ; 5 reaky fast but possible to understand
+        g_ttSpeakObject.SetPitch(10)
+    }
+
 	
 ;Msgbox,n (%A_LineFile%~%A_LineNumber%)
 	
@@ -41,14 +60,20 @@ ActionListNEWactivate( ActionListDir , ActionListNEW, ActionListActive , gi_ever
     ; lll(A_LineNumber, A_LineFile, "START function: ActionListNEWactivate"  )
 	
 	
-	g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+	g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 	
 	
 	
 	if(FileExist(ActionListNEW)) ; feature update 08.04.2017 19:43
 		ActionListNEWarchivePath := ActionListNEW
-	else
-		ActionListNEWarchivePath = % ActionListDir . "\" . ActionListNEW
+	else{
+        regExAbsolutePath := "i)^\w\:" ; addet 01.11.2018 11:36
+        foundPosAbsolutePath := RegexMatch( ActionListNEW, regExAbsolutePath, matchsPath)
+        if(foundPosAbsolutePath)
+		    ActionListNEWarchivePath = % ActionListNEW
+        else
+		    ActionListNEWarchivePath = % ActionListDir "\" ActionListNEW
+    }
    ; From here we only use ActionListNEWarchivePath
    ; Next time this variable is used here: simplifyNameOfActionListNEWstep1( ActionListNEW ) {  in line 256   12.07.2017 21:07
 	
@@ -83,18 +108,22 @@ ActionListDir = '%ActionListDir%'
 	if(!FileExist(ActionListActivePath))
 		MsgBox, :( '%ActionListActivePath%' = ActionListActivePath  `n (line:%A_LineNumber%) `n 18-01-20_17-12
 ; The active path, that the complete address of the file inc dir, has to be always present. if not then that is an error. 12.07.2017 21:10
-	
+
+
+
 	;/¯¯¯¯ !FileExist(ActionListNEWarchivePath) ¯¯ 181012011354 ¯¯ 12.10.2018 01:13:54 ¯¯\
 
     RegRead, CreatedDir, HKEY_CURRENT_USER, SOFTWARE\sl5net, CreatedDir
     if(CreatedDir){
+
+        Speak("CreatedDir found in " RegExReplace(A_LineFile,".*\\") )
      RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, CreatedDir, % "" ; RegWrite , RegSave , Registry
 
      RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, lastImportant_ScriptName, % A_ScriptName ; RegWrite , RegSave , Registry
      RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, lastImportant_LineFileShort, % RegExReplace(A_LineFile,".*\\") ; RegWrite ,
      RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, lastImportant_LineFileShort, % RegExReplace(A_LineFile,".*\\") ; RegWrite ,
+     run,gi-everywhere.ahk ; 01.11.2018 23:50
      }
-
 
 
 
@@ -106,7 +135,7 @@ ActionListDir = '%ActionListDir%'
 	    FIleDelete,  % fileAddress_projectFlag ; then you need alway generae it explizit via generate project links 23.10.2018 11:29
 
 		; So hear it's possibly a good idea to generate a new one by using a template. 12.07.2017 21:12
-		g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+		g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 		
 		WinGetActiveTitle,at
 		strLen_ActionListNEWar := StrLen(ActionListNEWarchivePath)
@@ -116,7 +145,7 @@ ActionListDir = '%ActionListDir%'
 		  ; Let's generate a pretty short 80 signs long name. 12.07.2017 21:14
 		if(strLen_ActionListNEWar>70) {
 			global g_lineNumberFeedback
-			g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+			g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 			
 			ActionListNEWarchivePath80 := "... " . SubStr(ActionListNEWarchivePath, -70 )
       ; MsgBox, '%ActionListNEWarchivePath80%' = ActionListNEWarchivePath80  `n (line:%A_LineNumber%) `n
@@ -124,7 +153,7 @@ ActionListDir = '%ActionListDir%'
 			ActionListNEWarchivePath80 := ActionListNEWarchivePath
 		}
 		;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-		initialActionList := ltrim(getInitialActionList(ActionListNEWarchivePath,ActionListNEW))
+		initialActionList := ltrim(getInitialActionList(ActionListNEWarchivePath,ActionListNEW,at))
 		; _%ActionListNEWarchivePath%|r|Here you could find your library
 		
 		StringReplace, lineFileRelative, A_LineFile , % A_ScriptDir,Source, All
@@ -133,16 +162,28 @@ ActionListDir = '%ActionListDir%'
         calledFromStr := A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
         Include := "Include"
 
+if(1 && InStr(A_ComputerName,"SL5"))
 		    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, FileAppend , % A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
-FileAppend, `#%Include% _global.ahk `n`; '%at%' `; (%LineFileRelative%~%A_LineNumber%) `n%initialActionList% `n, % ActionListNEWarchivePath
-		 Sleep,400
-		 ; Sleep,250 ; why sleeping ? todo sleeping?
 
+FileAppend, % initialActionList , % ActionListNEWarchivePath
+; 		 Sleep,400
+fileexist := false
+while(!fileexist && A_index < 99){
+		 Sleep,80 ; why sleeping ? todo sleeping?
+		 fileexist := fileexist(ActionListNEWarchivePath) && !InStr(FileExist(ActionListNEWarchivePath), "D")
+}
+if(!fileexist){
+    msgbox,% "ERROR NOT exist: `n" ActionListNEWarchivePath "`n ("  A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
+}
 		; End of: if(!FileExist(ActionListNEWarchivePath))
 		lll(A_LineNumber, A_LineFile,A_ThisFunc ": "    "saved first time: >" . ActionListNEWarchivePath . "< = Now the new examples-template should be saved" )
 		; Now the new examples-template is saved inside of this file: ActionListNEWarchivePath
 
-         was_a_Editor_open_command := openInEditorFromIntern(ActionListNEWarchivePath)
+         was_a_Editor_open_command1 := openInEditorFromIntern(ActionListNEW)
+         was_a_Editor_open_command2 := openInEditorFromIntern(ActionListNEWarchivePath)
+         if(!was_a_Editor_open_command1 && !was_a_Editor_open_command2)
+          msgbox,% "ERROR (" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
+
 
 
 		;\____ !FileExist(ActionListNEWarchivePath) __ 181012011424 __ 12.10.2018 01:14:24 __/
@@ -196,6 +237,8 @@ ActionListDir = '%ActionListDir%'
 )
 			
 			msg := "#include foundPos = >" foundPos "< in `n" ActionListNEWarchivePath "`n"
+            msg .= ">" matchs1 "< =  matchs1 `n"
+            msg .= ">" A_LoopReadLine "< =  A_LoopReadLine `n"
 			msg .= A_WorkingDir " = A_WorkingDir `n"
 			msg .= A_ScriptDir " = A_ScriptDir `n"
 			msg .= A_ScriptFullPath " = A_ScriptFullPath `n"
@@ -205,19 +248,31 @@ ActionListDir = '%ActionListDir%'
 			;/¯¯¯¯ isIncludeFileInside ¯¯ 181012004940 ¯¯ 12.10.2018 00:49:40 ¯¯\
 			if(foundPos){
 				isIncludeFileInside := true
-				
-				includeFilePath     := ActionListDir "\" trim(matchs1)
-				
+
+    			regExAbsolutePath := "i)^\w\:" ; addet 01.11.2018 11:36
+                foundPosAbsolutePath := RegexMatch( matchs1, regExAbsolutePath, matchsPath)
+				if(foundPosAbsolutePath)
+				    includeFilePath     := trim(matchs1)
+				else
+				    includeFilePath     := ActionListDir "\" trim(matchs1)
+
+				includeFilePath := RegExReplace(includeFilePath ,";[^\n\r]+$") ; removes comments
+
 				; includeFilePath := RegExReplace(includeFilePath ,"(\\[^\\]+\\\.\.)+") ; works. removes all symbolic links 24.02.2018  cleanPath
 				includeFilePath := removesSymbolicLinksFromFileAdress(includeFilePath) ; same as above -^
 				
                 ; Msgbox,%includeFilePath%`n (%A_LineFile%~%A_LineNumber%)
 				
-				
+
+
 				exist_includeFilePath := (FileExist(includeFilePath)) ? 1 : 0
 				if(!exist_includeFilePath){ ; 11.03.201:23 new style/format of adress writing, but try stay compativle to old scripts. TODO deletie it.
-					
-					msg := ":( includeFile NOT exist here: "  includeFilePath " = includeFilePath  `n"
+					includeFilePathAbs := removesSymbolicLinksFromFileAdress(A_ScriptDir "\" includeFilePath)
+    				exist_includeFilePathAbs := (FileExist(includeFilePathAbs)) ? 1 : 0
+					msg .= ":( includeFile NOT exist here: `n"  includeFilePath "`n`n"
+					msg .= ">" includeFilePathAbs "<`n exist =" exist_includeFilePathAbs "`n`n"
+					msg .= ">" matchs1 "< =  matchs1 `n"
+                    msg .= ">" A_LoopReadLine "< =  A_LoopReadLine `n"
 					msg .= ActionListDir " =  ActionListDir `n"
 					msg .= A_WorkingDir " = A_WorkingDir `n"
 					msg .= A_ScriptDir " = A_ScriptDir `n"
@@ -232,11 +287,12 @@ ActionListDir = '%ActionListDir%'
 					if(!exist_includeFilePath){
 						msg .= "`n`n :( includeFile NOT exist here: "  includeFilePath " = includeFilePath  `n"
 						msg .= exist_includeFilePath " = exist_includeFilePath  `n`n"
+						msg .= A_ScriptDir
 						lll(A_LineNumber, A_LineFile, msg )
 						feedbackMsgBox(RegExReplace(A_LineFile,".*\\(.*?)\.ahk","$1") ">" A_LineNumber, msg, 1,1 ) ; temp.ahk is often ignored by config 05.10.2018 08:46
 						MsgBox,% msg "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
-                        ; __ __
 					}
+					clipboard := includeFilePathAbs
 					msgbox,% msg "(" RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
 				}
 				
@@ -306,8 +362,15 @@ ActionListDir = '%ActionListDir%'
 ;<<<<<<<<<<<<<<  if(exist_includeFilePath)  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 				if(exist_includeFilePath){
 					ActionListNEWarchivePathBackup := ActionListNEWarchivePath
-					ActionListGeneratedPath := ActionListNEWarchivePath . "._Generated.ahk"
-					
+
+                    postFixGenerated := "._Generated.ahk"
+                    thisPostFix := SubStr(rtrim(ActionListGeneratedPath), - StrLen(postFixGenerated) + 1 )
+                    itsAGeneratedList := ( postFixGenerated == thisPostFix )
+                    if(!itsAGeneratedList){
+                        ActionListGeneratedPath := ActionListNEWarchivePath postFixGenerated
+                        ;Msgbox,Oops already geraated list lklkjlkjlkjl 555444 (line:%A_LineNumber%) n
+                    }
+
 					lll(A_LineNumber, A_LineFile, "'" . ActionListGeneratedPath . "' = ActionListGeneratedPath `n'" . ActionListNEWarchivePath . " = ActionListNEWarchivePath ")
 					
 					lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   "'" . ActionListGeneratedPath . "' = ActionListGeneratedPath `n'" . ActionListNEWarchivePath . " = ActionListNEWarchivePath " )
@@ -453,7 +516,7 @@ disableCopyQ() ; enableCopyQ() ;
 
 
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 
    MsgBox, 17-03-10_08-06
    ; by restoring we cant us a token or id becouse we dont know what the real value of clipboard was. 07.03.2017 08:08
@@ -463,7 +526,7 @@ disableCopyQ() ; enableCopyQ() ;
    while(i++ < iMax )
    {
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 
          result:=SubStr(ClipboardBackup,l+1)
          Clipboard := result
@@ -486,7 +549,7 @@ ActionListOLDbackup( ActionListDir , ActionListOLD){
     if(!ActionListDir) ; TODO dirty bugFix 21.03.2018 11:36
           Return
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
     lll(A_LineNumber, A_LineFile, ActionListDir ActionListOLD " FileCopy too " ActionListDir ActionListOLD . ".backup.ahk")
    FileCopy, % ActionListDir . "\" . ActionListOLD , % ActionListDir . "\" . ActionListOLD . ".backup.ahk", 1
     ;Msgbox,`n (%A_LineFile%~%A_LineNumber%)
@@ -498,7 +561,7 @@ ActionListOLDbackup( ActionListDir , ActionListOLD){
 ActionListOLDdisable( gi_everywhereSourcePath, ActionListActive){
       Return 1 ; Todo: dirtyBugFix  , deprecated 21.03.2018 11:33
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 
    ActionListActive = % gi_everywhereSourcePath . "\" . ActionListActive
    ActionListDisable = % gi_everywhereSourcePath . "\" . ActionListActive ".backup.ahk"
@@ -511,10 +574,10 @@ rungi_everywhereAHKifNotExist( gi_everywhereAHK ){
    SetTitleMatchMode,2
     IfWinNotExist,gi-everywhere.ahk
     {
-        g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+        g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
         IfWinNotExist,gi-everywhere
         {
-            g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+            g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 
         ;   MsgBox,,gi-everywhere  is running, :( `n are you sure gi-everywhere  is running? `n  IfWinNotExist gi-everywhere  `n (line:%A_LineNumber%) `n   lets try start it   automatically, 2
         ; lets wait and try again. maybe its reload its self and needs only a second
@@ -537,7 +600,8 @@ lll(A_LineNumber, A_LineFile, msg )
             }
 
             g_tooltipText = WinWait gi-everywhere.ahk
-            g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+            g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
+tooltip, % "Wait" A_LineNumber " " RegExReplace(A_LineFile,".*\")
             WinWait,gi-everywhere.ahk,, 9
             IfWinNotExist,gi-everywhere
             {
@@ -554,16 +618,16 @@ checkFilePathExistens1704291222(ActionListDir, destinDir, sourceDir, gi_everywhe
 
 
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 
    DetectHiddenWindows,on
    SetTitleMatchMode,1
 IfWinNotExist,gi-everywhere.ahk
 {
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
    IfWinNotExist,gi-everywhere
    {
-    g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+    g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 
 ;   MsgBox,,gi-everywhere  is running, :( `n are you sure gi-everywhere  is running? `n  IfWinNotExist gi-everywhere  `n (line:%A_LineNumber%) `n lets try start it automatically, 2
 ; lets wait and try again. maybe its reload its self and needs only a second
@@ -579,7 +643,8 @@ lll(A_LineNumber, A_LineFile, "Debuggging!  NOT Run % gi_everywhereAHK " )
 
     }
     g_tooltipText = WinWait gi-everywhere.ahk
-    g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+    g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
+tooltip, % "Wait" A_LineNumber " " RegExReplace(A_LineFile,".*\")
    WinWait,gi-everywhere,, 9
     IfWinNotExist,gi-everywhere
     {
@@ -595,7 +660,7 @@ SetTitleMatchMode,2
 IfWinNotExist,gi-everywhere
 {
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 
    MsgBox,,NotExist?, :( IfWinNotExist '%gi_everywhereAHK%' = gi_everywhereAHK  `n (line:%A_LineNumber%) `n , 2
 }
@@ -603,7 +668,7 @@ IfWinNotExist,gi-everywhere
    if(! FileExist(ActionListDir) )
    {
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 
    FileCreateDir, % ActionListDir
    Sleep,100
@@ -611,7 +676,7 @@ IfWinNotExist,gi-everywhere
    if(! FileExist(ActionListDir) )
    {
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 
    Last_A_This:=A_ThisFunc . A_ThisLabel 
    ToolTip1sec(A_LineNumber . " " .  RegExReplace(RegExReplace(A_LineFile,".*\\") , ".*\", "") " " Last_A_This) ;
@@ -628,7 +693,7 @@ IfWinNotExist,gi-everywhere
    if(! FileExist(sourceDir) )
    {
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 
    Last_A_This:=A_ThisFunc . A_ThisLabel 
    ToolTip1sec(A_LineNumber . " " .  RegExReplace(RegExReplace(A_LineFile,".*\\") , ".*\", "") " " Last_A_This) ;
@@ -646,7 +711,7 @@ IfWinNotExist,gi-everywhere
 
 simplifyNameOfActionListNEWstep1( ActionListNEW ) {
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 
 ;   ActionListNEW := "superSimple" . ".txt"
    return ActionListNEW ;
@@ -670,7 +735,7 @@ return ActionListNEW
 
 encodeAHKchars( s ){
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 
    s := RegExReplace( s , "(""|``)", "$1$1")
    s := RegExReplace( s , "(``n|`%|\(|\))", "``$1")
@@ -678,7 +743,7 @@ encodeAHKchars( s ){
 }
 encodeAHKcharsOLD( s ){
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 
    s := RegExReplace( s , "(""|``)", "$1$1")
 ;   hi3 := RegExReplace( s , "(``)", "$1$1")
@@ -690,7 +755,7 @@ encodeAHKcharsOLD( s ){
 selfPerformanceTest()
 {
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 
 disableCopyQ() ; enableCopyQ() ;
 
@@ -708,12 +773,12 @@ Clipboard = selfPerformanceTest
    Loop,9
    {
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 
    i := 0
       while(i++ < 99){
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 
    Sleep,10
    result := DynaRunGetClipboard(ahkCode)
@@ -729,7 +794,7 @@ millisec := A_TickCount - TickCount1
       MsgBox, %   ":-( ERROR wrong result " . Clipboard
 else {
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 
 ; MsgBox, % ":-)  " .  Clipboard
 }
@@ -747,20 +812,20 @@ DynaRunGetClipboard2(ahkCode){
 disableCopyQ() ; enableCopyQ() ;
 
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 
    MsgBox, that function is obsolte now 11.03.2017 16:57 `n  '%ahkCode%' = ahkCode  `n (line:%A_LineNumber%) `n 
    ClipboardBackup1703061259 := Clipboard   
    Loop,9
 {
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 
    DynaRun(ahkCode)
    i := 0
       while(i++ < 99){
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 
    Sleep,10
    result  = %Clipboard%
@@ -775,7 +840,7 @@ Clipboard := ClipboardBackup1703061259
 }
 selfPerformanceTest2(){
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 
    ClipboardBackup1703061259 := Clipboard
    ahkCode =
@@ -794,13 +859,13 @@ Clipboard = selfPerformanceTest2
    Loop,9
 {
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 
    DynaRun(ahkCode)
    i := 0
       while(i++ < 99){
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 
    Sleep,10
    result  = %Clipboard%
@@ -818,7 +883,7 @@ millisec := A_TickCount - TickCount1
 MsgBox, ERROR !!! :-( `n %Clipboard% `n (line:%A_LineNumber%) `n 
 else{
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 
 m = %Clipboard% `n (line:%A_LineNumber%) `n 
    ToolTip4sec(m)
@@ -843,7 +908,7 @@ MsgBox, 17-03-10_08-04
 
 DynaRunENDarrsldkjfarrsldkjfl(TempScript, pipename="") {
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 
    static _:="uint",@:="Ptr"
    If pipename =
@@ -875,7 +940,7 @@ WinClose,
 FileWriteAndRun(sayHelloCode, sayHelloFunctionInc){
  global g_lineNumberFeedback
 
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 
 
     DetectHiddenWindows,On
@@ -883,11 +948,13 @@ FileWriteAndRun(sayHelloCode, sayHelloFunctionInc){
     winTC := sayHelloFunctionInc . " ahk_class AutoHotkey"
     if(winexist(winTC)){
         WinClose,% winTC
+tooltip, % "Wait" A_LineNumber " " RegExReplace(A_LineFile,".*\")
         WinWaitClose,% winTC,,1
     }
     if(winexist(winTC)){
         ToolTip,DONT WANT RUN '%winTC%'. its already exist. `n (line:%A_LineNumber%) `n 18-02-15_13-00bbb
         WinKill,% winTC
+tooltip, % "Wait" A_LineNumber " " RegExReplace(A_LineFile,".*\")
         WinWaitClose,% winTC,,2
         tooltip,
         return false
@@ -898,13 +965,13 @@ FileWriteAndRun(sayHelloCode, sayHelloFunctionInc){
    FileWrite(sayHelloCode, sayHelloFunctionInc)
    Loop,200 ;  
    {
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 
    if(GetKeyState("Ctrl", "P"))
     KeyWait Control  ; Wartet darauf, dass sowohl STRG als auch ALT losgelassen wird.
 
    if(FileExist(sayHelloFunctionInc)){
-    g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+    g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
       isFileExist := true
       break
    }
@@ -919,7 +986,7 @@ FileWriteAndRun(sayHelloCode, sayHelloFunctionInc){
 }
 FileWrite(sayHelloCode, sayHelloFunctionInc){
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 
    if(FileExist(sayHelloFunctionInc))
       FileDelete, % sayHelloFunctionInc
@@ -931,39 +998,45 @@ if(1 && InStr(A_ComputerName,"SL5") )
 FileAppend, % sayHelloCode, % sayHelloFunctionInc
    return 1
 }
+
+
+
+
+
+
 mvarInjects(ActionListDir, ActionListNEW, ActiveClass, activeTitle){
- global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+     global g_lineNumberFeedback
+     g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 
-if(!ActionListDir)
-{
- global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+    if(!ActionListDir){
+         global g_lineNumberFeedback
+         g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
+        msgbox,!ActionListDir exitap (line:`%A_LineNumber`%) `n 17-03-19_14-06
+        ;toolTip9sec(A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
+        exitapp
+    }
 
-msgbox,!ActionListDir exitap (line:`%A_LineNumber`%) `n 17-03-19_14-06
-exitapp
-}
-if(!ActionListNEW)
-{
- global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+    if(!ActionListNEW){
+        global g_lineNumberFeedback
+        g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 
-msgbox,!ActionListNEW exitap (line:`%A_LineNumber`%) `n
-exitapp
-}
-if(!ActiveClass)
-{
- global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+        tooltip,exitapp !ActionListNEW exitap (%g_lineNumberFeedback%) `n
+        msgbox,exitapp !ActionListNEW exitap (%g_lineNumberFeedback%) `n 111222111
+        sleep,8888
+        exitapp
+    }
+    if(!ActiveClass){
+        global g_lineNumberFeedback
+        g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 
-msgbox,!ActiveClass exitap (line:`%A_LineNumber`%) `n
-exitapp
-}
-if(!activeTitle)
-{
- global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
-}
+        msgbox,!ActiveClass exitap (line:`%A_LineNumber`%) `n
+        exitapp
+    }
+
+    if(!activeTitle){
+        global g_lineNumberFeedback
+        g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
+    }
 
    varInjects =
    (
@@ -974,9 +1047,10 @@ if(!activeTitle)
    )
    return varInjects
 }
+
 getWelcomeMsg(){
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 
 msg = 
 (
@@ -1042,16 +1116,16 @@ ActionListNEW_time_between := ActionListNEW
 `; if you want you could use the follwong global variables fot calculating you new ActionListNEW : ActionListDir, ActionListNEW, ActiveClass, activeTitle
 if `(!ActionListNEW `){
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 
-    MsgBox, ERROR ActionListNEW is EMPTY 17-03-05_14-51
+    tooltip, ERROR ActionListDir is EMPTY 17-03-19_11-51
     exitapp
 }
 if `(!ActionListDir `){
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 
-    MsgBox, ERROR ActionListDir is EMPTY 17-03-19_11-52
+    tooltip, ERROR ActionListDir is EMPTY 17-03-19_11-52
     exitapp
 }
 
@@ -1083,7 +1157,7 @@ return ahkCodeInsideFile
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 DynaRunGetClipboard(value){
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 
 disableCopyQ() ; enableCopyQ() ;
 
@@ -1095,7 +1169,7 @@ disableCopyQ() ; enableCopyQ() ;
       ;~ value := RegExReplace(value,"(Clipboard\s*:=)\s*(\w+)", "$1" . " . """ . id . """ " . "$2" )  ; Clipboard := ActionListNEW
 if(RegExMatch(value, "Clipboard\s*:?=") ) {
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 
    ahkCode  := RegExReplace(value,"(Clipboard\s*:=)\s*(\w+)", "$1" . " """ . id . """ . " . "$2" )  ; Clipboard := ActionListNEW
    ;~ Clipboard := ahkCode ; debugging only
@@ -1103,7 +1177,7 @@ if(RegExMatch(value, "Clipboard\s*:?=") ) {
 }
 else{
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 
    yesValueShouldGetEqualResult := true
 token = %id%%value%
@@ -1117,7 +1191,7 @@ Clipboard =  %token%
    k := 0
    while( k++ < 1000) {
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 
       
          idBackup := A_TickCount  . "_line_" . A_LineNumber
@@ -1135,7 +1209,7 @@ Clipboard =  %token%
 }
    if(foundPos){
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 
                result:=SubStr(result , StrLen(id)+1)
    }  else
@@ -1160,7 +1234,7 @@ enableCopyQ() ; enableCopyQ() ;
 
 selfTestLoop1000(loopMax){
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 
    MsgBox, 17-03-10_08-04
    ; if you make much clipboard work during the test, you could see its not working fine :( 07.03.2017 01:05
@@ -1168,7 +1242,7 @@ selfTestLoop1000(loopMax){
 ;   id = 17-03-07_00-32 ; without this nummer you get some 1000 without any false, some with some false 07.03.2017 00:49
    while( i++ < loopMax)    {
  global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 
       ToolTip, %i% < %loopMax%
       value = selfTest1703061808i%i%
@@ -1182,7 +1256,7 @@ selfTestLoop1000(loopMax){
 }
 
 ;<<<<<<<<<<<<<<<<<<< getInitialActionList <<<<<<<<<<<<<<<<<<<<<<<<<<<
-getInitialActionList(ActionListNEWarchivePath,ActionListNEW){
+getInitialActionList(ActionListNEWarchivePath,ActionListNEW,at){
 ; Start filling the template variable with useful examples 12.07.2017 21:18
 
 if(!ActionListNEWarchivePath)
@@ -1191,19 +1265,26 @@ if(!ActionListNEWarchivePath)
 ActionListFileName := RegExReplace(ActionListNEWarchivePath,".*\\([^\\]+)$","$1") ; 20.03.2018 00:15
 
 calledFromStr := A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+Include := "Include"
 initialActionList =
 (
-; only meta info (not importand): %calledFromStr%
+#%Include% _global.ahk
+; #%Include% ..\_globalActionLists\_actionListHelp.ahk ; delete the comment (;), if you want help by creating your ActionList
+; '%at%' .  Only meta info (not importand): %calledFromStr%
 ___open ActionList|rr||ahk|openInEditor,%ActionListFileName%
 ; if you could read this germen special character (umlaute) your file format is correct (please use UTF8)
 ; ä = thats a au
 )
 ; EndOf filling the template variable with useful examples 12.07.2017 21:18
+
+
 return initialActionList
 }
 ;>>>>>>>>>>>>>>>>>>>>> getInitialActionList >>>>>>>>>>>>>>>>>>>>>>>>>
 
 #include, inc_ahk\openInEditor_actionList.inc.ahk
+
+#Include %A_ScriptDir%\inc_ahk\soundBeep.inc.ahk
 
 
 #Include *i %A_ScriptDir%\inc_ahk\functions_global.inc.ahk

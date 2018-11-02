@@ -13,8 +13,10 @@ SetWinDelay, -1 ; Sets the delay that will occur after each windowing command, s
 SetControlDelay, -1 ; A short delay (sleep) is done automatically after every Control command that changes a control, namely Control, ControlMove, ControlClick, ControlFocus, and ControlSetText (ControlSend uses SetKeyDelay).
 ; SetControlDelay, 10
 
-
+lineFileName := RegExReplace(A_LineFile, ".*\\([\w\s\.]+)$", "$1")
 #Include %A_ScriptDir%\inc_ahk\init_global.init.inc.ahk
+#Include %A_ScriptDir%\inc_ahk\soundBeep.inc.ahk
+; G:\fre\git\github\global-IntelliSense-everywhere-Nightly-Build\Source\inc_ahk\soundBeep.inc.ahk
 
 FileEncoding, UTF-8
 
@@ -35,10 +37,40 @@ class Stuff{
     }
 }
 
+
+
 global g_config
 g_config := { list:{ change: { stopRexExTitle: false } } }
 g_config := { FuzzySearch:{ enable: true, MAXlines : 87654, keysMAXperEntry : 6, minKeysLen: 4, doValueCopy : false } } ; difficult to implement symlink copy for not rr lines doValueCopy. todo: issue . doValueCopy : false  is not fully implemented
-global g_config
+
+global g_doSound
+g_doSound := false
+if(1 && InStr(A_ComputerName,"SL5") )
+    g_doSound := 0
+
+if(g_doSound){
+    global g_ttSpeakObject
+    g_ttSpeakObject := new TTS()
+    ; s.SetRate(-2)
+    g_ttSpeakObject.SetRate(5) ; speed higher value is faster. 2 is about 200 procent. 1 sounds like normal speak
+    ; -1 is very slow
+    ; -5 is terrible slow
+    ; 0 seems normal
+    ; 2 little faster
+    ; 5 reaky fast but possible to understand
+    g_ttSpeakObject.SetPitch(10)
+}
+Speak("gestartet")
+
+; SoundbeepString2Sound("zzz")
+; SoundbeepString2Sound("aaa")
+; exitApp
+; SoundbeepString2Sound("abc") ; 3 beep
+; SoundbeepString2Sound("abcd")
+; SoundbeepString2Sound("zx")
+; SoundbeepGameOver()
+
+; ___1
 
 ; msgBox,% g_config["FuzzySearch"]["keysMAXperEntry"] "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
 ;msgBox,% g_config["FuzzySearch"]["MAXlines"] "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
@@ -61,6 +93,7 @@ g_config .= { Send:{ RealisticDelayDynamic: false } }
 ;global do_us_FuzzySearch := true
 ; g_config["list"]["change"]["stopRexExTitle"]))
 
+countNotchangingActiveTitleOLD := 0
 global g_ListBoxX
 global g_ListBoxY
 g_ListBoxX := 0 ; if g_ListBoxX (not false > 0) it never usses CaretXorMouseXfallback . if you want go back to default, reload the
@@ -91,7 +124,9 @@ global g_sending_is_buggy := false ; Solved: SendPlay. 29.07.2017 11:21
 global g_doSaveLogFiles := false
 global g_doRunLogFiles := false
 
-global ActionList_isNotAProject := removesSymbolicLinksFromFileAdress( A_ScriptDir "\..\ActionLists\_globalActionListsGenerated\isNotAProject.ahk" )
+global ActionList_isNotAProject_withoutExt  := removesSymbolicLinksFromFileAdress( A_ScriptDir "\..\ActionLists\_globalActionListsGenerated\isNotAProject" )
+global ActionList_isNotAProject  := global ActionList_isNotAProject_withoutExt ".ahk"
+global g_is_correct_list_found := false
 global ActionList
 global ActionListOLD
 global activeTitle:=""
@@ -120,7 +155,8 @@ global g_ListBoxFontSize := 2 ; work but its so small i could not read it too
 global g_ListBoxFontSize := 8 ; work but its so small i could not read it too too tool
 listBoxFontSizeOLD := g_ListBoxFontSize
 
-ActionList := ActionListActive
+; ActionList := ActionListActive
+; msgbox,% ActionList "(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
 
 
 feedbackMsgBoxCloseAllWindows()
@@ -156,11 +192,19 @@ if(!fileExist(ActionList)){
 maxLinesOfCode4length1 := 900 ;
 
 ; SetTimer, saveIamAllive, 8000 ; setinterval
-SetTimer,checkInRegistryChangedActionListAddress,500 ; RegRead, ActionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList
-SetTimer,checkActionListAHKfile_sizeAndModiTime,3000
+; SetTimer,checkInRegistryChangedActionListAddress,600 ; RegRead, ActionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList
+SetTimer,checkInRegistryChangedActionListAddress,2000 ; RegRead, ActionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList
+; SetTimer,checkInRegistryChangedActionListAddress,off ; RegRead, ActionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList
+lbl_default_checkActionListAHKfile_sizeAndModiTime := 8123456789
+lbl_default_checkActionListAHKfile_sizeAndModiTime := 500
+; lbl_default_checkActionListAHKfile_sizeAndModiTime := 8000
+SetTimer,checkActionListAHKfile_sizeAndModiTime, % lbl_default_checkActionListAHKfile_sizeAndModiTime
 SetTimer,check_some_keys_hanging_or_freezed,1800 ; ; 30.08.2018 13:52 it sometimes happesn. and if it happens then its really ugly !!!! :( !!
 SetTimer,check_ActionList_GUI_is_hanging_or_freezed,1000 ; ; 26.09.2018 16:38 it sometimes happesn.
+SetTimer,checkWinChangedTitle,1000 ; RegRead, ActionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList
+; activeTitleOLD := activeTitle
 
+; tool tool tooltip too tooltip
 
 SetTimer,doListBoxFollowMouse,off
 ;SetTimer,doListBoxFollowMouse,off
@@ -333,9 +377,32 @@ MainLoop()
 
 ; dirty bugfix, https://github.com/sl5net/global-IntelliSense-everywhere/issues/4
 ; __ __
+; tooltip tooltip
 ;<<<<<<<<<<<<<<<<< workaround <<<<<<<<<<<<<<<<<
 ; https://stackoverflow.com/questions/52493547/autohotkey-read-of-two-underscore-keys
 ; https://github.com/sl5net/global-IntelliSense-everywhere/issues/4
+
+
+
+
+
+; #IfWinActive,asdjkfhaldjskahdskfjh
+; ~^s:: ; funktioniert nur einmal oder so ... komishc
+;     editor_open_folder() {
+;         Speak(A_LineNumber ": gespeichert" )
+;         sleep,250
+;         ; Gosub,checkActionListAHKfile_sizeAndModiTime
+;         ; SetTimer,checkActionListAHKfile_sizeAndModiTime,Off
+;         SetTimer,checkActionListAHKfile_sizeAndModiTime,On
+;     }
+;
+;Gosub,checkActionListAHKfile_sizeAndModiTime
+  ;  speak(A_LineNumber ": Ctrl s Shortcut found" )
+    ; sleep,555
+    ; Gosub,checkActionListAHKfile_sizeAndModiTime
+    ; SetTimer,checkActionListAHKfile_sizeAndModiTime,Off
+    ; SetTimer,checkActionListAHKfile_sizeAndModiTime,1200
+; return
 #IfWinActive,
 ~esc::
    toolTip2sec("esc::" A_LineNumber " " RegExReplace(A_LineFile,".*\\") )
@@ -452,17 +519,45 @@ return
      g_config["Send"]["RealisticDelayDynamic"] := ( g_config["Send"]["RealisticDelayDynamic"] ) ? false : true
      ToolTip2sec("RealisticDelayDynamic = " g_config["Send"]["RealisticDelayDynamic"] " `n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This,1,1)
  }
-return
-#IfWinActive,AHK Studio ahk_class #32770
-~^s::
- someFunction(){
-    WinWaitActive,AHK Studio ahk_class #32770,Please close any error messages and try again,1
-     winclose,
-     msgBox,% ":( ERROR: " msg "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
- }
-return
+
+; SetTitleMatchMode,2
+; #IfWinActive,ahk_class Notepad++  ; ahk - Notepad
+; ~^s::
+ ; someFunctionNotepad(){
+;           sleep,150
+;           if(false){
+;            Gosub,checkActionListAHKfile_sizeAndModiTime ; seems working only two times if i dont change window. working always inside same window. 01.11.2018 18:24
+;            }else{
+;             Speak(A_LineNumber ": gespeichert" )
+;             global checkActionListAHKfile_sizeAndModiTime
+;             SetTimer,checkActionListAHKfile_sizeAndModiTime,Off
+;             SetTimer,checkActionListAHKfile_sizeAndModiTime,200
+            ; ^- I'm surprised that somehow has no effect 01.11.2018 18:47
+            ; https://autohotkey.com/boards/viewtopic.php?f=76&t=58824&p=247295#top
+;             SetTimer,checkActionListAHKfile_sizeAndModiTime,On
+;           }
+; }
+; return
+
+; #IfWinActive,AHK Studio ahk_class #32770
+; ~^s::
+ ; someFunction(){
+;           Speak(A_LineNumber ": gespeichert" )
+;           Speak(A_LineNumber ": gespeichert" )
+;           sleep,250
+          ; Gosub,checkActionListAHKfile_sizeAndModiTime
+;           SetTimer,checkActionListAHKfile_sizeAndModiTime,Off
+;           SetTimer,checkActionListAHKfile_sizeAndModiTime,On
+
+;     WinWaitActive,AHK Studio ahk_class #32770,Please close any error messages and try again,1
+;      winclose,
+;      msgBox,% ":( ERROR: " msg "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+;  }
+; return
+
+;return
+
 ; ToolTip3sec("^+esc:: exit-all-scripts",1,1)
-;
 SetTitleMatchMode,regEx
 #IfWinActive,i).*(Autohotkey|\.ahk|IntelliSense)
 ; #IfWinActive,
@@ -620,16 +715,18 @@ Return
 ; 
 #Include %A_ScriptDir%\Includes\gi-everywhere.inc.ahk
 
-;<<<<<<<< reloadWordlost <<<< 180208163147 <<<< 08.02.2018 16:31:47 <<<<
-reloadWordlost:
+;<<<<<<<< reloadActionList <<<< 180208163147 <<<< 08.02.2018 16:31:47 <<<<
+reloadActionList:
+Speak("reload ActionList")
+; SoundbeepString2Sound(A_ThisFunc)
 ParseWordsCount := ReadActionList(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
 prefs_Length := getMinLength_Needetthat_ListBecomesVisible(ParseWordsCount, maxLinesOfCode4length1)
- ;feedbackMsgBox("reloadWordlost:",A_LineNumber . " " .  A_LineFile,1,1)
+ ;feedbackMsgBox("reloadActionList:",A_LineNumber . " " .  A_LineFile,1,1)
 
 ; ToolTipSec(t,x=123,y=321,sec=1000); 75+ lines in Live Edit Live_Edit Pseudo Live Edit for Chrome Firefox PhpStorm.ahk
 
-ActiveTitleOLD := ActiveTitle
-WinGetActiveTitle, ActiveTitle
+activeTitleOLD := activeTitle
+WinGetActiveTitle, activeTitle
 ;gi-everywhere Settings ahk_class AutoHotkeyGUI
 settitlematchmode,1
 ;detecthiddenwindows,On
@@ -643,14 +740,14 @@ settitlematchmode,1
 ;   Sleep,% m5
 ;   return
 ;}
-if(ActiveTitleOLD && ActiveTitleOLD <> ActiveTitle ){
+if(activeTitleOLD && activeTitleOLD <> activeTitle ){
 global g_doSaveLogFiles
 
     lll(A_LineNumber, A_LineFile,  "Goto, doReload `n reason for being carefully with reload `;) https://youtu.be/2a_AsYubzvE " )
     ;~ ToolTip, % A_TickCount
 }
 return
-;>>>>>>>> reloadWordlost >>>> 180208163153 >>>> 08.02.2018 16:31:53 >>>>
+;>>>>>>>> reloadActionList >>>> 180208163153 >>>> 08.02.2018 16:31:53 >>>>
 
 
 
@@ -673,15 +770,15 @@ return
         ActionListOLD := ActionList
         ParseWordsCount := ReadActionList(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
         prefs_Length := getMinLength_Needetthat_ListBecomesVisible(ParseWordsCount, maxLinesOfCode4length1)
-        ;GoSub, reloadWordlost
-        WinGetActiveTitle, ActiveTitle
-        if(ActiveTitleOLD <> ActiveTitle )
-            ActiveTitleOLD := ActiveTitle
+        ;GoSub, reloadActionList
+        WinGetActiveTitle, activeTitle
+        if(activeTitleOLD <> activeTitle )
+            activeTitleOLD := activeTitle
     }else{
         ; sometimes it stacks at line 105 105: Suspend,On (573.41)
         ;~ it needs then reloaded 29.04.2017 13:35
-        WinGetActiveTitle, ActiveTitle
-        if(ActiveTitleOLD && ActiveTitleOLD <> ActiveTitle && ActionListOLD == ActionList ){
+        WinGetActiveTitle, activeTitle
+        if(activeTitleOLD && activeTitleOLD <> activeTitle && ActionListOLD == ActionList ){
          
             ActionListModiTime_OLD:=ActionListModiTime
             i := 0
@@ -698,7 +795,7 @@ lll(A_LineNumber, A_LineFile, "Title changed, ActionList(modiTime) NOT changed s
                FileGetTime, ActionListModiTime, %ActionList%, M
             }
          
-            msg = %ActiveTitleOLD%  <> `n%ActiveTitle%
+            msg = %activeTitleOLD%  <> `n%activeTitle%
 global g_doSaveLogFiles
 
 lll(A_LineNumber, A_LineFile, "`n Sleep,100 `n" . msg . "`n ==> Goto, doReload")
@@ -728,10 +825,15 @@ return
 
 
 
+;
 
 ;/¯¯¯¯ checkActionListAHKfile_sizeAndModiTime ¯¯ 181023101000 ¯¯ 23.10.2018 10:10:00 ¯¯\
 checkActionListAHKfile_sizeAndModiTime:
     ;SetTimer,checkInRegistryChangedActionListAddress,Off
+
+;        Speak(A_LineNumber ":" A_thisFunc A_ThisLabel)
+    if(0 && InStr(A_ComputerName,"SL5"))
+        SoundbeepString2Sound("a")
 
     if(!FileExist(ActionList)){
         if(0 && InStr(A_ComputerName,"SL5")) ; 23.10.2018 10:08 was used
@@ -744,6 +846,13 @@ checkActionListAHKfile_sizeAndModiTime:
         MsgBox,% "ups" msg "`n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
     }
 
+        if(1 && InStr(ActionList,"._Generated.ahk._Generated.ahk")){
+             ToolTip9sec(" found ._Generated.ahk._Generated.ahk and not suported `n" ActionList "`n" A_LineNumber )
+
+    ActionList := StrReplace(ActionList, ".ahk._Generated.ahk._Generated.ahk", ".ahk._Generated.ahk") ; clean strange wordlists 25.10.2018 20:03
+        }
+
+;
 
 
     FileGetSize, ActionListSize, %ActionList%
@@ -769,8 +878,18 @@ checkActionListAHKfile_sizeAndModiTime:
     isTimeChanged := (ActionListModified <> ActionListLastModified)
     isSizeNull := (!ActionListLastSize || !ActionListLastSize)
 
+; compu compu https://autohotkey.com/boards/viewtopic.php?f=5&t=59
+; com Hallo Rübennase Comp1 compu
+; 01.11.2018 14:19
+
     doReadActionListTXTfile := (isSizeChanged || isTimeChanged || isSizeNull )
     doReadActionListTXTfileSTR = %isSizeChanged%||%isTimeChanged%||%isSizeNull%
+
+    ; ToolTip9sec(doReadActionListTXTfileSTR "`n" ActionList "`n" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
+    ; clipboard := ActionList
+
+; Hallo compu compu rüben hallo
+
     if(doReadActionListTXTfile){
         ;msgbox, doReadActionListTXTfile 654654654
 
@@ -794,6 +913,9 @@ checkActionListAHKfile_sizeAndModiTime:
              )
             msgbox,% msg "`n(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
         }
+        ; compu hall Rüb
+        if(1 && InStr(A_ComputerName,"SL5"))
+            Speak(A_LineNumber ": ReadInTheActionList")
         ReadInTheActionList("checkActionListAHKfile_sizeAndModiTime:" doReadActionListTXTfileSTR " " A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
         ;ParseWordsCount := ReadActionList(calledFromStr) ; there is also update and select of time of the ActionList
         ;prefs_Length := getMinLength_Needetthat_ListBecomesVisible(ParseWordsCount, maxLinesOfCode4length1)
@@ -805,6 +927,8 @@ checkActionListAHKfile_sizeAndModiTime:
         sqlLastError := SQLite_LastError()
         tip .= "`n sqlLastError=" sqlLastError " `n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
         if( instr(sqlLastError, "no such table") ){
+
+
             tooltip, % tip
             SuspendOn()
             ;msgbox,% tip
@@ -819,6 +943,7 @@ checkActionListAHKfile_sizeAndModiTime:
         ;reload ; hardcore. anyway. thats a way it works
     }
     ; SetTimer,checkInRegistryChangedActionListAddress,On
+    SetTimer,checkActionListAHKfile_sizeAndModiTime, % lbl_default_checkActionListAHKfile_sizeAndModiTime
 return
 ;\____ checkActionListAHKfile_sizeAndModiTime __ 181023101012 __ 23.10.2018 10:10:12 __/
 
@@ -830,51 +955,48 @@ return
 
 
 
-;/¯¯¯¯ checkInRegistryChangedActionListAddress ¯¯ 181025104242 ¯¯ 25.10.2018 10:42:42 ¯¯\
+
+
+; ActiveTitleOLD2 := activeTitleOLD
+;/¯¯¯¯ checkIncChangedActionListAddress ¯¯ 181025104242 ¯¯ 25.10.2018 10:42:42 ¯¯\
 checkInRegistryChangedActionListAddress:
+    if(g_itsProbablyArecentUpdate)
+        return
 
-if( 1 && InStr(A_ComputerName,"SL5")){
-    ; G:\fre\git\github\global-IntelliSense-everywhere-Nightly-Build\AHK-Studio\AHK-Studio Backup
-    ;
-}
-
-
-if(ActionList == ActionList_isNotAProject){ ; it happens: 23.10.2018 10:33
-    ; msgBox,% "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
-    return
-}
-
-if(false && g_ActionList_UsedByUser_since_midnight[g_ActionListID]){
-    msgBox,% "g_ActionList_UsedByUser_since_midnight[g_ActionListID]: " g_ActionList_UsedByUser_since_midnight[g_ActionListID] "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
-}
-if(g_config["list"]["change"]["stopRexExTitle"]=="."){
-    temp := g_config["list"]["change"]["stopRexExTitle"]
-    tip = stopRexExTitle is >%temp%< %ActionList%
-    lineFileName := RegExReplace(A_LineFile, ".*\\([\w\s\.]+)$", "$1")
-    ToolTip5sec(tip " (" A_LineNumber " " lineFileName . " )",1,-33 )
-    return
-}
-if(0 && InStr(A_ComputerName,"SL5"))
-	ToolTip5sec(ActionList " `n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\")  . " )" )
-
-    ;SetTimer,checkActionListAHKfile_sizeAndModiTime,Off
-
-global g_SingleMatch
-global g_FLAGmsgbox
-
-
-
-SetTitleMatchMode,2
-if( g_ActionList_UsedByUser_since_midnight[g_ActionListID] ){
-	If(WinExist("ActionListChangedInRegistry") )
-	    winClose,ActionListChangedInRegistry
-    winWaitclose,ActionListChangedInRegistry, , 2
-    g_FLAGmsgbox := false
-}else if( ActionListSize > g_minBytesNeedetToAskBevoreChangingActionList)
-	If(WinExist("ActionListChangedInRegistry") ){
-            g_FLAGmsgbox := true
-            return ; no update jet
+    if( milliesTried_getNewListFromRegistry >= 5000){
+        milliesTried_getNewListFromRegistry := 0
+        g_itsProbablyArecentUpdate := true ; may the registry not changing anymore. this is the last try
+        return
     }
+
+    if(0 && InStr(A_ComputerName,"SL5"))
+        SoundbeepString2Sound("a")
+
+    if(g_config["list"]["change"]["stopRexExTitle"]=="."){
+        g_is_correct_list_found := true
+
+        temp := g_config["list"]["change"]["stopRexExTitle"]
+        tip = stopRexExTitle is >%temp%< %ActionList%
+        ToolTip5sec(tip " (" A_LineNumber " " lineFileName . " )",1,-33 )
+        Speak("Return in " A_LineNumber)
+        return
+    }
+
+    global g_SingleMatch
+    global g_FLAGmsgbox
+
+    SetTitleMatchMode,2
+    if( g_ActionList_UsedByUser_since_midnight[g_ActionListID] ){
+        If(WinExist("ActionListChangedInRegistry") )
+            winClose,ActionListChangedInRegistry
+        winWaitclose,ActionListChangedInRegistry, , 2
+        g_FLAGmsgbox := false
+    }else if( ActionListSize > g_minBytesNeedetToAskBevoreChangingActionList)
+        If(WinExist("ActionListChangedInRegistry") ){
+                g_FLAGmsgbox := true
+                Speak("Return in " A_LineNumber)
+                return ; no update jet
+        }
 
     if(1){
         ; not needet to check, but maybe mmore pretty coding ?? 20.03.2018 18:34 TODO
@@ -893,35 +1015,98 @@ if( g_ActionList_UsedByUser_since_midnight[g_ActionListID] ){
             sleep,9000
             ; reload
             RecomputeMatches(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")) ; in checkInRegistryChangedActionListAddress
+            Speak("Return in " A_LineNumber)("Return")
             return
         }
     }
 
+    RegRead, ActionListNewTemp_RAW, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList
+    ActionListNewTemp_withoutExt := ActionListNewTemp_RAW
+    if(!timeFirstTry_getNewListFromRegistry)
+        timeFirstTry_getNewListFromRegistry := A_TickCount
+    milliesTried_getNewListFromRegistry := A_TickCount - timeFirstTry_getNewListFromRegistry
 
+    ActionListFileName := RegExReplace(ActionListNewTemp_withoutExt,".*\\")
+    ActionListFileName := RegExReplace(ActionListFileName,"(\w+).*","$1")
+    ; Speak("registry read: " ceil(milliesTried_getNewListFromRegistry / 1000) " Sekunden: " ActionListFileName " in Line " A_LineNumber)
+    ;sleep,1000
 
-    RegRead, ActionListNewTemp_withoutExt, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList
+; if(ActionList == ActionList_isNotAProject){ ; it happens: 23.10.2018 10:33 but maybe its wrong... so chekc the next
+;    ; msgBox,% "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+;    Speak("return: is Not A Project")
+    ; return
+; }
+
     isRegListChanged := (ActionListNewTemp_withoutExt && ActionList <> ActionListNewTemp_withoutExt)
-    if(!isRegListChanged || A_TimeIdle < 1333)
+    ; if(!isRegListChanged || !ActionListNewTemp_withoutExt || A_TimeIdle < 1333){
+    if(!isRegListChanged || !ActionListNewTemp_withoutExt ){
+        ; happens if already correct loadet
+        Speak("Return in " A_LineNumber " probably correct loadet")
         return
-     if( InStr( ActionListNewTemp_withoutExt, "\.ahk")){ ; without file name 25.10.2018 11:33
-        ; Msgbox,InStr( ActionListNewTemp_withoutExt, "\.ahk") ==> RETURN `n (%A_LineFile%~%A_LineNumber%)
-        log =
-        (
-        Oops: InStr( ActionList, "\.ahk")
-        This may happen for example with Java applications. JetBrains IDE Search Window or so.
-        A_ThisFunc = %A_ThisFunc%
-        Log:
-        ; it happens: 25.10.2018 12:06
-        ActionListNewTemp_withoutExt[30 of 259]: ..\ActionLists\AutoHotkey\.ahk
-        ActionListOLD[33 of 63]: ..\ActionLists\noName\Cortana.ahk
-        )
-        log .= "`n (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
-        if(1 && InStr(A_ComputerName,"SL5"))
-            feedbackMsgBox(RegExReplace(A_LineFile,".*\\") ">" A_LineNumber, log )
-            ;msgBox,% log " ==> RETURN `n (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
     }
 
 
+    is_AL_without_fileName := ( InStr( ActionListNewTemp_withoutExt, "\.ahk") )
+     if( is_AL_without_fileName ){ ; without file name 25.10.2018 11:33
+        ; Msgbox,InStr( ActionListNewTemp_withoutExt, "\.ahk") ==> RETURN `n (%A_LineFile%~%A_LineNumber%)
+        log =
+        (
+        Oops: InStr( AL, "\.ahk")
+        This may happen for example with Java applications. JetBrains IDE Search Window or so.
+        A_ThisFunc = %A_ThisFunc%
+        )
+        log .= "`n (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+    }
+
+    ; ActionList := StrReplace(ActionList, ".ahk._Generated.ahk._Generated.ahk", ".ahk._Generated.ahk") ; clean strange wordlists 25.10.2018 20:03
+    ActionListNewTemp_withoutExt := StrReplace(ActionListNewTemp_withoutExt, ".ahk._Generated.ahk._Generated.ahk", ".ahk._Generated.ahk") ; clean strange wordlists 25.10.2018 20:03
+
+; GitKraken ahk_class Chrome_WidgetWin_1 ; mouseWindowTitle=0x236113c  ;
+;  WinMove,GitKraken ahk_class Chrome_WidgetWin_1 ,, 2264,218, 1900,925
+
+
+    if(!fileExist(ActionListNewTemp_withoutExt ".ahk")){ ; addet 01.11.2018 10:48
+        m := "not exist."
+        if(ActionListNewTemp_RAW){
+            Speak(m "Return in " A_LineNumber ". " ActionListNewTemp_RAW)
+            ;toolTip2sec(ActionListNewTemp_RAW "`n`n" A_LineNumber " " RegExReplace(A_LineFile,".*\\") )
+            ;clipboard := ActionListNewTemp_withoutExt
+            ;Sleep,1000
+        }else
+            Speak(m "Return in " A_LineNumber " Registry is empty")
+        ActionListNewTemp_withoutExt := ActionList_isNotAProject_withoutExt ; as long as nothing else would be found
+    }
+    if(!fileExist(ActionListNewTemp_withoutExt ".ahk")){ ; addet 26.4.2018 12:58 becouse of mistourios things
+        m =
+        (
+        ActionListNewTemp_withoutExt = %ActionListNewTemp_withoutExt%
+        )
+        ;
+        ; msgbox,% m  " `n`n AL NOT exist(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
+        if(1 && InStr(A_ComputerName,"SL5"))
+            ToolTip2sec("pls Fix:  ...multi_clone writes sometimles AL with extension into registry. ..._Generated.ahk ..." A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
+        ActionListNewTemp_withoutExt := get_Action_Lists_without_Extension_and_send_warning(ActionListNewTemp_withoutExt)
+        if( !fileExist(ActionListNewTemp_withoutExt ".ahk") ){
+            m =
+            (
+            NOT fileExist(%ActionListNewTemp_withoutExt% ".ahk"
+            activeTitle = %activeTitle%
+            activeTitleOLD = %activeTitleOLD%
+
+global-IntelliSense-everywhere-Nightly-Build [G:\fre\git\github\global-IntelliSense-everywhere-Nightly-Build] - ...\Source\gi-everywhere.ahk [global-IntelliSense-everywhere-Nightly-Build] - IntelliJ IDEA (Administrator)
+            )
+            Speak("Return in " A_LineNumber " file not exist")
+
+            clipboard := activeTitle
+            MsgBox,% m "`n(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
+            EnableKeyboardHotKeys()
+            EnableWinHook()
+            return
+        }
+        Speak("Return in " A_LineNumber)
+        return
+        ; ToolTip2sec(A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
+    }
 
     if(g_config["list"]["change"]["stopRexExTitle"]){
         regExPattern := g_config["list"]["change"]["stopRexExTitle"]
@@ -931,34 +1116,7 @@ if( g_ActionList_UsedByUser_since_midnight[g_ActionListID] ){
             return
 
     }
-
-    if(fileExist(ActionListNewTemp_withoutExt ".ahk")){ ; addet 26.4.2018 12:58 becouse of mistourios things
-        msg = pease use Action Lists without Extension `n thats not an error, a warning`n
-        msg .= ActionListNewTemp_withoutExt "`n" ; inside checkInRegistryChangedActionListAddress
-        if( SubStr( ActionListNewTemp_withoutExt , -3 ) == ".ahk" )
-            ActionListNewTemp_withoutExt := SubStr( ActionListNewTemp_withoutExt, 1, -4 )
-        msg .= ActionListNewTemp_withoutExt " <== repaired`n" ; inside checkInRegistryChangedActionListAddress
-        msg .= " (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
-        if(1 && InStr(A_ComputerName,"SL5"))
-            ToolTip2sec( msg, 1,1 )
-            ; feedbackMsgBox(msg,msg,1,1)
-        if(!fileExist(ActionListNewTemp_withoutExt ".ahk")){
-            clilpboard := ActionListNewTemp_withoutExt
-            msg = :( list read by RegRead NOT exist: `n`n ActionListNewTemp_withoutExt = `n >>%ActionListNewTemp_withoutExt%<< `n = clilpboard = `n
-            msg .= " (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
-            ActionList := ActionList_isNotAProject
-            if(1 && InStr(A_ComputerName,"SL5")){
-                ; msgBox,% ":( ERROR: " msg "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
-                ; feedbackMsgBox(msg,msg,1,1)
-                ToolTip3sec( msg )
-                ; clilpboard := msg
-                ; sleep,5000
-            }
-            sleep,2000
-            ; 111123456789
-    }
-}
-
+;
     ; takes a little time to read data von database. 19.10.2018 12:21
 	if(A_TickCount > 4000 && !g_ActionList_UsedByUser_since_midnight[g_ActionListID] && g_doAskBevoreChangingActionList && ActionListSize > g_minBytesNeedetToAskBevoreChangingActionList){
         AHKcodeMsgBox := "#" . "NoTrayIcon `n "
@@ -978,6 +1136,7 @@ if( g_ActionList_UsedByUser_since_midnight[g_ActionListID] ){
             sleep,60
             send,^f ActionListChangedInRegistry
         }
+        Speak("Return in " A_LineNumber)
         return
         exitApp
         )
@@ -991,7 +1150,7 @@ if( g_ActionList_UsedByUser_since_midnight[g_ActionListID] ){
             WinWait,ActionListChangedInRegistry,,1
             ;msgbox,18-03-02_17-42 %AHKcodeMsgBox%
             tooltip,
-
+            Speak("Return in " A_LineNumber)
             return ; no update jet
         }
     }
@@ -1002,14 +1161,17 @@ if( g_ActionList_UsedByUser_since_midnight[g_ActionListID] ){
         msg := "ActionList >"ActionListNewTemp_withoutExt ".ahk< `n = ActionListNewTemp_withoutExt (=clipBoard) `n ActionList NOT exist"
         msg := ":( ERROR: " msg "`n (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
         if(1 && InStr(A_ComputerName,"SL5")){
-            clipBoard := removesSymbolicLinksFromFileAdress(A_ScriptDir "\" ActionListNewTemp_withoutExt ".ahk")
+            ; clipBoard := removesSymbolicLinksFromFileAdress(A_ScriptDir "\" ActionListNewTemp_withoutExt ".ahk")
             ToolTip3sec(msg "`n" A_LineNumber . " " . RegExReplace(A_LineFile,".*\\")  . " " . Last_A_This,1,1)
         }
 
         ; Msgbox,% ":( ERROR: " msg "`n (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
         ; feedbackMsgBox(msg,msg,1,1)
-        ActionList := globalActionListDir   "\_globalActionListsGenerated\isNotAProject.ahk"
-        sleep,1000
+        ; ActionList := globalActionListDir   "\_globalActionListsGenerated\isNotAProject.ahk"
+        ActionListNewTemp_withoutExt := ActionList_isNotAProject_withoutExt ; as long as nothing else would be found
+        ;ActionListNewTemp := ActionList_isNotAProject ; as long as nothing else would be found
+
+        ;sleep,1000
         ; ActionListOLD := "" ; probably programmer want a reloud soon. quck an dirty ???
         ; return
     }
@@ -1020,11 +1182,47 @@ if( g_ActionList_UsedByUser_since_midnight[g_ActionListID] ){
     else
         ActionList := ActionListNewTemp_withoutExt ".ahk"
 
-    ActionList := StrReplace(ActionList, ".ahk._Generated.ahk._Generated.ahk", ".ahk._Generated.ahk") ; clean strange wordlists 25.10.2018 20:03
+        if(1 && InStr(ActionList,"._Generated.ahk._Generated.ahk")){
+             ToolTip5sec(";] Oopsfound ._Generated.ahk._Generated.ahk => ._Generated.ahk `n`n" ActionList "`n" A_LineNumber RegExReplace(A_LineFile,".*\\"), 1,1 )
 
-    ; tool too
-    if(ActionListOLD == ActionList) ; thats fixed that the list is lcoaed always to early with ClearAllVars
+    ActionList := StrReplace(ActionList, ".ahk._Generated.ahk._Generated.ahk", ".ahk._Generated.ahk") ; clean strange wordlists 25.10.2018 20:03
+        }
+
+    ; tool too tool
+
+	; millis_since_midnight := JEE_millis_since_midnight(vOpt:="") ; <=== more correct then  := A_Hour*3600000+A_Min*60000+A_Sec*1000+A_MSec
+	millis_since_midnight := A_TickCount  ; <=== more correct then  := A_Hour*3600000+A_Min*60000+A_Sec*1000+A_MSec
+	RegRead, updatedTimeStamp_millisSinceMidnight, HKEY_CURRENT_USER, SOFTWARE\sl5net, updatedTimeStamp_millisSinceMidnight  ; RegWrite , RegSave , Registry
+	milliSinceLastRegistryUpdate := millis_since_midnight - updatedTimeStamp_millisSinceMidnight
+	milliSinceLastRegistryUpdate_sec := round((millis_since_midnight - updatedTimeStamp_millisSinceMidnight)/1000)
+
+    g_is_correct_list_found :=  true
+    g_itsProbablyArecentUpdate := (milliSinceLastRegistryUpdate < 2000 )  ; probalby correct
+
+        m =
+        (
+        milliSinceLastRegistryUpdate = %milliSinceLastRegistryUpdate%
+        g_itsProbablyArecentUpdate = %g_itsProbablyArecentUpdate%
+        %ActionListOLD% ?= %ActionList%
+        )
+    ; toolTip2sec(m "`n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
+    ;msgbox,% m "(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
+
+    if(0 && ActionListOLD == ActionList){ ; thats fixed that the list is lcoaed always to early with ClearAllVars
+        ; Speak("" A_LineNumber ": List not changed: " ActionListFileName ". Return. " RegExReplace(A_LineFile,".*\\"))
+        EnableKeyboardHotKeys()
+        EnableWinHook()
+        msgbox,% m "`n(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
         return
+    }
+
+    ; g_is_correct_list_found :=  (g_itsProbablyArecentUpdate || ActionListOLD <> ActionList)
+        ; timeFirstTry_getNewListFromRegistry := JEE_millis_since_midnight(vOpt:="")
+
+    ; Number_of_attempts_to_pick_new_list_from_Registry := 0
+    if(g_itsProbablyArecentUpdate)
+        SetTimer,checkInRegistryChangedActionListAddress,off ; will set on again inside WinChanged( 31.10.2018 18:52
+
     ActionListOLD := ActionList
     g_ActionListID := getActionListID(ActionList) ; 24.03.2018 23:02
 
@@ -1042,9 +1240,37 @@ if( g_ActionList_UsedByUser_since_midnight[g_ActionListID] ){
 
 
         ;if(g_FLAGmsgbox == 0)
-            RecomputeMatches(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")) ; in checkInRegistryChangedActionListAddress
+    RecomputeMatches(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")) ; in checkInRegistryChangedActionListAddress
 
     ; gosub onLink2ActionListChangedInRegistry ; ToolTip3sec(A_LineNumber . " " . RegExReplace(A_LineFile,".*\\")  . " " . Last_A_This)
+
+    ; SetTimer,checkInRegistryChangedActionListAddress,off ; will set on again inside WinChanged( 31.10.2018 18:52
+    ; SetTimer,checkInRegistryChangedActionListAddress,off ; will set on again inside WinChanged( 31.10.2018 18:52
+    ; SoundbeepString2Sound("zzz")
+    ;Speak(ActionListFileName " in " ceil(milliesTried_getNewListFromRegistry / 1000) " Sekunden gefunden.")
+
+    ; Speak(ActionListFileName " updated for " milliSinceLastRegistryUpdate_sec " Sekunden.") ; <====== interesting for developwers
+
+    EnableKeyboardHotKeys() ; seems needet 01.11.2018 19:04
+    InitializeHotKeys()
+    RecomputeMatches(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
+
+            m =
+            (
+
+            g_itsProbablyArecentUpdate = %g_itsProbablyArecentUpdate%
+            g_is_correct_list_found = %g_is_correct_list_found%
+
+            milliSinceLastRegistryUpdate = %milliSinceLastRegistryUpdate%
+            milliesTried_getNewListFromRegistry = %milliesTried_getNewListFromRegistry%
+
+            timeFirstTry_getNewListFromRegistry = %timeFirstTry_getNewListFromRegistry%
+
+            %ActionList%
+            )
+        ; toolTip9sec(m "`n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\")
+        ; toolTip, % m "`n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\")
+
 return
 ;\____ checkInRegistryChangedActionListAddress __ 181025104318 __ 25.10.2018 10:43:18 __/
 
@@ -1052,6 +1278,53 @@ return
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+        ;/¯¯¯¯ ActionListNewTemp_withoutExt ¯¯ 181031091909 ¯¯ 31.10.2018 09:19:09 ¯¯\
+        get_Action_Lists_without_Extension_and_send_warning(ActionListNewTemp,log := ""){
+        if(1 && InStr(A_ComputerName,"SL5"))
+            feedbackMsgBox(RegExReplace(A_LineFile,".*\\") ">" A_LineNumber, ActionListNewTemp "`n" log )
+            ;msgBox,% log " ==> RETURN `n (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+
+                    msg = pease use Action Lists without Extension `n thats not an error, a warning`n
+                    msg .= ActionListNewTemp "`n" ; inside checkInRegistryChangedActionListAddress
+                    if( SubStr( ActionListNewTemp , -3 ) == ".ahk" )
+                        ActionListNewTemp_withoutExt := SubStr( ActionListNewTemp, 1, -4 )
+                    msg .= ActionListNewTemp_withoutExt " <== repaired`n" ; inside checkInRegistryChangedActionListAddress
+                    msg .= " (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+                    if(1 && InStr(A_ComputerName,"SL5"))
+                        ToolTip2sec( msg, 30, - 140 )
+                        ; feedbackMsgBox(msg,msg,1,1)
+                    if(!fileExist(ActionListNewTemp_withoutExt ".ahk")){
+                        clilpboard := ActionListNewTemp_withoutExt
+                        msg = :( list read by RegRead NOT exist: `n`n ActionListNewTemp_withoutExt = `n >>%ActionListNewTemp_withoutExt%<< `n = clilpboard = `n
+                        msg .= " (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+                        ActionList := ActionList_isNotAProject
+                        if(1 && InStr(A_ComputerName,"SL5")){
+                            ; msgBox,% ":( ERROR: " msg "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+                            ; feedbackMsgBox(msg,msg,1,1)
+                            ToolTip3sec( msg, 30, - 140 )
+                            ; clilpboard := msg
+                            ; sleep,5000
+                        }
+                        sleep,2000
+                        ; 111123456789
+                    }
+                    Speak("Action List New Temp without Extension in line " A_LineNumber)
+                    return ActionListNewTemp_withoutExt
+        }
+        ;\____ ActionListNewTemp_withoutExt __ 181031091858 __ 31.10.2018 09:18:58 __/
 
 
 
@@ -1243,9 +1516,13 @@ ActionListTooltip:
     ToolTip,% tip
 return
 
+
+
 recreateListBox_IfFontSizeChangedAndTimeIdle(g_ListBoxFontSize, newListBoxFontSize){
   if ( A_TimeIdlePhysical < 1000 * 0.5 )
     return false
+    if(1 && InStr(A_ComputerName,"SL5"))
+        Sound("recreateListBox_IfFontSizeChangedAndTimeIdle. " RegExReplace(A_LineFile,".*\\") )
     if(g_ListBoxFontSize <> newListBoxFontSize ){
         g_ListBoxFontSize := newListBoxFontSize ; ; to to
         ; ListBoxEnd()
@@ -1255,7 +1532,10 @@ recreateListBox_IfFontSizeChangedAndTimeIdle(g_ListBoxFontSize, newListBoxFontSi
     }
     return false
 }
-; too
+
+
+
+
 doListBoxFollowMouse:
       MouseGetPos, g_ListBoxX, g_ListBoxY
       g_ListBoxX := g_ListBoxX - 77
@@ -1274,6 +1554,9 @@ doListBoxFollowMouse:
 return
 
 
+
+
+
 check_some_keys_hanging_or_freezed:
   if( A_TimeIdlePhysical <= 1000 * 3 )
     return
@@ -1281,18 +1564,12 @@ check_some_keys_hanging_or_freezed:
 return
 
 
-setRegistry_toDefault(){
-    globalActionListDir := "..\ActionLists"
-    ; globalActionList := globalActionListDir "\_globalActionListsGenerated\_global.ahk"
-    globalActionList := globalActionListDir   "\_globalActionListsGenerated\isNotAProject.ahk"
 
-    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionListDir, %globalActionListDir% ; RegWrite , RegSave , Registry
-    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionListActive, %globalActionList% ; RegWrite , RegSave , Registry
-    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionListNEW, %globalActionList% ; RegWrite , RegSave , Registry
-    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList, %globalActionList% ; RegWrite , RegSave , Registry
-    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, toDo, A_ScriptName " " A_LineNumber ": "  . " to many. 2 or 3 enough"  ; RegWrite , RegSave , Registry
-}
 
+
+
+
+;/¯¯¯¯ exit_all_scripts ¯¯ 181101135520 ¯¯ 01.11.2018 13:55:20 ¯¯\
 exit_all_scripts(){
         DetectHiddenWindows, On
         WinGet, List, List, ahk_class AutoHotkey
@@ -1303,6 +1580,10 @@ exit_all_scripts(){
                  PostMessage,0x111,65405,0,, % "ahk_id " List%A_Index%
           }
 }
+;\____ exit_all_scripts __ 181101135538 __ 01.11.2018 13:55:38 __/
+
+
+
 
 fixBug_Alt_Shift_Ctrl_hanging_down(){
   ; 30.08.2018 13:52 it sometimes happesn. and if it happens then its really ugly !!!! :( !!
@@ -1398,7 +1679,8 @@ return
 
 
 
-; too too too too toolt
+
+
 
 
 
@@ -1452,6 +1734,12 @@ show_ListBox_Id:
         ; tested . it works. dont need to reload or so
         ToolTip5sec( g_show_ListBox_Id_EMTY_COUNT ": DisEn (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " al= " RegExReplace(ActionList,".*\\") "  2:" ActionListNEW ,1,1)
 
+    if(0 && g_show_ListBox_Id_EMTY_COUNT >= 1)
+        EnableKeyboardHotKeys() ; seems needet 01.11.2018 19:04
+
+    ; if(1 && g_show_ListBox_Id_EMTY_COUNT >= 1)
+        ; InitializeListBox() ; ERROR same vaiabele cannot used twice
+
 
         if(0 && g_show_ListBox_Id_EMTY_COUNT >= 2){
 
@@ -1474,3 +1762,11 @@ show_ListBox_Id:
         ;
 return
 ;\____ show_ListBox_Id
+
+
+
+
+
+
+
+#Include,RegWrite181031.ahk

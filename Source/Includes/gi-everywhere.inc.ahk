@@ -259,9 +259,8 @@ ProcessKey(InputChar,EndKey) {
          g_LastInput_Id := g_Active_Id
          Return
       }
-
       if(1 && InStr(A_ComputerName,"SL5"))
-           tooltip,% "str=" NewInput " , chr=" InputChar "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\")
+           tooltip,% "str=" NewInput " , chr=" InputChar "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\"),80,-10
 
       if InputChar in %prefs_ForceNewWordCharacters%
       {
@@ -317,7 +316,7 @@ global g_doSaveLogFiles
 
 ; test
 ;/¯¯¯¯ RecomputeMatches ¯¯ 181025105946 ¯¯ 25.10.2018 10:59:46 ¯¯\
-RecomputeMatches(calledFromStr ){
+RecomputeMatches( calledFromStr ){
    ; This function will take the given word, and will recompile the list of matches and redisplay the ActionList.
    global g_MatchTotal
    global g_SingleMatch
@@ -1028,6 +1027,9 @@ lll(A_LineNumber, A_LineFile,"SuspendOn()`n" . Key " = Key `n" . WordIndex " = W
 
 
 
+
+
+
 ;If a hotkey related to the up/down arrows was pressed
 EvaluateUpDown(Key){
 
@@ -1289,7 +1291,7 @@ EvaluateScriptPathAndTitle(){
       IF(A_PtrSize == 4){
          IF(A_IsCompiled){
          ; A_IsCompiled	Contains 1 if the script is running as a compiled EXE and an empty string (which is considered false) if it is not.
-            ScriptPath64 := A_ScriptDir . "\" . ScriptNoExtension . "64." . ScriptExtension
+            ScriptPath64 := A_ScriptDir "\" ScriptNoExtension "64." ScriptExtension
 
             If(FileExist(ScriptPath64)){
                ; gosub,couldIfindMyself

@@ -6,9 +6,9 @@
 ;~ examples:
 ;~ ToolTip5sec("wwwww`nwwwww`nwwww`n", A_ScreenWidth - 100, A_ScreenHeight - 100)
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-lll(A_LineNumber, "ToolTipSec.inc.ahk","test")
+; lll(A_LineNumber, "ToolTipSec.inc.ahk","test")
 #Include *i %A_ScriptDir%\inc_ahk\functions_global.inc.ahk
-lll(A_LineNumber, "ToolTipSec.inc.ahk","line behind #Include *i %A_ScriptDir%\inc_ahk\functions_global.inc.ahk")
+; lll(A_LineNumber, "ToolTipSec.inc.ahk","line behind #Include *i %A_ScriptDir%\inc_ahk\functions_global.inc.ahk")
 
 
 
@@ -33,7 +33,7 @@ Last_A_This:=A_ThisFunc . A_ThisLabel
 
 ToolTip3sec(t,x=123,y=321){
 Last_A_This:=A_ThisFunc . A_ThisLabel
-  lll(A_LineNumber, "ToolTipSec.inc.ahk",Last_A_This)
+  ;lll(A_LineNumber, "ToolTipSec.inc.ahk",Last_A_This)
 
   ToolTipSec(t,x,y,3000)
   return
@@ -41,7 +41,7 @@ Last_A_This:=A_ThisFunc . A_ThisLabel
 
 ToolTip4sec(t,x=123,y=321){  
 Last_A_This:=A_ThisFunc . A_ThisLabel
-  lll(A_LineNumber, "ToolTipSec.inc.ahk",Last_A_This)
+  ;lll(A_LineNumber, "ToolTipSec.inc.ahk",Last_A_This)
 
   ToolTipSec(t,x,y,4000)
   return
@@ -54,19 +54,47 @@ ToolTip5sec(t,x=123,y=321){
   return
 }
 
+ToolTip6sec(t,x=123,y=321){
+  ToolTipSec(t,x,y,6000)
+  Last_A_This:=A_ThisFunc . A_ThisLabel
+  lll(A_LineNumber, "ToolTipSec.inc.ahk",Last_A_This)
+  return
+}
+
+ToolTip7sec(t,x=123,y=321){
+  ToolTipSec(t,x,y,7000)
+  Last_A_This:=A_ThisFunc . A_ThisLabel
+  lll(A_LineNumber, "ToolTipSec.inc.ahk",Last_A_This)
+  return
+}
+
+ToolTip8sec(t,x=123,y=321){
+  ToolTipSec(t,x,y,8000)
+  Last_A_This:=A_ThisFunc . A_ThisLabel
+  lll(A_LineNumber, "ToolTipSec.inc.ahk",Last_A_This)
+  return
+}
+
+ToolTip9sec(t,x=123,y=321){
+  ToolTipSec(t,x,y,9000)
+  Last_A_This:=A_ThisFunc . A_ThisLabel
+  lll(A_LineNumber, "ToolTipSec.inc.ahk",Last_A_This)
+  return
+}
+
 ToolTipSec(t,x=123,y=321,sec=1000)
 {
     Last_A_This:=A_ThisFunc . A_ThisLabel
-    lll(A_LineNumber, "ToolTipSec.inc.ahk",Last_A_This)
+   ; lll(A_LineNumber, "ToolTipSec.inc.ahk",Last_A_This)
 
   if( x=123 AND y=321 )
   {
   	ToolTip, %t%
-    lll(A_LineNumber, "ToolTipSec.inc.ahk")
+   ; lll(A_LineNumber, "ToolTipSec.inc.ahk")
   }
   else
   {
-      lll(A_LineNumber, "ToolTipSec.inc.ahk")
+    ;  lll(A_LineNumber, "ToolTipSec.inc.ahk")
 	  ToolTip, %t%,%x%,%y%
       ;~ MsgBox,ToolTip %t% %x% %y%
   }
@@ -88,6 +116,7 @@ ToolTipSec(t,x=123,y=321,sec=1000)
   return
 }
 
-lll(A_LineNumber, "ToolTipSec.inc.ahk", "line before #Include,inc_ahk\ToolTipSec_RemoveToolTip.inc.ahk")
+; lll(A_LineNumber, "ToolTipSec.inc.ahk", "line before #Include,inc_ahk\ToolTipSec_RemoveToolTip.inc.ahk")
 #Include *i %A_ScriptDir%\inc_ahk\ToolTipSec_RemoveToolTip.inc.ahk
-lll(A_LineNumber, "ToolTipSec.inc.ahk" , -"line behind #Include,inc_ahk\ToolTipSec_RemoveToolTip.inc.ahk")
+; lll(A_LineNumber, "ToolTipSec.inc.ahk" , -"line behind #Include,inc_ahk\ToolTipSec_RemoveToolTip.inc.ahk")
+

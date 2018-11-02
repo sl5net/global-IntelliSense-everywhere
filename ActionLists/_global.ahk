@@ -2,8 +2,6 @@
 ___open \_global|rr||ahk|openInEditor,..\_global.ahk
 ; if this german au is readable your UTF8 is probalby correct: ä
 
-__
-
 g_IntelliSense
 global-IntelliSense-everywhere
 

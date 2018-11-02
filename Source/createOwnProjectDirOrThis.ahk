@@ -1,10 +1,26 @@
 ﻿; Indentation_style: https://de.wikipedia.org/wiki/Einrückungsstil#SL5small-Stil
-; create own project dir or this
+; create own project dir
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 isDevellopperMode:=true ; enthï¿½llt auch update script.
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 #Include *i %A_ScriptDir%\inc_ahk\init_global.init.inc.ahk
 #Include *i %A_ScriptDir%\keysEveryWhere_PRIVATE.inc.ahk
+
+if(1 && InStr(A_ComputerName,"SL5") )
+    g_doSound := true
+
+if(g_doSound){
+    global g_ttSpeakObject
+    g_ttSpeakObject := new TTS()
+    ; s.SetRate(-2)
+    g_ttSpeakObject.SetRate(5) ; speed higher value is faster. 2 is about 200 procent. 1 sounds like normal speak
+    ; -1 is very slow
+    ; -5 is terrible slow
+    ; 0 seems normal
+    ; 2 little faster
+    ; 5 reaky fast but possible to understand
+    g_ttSpeakObject.SetPitch(10)
+}
 
 
 ;msgbox,% "hi inside  :-) (" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
@@ -32,16 +48,21 @@ if(false){
 }}
 ; ..\ActionLists\VirtualConsoleClass\
 
-folderExist := ""
-while(!folderExist && A_Index < 11){
-  FileCreateDir, %d1% 
-  sleep,99 
-  folderExist := FileExist(d1)
+isFolderExist := false
+FileCreateDir, %d1%
+while(!isFolderExist && A_Index < 31){
+  sleep,99
+  isFolderExist := FileExist(d1)
 }
-  if( !folderExist ){
-    msgbox,ERROR: folder NOT exist 13.05.2018 06:55 `n >%d1%<
+  if( !isFolderExist ){
+    msg=ERROR: folder NOT exist 13.05.2018 06:55 `n >%d1%<
+    msgbox, % msg  "(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
+    Speak(msg)
     ExitApp
   }
+
+
+Speak("Start registry write")
 
 ;/¯¯¯¯ try_faster_reload_if_created ¯¯ 181025152605 ¯¯ 25.10.2018 15:26:05 ¯¯\
 ; I hope the with this method is reloaded after creating a new list (much faster). 25.10.2018 15:25
@@ -50,32 +71,54 @@ globalActionListDir := "..\ActionLists"
 ; globalActionList := globalActionListDir "\_globalActionListsGenerated\_global.ahk"
 globalActionList := globalActionListDir   "\_globalActionListsGenerated\isNotAProject.ahk"
 RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionListNEW, %globalActionList% ; RegWrite , RegSave , Registry
-RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList, %globalActionList% ; RegWrite , RegSave , Registry
+setRegistry_ActionList( globalActionList )
 RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, lastImportant_ScriptName, %globalActionList% ; RegWrite , RegSave , Registry
 
 RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, lastImportant_ScriptName, % A_ScriptName ; RegWrite , RegSave , Registry
 RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, lastImportant_LineFileShort, % RegExReplace(A_LineFile,".*\\") ; RegWrite , RegSave , Registry
 RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, lastImportant_LineFileShort, % RegExReplace(A_LineFile,".*\\") ; RegWrite , RegSave , Registry
+
 RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, CreatedDir, % d1 ; RegWrite , RegSave , Registry
 ;\____ try_faster_reload_if_created __ 181025152609 __ 25.10.2018 15:26:09 __/
 
+; msgbox,,% " Created  (" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")",1
+
+
+
+Speak("CreatedDir with d1")
+
+
 run,Typing_Aid_everywhere_multi_clone.ahk
-run,gi-everywhere.ahk
+; run,gi-everywhere.ahk
 
 FileAppend,"temporary empty file. if exist next view dont use the super _global.ahk", %d1%\_create_own_project.flag
 IfNotExist,%d1%\_global.ahk
-    FileAppend,% "#" "Include _global.ahk", %d1%\_global.ahk
+    FileAppend,% "", %d1%\_global.ahk
+;    FileAppend,% "#" "Include _global.ahk", %d1%\_global.ahk
+
+if(1){
+    ; lateer then hopfefully: thats only vor optic. has no function. as dynarun its probalby little faster
+    ahkCode := "MsgBox,262208,created token=17-08-10_16-17,Maybe you want to make your first entries now,1"
+    DynaRun(AHKcode)
+}
+
 ; MsgBox,0,created token=17-08-10_16-17,token=17-08-10_16-17,1 ; thats only trick. so it should reload another wordklist.
 ; MsgBox,0,created token=17-08-10_16-17,token=17-08-10_16-17,99 ; thats only trick. so it should reload another wordklist.
 ; it not need to be closed active bevor 13.05.2018 19:23. now we close it active. so its litle faster then a second . thats nice
 
 ; try sppedup it with DynaRun(AHKcode)
-;AHKcode := "MsgBox,0,created token=17-08-10_16-17,token=17-08-10_16-17,9"
-;DynaRun(AHKcode)
+; AHKcode := "MsgBox,0,created token=17-08-10_16-17,token=17-08-10_16-17,9"
+; DynaRun(AHKcode)
+
+; sleep,3000
+; openInEditorFromIntern(d1 "\_global.ahk" ) ; we dont know the ecact name from here
 
 
 ;FileDelete, % "..\ActionLists\" . ActiveClass . "\_create_own_project.flag"
 ExitApp
+
+
+
 
 ; sorry we dont know actually (ActionListNEW) the
 ; ActionListNEW inside this script.
@@ -144,5 +187,7 @@ reload
 #Include *i %A_ScriptDir%\inc_ahk\UPDATEDSCRIPT_global.inc.ahk
 
 #Include %A_ScriptDir%\inc_ahk\openInEditor_actionList.inc.ahk
-;__ __ __
+;__ __ __ ______ ____ ___
 ;
+#Include,%A_ScriptDir%\RegWrite181031.ahk
+#Include %A_ScriptDir%\inc_ahk\soundBeep.inc.ahk

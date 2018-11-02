@@ -44,19 +44,19 @@
 		<keyword set="8" color="15458669"></keyword>
 	</theme>
 	<Languages>
-		<hypertext date="20180925180645" name="HTML">
+		<hypertext date="20180925170645" name="HTML">
 			<font color="7843024" style="2"></font>
 			<font color="13617276" fold="1" style="1"></font></hypertext>
-		<json date="20180924043629" name="JSON">
+		<json date="20180924033629" name="JSON">
 			<font color="7843024" style="2"></font>
 			<font color="13617276" fold="1" style="1"></font></json>
-		<xml date="20180925180645" name="XML">
+		<xml date="20180925170645" name="XML">
 			<font color="16758590" style="1"></font>
 			<font color="14732901" style="3"></font>
 			<font color="0x00FF00" style="11"></font>
 			<font color="0x00FF00" style="12"></font>
 			<font color="0x00FF00" style="13"></font></xml>
-		<ahk date="20180925180645" name="AutoHotkey">
+		<ahk date="20180925170645" name="AutoHotkey">
 			<font style="0" color="12632256"></font>
 			<font style="40" color="65408"></font>
 			<font style="41" color="16776960"></font>
@@ -139,6 +139,7 @@
 	</previous_scripts>
 	<open>
 		<file>E:\fre\private\HtmlDevelop\AutoHotKey\global-IntelliSense-everywhere-Nightly-Build\ActionLists\MozillaWindowClass\Brexit_Sie_kann_auch_anders_ZEIT_ONLINE_Mozilla_Firefox.ahk</file>
+		<file>..\ActionLists\_globalActionLists\pfade.ahk._Generated.ahk</file>
 	</open>
 	<search>
 		<find acdc="0" allfiles="0" Auto_Show="0" cs="0" daioc="0" gr="0" regex="0" sort="0"></find>

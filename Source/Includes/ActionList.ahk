@@ -38,6 +38,9 @@ ReadActionList( calledFromStr ){
 
 	; global g_config ; ["FuzzySearch"]["enable"]
 
+    if(1 && InStr(A_ComputerName,"SL5"))
+        speak(A_ThisFunc)
+
     ;/¯¯¯¯ \.ahk ¯¯ 181025172431 ¯¯ 25.10.2018 17:24:31 ¯¯\
     if(	InStr( ActionList, "\.ahk")){ ; without file name is bullshit 25.10.2018 17:18 ; Please check outside
         log =
@@ -87,6 +90,7 @@ ReadActionList( calledFromStr ){
 			exitapp
 		}
 		isTblWordsEmpty := true
+		; ..\ActionLists\_globalActionListsGenerated\_ahk_global.ahk._Generated.ahk._Generated.ahk
 	}else
 		isTblWordsEmpty := false
 

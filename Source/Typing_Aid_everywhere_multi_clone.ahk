@@ -55,7 +55,7 @@ do_tooltipReadActionList:=true
 
 g_tooltipText:=""
 global g_lineNumberFeedback
-g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 
 ; ListGlobalVars() ; doesentn work
 ; test
@@ -68,7 +68,7 @@ SetTimer, tooltipABS, 4000
 ; SetTimer, tooltipABS, 100
 if(False) {
 global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
    msg := getWelcomeMsg()
    MsgBox,% msg
 } ;
@@ -162,7 +162,7 @@ while(true) {
 	
 	
 	global g_lineNumberFeedback
-	g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+	g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 	
 	
 	activeTitleOLD:=activeTitle
@@ -170,10 +170,15 @@ while(true) {
 	DetectHiddenText,Off
 	WinGetActiveTitle, activeTitleREAL ; never manipulated name. 12.08.2017 00:10
 	activeTitle := activeTitleREAL ; this will manipulated and reused in many other files and includes 12.08.2017 00:11
+
 	WinGetClass, activeClass, % activeTitle
 	activeTitle := RegExReplace(activeTitle, Chr(37) . ".*", "_") ; should be easy to include variable later. some websites have suche long title with the procent in it. dont like it. simplify it. 16.03.2017 18:39
-	if(!activeTitle ) 
-		WinWaitNotActive, % activeTitle
+
+	if(activeTitleREAL && !activeTitle ){
+        tooltip, % "ups???? activeTitle is EMPTY. But activeTitleREAL is valid.  (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+		WinWaitNotActive, % activeTitleREAL
+		; WinWaitNotActive, % activeTitleREAL
+    }
 	activeClass := activeClassManipulation(activeClass, activeTitle)
 	g_tooltipText =
 	filterFileName := "ActionListNameFilter.inc.ahk"
@@ -183,9 +188,7 @@ while(true) {
 	if( !fileExist(ActionListFilterPathNEWdir) ){
 		ActiveClass := "_globalActionListsGenerated"
                 ; activeTitle := "_global" ; used till 07.10.2018 10:12 18-10-07_10-12
-		activeTitle := "isNotAProject" ; isNotAProject.ahk ; todo: not very pretty stly. 28.10.2018 11:33
-
-		; toolto msgbox
+		activeTitle := "isNotAProject" ; isNotAProject.ahk ; todo: not very pretty silly. 28.10.2018 11:33
 
 		msg = !fileExist(ActionListFilterPathNEWdir === >%ActionListFilterPathNEWdir%<)  `n '%activeTitle%'=activeTitle , '%activeClass%' = activeClass
 		lineFileName := RegExReplace(A_LineFile, ".*\\([\w\s\.]+)$", "$1")
@@ -193,7 +196,7 @@ while(true) {
 		tip=%msg% (%lineFileNameWithoutPATHandEXT%~%A_LineNumber%)
 		
 		if(InStr(A_ComputerName,"SL5"))
-			ToolTip2sec(tip,-1,-30)
+			ToolTip2sec(tip,-1,-40)
                 sleep,1500 ; if this is the case slow down ths script a little bit. temporaily
             ; msg=:-O WinExist temp.ahk `n `n %A_LineFile%~%A_LineNumber% ==> continue
             ;feedbackMsgBox("Oops. so lets use global.`n ",msg,1,1) ;
@@ -309,7 +312,7 @@ while(true) {
 	
 	if(debugIt) {
 		global g_lineNumberFeedback
-		g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+		g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 		ahkCode2 := getAhkCodeInsideFile(ActionListDirBase . "\FunnyWidgetHuHu" , ActionListDirBase . "\FunnyWidgetHuHu\" . filterFileName  )
 		createIfFileNotExist_ActionListNameFilter_InNewDir(ActionListDirBase . "\FunnyWidgetHuHu" , ActionListDirBase . "\FunnyWidgetHuHu\" . filterFileName, ahkCode2, isInternMsgTransportIsClipboard) ; FunnyWidgetHuHu
 		if(debugIt)
@@ -320,7 +323,24 @@ while(true) {
     ;>>>>>>>>>>>>>> createIfFileNotExist_ActionListNameFilter_InNewDir >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 	
 	ActionListNEW := activeTitle
-	ActionListNEW := simplifyNameOfActionListNEWstep1( ActionListNEW )
+
+    if(!ActionListNEW){
+        ;msgbox, % "ERROR activeTitle is EMPTY.  (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+		ActiveClass := "_globalActionListsGenerated"
+        ; activeTitle := "_global" ; used till 07.10.2018 10:12 18-10-07_10-12
+		ActionListNEW := "isNotAProject" ; isNotAProject.ahk ; todo: not very pretty silly. 28.10.2018 11:33
+    }
+
+	if(!ActionListNEW := simplifyNameOfActionListNEWstep1( ActionListNEW ))
+	    msgbox,% "ERROR !ActionListNEW (" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
+
+    if(!ActionListNEW)
+        msgbox, % "ERROR ActionListNEW is EMPTY.  (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+    ActionListNEW = %ActionListNEW%
+    if(!ActionListNEW)
+        msgbox, % "ERROR ActionListNEW is EMPTY.  (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+
+
 ;    lll(A_LineNumber, A_LineFile,"ActionListDirBase= " . ActionListDirBase)
 ;    MsgBox, '%ActionListFilterPath%' = ActionListFilterPath  `n '%ActionListDir%' = ActionListDir `n '%ActionListDirBase%' = ActionListDirBase `n '%A_ScriptDir%' = A_ScriptDir `n (line:%A_LineNumber%) `n      ; thats the global wordlost
 	ActionListFilterPath := ActionListDirBase . "\" . filterFileName
@@ -335,7 +355,7 @@ while(true) {
 	
 	if(!ActionListDir) {
 		global g_lineNumberFeedback
-		g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+		g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 		msgbox,!ActionListDir exitap (line:`%A_LineNumber`%) `n 17-03-19_14-06
 		exitapp
 	}
@@ -344,7 +364,7 @@ while(true) {
 			ActionListNEW=noTitle
 	else {
 		global g_lineNumberFeedback
-		g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+		g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 		m=!ActionListNEW `n '%activeTitle%' = activeTitle  `n  '%activeClass%' = activeClass `n'%ActionListDir%' = ActionListDir `n==> return (line:`%A_LineNumber`%) `n 17-03-19_14-09
 		g_tooltipText:=m
 		Msgbox,%m%`n (from: %A_LineFile%~%A_LineNumber%) 17-08-11_23-42
@@ -358,7 +378,10 @@ no ActionListNEW and no activeTitle
 we are inside a while loop
 
 Sleep,%sleepMili%
-WinWaitNotActive, %activeTitleREAL%,,15
+if(activeTitleREAL){
+tooltip, `% "Wait" A_LineNumber " " RegExReplace(A_LineFile,".*\")
+    WinWaitNotActive, %activeTitleREAL%,,15
+    }
 continue
 17-07-29_14-29
 )
@@ -367,19 +390,20 @@ continue
 		lll( A_LineNumber, A_ScriptName, msg . "`n 17-07-29_14-18 ")
 		
 		Sleep,%sleepMili%
+if(activeTitleREAL)
 		WinWaitNotActive, % activeTitleREAL,,15
 		continue
 	}
 	if(false && !activeTitle) {
 		global g_lineNumberFeedback
-		g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+		g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 		msgbox,!activeTitle exitap (line:`%A_LineNumber`%) `n 17-03-19_14-19
 		exitapp
 	}
 	
 	if(!activeClass) {
 		global g_lineNumberFeedback
-		g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+		g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 		msgbox,!activeClass exitap (line:`%A_LineNumber`%) `n 17-03-19_14-15
 		exitapp
 	}
@@ -392,7 +416,7 @@ continue
 SetTitleMatchMode, 1
 activeTitle := RegExReplace`(activeTitle, Chr`(37`) . ".*", ""`) ; delete prozent. should be easy to include variable later. some websites have suche long title with the procent in it. dont like it. simplify it. 16.03.2017
 global g_lineNumberFeedback
-g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 ActionListDir = %ActionListDir%
 activeTitle = %activeTitle%
 activeClass = %activeClass%
@@ -438,12 +462,24 @@ ActionListNEW = %activeTitle%
 	ahkSource .= "} `n"
 	ahkSource .= "#" . "Include *i " . ActionListFilterPath2Abs . "  `; thats the subfolder  wordlost inside class `n"
  ;   ahkSource .= "#" . "Include *i " . ActionListFilterPath2 . "  `; thats the subfolder  wordlost inside class `n" 
-	
+
+
+    if(!ActionListNEW){
+        global g_lineNumberFeedback
+        g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
+
+        tooltip,exitapp !ActionListNEW exitap (%g_lineNumberFeedback%) `n
+        msgbox,exitapp !ActionListNEW exitap (%g_lineNumberFeedback%) `n 111222111
+        sleep,8888
+        exitapp
+    }
+
+
 	ahkSource .= "varInjects1 := mvarInjects(ActionListDir, ActionListNEW, activeClass, activeTitle) `n"
     ; ahkSource .= "ActionListDir = " . ActionListDir  . " `n"
-	ahkSource .= "ActionListOLD = " . ActionListOLD . " `n"
-	ahkSource .= "gi_everywhereSourcePath = " . gi_everywhereSourcePath . " `n"
-	ahkSource .= "ActionListActive  = " . ActionListActive  . " `n"
+	ahkSource .= "ActionListOLD = " ActionListOLD  " `n"
+	ahkSource .= "gi_everywhereSourcePath = "  gi_everywhereSourcePath  " `n"
+	ahkSource .= "ActionListActive  = "  ActionListActive   " `n"
 	temp =
 (
 TargetScriptTitle = gi-everywhere - Active ahk_class AutoHotkey
@@ -493,18 +529,28 @@ if(1 && l1 > l2){ ; proof it test it
 }
 
 
-;
+; ___ ___ ___
 
 if(1){
     ; dirty bug fix ._Generated.txt 04.03.2018 10:44
-    If(FileExist( ActionList . "._Generated.ahk")) ; dirty bugFix TODO: prettyFy it
-      ActionList .= "._Generated.ahk"
 
+    postFixGenerated := "._Generated.ahk"
+    ActionListPostFix  := SubStr(rtrim(ActionList), - StrLen(postFixGenerated) + 1 ) ; That works I've tested it 01.11.2018 14:59
+    itsAGeneratedList := ( postFixGenerated == ActionListPostFix )
+
+    If(!itsAGeneratedList && !FileExist( ActionList "._Generated.ahk")) ; dirty bugFix TODO: prettyFy it
+      ActionList .= "._Generated.ahk"
   ; msgbox, `% ActionList
 }
     if(!RegExMatch(ActionList,"created_token_17-08-10_16-17")) ; todo: whey control here? wrong place. quck dirty 25.03.2018 01:36
-        RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList, `%ActionList`% ; old scool. for compatibiliti thinks 02.03.2018 17:10
+        setRegistry_ActionList( ActionList ) ; old scool. for compatibiliti thinks 02.03.2018 17:10)
 
+    RegRead, CreatedDir, HKEY_CURRENT_USER, SOFTWARE\sl5net, CreatedDir
+    if(CreatedDir){
+        RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, CreatedDir, `% "" ; RegWrite , RegSave , Registry
+        openInEditorFromIntern( ActionList ) ; we dont know the ecact name from here
+    }
+#Include,RegWrite181031.ahk
 }
 ) ; endOf temp
 	ahkSource .= "`n" temp
@@ -558,7 +604,7 @@ if(1){
 	
 	g_tooltipText = WaitNotActive, %activeTitle%
     ; WinWaitNotActive [, WinTitle, WinText, Seconds, ExcludeTitle, ExcludeText]
-	g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+	g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 	
 	DetectHiddenText,Off
     ; WinWaitNotActive, ahk_class %activeClass%
@@ -576,17 +622,17 @@ if(1){
     ; WinWaitNotActive, %activeTitle% ahk_class %activeClass% ; seems not work alway. be careful !! with that :( 29.04.2017 22:13
 ;    WinWaitNotActive, %activeTitle% %activeClass%
 	g_tooltipText = WinWaitNotActive, CopyQ
-	g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+	g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 	
 	WinWaitNotActive,CopyQ , , 9
 	g_tooltipText = WinWaitNotActive,- Everything
-	g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+	g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 	
 	WinWaitNotActive,- Everything , , 9 ; ahk_class EVERYTHING
 	
 	if( debugIt || 0) {
 		global g_lineNumberFeedback
-		g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+		g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 		l = ______________________________________________________________ `n ; %l%
 		MsgBox, '%activeTitle%' = activeTitle  `n %l% '%varInjects%' = varInjects  %l% `n (line:%A_LineNumber%) `n  '%ahkSource%' = ahkSource of temp.php `n (line:%A_LineNumber%) `n
 	}
@@ -616,13 +662,13 @@ return  ; probably redundant. its more secure if we do that.
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 createGLOBALActionListNameFilterIfNotExist(ActionListDirBase ) {
 global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
    isDebuggingOverWriteAlwayUserUpdatesWithThisScript := false
    filterFileName := "ActionListNameFilter.inc.ahk"
  ActionListFilterPath := ActionListDirBase . "\" . filterFileName 
  if( isDebuggingOverWriteAlwayUserUpdatesWithThisScript ) {
 global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
    FormatTime, timestamp, %A_now%,yy-MM-dd_HH-mm
     ActionListFilterPathBackup := ActionListDirBase . "\" . timestamp . "_" . filterFileName 
 
@@ -634,7 +680,7 @@ lll(A_LineNumber, A_LineFile, ActionListFilterPath " FileCopy too " ActionListFi
 } 
  if(!fileExist(ActionListFilterPath)) {
 global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 ; the following gives no errors
 
 ahkCodeInsideFile =
@@ -650,7 +696,7 @@ ahkCodeInsideFile =
 
 if`(A_ScriptName == "ActionListNameFilter.inc.ahk" `) {
 global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%  ; thats developer mode. this script is not includet. 08.03.2017 09:14
+ g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%  ; thats developer mode. this script is not includet. 08.03.2017 09:14
 activeClass := "ChromeWidgetWin1" 
 activeTitle  = I would like to hire a PHP Developer | Codeigniter | CSS | HTML5 | JSON | PHP - Google Chrome 
 activeTitle := ActionListNEW
@@ -659,7 +705,7 @@ activeTitle := ActionListNEW
 
 if `(!ActionListNEW `) {
 global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
     m = ERROR ActionListNEW is EMPTY: ``n ``n '`%ActionListNEW`%' = ActionListNEW  ``n   17-03-05_14-51 ``n ``n '%ActionListFilterPath%' = ActionListFilterPath  ``n `(line:`%A_LineNumber`%`) ``n `%A_ScriptFullPath`% = A_ScriptFullPath   `(line: `%A_LineNumber`%` token50)
    Clipboard := m
     tooltip, ERRORmessage is copied to the >>Clipboard<< `%m`% 
@@ -669,8 +715,8 @@ global g_lineNumberFeedback
  } 
 if `(!ActionListDir `) {
 global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
-    MsgBox, ERROR ActionListDir is EMPTY 17-03-19_11-52
+ g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
+    tooltip, ERROR ActionListDir is EMPTY 17-03-19_11-52
     exitapp
 }
 ;
@@ -681,7 +727,7 @@ global g_lineNumberFeedback
  
  else if `( activeClass == "ChromeWidgetWin1" `) {
 global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
    
 `;   I would like to hire a PHP Developer | Codeigniter | CSS | HTML5 | JSON | PHP - Google Chrome ahk_class Chrome_WidgetWin_1 
    
@@ -698,12 +744,11 @@ global g_lineNumberFeedback
       ActionListNEW := "Zimmer_Wohnung_Google_Chrome"
 
    else if `( ! RegExMatch`( activeTitle , "`(Threema Web`)"  `)    `)    
-      ActionListNEW := "_global.ahk"
-   
+      ActionListNEW :=
    } else
  {
 global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
  ActionListNEW := RegExReplace`( ActionListNEW, "`(SciTE4AutoHotkey|PhpStorm`)\.+" , ""`)  
  }
 ActionListNEW := RegExReplace`( ActionListNEW, ".`(ahk|txt|htm|pdf`)\.+" , ""`)  
@@ -722,7 +767,7 @@ ActionListNEW := RegExReplace`( ActionListNEW, ".`(ahk|txt|htm|pdf`)\.+" , ""`)
 
 if`(A_ScriptName == "ActionListNameFilter.inc.ahk" `) {
 global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%   ; thats developer mode. this script is not includet. 08.03.2017 09:14
+ g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%   ; thats developer mode. this script is not includet. 08.03.2017 09:14
 ; Clipboard := ActionListNEW ;  we dont transport usually inside this global file via clipboard 06.03.2017 19:41
  MsgBox,  '`%ActionListNEW`%' = ActionListNEW  ``n `%activeClass`% = activeClass ``n  17-03-06_18-48 ``n ``n `( line: `%A_LineNumber`%`)
 }
@@ -750,7 +795,7 @@ return
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 getActionListNEWfromPluginIfExist(ActionListDir, ActionListNEW, activeClass, activeTitle   ) {
 global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
    m = '%ActionListNEW%' = ActionListNEW  `n '%ActionListDir%' = ActionListDir  `n  '%activeTitle%' = activeTitle  `n 
 global g_doSaveLogFiles
 
@@ -786,7 +831,9 @@ ahkCode := RegExReplace( ahkCodeInsideFile , "`;\s*dontDeleteThisPlaceholder" , 
 global g_doSaveLogFiles
 
 lll(A_LineNumber, RegExReplace(A_LineFile,".*\\") , "`n" . m)
-ActionListNEW := DynaRunGetClipboard(ahkCode)
+if(!ActionListNEW := DynaRunGetClipboard(ahkCode))
+    msgbox,% "ERROR !ActionListNEW (" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
+
    m = '%ActionListNEW%' = ActionListNEW  `n '%activeTitle%' = activeTitle  `n 
 global g_doSaveLogFiles
 
@@ -795,7 +842,7 @@ lll(A_LineNumber, RegExReplace(A_LineFile,".*\\") , "`n" . m)
 worlistExtension := SubStr(ActionListNEW, -3)
 if( worlistExtension  <> ".ahk" ) {
 global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
    m = '%ActionListNEW%' = ActionListNEW  `n 
       ToolTip5sec(A_LineNumber . "THATS VERY QUICK AND DIRTY AND MAYBEEEE IT HALPS NOT!!!! " . RegExReplace(A_LineFile,".*\\")  . " " . m) ;
 ; return,  "superSimple.txt"
@@ -822,7 +869,7 @@ if(false)
 Loop,20
  {
 global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+ g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 Clipboard = %ClipboardBackup%
 cExtension := SubStr(Clipboard, -3)
 if( worlistExtension  <> ".ahk" )
@@ -852,7 +899,7 @@ createIfFileNotExist_ActionListNameFilter_InNewDir(ActionListDir, ActionListFilt
     g_lineNumberFeedback  := "(" A_ThisFunc "~" A_LineNumber "~" RegExReplace(A_LineFile,".*\\") ")"
     if(!FileExist(ActionListDir)){
         global g_lineNumberFeedback
-        g_lineNumberFeedback=%A_LineFile%~%A_ThisFunc%~%A_LineNumber%
+        g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
         FileCreateDir, % ActionListDir
         ;~ FileAppend, , % ActionListFilterPath
     }

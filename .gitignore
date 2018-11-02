@@ -13,6 +13,7 @@ BACKUP*/*
 Source -*/*
 **/*.ini
 **/*.db
+**/*.xml
 .gitmodules
 .gitignore
 **/created token*.*
@@ -73,7 +74,7 @@ ActionLists/**/*._Generated*
 
 
 ActionLists/ChromeWidgetWin1/incDynAhk/sendFreundBody.ahk
-ActionLists/SciTEWindow/_global.txt
+ActionLists/SciTEWindow/_global.ahk
 ActionLists/**/*ahk_global*
 ActionLists/**/*.backup*
 ActionLists/**/*backup*
@@ -93,7 +94,7 @@ ActionLists/ConsoleWindowClass
 # ActionLists/ChromeWidgetWin1
 ActionLists/Cons
 ActionLists/_kts
-ActionLists/_global.txt
+ActionLists/_global.ahk
 ActionLists/DV2*
 ActionLists/ATL*
 ActionLists/EVERYT*

@@ -15,6 +15,22 @@ isInteger(var) {
 }
  
 
+
+JEE_millis_since_midnight(vOpt:=""){ ; renamed from JEE_TimeNowMSec
+    VarSetCapacity(SYSTEMTIME, 16, 0)
+    if (vOpt = "UTC")
+        DllCall("kernel32\GetSystemTime", Ptr,&SYSTEMTIME)
+    else
+        DllCall("kernel32\GetLocalTime", Ptr,&SYSTEMTIME)
+    vHour := NumGet(&SYSTEMTIME, 8, "UShort") ;wHour
+    vMin := NumGet(&SYSTEMTIME, 10, "UShort") ;wMinute
+    vSec := NumGet(&SYSTEMTIME, 12, "UShort") ;wSecond
+    vMSec := NumGet(&SYSTEMTIME, 14, "UShort") ;wMilliseconds
+    return vHour*3600000 + vMin*60000 + vSec*1000 + vMSec
+}
+
+
+
 getCaretPos(activedoProtectOutOfWindowPos:=true){
 	CaretX := A_CaretX
 	CaretY := A_CaretY 
@@ -554,15 +570,15 @@ contextHelp(HardDriveLetter){
 	ToolTip1sec(A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\")  . " " . A_ThisFunc . A_ThisLabel)
 	SetTitleMatchMode, 1 ; must start match
 
-	;WinGetActiveStats, ActiveTitle, w, h, x, y 
+	;WinGetActiveStats, activeTitle, w, h, x, y
 	Seconds:=1
 
-	WinGetActiveTitle, ActiveTitle
-	ActiveTitle2:=ActiveTitle
+	WinGetActiveTitle, activeTitle
+	ActiveTitle2:=activeTitle
 
 	wText=dummy ; wText abzufragen wï¿½re vermutlich zu ï¿½bertrieben.
 	wText2:=wText
-	;WinGetText, wText, %ActiveTitle%
+	;WinGetText, wText, %activeTitle%
 
 	WinGetClass, ActiveClass, A
 	ActiveClass2:=ActiveClass
@@ -572,13 +588,13 @@ contextHelp(HardDriveLetter){
 	;SendPlay,{f1}
 
 	; F1 hatte keine auswirkung, wir machen unser eigenes Hilfe
-	;WinGetClass, ActiveClass, %ActiveTitle%, %wText%
+	;WinGetClass, ActiveClass, %activeTitle%, %wText%
 ;###############################
 	temp := RegExReplace(ActiveClass, "\W+", "", ReplacementCount)  ;
 
   ; nur anfangsbuchstaben des titells, maximal begrentzt stï¿½ck
   ; nur anfangsbuchstaben des titells, maximal begrentzt stï¿½ck
-	temT := SubStr( RegExReplace(ActiveTitle, "([\d\w])\w*\W*", "$1", ReplacementCount) , 1 , 6 ) 
+	temT := SubStr( RegExReplace(activeTitle, "([\d\w])\w*\W*", "$1", ReplacementCount) , 1 , 6 )
 
 	ToolTip3sec(temT )
 
@@ -598,11 +614,11 @@ contextHelp(HardDriveLetter){
 	wTitleContextHelp2=%fNameContextHelp2% ahk_class Notepad
 
 
-	visible1:=runContextHelpFile(fNameContextHelp, HardDriveLetter, ActiveClass, ActiveTitle)
+	visible1:=runContextHelpFile(fNameContextHelp, HardDriveLetter, ActiveClass, activeTitle)
 
 
 	if(fNameContextHelp <> fNameContextHelp2)
-  	visible2:=runContextHelpFile(fNameContextHelp2, HardDriveLetter, ActiveClass, ActiveTitle)
+  	visible2:=runContextHelpFile(fNameContextHelp2, HardDriveLetter, ActiveClass, activeTitle)
   else
     	visible2:=visible1
 
@@ -763,7 +779,7 @@ file_put_contents(f, c, doOverwrite=1)
 }
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ;~ hilft bei der Adress-Suche vom Icon
-runContextHelpFile(fNameContextHelp, HardDriveLetter, ActiveClass, ActiveTitle)
+runContextHelpFile(fNameContextHelp, HardDriveLetter, ActiveClass, activeTitle)
 {	
   SetTitleMatchMode, 2
 	IfWinExist, %fNameContextHelp%
@@ -782,7 +798,7 @@ runContextHelpFile(fNameContextHelp, HardDriveLetter, ActiveClass, ActiveTitle)
     FileCreateDir, %HardDriveLetter%:\fre\private
   IfNotExist, %path%
     FileCreateDir, %path%
-		FileAppend, `n`n`n%ActiveClass%-%ActiveTitle% - ShortCut-Notizen und ï¿½hnliches:`n`;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<`n%path%, %fAdressContextHelp%
+		FileAppend, `n`n`n%ActiveClass%-%activeTitle% - ShortCut-Notizen und ï¿½hnliches:`n`;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<`n%path%, %fAdressContextHelp%
   }
 	Run,%fAdressContextHelp%
 	Sleep,100

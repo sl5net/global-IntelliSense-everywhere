@@ -1,5 +1,6 @@
 ﻿;These functions and labels are related to the active window
 
+
 ;/¯¯¯¯ EnableWinHook ¯¯ 181024134525 ¯¯ 24.10.2018 13:45:25 ¯¯\
 ; DisableWinHook()
 EnableWinHook(){
@@ -19,15 +20,22 @@ EnableWinHook(){
    global g_WinChangedEventHook
    global g_WinChangedCallback
    ; Set a hook to check for a changed window
+
+       ; SoundbeepString2Sound(A_ThisFunc)
+
    If !(g_WinChangedEventHook)
    {
       MaybeCoInitializeEx()
       g_WinChangedEventHook := DllCall("SetWinEventHook", "Uint", g_EVENT_SYSTEM_FOREGROUND, "Uint", g_EVENT_SYSTEM_FOREGROUND, "Ptr", g_NULL, "Uint", g_WinChangedCallback, "Uint", g_NULL, "Uint", g_NULL, "Uint", g_WINEVENT_SKIPOWNPROCESS)
-      
+
+      ;msgbox,% g_WinChangedEventHook " (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " "
+
       if !(g_WinChangedEventHook){
+
+        Speak("Failed to register Event Hook")
         msg := "Failed to register Event Hook! `n  g_WinChangedEventHook=" . g_WinChangedEventHook . "`n 17-07-16_16-21"
         ToolTip5sec(msg " (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " )
-        msgbox, % msg
+        ;msgbox, % msg
         lll(A_LineNumber, A_LineFile, msg )
          return false
          ;ExitApp
@@ -41,7 +49,9 @@ EnableWinHook(){
 ;/¯¯¯¯ DisableWinHook ¯¯ 181024141107 ¯¯ 24.10.2018 14:11:07 ¯¯\
 DisableWinHook(){
    global g_WinChangedEventHook
-   
+
+    ; SoundbeepString2Sound(A_ThisFunc)
+
    if (g_WinChangedEventHook)
    {
       if (DllCall("UnhookWinEvent", "Uint", g_WinChangedEventHook))
@@ -61,15 +71,68 @@ DisableWinHook(){
 
 
 
+; SetTimer,checkWinChangedTitle,1000 ; RegRead, ActionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList
 
+set0(){
+    global activeTitle
+    global activeTitleOLD
+
+    global ActionList
+    global ActionListOLD
+
+    global g_itsProbablyArecentUpdate
+
+    global timeFirstTry_getNewListFromRegistry
+    global milliesTried_getNewListFromRegistry
+
+    activeTitleOLD := activeTitle
+
+    ActionList := ""
+   ActionListOLD := ""
+
+   g_itsProbablyArecentUpdate := false
+
+   timeFirstTry_getNewListFromRegistry := 0
+   milliesTried_getNewListFromRegistry := 0
+
+   return
+}
+
+checkWinChangedTitle:
+global activeTitle
+global activeTitleOLD
+global ActionList
+global ActionListOLD
+global g_itsProbablyArecentUpdate
+    activeTitleOLD := activeTitle
+    WinGetActiveTitle, activeTitle
+    if(activeTitleOLD <> activeTitle){
+       set0()
+       Speak(A_ThisFunc A_thisLabel)
+       SetTimer,checkInRegistryChangedActionListAddress,on ; seems has no effect anymore 01.11.2018 19:14
+    }
+return
 ;/¯¯¯¯ WinChanged ¯¯ 181022212344 ¯¯ 22.10.2018 21:23:44 ¯¯\
-; Hook function to detect change of focus (and remove ListBox when changing active window) 
+; Hook function to detect change of focus (and remove ListBox when changing active window)
+; 31.10.2018 18:36: always if i change window by mousecliok
+; 31.10.2018 18:36: always if i change window by alt+tab
+; 01.11.2018 13:27 i called it manually by typing
+; WinChanged(hWinEventHook, event, wchwnd, idObject, idChild, dwEventThread, dwmsEventTime)
+; inside the function SendWord . and it works.
 WinChanged(hWinEventHook, event, wchwnd, idObject, idChild, dwEventThread, dwmsEventTime){
    global g_inSettings
    global g_ManualActivate
    global g_OldCaretY
    global prefs_DetectMouseClickMove
-   
+
+    set0()
+   EnableKeyboardHotKeys() ; seems needet 01.11.2018 19:04
+
+   ; SoundbeepString2Sound(A_ThisFunc)
+   speak(A_ThisFunc)
+   SetTimer,checkInRegistryChangedActionListAddress,on ; seems has no effect anymore 01.11.2018 19:14
+   ; but it should work: https://autohotkey.com/boards/viewtopic.php?p=247296#p247296
+
    If (event <> 3){
       return
    }
@@ -101,21 +164,38 @@ WinChanged(hWinEventHook, event, wchwnd, idObject, idChild, dwEventThread, dwmsE
          }
       }
       ; SciTEWindow\_global.ahk
-      ; ____
    } else {
       GetIncludedActiveWindow()
    }
+
+    ; ToolTip,% g_WinChangedEventHook " (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " "
+    ; soundbeep,5000
+    ; soundbeep,5000
+    ; soundbeep,5000
+    ; soundbeep,5000
+    ;sleep,2000
+
    Return
 }
+;\____ WinChanged __ 181031183224 __ 31.10.2018 18:32:24 __/
+
+
+
+
+
+
 
 
 
 ;/¯¯¯¯ SwitchOffListBoxIfActive ¯¯ 181022212325 ¯¯ 22.10.2018 21:23:25 ¯¯\
+; this function is triggerd early every key pressed 01.11.2018 13:02
 SwitchOffListBoxIfActive(){
    global g_Active_Id
    global g_ListBox_Id
    global g_ManualActivate
-   
+
+  ; Speak(A_ThisFunc)
+
    if (g_Active_Id && g_ListBox_Id) {
       WinGet, Temp_id, ID, A   
       IfEqual, Temp_id, %g_ListBox_Id%
@@ -146,7 +226,9 @@ GetIncludedActiveWindow() {
    global g_Process_System_DPI_Aware
    global g_Process_Per_Monitor_DPI_Aware
    global prefs_ListBoxNotDPIAwareProgramExecutables
-   
+
+ ;   SoundbeepString2Sound(A_ThisFunc)
+
    CurrentWindowIsActive := GetIncludedActiveWindowGuts()
    
    if (g_Active_Pid) {
@@ -184,9 +266,18 @@ GetIncludedActiveWindow() {
    }
    
    EnableWinHook()
+
+   ; ToolTip,% g_WinChangedEventHook " (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " "
+   ; soundbeep,1000
+
    Return, CurrentWindowIsActive
 }
 ;\____ GetIncludedActiveWindow __ 181022212417 __ 22.10.2018 21:24:17 __/
+
+
+
+
+
 
 
 
@@ -202,7 +293,9 @@ GetIncludedActiveWindowGuts() {
    global g_MouseWin_Id
    Process, Priority,,Normal
    ;Wait for Included Active Window
-   
+
+  ;  SoundbeepString2Sound(A_ThisFunc)
+
    CurrentWindowIsActive := true
    
    Loop
@@ -210,7 +303,7 @@ GetIncludedActiveWindowGuts() {
       WinGet, ActiveId, ID, A
       WinGet, ActivePid, PID, ahk_id %ActiveId%
       WinGet, ActiveProcess, ProcessName, ahk_id %ActiveId%
-      WinGetTitle, ActiveTitle, ahk_id %ActiveId%
+      WinGetTitle, activeTitle, ahk_id %ActiveId%
       IfEqual, ActiveId, 
       {
          IfNotEqual, g_MouseWin_Id,
@@ -240,7 +333,7 @@ GetIncludedActiveWindowGuts() {
          Break
       IfEqual, ActiveId, %g_ListBox_Id%
          Break
-      If CheckForActive(ActiveProcess,ActiveTitle)
+      If CheckForActive(ActiveProcess,activeTitle)
          Break
       
       CurrentWindowIsActive := false
@@ -250,10 +343,10 @@ GetIncludedActiveWindowGuts() {
       InactivateAll_Suspend_ListBox_WinHook()
       SetTitleMatchMode, 3 ; set the title match mode to exact so we can detect a window title change
       ; Wait for the current window to no longer be active
-      WinWaitNotActive, %ActiveTitle% ahk_id %ActiveId% ; whats the use of this ? script stops at this possition. i will deactivat this line now 16.07.2017 11:31 17-07-16_11-31
+      WinWaitNotActive, %activeTitle% ahk_id %ActiveId% ; whats the use of this ? script stops at this possition. i will deactivat this line now 16.07.2017 11:31 17-07-16_11-31
       SetTitleMatchMode, 2
       ActiveId = 
-      ActiveTitle =
+      activeTitle =
       ActiveProcess =
    }
 ;
@@ -262,7 +355,7 @@ GetIncludedActiveWindowGuts() {
       g_Active_Id :=  ActiveId
       g_Active_Pid := ActivePid
       g_Active_Process := ActiveProcess
-      g_Active_Title := ActiveTitle
+      g_Active_Title := activeTitle
       Return, CurrentWindowIsActive
    }
    
@@ -270,7 +363,7 @@ GetIncludedActiveWindowGuts() {
    IfNotEqual, ActiveId, %g_Helper_Id%
    {
       ; Check to see if we need to reopen the helper window
-      MaybeOpenOrCloseHelperWindow(ActiveProcess,ActiveTitle,ActiveId)
+      MaybeOpenOrCloseHelperWindow(ActiveProcess,activeTitle,ActiveId)
       SuspendOff()
       ;Set the process priority back to High
       Process, Priority,,High
@@ -294,12 +387,25 @@ GetIncludedActiveWindowGuts() {
    g_Active_Id :=  ActiveId
    g_Active_Pid := ActivePid
    g_Active_Process := ActiveProcess
-   g_Active_Title := ActiveTitle
+   g_Active_Title := activeTitle
+
+  ; ToolTip,% g_WinChangedEventHook " (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " "
+  ; soundbeep,800
+
+
+
    Return, CurrentWindowIsActive
 }
+;\____ GetIncludedActiveWindowGuts __ 181031183032 __ 31.10.2018 18:30:32 __/
 
-CheckForActive(ActiveProcess,ActiveTitle)
-{
+
+
+
+
+
+
+;/¯¯¯¯ CheckForActive ¯¯ 181031183100 ¯¯ 31.10.2018 18:31:00 ¯¯\
+CheckForActive(ActiveProcess,activeTitle){
 
    ;Check to see if the Window passes include/exclude tests
    global g_InSettings
@@ -307,7 +413,11 @@ CheckForActive(ActiveProcess,ActiveTitle)
    global prefs_ExcludeProgramTitles
    global prefs_IncludeProgramExecutables
    global prefs_IncludeProgramTitles
-   
+
+  ; ToolTip,% g_WinChangedEventHook " (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " "
+ ; SoundbeepString2Sound(A_ThisFunc)
+
+
    quotechar := """"
    
    If g_InSettings
@@ -326,11 +436,11 @@ CheckForActive(ActiveProcess,ActiveTitle)
       {
          StringTrimLeft, TrimmedString, A_LoopField, 1
          StringTrimRight, TrimmedString, TrimmedString, 1
-         IfEqual, ActiveTitle, %TrimmedString%
+         IfEqual, activeTitle, %TrimmedString%
          {
             return,
          }
-      }  else IfInString, ActiveTitle, %A_LoopField%
+      }  else IfInString, activeTitle, %A_LoopField%
       {
          return,
       }
@@ -354,11 +464,11 @@ CheckForActive(ActiveProcess,ActiveTitle)
       {
          StringTrimLeft, TrimmedString, A_LoopField, 1
          StringTrimRight, TrimmedString, TrimmedString, 1
-         IfEqual, ActiveTitle, %TrimmedString%
+         IfEqual, activeTitle, %TrimmedString%
          {
             Return, 1
          }
-      } else IfInString, ActiveTitle, %A_LoopField%
+      } else IfInString, activeTitle, %A_LoopField%
       {
          Return, 1
       }
@@ -366,7 +476,12 @@ CheckForActive(ActiveProcess,ActiveTitle)
 
    Return, 
 }
-;\____ GetIncludedActiveWindowGuts __ 181022212448 __ 22.10.2018 21:24:48 __/
+;\____ CheckForActive __ 181022212448 __ 22.10.2018 21:24:48 __/
+
+
+
+
+
 
 
 
@@ -376,12 +491,15 @@ ReturnWinActive(){
    global g_Active_Id
    global g_Active_Title
    global g_InSettings
-   
+
+  ;   ToolTip,% g_WinChangedEventHook " (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " "
+  ;  SoundbeepString2Sound(A_ThisFunc)
+
+
    IF g_InSettings
       Return
    
-   if (SwitchOffListBoxIfActive())
-   {
+   if (SwitchOffListBoxIfActive()){
       return, true
    }
    
