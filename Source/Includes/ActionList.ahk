@@ -86,8 +86,17 @@ ReadActionList( calledFromStr ){
 
 		g_ActionListID := getActionListID(ActionList) ; 24.03.2018 23:02
 		if(!g_ActionListID){
-			Msgbox,% ":-( Oops `n !g_ActionListID ==> exitapp `n (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
-			exitapp
+
+            m =
+            (
+            Modified := (%ActionListModified% ?= %ActionListLastModified%=Last)
+            Size        = diffSize (%ActionListSize% ?= %ActionListLastSize%=LastSize)
+
+            ActionList = %ActionList%
+            %SELECT%
+            )
+			Msgbox,% ":-( Oops `n " m " !g_ActionListID ==> return false `n (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+			return false
 		}
 		isTblWordsEmpty := true
 		; ..\ActionLists\_globalActionListsGenerated\_ahk_global.ahk._Generated.ahk._Generated.ahk
