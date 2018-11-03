@@ -27,8 +27,14 @@ from:
 
 or: https://autohotkey.com/
 [autohotkey.com/](https://autohotkey.com)
-- download: [github.com/sl5net/global-IntelliSense-everywhere/zip/master](https://codeload.github.com/sl5net/global-IntelliSense-everywhere/zip/master)
-  or [github.com/sl5net/global-IntelliSense-everywhere/zipball/master/](https://github.com/sl5net/global-IntelliSense-everywhere/zipball/master/)
+- download:
+ [github.com...releases/](https://github.com/sl5net/global-IntelliSense-everywhere/releases/)
+  or 
+ [github.com...master](https://codeload.github.com/sl5net/global-IntelliSense-everywhere/zip/master)
+  or 
+  [github.com...zipball/master/](https://github.com/sl5net/global-IntelliSense-everywhere/zipball/master/)
+  or 
+  [github.com...zipball Nightly-Build](https://github.com/sl5net/global-IntelliSense-everywhere-Nightly-Build/zipball/master/)
 - Start start.ahk
 2. open your win-app, for e.g. notepad++ or a website etc. and wait seconds
 3. Press "_" two or three times (if no list appears, try again in a few seconds)
