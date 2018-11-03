@@ -1,6 +1,19 @@
 ﻿#Include _global.ahk
+; #Include _globalActionListsGenerated\_global.ahk
 ____open ahk_global|rr||ahk|openInEditor,_ahk_global.ahk
 
+; Speak(A_LineNumber ":" A_thisFunc A_ThisLabel)
+ToolTip2sec(A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
+ComputerName A_ComputerName|r|if(1 && InStr(A_ComputerName,"SL5"))
+
+SoundbeepString2Sound()
+
+
+ReplacedStr := StrReplace(Haystack, SearchText , ReplaceText, OutputVarCount, Limit := -1)
+
+RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, toDo, A_ScriptName " " A_LineNumber ": "  ; RegWrite , RegSave , Registry
+
+ 
 chat:|r|https://autohotkey.com/boards/viewtopic.php?f=5&t=59
 Server IRQ: chat.freenode.net
 Port IRQ: 6667 (6697 for SSL)
@@ -57,6 +70,7 @@ regEx find AHK functios definitions|r|^[ ]*?\w[\w\d_]{5,}\s*\([^()+<>]+\)[\s\S]{
 	RTrim(String)
 	
 	
+	RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, FileAppend , % A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
 	FileAppend, Text, Filename, Encoding|rr|FileAppend, |ahk|m=Text, Filename, Encoding`n ll:=strlen(m)+1 `n lr:=4 `n send, %m% {left %ll%}{shift down}{right %lr%}{shift up}
 	
 ; gi-everywhere-master\Source\gi-everywhere.ahk

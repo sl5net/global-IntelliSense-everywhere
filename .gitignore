@@ -4,11 +4,15 @@
 
 Settings.xml
 
-ActionLists/ChromeWidgetWin1
+docs/help/CHANGELOG.txt
+
+# ActionLists/ChromeWidgetWin1
 # ActionLists/*
 AHK-Studio/*
 AutoGUI/*
 BACKUP*/*
+**/**/temp.ahk
+Source/temp.ahk
 **/*backup*
 Source -*/*
 **/*.ini
@@ -25,7 +29,7 @@ Source/Could not close the previous instance of this script_autoCloser.ahk
 
 
 
-ActionLists/ChromeWidgetWin1/*Suche_Google_Chrome.txt*
+ActionLists/ChromeWidgetWin1/*Suche_Google_Chrome.ahk*
 ActionLists/**/privat*
 ActionLists/**/*privat
 ActionLists/ChromeWidgetWin1/*TypingAid*
@@ -111,6 +115,7 @@ ActionLists/Zhorn*
 ActionLists/KMeleon*
 ActionLists/mintt*
 ActionLists/eye*
+ActionLists/**/.ahk
 ActionLists/**/*Xaml*
 ActionLists/**/*OpenOffice*
 ActionLists/**/*pfade*
@@ -122,14 +127,13 @@ ActionLists/**/*Shell*
 ActionLists/**/*Mozilla*
 ActionLists/**/*PXEC*
 ActionLists/**/*Scite4*
-ActionLists/**/.txt*
-ActionLists/**/temp.txt
+ActionLists/**/.ahk*
 ActionLists/**/*.flag
-ActionLists/_globalActionLists/pfade.txt
+ActionLists/_globalActionLists/pfade.ahk
 ActionLists/_globalActionLists/*b&w*
 ActionLists/_globalActionLists/ConEmu*
-ActionLists/_globalActionLists/*GmailGoogleChrome.txt
-ActionLists/_globalActionLists/*Gmail_Google_Chrome.txt
+ActionLists/_globalActionLists/*GmailGoogleChrome.ahk
+ActionLists/_globalActionLists/*Gmail_Google_Chrome.ahk
 ActionLists/_globalActionLists/*Threema*
 ActionLists/_globalActionLists/*Bewerbung*
 ActionLists/_globalActionLists/*PDF*
@@ -137,6 +141,17 @@ ActionLists/_globalActionLists/*eyeVis*
 # ActionLists/_globalActionLists/**/*ActionList AHK*
 # ActionLists/_globalActionLists/**/*chats*
 
+ActionLists/RegEditRegEdit
+
+ActionLists/ChromeWidgetWin1/*
+
+# Allow
+!ActionLists/ChromeWidgetWin1/ActionListNameFilter.inc.ahk
+!ActionLists/ChromeWidgetWin1/_global.ahk
+
+
+
+ActionLists/_globalActionListsGenerated/*
 
 # Allow
 !ActionLists/activeClassManipulation.inc.ahk
@@ -155,15 +170,16 @@ ActionLists/_globalActionLists/*eyeVis*
 # !static/css/font-*.css
 # !static/font/*
 # !static/media/default.png
-# !static/robots.txt
+# !static/robots.ahk
 
 
 **/Source/**/temp*
 **/Source/problemHandler*
 **/Source/*Visual Studio Code*
 **/Source/TypingAid_usingSQLite17-04-02_11-35*
-**/Source/regextestdempplca.txt
+**/Source/regextestdempplca.ahk
 **/Source/*.ico
+**/Source/setWl2*
 
 **/*.status.txt
 **/[0-9]*
@@ -189,3 +205,6 @@ ActionLists/_globalActionLists/*eyeVis*
 *.gitignore
 **/ActionListLearned*
 **/TypingAid_programmCounter_LineAndTime.txt
+
+# Allow
+!start.ahk

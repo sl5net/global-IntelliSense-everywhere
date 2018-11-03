@@ -13,11 +13,11 @@ Doppelklick auf die Dateiadresse.
 Damit ist jedoch eine kleine Inkonsistenz erzeugt, weil:
 Weiterhin gilt als Basisadresse (Root-Ordner) fÃ¼r die Scritpte Source Ordner. 
 Beispiel zum ausfÃ¼hren eine Datei (bzw. hier auch Ã¶ffnen):
-run,..\Notepad\_global.txt
+run,..\Notepad\_global.ahk
 also nicht
-run,..\Notepad\_global.txt
+run,..\Notepad\_global.ahk
 Um von dieser Datei zu erben heisst es jetzt aber:
-#Include ..\Notepad\_global.txt
+#Include ..\Notepad\_global.ahk
 
 For better usability in your favorite text editor, 
 other lists now inherit as follows:
@@ -32,8 +32,8 @@ However, this creates a small inconsistency because:
 Furthermore, the base address (root folder) 
 for the source folder is Scritpte.
 Example to run a file (or open it here):
-run, .. \ Word Lists \ Notepad \ _global.txt
+run, .. \ Word Lists \ Notepad \ _global.ahk
 not
-run, .. \ Notepad \ _global.txt
+run, .. \ Notepad \ _global.ahk
 To inherit from this file, it now says:
-#Include .. \ Notepad \ _global.txt
+#Include .. \ Notepad \ _global.ahk

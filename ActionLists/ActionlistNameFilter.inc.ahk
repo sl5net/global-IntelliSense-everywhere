@@ -275,19 +275,19 @@ FileAppend, _____global generated lib|r|%wl%`n , % wl
 			Sleep, 100
 			
 			if(!FileExist(scriptDIR)){
-				MsgBox, :-( !FileExist(scriptDIR) 17-03-19_15-16 exitApp
+				MsgBox, :-( !FileExist(%scriptDIR% = scriptDIR) `n=> exitApp (17-03-19_15-16 )
 				ExitApp
 			}
 			
 			f :=  scriptDIR . "\_global.ahk"
 			if(!FileExist(f)){
-				MsgBox, :-( !FileExist(f=%f%) 17-03-19_15-23 exitApp
+				MsgBox, :-( !FileExist(f=%f%) 17-03-19_15-23  `n=> exitApp
 				ExitApp
 			}
 			Fileread, fileContent1 , % f
 			Sleep,100
 			if(!fileContent1){
-				MsgBox, :-( !fileContent `n f=%f% `n 17-03-19_15-21 exitApp
+				MsgBox, :-( !fileContent `n f=%f% `n 17-03-19_15-21 `n=>  exitApp
 				ExitApp
 			}
       ;FileCopy,% scriptDIR . "\_global.ahk", % wl

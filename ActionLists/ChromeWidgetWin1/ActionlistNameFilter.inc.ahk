@@ -16,11 +16,15 @@ if(false){ ; needet becouse later we use else if very often 28.09.2018 09:12
 else if ( instr( activeTitle , "Benachrichtigung:")  &&  RegExMatch( activeTitle , "Gmail")   )
 	ActionListNEW := "Benachrichtigung_Google_Chrome"
 	
-else if ( RegExMatch( activeTitle , "i)\b(AutoHotkey Community|Gmail|Google Contacts|Google Kalender)\b"  )    ){
-	ActionListNEW := "Gmail_Google_Chrome.ahk"
+else if ( RegExMatch( activeTitle , "i)\b(Gmail|Google Contacts|Google Kalender)\b"  )    ){
+	ActionListNEW := "Gmail_Google_Chrome"
 	; msgbox,% activeTitle " => " ActionListNEW
 }
+else if ( RegExMatch( activeTitle , "i)\b(AutoHotkey Community)\b"  )    ){
+	ActionListNEW := "..\_globalActionLists\AutoHotkey_Community"
 	
+}
+
 else if (RegExMatch( activeTitle , "(\.ahk)" ) ){
 	if(false && activeClass == "ChromeWidgetWin1") {  ; want to know that. debugging 26.4.218 12:18}
         ; need to be discussed: https://g-intellisense.myjetbrains.com/youtrack/issue/GIS-22

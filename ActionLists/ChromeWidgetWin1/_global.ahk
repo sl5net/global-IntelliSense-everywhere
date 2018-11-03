@@ -1,1 +1,1 @@
-"_global.ahk"
+Halo Welt
