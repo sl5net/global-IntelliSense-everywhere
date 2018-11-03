@@ -601,9 +601,9 @@ lll(A_LineNumber, A_LineFile, msg )
 
             g_tooltipText = WinWait gi-everywhere.ahk
             g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
-tooltip, % "Wait" A_LineNumber " " RegExReplace(A_LineFile,".*\")
-            WinWait,gi-everywhere.ahk,, 9
-            IfWinNotExist,gi-everywhere
+tooltip, % "Wait 3 seconds before EXIT `n(" A_LineNumber " " RegExReplace(A_LineFile,".*\") ")"
+            WinWait,gi-everywhere.ahk,, 3
+            IfWinNotExist,gi-everywhere.ahk
             {
 global g_doSaveLogFiles
 
@@ -645,7 +645,8 @@ lll(A_LineNumber, A_LineFile, "Debuggging!  NOT Run % gi_everywhereAHK " )
     g_tooltipText = WinWait gi-everywhere.ahk
     g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 tooltip, % "Wait" A_LineNumber " " RegExReplace(A_LineFile,".*\")
-   WinWait,gi-everywhere,, 9
+   WinWait,gi-everywhere,, 3
+   tooltip,
     IfWinNotExist,gi-everywhere
     {
 global g_doSaveLogFiles
@@ -654,7 +655,8 @@ lll(A_LineNumber, A_LineFile, "IfWinNotExist,gi-everywhere -> exitapp")
         exitapp
     }
     }
-} 
+}
+
 DetectHiddenWindows,On
 SetTitleMatchMode,2
 IfWinNotExist,gi-everywhere
@@ -948,8 +950,9 @@ FileWriteAndRun(sayHelloCode, sayHelloFunctionInc){
     winTC := sayHelloFunctionInc . " ahk_class AutoHotkey"
     if(winexist(winTC)){
         WinClose,% winTC
-tooltip, % "Wait" A_LineNumber " " RegExReplace(A_LineFile,".*\")
+        tooltip, % "Wait" A_LineNumber " " RegExReplace(A_LineFile,".*\")
         WinWaitClose,% winTC,,1
+        tooltip,
     }
     if(winexist(winTC)){
         ToolTip,DONT WANT RUN '%winTC%'. its already exist. `n (line:%A_LineNumber%) `n 18-02-15_13-00bbb

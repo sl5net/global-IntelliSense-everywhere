@@ -204,7 +204,7 @@ from: ActionList.ahk~%A_LineNumber%
 
 CoordMode, ToolTip,Screen
 
-		SELECT := "SELECT ActionListmodified, ActionListsize FROM ActionLists WHERE ActionList = '" . ActionList . "';"
+		SELECT := "SELECT ActionListmodified, ActionListsize FROM ActionLists WHERE ActionList = '" ActionList "';"
         if(1 && InStr(A_ComputerName,"SL5") && activeTitle == "isNotAProject")
                 ToolTip4sec(msg "`n`n" SELECT "`n" A_LineNumber . " " . RegExReplace(A_LineFile, ".*\\", ""),1,1  )
             ;ifwinactive,ahk_class SunAwtFrame
@@ -221,20 +221,27 @@ CoordMode, ToolTip,Screen
             ;diffModified := Abs(ActionListModified - ActionListLastModified) ; <==== acnt diff timestams this way todo:
             ;diffModified := ActionListModified - ActionListLastModified ; <==== acnt diff timestams this way todo:
             isModified := (ActionListModified <> ActionListLastModified)
-            tooltip,isModified=%isModified% `n diffModified := %diffModified% := %ActionListModified% - %ActionListLastModified%
+            if(1 && InStr(A_ComputerName,"SL5"))
+                tooltip,isModified=%isModified% `n := (%ActionListModified% ?= %ActionListLastModified%)
             if(!ActionListModified && !ActionListLastModified)
                 msgbox,18-10-28_13-43
 			if (isTblWordsEmpty || diffSize || isModified) {
 				LoadActionList := "Update" ; updated?
             ;Msgbox,%ActionList% = ActionList `n LoadActionList = "%LoadActionList%"`n source TXT has changed. update database next. `n (%A_LineFile%~%A_LineNumber%)
+
+                ActionListFileName := RegExReplace(ActionList, ".*\\")
+
+
+
 				tip =
 				(
 				LoadActionList = "%LoadActionList%"
 				source has changed.
-				%ActionList% = ActionList
-				%isTblWordsEmpty% = isTblWordsEmpty
-				%diffModified%    = diffModified
-				%diffSize%        = diffSize
+				ActionList = %ActionListFileName%
+				isTblWordsEmpty = %isTblWordsEmpty%
+				isModified := (%ActionListModified% <> %ActionListLastModified%)
+				diffSize        = diffSize (%ActionListSize% ?= %ActionListLastSize%=LastSize)
+				%SELECT%
 				==> update database next.
 				(%A_LineFile%~%A_LineNumber%)
 				)
