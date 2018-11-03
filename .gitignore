@@ -4,8 +4,8 @@
 
 Settings.xml
 
-# ActionLists/ChromeWidgetWin1
-ActionLists/*
+ActionLists/ChromeWidgetWin1
+# ActionLists/*
 AHK-Studio/*
 AutoGUI/*
 BACKUP*/*

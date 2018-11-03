@@ -1,0 +1,6 @@
+﻿#Include _global.ahk
+; #Include ..\_globalActionLists\_actionListHelp.ahk ; delete the comment (;), if you want help by creating your ActionList
+; 'Win Changed event handler - Google-Suche - Google Chrome' .  Only meta info (not importand): getInitialActionList:1267 Typing_Aid_everywhere_multi_clone.inc.ahk
+___open ActionList|rr||ahk|openInEditor,isNotAProject
+; if you could read this germen special character (umlaute) your file format is correct (please use UTF8)
+; ä = thats a au
