@@ -34,6 +34,9 @@ ReadActionList( calledFromStr ){
 	global g_ActionListDBfileAdress
 
 	global g_config
+
+	if(!ActionList)
+	    return false
     ; msgBox,% g_config["FuzzySearch"]["keysMAXperEntry"] "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
 
 	; global g_config ; ["FuzzySearch"]["enable"]
@@ -523,7 +526,7 @@ CoordMode, ToolTip,Screen
       ;Progress, Off
 
 
-		if (ActionList && FileGet_ActionListModified && FileGet_ActionListSize && isModified ) {
+		if (ActionListLastModified && FileGet_ActionListModified && FileGet_ActionListSize && isModified ) {
 			UPDATE := "UPDATE ActionLists SET ActionListmodified = '" FileGet_ActionListModified "', ActionListsize = '" FileGet_ActionListSize "' WHERE ActionList = '" ActionList "';"
 			; msgbox,% UPDATE "`n(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
 				try{
@@ -538,19 +541,28 @@ CoordMode, ToolTip,Screen
             		Clipboard := tip
             		msgbox, % tip
             	}
-
-    ; msgb msgbo tpp tool1 tool tooTip2sec(A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
-
+            ; msgb msgbo tpp tool1 tool tooTip2sec(A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
 			; msgbox,% "(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
-
-        ;Msgbox, %UPDATE%  (line:%A_LineNumber%)
-		} else {
+            ;Msgbox, %UPDATE%  (line:%A_LineNumber%)
+		} else if (ActionList && FileGet_ActionListModified && FileGet_ActionListSize ) {
          ;g_ActionListDB.Query("INSERT INTO ActionLists (ActionList, ActionListmodified, ActionListsize) VALUES ('"  ActionList "','" FileGet_ActionListModified "','" FileGet_ActionListSize "');")
 
 			INSERT_INTO_ActionLists_ifNotExist(ActionList, FileGet_ActionListModified, FileGet_ActionListSize )
 			g_ActionListID := getActionListID(ActionList) ; 24.03.2018 23:02
-		}
-	}
+         }else{
+                len := strlen( ActionList )
+                m =
+                (
+                ActionList = >%ActionList%< (%len%)
+                surprisingly, that happened to me that was the length zero 0 (04.11.2018 10:37) ?????
+                FileGet_ActionListModified = %FileGet_ActionListModified%
+                FileGet_ActionListSize = %FileGet_ActionListSize%
+                )
+                if(InStr(A_ComputerName,"SL5"))
+                 tooltip,% "Problem Oops `n" m "`n (" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
+                 return false
+             }
+    }
 	if(false && ParseWordsCount>0)
 		Msgbox, %ParseWordsCount%  (line:%A_LineNumber%)
 
