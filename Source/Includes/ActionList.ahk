@@ -73,11 +73,18 @@ ReadActionList( calledFromStr ){
 
   ;ActionList = ..\ActionLists\ChromeWidgetWin1\wn654_Piratenpad_Google_Chrome.txt._Generated.txt
 
+    FileGetTime, FileGet_ActionListModified, %ActionList%, M
+    FormatTime, FileGet_ActionListModified, %FileGet_ActionListModified%, yyyy-MM-dd HH:mm:ss
+    FileGetSize, FileGet_ActionListSize, %ActionList%
+    if(!FileGet_ActionListSize){
+        if(1 && InStr(A_ComputerName,"SL5") && activeTitle == "isNotAProject")
+            ToolTip4sec(" Oops  !FileGet_ActionListSize (" A_LineNumber . " " . RegExReplace(A_LineFile, ".*\\", "")  )
+        return
+    }
+
+
 	g_ActionListID := getActionListID(ActionList) ; 24.03.2018 23:02
 	if(!g_ActionListID){ ; fallBack
-		FileGetTime, ActionListModified, %ActionList%, M
-		FormatTime, ActionListModified, %ActionListModified%, yyyy-MM-dd HH:mm:ss
-		FileGetSize, ActionListSize, %ActionList%
 
 		INSERT_INTO_ActionLists(ActionList, ActionListModified, ActionListSize )
         ;Msgbox,Oops `n %insert%`n (%A_LineFile%~%A_LineNumber%)
@@ -103,6 +110,7 @@ ReadActionList( calledFromStr ){
 	}else
 		isTblWordsEmpty := false
 
+; toolTip2sec(A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
 
 ;	ActionList := ActionList
    ; FileReadLine,ActionList  ,ActionList.txt, 1
@@ -122,7 +130,8 @@ ReadActionList( calledFromStr ){
 ;msgbox,ActionList = %ActionList% `n (%A_LineFile%~%A_LineNumber%)
 
 
-	g_ActionListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", g_ActionListDBfileAdress ) ; https://autohotkey.com/board/topic/86457-dba-16-easy-database-access-mysql-sqlite-ado-ms-sql-access/
+	if (!g_ActionListDB )
+	    g_ActionListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", g_ActionListDBfileAdress ) ; https://autohotkey.com/board/topic/86457-dba-16-easy-database-access-mysql-sqlite-ado-ms-sql-access/
 ; END of: Section wait for unsolved error messages. to close them unsolved :D 02.04.2017 14:36 17-04-02_14-36 todo: dirty bugfix
 
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -159,11 +168,12 @@ OK
 
 	DatabaseRebuilt := MaybeConvertDatabase()
 
-	FileGetSize, ActionListSize, %ActionList%
+    if(!FileGet_ActionListSize)
+	    FileGetSize, FileGet_ActionListSize, %ActionList%
 ;msgbox,ActionListSize = %ActionListSize% `n (%A_LineFile%~%A_LineNumber%)
 
-	if(false && !ActionListSize) {
-          m = !ActionListSize: Oops i am triggered :D 17-04-02_13-52 (from: ActionList.ahk~%A_LineNumber%)
+	if(false && !FileGet_ActionListSize) {
+          m = !FileGet_ActionListSize: Oops i am triggered :D 17-04-02_13-52 (from: ActionList.ahk~%A_LineNumber%)
 		Sleep,2500
 
  ;lll(A_LineNumber, A_LineFile,Last_A_This . " reload " )
@@ -172,18 +182,21 @@ OK
 			run,log\%A_LineFile%.log.txt
 		lll(A_LineNumber, A_LineFile,Last_A_This . " reload ")
 		Reload
-          MsgBox,5 ,!ActionListSize ,Oops i am triggered :D 17-04-02_13-52 (from: %A_LineFile%~%A_LineNumber%), 5
+          MsgBox,5 ,!FileGet_ActionListSize ,Oops i am triggered :D 17-04-02_13-52 (from: %A_LineFile%~%A_LineNumber%), 5
           ; that is very seldom triggerend. 18.04.2017 20:17
 	}
 	if(!isTblWordsEmpty){
-		FileGetTime, ActionListModified, %ActionList%, M
-		FormatTime, ActionListModified, %ActionListModified%, yyyy-MM-dd HH:mm:ss
-       ;tooltip,FileGetTime %ActionListModified% %ActionList%, M
-		if(!ActionListModified){
+
+	if(!FileGet_ActionListModified){
+		FileGetTime, FileGet_ActionListModified, %FileGet_ActionList%, M
+		FormatTime, FileGet_ActionListModified, %FileGet_ActionListModified%, yyyy-MM-dd HH:mm:ss
+    }
+       ;tooltip,FileGetTime %FileGet_ActionListModified% %ActionList%, M
+		if(!FileGet_ActionListModified){
 			msg =
 (
 %ActionList% = ActionList
-%ActionListModified% = ActionListModified
+%FileGet_ActionListModified% = FileGet_ActionListModified
 from: ActionList.ahk~%A_LineNumber%
 )
 			msgbox,Oops i am triggered :D 17-04-04_17-32 `n `n %msg%
@@ -226,13 +239,13 @@ CoordMode, ToolTip,Screen
 			ActionListLastModified := row[1]
 			ActionListLastSize := row[2]
 
-            diffSize := Abs(ActionListSize - ActionListLastSize)
-            ;diffModified := Abs(ActionListModified - ActionListLastModified) ; <==== acnt diff timestams this way todo:
-            ;diffModified := ActionListModified - ActionListLastModified ; <==== acnt diff timestams this way todo:
-            isModified := (ActionListModified <> ActionListLastModified)
+            diffSize := Abs(FileGet_ActionListSize - ActionListLastSize)
+            ;diffModified := Abs(FileGet_ActionListModified - ActionListLastModified) ; <==== acnt diff timestams this way todo:
+            ;diffModified := FileGet_ActionListModified - ActionListLastModified ; <==== acnt diff timestams this way todo:
+            isModified := (FileGet_ActionListModified <> ActionListLastModified)
             if(1 && InStr(A_ComputerName,"SL5"))
                 tooltip,isModified=%isModified% `n := (%ActionListModified% ?= %ActionListLastModified%)
-            if(!ActionListModified && !ActionListLastModified)
+            if(!FileGet_ActionListModified && !ActionListLastModified)
                 msgbox,18-10-28_13-43
 			if (isTblWordsEmpty || diffSize || isModified) {
 				LoadActionList := "Update" ; updated?
@@ -248,8 +261,11 @@ CoordMode, ToolTip,Screen
 				source has changed.
 				ActionList = %ActionListFileName%
 				isTblWordsEmpty = %isTblWordsEmpty%
-				isModified := (%ActionListModified% <> %ActionListLastModified%)
-				diffSize        = diffSize (%ActionListSize% ?= %ActionListLastSize%=LastSize)
+				isModified := (%FileGet_ActionListModified% <> %ActionListLastModified%)
+				diffSize        = diffSize (%FileGet_ActionListSize% ?= %ActionListLastSize%=LastSize)
+
+				%g_ActionListDBfileAdress%
+
 				%SELECT%
 				==> update database next.
 				(%A_LineFile%~%A_LineNumber%)
@@ -502,8 +518,9 @@ CoordMode, ToolTip,Screen
       ;Progress, Off
 
 
-		if ( LoadActionList == "Update") {
-			UPDATE := "UPDATE ActionLists SET ActionListmodified = '" . ActionListModified . "', ActionListsize = '" . ActionListSize . "' WHERE ActionList = '" . ActionList . "';"
+		if (ActionList && FileGet_ActionListModified && FileGet_ActionListSize && isModified ) {
+			UPDATE := "UPDATE ActionLists SET ActionListmodified = '" FileGet_ActionListModified "', ActionListsize = '" FileGet_ActionListSize "' WHERE ActionList = '" ActionList "';"
+			; msgbox,% UPDATE "`n(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
 				try{
         			g_ActionListDB.Query(UPDATE)
             	} catch e{
@@ -523,14 +540,11 @@ CoordMode, ToolTip,Screen
 
         ;Msgbox, %UPDATE%  (line:%A_LineNumber%)
 		} else {
-         ;g_ActionListDB.Query("INSERT INTO ActionLists (ActionList, ActionListmodified, ActionListsize) VALUES ('" . ActionList . "','" . ActionListModified . "','" . ActionListSize . "');")
+         ;g_ActionListDB.Query("INSERT INTO ActionLists (ActionList, ActionListmodified, ActionListsize) VALUES ('"  ActionList "','" FileGet_ActionListModified "','" FileGet_ActionListSize "');")
 
-			INSERT_INTO_ActionLists_ifNotExist(ActionList, ActionListModified, ActionListSize )
+			INSERT_INTO_ActionLists_ifNotExist(ActionList, FileGet_ActionListModified, FileGet_ActionListSize )
 			g_ActionListID := getActionListID(ActionList) ; 24.03.2018 23:02
-
-
 		}
-
 	}
 	if(false && ParseWordsCount>0)
 		Msgbox, %ParseWordsCount%  (line:%A_LineNumber%)
