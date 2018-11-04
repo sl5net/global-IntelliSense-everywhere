@@ -250,7 +250,7 @@ CoordMode, ToolTip,Screen
             diffSize := Abs(FileGet_ActionListSize - ActionListLastSize)
             ;diffModified := Abs(FileGet_ActionListModified - ActionListLastModified) ; <==== acnt diff timestams this way todo:
             ;diffModified := FileGet_ActionListModified - ActionListLastModified ; <==== acnt diff timestams this way todo:
-            isModified := (FileGet_ActionListModified <> ActionListLastModified)
+            isModified := (FileGet_ActionListModified && ActionListLastModified && (FileGet_ActionListModified <> ActionListLastModified))
             if(1 && InStr(A_ComputerName,"SL5"))
                 tooltip,isModified=%isModified% `n := (%ActionListModified% ?= %ActionListLastModified%)
             if(!FileGet_ActionListModified && !ActionListLastModified)
