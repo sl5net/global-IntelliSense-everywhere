@@ -3,8 +3,8 @@
 
 #MaxHotkeysPerInterval 99000000
 #HotkeyInterval 99000000
-Process, Priority,, H
-; Process, Priority,, Normal
+; Process, Priority,, H
+Process, Priority,, Normal
 SetBatchLines, -1 ; used till 03.11.2018 18:51. thats okay. Use SetBatchLines -1 to never sleep (i.e. have the script run at maximum speed). The default setting is 10m
 ; SetBatchLines, 20ms ; addet 03.11.2018 18:51
 ; SetBatchLines, 10

@@ -75,6 +75,11 @@ ReadActionList( calledFromStr ){
 
     FileGetTime, FileGet_ActionListModified, %ActionList%, M
     FormatTime, FileGet_ActionListModified, %FileGet_ActionListModified%, yyyy-MM-dd HH:mm:ss
+    if(!FileGet_ActionListModified){
+        if(1 && InStr(A_ComputerName,"SL5") && activeTitle == "isNotAProject")
+            ToolTip4sec(" Oops  !FileGet_ActionListModified (" A_LineNumber . " " . RegExReplace(A_LineFile, ".*\\", "")  )
+        return
+    }
     FileGetSize, FileGet_ActionListSize, %ActionList%
     if(!FileGet_ActionListSize){
         if(1 && InStr(A_ComputerName,"SL5") && activeTitle == "isNotAProject")
