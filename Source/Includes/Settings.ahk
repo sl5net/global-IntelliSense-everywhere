@@ -951,8 +951,7 @@ SaveSettings()
    SavePreferences(Menu_PrefsToSave)
 }
 
-ApplyChanges()
-{
+ApplyChanges(){
    ValidatePreferences()
    ParseTerminatingCharacters()
    InitializeHotKeys()

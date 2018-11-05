@@ -1460,6 +1460,9 @@ FileAppend, %Text%, %FileName%
 }
 
 MaybeFixFileEncoding(File,Encoding){
+    return
+
+
    ; doWriteInAnyCasese := true ;
        if( RegExMatch(File,"Bewerbung") ){
 

@@ -13,10 +13,10 @@ SetDbVersion(dBVersion = 7){
 ; returns true if we need to rebuild the whole database
 MaybeConvertDatabase(){
 
+	; ToolTip5sec("MaybeConvertDatabase() return false " A_LineNumber . " " . RegExReplace(A_LineFile,".*\\") ,1,1)
+	return false
 CoordMode, ToolTip, Screen
 
-	ToolTip5sec("MaybeConvertDatabase() return false " A_LineNumber . " " . RegExReplace(A_LineFile,".*\\") ,1,1)
-	return false
 
 	global g_ActionListDB
 	databaseVersionRows := g_ActionListDB.Query("SELECT lastStateNumber FROM LastState WHERE lastStateItem = 'databaseVersion';")

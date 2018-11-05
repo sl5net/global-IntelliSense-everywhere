@@ -394,7 +394,7 @@ ActionListDir = '%ActionListDir%'
 					isActionListNewer_as_Generated := (ActionListNEWarchivePath > ActionListGeneratedModifiedTime)
 					isIncludeFileNewer_as_Generated := (includeFileModifiedTime > ActionListGeneratedModifiedTime)
 					
-					msg= '%ActionListNEWarchivePathBackupModifiedTime%' > '%ActionListGeneratedModifiedTime%' (ActionListNEWarchivePathBackupModifiedTime > ActionListGeneratedModifiedTime)  `n' isIncludeFileNewer_as_Generated=%isIncludeFileNewer_as_Generated% `n '%includeFilePath%' = '%includeFilePath%' `n`n(A_LineNumber, A_LineFile)
+					msg= '%ActionListNEWarchivePathBackupModifiedTime%' > '%ActionListGeneratedModifiedTime%' (ActionListNEWarchivePathBackupModifiedTime > ActionListGeneratedModifiedTime)  `n' isIncludeFileNewer_as_Generated=%isIncludeFileNewer_as_Generated%  `n' isActionListNewer_as_Generated=%isActionListNewer_as_Generated% `n '%includeFilePath%' = '%includeFilePath%' `n`n(A_LineNumber, A_LineFile)
 					lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   msg)
  ; msgbox, % msg
 					
@@ -403,6 +403,16 @@ ActionListDir = '%ActionListDir%'
                 || ActionListNEWarchivePathBackupModifiedTime > ActionListGeneratedModifiedTime
                 || includeFileModifiedTime > ActionListGeneratedModifiedTime ){
 						includeFileSContentWillBeNeedsSaved := true
+m =
+(
+includeFileSContentWillBeNeedsSaved :=
+|| !%exist_ActionListGeneratedPath%
+|| %ActionListNEWarchivePathBackupModifiedTime% > %ActionListGeneratedModifiedTime%
+|| %includeFileModifiedTime% > %ActionListGeneratedModifiedTime% ){
+)
+if(InStr(A_ComputerName,"SL5"))
+    msgbox,% m "`n(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
+
                      ; continue ; include is old. older.
 					}{
 						
@@ -431,6 +441,10 @@ ActionListDir = '%ActionListDir%'
 		if(includeFileSContentWillBeNeedsSaved ) {
 ; loop throw alls include files
 ; Loop % Array.MaxIndex()   ; More traditional approach.
+
+            if(InStr(A_ComputerName,"SL5"))
+                msgbox,% "(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
+
 			for fileId, includeFilePath in includeFilePathArray ; Recommended approach in most cases.
 			{ ; for fileId, includeFilePath in includeFilePathArray
 				
@@ -467,8 +481,11 @@ ActionListDir = '%ActionListDir%'
 		
 ; lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   "'" . ActionListGeneratedPath . "' = ActionListGeneratedPath `n'" . ActionListNEWarchivePath . " = ActionListNEWarchivePath " )
 		
-		if(includeFileSContentWillBeNeedsSaved )
+		if(includeFileSContentWillBeNeedsSaved ){
+            if(InStr(A_ComputerName,"SL5"))
+                msgbox,% "(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
 			save_ActionListGeneratedPath(ActionListGeneratedPath,includeFileSContent,ActionListNEWarchivePath)
+        }
 		
 ; lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   "'" . ActionListGeneratedPath . "' = ActionListGeneratedPath `n'" . ActionListNEWarchivePath . " = ActionListNEWarchivePath " )
 		
@@ -656,6 +673,7 @@ lll(A_LineNumber, A_LineFile, "IfWinNotExist,gi-everywhere -> exitapp")
     }
     }
 }
+
 
 DetectHiddenWindows,On
 SetTitleMatchMode,2
@@ -996,7 +1014,7 @@ FileWrite(sayHelloCode, sayHelloFunctionInc){
    Sleep,100
    lll(A_LineNumber, A_LineFile, "FileAppend too " sayHelloFunctionInc)
     ;msgbox,% sayHelloCode
-if(1 && InStr(A_ComputerName,"SL5") )
+if(0 && InStr(A_ComputerName,"SL5") )
    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, FileAppend , % A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
 FileAppend, % sayHelloCode, % sayHelloFunctionInc
    return 1

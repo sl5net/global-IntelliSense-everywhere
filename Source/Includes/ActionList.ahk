@@ -94,7 +94,7 @@ ReadActionList( calledFromStr ){
 	g_ActionListID := getActionListID(ActionList) ; 24.03.2018 23:02
 	if(!g_ActionListID){ ; fallBack
 
-		INSERT_INTO_ActionLists(ActionList, ActionListModified, ActionListSize )
+		INSERT_INTO_ActionLists(ActionList, FileGet_ActionListModified, FileGet_ActionListSize )
         ;Msgbox,Oops `n %insert%`n (%A_LineFile%~%A_LineNumber%)
         ;tooltip,g_ActionListID = %g_ActionListID% `n ActionList = %ActionList% `n %insert%`n (%A_LineFile%~%A_LineNumber%)
         ;sleep,2000
@@ -250,9 +250,29 @@ CoordMode, ToolTip,Screen
             diffSize := Abs(FileGet_ActionListSize - ActionListLastSize)
             ;diffModified := Abs(FileGet_ActionListModified - ActionListLastModified) ; <==== acnt diff timestams this way todo:
             ;diffModified := FileGet_ActionListModified - ActionListLastModified ; <==== acnt diff timestams this way todo:
-            isModified := (FileGet_ActionListModified && ActionListLastModified && (FileGet_ActionListModified <> ActionListLastModified))
-            if(1 && InStr(A_ComputerName,"SL5"))
-                tooltip,isModified=%isModified% `n := (%ActionListModified% ?= %ActionListLastModified%)
+            isModified := (diffSize || FileGet_ActionListModified && ActionListLastModified && (FileGet_ActionListModified <> ActionListLastModified))
+            if(1 && InStr(A_ComputerName,"SL5")){
+                tip =
+                (
+                isModified=%isModified%
+                := (FileModi=%FileGet_ActionListModified% ?= %ActionListLastModified%=last)
+                %ActionList%
+
+                %SELECT%
+                )
+                clipboard := SELECT
+                toolTip2sec(tip "`n" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This,1,1)
+
+
+
+                if(!ActionListLastModified){
+                    sqlDELETE := "DELETE from ActionLists WHERE ActionListmodified = '';"
+                    msgbox,ERROR Database ActionListLastModified is empty `n`n %sqlDELETE% `n`n %ActionList%
+                    g_ActionListDB.Query(sqlDELETE)
+                    reload
+                }
+
+            }
             if(!FileGet_ActionListModified && !ActionListLastModified)
                 msgbox,18-10-28_13-43
 			if (isTblWordsEmpty || diffSize || isModified) {
@@ -261,16 +281,14 @@ CoordMode, ToolTip,Screen
 
                 ActionListFileName := RegExReplace(ActionList, ".*\\")
 
-
-
 				tip =
 				(
 				LoadActionList = "%LoadActionList%"
 				source has changed.
 				ActionList = %ActionListFileName%
 				isTblWordsEmpty = %isTblWordsEmpty%
-				isModified := (%FileGet_ActionListModified% <> %ActionListLastModified%)
 				diffSize        = diffSize (%FileGet_ActionListSize% ?= %ActionListLastSize%=LastSize)
+				isModified := (%FileGet_ActionListModified% <> %ActionListLastModified%)
 
 				%g_ActionListDBfileAdress%
 
@@ -278,7 +296,7 @@ CoordMode, ToolTip,Screen
 				==> update database next.
 				(%A_LineFile%~%A_LineNumber%)
 				)
-				tooltip,% tip
+				tooltip,% tip,1,1
 				lll(A_LineNumber, A_LineFile, tip)
 				CleanupActionListAll_ofLittleWordCount() ; i dont konw what for that is. try it without 18-10-06_21-40
 			} else {
@@ -290,7 +308,26 @@ CoordMode, ToolTip,Screen
 	} else {
 		LoadActionList := "Insert"
 	}
+; tool tool tool tooltip
+
 ; msgbox,% LoadActionList "= LoadActionList(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
+            if(0 && InStr(A_ComputerName,"SL5")){
+            				tip =
+            				(
+            				LoadActionList = "%LoadActionList%"
+            				ActionList = %ActionListFileName%
+            				isTblWordsEmpty = %isTblWordsEmpty%
+            				isModified := (%FileGet_ActionListModified% <> %ActionListLastModified%)
+            				diffSize        = diffSize (%FileGet_ActionListSize% ?= %ActionListLastSize%=LastSize)
+
+            				%g_ActionListDBfileAdress%
+
+            				%SELECT%
+            				(%A_LineFile%~%A_LineNumber%)
+            				)
+                toolTip2sec(LoadActionList "= LoadActionList `n" tip "`n" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
+            }
+
 
 	if (LoadActionList) {
       ; Progress, M, Please wait..., Loading ActionList, %g_ScriptTitle%
@@ -525,7 +562,9 @@ CoordMode, ToolTip,Screen
 		g_ActionListDB.EndTransaction()
       ;Progress, Off
 
-
+; tool msg
+; msgbox
+; msgbox,% isModified
 		if (ActionListLastModified && FileGet_ActionListModified && FileGet_ActionListSize && isModified ) {
 			UPDATE := "UPDATE ActionLists SET ActionListmodified = '" FileGet_ActionListModified "', ActionListsize = '" FileGet_ActionListSize "' WHERE ActionList = '" ActionList "';"
 			; msgbox,% UPDATE "`n(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
@@ -1379,13 +1418,18 @@ INSERT_INTO_ActionLists_ifNotExist(ActionList, ActionListModified, ActionListSiz
 		lll(A_LineNumber, A_LineFile, tip)
 		return
 	}
-	INSERT_INTO_ActionLists(ActionList, ActionListModified, ActionListSize )
+	INSERT_INTO_ActionLists(ActionList, FileGet_ActionListModified, FileGet_ActionListSize )
 }
 INSERT_INTO_ActionLists(ActionList, ActionListModified, ActionListSize ){
 
 	global g_ActionListDB
 	global g_ActionListDBfileAdress
     INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+    if(!ActionListModified){
+        msg := "Error`n !ActionListModified `n sql=" sql "`n" ActionList "`n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
+        tooltip,% msg,1,1
+        return false
+    }
 	sql := "INSERT INTO ActionLists "
 	sql .= " (id, ActionList, ActionListmodified, ActionListsize) VALUES "
 	sql .= " (null, '" ActionList "', '" ActionListModified "', '" ActionListSize "' );"

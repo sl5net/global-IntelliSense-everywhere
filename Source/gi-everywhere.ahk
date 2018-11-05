@@ -1232,6 +1232,22 @@ global-IntelliSense-everywhere-Nightly-Build [G:\fre\git\github\global-IntelliSe
     if(ActionListOLD <> ActionList && !instr(ActionList,"\isNotAProject" ) && speakedLastActionList <> ActionList ){
         Speak(ActionListFileName " found ", "PROD" )  ;  (DEV, TEST, STAGING, PROD),
         speakedLastActionList := ActionList
+
+        if(InStr(A_ComputerName,"SL5") && ActionListFileName == "AutoHotkey_Community"){
+
+            g_Word := "___"
+            clipboard := ActionListFileName
+            newFontSize := recreateListBox_IfFontSizeChangedAndTimeIdle(12, 14)
+            ; ShowListBox(g_ListBoxX,g_ListBoxY)
+            ; InitializeListBox() ; --> Error same variable I can use twice
+            ; reload_IfNotExist_ListBoxGui()
+            ApplyChanges()
+
+            Speak("ShowListBox", "PROD" )  ;  (DEV, TEST, STAGING, PROD),
+
+            tooltip,% " ActionListFileName (" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
+        }
+
     }
     ActionListOLD := ActionList
     g_ActionListID := getActionListID(ActionList) ; 24.03.2018 23:02
