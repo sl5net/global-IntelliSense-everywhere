@@ -114,7 +114,9 @@ ReadActionList( calledFromStr ){
             ActionList = %ActionList%
             %SELECT%
             )
-			Msgbox,% ":-( Oops `n " m " !g_ActionListID ==> return false `n (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+            if(1 && InStr(A_ComputerName,"SL5"))
+			    Msgbox,% ":-( Oops `n " m " !g_ActionListID ==> return false `n (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+            Sleep, 1000
 			return false
 		}
 		isTblWordsEmpty := true
