@@ -123,8 +123,8 @@ MainLoop(){
       } else {    
          Critical, Off
       }
-   
-      ;Get one key at a time 
+
+      ;Get one key at a time ; Waits for the user to type a string.
       Input, InputChar, L1 V I, {BS}%g_TerminatingEndKeys%
 
        ;/¯¯¯¯ Critical, ¯¯ 181021220521 ¯¯ 21.10.2018 22:05:21 ¯¯\
@@ -260,7 +260,7 @@ ProcessKey(InputChar,EndKey) {
          Return
       }
       if(1 && InStr(A_ComputerName,"SL5"))
-           tooltip,% "str=" NewInput " , chr=" InputChar "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\"),80,-10
+           tooltip,% "str=" NewInput " , chr=" InputChar "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\"),90,-15
 
       if InputChar in %prefs_ForceNewWordCharacters%
       {
@@ -293,11 +293,12 @@ ProcessKey(InputChar,EndKey) {
    }
 
 ; ___ ooo asfasfs ooo oo ooo
+; tool toolTip2sec(A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
+; to to
 
    ;Wait till minimum letters 
-   IF ( true && StrLen(g_Word) < prefs_Length ) ; 04.08.2017 15:17 changed by sl5 Oops lets see what happens :D
-   {
-global g_doSaveLogFiles
+   IF ( 0 && StrLen(g_Word) < prefs_Length ){ ; 04.08.2017 15:17 changed by sl5 Oops lets see what happens :D
+      global g_doSaveLogFiles
 
       lll(A_LineNumber, A_LineFile, "g_Word=" . g_Word . " `n`n ==>j CloseListBox(calledFromStr)")
       CloseListBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
@@ -314,7 +315,6 @@ global g_doSaveLogFiles
 
 
 
-; test
 ;/¯¯¯¯ RecomputeMatches ¯¯ 181025105946 ¯¯ 25.10.2018 10:59:46 ¯¯\
 RecomputeMatches( calledFromStr ){
    ; This function will take the given word, and will recompile the list of matches and redisplay the ActionList.
@@ -1461,7 +1461,14 @@ FileAppend, %Text%, %FileName%
 
 MaybeFixFileEncoding(File,Encoding){
     return
-
+log =
+(
+i got a problem with this today.
+it become  in a harmless endless loop.
+The correction changed the file date.
+We don't need the function probably anyway because we have everything utf-8.
+05.11.2018 13:13
+)
 
    ; doWriteInAnyCasese := true ;
        if( RegExMatch(File,"Bewerbung") ){
@@ -1583,27 +1590,29 @@ MaybeCoUninitialize(){
 ;\____ MaybeCoUninitialize __ 181024135059 __ 24.10.2018 13:50:59 __/
 
 
-
+; too too  t
 
 ;/¯¯¯¯ getMinLength_Needetthat_ListBecomesVisible( ¯¯ 181028024531 ¯¯ 28.10.2018 02:45:31 ¯¯\
-getMinLength_Needetthat_ListBecomesVisible(ParseWordsCount, maxLinesOfCode4length1){
-       if( ParseWordsCount > 0 ){
-;~           Tooltip,%ParseWordsCount% = ParseWordsCount(`from: %A_LineFile%~%A_LineNumber%) `
-    global prefs_Length
-          if(ParseWordsCount <= maxLinesOfCode4length1){ ; 16 for 16 lines
-            prefs_Length = 1 ; 27.03.2017 10:25 17-03-27_10-25 sl5.net
-            ; Msgbox,%prefs_Length% = prefs_Length`n (from: %A_LineFile%~%A_LineNumber%)
-          } else
-            prefs_Length = 2 ; 27.03.2017 10:25 17-03-27_10-25 sl5.net
-      }
-      ; prefs_Length = 1 ; has effekt at this position 27.03.2017 20:48 17-03-27_20-48 sl5.net
+getMinLength_Needetthat_ListBecomesVisible(ParseWordsCount, maxLinesOfCode4length1) {
+        global prefs_Length
+        prefs_Length = 2 ; 27.03.2017 10:25 17-03-27_10-25 sl5.net
+        if( ParseWordsCount > 0 ){
+            ;~           Tooltip,%ParseWordsCount% = ParseWordsCount(`from: %A_LineFile%~%A_LineNumber%) `
+            if(ParseWordsCount <= maxLinesOfCode4length1) ; 16 for 16 lines
+                prefs_Length = 1 ; 27.03.2017 10:25 17-03-27_10-25 sl5.net
+            Msgbox,%prefs_Length% = prefs_Length`n (from: %A_LineFile%~%A_LineNumber%)
+        }
+        ;else
+         ;   Msgbox,%prefs_Length% = prefs_Length`n (from: %A_LineFile%~%A_LineNumber%)
 
-   return prefs_Length
+        ; prefs_Length = 1 ; has effekt at this position 27.03.2017 20:48 17-03-27_20-48 sl5.net
+
+        return prefs_Length
 }
 ;\____ getMinLength_Needetthat_ListBecomesVisible( __ 181028024549 __ 28.10.2018 02:45:49 __/
 
 
-
+;
 
 doReloadIfScriptDontMoveThisLine(sec := 5){
 if(0){ ; check if this is arrived 30.04.2017 09:43

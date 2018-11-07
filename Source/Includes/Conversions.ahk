@@ -131,7 +131,8 @@ RunConversionOne(ActionListConverted){
 	
 	;superseded by conversion 3
 	;g_ActionListDB.Query("ALTER TABLE Words ADD COLUMN worddescription TEXT;")
-	
+	;g_ActionListDB.Query("ALTER TABLE Words ADD COLUMN lineNr INTEGER;")
+
 	SetDbVersion(1)
 	g_ActionListDB.EndTransaction()
 	
@@ -398,8 +399,6 @@ small_LineFile TEXT NOT NULL
 	}
 } ; endOfFunction
 	
-	
-	
 	CreateWordsTable(WordsTableName:="Words"){
 		lll(A_LineNumber, A_LineFile, "lin1 at CREATE_TABLE_wordS")
 		global g_ActionListDB
@@ -413,11 +412,15 @@ CREATE TABLE IF NOT EXISTS %WordsTableName%  (
 ActionListID INTEGER NOT NULL
 , wordindexed TEXT NOT NULL
 , word TEXT NOT NULL
+, lineNr INTEGER
 , count INTEGER
 , worddescription TEXT
 , wordreplacement TEXT NOT NULL
 , PRIMARY KEY `(ActionListID, word, wordreplacement) );
 )
+
+; g_ActionListDB.Query("ALTER TABLE Words ADD COLUMN lineNr INTEGER;")
+
 ; ActionListID,
 ;clipboard := sql
 		tooltip, % sql
@@ -453,6 +456,7 @@ ActionListID INTEGER NOT NULL
 			g_ActionListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", g_ActionListDBfileAdress ) ;
 		
 		sql := "CREATE TABLE IF NOT EXISTS ActionLists (id INTEGER PRIMARY KEY AUTOINCREMENT, ActionList TEXT, ActionListmodified DATETIME, ActionListsize INTEGER, lastusedByUser_since_midnight INTEGER)"
+
 		IF not g_ActionListDB.Query(sql)
 		{
 			ErrMsg := g_ActionListDB.ErrMsg()
@@ -463,7 +467,8 @@ ActionListID INTEGER NOT NULL
 		}
 	}
 ;>>>>>>>> CREATE_TABLE_ActionLists >>>> 180218062205 >>>> 18.02.2018 06:22:05 >>>>
-	
+
+;/¯¯¯¯ CreateActionListsTable ¯¯ 181106182616 ¯¯ 06.11.2018 18:26:16 ¯¯\
 	CreateActionListsTable()
 	{
 		Msgbox,deprecated ==> return `n (%A_LineFile%~%A_LineNumber%)
@@ -481,11 +486,14 @@ ActionListID INTEGER NOT NULL
 		WITHOUT ROWID;
 		)
 
-		IF not g_ActionListDB.Query("CREATE TABLE ActionLists (ActionList TEXT PRIMARY KEY, ActionListmodified DATETIME, ActionListsize INTEGER) WITHOUT ROWID;")
+		CREATE_TABLE_ActionLists := "CREATE TABLE ActionLists (ActionList TEXT PRIMARY KEY, ActionListmodified DATETIME, ActionListsize INTEGER) WITHOUT ROWID;"
+		IF not g_ActionListDB.Query( CREATE_TABLE_ActionLists )
 		{
 			ErrMsg := g_ActionListDB.ErrMsg()
 			ErrCode := g_ActionListDB.ErrCode()
-			msgbox Cannot Create ActionLists Table - fatal error: %ErrCode% - %ErrMsg%
+			clipboard := CREATE_TABLE_ActionLists
+			msgbox Cannot Create ActionLists Table - fatal error: %ErrCode% - %ErrMsg% `n %CREATE_TABLE_ActionLists%
 			ExitApp
 		}
 	}
+;\____ CreateActionListsTable __ 181106182623 __ 06.11.2018 18:26:23 __/

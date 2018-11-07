@@ -28,7 +28,8 @@ ActionList := RegExReplace(ActionList ,"(\\[^\\]+\\\.\.)+") ; works. removes all
 ActionList := RegExReplace(ActionList,"\\\.\\")  ; works. removes all symbolic link 24.02.2018 cleanPath
 ActionList := RegExReplace(ActionList,"^\.\\")  ; works. removes all symbolic link 24.02.2018  cleanPath
 
-RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList, % ActionList
+setRegistry_ActionList(ActionList)
+#Include,RegWrite181031.ahk
 RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionListActive, % ActionList
 RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionListDir, E:\fre\private\HtmlDevelop\AutoHotKey\tools\gi-everywhere-master\Source\
 RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionListNEW, ActionList.ahk

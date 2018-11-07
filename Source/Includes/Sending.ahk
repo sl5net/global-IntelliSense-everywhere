@@ -16,8 +16,7 @@ SendKey(Key){
 	Return
 }
 
-;------------------------------------------------------------------------
-
+;/¯¯¯¯ getLineOfIndex ¯¯ 181106201806 ¯¯ 06.11.2018 20:18:06 ¯¯\
 getLineOfIndex(id) {
 	global g_SingleMatch
     ;~ erste zeile mit eintrag im wörterbuch: g_SingleMatch[1] 10.07.2017 12:13
@@ -26,8 +25,42 @@ getLineOfIndex(id) {
   ;ActionListFileName = ActionList.txt
 	ActionListFileName := ActionList
 	if(!FileExist(ActionListFileName))
-		Msgbox,:( `n (%A_LineFile%~%A_LineNumber%) )
-	
+		Msgbox,:( !FileExist(ActionListFileName) %ActionListFileName% `n (%A_LineFile%~%A_LineNumber%) )
+
+
+   select =
+    (
+	-- select w.word, w.lineNr, w.ROWID, w.wordindexed, w.wordreplacement
+	select w.lineNr
+	FROM Words w
+	where w.word LIKE "word`%"
+	and w.ActionListID = %g_ActionListID%
+	-- and w.lineNr > 1
+	ORDER BY w.lineNr limit 1
+	)
+    try{
+        results := g_ActionListDB.Query(select)
+           for each, row in results.Rows
+           {
+                msgbox,% select "`n" row[1] "`n(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+                return row[1]
+           }
+           ; msgbox,% select "`n" row[1] "`n(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+    } catch e{
+        tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
+        sqlLastError := SQLite_LastError()
+        tip .= "`n sqlLastError=" sqlLastError "`n sql=" select " `n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
+        lll(A_LineNumber, A_LineFile, tip)
+        tooltip, `% tip
+        feedbackMsgBox(RegExReplace(A_LineFile,".*\\") ">" . A_LineNumber, tip )
+        Clipboard := tip
+        msgbox, % tip
+    }
+    return false
+
+
+
+
 	Loop, Read, %ActionListFileName%
 	{
 		if ErrorLevel
@@ -44,20 +77,109 @@ getLineOfIndex(id) {
 	}
     ; MsgBox, '%ActionListFileName%' = ActionListFileName  n (line:%A_LineNumber%) n `n The end of the file has been reached or there was a problem.
 	return
-	
 }
+;\____ getLineOfIndex __ 181106201849 __ 06.11.2018 20:18:49 __/
+
+
+;/¯¯¯¯ getNextWordFromDB ¯¯ 181106231548 ¯¯ 06.11.2018 23:15:48 ¯¯\
+getNextWordFromDB(word) {
+   global g_ActionListDB
+   global g_ActionListID
+    select =
+    (
+select t.word
+FROM Words t
+where t.lineNr > (
+  select w.lineNr FROM Words w
+  where w.word LIKE "%word%`%"
+  and w.ActionListID = %g_ActionListID% limit 1 )
+and t.ActionListID = %g_ActionListID%
+order by t.lineNr
+limit 1
+)
+    try{
+           Matches := g_ActionListDB.Query(select)
+           for each, row in Matches.Rows
+           {
+                ; msgbox,% "TRUE: " select "`n" row[1] "`n(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+                return row[1]
+           }
+    } catch e{
+        tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
+        sqlLastError := SQLite_LastError()
+        tip .= "`n sqlLastError=" sqlLastError "`n sql=" select " `n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
+        lll(A_LineNumber, A_LineFile, tip)
+        tooltip, `% tip
+        feedbackMsgBox(RegExReplace(A_LineFile,".*\\") ">" . A_LineNumber, tip )
+        Clipboard := tip
+        msgbox, % tip
+    }
+    msgbox,% "FALSE: `n" select "`n" row[1] "`n(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+    return false
+}
+;\____ getNextWordFromDB __ 181106231542 __ 06.11.2018 23:15:42 __/
+
+
+
+
+
+
+
+;/¯¯¯¯ getWordIndex ¯¯ 181106212657 ¯¯ 06.11.2018 21:26:57 ¯¯\
 getWordIndex(word) {
-	
 	global g_SingleMatch
     ;~ erste zeile mit eintrag im wörterbuch: g_SingleMatch[1] 10.07.2017 12:13
 	global ActionListFileName
 	global ActionList
+
+   global g_ActionListID
+
 	INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
   ;ActionListFileName = ActionList.txt
 	ActionListFileName := ActionList
 	if(!FileExist(ActionListFileName))
 		Msgbox,:( `n (%A_LineFile%~%A_LineNumber%) )
-	
+
+; msgbox,% "(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
+;
+
+
+if(0 && "new method"){ ; todo: problem https://stackoverflow.com/questions/53180420/select-with-subselect-gives-no-result 06.11.2018 22:53
+    ; problem: https://stackoverflow.com/questions/53180420/select-with-subselect-gives-no-result
+    select =
+    (
+select t.word
+FROM Words t
+where t.lineNr > (
+  select w.lineNr FROM Words w
+  where w.word LIKE "`%%word%"
+  and w.ActionListID = 3 limit 1 )
+and t.ActionListID = 3
+limit 1
+)
+    try{
+        g_ActionListDB.Query(select)
+           for each, row in NormalizeTable.Rows
+           {
+                msgbox,% select "`n" row[1] "`n(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+                return row[1]
+           }
+    } catch e{
+        tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
+        sqlLastError := SQLite_LastError()
+        tip .= "`n sqlLastError=" sqlLastError "`n sql=" select " `n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
+        lll(A_LineNumber, A_LineFile, tip)
+        tooltip, `% tip
+        feedbackMsgBox(RegExReplace(A_LineFile,".*\\") ">" . A_LineNumber, tip )
+        Clipboard := tip
+        msgbox, % tip
+    }
+    msgbox,% select "`n" row[1] "`n(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+    return false
+}
+
+
+
 	Loop, Read, %ActionListFileName%
 	{
 		if ErrorLevel
@@ -74,7 +196,7 @@ getWordIndex(word) {
     ; MsgBox, '%ActionListFileName%' = ActionListFileName  n (line:%A_LineNumber%) n `n The end of the file has been reached or there was a problem.
 	return
 }
-
+;\____ getWordIndex __ 181106212725 __ 06.11.2018 21:27:25 __/
 
 
 
@@ -249,19 +371,19 @@ SendWord(WordIndex){
 ; 19.10.2018 10:24
 ; msgBox,% "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
 ;\____ used if triggered ...|ahk|... style __ 19.10.2018 10:24:32 __/
-
-
-
+	
+	
+	
 	global g_SingleMatch
 	global g_SingleMatchReplacement
 	
 	global ActionList
 	global g_ActionListID
-
+	
 	global g_ActionList_UsedByUser_since_midnight
-    global g_ActionListID
-
-
+	global g_ActionListID
+	
+	
 	INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 	
 	ActionListFolderOfThisActionListRELATIVE := RegExReplace(ActionList,"\\[^\\]+$","")
@@ -269,12 +391,12 @@ SendWord(WordIndex){
 	ActionListFolderOfThisActionList := removesSymbolicLinksFromFileAdress(ActionListFolderOfThisActionList) ; user should could includes direcly from his ahk ActionList, without editing the address 05.03.2018 08:15
 	if(!FileExist(ActionListFolderOfThisActionList)){ ; Checks for the existence of a file or folder
 		clipboard := ActionListFolderOfThisActionList
-        msg := "`n`n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+		msg := "`n`n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
 		msg = ups:`n ! FileExist(%ActionListFolderOfThisActionList% %msg%
 		tooltip,% msg
 		msgBox,% ":( ERROR: " msg "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
-        RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, return , % A_ThisFunc ":"  A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
-
+		RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, return , % A_ThisFunc ":"  A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+		
 		return false
 	}
 	
@@ -367,6 +489,10 @@ SendWord(WordIndex){
 		regIsXXXcode := "^([^\|\n]+?)\|(rr)\|(?:([^\n]*?)(?:\|(ahk|kts)\|)+([^\n]*?)$)*"
 		regIsXXXcode := "^([^\|\n]+?)\|(rr)\|(?:([^\n]*?)(?:\|(ahk|kts)\|)+(.*?)$)*" ; since today we using ahk blocks. newline could be posible
 		regIs_r_replacement := "^([^\|\n]+?)\|r\|(.*?)$"
+
+        ; rX := {key:m1, rr:m2, send:"", lang:"" ,code:""}
+        regIsSynonym := "^([^\|\n]+?)\|(rr)\|$" ; ; synonymValue|rr|
+
 ; Camtasia mp4|r|G:\fre\private\video\mp4\Camtasia
 ; may remember this vor later implementation: ^([^\|\n]+?)(?:\|(rr)\|(?:([^\n]*?)(?:\|(ahk|kts)\|)+([^\n]*?)$)*)*$
 ; https://regex101.com/r/XvcvV4/3/      https://autohotkey.com/boards/viewtopic.php?f=6&t=45684&p=241492#p241492
@@ -385,23 +511,23 @@ SendWord(WordIndex){
 ; ToolTip5sec(A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
 ; Msgbox,% "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
 ;>>>>>>>> playground >>>> 18101080}49 >>>> 01.10.2018  >>>>
-
+		
 ; tool tool tool msgbox tooToolTip2sec lineFileName|rr|ToolTip2sec(A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)|ahk|Send,{CtrlDown}{left 8}{CtrlUp}
 ; msgMsgbox,% "(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
-
-
-
-UPDATE_ActionList_UsedByUser_since_midnight()
-
+		
+		
+		
+		UPDATE_ActionList_UsedByUser_since_midnight()
+		
 ; msgBox,% "g_ActionList_UsedByUser_since_midnight[g_ActionListID]: " g_ActionList_UsedByUser_since_midnight[g_ActionListID]"(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+		
 
-; rX := {key:m1, rr:m2, send:"", lang:"" ,code:""}
-		regIsSynonym := "^([^\|\n]+?)\|(rr)\|$"
 		
 		lineOfIndex := g_SingleMatch[WordIndex]
 ; lineOfIndex := "hoHi|rr|"
 		
 		foundPosSynonym := RegExMatch( lineOfIndex , regIsSynonym ,  m )
+		; synonymValue|rr|
 		
 		if(0){
 			tip=
@@ -413,68 +539,53 @@ UPDATE_ActionList_UsedByUser_since_midnight()
 )
 			tip .= g_SingleMatch[WordIndex] " = g_SingleMatch[WordIndex]"
 			ToolTip3sec(tip)tip
-			msgbox,% tip
+			msgbox,% tip "`n`n(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
 		}
 		
 ; AHKdyn example super simple example
 		if(foundPosSynonym){
 			rX := {key:m1, rr:m2, send:"", lang:"" ,code:""}
 			
-			if(!rX["lang"]){
-				tip := "found synonym `n ("   RegExReplace(A_LineFile,".*\\") " ," A_LineNumber  ") "
-				ToolTip3sec( tip )
-            ; msgbox, % tip
-				id := getWordIndex(m1)
-				while(!rX["code"] && id>1){
-				;/¯¯¯¯ Synonym ¯¯ 181021060216 ¯¯ 21.10.2018 06:02:16 ¯¯\
-				; deprecated: https://g-intellisense.myjetbrains.com/youtrack/issue/GIS-46
-				; id -= 1 ; we are in synonym lets search up
-                ;\____ Synonym __ 181021060220 __ 21.10.2018 06:02:20 __/
-                    lineOfIndex := ""
-                  while(lineOfIndex == "" && A_index < 99){
-					  id += 1 ; we are in synonym lets search DOWN ; new since 21.10.2018 06:03
-                     lineOfIndex := getLineOfIndex(id)
-                     if(A_index>=30){
-                        msg := "WARNING: endless loop. Synonsm is at the end of file."
-                        ToolTip5sec(msg " (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
-                        feedbackMsgBox(RegExReplace(A_LineFile,".*\\") ">" . A_LineNumber, msg )
-                        break
-                     }
-					if(0){
-					    sleep,2000
-					    tooltip,% lineOfIndex ":= getLineOfIndex(id) (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
-                    }
-                  }
-                ; dayTimeHello.ahk|rr|
-					RegExMatch( lineOfIndex , regIsXXXcode  ,  m )
-					rX := {key:m1, rr:m2, send:m3, lang:m4 ,code:m5}
+			if(rX["lang"]) { 
+				msgbox, ERROR synonyms dont should have a lang ??? 06.11.2018 23:50
+			} ; lang is fo e.g. AHK
+			lineOfIndex := getNextWordFromDB(m1)
+			
+			; if(true || !rX["lang"]) { ; lang is fo e.g. AHK
+			tip := "found synonym `n ("   RegExReplace(A_LineFile,".*\\") " ," A_LineNumber  ") "
+			ToolTip3sec( tip )
+			; dayTimeHello.ahk|rr|
+			RegExMatch( lineOfIndex , regIsXXXcode  ,  m )
+			rX := {key:m1, rr:m2, send:m3, lang:m4 ,code:m5}
 					
-					if(!rX["rr"]){
-						tip=%lineOfIndex% `n
-						tip .= "`n regIsXXXcode= " rX["regIsXXXcode"] "`n key= " rX["key"] "`n rr= " rX["rr"] " `n send= " rX["send"] " `n lang= " rX["lang"] " `n code= " rX["code"]
+			if(!rX["rr"]){
+				tip=%lineOfIndex% `n
+				tip .= "`n regIsXXXcode= " rX["regIsXXXcode"] "`n key= " rX["key"] "`n rr= " rX["rr"] " `n send= " rX["send"] " `n lang= " rX["lang"] " `n code= " rX["code"]
                     ;Msgbox,% " `n" tip "`n no code tag inside `n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
                     ;ToolTip3sec(tip)
 						
                     ;/¯¯¯¯ SysnonymR ¯¯ 181011160938 ¯¯ 11.10.2018 16:09:38 ¯¯\
                     ; https://g-intellisense.myjetbrains.com/youtrack/issue/GIS-36
-						if(foundPosr_replacement := RegExMatch( lineOfIndex , regIs_r_replacement ,  m )){
-							rX := {key:m1, rr:"r", send:m2, lang:"" ,code:""}
-							sending := rX["send"]
-						}else
-							sending := lineOfIndex
+				if(foundPosr_replacement := RegExMatch( lineOfIndex , regIs_r_replacement ,  m )){
+					rX := {key:m1, rr:"r", send:m2, lang:"" ,code:""}
+					sending := rX["send"]
+				}else
+					sending := lineOfIndex
                     ;\____ SysnonymR __ 181011160954 __ 11.10.2018 16:09:54 __/
 						
                      ; MsgBox,% rX["key"] "#" rX["rr"] "#" rX["send"]  "#" rX["code"] "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
                     ;pause
 						
-						break ; no code tag inside
-					}
-					if(rX["code"]){
-						tip=%lineOfIndex% `n (%A_LineFile%~%A_LineNumber%)
-						ToolTip3sec(tip)
-                        ; Msgbox,% "code inside `n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
-						break ; code inside
-		}    }   }   }
+				; break ; no code tag inside
+			}else if(rX["code"]){
+				tip=%lineOfIndex% `n (%A_LineFile%~%A_LineNumber%)
+				ToolTip3sec(tip)
+		    ; Msgbox,% "code inside `n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+				;break ; code inside
+			}    
+				;} ; endof while(!rX["code"]  
+			; }   ; endOf if(!rX["lang"])
+		} ; Endof if(foundPosSynonym)
 		
 		
 ; AHKdyn example super simple example
@@ -491,6 +602,7 @@ UPDATE_ActionList_UsedByUser_since_midnight()
 			if(!rX["code"]){
 				ToolTip3sec("found synonym `n ("   RegExReplace(A_LineFile,".*\\")  " ," A_LineNumber  ") "   )
 				id := getWordIndex(m1)
+				msgbox,% lineOfIndex "found synonym `n ("   RegExReplace(A_LineFile,".*\\")  " ," A_LineNumber  ") "
 				while(!rX["code"] && id>1){
                     ;/¯¯¯¯ Synonym ¯¯ 181021060216 ¯¯ 21.10.2018 06:02:16 ¯¯\
                     ; deprecated: https://g-intellisense.myjetbrains.com/youtrack/issue/GIS-46
@@ -498,26 +610,27 @@ UPDATE_ActionList_UsedByUser_since_midnight()
                     ;\____ Synonym __ 181021060220 __ 21.10.2018 06:02:20 __/
 					id += 1 ; we are in synonym lets search DOWN ; new since 21.10.2018 06:03
 					lineOfIndex := getLineOfIndex(id)
-                    MsgBox,% lineOfIndex " - (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+					if(0 && InStr(A_ComputerName,"SL5"))
+						MsgBox,% lineOfIndex " - (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
 					if(lineOfIndex =="") ; empty lines are allowed. when its terminating?
-					    continue
+						continue
 					if(!lineOfIndex){
-					    msgBox,% "is this happen? or never happens? (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
-					    break
-                    }
+						msgBox,% "is this happen? or never happens? (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+						break
+					}
 					RegExMatch( lineOfIndex , regIsXXXcode ,  m )
 					m := {key:m1, rr:m2, send:m3, lang:m4 ,code:m5}
-        			if(rX["code"] || (!rX["rr"] && rX["code"] )){
-                        MsgBox,% lineOfIndex " - (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
-        			    break
-                    }
-
+					if(rX["code"] || (!rX["rr"] && rX["code"] )){
+						MsgBox,% lineOfIndex " - (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+						break
+					}
+					
 				}
-		    if(1 && InStr(A_ComputerName,"SL5") ){
-                tooltip,% lineOfIndex " - (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+				if(1 && InStr(A_ComputerName,"SL5") ){
+					tooltip,% lineOfIndex " - (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
                 ; hapens by using a simple replaec like: alsdkasd|rlkjlkj   30.10.2018 22:12
-            }
-
+				}
+				
 			}
 			StringLower, mlang, % rX["lang"]
 			rX["lang"] := mlang
@@ -529,8 +642,8 @@ UPDATE_ActionList_UsedByUser_since_midnight()
 				isKTScode := true
 				KTScode := rX["code"]
 			}
-
-
+			
+			
 ; tooToolTip2sec(A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
 			
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -551,39 +664,39 @@ UPDATE_ActionList_UsedByUser_since_midnight()
     ; msgbox, % isAHKcode "`=isAHKcode`n`n " lineOfIndex "`n=lineOfIndex`n`n is_OpenA_edit_open_lib=`n" is_OpenA_edit_open_lib " `n`n isDeprecated_OpenA_edit_open_lib=`n" isDeprecated_OpenA_edit_open_lib "`n`n" AHKcode
 				
     ; Msgbox,% AHKcode "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
-    msg := ActionListFolderOfThisActionList "`n"
-    msg .= A_WorkingDir " = A_WorkingDir `n"
+				msg := ActionListFolderOfThisActionList "`n"
+				msg .= A_WorkingDir " = A_WorkingDir `n"
     ; Msgbox,% msg "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
-
+				
 ;/¯¯¯¯ ClearAllVars(A_ThisFunc ¯¯ 181028154133 ¯¯ 28.10.2018 15:41:33 ¯¯\
-        if(1 && InStr(A_ComputerName,"SL5") && activeTitle == "isNotAProject")
-                ToolTip4sec("is this the right position? bakcspace is not ocrreclty deleing typed. may deleting to muhc??? (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
-
+				if(1 && InStr(A_ComputerName,"SL5") && activeTitle == "isNotAProject")
+					ToolTip4sec("is this the right position? bakcspace is not ocrreclty deleing typed. may deleting to muhc??? (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
+				
     ; that fixed the problem, that if i usend ahk ocmmands, they was not triggered without hiting esc-key or so 28.10.2018 15:41
     ; dont move the lie to beigning of fungion beocuse g_Word is deleted.
-     CloseListBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
-
-    global g_Word
-    BackSpaceLen := StrLen(g_Word)
-    ClearAllVars(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),true)
+				CloseListBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
+				
+				global g_Word
+				BackSpaceLen := StrLen(g_Word)
+				ClearAllVars(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),true)
      ; sending .= "{BS " . BackSpaceLen . "}"
-     Send,{Backspace %BackSpaceLen%} ; workaround :) 29.07.2017 12:51 17-07-29_12-51 by sl5net
+				Send,{Backspace %BackSpaceLen%} ; workaround :) 29.07.2017 12:51 17-07-29_12-51 by sl5net
     ;CloseListBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
-
-
+				
+				
        ;MaybeSaveHelperWindowPos()
        ; DisableWinHook()
        ;
-
+				
 ;\____ ClearAllVars(A_ThisFunc __ 181028154146 __ 28.10.2018 15:41:46 __/
-
-
+				
+				
 				was_a_Editor_open_command := openInEditor(ActionListFolderOfThisActionList, isAHKcode, AHKcode, isStartingUnderline, is_OpenA_edit_open_lib, isDeprecated_OpenA_edit_open_lib)
 				if(was_a_Editor_open_command) {
-                    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, return , % g_Word "=key|" A_ThisFunc ":"  A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+					RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, return , % g_Word "=key|" A_ThisFunc ":"  A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
 					return ; endOf function: SendWord(WordIndex)
-
-					}
+					
+				}
 			} ; Endof if(isAHKcode)
 			
 			
@@ -600,20 +713,20 @@ UPDATE_ActionList_UsedByUser_since_midnight()
 					if(!line)
 						break
 					ahkBlock .= line "`n"
-        if(1 && InStr(A_ComputerName,"SL5") )
-            ToolTip4sec(line " (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
+					if(1 && InStr(A_ComputerName,"SL5") )
+						ToolTip4sec(line " (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
             ; MsgBox,% id ": " line " rX[key]= " rX["key"] "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
 				}
 				AHKcode := ahkBlock
         ; msg := " ahkBlock = `n `n " ahkBlock
-        if(1 && InStr(A_ComputerName,"SL5") )
-            MsgBox,% "ahkBlock=" ahkBlock  ", lineOfIndex=" lineOfIndex " (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+				if(1 && InStr(A_ComputerName,"SL5") )
+					MsgBox,% "ahkBlock=" ahkBlock  ", lineOfIndex=" lineOfIndex " (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
 			}
     ;\____ ahkBlock __ 181011155154 __ 11.10.2018 15:51:54 __/
 			
     ; tooltip ,% AHKcode "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
-    if(0 && InStr(A_ComputerName,"SL5") )
-     msgbox ,% "sending=" sending "`n AHKcode=`n" AHKcode "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+			if(0 && InStr(A_ComputerName,"SL5") )
+				msgbox ,% "sending=" sending "`n AHKcode=`n" AHKcode "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
 			
 			
 			
@@ -684,40 +797,40 @@ UPDATE_ActionList_UsedByUser_since_midnight()
 	if( doSendSpacesInAHKslow == false ){
 		SendFull(sending, ForceBackspace)
 		while(A_IsSuspended || A_IsCritical || A_TimeIdleKeyboard < 555 || A_TimeIdle < 555) ; todo: this has probably no effect 14.10.2018 00:26 18-10-14_00-26
-		    sleep,100
+			sleep,100
 		; msg msgBox,%":( ERROR: " msg A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
 		;msgbox,%sending% uuuuuuuuuuuuuuuuuu  `n (line:%A_LineNumber%)
 		;pause
 		; m ms":( ERROR: " msg "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
-
+		
 		; msgBox,%":( ERROR: " msg "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
-
-
-
+		
+		
+		
 		; toolTip2sec(msg" (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
 		; toolTip5sec(msg" (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
 		; tooltip4sec(msg" (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
 		; __
-
+		
 				; msg msg __msg ms:( ERROR: " msg "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
 				; ms to too (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)		; Send,{CtrlDown}{left 8}{CtrlUp}
 		; too" (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
-    }
+	}
 	
    ; thats behind sending
          ; thats great :) here we find the complete line :) inside sending 17.03.2017 18:30 17-03-17_18-30
    ;   Msgbox, '%sending%' = sending  n (line:%A_LineNumber%) n
 ; Msgbox, '%AHKcode%' = AHKcode `n (line:%A_LineNumber%)
 	
-
-
-
+	
+	
+	
 	;
 	
 	if(0){
 		Clipboard = %AHKcode%
 		msgbox, %AHKcode% 18-10-14_00-27 14.10.2018 00:27
-                    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, return , % A_ThisFunc ":"  A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+		RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, return , % A_ThisFunc ":"  A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
 		return
 	}
 ;  too(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This) too(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)   ;msgbox, isAHKcode = %isAHKcode%AHKdyn example super simple example
@@ -768,20 +881,20 @@ UPDATE_ActionList_UsedByUser_since_midnight()
 		AHKcode2 .= "Process, Priority,, H `n "
 		
 ;>>>>>>>> DynaRun >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-if( RegExMatch( AHKcode , "mPi)\bDynaRun[ ]*\("  ) ) {
-		FileRead,dynaRunFunctionImplementationSource,dynaRunFunctionImplementationSource.inc.ahk
-		AHKcode2 .= dynaRunFunctionImplementationSource  . "`n"
-}
-if( RegExMatch( AHKcode , "mPi)\bSoundBeep[ *\("  ) ) {
-    ToolTip4sec("SoundBeep inside DynaRun is buggy`n not recomandet to use it `n 29.10.2018 14:46 `n" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
-}
+		if( RegExMatch( AHKcode , "mPi)\bDynaRun[ ]*\("  ) ) {
+			FileRead,dynaRunFunctionImplementationSource,dynaRunFunctionImplementationSource.inc.ahk
+			AHKcode2 .= dynaRunFunctionImplementationSource  . "`n"
+		}
+		if( RegExMatch( AHKcode , "mPi)\bSoundBeep[ *\("  ) ) {
+			ToolTip4sec("SoundBeep inside DynaRun is buggy`n not recomandet to use it `n 29.10.2018 14:46 `n" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
+		}
 ;>>>>>>>>>> DynaRun >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		
-
+		
 	; msgBox,%":( ERROR: " msg "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
 	; toolTip5sec(msg" (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
-
-
+		
+		
 		if(0){
 			AHKcode2 .= "ActionList = , " . ActionListNEW . "`n" ; i cant do this :D becouse the script cant know this :D 12.08.2017 11:12
 			Msgbox,% AHKcode2 . "`n`n = AHKcode2 `n (%A_LineFile%~%A_LineNumber%)"
@@ -859,30 +972,30 @@ if( RegExMatch( AHKcode , "mPi)\bSoundBeep[ *\("  ) ) {
 		aWorkingDirBackUp := A_WorkingDir
 		SetWorkingDir,%A_WorkingDir%\..\ActionLists
          ; suspend,on ; if you do thi script sends nothing 13.03.2018 15:30
-
-
-
+		
+		
+		
          ;/¯¯¯¯ ClearAllVars(A_ThisFunc ¯¯ 181028154133 ¯¯ 28.10.2018 15:41:33 ¯¯\
-                 if(1 && InStr(A_ComputerName,"SL5") && activeTitle == "isNotAProject")
-                         ToolTip4sec("is this the right position? bakcspace is not ocrreclty deleing typed. may deleting to muhc??? (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
-
+		if(1 && InStr(A_ComputerName,"SL5") && activeTitle == "isNotAProject")
+			ToolTip4sec("is this the right position? bakcspace is not ocrreclty deleing typed. may deleting to muhc??? (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
+		
              ; that fixed the problem, that if i usend ahk ocmmands, they was not triggered without hiting esc-key or so 28.10.2018 15:41
              ; dont move the lie to beigning of fungion beocuse g_Word is deleted.
              ; ClearAllVars(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),true)
          ;\____ ClearAllVars(A_ThisFunc __ 181028154146 __ 28.10.2018 15:41:46 __/
-
-
-		    if(0 && InStr(A_ComputerName,"SL5") ){
-             tooltip ,% "`nAHKcode=`n" AHKcode  "`nAHKcode2=`n" AHKcode2 "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
-             clipboard := AHKcode2
-             }
-
+		
+		
+		if(0 && InStr(A_ComputerName,"SL5") ){
+			tooltip ,% "`nAHKcode=`n" AHKcode  "`nAHKcode2=`n" AHKcode2 "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+			clipboard := AHKcode2
+		}
+		
 		DynaRun(AHKcode2)
-
+		
         ; suspend,off
 		SetWorkingDir,%aWorkingDirBackUp%
-
-
+		
+		
 	}
    ;>>>>>>>> isAHKcode >>>> 180315221926 >>>> 15.03.2018 22:19:26 >>>>
 	; ClearAllVars(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),true)
@@ -914,14 +1027,14 @@ if( RegExMatch( AHKcode , "mPi)\bSoundBeep[ *\("  ) ) {
    ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 	
 	unpressAllPressedKeys() ; addet at 05.04.2018 13:13
-
+	
    ; InactivateAll_Suspend_ListBox_WinHook()
-   CloseListBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
-   DisableWinHook()
-   DisableKeyboardHotKeys()
+	CloseListBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
+	DisableWinHook()
+	DisableKeyboardHotKeys()
    ; g_Word := ""
-
-
+	
+	
 	enableCopyQ() ;
 	
 	
@@ -942,19 +1055,19 @@ if( RegExMatch( AHKcode , "mPi)\bSoundBeep[ *\("  ) ) {
         ; msgbox,found >%matchs1%<  >%matchs1debuginfo%< 18-04-30_11-46 `n(" A_LineNumber ")"
 		}
 	}
-
-
+	
+	
     ; addet 01.11.2018 13:20. i have changed title by ahk. and WinChanged was not triggerd. this solves that problem:
     ; addet 01.11.2018 13:20. i have changed title by ahk. and WinChanged was not triggerd. this solves that problem:
     ; addet 01.11.2018 13:20. i have changed title by ahk. and WinChanged was not triggerd. this solves that problem:
     ; addet 01.11.2018 13:20. i have changed title by ahk. and WinChanged was not triggerd. this solves that problem:
     ; becouse the title may have been changed by another application 01.11.2018 13:43
     ; This typically happens with auto hotkey code (see lines above) but may also have been done with an external script.
-    WinChanged(hWinEventHook, event, wchwnd, idObject, idChild, dwEventThread, dwmsEventTime)
-
-
-
-    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, return , % g_Word "=key|" A_ThisFunc ":"  A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+	WinChanged(hWinEventHook, event, wchwnd, idObject, idChild, dwEventThread, dwmsEventTime)
+	
+	
+	
+	RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, return , % g_Word "=key|" A_ThisFunc ":"  A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
 	Return  ; endOf function: SendWord(WordIndex)
 }  
 ;\____ SendWord __ 181101130603 __ 01.11.2018 13:06:03 __/

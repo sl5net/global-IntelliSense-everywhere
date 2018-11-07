@@ -383,13 +383,14 @@ ValidatePreferences()
          prefs_ListBoxCharacterWidth := dft_ListBoxCharacterWidth
       }
    }
-   
+
    if prefs_ListBoxCharacterWidth is Integer
    {
       g_ListBoxCharacterWidthComputed := prefs_ListBoxCharacterWidth
+      msgbox,% "(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
    } else {
       ; There are 72 points in an inch. Font size is measured in points. Most fonts have a width 3/5 the size of their height
-      g_ListBoxCharacterWidthComputed := Ceil(prefs_ListBoxFontSize * A_ScreenDPI / 72 * 0.6)
+      g_ListBoxCharacterWidthComputed := getListBoxCharacterWidth( prefs_ListBoxFontSize, g_ListBoxCharacterWidthComputed )
    }
    
    if dft_ListBoxMaxWidth is not Integer
@@ -429,6 +430,18 @@ ValidatePreferences()
             
    Return
 }
+
+; tt t t t t t t tt t t
+
+;/¯¯¯¯ getListBoxCharacterWidth ¯¯ 181107185444 ¯¯ 07.11.2018 18:54:44 ¯¯\
+getListBoxCharacterWidth( g_ListBoxFontSize, g_ListBoxCharacterWidthComputed ){
+    g_ListBoxCharacterWidthComputed := Ceil(g_ListBoxFontSize * A_ScreenDPI / 72 * 0.3) ; defult was 0.6
+    if(g_ListBoxCharacterWidthComputed < 5)
+        g_ListBoxCharacterWidthComputed := 5 ; becouse of a strange error hapens
+    return g_ListBoxCharacterWidthComputed
+}
+;\____ getListBoxCharacterWidth __ 181107185447 __ 07.11.2018 18:54:47 __/
+
 
 ParseTerminatingCharacters()
 {

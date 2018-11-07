@@ -405,12 +405,15 @@ ActionListDir = '%ActionListDir%'
 						includeFileSContentWillBeNeedsSaved := true
 m =
 (
-includeFileSContentWillBeNeedsSaved :=
-|| !%exist_ActionListGeneratedPath%
+includeFileSContentWillBeNeedsSaved := %includeFileSContentWillBeNeedsSaved%
+|| !%exist_ActionListGeneratedPath%=exist_ActionListGeneratedPath
 || %ActionListNEWarchivePathBackupModifiedTime% > %ActionListGeneratedModifiedTime%
-|| %includeFileModifiedTime% > %ActionListGeneratedModifiedTime% ){
+|| %includeFileModifiedTime% > %ActionListGeneratedModifiedTime% )
+
+ActionListGeneratedModifiedTime =
+%ActionListGeneratedModifiedTime%
 )
-if(InStr(A_ComputerName,"SL5"))
+if(0 && InStr(A_ComputerName,"SL5"))
     msgbox,% m "`n(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
 
                      ; continue ; include is old. older.
@@ -443,7 +446,7 @@ if(InStr(A_ComputerName,"SL5"))
 ; Loop % Array.MaxIndex()   ; More traditional approach.
 
             if(InStr(A_ComputerName,"SL5"))
-                msgbox,% "(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
+                tooltip,% ActionList ": Message for SL5: includeFileSContentWillBeNeedsSaved(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
 
 			for fileId, includeFilePath in includeFilePathArray ; Recommended approach in most cases.
 			{ ; for fileId, includeFilePath in includeFilePathArray
@@ -482,7 +485,7 @@ if(InStr(A_ComputerName,"SL5"))
 ; lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   "'" . ActionListGeneratedPath . "' = ActionListGeneratedPath `n'" . ActionListNEWarchivePath . " = ActionListNEWarchivePath " )
 		
 		if(includeFileSContentWillBeNeedsSaved ){
-            if(InStr(A_ComputerName,"SL5"))
+            if(0 && InStr(A_ComputerName,"SL5"))
                 msgbox,% "(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
 			save_ActionListGeneratedPath(ActionListGeneratedPath,includeFileSContent,ActionListNEWarchivePath)
         }
@@ -959,10 +962,7 @@ WinClose,
 }
 FileWriteAndRun(sayHelloCode, sayHelloFunctionInc){
  global g_lineNumberFeedback
-
  g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
-
-
     DetectHiddenWindows,On
     SetTitleMatchMode,2
     winTC := sayHelloFunctionInc . " ahk_class AutoHotkey"
@@ -986,25 +986,26 @@ tooltip, % "Wait" A_LineNumber " " RegExReplace(A_LineFile,".*\")
    FileWrite(sayHelloCode, sayHelloFunctionInc)
    Loop,200 ;  
    {
- g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
+        g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 
-   if(GetKeyState("Ctrl", "P"))
-    KeyWait Control  ; Wartet darauf, dass sowohl STRG als auch ALT losgelassen wird.
+        if(GetKeyState("Ctrl", "P"))
+        KeyWait Control  ; Wartet darauf, dass sowohl STRG als auch ALT losgelassen wird.
 
-   if(FileExist(sayHelloFunctionInc)){
-    g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
-      isFileExist := true
-      break
-   }
-   Sleep,20
+        if(FileExist(sayHelloFunctionInc)){
+            g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
+            isFileExist := true
+            break
+        }
+        Sleep,20
    }
    
    ;gosub,couldIfindMyself
-   if(FileExist(sayHelloFunctionInc))
-    run, % sayHelloFunctionInc
+    if(FileExist(sayHelloFunctionInc))
+      run, % sayHelloFunctionInc
 ;   MsgBox, '%sayHelloFunctionInc%' = sayHelloFunctionInc  `n (line:%A_LineNumber%) `n 
     return isFileExist 
 }
+
 FileWrite(sayHelloCode, sayHelloFunctionInc){
  global g_lineNumberFeedback
  g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
@@ -1016,7 +1017,7 @@ FileWrite(sayHelloCode, sayHelloFunctionInc){
     ;msgbox,% sayHelloCode
 if(0 && InStr(A_ComputerName,"SL5") )
    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, FileAppend , % A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
-FileAppend, % sayHelloCode, % sayHelloFunctionInc
+    FileAppend, % sayHelloCode, % sayHelloFunctionInc
    return 1
 }
 

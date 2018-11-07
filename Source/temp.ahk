@@ -11,9 +11,9 @@ activeTitle := RegExReplace(activeTitle, Chr(37) . ".*", "") ; delete prozent. s
 global g_lineNumberFeedback
 g_lineNumberFeedback=414~G:\fre\git\github\2\Source\Typing_Aid_everywhere_multi_clone.ahk~
 ActionListDir = .\..\ActionLists\ChromeWidgetWin1
-activeTitle = G:\downloads\g-\global-IntelliSense-everywhere-master
+activeTitle = GitHub Desktop
 activeClass = ChromeWidgetWin1
-ActionListNEW = G:\downloads\g-\global-IntelliSense-everywhere-master 
+ActionListNEW = GitHub Desktop 
 ActionListFilterPath2 = .\..\ActionLists\ChromeWidgetWin1\ActionListNameFilter.inc.ahk 
 ActionListFilterPath2Abs = G:\fre\git\github\2\Source\..\ActionLists\ChromeWidgetWin1\ActionListNameFilter.inc.ahk 
 fileEx := FileExist ( ActionListFilterPath2Abs ) 
@@ -27,7 +27,7 @@ ExitApp
 } 
 #Include *i G:\fre\git\github\2\Source\..\ActionLists\ChromeWidgetWin1\ActionListNameFilter.inc.ahk  ; thats the subfolder  wordlost inside class 
 varInjects1 := mvarInjects(ActionListDir, ActionListNEW, activeClass, activeTitle) 
-ActionListOLD = G:\downloads\g- 
+ActionListOLD = new 1 - Notepad++ [Administrator] 
 gi_everywhereSourcePath =  
 ActionListActive  =  
 
@@ -77,9 +77,6 @@ if(1 && l1 > l2){ ; proof it test it
     tooltip,% ActionList " 12is saved (l1 > l2) (G:\fre\git\github\2\Source\Typing_Aid_everywhere_multi_clone.ahk~483) (" RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ") ---- " fileContent
 }
 
-
-; ___ ___ ___
-
 if(1){
     ; dirty bug fix ._Generated.txt 04.03.2018 10:44
 
@@ -88,7 +85,7 @@ if(1){
     itsAGeneratedList := ( postFixGenerated == ActionListPostFix )
 
     If(!itsAGeneratedList && !FileExist( ActionList "._Generated.ahk")) ; dirty bugFix TODO: prettyFy it
-      ActionList .= "._Generated.ahk"
+      ActionList .= "._Generated.ahk" ; inside the while(true)
   ; msgbox, % ActionList
 }
     if(!RegExMatch(ActionList,"created_token_17-08-10_16-17")) ; todo: whey control here? wrong place. quck dirty 25.03.2018 01:36
@@ -97,7 +94,8 @@ if(1){
     RegRead, CreatedDir, HKEY_CURRENT_USER, SOFTWARE\sl5net, CreatedDir
     if(CreatedDir){
         RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, CreatedDir, % "" ; RegWrite , RegSave , Registry
-        openInEditorFromIntern( ActionList ) ; we dont know the ecact name from here
+        ActionListOpen := StrReplace(ActionList, "._Generated.ahk")
+        openInEditorFromIntern( ActionListOpen )
     }
 #Include,RegWrite181031.ahk
 }

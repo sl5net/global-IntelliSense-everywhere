@@ -528,9 +528,6 @@ if(1 && l1 > l2){ ; proof it test it
     tooltip,`% ActionList " 12is saved (l1 > l2) (%A_LineFile%~%A_LineNumber%) (" RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ") ---- " fileContent
 }
 
-
-; ___ ___ ___
-
 if(1){
     ; dirty bug fix ._Generated.txt 04.03.2018 10:44
 
@@ -539,7 +536,7 @@ if(1){
     itsAGeneratedList := ( postFixGenerated == ActionListPostFix )
 
     If(!itsAGeneratedList && !FileExist( ActionList "._Generated.ahk")) ; dirty bugFix TODO: prettyFy it
-      c .= "._Generated.ahk"
+      ActionList .= "._Generated.ahk" ; inside the while(true)
   ; msgbox, `% ActionList
 }
     if(!RegExMatch(ActionList,"created_token_17-08-10_16-17")) ; todo: whey control here? wrong place. quck dirty 25.03.2018 01:36
@@ -553,7 +550,10 @@ if(1){
     }
 #Include,RegWrite181031.ahk
 }
-) ; endOf temp 
+) ; endOf temp
+
+;
+
 	ahkSource .= "`n" temp
 	
     ; following lines are debrecated

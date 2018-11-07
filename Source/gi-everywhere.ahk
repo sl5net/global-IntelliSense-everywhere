@@ -3,8 +3,8 @@
 
 #MaxHotkeysPerInterval 99000000
 #HotkeyInterval 99000000
-; Process, Priority,, H
-Process, Priority,, Normal
+Process, Priority,, H ; <=== only use this if its not in a critical development 05.11.2018 13:20
+; Process, Priority,, Normal
 SetBatchLines, -1 ; used till 03.11.2018 18:51. thats okay. Use SetBatchLines -1 to never sleep (i.e. have the script run at maximum speed). The default setting is 10m
 ; SetBatchLines, 20ms ; addet 03.11.2018 18:51
 ; SetBatchLines, 10
@@ -19,10 +19,9 @@ lineFileName := RegExReplace(A_LineFile, ".*\\([\w\s\.]+)$", "$1")
 #Include %A_ScriptDir%\inc_ahk\soundBeep.inc.ahk
 ; G:\fre\git\github\global-IntelliSense-everywhere-Nightly-Build\Source\inc_ahk\soundBeep.inc.ahk
 
+
+
 FileEncoding, UTF-8
-
-lll(A_LineNumber, A_LineFile, "hi from " A_LineFile)
-
 
 CoordMode, ToolTip,Screen
 
@@ -58,13 +57,14 @@ if(1){
     ; g_ttSpeakObject.SetRate(5) ; speed higher value is faster. 2 is about 200 procent. 1 sounds like normal speak
 
     ; PROD mode:
-    g_ttSpeakObject.SetRate(2)
+    g_ttSpeakObject.SetRate(2) ; speed
     ; -1 is very slow
     ; -5 is terrible slow
     ; 0 seems normal
     ; 2 little faster
     ; 5 reaky fast but possible to understand
-    g_ttSpeakObject.SetPitch(10)
+    ; g_ttSpeakObject.SetPitch(10)
+    g_ttSpeakObject.SetPitch(1) ; tonhöhe high, deep. i like 1 and 10
 }
 Speak("gestartet")
 
@@ -206,7 +206,7 @@ lbl_default_checkActionListAHKfile_sizeAndModiTime := 500
 ; lbl_default_checkActionListAHKfile_sizeAndModiTime := 8000
 SetTimer,checkActionListAHKfile_sizeAndModiTime, % lbl_default_checkActionListAHKfile_sizeAndModiTime
 SetTimer,check_some_keys_hanging_or_freezed,1800 ; ; 30.08.2018 13:52 it sometimes happesn. and if it happens then its really ugly !!!! :( !!
-SetTimer,check_ActionList_GUI_is_hanging_or_freezed,1000 ; ; 26.09.2018 16:38 it sometimes happesn.
+SetTimer,check_ActionList_GUI_is_hanging_or_freezed,1800 ; ; 26.09.2018 16:38 it sometimes happesn.
 SetTimer,checkWinChangedTitle,1000 ; RegRead, ActionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList
 ; activeTitleOLD := activeTitle
 
@@ -496,8 +496,10 @@ if(true){
 return 
 ;>>>>>>>>>>>>>>>>> workaround >>>>>>>>>>>>>>>
 #IfWinActive,
+; Ctrl+Shift+F5
 ^+f5:: ; exit-all-scripts and restart
-    if(1 && InStr(A_ComputerName,"SL5")){
+    ;if(1 && InStr(A_ComputerName,"SL5")){
+    if(1){
         setRegistry_toDefault()
         ; exit_all_scripts()
         run,..\start.ahk
@@ -576,13 +578,21 @@ SetTitleMatchMode,regEx
     }
  return
 
+
+
 #IfWinActive, ; thats probably needet. 27.09.2018 10:29 was problem that hitting 1 , 2 , 3 ... not triggered any. triggers notihng.. with this line it works again.
 RecomputeMatchesTimer:
    Thread, NoTimers
    if(1 && InStr(A_ComputerName,"SL5"))
         tooltip,% "RecomputeMatchesTimer: " g_Word "(" StrLen(g_Word) ") (" A_ThisFunc "~" A_LineNumber "~" RegExReplace(A_LineFile,".*\") ")",1,1
 
-    if(!g_reloadIf_ListBox_Id_notExist && StrLen(g_Word) == prefs_Length ){
+;
+
+    ;/¯¯¯¯ Temporary ¯¯ 181107201243 ¯¯ 07.11.2018 20:12:43 ¯¯\
+    ; Temporary switched off
+    ; prefs_Length := getMinLength_Needetthat_ListBecomesVisible(ParseWordsCount, maxLinesOfCode4length1)
+    ; if(1 && !g_reloadIf_ListBox_Id_notExist && StrLen(g_Word) == prefs_Length ){
+    if(!g_reloadIf_ListBox_Id_notExist && RegExMatch(g_Word,"^_{2,}$")  ){ ; tried open edit-mode
         toolTip, % g_Word "(" StrLen(g_Word) ")," prefs_Length "=prefs_Length:" A_LineNumber " " RegExReplace(A_LineFile,".*\\"),1,1
         ; reload_IfNotExist_ListBoxGui()
         SetTimer, show_ListBox_Id, 600 ; setinterval ; 28.10.2018 02:39: fallback bugfix workaround help todo:
@@ -831,10 +841,13 @@ return
 
 
 
-;
+
 
 ;/¯¯¯¯ checkActionListAHKfile_sizeAndModiTime ¯¯ 181023101000 ¯¯ 23.10.2018 10:10:00 ¯¯\
 checkActionListAHKfile_sizeAndModiTime:
+    if(g_doListBoxFollowMouse)
+        return
+
     ;SetTimer,checkInRegistryChangedActionListAddress,Off
 
 ;        Speak(A_LineNumber ":" A_thisFunc A_ThisLabel)
@@ -848,12 +861,18 @@ checkActionListAHKfile_sizeAndModiTime:
         ActionList := removesSymbolicLinksFromFileAdress( A_ScriptDir "\..\ActionLists\_globalActionListsGenerated\isNotAProject.ahk" )
     }
     if(!FileExist(ActionList)){
-        msg := "!FileExist(ActionList = " ActionList ")"
+        msg =
+        (
+        !FileExist(ActionList)
+        >>%ActionList%<<
+
+        %A_ThisLabel% = A_ThisLabel
+        )
         MsgBox,% "ups" msg "`n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
     }
 
         if(1 && InStr(ActionList,"._Generated.ahk._Generated.ahk")){
-             ToolTip9sec(" found ._Generated.ahk._Generated.ahk and not suported `n" ActionList "`n" A_LineNumber )
+             ToolTip9sec(" found ._Generated.ahk._Generated.ahk and not suported `n" ActionList "`n" A_LineNumber ) ; in checkActionListAHKfile_sizeAndModiTime
 
     ActionList := StrReplace(ActionList, ".ahk._Generated.ahk._Generated.ahk", ".ahk._Generated.ahk") ; clean strange wordlists 25.10.2018 20:03
         }
@@ -957,7 +976,7 @@ return
 
 
 
-
+; msgb
 
 
 
@@ -966,6 +985,8 @@ return
 ; ActiveTitleOLD2 := activeTitleOLD
 ;/¯¯¯¯ checkIncChangedActionListAddress ¯¯ 181025104242 ¯¯ 25.10.2018 10:42:42 ¯¯\
 checkInRegistryChangedActionListAddress:
+    if(g_doListBoxFollowMouse)
+        return
     if(g_itsProbablyArecentUpdate)
         return
 
@@ -1229,14 +1250,17 @@ global-IntelliSense-everywhere-Nightly-Build [G:\fre\git\github\global-IntelliSe
     if(g_itsProbablyArecentUpdate)
         SetTimer,checkInRegistryChangedActionListAddress,off ; will set on again inside WinChanged( 31.10.2018 18:52
 
-    if(ActionListOLD <> ActionList && !instr(ActionList,"\isNotAProject" ) && speakedLastActionList <> ActionList ){
+    if(1 && ActionListOLD <> ActionList && !instr(ActionList,"\isNotAProject" ) && speakedLastActionList <> ActionList ){
         Speak(ActionListFileName " found ", "PROD" )  ;  (DEV, TEST, STAGING, PROD),
         speakedLastActionList := ActionList
 
-        if(InStr(A_ComputerName,"SL5") && ActionListFileName == "AutoHotkey_Community"){
+        ApplyChanges() ; It works also without this line. maybe the changes/first build is faster loadet 05.11.2018 13:37
 
-            g_Word := "___"
-            clipboard := ActionListFileName
+
+        if(0 && InStr(A_ComputerName,"SL5") && ActionListFileName == "AutoHotkey_Community"){
+
+            ; g_Word := "___"
+            ; clipboard := ActionListFileName
             newFontSize := recreateListBox_IfFontSizeChangedAndTimeIdle(12, 14)
             ; ShowListBox(g_ListBoxX,g_ListBoxY)
             ; InitializeListBox() ; --> Error same variable I can use twice
@@ -1560,9 +1584,10 @@ recreateListBox_IfFontSizeChangedAndTimeIdle(g_ListBoxFontSize, newListBoxFontSi
     return false
 }
 
+; t t t
 
 
-
+;/¯¯¯¯ doListBoxFollowMouse ¯¯ 181107183540 ¯¯ 07.11.2018 18:35:40 ¯¯\
 doListBoxFollowMouse:
       MouseGetPos, g_ListBoxX, g_ListBoxY
       g_ListBoxX := g_ListBoxX - 77
@@ -1576,9 +1601,14 @@ doListBoxFollowMouse:
       if(newFontSize){
         g_ListBoxFontSize := newFontSize
         listBoxFontSizeOLD := g_ListBoxFontSize
+
+        g_ListBoxCharacterWidthComputed := getListBoxCharacterWidth( g_ListBoxFontSize, g_ListBoxCharacterWidthComputed )
+
+
        }else
           ShowListBox(g_ListBoxX,g_ListBoxY)
 return
+;\____ doListBoxFollowMouse __ 181107183544 __ 07.11.2018 18:35:44 __/
 
 
 
@@ -1611,7 +1641,7 @@ exit_all_scripts(){
 
 
 
-
+;/¯¯¯¯ fixBug_Alt_Shift_Ctrl_hanging_down ¯¯ 181107183135 ¯¯ 07.11.2018 18:31:35 ¯¯\
 fixBug_Alt_Shift_Ctrl_hanging_down(){
   ; 30.08.2018 13:52 it sometimes happesn. and if it happens then its really ugly !!!! :( !!
     Suspend,On
@@ -1648,6 +1678,7 @@ fixBug_Alt_Shift_Ctrl_hanging_down(){
     Suspend, Off
   return
 } ; endOf: fixBug_Alt_Shift_Ctrl_hanging_down
+;\____ fixBug_Alt_Shift_Ctrl_hanging_down __ 181107183142 __ 07.11.2018 18:31:42 __/
 
 
 ;/¯¯¯¯ check_ActionList_GUI_is_hanging_or_freezed ¯¯ 181024140430 ¯¯ 24.10.2018 14:04:30 ¯¯\
@@ -1677,7 +1708,18 @@ check_ActionList_GUI_is_hanging_or_freezed:
     ;MsgBox, % tip "`n`n" elapsedMilli  "millisec = " elapsedSec "sec have elapsed. (" RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
     if(elapsedSec > 11){
      ;winclose, % g_ListBoxTitle
-     ToolTip3sec("DestroyListBox()`n`n" A_LineNumber " " A_ScriptName )
+     ; t
+     ;/¯¯¯¯ return ¯¯ 181107181830 ¯¯ 07.11.2018 18:18:30 ¯¯\
+     m =
+     (
+Reload GI? It's frozen? ==> Ctrl+Shift+F5
+Move the ActionLists? ==> Click on it once, move the mouse, click it again. Resize Font by MouseWheel.
+     )
+     ToolTip9sec(m "`n`n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ") ",60,-5)
+     return
+     ;\____ return __ 181107181826 __ 07.11.2018 18:18:26 __/
+
+     ToolTip4sec("check_ActionList_GUI_is_hanging_or_freezed: elapsedSec > 11: DestroyListBox()`n`n" A_LineNumber " " A_ScriptName )
      DestroyListBox()
 
      ; script hangs at this position
@@ -1740,7 +1782,9 @@ show_ListBox_Id:
             ClearAllVars(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),True) ; 24.10.2018 14:16 may help listBoxGUI NEVER HANGS TODO:check it
         }
         if(1 && g_show_ListBox_Id_EMTY_COUNT >= 2){ ; the only think that helps today 24.10.2018 15:11
-            RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, Reload , % A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+            RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, Reload , % A_LineNumber " " RegExReplace(A_LineFile, ".*\\") " " A_now
+            if(1 && InStr(A_ComputerName,"SL5"))
+                soundBeep,3000
             reload ;  [^;\n]*[ ]*\breload\b\n <= cactive reloads 18-10-28_11-47
             ; run,% "..\start.ahk" ; deactivated. test 22.10.2018 05:54
         }

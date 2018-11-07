@@ -1096,7 +1096,7 @@ feedbackMsgBoxNr(tit := "",text := "" ,x:=1,y:=1){
 
 
 ;/¯¯¯¯ feedbackMsgBox ¯¯ 181027092614 ¯¯ 27.10.2018 09:26:14 ¯¯\
-feedbackMsgBox(tit := "",text := "" ,x:=1,y:=1){
+feedbackMsgBox(tit := "",text := "" ,x:=1, y:=1, MAXcountMsgBoxNr := 9){ ; 20
 	WinGetActiveTitle,at
 	at := RegExReplace(at, "m)\n.*", "") ; title should never is multioline. this proof is hoprefulle1
 	if(!at || RegExMatch(at, "^(\d:|temp\.ahk)")){ ; check for probably wrong title. dont know why its happens sometimes. :(
@@ -1140,7 +1140,6 @@ if(!feedbackMsgBoxNrPre)
     feedbackMsgBoxNrPre := 0
 feedbackMsgBoxNr := feedbackMsgBoxNrPre + 1
 
-MAXcountMsgBoxNr := 2
 if(feedbackMsgBoxNrPre > MAXcountMsgBoxNr || feedbackMsgBoxNr > MAXcountMsgBoxNr){
 	ToolTip5sec(":( Oops `n feedbackMsgBoxNr>MAX `n " . A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\")  . " " . Last_A_This,1,1)
 	; for some reasion sometimes there anyway to many windows. therfor this dirty-bugFix:
