@@ -503,6 +503,11 @@ if(true){  ; old scool. for compatibiliti thinks 02.03.2018 17:10
     ActionList = `%ActionListDir`%\`%ActionListNEW`%
 
     ActionList := removesSymbolicLinksFromFileAdress(ActionList)
+
+    if( SubStr( ActionList , -3 ) <> ".ahk" ) ; 07.11.2018 22:05
+        ActionList .= ".ahk"
+
+
 if(0){
     ; ActionList = `%ActionListNEWarchivePath`% ; its not existing here 03.03.2018 19:13
     ; msgbox,`%ActionListNEWarchivePath`%
@@ -536,7 +541,9 @@ if(1){
     itsAGeneratedList := ( postFixGenerated == ActionListPostFix )
 
     If(!itsAGeneratedList && !FileExist( ActionList "._Generated.ahk")) ; dirty bugFix TODO: prettyFy it
+    {
       ActionList .= "._Generated.ahk" ; inside the while(true)
+    }
   ; msgbox, `% ActionList
 }
     if(!RegExMatch(ActionList,"created_token_17-08-10_16-17")) ; todo: whey control here? wrong place. quck dirty 25.03.2018 01:36
@@ -956,6 +963,17 @@ if(!do_g_tooltipText)
     return
 
 Return
+
+;
+
+#IfWinActive,
+; Ctrl+Shift+Pause
+^+p:: ; pause
+    tooltip,pause `n (from: %A_LineFile%~%A_LineNumber%)
+    ; msgbox,pause `n (from: %A_LineFile%~%A_LineNumber%)
+    pause
+return
+
 
 AbsolutePath(AbsolutPath, RelativePath, s="\") {
     ; its actually not used inside of this script 24.03.2017 05:27 ,

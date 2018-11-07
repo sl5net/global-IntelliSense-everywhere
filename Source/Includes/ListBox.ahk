@@ -1,6 +1,8 @@
 ﻿;These functions and labels are related to the shown list of words
 
 
+
+;/¯¯¯¯ InitializeListBox ¯¯ 181107232104 ¯¯ 07.11.2018 23:21:04 ¯¯\
 InitializeListBox(){
    global
    
@@ -37,8 +39,10 @@ InitializeListBox(){
 
    Return
 }
+;\____ InitializeListBox __ 181107232111 __ 07.11.2018 23:21:11 __/
 
-; t
+
+
 
 
 ;/¯¯¯¯ ListBoxClickItem ¯¯ 181022211224 ¯¯ 22.10.2018 21:12:24 ¯¯\
@@ -200,6 +204,8 @@ ListBoxScroll(Hook, Event, EventHwnd){
 
 
 
+
+;/¯¯¯¯ GetScrollInfo ¯¯ 181107232025 ¯¯ 07.11.2018 23:20:25 ¯¯\
 ; based on code by HotKeyIt
 ;  http://www.autohotkey.com/board/topic/78829-ahk-l-scrollinfo/
 ;  http://www.autohotkey.com/board/topic/55150-class-structfunc-sizeof-updated-010412-ahkv2/
@@ -215,18 +221,24 @@ GetScrollInfo(ctrlhwnd) {
     Return false
   else Return SI
 }
+;\____ GetScrollInfo __ 181107232029 __ 07.11.2018 23:20:29 __/
 
-ListBoxChooseItem(Row)
-{
 
+
+
+;/¯¯¯¯ ListBoxChooseItem ¯¯ 181107231953 ¯¯ 07.11.2018 23:19:53 ¯¯\
+ListBoxChooseItem(Row){
    global
     INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
    GuiControl, ListBoxGui: Choose, g_ListBox%Row%, %g_MatchPos%
 }
+;\____ ListBoxChooseItem __ 181107231956 __ 07.11.2018 23:19:56 __/
 
-; tooo tool msgbo too
 
-;------------------------------------------------------------------------
+
+
+
+;/¯¯¯¯ CloseListBox ¯¯ 181107231921 ¯¯ 07.11.2018 23:19:21 ¯¯\
 ; SciTEWindow\_global.ahk __SunAwtFrame\.txt
 ; __SciTEWindow\_global.ahk
 CloseListBox(calledFromStr){
@@ -244,7 +256,14 @@ CloseListBox(calledFromStr){
    }
    Return
 }
+;\____ CloseListBox __ 181107231926 __ 07.11.2018 23:19:26 __/
 
+
+
+
+
+
+;/¯¯¯¯ DestroyListBox ¯¯ 181107231843 ¯¯ 07.11.2018 23:18:43 ¯¯\
 DestroyListBox(){
     global g_ListBoxTitle
     ; Msgbox,DestroyListBox`n (%A_LineFile%~%A_LineNumber%)
@@ -253,7 +272,14 @@ DestroyListBox(){
    g_ListBoxTitle := ""
    Return
 }
+;\____ DestroyListBox __ 181107231847 __ 07.11.2018 23:18:47 __/
 
+
+
+
+
+
+;/¯¯¯¯ ListBoxEnd ¯¯ 181107231851 ¯¯ 07.11.2018 23:18:51 ¯¯\
 ListBoxEnd() {
    global g_ScrollEventHook
    global g_ScrollEventHookThread
@@ -277,9 +303,12 @@ ListBoxEnd() {
    DisableKeyboardHotKeys()
    return
 }
-;
-;------------------------------------------------------------------------
+;\____ ListBoxEnd __ 181107231858 __ 07.11.2018 23:18:58 __/
 
+
+
+
+;/¯¯¯¯ SavePriorMatchPosition ¯¯ 181107231825 ¯¯ 07.11.2018 23:18:25 ¯¯\
 SavePriorMatchPosition(){
    global g_MatchPos
    global g_MatchStart
@@ -307,7 +336,12 @@ SavePriorMatchPosition(){
       
    Return
 }
+;\____ SavePriorMatchPosition __ 181107231828 __ 07.11.2018 23:18:28 __/
 
+
+
+
+;/¯¯¯¯ SetupMatchPosition ¯¯ 181107231801 ¯¯ 07.11.2018 23:18:01 ¯¯\
 SetupMatchPosition(){
    global g_MatchPos
    global g_MatchStart
@@ -381,8 +415,13 @@ SetupMatchPosition(){
    g_OldMatchStart = 
    Return
 }
+;\____ SetupMatchPosition __ 181107231809 __ 07.11.2018 23:18:09 __/
 
 
+
+
+
+;/¯¯¯¯ RebuildMatchList ¯¯ 181107231636 ¯¯ 07.11.2018 23:16:36 ¯¯\
 RebuildMatchList(){
    global g_Match
    global g_MatchLongestLength
@@ -395,14 +434,11 @@ RebuildMatchList(){
    g_Match = 
    g_MatchLongestLength =
    
-   if (!g_MatchPos)
-   {
+   if (!g_MatchPos){
       ; do nothing
-   } else if (g_MatchPos < g_MatchStart)
-   {
+   } else if (g_MatchPos < g_MatchStart){
       g_MatchStart := g_MatchPos
-   } else if (g_MatchPos > (g_MatchStart + (prefs_ListBoxRows - 1)))
-   {
+   } else if (g_MatchPos > (g_MatchStart + (prefs_ListBoxRows - 1))) {
       g_MatchStart := g_MatchPos - (prefs_ListBoxRows -1)
    }
    
@@ -427,7 +463,14 @@ RebuildMatchList(){
    StringTrimRight, g_Match, g_Match, 1        ; Get rid of the last linefeed 
    Return
 }
+;\____ RebuildMatchList __ 181107231641 __ 07.11.2018 23:16:41 __/
 
+
+
+
+
+
+;/¯¯¯¯ AddToMatchList ¯¯ 181107231604 ¯¯ 07.11.2018 23:16:04 ¯¯\
 AddToMatchList(position, MaxLength, HalfLength, LongestBaseLength, ComputeBaseLengthOnly){
 
    global g_DelimiterChar
@@ -553,8 +596,9 @@ AddToMatchList(position, MaxLength, HalfLength, LongestBaseLength, ComputeBaseLe
    g_Match .= g_DelimiterChar
    Return, CurrentMatchLength
 }
+;\____ AddToMatchList __ 181107231617 __ 07.11.2018 23:16:17 __/
 
-;------------------------------------------------------------------------
+
 
 
 
@@ -623,7 +667,6 @@ else
       Width := MonWidth
    }
 
-   ; to
 
    ret := Floor((Width-ListBoxBaseSizeX)/ g_ListBoxCharacterWidthComputed)
    if(ret < 100){

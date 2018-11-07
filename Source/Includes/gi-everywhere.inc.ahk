@@ -353,7 +353,7 @@ RecomputeMatches( calledFromStr ){
    ;Match part-word with command 
    g_MatchTotal = 0 
 
-   if(false){
+   if(0){
    IfEqual, prefs_ArrowKeyMethod, Off
    {
       IfLess, prefs_ListBoxRows, 10
@@ -364,6 +364,10 @@ RecomputeMatches( calledFromStr ){
    }
    }
    LimitTotalMatches := 10 ; 25.10.2018 11:08
+
+   ; LimitTotalMatches := 43210 ; 07.11.2018 21:16
+
+
 
    StringUpper, WordMatchOriginal, g_Word
    
@@ -417,25 +421,27 @@ RecomputeMatches( calledFromStr ){
             }
    }
    
-   WhereQuery := " WHERE wordindexed GLOB '" . WordMatchEscaped . "*' " . SuppressMatchingWordQuery . WordAccentQuery  " AND ActionListID = '" g_ActionListID "'"
-   
-   SELECT_MINcount := "SELECT MIN(count) AS normalize FROM Words" . WhereQuery . " AND count IS NOT NULL LIMIT " . LimitTotalMatches . ";"
-   NormalizeTable := g_ActionListDB.Query(SELECT_MINcount)
+   WhereQuery := " WHERE wordindexed GLOB '" WordMatchEscaped "*' " . SuppressMatchingWordQuery . WordAccentQuery  " AND ActionListID = '" g_ActionListID "'"
 
-   for each, row in NormalizeTable.Rows
-   {
-      Normalize := row[1]
-      if(0 && InStr(A_ComputerName,"SL5"))
-      tooltip,% " row[1]=" row[1] ", row[2]=" row[2] " , g_Word=" g_Word  " , Normalize=" Normalize  " , SELECT_MINcount=`n" SELECT_MINcount  "`nRecomputeMatches(calledFromStr):  (" A_LineNumber " " RegExReplace(A_LineFile,".*\\")
-   }
 
-; too
-
-   IfEqual, Normalize,
-   {
-      Normalize := 0
-   }
-;
+    ;/¯¯¯¯ needIt ¯¯ 181107235039 ¯¯ 07.11.2018 23:50:39 ¯¯\
+    if(1){
+        ; seems dont need it : https://g-intellisense.myjetbrains.com/youtrack/issue/GIS-67
+        ; but we need it !! 07.11.2018 23:49
+       SELECT_MINcount := "SELECT MIN(count) AS normalize FROM Words" WhereQuery " AND count IS NOT NULL LIMIT " LimitTotalMatches ";"
+       NormalizeTable := g_ActionListDB.Query(SELECT_MINcount)
+       for each, row in NormalizeTable.Rows
+       {
+          Normalize := row[1]
+          if(0 && InStr(A_ComputerName,"SL5"))
+          tooltip,% " row[1]=" row[1] ", row[2]=" row[2] " , g_Word=" g_Word  " , Normalize=" Normalize  " , SELECT_MINcount=`n" SELECT_MINcount  "`nRecomputeMatches(calledFromStr):  (" A_LineNumber " " RegExReplace(A_LineFile,".*\\")
+       }
+    }
+       IfEqual, Normalize,
+       {
+          Normalize := 0
+       }
+       ;\____ needIt __ 181107235046 __ 07.11.2018 23:50:46 __/
 
    WordLen := StrLen(g_Word)
    OrderByQuery := " ORDER BY CASE WHEN count IS NULL then "
@@ -448,7 +454,7 @@ RecomputeMatches( calledFromStr ){
    
    OrderByQuery .= " end, CASE WHEN count IS NOT NULL then ( (count - " . Normalize . ") * ( 1 - ( '0.75' / (LENGTH(word) - " . WordLen . ")))) end DESC, Word"
 
-   SELECT := "SELECT word, worddescription, wordreplacement FROM Words" . WhereQuery . OrderByQuery . " LIMIT " . LimitTotalMatches . ";"
+   SELECT := "SELECT word, worddescription, wordreplacement FROM Words" . WhereQuery . OrderByQuery . " LIMIT " LimitTotalMatches ";"
    Matches := g_ActionListDB.Query(SELECT)
    
    g_SingleMatch := Object()

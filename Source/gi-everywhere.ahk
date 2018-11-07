@@ -496,6 +496,12 @@ if(true){
 return 
 ;>>>>>>>>>>>>>>>>> workaround >>>>>>>>>>>>>>>
 #IfWinActive,
+; Ctrl+Shift+Pause
+; ^+p:: ; pause
+;    tooltip,pause `n (from: %A_LineFile%~%A_LineNumber%)
+;    pause
+; return
+
 ; Ctrl+Shift+F5
 ^+f5:: ; exit-all-scripts and restart
     ;if(1 && InStr(A_ComputerName,"SL5")){
@@ -985,14 +991,22 @@ return
 ; ActiveTitleOLD2 := activeTitleOLD
 ;/¯¯¯¯ checkIncChangedActionListAddress ¯¯ 181025104242 ¯¯ 25.10.2018 10:42:42 ¯¯\
 checkInRegistryChangedActionListAddress:
-    if(g_doListBoxFollowMouse)
+    ;toolTip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+    if(g_doListBoxFollowMouse){
+        ; ToolTip9sec( "g_doListBoxFollowMouse`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+        ; soundBeep,2000
         return
-    if(g_itsProbablyArecentUpdate)
+    }
+    if(g_itsProbablyArecentUpdate){
+        ; ToolTip9sec( "g_itsProbablyArecentUpdate`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+        ; soundBeep,4000
         return
+    }
 
     if( milliesTried_getNewListFromRegistry >= 5000){
         milliesTried_getNewListFromRegistry := 0
         g_itsProbablyArecentUpdate := true ; may the registry not changing anymore. this is the last try
+        ; msgbox,% "(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
         return
     }
 
@@ -1005,7 +1019,10 @@ checkInRegistryChangedActionListAddress:
         temp := g_config["list"]["change"]["stopRexExTitle"]
         tip = stopRexExTitle is >%temp%< %ActionList%
         ToolTip5sec(tip " (" A_LineNumber " " lineFileName . " )",1,-33 )
-        Speak("Return in " A_LineNumber)
+        if(0 && InStr(A_ComputerName,"SL5"))
+            Speak("Return in " A_LineNumber, "PROD" )
+        else
+            Speak("Return in " A_LineNumber)
         return
     }
 
@@ -1022,6 +1039,8 @@ checkInRegistryChangedActionListAddress:
         If(WinExist("ActionListChangedInRegistry") ){
                 g_FLAGmsgbox := true
                 Speak("Return in " A_LineNumber)
+                if(0 && InStr(A_ComputerName,"SL5"))
+                    Speak("Return in " A_LineNumber, "PROD" )
                 return ; no update jet
         }
 
@@ -1042,7 +1061,10 @@ checkInRegistryChangedActionListAddress:
             sleep,9000
             ; reload
             RecomputeMatches(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")) ; in checkInRegistryChangedActionListAddress
-            Speak("Return in " A_LineNumber)("Return")
+            if(0 && InStr(A_ComputerName,"SL5"))
+                Speak("Return in " A_LineNumber, "PROD" )
+            else
+                Speak("Return in " A_LineNumber)
             return
         }
     }
@@ -1068,7 +1090,9 @@ checkInRegistryChangedActionListAddress:
     ; if(!isRegListChanged || !ActionListNewTemp_withoutExt || A_TimeIdle < 1333){
     if(!isRegListChanged || !ActionListNewTemp_withoutExt ){
         ; happens if already correct loadet
-        Speak("Return in " A_LineNumber " probably correct loadet")
+            Speak("Return in " A_LineNumber " probably correct loadet")
+        if(0 && InStr(A_ComputerName,"SL5"))
+            Speak("Return in " A_LineNumber " probably correct loadet", "PROD" )
         return
     }
 
@@ -1123,14 +1147,19 @@ checkInRegistryChangedActionListAddress:
 global-IntelliSense-everywhere-Nightly-Build [G:\fre\git\github\global-IntelliSense-everywhere-Nightly-Build] - ...\Source\gi-everywhere.ahk [global-IntelliSense-everywhere-Nightly-Build] - IntelliJ IDEA (Administrator)
             )
             Speak("Return in " A_LineNumber " file not exist")
+            if(0 && InStr(A_ComputerName,"SL5"))
+                Speak("Return in " A_LineNumber " file not exist", "PROD" )
 
             clipboard := activeTitle
-            MsgBox,% m "`n(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
+            if(1 && InStr(A_ComputerName,"SL5"))
+                MsgBox,% activeTitle "`n(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
             EnableKeyboardHotKeys()
             EnableWinHook()
             return
         }
         Speak("Return in " A_LineNumber)
+        if(0 && InStr(A_ComputerName,"SL5"))
+            Speak("Return in " A_LineNumber, "PROD" )
         return
         ; ToolTip2sec(A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
     }
@@ -1190,9 +1219,9 @@ global-IntelliSense-everywhere-Nightly-Build [G:\fre\git\github\global-IntelliSe
         if(1 && InStr(A_ComputerName,"SL5")){
             ; clipBoard := removesSymbolicLinksFromFileAdress(A_ScriptDir "\" ActionListNewTemp_withoutExt ".ahk")
             ToolTip3sec(msg "`n" A_LineNumber . " " . RegExReplace(A_LineFile,".*\\")  . " " . Last_A_This,1,1)
+             Msgbox,% ":( ERROR: " msg "`n (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
         }
 
-        ; Msgbox,% ":( ERROR: " msg "`n (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
         ; feedbackMsgBox(msg,msg,1,1)
         ; ActionList := globalActionListDir   "\_globalActionListsGenerated\isNotAProject.ahk"
         ActionListNewTemp_withoutExt := ActionList_isNotAProject_withoutExt ; as long as nothing else would be found
@@ -1215,7 +1244,7 @@ global-IntelliSense-everywhere-Nightly-Build [G:\fre\git\github\global-IntelliSe
     ActionList := StrReplace(ActionList, ".ahk._Generated.ahk._Generated.ahk", ".ahk._Generated.ahk") ; clean strange wordlists 25.10.2018 20:03
         }
 
-    ; tool too tool
+    ; tool too tool07.11.2018 23:07.11.2018 23:07.11.2018 ddddöö07.11.2018 23:l LLL 07.11.2018 23:02lll07.11.2018 23:0207.11.2018 23:03
 
 	; millis_since_midnight := JEE_millis_since_midnight(vOpt:="") ; <=== more correct then  := A_Hour*3600000+A_Min*60000+A_Sec*1000+A_MSec
 	millis_since_midnight := A_TickCount  ; <=== more correct then  := A_Hour*3600000+A_Min*60000+A_Sec*1000+A_MSec
@@ -1252,7 +1281,9 @@ global-IntelliSense-everywhere-Nightly-Build [G:\fre\git\github\global-IntelliSe
 
     if(1 && ActionListOLD <> ActionList && !instr(ActionList,"\isNotAProject" ) && speakedLastActionList <> ActionList ){
         Speak(ActionListFileName " found ", "PROD" )  ;  (DEV, TEST, STAGING, PROD),
-        speakedLastActionList := ActionList
+    if(0 && InStr(A_ComputerName,"SL5"))
+        Speak(ActionListFileName " found ", "PROD" )  ;  (DEV, TEST, STAGING, PROD),
+    speakedLastActionList := ActionList
 
         ApplyChanges() ; It works also without this line. maybe the changes/first build is faster loadet 05.11.2018 13:37
 
@@ -1568,7 +1599,7 @@ ActionListTooltip:
 return
 
 
-
+;/¯¯¯¯ recreateListBox_IfFontSizeChangedAndTimeIdle ¯¯ 181107232259 ¯¯ 07.11.2018 23:22:59 ¯¯\
 recreateListBox_IfFontSizeChangedAndTimeIdle(g_ListBoxFontSize, newListBoxFontSize){
   if ( A_TimeIdlePhysical < 1000 * 0.5 )
     return false
@@ -1583,6 +1614,7 @@ recreateListBox_IfFontSizeChangedAndTimeIdle(g_ListBoxFontSize, newListBoxFontSi
     }
     return false
 }
+;\____ recreateListBox_IfFontSizeChangedAndTimeIdle __ 181107232303 __ 07.11.2018 23:23:03 __/
 
 ; t t t
 

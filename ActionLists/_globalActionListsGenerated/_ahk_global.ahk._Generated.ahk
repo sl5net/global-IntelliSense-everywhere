@@ -4,6 +4,12 @@ ___hallo Welt von global
 ; #Include _globalActionListsGenerated\_global.ahk
 ____open ahk_global|rr||ahk|openInEditor,_ahk_global.ahk
 
+RegExReplace(A_LineFile,".*\\")
+
+RegExMatch(fileName, "\.ahk$")
+RegExMatch(activeTitle , "i)\b(Gmail|Google Contacts|Google Kalender)\b"  )  
+
+
 ; Speak(A_LineNumber ":" A_thisFunc A_ThisLabel)
 ToolTip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 ComputerName A_ComputerName|r|if(1 && InStr(A_ComputerName,"SL5"))
@@ -14,6 +20,7 @@ msg multi|r|
 msg =
 (
 )
+
 
 
 

@@ -225,8 +225,12 @@ ReadPreferences(RestoreDefaults := false,RestorePreferences := false)
    Return
 }
 
-ValidatePreferences()
-{
+
+
+
+
+;/¯¯¯¯ ValidatePreferences ¯¯ 181107233713 ¯¯ 07.11.2018 23:37:13 ¯¯\
+ValidatePreferences(){
    global g_ListBoxCharacterWidthComputed, g_ListBoxOffsetComputed, g_NumKeyMethod
    global prefs_ArrowKeyMethod, prefs_DisabledAutoCompleteKeys
    global dft_ArrowKeyMethod
@@ -422,16 +426,27 @@ ValidatePreferences()
                   
    If prefs_ListBoxRows is not Integer
       prefs_ListBoxRows := dft_ListBoxRows
-   
-   IfLess, prefs_ListBoxRows, 3
-      prefs_ListBoxRows = 3
-   else IfGreater, prefs_ListBoxRows, 30
-      prefs_ListBoxRows = 30
-            
+
+   minRows := 3
+   maxRows := 10 ; This is the amount you can retrieve with the numbers 0 to 9 07.11.2018 23:40
+   IfLess, prefs_ListBoxRows, % minRows
+      prefs_ListBoxRows := minRows
+   else IfGreater, prefs_ListBoxRows, % maxRows
+      prefs_ListBoxRows := maxRows ; defazkt befir was 30 07.11.2018 23:26
+
+    ; prefs_ListBoxRows Doesn't affect the amount of records being fetched from database. 07.11.2018 23:39
+    ; prefs_ListBoxRows sets the maximum high in rows of the ListBox 07.11.2018 23:39
    Return
 }
+;\____ ValidatePreferences __ 181107233724 __ 07.11.2018 23:37:24 __/
 
-; tt t t t t t t tt t t
+
+
+
+
+
+
+
 
 ;/¯¯¯¯ getListBoxCharacterWidth ¯¯ 181107185444 ¯¯ 07.11.2018 18:54:44 ¯¯\
 getListBoxCharacterWidth( g_ListBoxFontSize, g_ListBoxCharacterWidthComputed ){
