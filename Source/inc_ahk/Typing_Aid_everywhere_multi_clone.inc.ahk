@@ -32,8 +32,6 @@ ActionListNEWactivate( ActionListDir , ActionListNEW, ActionListActive , gi_ever
 	
 	global g_lineNumberFeedback
 
-
-
 	if(1 && InStr(A_ComputerName,"SL5") )
         g_doSound := true
 
@@ -62,7 +60,9 @@ ActionListNEWactivate( ActionListDir , ActionListNEW, ActionListActive , gi_ever
 	
 	g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 	
-	
+    if( SubStr( ActionListNEW , -3 ) <> ".ahk" ) ; 08.11.2018 01:23 maybe its right pace. maybe useless.
+        ActionListNEW .= ".ahk"
+
 	
 	if(FileExist(ActionListNEW)) ; feature update 08.04.2017 19:43
 		ActionListNEWarchivePath := ActionListNEW
