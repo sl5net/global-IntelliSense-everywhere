@@ -158,6 +158,10 @@ getActionListNEW173129( activeTitle, ActiveClass, ActionListNEW, ActionListDir )
 	if ( RegExMatch( activeTitle , "^AHK Studio -.+\.ahk" ) )
 		return "..\_globalActionLists\AHK_Studio"
 	
+	DocumentEditor:
+	if ( ActiveClass == "OpusApp" && RegExMatch( activeTitle , "\- Microsoft Word" ) )
+		return "..\_globalActionLists\DocumentEditor"
+	
 	
 	VirtualConsoleHumanConnection:
 	if (0 && RegExMatch( ActiveClass , "VirtualConsole" ) ) {
@@ -228,7 +232,7 @@ getActionListNEW173129( activeTitle, ActiveClass, ActionListNEW, ActionListDir )
 	
 ; g_IntelliSense-everywhere - AutoHotkey Community - Google Chrome ahk_class Chrome_WidgetWin_1
 	ahk_globalAhk_Generated:
-	if (0 && RegExMatch( activeTitle , "(\.ahk)" ) ){
+	if (1 && RegExMatch( activeClass , "\b(Notepad)\b" ) && RegExMatch( activeTitle , "(\.ahk)" ) ){
 		if(false && activeClass == "ChromeWidgetWin1") {  ; want to know that. debugging 26.4.218 12:18}
         ; need to be discussed: https://g-intellisense.myjetbrains.com/youtrack/issue/GIS-22
 			tooltip,% activeTitle activeClass

@@ -1,4 +1,12 @@
-﻿setRegistry_ActionList( ActionListNewTemp_withoutExt ){   ; RegWrite , RegSave , Registry
+﻿
+setRegistry_ActionList( ActionListNewTemp_withoutExt ){   ; RegWrite , RegSave , Registry
+
+    if(InStr(ActionListNewTemp_withoutExt,"._Generated.ahk._Generated")){
+         msg := "Oops. found : ._Generated.ahk._Generated.ahk => ._Generated.ahk `n`n" ActionListNewTemp_withoutExt
+         ToolTip5sec(msg "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" , 1,1 )
+
+        ActionListNewTemp_withoutExt := StrReplace(ActionListNewTemp_withoutExt, ".ahk._Generated.ahk._Generated", ".ahk._Generated") ; clean strange wordlists 25.10.2018 20:03
+    }
 
     if( SubStr( ActionListNewTemp_withoutExt , -3 ) == ".ahk" )
         ActionListNewTemp_withoutExt := SubStr( ActionListNewTemp_withoutExt, 1, -4 )

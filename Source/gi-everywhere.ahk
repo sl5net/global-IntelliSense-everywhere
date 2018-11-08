@@ -409,6 +409,67 @@ MainLoop()
     ; SetTimer,checkActionListAHKfile_sizeAndModiTime,Off
     ; SetTimer,checkActionListAHKfile_sizeAndModiTime,1200
 ; return
+
+;/¯¯¯¯ doubleCtrlC ¯¯ 181108142340 ¯¯ 08.11.2018 14:23:40 ¯¯\
+; doubleCtrlC for add entry to actionsList
+#IfWinActive,
+~^c::
+   toolTip2sec( "`n(" A_ThisLabel " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+   if(instr(ActionList,"\isNotAProject"))
+    return
+   KeyWait, c, L
+   ; KeyWait, Ctrl, L
+   diffMilli := A_tickCount - copyCTriggeredTimeMilli
+   if(diffMilli > 700 || diffMilli < 9 ){ ; diffMilli < 10 probably not human triggerd
+      copyCTriggeredTimeMilli := A_tickCount
+      return
+   }
+    ; MsgBox,262208,% diffMilli "=diffMilli :)`n" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ,% ":)`n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+    RegExReplace(A_LineFile,".*\\")
+    ; msgbox,% "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+    ActionListWithoutGenerated_witExt := StrReplace(ActionList_witExt, "._Generated.ahk", "")
+    cp := clipboard
+     Sleep, 100
+     cp := regExReplace(cp,"`%","``%")
+     cp := regExReplace(cp,"^([ ]*)\)","$1`)")
+    isMuliline := (regExMatch(trim(clipboard), "m)\n"))
+    ;if(isMuliline)
+     ;   msgbox,% clipboard "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+    ;msgbox,% clipboard "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+;
+    timeoutSec := 9
+    AHKcode .= "#" . "NoTrayIcon `n "
+    AHKcode2 =
+    (
+if("%isMuliline%"){
+cp =
+(
+|r|
+%cp%
+`)
+; msgbox,`% cp
+
+}
+if(true){
+    inputBox, cp, add to ActionLists?, add to ``n%ActionListFileName%  ? ``n``n timeoutSec = %timeoutSec% , , 350, 180,,,,%timeoutSec%,`% cp
+     if ErrorLevel
+        return
+    cp =
+    (
+    `%cp`%
+    `)
+}
+FileAppend, `% rtrim(cp) , %ActionListWithoutGenerated_witExt%
+    )
+    DynaRun(AHKcode AHKcode2)
+    ; msgbox,% AHKcode2 "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+   ; InactivateAll_Suspend_ListBox_WinHook()
+return
+;\____ doubleCtrlC __ 181108142352 __ 08.11.2018 14:23:52 __/
+
+
+
+
 #IfWinActive,
 ~esc::
    toolTip2sec("esc::" A_LineNumber " " RegExReplace(A_LineFile,".*\\") )
@@ -1284,6 +1345,12 @@ global-IntelliSense-everywhere-Nightly-Build [G:\fre\git\github\global-IntelliSe
     if(0 && InStr(A_ComputerName,"SL5"))
         Speak(ActionListFileName " found ", "PROD" )  ;  (DEV, TEST, STAGING, PROD),
     speakedLastActionList := ActionList
+
+    if( SubStr( ActionList , -3 ) <> ".ahk" ) ; 06.03.2018 13:09
+        ActionList_witExt .= ActionList ".ahk"
+    else
+        ActionList_witExt .= ActionList
+
 
         ApplyChanges() ; It works also without this line. maybe the changes/first build is faster loadet 05.11.2018 13:37
 

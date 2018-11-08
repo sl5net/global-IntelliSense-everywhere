@@ -120,6 +120,18 @@ ExitApp
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 ; sorry we dont know actually (ActionListNEW) the
 ; ActionListNEW inside this script.
 ; therefore we need the created token=17-08-10_16-17 token.
@@ -143,6 +155,10 @@ globalClassTxtAddress := "..\ActionLists\" . ActiveClass . "\_global.ahk"
 if(!FileExist(globalClassTxtAddress))
   FileAppend,% "", % globalClassTxtAddress
 ActionListNEWAddress := "..\ActionLists\" . ActiveClass . "\" . ActionListNEW
+
+if( SubStr( ActionListNEWAddress , -3 ) <> ".ahk" ) ; 06.03.2018 13:09
+    ActionListNEWAddress .= ".ahk"
+
 if( FileExist( ActionListNEWAddress ) ){
     ; run, % ActionListNEWAddress ; this works for .txt extension. that we dont use anymore 01.10.2018 11:12
     openInEditor("..\ActionLists\" . ActiveClass, true, "run," ActionListNEW, true, true, true)
