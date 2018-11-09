@@ -98,7 +98,7 @@ the emeditor.ahk is going to be the name of the program then the file extension.
 
     if(false){
         noOp := 1
-    }else if( 0 ){
+    }else if( !InStr(A_ComputerName,"SL5") ){
         runString = notepad.exe "%m1CorrectedAhkFileAddress%"
         run,% runString
         return true
