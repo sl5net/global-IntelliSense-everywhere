@@ -28,8 +28,6 @@ from:
 or: https://autohotkey.com/
 [autohotkey.com/](https://autohotkey.com)
 - download:
- [github.com...releases/](https://github.com/sl5net/global-IntelliSense-everywhere/releases/)
-  or 
  [github.com...master](https://codeload.github.com/sl5net/global-IntelliSense-everywhere/zip/master)
   or 
   [github.com...zipball/master/](https://github.com/sl5net/global-IntelliSense-everywhere/zipball/master/)
