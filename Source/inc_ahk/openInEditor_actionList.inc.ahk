@@ -79,6 +79,8 @@ openInEditorFromIntern(m1CorrectedAhkFileAddress){
 
     editorName := "Notepad++"
     NotepadPPExe := "..\" editorName "\unicode\" editorName ".exe"
+    if(1 && InStr(A_ComputerName,"SL5"))
+        NotepadPPExe := "C:\Program Files\Notepad++\notepad++.exe"
     isEditorExist_NotepadPP := FileExist(NotepadPPExe)
 
     editorName := "AutoGUI"

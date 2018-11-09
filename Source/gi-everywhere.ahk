@@ -428,44 +428,66 @@ MainLoop()
     RegExReplace(A_LineFile,".*\\")
     ; msgbox,% "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
     ActionListWithoutGenerated_witExt := StrReplace(ActionList_witExt, "._Generated.ahk", "")
-    cp := clipboard
+    s := clipboard
      Sleep, 100
-     cp := regExReplace(cp,"`%","``%")
-     cp := regExReplace(cp,"^([ ]*)\)","$1`)")
-    isMuliline := (regExMatch(trim(clipboard), "m)\n"))
+     s := regExReplace(s,"(``|`%)","``$1")
+     ; s := regExReplace(s,"`%","``%")
+     ; msgbox,% s "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+     s := regExReplace(s,"^([ ]*)\)","$1`)")
+    isMuliline := (regExMatch(trim(s), "m)\n"))
     ;if(isMuliline)
      ;   msgbox,% clipboard "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
     ;msgbox,% clipboard "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
 ;
+
+    sActionListFileName := ActionListFileName ; needs to saved becouse it changing if input box inside
+    sActionListWithoutGenerated_witExt := ActionListWithoutGenerated_witExt  ; needs to saved becouse it changing if input box inside
+    ;msgbox,%  ActionListWithoutGenerated_witExt "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+    ;return
     timeoutSec := 9
-    AHKcode .= "#" . "NoTrayIcon `n "
+    AHKcode := "#" "NoTrayIcon `n"
     AHKcode2 =
     (
+SetWorkingDir,%A_ScriptDir%
+; ActionList_witExt = %ActionList_witExt%
+; ActionListWithoutGenerated_witExt = %ActionListWithoutGenerated_witExt%
+; ActionList = %ActionList%
 if("%isMuliline%"){
-cp =
+s =
 (
+
 |r|
-%cp%
+%s%
 `)
-; msgbox,`% cp
+; msgbox,`% s
 
 }
 if(true){
-    inputBox, cp, add to ActionLists?, add to ``n%ActionListFileName%  ? ``n``n timeoutSec = %timeoutSec% , , 350, 180,,,,%timeoutSec%,`% cp
+    inputBox, s, add to ActionLists?, add to ``n%sActionListFileName%  ? ``n``n timeoutSec = %timeoutSec% , , 350, 180,,,,%timeoutSec%,`% s
      if ErrorLevel
         return
-    cp =
-    (
-    `%cp`%
-    `)
+    s =
+(
+
+`%s`%
+`)
 }
-FileAppend, `% rtrim(cp) , %ActionListWithoutGenerated_witExt%
+
+FileAppend, `% s , %sActionListWithoutGenerated_witExt%
+exitApp
     )
+    clipboard := AHKcode AHKcode2
     DynaRun(AHKcode AHKcode2)
-    ; msgbox,% AHKcode2 "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+    if(1 && InStr(A_ComputerName,"SL5"))
+    msgbox,% AHKcode2 "`n saved to " sActionListWithoutGenerated_witExt "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+    ; tooltip,% AHKcode2 "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+
+
    ; InactivateAll_Suspend_ListBox_WinHook()
 return
 ;\____ doubleCtrlC __ 181108142352 __ 08.11.2018 14:23:52 __/
+
+
 
 
 
@@ -1347,9 +1369,9 @@ global-IntelliSense-everywhere-Nightly-Build [G:\fre\git\github\global-IntelliSe
     speakedLastActionList := ActionList
 
     if( SubStr( ActionList , -3 ) <> ".ahk" ) ; 06.03.2018 13:09
-        ActionList_witExt .= ActionList ".ahk"
+        ActionList_witExt := ActionList ".ahk"
     else
-        ActionList_witExt .= ActionList
+        ActionList_witExt := ActionList
 
 
         ApplyChanges() ; It works also without this line. maybe the changes/first build is faster loadet 05.11.2018 13:37

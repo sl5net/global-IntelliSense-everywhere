@@ -670,9 +670,10 @@ else
 
    ret := Floor((Width-ListBoxBaseSizeX)/ g_ListBoxCharacterWidthComputed)
    if(ret < 100){
-    ret := 100 ; dirty bug fix 07.11.2018 19:08
-    if(1 && InStr(A_ComputerName,"SL5"))
-        msgbox,% "ret := 100 - dirty bug fix 07.11.2018 19:08 . works???(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
+        ret := 100 ; dirty bug fix 07.11.2018 19:08
+        if(1 && InStr(A_ComputerName,"SL5"))
+            tooltip,% "ret := 100 - dirty bug fix 07.11.2018 19:08 . works???(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
+            ; msgbox,% "ret := 100 - dirty bug fix 07.11.2018 19:08 . works???(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
     }
    return ret
 }
