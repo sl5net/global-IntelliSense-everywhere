@@ -432,8 +432,8 @@ MainLoop()
      Sleep, 100
      s := regExReplace(s,"(``|`%)","``$1")
      ; s := regExReplace(s,"`%","``%")
-     ; msgbox,% s "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
      s := regExReplace(s,"^([ ]*)\)","$1`)")
+     ; msgbox,% s "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
     isMuliline := (regExMatch(trim(s), "m)\n"))
     ;if(isMuliline)
      ;   msgbox,% clipboard "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
@@ -459,8 +459,11 @@ s =
 |r|
 %s%
 `)
-; msgbox,`% s
-
+}else{
+s =
+(
+%s%
+`)
 }
 if(true){
     inputBox, s, add to ActionLists?, add to ``n%sActionListFileName%  ? ``n``n timeoutSec = %timeoutSec% , , 350, 180,,,,%timeoutSec%,`% s
@@ -478,8 +481,8 @@ exitApp
     )
     clipboard := AHKcode AHKcode2
     DynaRun(AHKcode AHKcode2)
-    if(1 && InStr(A_ComputerName,"SL5"))
-    msgbox,% AHKcode2 "`n saved to " sActionListWithoutGenerated_witExt "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+    if(0 && InStr(A_ComputerName,"SL5"))
+        msgbox,% AHKcode2 "`n saved to " sActionListWithoutGenerated_witExt "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
     ; tooltip,% AHKcode2 "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
 
 
