@@ -385,7 +385,7 @@ CoordMode, ToolTip,Screen
         doCollectAhkBlock := false
         codePrefixChar := ""
         doCreateKeys := false ; https://g-intellisense.myjetbrains.com/youtrack/issues?q=project:%20g-IntelliSense#issueId=GIS-65
-		Loop, Parse, ParseWords, `n, `r1
+		Loop, Parse, ParseWords, `n, `r
 		{
 		    ; thats the place very updates from the file are inserted into the database. this you shuld never delte.
 		    ; Das ist der Ort, an dem sehr Updates aus der Datei in die Datenbank eingefügt werden. Das sollte man nie löschen.
