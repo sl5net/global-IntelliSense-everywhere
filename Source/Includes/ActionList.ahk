@@ -401,15 +401,8 @@ from: ActionList.ahk~%A_LineNumber%
 
 
 		; ParseWords := addListOpenAction_ifNotAlreadyInTheList(ParseWords,ActionList)
-        Speak("vor Schleife","PROD")
         ParseWords := Loop_Parse_ParseWords(ParseWords)
-        Speak("nach Schleife","PROD")
 
-		
-
-			
-			
-			
 
 		INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 		
