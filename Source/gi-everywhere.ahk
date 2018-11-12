@@ -1,6 +1,7 @@
 ﻿; Indentation_style: https://de.wikipedia.org/wiki/Einrueckungsstil#SL5small-Stil
 ; # ErrorStdOut
 
+
 #MaxHotkeysPerInterval 99000000
 #HotkeyInterval 99000000
 Process, Priority,, H ; <=== only use this if its not in a critical development 05.11.2018 13:20
@@ -219,6 +220,7 @@ SetTimer,doListBoxFollowMouse,off
 ; #IfWinActive,(Autohotkey|\.ahk)
 ; Hotkey, ^+esc, off
 
+
 #IfWinActive,
 Hotkey, WheelUp, off
 Hotkey, WheelDown, off
@@ -376,9 +378,6 @@ if !(g_ListBoxScrollCallback){
    
 GetIncludedActiveWindow() ;Find the ID of the window we are using
 
-
-
-
 MainLoop()
 
 ; dirty bugfix, https://github.com/sl5net/global-IntelliSense-everywhere/issues/4
@@ -414,13 +413,17 @@ MainLoop()
 ; doubleCtrlC for add entry to actionsList
 #IfWinActive,
 ~^c::
-   toolTip2sec( "`n(" A_ThisLabel " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
-   if(instr(ActionList,"\isNotAProject"))
+   ;if(1 && InStr(A_ComputerName,"SL5"))
+    ;toolTip2sec( "BTW: work only in projects `n(" A_ThisLabel " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+    toolTip2sec( "First, create a list (__cre...)`n before entry can be added. `n(" A_ThisLabel " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+   if(instr(ActionList,"\isNotAProject")){
+    toolTip2sec( "`n(" A_ThisLabel " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
     return
+    }
    KeyWait, c, L
    ; KeyWait, Ctrl, L
    diffMilli := A_tickCount - copyCTriggeredTimeMilli
-   if(diffMilli > 700 || diffMilli < 9 ){ ; diffMilli < 10 probably not human triggerd
+   if(diffMilli > 750 || diffMilli < 9 ){ ; diffMilli < 10 probably not human triggerd
       copyCTriggeredTimeMilli := A_tickCount
       return
    }
@@ -428,8 +431,13 @@ MainLoop()
     RegExReplace(A_LineFile,".*\\")
     ; msgbox,% "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
     ActionListWithoutGenerated_witExt := StrReplace(ActionList_witExt, "._Generated.ahk", "")
-    s := clipboard
-     Sleep, 100
+    while(!clipboard && A_index < 100)
+        Sleep, 10
+     if(!clipboard){
+        ToolTip8sec( "ups. clipboard is empty.`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+        return
+     }
+     s := clipboard
      s := regExReplace(s,"(``|`%)","``$1")
      ; s := regExReplace(s,"`%","``%")
      s := regExReplace(s,"^([ ]*)\)","$1`)")
@@ -479,7 +487,7 @@ if(true){
 FileAppend, `% s , %sActionListWithoutGenerated_witExt%
 exitApp
     )
-    clipboard := AHKcode AHKcode2
+    ; clipboard := AHKcode AHKcode2 " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
     DynaRun(AHKcode AHKcode2)
     if(0 && InStr(A_ComputerName,"SL5"))
         msgbox,% AHKcode2 "`n saved to " sActionListWithoutGenerated_witExt "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
@@ -722,6 +730,8 @@ $Numpad2::
 CheckWord("$2")
 return
 
+; _ __ to
+
 $3::  ; some users dont have numpad ; 25.03.2018 15:35
 ; $�:: ; problem with the paragraph sign. probably becouse of the document format. i dont need it so much. lets deactivate it. 21.04.2017 12:02
 $Numpad3::
@@ -960,7 +970,12 @@ checkActionListAHKfile_sizeAndModiTime:
 
         %A_ThisLabel% = A_ThisLabel
         )
-        MsgBox,% "ups" msg "`n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+        if(1 && InStr(A_ComputerName,"SL5")){
+            tooltip,% "ups" msg "`n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+            ; todo: thats proably not so a big problem.
+        }
+        Sleep, 100
+        return
     }
 
         if(1 && InStr(ActionList,"._Generated.ahk._Generated.ahk")){
@@ -1157,6 +1172,7 @@ checkInRegistryChangedActionListAddress:
 
     RegRead, ActionListNewTemp_RAW, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList
     ActionListNewTemp_withoutExt := ActionListNewTemp_RAW
+
     if(!timeFirstTry_getNewListFromRegistry)
         timeFirstTry_getNewListFromRegistry := A_TickCount
     milliesTried_getNewListFromRegistry := A_TickCount - timeFirstTry_getNewListFromRegistry
