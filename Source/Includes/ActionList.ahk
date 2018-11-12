@@ -38,10 +38,23 @@ ReadActionList( calledFromStr ){
 	global g_ActionListDBfileAdress
 
 	global g_config
-
 	if(!ActionList)
-	    return false
-    ; msgBox,% g_config["FuzzySearch"]["keysMAXperEntry"] "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+		return false
+
+    postFixGenerated := "._Generated.ahk"
+    ActionListPostFix  := SubStr(rtrim(ActionList), - StrLen(postFixGenerated) + 1 ) ; That works I've tested it 01.11.2018 14:59
+    itsAGeneratedList := ( postFixGenerated == ActionListPostFix )
+    if(!itsAGeneratedList){
+        fileEx := FileExist ( ActionList postFixGenerated )
+        if(1 && InStr(A_ComputerName,"SL5")){
+            Speak(A_LineNumber ": dumm stupid " ,"PROD") ; bug entecekt ActionList 12.11.2018 11:02 todo:
+            ToolTip8sec( ActionList "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+            Sleep, 3000
+        }
+		return false
+    }
+
+
 
 	; global g_config ; ["FuzzySearch"]["enable"]
 

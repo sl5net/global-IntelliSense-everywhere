@@ -9,13 +9,13 @@ g_doRunLogFiles := 0
 SetTitleMatchMode, 1
 activeTitle := RegExReplace(activeTitle, Chr(37) . ".*", "") ; delete prozent. should be easy to include variable later. some websites have suche long title with the procent in it. dont like it. simplify it. 16.03.2017
 global g_lineNumberFeedback
-g_lineNumberFeedback=414~G:\fre\git\github\2\Source\Typing_Aid_everywhere_multi_clone.ahk~
-ActionListDir = .\..\ActionLists\ChromeWidgetWin1
-activeTitle = GitHub Desktop
-activeClass = ChromeWidgetWin1
-ActionListNEW = GitHub Desktop 
-ActionListFilterPath2 = .\..\ActionLists\ChromeWidgetWin1\ActionListNameFilter.inc.ahk 
-ActionListFilterPath2Abs = G:\fre\git\github\2\Source\..\ActionLists\ChromeWidgetWin1\ActionListNameFilter.inc.ahk 
+g_lineNumberFeedback=414~G:\fre\git\github\global-IntelliSense-everywhere-Nightly-Build\Source\Typing_Aid_everywhere_multi_clone.ahk~
+ActionListDir = .\..\ActionLists\32770
+activeTitle = Kopieren bestätigen
+activeClass = 32770
+ActionListNEW = Kopieren bestätigen 
+ActionListFilterPath2 = .\..\ActionLists\32770\ActionListNameFilter.inc.ahk 
+ActionListFilterPath2Abs = G:\fre\git\github\global-IntelliSense-everywhere-Nightly-Build\Source\..\ActionLists\32770\ActionListNameFilter.inc.ahk 
 fileEx := FileExist ( ActionListFilterPath2Abs ) 
 if( !fileEx ) { 
 message = :(  `n '%ActionListFilterPath2%'  `n '%ActionListFilterPath2Abs%'  `n existiert nicht ( %fileEx% = fileEx ) . `n `n message with id (1704171514) was copied to the Clipboard. Sor you probably could find this source code little bit easier. `n (from: %A_LineFile%~%A_LineNumber%) 
@@ -25,9 +25,9 @@ message = :(  `n '%ActionListFilterPath2%'  `n '%ActionListFilterPath2Abs%'  `n 
  Sleep, 4000 
 ExitApp  
 } 
-#Include *i G:\fre\git\github\2\Source\..\ActionLists\ChromeWidgetWin1\ActionListNameFilter.inc.ahk  ; thats the subfolder  wordlost inside class 
+#Include *i G:\fre\git\github\global-IntelliSense-everywhere-Nightly-Build\Source\..\ActionLists\32770\ActionListNameFilter.inc.ahk  ; thats the subfolder  wordlost inside class 
 varInjects1 := mvarInjects(ActionListDir, ActionListNEW, activeClass, activeTitle) 
-ActionListOLD = new 1 - Notepad++ [Administrator] 
+ActionListOLD = isNotAProject 
 gi_everywhereSourcePath =  
 ActionListActive  =  
 
@@ -52,6 +52,11 @@ if(true){  ; old scool. for compatibiliti thinks 02.03.2018 17:10
     ActionList = %ActionListDir%\%ActionListNEW%
 
     ActionList := removesSymbolicLinksFromFileAdress(ActionList)
+
+    if( SubStr( ActionList , -3 ) <> ".ahk" ) ; 07.11.2018 22:05
+        ActionList .= ".ahk"
+
+
 if(0){
     ; ActionList = %ActionListNEWarchivePath% ; its not existing here 03.03.2018 19:13
     ; msgbox,%ActionListNEWarchivePath%
@@ -73,8 +78,8 @@ l2 := StrLen(fileContent)
 if(1 && l1 > l2){ ; proof it test it
     FileSave(fileContent, ActionList )
     if(1 && InStr(A_ComputerName,"SL5"))
-        msgbox,% ActionList " 12is saved (l1 > l2) (G:\fre\git\github\2\Source\Typing_Aid_everywhere_multi_clone.ahk~483) (" RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ") ---- " fileContent
-    tooltip,% ActionList " 12is saved (l1 > l2) (G:\fre\git\github\2\Source\Typing_Aid_everywhere_multi_clone.ahk~483) (" RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ") ---- " fileContent
+        msgbox,% ActionList " 12is saved (l1 > l2) (G:\fre\git\github\global-IntelliSense-everywhere-Nightly-Build\Source\Typing_Aid_everywhere_multi_clone.ahk~483) (" RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ") ---- " fileContent
+    tooltip,% ActionList " 12is saved (l1 > l2) (G:\fre\git\github\global-IntelliSense-everywhere-Nightly-Build\Source\Typing_Aid_everywhere_multi_clone.ahk~483) (" RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ") ---- " fileContent
 }
 
 if(1){
@@ -85,7 +90,9 @@ if(1){
     itsAGeneratedList := ( postFixGenerated == ActionListPostFix )
 
     If(!itsAGeneratedList && !FileExist( ActionList "._Generated.ahk")) ; dirty bugFix TODO: prettyFy it
+    {
       ActionList .= "._Generated.ahk" ; inside the while(true)
+    }
   ; msgbox, % ActionList
 }
     if(!RegExMatch(ActionList,"created_token_17-08-10_16-17")) ; todo: whey control here? wrong place. quck dirty 25.03.2018 01:36

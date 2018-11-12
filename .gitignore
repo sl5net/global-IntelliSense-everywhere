@@ -6,8 +6,10 @@ Settings.xml
 
 docs/help/CHANGELOG.txt
 
+
 # ActionLists/ChromeWidgetWin1
 # ActionLists/*
+Notepad++/*
 AHK-Studio/*
 AutoGUI/*
 BACKUP*/*
@@ -204,7 +206,7 @@ ActionLists/_globalActionListsGenerated/*
 .gitignore
 *.gitignore
 **/ActionListLearned*
-**/TypingAid_programmCounter_LineAndTime.txt
+**/TypingAid_programmCounter_LineAndTime.txt*
 
 # Allow
 !start.ahk
