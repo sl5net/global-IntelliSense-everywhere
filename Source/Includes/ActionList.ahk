@@ -677,8 +677,6 @@ Loop_Parse_ParseWords(ByRef ParseWords){
 			ObjSToStrTrim(strOfAllResultsForAnalysisOrDebugging,lineObj_inBlock, commandTypeObj_inBlock, collectionObj_inBlock, doObj_inBlock )
 
 			isEndOfFile := ( A_LoopField == "; EOF_1811122207" )
-			if(isEndOfFile)
-			    msgbox,isEndOfFile
 
 			if(isCommandType_inBlock || isEndOfFile){
 				newKeywords := ""
