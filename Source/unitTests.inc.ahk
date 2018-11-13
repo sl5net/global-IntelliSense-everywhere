@@ -188,7 +188,6 @@ WinMove,,,50
 	if(errStr := getAssertEqual_ErrorStr(expected,result,A_LineNumber))
 		Return errStr
 	
-	in = test0"["|rr||ahk|[
 	in = 
 	(
 A|rr||ahk|(
@@ -206,6 +205,27 @@ Send,`% it
 	result := Loop_Parse_ParseWords(in)
 	if(errStr := getAssertEqual_ErrorStr(expected,result,A_LineNumber))
 		Return errStr
+	
+	
+	in = 
+	(
+indexed programming text|rr||ahk|
+`; Gi: do_indexFollowingLines4search := true
+ToolTip, is green
+MsgBox, is yellow
+)
+	expected = 
+(
+ToolTip green|r|ToolTip, is green
+MsgBox yellow|r|MsgBox, is yellow
+indexed programming text|rr||ahk|
+ToolTip, is green 
+MsgBox, is yellow
+)
+	result := Loop_Parse_ParseWords(in)
+	if(errStr := getAssertEqual_ErrorStr(expected,result,A_LineNumber))
+		Return errStr
+	
 	
 	in = 
 (
@@ -315,7 +335,7 @@ getAssertEqual_ErrorStr(expected,result,ALineNumber){
 		FileAppend,% result, % fileNameResult, UTF-8
 		FileAppend,% expected,% fileNameExpected, UTF-8
 		
-		ToolTip,% result , 1,1
+		; ToolTip,% result , 1,1
 		r1 := "`n/¯¯¯¯ result ¯¯`n"
 		r2 := "`n\____ result __`n"
 		e1 := "`n/¯¯¯¯ expected ¯¯ `n"

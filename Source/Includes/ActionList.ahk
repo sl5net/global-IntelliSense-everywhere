@@ -583,6 +583,8 @@ ObjSToStrTrim(ByRef str, o*) {
 
 
 
+
+
 ; https://stackoverflow.com/questions/27157174/autohotkey-source-code-line-break
 ; Method #1: A line that starts with "and", "or", ||, &&, a comma, or a period is automatically merged with the line directly above it (in v1.0.46+, the same is true for all other expression operators except ++ and --). In the following example, the second line is appended to the first because it begins with a comma:
 
@@ -616,7 +618,18 @@ if(doObj.collectBlock){
 		BreakOrContinue := "continue"
 		Return  A_LineNumber
 	}
-			; lets waiting for the end of the Block 18-11-12_20-13
+	
+	
+ 	if(RegExMatch( ALoopField , "i)\bGi\s*\:\s*do_indexFollowingLines4search\s*[\:]?=\s*true\b" )) {
+	    ; Gi: do_indexFollowingLines4search := true
+ 		commandTypeObj.is_IndexedAhkBlock := true
+ 		; doObj.collectBlock := false
+		BreakOrContinue := "continue"
+		Return  A_LineNumber
+	}	
+	
+	
+	; lets waiting for the end of the Block 18-11-12_20-13
 	lineObj_inBlock := { value:ALoopField, last:AoopFieldLast }
 	isCommandType_inBlock := setCommandTypeS(lineObj_inBlock, commandTypeObj_inBlock, collectionObj_inBlock, doObj_inBlock )
 	ObjSToStrTrim(strOfAllResultsForAnalysisOrDebugging,lineObj_inBlock, commandTypeObj_inBlock, collectionObj_inBlock, doObj_inBlock )
@@ -754,14 +767,14 @@ Loop_Parse_ParseWords(ByRef ParseWords){
 	
 	return strDebug4insert ; strDebugByRef ; interesting its not be changed in this function but it is passed by reference } }}  } } } } } } } } } 
 	
-        ; if(do.collectBlock){
+	   ; https://autohotkey.com/boards/viewtopic.php?f=6&t=45684&p=242652&hilit=do_indexFollowingLines4search#p242652
+        ; if(doObj.collectBlock){
         ; 	if(RegExMatch( A_LoopField , "i)\bGi\s*\:\s*do_indexFollowingLines4search\s*[\:]?=\s*true\b" )) {
         ; 		    ; Gi: do_indexFollowingLines4search := true
-        ; 		is_IndexedAhkBlock := true
-        ; 		do.collectBlock := false
+        ; 		commandTypeObj.is_IndexedAhkBlock := true
+        ; 		doObj.collectBlock := false
         ; }	}
-        ; ALoopField := A_LoopField
-        ; Aindex := A_index
+	
 	
         ; ALoopField  := RegExReplace(ALoopField, "^\s+" , "" ) ; like ltrim or the same? 06.11.2017 18:28
         ;	if(RegExMatch( ALoopField , "i)^([^; ]*[^\n]+\|rr\|[ ]*$",  m )){

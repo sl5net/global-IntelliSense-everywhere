@@ -19,7 +19,7 @@ g_ttSpeakObject.SetRate(2) ; speed
 g_ttSpeakObject.SetPitch(1) ; tonhöhe high, deep. i like 1 and 10
 
 
-; # Include %A_ScriptDir%\unitTests.inc.ahk ; Use this if you just want to test the preparser 13.11.2018 21:17 
+; # Include %A_ScriptDir%\unitTests.inc.ahk ; Use this if you just want to test the preparser 13.11.2018 21:17
 
 
 
