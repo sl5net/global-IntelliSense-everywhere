@@ -76,8 +76,8 @@ ActionListNEWactivate( ActionListDir , ActionListNEW, ActionListActive , gi_ever
     }
    ; From here we only use ActionListNEWarchivePath
    ; Next time this variable is used here: simplifyNameOfActionListNEWstep1( ActionListNEW ) {  in line 256   12.07.2017 21:07
-	
-	if(1 && !WinExist("1:" )){
+
+	if(0 && InStr(A_ComputerName,"SL5") && !WinExist("1:" )){
 		msg =
 (
 ActionListNEWarchivePath = '%ActionListNEWarchivePath%'

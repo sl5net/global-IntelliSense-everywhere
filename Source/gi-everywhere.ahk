@@ -2,27 +2,6 @@
 ; # ErrorStdOut
 
 FileEncoding, UTF-8
-
-global g_ttSpeakObject
-g_ttSpeakObject := new TTS()
-    ; s.SetRate(-2)
-    ; DEV mode :
-    ; g_ttSpeakObject.SetRate(5) ; speed higher value is faster. 2 is about 200 procent. 1 sounds like normal speak
-    ; PROD mode:
-g_ttSpeakObject.SetRate(2) ; speed
-    ; -1 is very slow
-    ; -5 is terrible slow
-    ; 0 seems normal
-    ; 2 little faster
-    ; 5 reaky fast but possible to understand
-    ; g_ttSpeakObject.SetPitch(10)
-g_ttSpeakObject.SetPitch(1) ; tonhöhe high, deep. i like 1 and 10
-
-; ToolTip4sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
-; ein neuer test ein neuer Test
-; ein neuer test ein neuer Test Schlaf Schlafn
-
-
 ; # Include %A_ScriptDir%\unitTests.inc.ahk ; Use this if you just want to test the preparser 13.11.2018 21:17
 
 
@@ -81,6 +60,25 @@ g_doSound := false
 if(1 && InStr(A_ComputerName,"SL5") )
     g_doSound := 0
 
+if(1){
+    global g_ttSpeakObject
+    g_ttSpeakObject := new TTS()
+    ; s.SetRate(-2)
+
+    ; DEV mode :
+    ; g_ttSpeakObject.SetRate(5) ; speed higher value is faster. 2 is about 200 procent. 1 sounds like normal speak
+
+    ; PROD mode:
+    g_ttSpeakObject.SetRate(2) ; speed
+    ; -1 is very slow
+    ; -5 is terrible slow
+    ; 0 seems normal
+    ; 2 little faster
+    ; 5 reaky fast but possible to understand
+    ; g_ttSpeakObject.SetPitch(10)
+    g_ttSpeakObject.SetPitch(1) ; tonhöhe high, deep. i like 1 and 10
+}
+Speak("gestartet")
 
 ; SoundbeepString2Sound("zzz")
 ; SoundbeepString2Sound("aaa")
@@ -742,8 +740,6 @@ $2:: ; ; some users dont have numpad ; 25.03.2018 15:35
 $Numpad2::
 CheckWord("$2")
 return
-
-; _ __ to
 
 $3::  ; some users dont have numpad ; 25.03.2018 15:35
 ; $�:: ; problem with the paragraph sign. probably becouse of the document format. i dont need it so much. lets deactivate it. 21.04.2017 12:02
