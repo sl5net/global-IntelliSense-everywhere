@@ -1096,7 +1096,7 @@ feedbackMsgBoxNr(tit := "",text := "" ,x:=1,y:=1){
 
 
 ;/¯¯¯¯ feedbackMsgBox ¯¯ 181027092614 ¯¯ 27.10.2018 09:26:14 ¯¯\
-feedbackMsgBox(tit := "",text := "" ,x:=1, y:=1, MAXcountMsgBoxNr := 9){ ; 20
+feedbackMsgBox(tit := "",text := "" ,x:=1, y:=1, MAXcountMsgBoxNr := 15){ ; 20
 	WinGetActiveTitle,at
 	at := RegExReplace(at, "m)\n.*", "") ; title should never is multioline. this proof is hoprefulle1
 	if(!at || RegExMatch(at, "^(\d:|temp\.ahk)")){ ; check for probably wrong title. dont know why its happens sometimes. :(
@@ -1104,13 +1104,13 @@ feedbackMsgBox(tit := "",text := "" ,x:=1, y:=1, MAXcountMsgBoxNr := 9){ ; 20
 		return
 	}
 
-
     tit := RegExReplace(tit,"i)[\s,]+", " ")
     text := RegExReplace(text,"i)[ ,]+", " ")
 
 	; g_ignReg := { feedbackMsgBox:{tit:"", text:"."} , ...
 	; ; please use it like this: if( RegExMatch( ln, g_ignReg["saveLogFiles"]["ln"])	|| ......
-	if( RegExMatch( tit, g_ignReg[A_ThisFunc]["tit"]) || RegExMatch( text, g_ignReg[A_ThisFunc]["text"]) ){
+	if(    ( g_ignReg[A_ThisFunc]["tit"]  && RegExMatch( tit, g_ignReg[A_ThisFunc]["tit"]   ) )
+	    || ( g_ignReg[A_ThisFunc]["text"] && RegExMatch( text, g_ignReg[A_ThisFunc]["text"] ) ) ){
         lll( A_LineNumber, A_ScriptName, "return")
 		return
     }
@@ -1140,6 +1140,10 @@ if(!feedbackMsgBoxNrPre)
     feedbackMsgBoxNrPre := 0
 feedbackMsgBoxNr := feedbackMsgBoxNrPre + 1
 
+if(feedbackMsgBoxNrPre == MAXcountMsgBoxNr || feedbackMsgBoxNr === MAXcountMsgBoxNr){
+    ; tit .= "MAXcount" MAXcountMsgBoxNr ; doesent work 18-11-14_10-09
+    text .= "`nMAXcount: " MAXcountMsgBoxNr
+}
 if(feedbackMsgBoxNrPre > MAXcountMsgBoxNr || feedbackMsgBoxNr > MAXcountMsgBoxNr){
 	ToolTip5sec(":( Oops `n feedbackMsgBoxNr>MAX `n " . A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\")  . " " . Last_A_This,1,1)
 	; for some reasion sometimes there anyway to many windows. therfor this dirty-bugFix:

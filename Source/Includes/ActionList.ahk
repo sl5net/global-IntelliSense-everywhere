@@ -47,14 +47,15 @@ ReadActionList( calledFromStr ){
 	itsAGeneratedList := ( postFixGenerated == ActionListPostFix )
 	if(!itsAGeneratedList){
 		fileEx := FileExist ( ActionList postFixGenerated )
-		if(1 && InStr(A_ComputerName,"SL5")){
+		if(0 && InStr(A_ComputerName,"SL5")){
 			Speak(A_LineNumber ": Prima. zwei Listen " ,"PROD") ; bug entecekt ActionList 12.11.2018 11:02 todo:
 			ToolTip8sec( ActionList "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 			Sleep, 3000
 		}
 		return false
 	}
-	
+
+
 	
 	
     ; msgBox,% g_config["FuzzySearch"]["keysMAXperEntry"] "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
@@ -620,12 +621,12 @@ if(doObj.collectBlock){
 	}
 	
 	
- 	if(RegExMatch( ALoopField , "i)\bGi\s*\:\s*do_indexFollowingLines4search\s*[\:]?=\s*true\b" )) {
-	    ; Gi: do_indexFollowingLines4search := true
+ 	if(RegExMatch( ALoopField , "i)\bGi\s*\:\s*do_indexFollowingLines4search\s*[\:]?=\s*true\b" )) { ; Gi: do_indexFollowingLines4search := true
  		commandTypeObj.is_IndexedAhkBlock := true
- 		; doObj.collectBlock := false
 		BreakOrContinue := "continue"
 		Return  A_LineNumber
+		; comments: https://autohotkey.com/boards/viewtopic.php?f=6&t=45684&p=242652&hilit=do_indexFollowingLines4search#p242652
+		; no entry: https://g-intellisense.myjetbrains.com/youtrack/issues?q=project:%20g-IntelliSense%20do_indexFollowingLines4search
 	}	
 	
 	
@@ -634,10 +635,20 @@ if(doObj.collectBlock){
 	isCommandType_inBlock := setCommandTypeS(lineObj_inBlock, commandTypeObj_inBlock, collectionObj_inBlock, doObj_inBlock )
 	ObjSToStrTrim(strOfAllResultsForAnalysisOrDebugging,lineObj_inBlock, commandTypeObj_inBlock, collectionObj_inBlock, doObj_inBlock )
 	
+	; if(IsAtEOF)
+		; feedbackMsgBox(RegExReplace(A_LineFile,".*\\") ">" A_LineNumber, ObjSToStrTrim(s:="", lineObj, commandTypeObj, collectionObj, doObj) s )
+	
 	if(isCommandType_inBlock || IsAtEOF){
+		if(!isCommandType_inBlock)
+			collectionObj.value .= lineObj_inBlock.value "`n" ; actually we do that further down. that is now redundant 18-11-14_10-24
+		
+		
 		newKeywords := ""
-		if(1 && doObj.createKeys)
+		if(1 && doObj.createKeys || commandTypeObj.is_without_keywords)
 			newKeywords := getAutoKeywords(collectionObj.value)
+	 	
+		; if(IsAtEOF)
+		;	feedbackMsgBox(RegExReplace(A_LineFile,".*\\") ">" A_LineNumber, ObjSToStrTrim(s:="", lineObj, commandTypeObj, collectionObj, doObj) s )
 		
 		if(isPrefixMultilineAHK)
 			collectionObj.value .= ")`nSend,% it"
@@ -648,8 +659,13 @@ if(doObj.collectBlock){
 		}
 		
 		;if(!newKeywords && commandTypeObj.is_without_keywords)
-		if(!trim(newKeywords," `t`r`n") && commandTypeObj.is_without_keywords)
+		if(!trim(newKeywords," `t`r`n") && commandTypeObj.is_without_keywords){
 			newKeywords := "without keywords"
+			; if(IsAtEOF){
+			;	feedbackMsgBox(RegExReplace(A_LineFile,".*\\") ">" A_LineNumber, ObjSToStrTrim(s:="", lineObj, commandTypeObj, collectionObj, doObj) s )
+				; feedbackMsgBox(RegExReplace(A_LineFile,".*\\") ">" A_LineNumber, ObjSToStrTrim(s:="", lineObj_inBlock, collectionObj_inBlock) s )
+			; }
+		}
 		valud2DB := newKeywords " " rtrim(lineObj.value," `t`r`n") "`n" collectionObj.value 
 		
 		AddWordToList(strDebug4insert,strDebugByRef,A_LineNumber,Aindex, valud2DB , 0,"ForceLearn",LearnedWordsCount, isIndexedAhkBlock)
@@ -711,6 +727,8 @@ Return  A_LineNumber
 
 
 
+
+;/¯¯¯¯ Loop_Parse_ParseWords ¯¯ 181114082712 ¯¯ 14.11.2018 08:27:12 ¯¯\
 Loop_Parse_ParseWords(ByRef ParseWords){
 	global g_config
 	global ActionList
@@ -755,7 +773,7 @@ Loop_Parse_ParseWords(ByRef ParseWords){
 	}
 	if(BreakOrContinue == "continue"){
 		IsAtEOF := true
-		ALoopField := ""
+		; ALoopField := ""
 		Loop_Parse_ParseWords_LoopField(IsAtEOF
 , Aindex, ALoopField, ALoopFieldLast
 , BreakOrContinue, strDebug4insert, strDebugByRef
@@ -940,8 +958,10 @@ setCommandTypeS(lineObj, commandTypeObj, collectionObj, doObj ){
 			}if(m1=="rr")
 				commandTypeObj.is_rr := true
 			commandTypeObj.is_without_keywords := true 
+			collectionObj.value := "" 
 			doObj.createKeys := true ; https://g-intellisense.myjetbrains.com/youtrack/issues?q=project:%20g-IntelliSense#issueId=GIS-65
 			doObj.collectBlock := true
+			 ; feedbackMsgBox(RegExReplace(A_LineFile,".*\\") ">" A_LineNumber, ObjSToStrTrim(s:="", lineObj, commandTypeObj, collectionObj, doObj) s )
 	} }
     ;\____ collectBlock __ 181111082353 __ 11.11.2018 08:23:53 __/
 	

@@ -5,11 +5,18 @@ global errStr_first := ""
 toDoList =
 (
 open issues:
+|r|
+Keyboard is better
+|r|
+Computer is better
 )
 
-if(0 && InStr(A_ComputerName,"SL5")){
+if(1 && InStr(A_ComputerName,"SL5")){
 	prepareGi()
 	countErrors := 0
+	if(0){
+	if(errStr:=err_is_without_keywords())
+		countErrors++
 	if(errStr:=err_tests_easy_0())
 		countErrors++
 	if(errStr:=err_problemNow())
@@ -20,7 +27,11 @@ if(0 && InStr(A_ComputerName,"SL5")){
 		countErrors++
 	if(errStr:=err_difficult_do_it_later())
 		countErrors++
-	
+    }
+	if(errStr:=err_open_issues())
+		countErrors++
+
+
 	global errStr_first
 	clipboard := clipboard "`n`nFIRST=" errStr_first "`nLAST=" errStr
 	errStr_first := regExReplace(errStr_first,"(``|`%)","``$1")
@@ -38,6 +49,386 @@ reload??
 	msgbox,%countErrors% errors counted. reload??
 	run,% "..\start.ahk"
 }	
+
+
+;/¯¯¯¯ err_open_issues ¯¯ 181114094056 ¯¯ 14.11.2018 09:40:56 ¯¯\
+err_open_issues(){
+
+	in =
+(
+|r|
+Keyboard is better
+|r|
+Computer is better
+)
+	expected =
+(
+Keyboard better |r|
+Keyboard is better
+Computer better |r|
+Computer is better
+)
+    feedbackMsgBoxCloseAllWindows()
+	result := Loop_Parse_ParseWords(in)
+	; MsgBox, % result
+	if(errStr := getAssertEqual_ErrorStr(expected,result,A_LineNumber))
+		Return errStr
+
+}
+;\____ err_open_issues __ 181114094059 __ 14.11.2018 09:40:59 __/
+
+
+
+
+
+
+
+
+
+;/¯¯¯¯ err_is_without_keywords ¯¯ 181114072044 ¯¯ 14.11.2018 07:20:44 ¯¯\
+err_is_without_keywords(){
+
+	in =
+(
+|r|
+A bit of a longer50 text
+|r|
+weeks and forest52
+)
+	expected =
+(
+longer text |r|
+A bit of a longer50 text
+weeks forest |r|
+weeks and forest52
+)
+	result := Loop_Parse_ParseWords(in)
+	if(errStr := getAssertEqual_ErrorStr(expected,result,A_LineNumber))
+		Return errStr
+
+	in =
+(
+___open pfade E|rr||ahk|openInEditor,D:\pfade.ahk
+string
+|r|
+a color
+|r|
+weeks and years
+)
+	expected =
+(
+___open pfade E|rr||ahk|openInEditor,D:\pfade.ahk
+string
+color |r|
+a color
+weeks years |r|
+weeks and years
+)
+	result := Loop_Parse_ParseWords(in)
+	if(errStr := getAssertEqual_ErrorStr(expected,result,A_LineNumber))
+		Return errStr
+
+
+	in =
+(
+___open pfade E|rr||ahk|openInEditor,D:\pfade.ahk
+string
+|r|
+weeks and years
+)
+	expected =
+(
+___open pfade E|rr||ahk|openInEditor,D:\pfade.ahk
+string
+weeks years |r|
+weeks and years
+)
+	result := Loop_Parse_ParseWords(in)
+	if(errStr := getAssertEqual_ErrorStr(expected,result,A_LineNumber))
+		Return errStr
+
+
+	in =
+(
+___open pfade E|rr||ahk|openInEditor,D:\pfade.ahk
+
+string
+
+|r|
+a color
+
+|r|
+weeks
+)
+	expected =
+(
+___open pfade E|rr||ahk|openInEditor,D:\pfade.ahk
+string
+color |r|
+a color
+weeks |r|
+weeks
+)
+	result := Loop_Parse_ParseWords(in)
+	if(errStr := getAssertEqual_ErrorStr(expected,result,A_LineNumber))
+		Return errStr
+
+
+	in =
+(
+___open|rr||ahk|openInEditor,D:\pfade.ahk
+
+string
+
+|r|
+a weeks
+years
+
+)
+	expected =
+(
+___open|rr||ahk|openInEditor,D:\pfade.ahk
+string
+weeks years |r|
+a weeks
+years
+)
+	result := Loop_Parse_ParseWords(in)
+	if(errStr := getAssertEqual_ErrorStr(expected,result,A_LineNumber))
+		Return errStr
+
+
+
+
+	in =
+(
+|r|
+a color kindergarten
+|r|
+a weeks years
+
+)
+	expected =
+(
+color kindergarten |r|
+a color kindergarten
+weeks years |r|
+a weeks years
+)
+	result := Loop_Parse_ParseWords(in)
+	if(errStr := getAssertEqual_ErrorStr(expected,result,A_LineNumber))
+		Return errStr
+
+
+
+
+	in =
+(
+|r|
+a color kindergarten
+|r|
+a weeks years
+)
+	expected =
+(
+color kindergarten |r|
+a color kindergarten
+weeks years |r|
+a weeks years
+
+)
+	result := Loop_Parse_ParseWords(in)
+	if(errStr := getAssertEqual_ErrorStr(expected,result,A_LineNumber))
+		Return errStr
+
+
+
+
+
+	in =
+(
+|r|
+a color kindergarten
+|r|
+a weeks years
+
+)
+	expected =
+(
+color kindergarten |r|
+a color kindergarten
+weeks years |r|
+a weeks years
+
+)
+	result := Loop_Parse_ParseWords(in)
+	if(errStr := getAssertEqual_ErrorStr(expected,result,A_LineNumber))
+		Return errStr
+
+
+
+
+	in =
+(
+|r|
+a weeks
+years
+)
+	expected =
+(
+weeks years |r|
+a weeks
+years
+)
+	result := Loop_Parse_ParseWords(in)
+	if(errStr := getAssertEqual_ErrorStr(expected,result,A_LineNumber))
+		Return errStr
+
+
+
+
+
+
+	in =
+(
+|r|
+a weeks
+years
+)
+	expected =
+(
+weeks years |r|
+a weeks
+years
+)
+	result := Loop_Parse_ParseWords(in)
+	if(errStr := getAssertEqual_ErrorStr(expected,result,A_LineNumber))
+		Return errStr
+
+	in =
+(
+|r|
+a color
+|r|
+a weeks
+years
+)
+	expected =
+(
+color |r|
+a color
+weeks years |r|
+a weeks
+years
+)
+	result := Loop_Parse_ParseWords(in)
+	if(errStr := getAssertEqual_ErrorStr(expected,result,A_LineNumber))
+		Return errStr
+
+
+
+
+
+	in =
+(
+|r|
+a color
+|r|
+a weeks
+years
+
+)
+	expected =
+(
+color |r|
+a color
+years weeks |r|
+years weeks
+)
+	result := Loop_Parse_ParseWords(in)
+	if(errStr := getAssertEqual_ErrorStr(expected,result,A_LineNumber))
+		Return errStr
+
+
+
+
+
+	in =
+(
+|r|
+a color
+
+|r|
+a weeks
+years
+
+)
+	expected =
+(
+color |r|
+a color
+years weeks |r|
+years weeks
+)
+	result := Loop_Parse_ParseWords(in)
+	if(errStr := getAssertEqual_ErrorStr(expected,result,A_LineNumber))
+		Return errStr
+
+
+
+	in =
+(
+string
+
+|r|
+a color
+
+|r|
+a weeks
+years
+
+)
+	expected =
+(
+string
+color |r|
+a color
+years weeks |r|
+years weeks
+)
+	result := Loop_Parse_ParseWords(in)
+	if(errStr := getAssertEqual_ErrorStr(expected,result,A_LineNumber))
+		Return errStr
+
+
+
+	in =
+(
+string
+
+|r|
+a color
+
+|r|
+a weeks
+years
+
+)
+	expected =
+(
+string
+color |r|
+a color
+years weeks |r|
+years weeks
+)
+	result := Loop_Parse_ParseWords(in)
+	if(errStr := getAssertEqual_ErrorStr(expected,result,A_LineNumber))
+		Return errStr
+
+
+}
+;\____ err_is_without_keywords __ 181114072047 __ 14.11.2018 07:20:47 __/
 
 err_difficult_do_it_later(){
 	in = 
@@ -72,17 +463,18 @@ a
 	in = 
 (
 |r|
-Keyboard is better than mouse
+Keyboard is better
 |r|
-Computer is better than smartphone
+Computer is better
 )
 	expected =
 (
-Keyboard better than mouse |r|
-Keyboard is better than mouse
-Computer better than smartphone |r|
-Computer is better than smartphone
+Keyboard better |r|
+Keyboard is better
+Computer better |r|
+Computer is better
 )
+    feedbackMsgBoxCloseAllWindows()
 	result := Loop_Parse_ParseWords(in)
 	; MsgBox, % result
 	if(errStr := getAssertEqual_ErrorStr(expected,result,A_LineNumber))
@@ -316,6 +708,7 @@ aaa|r|AAA
 
 getAssertEqual_ErrorStr(expected,result,ALineNumber){
 	global strDebugByRef
+
 	fileNameResult := "result18-11-13_18-03.txt"
 	fileNameExpected := "expected18-11-13_18-03.txt"
 	
@@ -332,8 +725,8 @@ getAssertEqual_ErrorStr(expected,result,ALineNumber){
 		
 		Sleep,150
 		
-		FileAppend,% result, % fileNameResult, UTF-8
-		FileAppend,% expected,% fileNameExpected, UTF-8
+		FileAppend,% ALineNumber ":`n" result, % fileNameResult, UTF-8
+		FileAppend,% ALineNumber ":`n" expected,% fileNameExpected, UTF-8
 		
 		; ToolTip,% result , 1,1
 		r1 := "`n/¯¯¯¯ result ¯¯`n"
@@ -363,7 +756,7 @@ getAssertEqual_ErrorStr(expected,result,ALineNumber){
 		global errStr_first
 		if(!global errStr_first)
 			errStr_first := strCompareBoth
-		Return strCompareBoth
+		Return ALineNumber ":`n" strCompareBoth
 	}
 	return false
 	msgbox, % ":)" strDebugByRef "`n`n`n`n"  "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\")
@@ -371,7 +764,6 @@ getAssertEqual_ErrorStr(expected,result,ALineNumber){
 
 
 prepareGi(){
-	
 	clipboard := ""
 	Speak("gestartet","PROD")
 	

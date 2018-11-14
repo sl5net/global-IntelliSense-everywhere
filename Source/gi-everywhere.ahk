@@ -18,6 +18,10 @@ g_ttSpeakObject.SetRate(2) ; speed
     ; g_ttSpeakObject.SetPitch(10)
 g_ttSpeakObject.SetPitch(1) ; tonhöhe high, deep. i like 1 and 10
 
+; ToolTip4sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+; ein neuer test ein neuer Test
+; ein neuer test ein neuer Test Schlaf Schlafn
+
 
 ; # Include %A_ScriptDir%\unitTests.inc.ahk ; Use this if you just want to test the preparser 13.11.2018 21:17
 
