@@ -4,6 +4,7 @@
 
 global g_CaretX_Old
 global g_CaretY_Old
+; global g_ignReg
 
 global feedbackMsgBox1PosBackup_x
 global feedbackMsgBox1PosBackup_y
@@ -90,28 +91,17 @@ if(0){
 		;2 indicates that the variable does exist and is empty
 	}
 
-if(0){
+if(1){
 	if(is_ignReg_defined ){
 	if( RegExMatch( ln, g_ignReg["saveLogFiles"]["ln"]) ){
-		return
-		varExist(ByRef v)
-		l := "ln= >" g_ignReg["saveLogFiles"]["ln"] "<" l
-		FileAppend, % A_LineNumber ":" l, lll.log.txt
-		pause
 		return
 	}
 	if( RegExMatch( scriptName, g_ignReg["saveLogFiles"]["scriptName"])	){
 		return
-		FileAppend, % A_LineNumber l, lll.log.txt
-		return
 	}
-
     if( RegExMatch( text, g_ignReg["saveLogFiles"]["text"]) ){
 		return
-		FileAppend, % A_LineNumber l, lll.log.txt
-		return
 	}}
-
 }
 	; if(0 && Instr(text,"append"))
 	;	Msgbox,% text " | " g_ignReg["saveLogFiles"]["text"] "445555555"
@@ -142,12 +132,18 @@ if(!Instr(logFileName,scriptName)){ ; plausibillity check . hopefully never happ
 
 	;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 	; proof randomly if ye should delte the log file 16.07.2017 12:05
-	Random, rand, 1, 100
+	Random, rand, 1, 50
 	if(rand == 1){
-		FileGetSize, logFileKbytes, ,%logFileName%, K  ; Retrieve the size in Kbytes.
+		FileGetSize, logFileKbytes, %logFileName%, K  ; Retrieve the size in Kbytes.
+		if(!logFileKbytes){
+			; msgbox,Oops  %A_LineNumber%
+			if(!fileexist(logFileName))
+    			msgbox,Oops  %A_LineNumber%
+        }
 		if(logFileKbytes > 10){
 			FileDelete,%logFileName%
 			FileAppend, %A_LineNumber%: logFileDeleted %timestampHHmmss%, %logFileName%
+			; msgbox,deleted :) %A_LineNumber%
 		}else{
 			; M = Modification time (this is the default if the parameter is omitted)
 			FileGetTime, cFileMTime, %logFileName%, M
@@ -1096,7 +1092,7 @@ feedbackMsgBoxNr(tit := "",text := "" ,x:=1,y:=1){
 
 
 ;/¯¯¯¯ feedbackMsgBox ¯¯ 181027092614 ¯¯ 27.10.2018 09:26:14 ¯¯\
-feedbackMsgBox(tit := "",text := "" ,x:=1, y:=1, MAXcountMsgBoxNr := 14){ ; 20
+feedbackMsgBox(tit := "",text := "" ,x:=1, y:=1, MAXcountMsgBoxNr := 15){ ; 20 ; 15 my monitor is perfect filled 18-11-15_07-43
 	WinGetActiveTitle,at
 	at := RegExReplace(at, "m)\n.*", "") ; title should never is multioline. this proof is hoprefulle1
 	if(!at || RegExMatch(at, "^(\d:|temp\.ahk)")){ ; check for probably wrong title. dont know why its happens sometimes. :(

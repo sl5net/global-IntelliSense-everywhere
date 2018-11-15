@@ -11,8 +11,6 @@ FileEncoding, UTF-8
 
 
 
-
-
 #MaxHotkeysPerInterval 99000000
 #HotkeyInterval 99000000
 Process, Priority,, H ; <=== only use this if its not in a critical development 05.11.2018 13:20
