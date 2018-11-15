@@ -655,11 +655,11 @@ Loop_Parse_ParseWords_LoopField( IsAtEOF
 , ByRef rootLineObj, ByRef rootCmdTypeObj, ByRef rootCollectObj, ByRef rootDoObj
 , ByRef contLineObj, ByRef contCmdTypeObj, ByRef contCollectObj, ByRef contDoObj ){
 
-; global g_ignReg
+global g_ignReg
 ; g_ignReg["feedbackMsgBox"]["tit"]  := ( Aindex >= 1 ) ? ".^" : "." ; ".^"  means ingnores nothing
 ; g_ignReg["saveLogFiles"]["scriptName"] := g_ignReg["feedbackMsgBox"]["tit"]
-; g_ignReg["saveLogFiles"]["scriptName"] := ".^" 
-; g_ignReg["feedbackMsgBox"]["tit"]  := "." ; ".^"  means ingnores nothing
+g_ignReg["saveLogFiles"]["scriptName"] := "." ; ".^" 
+g_ignReg["feedbackMsgBox"]["tit"]  := "." ; ".^"  means ingnores nothing
 
 
 if(!Aindex){
@@ -672,8 +672,8 @@ if(!Aindex){
 
 ; here is  the entry point where it always starts. outside of a blog
 ; since we are not in a block
-feedbackMsgBox(RegExReplace(A_LineFile,".*\\") ">" A_LineNumber,Aindex ":'" ALoopField "'=ALoopField`n" ObjSToStrTrim(s:="",rootLineObj, rootCmdTypeObj, rootCollectObj, rootDoObj) s )
-lll( A_LineNumber , A_LineFile , A_ThisFunc "`n" Aindex ">ROOT>'" ALoopField "'=ALoopField`n" ObjSToStrTrim(s:="",rootLineObj, rootCmdTypeObj, rootCollectObj, rootDoObj) s )
+; feedbackMsgBox(RegExReplace(A_LineFile,".*\\") ">" A_LineNumber,Aindex ":'" ALoopField "'=ALoopField`n" ObjSToStrTrim(s:="",rootLineObj, rootCmdTypeObj, rootCollectObj, rootDoObj) s )
+; lll( A_LineNumber , A_LineFile , A_ThisFunc "`n" Aindex ">ROOT>'" ALoopField "'=ALoopField`n" ObjSToStrTrim(s:="",rootLineObj, rootCmdTypeObj, rootCollectObj, rootDoObj) s )
 
 if( !rootLineObj.Aindex )
 	rootLineObj := { value:ALoopField, Aindex: Aindex }
@@ -1016,7 +1016,6 @@ if(ALoopField == "|r|"){
 }
 
 
-g_ignReg["feedbackMsgBox"]["tit"]  :=  ".^"  means ingnores nothing
 feedbackMsgBox(RegExReplace(A_LineFile,".*\\") ">" A_LineNumber, ObjSToStrTrim(s:="", rootLineObj, rootCmdTypeObj, rootCollectObj, rootDoObj) s )
 feedbackMsgBox(RegExReplace(A_LineFile,".*\\") ">" A_LineNumber,Aindex ":"  ">" ALoopField "<(" strlen(ALoopField) ")<=ALoopField`n" ObjSToStrTrim(s:="",contLineObj, contCmdTypeObj, contCollectObj, contDoObj) s )
 lll( A_LineNumber , A_LineFile , A_ThisFunc Aindex ":"  ">" ALoopField "<(" strlen(ALoopField) ")<=ALoopField`n" ObjSToStrTrim(s:="",contLineObj, contCmdTypeObj, contCollectObj, contDoObj) s )
