@@ -19,7 +19,7 @@ InitializeListBox(){
    }
       ; to ms ms to
    ; Gui, ListBoxGui:Font, s%prefs_ListBoxFontSize%, %ListBoxFont% ;
-   if(1 && InStr(A_ComputerName,"SL5"))
+   if(0 && InStr(A_ComputerName,"SL5"))
     ToolTip5sec( g_ListBoxFontSize " = font size of ListBoxGui `n (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") )
    Gui, ListBoxGui:Font, s%g_ListBoxFontSize%, %ListBoxFont%
 

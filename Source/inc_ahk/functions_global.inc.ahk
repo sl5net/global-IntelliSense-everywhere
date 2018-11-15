@@ -1096,13 +1096,15 @@ feedbackMsgBoxNr(tit := "",text := "" ,x:=1,y:=1){
 
 
 ;/¯¯¯¯ feedbackMsgBox ¯¯ 181027092614 ¯¯ 27.10.2018 09:26:14 ¯¯\
-feedbackMsgBox(tit := "",text := "" ,x:=1, y:=1, MAXcountMsgBoxNr := 15){ ; 20
+feedbackMsgBox(tit := "",text := "" ,x:=1, y:=1, MAXcountMsgBoxNr := 14){ ; 20
 	WinGetActiveTitle,at
 	at := RegExReplace(at, "m)\n.*", "") ; title should never is multioline. this proof is hoprefulle1
 	if(!at || RegExMatch(at, "^(\d:|temp\.ahk)")){ ; check for probably wrong title. dont know why its happens sometimes. :(
         lll( A_LineNumber, A_ScriptName, "return")
 		return
 	}
+	;if(g_ignReg[A_ThisFunc]["tit"])
+    ;msgbox, % g_ignReg[A_ThisFunc]["tit"] "(" RegExReplace(A_LineFile,".*\\") ":" A_LineNumber
 
     tit := RegExReplace(tit,"i)[\s,]+", " ")
     text := RegExReplace(text,"i)[ ,]+", " ")

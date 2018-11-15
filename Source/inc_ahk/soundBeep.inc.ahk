@@ -1,5 +1,25 @@
 ﻿; Google Translate Script work for DeepL: https://autohotkey.com/boards/viewtopic.php?p=247016#p247016
 
+if(1){
+    global g_ttSpeakObject
+    g_ttSpeakObject := new TTS()
+    ; s.SetRate(-2)
+
+    ; DEV mode :
+    ; g_ttSpeakObject.SetRate(5) ; speed higher value is faster. 2 is about 200 procent. 1 sounds like normal speak
+
+    ; PROD mode:
+    g_ttSpeakObject.SetRate(2) ; speed
+    ; -1 is very slow
+    ; -5 is terrible slow
+    ; 0 seems normal
+    ; 2 little faster
+    ; 5 reaky fast but possible to understand
+    ; g_ttSpeakObject.SetPitch(10)
+    g_ttSpeakObject.SetPitch(1) ; tonhöhe high, deep. i like 1 and 10
+}
+Speak("gestartet")
+
 
 Sound( text ){
     Speak( text )
