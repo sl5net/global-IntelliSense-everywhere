@@ -51,13 +51,13 @@ ReadActionList( calledFromStr ){
 			ActionList .= postFixGenerated ; quick fix 14.11.2018 11:14
 		else if(1 && InStr(A_ComputerName,"SL5")){
 			Speak(A_LineNumber ": Prima. zwei Listen " ,"PROD") ; bug entecekt ActionList 12.11.2018 11:02 todo:
-			ToolTip8sec( ActionList "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+			ToolTip8sec( ActionList "`n`n`n Sleep 3000`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 			Sleep, 3000
 			return false
 		}
 	}
-	
-	
+
+
 	
 	
     ; msgBox,% g_config["FuzzySearch"]["keysMAXperEntry"] "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
@@ -449,7 +449,8 @@ from: ActionList.ahk~%A_LineNumber%
 ; msgbox,% isModified
 		if (ActionListLastModified && FileGet_ActionListModified && FileGet_ActionListSize && isModified ) {
 			UPDATE := "UPDATE ActionLists SET ActionListmodified = '" FileGet_ActionListModified "', ActionListsize = '" FileGet_ActionListSize "' WHERE ActionList = '" ActionList "';"
-			; msgbox,% UPDATE "`n(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
+			if(1 && InStr(A_ComputerName,"SL5") )
+    			feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), "Query(UPDATE): " UPDATE )
 			try{
         			g_ActionListDB.Query(UPDATE)
             	} catch e{
