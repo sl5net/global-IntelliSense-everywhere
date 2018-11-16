@@ -4,7 +4,7 @@
 
 Menu, Tray, Icon, shell32.dll, 24
 ;~ Menu, Tray, Icon, shell32.dll, 2 ; a ide or floppy
-; MsgBox,% "ExitApp " msg "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+; MsgBox,% "ExitApp " msg "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 
 OnExit("exitFunc")  
 

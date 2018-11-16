@@ -866,8 +866,8 @@ getAssertEqual_ErrorStr(expected,result,ALineNumber){
 		msg := strCompareBoth
 		; msgbox,  , % "Not Okey in " ALineNumber , % strCompareBoth "#####################`n" strDebugByRef "`n`n ("
 
-		feedbackMsgBox(RegExReplace(A_LineFile,".*\\") ">" A_LineNumber, msg )
-		, ALineNumber ">" A_LineNumber " " RegExReplace(A_LineFile,".*\\")
+		feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), msg )
+		, ALineNumber ">" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
 		
 		global errStr_first
 		if(!global errStr_first)
@@ -875,7 +875,7 @@ getAssertEqual_ErrorStr(expected,result,ALineNumber){
 		Return ALineNumber ":`n" strCompareBoth
 	}
 	return false
-	msgbox, % ":)" strDebugByRef "`n`n`n`n"  "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\")
+	msgbox, % ":)" strDebugByRef "`n`n`n`n"  "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
 }
 
 

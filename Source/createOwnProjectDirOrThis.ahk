@@ -172,8 +172,8 @@ if( !FileExist( globalClassTxtAddress ) ){
     EXIT
 }
 if(1 && InStr(A_ComputerName,"SL5")){
-    ToolTip5sec("FileAppend (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
-    msgBox,% "FileAppend : (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+    ToolTip5sec("FileAppend (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") " " Last_A_This)
+    msgBox,% "FileAppend : (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 }
  FileAppend,% contend,   % ActionListNEWAddress
 if( !FileExist(ActionListNEWAddress) ){

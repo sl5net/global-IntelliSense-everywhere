@@ -118,7 +118,7 @@ SQLite_Startup() {
         if(verNumber1 < MinVersion){
             msg := "SQLite ERROR: Version `n" verNumber1 " < " MinVersion "`n of sqlite3.dll is not supported!`n`n was copied to Clipboard"
             Clipboard := msg
-            ;ToolTip5sec(msg " (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
+            ;ToolTip5sec(msg " (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") " " Last_A_This)
             throw Exception(msg, -1)
       }
       

@@ -8,7 +8,7 @@ openInEditor(ActionListFolderOfThisActionList, isAHKcode, AHKcode, isStartingUnd
     if(!AHKcode){
         return false
         Clipboard := AHKcode
-        Msgbox,% ":( ups is empty: " AHKcode "=AHKcode `n (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+        Msgbox,% ":( ups is empty: " AHKcode "=AHKcode `n (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
         ExitApp, 
     }
     foundPos := RegExMatch( AHKcode , "^\s*(?:AHK-Studio|AutoGUI|openInEditor)\s*,?\s*(.+\.ahk)\s*$\b$" ,  m )
@@ -28,10 +28,10 @@ openInEditor(ActionListFolderOfThisActionList, isAHKcode, AHKcode, isStartingUnd
    ; ___global generated open|rr||ahk|run,..\_globalActionListsGenerated\_global.ahk
    ;
     m1CorrectedAhkFileAddress := ActionListFolderOfThisActionList "\" m1
-    ;Msgbox,% m1CorrectedAhkFileAddress "=m1CorrectedAhkFileAddress `n (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+    ;Msgbox,% m1CorrectedAhkFileAddress "=m1CorrectedAhkFileAddress `n (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
     m1ListFileName := RegExReplace(m1,"i)([\w\d_-\.]+\.ahk)\b\s*$","$1")
-    ;Msgbox,% m1 "=m1 `n (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
-    ;Msgbox,% m1ListFileName "=m1ListFileName `n (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+    ;Msgbox,% m1 "=m1 `n (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+    ;Msgbox,% m1ListFileName "=m1ListFileName `n (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
     ; ____
     if(!FileExist(m1CorrectedAhkFileAddress)){
         m1CorrectedAhkFileAddress := RegExReplace(m1CorrectedAhkFileAddress,"WordList", "ActionList") ; my a old database 23.10.2018 12:01
@@ -45,7 +45,7 @@ openInEditor(ActionListFolderOfThisActionList, isAHKcode, AHKcode, isStartingUnd
             msg := ":( action list is not exist. `n"
             msg .= "al: " m1CorrectedAhkFileAddress "`n"
             msg .= A_WorkingDir " = A_WorkingDir `n"
-            Msgbox,% msg "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+            Msgbox,% msg "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
             return false
         }
     }
@@ -112,7 +112,7 @@ the emeditor.ahk is going to be the name of the program then the file extension.
         ; 28.09.2018 15:48 2,6 MB opens with error warnings
         ; i got problems relacing some with umlaute (ue) 29.09.2018 12:04
         runString = AHK-Studio.ahk "%m1CorrectedAhkFileAddress%"
-        ;Msgbox,% runString " (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+        ;Msgbox,% runString " (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
         ;Pause
         run,% runString, ..\AHK-Studio
     }else if(1 && isEditorExist_AutoGUI){ ; fallback
@@ -139,7 +139,7 @@ the emeditor.ahk is going to be the name of the program then the file extension.
             winclose,`% winTitleError,Script file not found ; thats disturbing opening ahk-studio. if closed ahk-studio opens
             winkill,`% winTitleError,Script file not found ; thats disturbing opening ahk-studio. if closed ahk-studio opens
         	if(1 && InStr(A_ComputerName,"SL5"))
-        	    Tooltip,`% A_index ", " A_LineNumber " " RegExReplace(A_LineFile,".*\\") , 30,30
+        	    Tooltip,`% A_index ", " A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") , 30,30
             sleep,50
         }
     )

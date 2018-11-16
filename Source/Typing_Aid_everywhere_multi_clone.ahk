@@ -175,7 +175,7 @@ while(true) {
 	activeTitle := RegExReplace(activeTitle, Chr(37) . ".*", "_") ; should be easy to include variable later. some websites have suche long title with the procent in it. dont like it. simplify it. 16.03.2017 18:39
 
 	if(activeTitleREAL && !activeTitle ){
-        tooltip, % "ups???? activeTitle is EMPTY. But activeTitleREAL is valid.  (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+        tooltip, % "ups???? activeTitle is EMPTY. But activeTitleREAL is valid.  (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 		WinWaitNotActive, % activeTitleREAL
 		; WinWaitNotActive, % activeTitleREAL
     }
@@ -238,7 +238,7 @@ while(true) {
 		WinWaitNotActive, % temp
 		tooltip,
 		msg:="mission completed. your menu should change. `n use it in seconds (__ ...)" ; thats all 13.05.2018 19:01
-		msg.= "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+		msg.= "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 		
 		MsgBox , 64 , mission completed, % msg, 3 ; project created
 		continue ;
@@ -301,7 +301,7 @@ while(true) {
 	
 	if(0 && InStr(A_ComputerName,"SL5")){
 		msg = createIfFileNotExist_ActionListNameFilter_InNewDir( %ActionListDir% , %ActionListFilterPathNEW% ...)
-    ; msgBox,% "" msg "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+    ; msgBox,% "" msg "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 		ToolTip5sec(msg . " `n`n" . A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\")  )
 	}
     ; todo: creating always is useless. please create only if user want create a ActionList explizit
@@ -325,7 +325,7 @@ while(true) {
 	ActionListNEW := activeTitle
 
     if(!ActionListNEW){
-        ;msgbox, % "ERROR activeTitle is EMPTY.  (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+        ;msgbox, % "ERROR activeTitle is EMPTY.  (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 		ActiveClass := "_globalActionListsGenerated"
         ; activeTitle := "_global" ; used till 07.10.2018 10:12 18-10-07_10-12
 		ActionListNEW := "isNotAProject" ; isNotAProject.ahk ; todo: not very pretty silly. 28.10.2018 11:33
@@ -335,10 +335,10 @@ while(true) {
 	    msgbox,% "ERROR !ActionListNEW (" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
 
     if(!ActionListNEW)
-        msgbox, % "ERROR ActionListNEW is EMPTY.  (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+        msgbox, % "ERROR ActionListNEW is EMPTY.  (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
     ActionListNEW = %ActionListNEW%
     if(!ActionListNEW)
-        msgbox, % "ERROR ActionListNEW is EMPTY.  (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
+        msgbox, % "ERROR ActionListNEW is EMPTY.  (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 
 
 ;    lll(A_LineNumber, A_LineFile,"ActionListDirBase= " . ActionListDirBase)

@@ -22,7 +22,7 @@ setRegistry_ActionList( ActionListNewTemp_withoutExt ){   ; RegWrite , RegSave ,
     ; RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionListNEW, % ActionListNewTemp_withoutExt ; RegWrite , RegSave , Registry
 
     if(1 && InStr(A_ComputerName,"SL5"))
-        ToolTip8sec(ActionListNewTemp_withoutExt "`n" A_LineNumber " " RegExReplace(A_LineFile,".*\\") )
+        ToolTip8sec(ActionListNewTemp_withoutExt "`n" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") )
     return ActionListNewTemp_withoutExt
 }
 

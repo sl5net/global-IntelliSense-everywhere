@@ -38,7 +38,7 @@ getCaretPos(activedoProtectOutOfWindowPos:=true){
 	if(activedoProtectOutOfWindowPos){
 		WinGetPos,wX,wY,wW,wH,A
 		if(CaretX < wX || CaretY < wY || CaretX > (wX+wH) || CaretY > (wX+wH)){
-			ToolTip5sec(A_LineNumber " " RegExReplace(A_LineFile,".*\\")  " (copy2clipBoard.functions.inc.ahk : 24)" )
+			ToolTip5sec(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")  " (copy2clipBoard.functions.inc.ahk : 24)" )
 			CaretX := g_CaretX_Old 
 			CaretY := g_CaretY_Old 
 		} 
@@ -1444,6 +1444,24 @@ DynaRunFROMAhkSudio(Script,Wait:=true,name:="Untitled"){
 
 ;/¯¯¯¯ DynaRun ¯¯ 181029190515 ¯¯ 29.10.2018 19:05:15 ¯¯\
 DynaRun(TempScript, pipename=""){
+
+    ; msgbox,18-11-16_13-19 ; to tool
+    ; tool __ tool
+
+    setTitleMatchMode, 2
+    if(winActive("ahk_class AutoHotkeyGUI")){
+        if(1 && InStr(A_ComputerName,"SL5") )
+            feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), msg )
+        return false
+    }
+    if(winExist("fn_functions_global_" A_ThisFunc)){
+        if(1 && InStr(A_ComputerName,"SL5") )
+            feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), msg )
+        return false
+    }
+
+
+
 	; TempScript := "#" . "ErrorStdOut`n" . TempScript
 	TempScriptPre := "" . "FileEncoding, UTF-8 `n"
 
@@ -1465,7 +1483,7 @@ DynaRun(TempScript, pipename=""){
 	{
 	;fn := SubStr( jj , 1,3 )
 		If pipename =
-			name := "AHK" A_TickCount "ln" A_LineNumber "fn_functions_global"
+ 			name := "AHK" A_TickCount "ln" A_LineNumber "fn_functions_global_" A_ThisFunc
 		Else
 			name := pipename
 		__PIPE_GA_ := DllCall("CreateNamedPipe","str","\\.\pipe\" name,_,2,_,0,_,255,_,0,_,0,@,0,@,0)
