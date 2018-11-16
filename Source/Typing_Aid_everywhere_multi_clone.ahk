@@ -600,8 +600,10 @@ if(1){
 		IfWinExist,temp.ahk
 		{
 			msg=:-O WinExist temp.ahk `n `n %A_LineFile%~%A_LineNumber% ==> continue
-			feedbackMsgBox("Oops ",msg,1,1)
-			sleep,2000
+            SetTitleMatchMode,2
+            if !WinExist("Oops ", msg)
+			    feedbackMsgBox("Oops ",msg,1,1)
+			sleep,5000
 			continue
 		}
 	}

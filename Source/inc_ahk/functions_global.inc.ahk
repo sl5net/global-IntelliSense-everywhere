@@ -708,7 +708,7 @@ SetKeyDelay,80,80
     if !WinExist("- CopyQ")
       MsgBox, please install CopyQ and add a global hotkey STRG+SHIFT+1 (v is not possible there - or?)
 
-    WinWaitNotActive, - CopyQ
+    WinWaitNotActive, - CopyQ,,9
 	; - CopyQ- CopyQ
 	; cl- CopyQeanUp 
 	Clipboard = %Clipboard% 
@@ -1272,7 +1272,10 @@ If(!WinExist(feedbackMsgBoxNr . ":")) ; shuld never happens 10.02.2018 12:51
 	DynaRun(AHKcode)
 else
 	feedbackMsgBoxNr(tit,text,x,y)
-WinWait,% feedbackMsgBoxNr . ":"
+WinWait,% feedbackMsgBoxNr . ":",,1
+ifWinNotExist,% feedbackMsgBoxNr . ":"
+    return false
+
 if(feedbackMsgBoxNr ==1)
 	WinMove, % feedbackMsgBoxNr . ":" , , % x , % y ; whay again? bugdif 10.02.2018 14:49
 sleep,100 ; we need this small wait becouse of the stupid focus ;) it needs little time after exist to catch the focus ;) 10.02.2018 13:40

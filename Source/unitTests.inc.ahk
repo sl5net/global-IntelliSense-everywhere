@@ -630,7 +630,7 @@ With a bit of content
 Send,`% it
 	)
 	result := Loop_Parse_ParseWords(in)
-	if(FALSE && errStr := getAssertEqual_ErrorStr(expected,result,A_ThisFunc ":" A_LineNumber))
+	if(errStr := getAssertEqual_ErrorStr(rTrim(expected," `t`r`n"),rTrim(result," `t`r`n"),A_ThisFunc ":" A_LineNumber))
 		Return errStr " °" A_ThisFunc "° "
 	
 	
