@@ -1389,10 +1389,8 @@ new = %newListSynonym%
 
 
 
-
+;/¯¯¯¯ ReverseWordNums ¯¯ 181116123236 ¯¯ 16.11.2018 12:32:36 ¯¯\
 ReverseWordNums(LearnedWordsCount){
-	
-	
    ; This function will reverse the read numbers since now we know the total number of words
 	global prefs_LearnCount
 	global g_ActionListDB
@@ -1416,9 +1414,12 @@ ReverseWordNums(LearnedWordsCount){
 		g_ActionListDB.Query("UPDATE words SET count = (SELECT " . LearnedWordsCount . " - count FROM words " . WhereQuery . ") " . WhereQuery . ";")
 	}
 	g_ActionListDB.EndTransaction()
-	
+	; too ti t ms lui tip uu
 	Return
 }
+;\____ ReverseWordNums __ 181116123242 __ 16.11.2018 12:32:42 __/
+
+
 
 
 ;/¯¯¯¯ getAutoKeywords ¯¯ 181106121229 ¯¯ 06.11.2018 12:12:29 ¯¯\
@@ -1666,7 +1667,9 @@ AddWordToList(ByRef strDebug4insert, ByRef strDebugByRef,fromLine,lineNr, AddWor
 	{
       ; If this is an on-the-fly learned word
 		AddWordInList := g_ActionListDB.Query("SELECT * FROM wordsre WHERE word = '" . AddWordTransformed . "';")
-		
+        if(1 && InStr(A_ComputerName,"SL5"))
+            msgbox,% AddWordTransformed  " was ist das????`n(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+
 		IF !( AddWordInList.Count() > 0 ) ; if the word is not in the list
 		{
 			

@@ -421,8 +421,11 @@ RecomputeMatches( calledFromStr ){
             }
    }
    
-   WhereQuery := " WHERE wordindexed GLOB '" WordMatchEscaped "*' " . SuppressMatchingWordQuery . WordAccentQuery  " AND ActionListID = '" g_ActionListID "'"
-
+   WhereQuery := " WHERE wordindexed GLOB '*" WordMatchEscaped "*' "
+   . SuppressMatchingWordQuery
+   . WordAccentQuery  " AND ActionListID = '" g_ActionListID "'"
+    ; clipboard := WhereQuery
+    ; olt all too ha ise ms mu
 
     ;/¯¯¯¯ needIt ¯¯ 181107235039 ¯¯ 07.11.2018 23:50:39 ¯¯\
     if(1){
@@ -454,7 +457,8 @@ RecomputeMatches( calledFromStr ){
    
    OrderByQuery .= " end, CASE WHEN count IS NOT NULL then ( (count - " . Normalize . ") * ( 1 - ( '0.75' / (LENGTH(word) - " . WordLen . ")))) end DESC, Word"
 
-   SELECT := "SELECT word, worddescription, wordreplacement FROM Words" . WhereQuery . OrderByQuery . " LIMIT " LimitTotalMatches ";"
+   SELECT := "SELECT word, worddescription, wordreplacement FROM Words"
+            . WhereQuery . OrderByQuery . " LIMIT " LimitTotalMatches ";"
    Matches := g_ActionListDB.Query(SELECT)
    
    g_SingleMatch := Object()
