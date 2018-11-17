@@ -370,7 +370,7 @@ sql .= temp ")"
 
 ; Performance_measurement_functions_Table
 Create_PerformanceMeasurementOf_Functions_Table(performanceTableName := "performance"){
-	lll(A_LineNumber, A_LineFile, "lin1 at CREATE_TABLE_performance")
+	lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"lin1 at CREATE_TABLE_performance")
 	global g_ActionListDB
 	global ActionList
 	sql =
@@ -400,7 +400,7 @@ small_LineFile TEXT NOT NULL
 } ; endOfFunction
 	
 	CreateWordsTable(WordsTableName:="Words"){
-		lll(A_LineNumber, A_LineFile, "lin1 at CREATE_TABLE_wordS")
+		lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"lin1 at CREATE_TABLE_wordS")
 		global g_ActionListDB
 		global g_ActionListDBfileAdress
 		if(!g_ActionListDB)
@@ -449,7 +449,7 @@ ActionListID INTEGER NOT NULL
 	
 ;<<<<<<<< CREATE_TABLE_ActionLists <<<< 180218062159 <<<< 18.02.2018 06:21:59 <<<<
 	CREATE_TABLE_ActionLists(){
-		lll(A_LineNumber, A_LineFile, "lin1 at CREATE_TABLE_ActionLists")
+		lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"lin1 at CREATE_TABLE_ActionLists")
 		global g_ActionListDB
 		global g_ActionListDBfileAdress
 		if(!g_ActionListDB)

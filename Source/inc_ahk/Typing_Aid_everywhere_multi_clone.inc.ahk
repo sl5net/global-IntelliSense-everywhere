@@ -80,10 +80,10 @@ ActionListNEWactivate( ActionListDir , ActionListNEW, ActionListActive , gi_ever
 ;Msgbox,n (%A_LineFile%~%A_LineNumber%)
 	
 	if(1)
-		lll(A_LineNumber, A_LineFile, ":) _______________ Hello inside " RegExReplace(A_LineFile,".*\\") )
-    ; lll(A_LineNumber, A_LineFile, ":) _______________ Hello inside temp.ahk _____________"  )
+		lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,":) _______________ Hello inside " RegExReplace(A_LineFile,".*\\") )
+    ; lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,":) _______________ Hello inside temp.ahk _____________"  )
 	
-    ; lll(A_LineNumber, A_LineFile, "START function: ActionListNEWactivate"  )
+    ; lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"START function: ActionListNEWactivate"  )
 	
 	
 	g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
@@ -244,7 +244,7 @@ ActionListDir = '%ActionListDir%'
 '%A_ThisFunc%' = A_ThisFunc
 )
 ; feedbackMsgBox(msg,msg,1,1)
-			lll(A_LineNumber, A_LineFile, msg )
+			lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,msg )
 		}
 		
 		;/¯¯¯¯ Loop,read,%ActionListNEWarchivePath ¯¯ 
@@ -270,7 +270,7 @@ ActionListDir = '%ActionListDir%'
 			msg .= A_WorkingDir " = A_WorkingDir `n"
 			msg .= A_ScriptDir " = A_ScriptDir `n"
 			msg .= A_ScriptFullPath " = A_ScriptFullPath `n"
-			lll(A_LineNumber, A_LineFile, msg )
+			lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,msg )
             ;Msgbox,%msg%`n (%A_LineFile%~%A_LineNumber%)
 			
 			;/¯¯¯¯ isIncludeFileInside ¯¯ 181012004940 ¯¯ 12.10.2018 00:49:40 ¯¯\
@@ -316,7 +316,7 @@ ActionListDir = '%ActionListDir%'
 						msg .= "`n`n :( includeFile NOT exist here: "  includeFilePath " = includeFilePath  `n"
 						msg .= exist_includeFilePath " = exist_includeFilePath  `n`n"
 						msg .= A_ScriptDir
-						lll(A_LineNumber, A_LineFile, msg )
+						lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,msg )
 						feedbackMsgBox(RegExReplace(A_LineFile,".*\\(.*?)\.ahk","$1") ">" A_LineNumber, msg, 1,1 ) ; temp.ahk is often ignored by config 05.10.2018 08:46
 						MsgBox,% msg "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 					}
@@ -338,7 +338,7 @@ ActionListDir = '%ActionListDir%'
 					msg .= A_ScriptFullPath " = A_ScriptFullPath `n"
 					msg .= exist_includeFilePath " = exist_includeFilePath  `n`n"
                 ;msgbox,% msg "(" RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
-					lll(A_LineNumber, A_LineFile, msg )
+					lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,msg )
                 ;exitapp
 				;\____ NOT exist_includeFilePath __ 181012005935 __ 12.10.2018 00:59:35 __/
 				}else{
@@ -349,7 +349,7 @@ ActionListDir = '%ActionListDir%'
 					msg .= A_ScriptFullPath " = A_ScriptFullPath `n"
 					msg .= exist_includeFilePath " = exist_includeFilePath  `n`n"
                 ;msgbox,% msg "(" RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
-					lll(A_LineNumber, A_LineFile, msg )
+					lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,msg )
 					;\____ exist_includeFilePath __ 181012010010 __ 12.10.2018 01:00:10 __/
 				}
 				
@@ -385,7 +385,7 @@ ActionListDir = '%ActionListDir%'
 				; ___ __ open __ open __
 				lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   ":| exist_includeFilePath =" . exist_includeFilePath . "   '" . ActionListNEWarchivePath . "' = ActionListNEWarchivePath ")
 				
-				lll(A_LineNumber, A_LineFile,  ":| exist_includeFilePath =" . exist_includeFilePath . "   '" . ActionListNEWarchivePath . "' = ActionListNEWarchivePath ")
+				lll( A_ThisFunc ":" A_LineNumber , A_LineFile , ":| exist_includeFilePath =" . exist_includeFilePath . "   '" . ActionListNEWarchivePath . "' = ActionListNEWarchivePath ")
 				
 ;<<<<<<<<<<<<<<  if(exist_includeFilePath)  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 				if(exist_includeFilePath){
@@ -399,7 +399,7 @@ ActionListDir = '%ActionListDir%'
                         ;Msgbox,Oops already geraated list lklkjlkjlkjl 555444 (line:%A_LineNumber%) n
 					}
 					
-					lll(A_LineNumber, A_LineFile, "'" . ActionListGeneratedPath . "' = ActionListGeneratedPath `n'" . ActionListNEWarchivePath . " = ActionListNEWarchivePath ")
+					lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"'" . ActionListGeneratedPath . "' = ActionListGeneratedPath `n'" . ActionListNEWarchivePath . " = ActionListNEWarchivePath ")
 					
 					lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   "'" . ActionListGeneratedPath . "' = ActionListGeneratedPath `n'" . ActionListNEWarchivePath . " = ActionListNEWarchivePath " )
 					lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   "'" . ActionListGeneratedPath . "' = ActionListGeneratedPath `n'" . ActionListNEWarchivePath . " = ActionListNEWarchivePath " )
@@ -449,7 +449,7 @@ ActionListGeneratedModifiedTime =
 						
 						
 						
-                  ; lll(A_LineNumber, A_LineFile, "includeFilePathArray.Insert(" . includeFilePath . " `n 17-07-29_12-01" )
+                  ; lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"includeFilePathArray.Insert(" . includeFilePath . " `n 17-07-29_12-01" )
 						includeFilePathArray.Insert(includeFilePath)
 					}
 					
@@ -536,7 +536,7 @@ ActionListGeneratedModifiedTime =
 	ExitAPP_if_NOT_ActionListNEWarchivePath_and_NOT_ActionListNEW(A_LineNumber, A_ThisFunc, ActionListNEWarchivePath, ActionListGeneratedPath , ActionListNEW)
 	if(0){ ; deprecated 21.03.2018 11:00
 		Msgbox,%ActionListNEWarchivePath% 2 %ActionListActivePath% `n (%A_LineFile%~%A_LineNumber%)
-		lll(A_LineNumber, A_LineFile, ActionListNEWarchivePath " FileCopy too " ActionListActivePath)
+		lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,ActionListNEWarchivePath " FileCopy too " ActionListActivePath)
 		FileCopy, % ActionListNEWarchivePath, % ActionListActivePath  , 1
 	}
 	return, 1
@@ -598,7 +598,7 @@ ActionListGeneratedModifiedTime =
 			Return
 		global g_lineNumberFeedback
 		g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
-		lll(A_LineNumber, A_LineFile, ActionListDir ActionListOLD " FileCopy too " ActionListDir ActionListOLD . ".backup.ahk")
+		lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,ActionListDir ActionListOLD " FileCopy too " ActionListDir ActionListOLD . ".backup.ahk")
 		FileCopy, % ActionListDir . "\" . ActionListOLD , % ActionListDir . "\" . ActionListOLD . ".backup.ahk", 1
     ;Msgbox,`n (%A_LineFile%~%A_LineNumber%)
 		return 1
@@ -613,7 +613,7 @@ ActionListGeneratedModifiedTime =
 		
 		ActionListActive = % gi_everywhereSourcePath . "\" . ActionListActive
 		ActionListDisable = % gi_everywhereSourcePath . "\" . ActionListActive ".backup.ahk"
-		lll(A_LineNumber, A_LineFile, ActionListActive " FileCopy too " ActionListDisable)
+		lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,ActionListActive " FileCopy too " ActionListDisable)
 		FileCopy, % ActionListActive  , % ActionListDisable , 1
 		return 1
 	} 
@@ -643,7 +643,7 @@ ActionListGeneratedModifiedTime =
 					tooltip, '%msg%' = msg  `n (line:%A_LineNumber%)
 					global g_doSaveLogFiles
 					
-					lll(A_LineNumber, A_LineFile, msg )
+					lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,msg )
 					
 				}
 				
@@ -655,7 +655,7 @@ ActionListGeneratedModifiedTime =
 				{
 					global g_doSaveLogFiles
 					
-					lll(A_LineNumber, A_LineFile, "IfWinNotExist,gi-everywhere -> exitapp")
+					lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"IfWinNotExist,gi-everywhere -> exitapp")
 					exitapp
 				}
 			}
@@ -684,10 +684,10 @@ ActionListGeneratedModifiedTime =
 				{
         ; gosub,couldIfindMyself
 					Run, % gi_everywhereAHK
-;        lll(A_LineNumber, A_LineFile, "Run, % gi_everywhereAHK")
+;        lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"Run, % gi_everywhereAHK")
 					global g_doSaveLogFiles
 					
-					lll(A_LineNumber, A_LineFile, "Debuggging!  NOT Run % gi_everywhereAHK " )
+					lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"Debuggging!  NOT Run % gi_everywhereAHK " )
 					
 				}
 				g_tooltipText = WinWait gi-everywhere.ahk
@@ -699,7 +699,7 @@ ActionListGeneratedModifiedTime =
 				{
 					global g_doSaveLogFiles
 					
-					lll(A_LineNumber, A_LineFile, "IfWinNotExist,gi-everywhere -> exitapp")
+					lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"IfWinNotExist,gi-everywhere -> exitapp")
 					exitapp
 				}
 			}
@@ -1041,7 +1041,7 @@ Clipboard = selfPerformanceTest2
 		if(FileExist(sayHelloFunctionInc))
 			FileDelete, % sayHelloFunctionInc
 		Sleep,100
-		lll(A_LineNumber, A_LineFile, "FileAppend too " sayHelloFunctionInc)
+		lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"FileAppend too " sayHelloFunctionInc)
     ;msgbox,% sayHelloCode
 		if(0 && InStr(A_ComputerName,"SL5") )
 			RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, FileAppend , % A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
@@ -1393,7 +1393,7 @@ ___open ActionList|rr||ahk|openInEditor,%ActionListFileName%
 ;<<<<<<<<<<<<<<<<< lll_if_g_doSaveLogFiles <<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 	lll_if_g_doSaveLogFiles(ALineNumber, AThisFunc,msg ){
 		lll(AThisFunc . "~" . ALineNumber, "Typing_Aid_everywhere_multi_clone.inc.ahk" , msg)
-    ; llll(A_LineNumber, A_LineFile, "")
+    ; llll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"")
 ; Msgbox,'%g_doSaveLogFiles%' = g_doSaveLogFiles   (%A_LineFile%~%A_LineNumber%) `
 		return
 	}
@@ -1424,18 +1424,18 @@ ___open ActionList|rr||ahk|openInEditor,%ActionListFileName%
 		if(FileExist(ActionListGeneratedPath))
 			FileDelete, %ActionListGeneratedPath%
 		Sleep,60
-		lll(A_LineNumber, A_LineFile, "FileAppend too " ActionListGeneratedPath)
+		lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"FileAppend too " ActionListGeneratedPath)
 		if(1 && InStr(A_ComputerName,"SL5") )
 			RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, FileAppend , % A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
 		FileAppend,% includeFileSContent, % ActionListGeneratedPath
     ; Sleep,20
 		FileRead, fileContent, %ActionListNEWarchivePath%
     ;Sleep,20
-		lll(A_LineNumber, A_LineFile, "FileAppend too " ActionListGeneratedPath)
+		lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"FileAppend too " ActionListGeneratedPath)
 		if(1 && InStr(A_ComputerName,"SL5") )
 			RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, FileAppend , % A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
 		FileAppend,% fileContent, % ActionListGeneratedPath
-		if(false)lll(A_LineNumber, A_LineFile, "SAVED: " . ActionListGeneratedPath)
+		if(false)lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"SAVED: " . ActionListGeneratedPath)
 			Sleep,60
 		return
 	}

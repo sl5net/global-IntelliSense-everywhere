@@ -1510,7 +1510,7 @@ DynaRun(TempScript, pipename=""){
 	catch e  ; Handles the first error/exception raised by the block above.
 	{
 		tip := "Exception in DynaRun:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
-		lll(A_LineNumber, A_LineFile, tip)
+		lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,tip)
 		tooltip, `% tip
 		FileAppend, `% TempScript, `% name
 	}

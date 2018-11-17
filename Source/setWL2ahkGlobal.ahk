@@ -8,7 +8,7 @@ Loop,log\*.txt ; ;FileRemoveDir,log,1
 
 ; too too too
 
-lll(A_LineNumber, A_LineFile, " hi :) just started. ")
+lll( A_ThisFunc ":" A_LineNumber , A_LineFile ," hi :) just started. ")
 ;MsgBox,% RegExReplace(A_LineFile,".*\\") . "`n hi :) just started. "
 ;feedbackMsgBox("hi :) just started. ", A_LineNumber . " , " . A_ScriptName,1,1)
 ; MsgBox,% RegExReplace(A_LineFile,".*\\") . "`n hi :) ??? feedbackMsgBox visible ???? "
@@ -42,7 +42,7 @@ try{
 
 } catch e{
     tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
-    lll(A_LineNumber, A_LineFile, tip)
+    lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,tip)
     tooltip, % tip
     feedbackMsgBox(A_ScriptName . ">" . A_LineNumber, tip )
     Clipboard := tip

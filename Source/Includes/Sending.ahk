@@ -54,7 +54,7 @@ getLineOfIndex(id) {
         tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
         sqlLastError := SQLite_LastError()
         tip .= "`n sqlLastError=" sqlLastError "`n sql=" select " `n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
-        lll(A_LineNumber, A_LineFile, tip)
+        lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,tip)
         tooltip, `% tip
         feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), tip )
         Clipboard := tip
@@ -112,7 +112,7 @@ limit 1
         tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
         sqlLastError := SQLite_LastError()
         tip .= "`n sqlLastError=" sqlLastError "`n sql=" select " `n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
-        lll(A_LineNumber, A_LineFile, tip)
+        lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,tip)
         tooltip, `% tip
         feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), tip )
         Clipboard := tip
@@ -172,7 +172,7 @@ limit 1
         tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
         sqlLastError := SQLite_LastError()
         tip .= "`n sqlLastError=" sqlLastError "`n sql=" select " `n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
-        lll(A_LineNumber, A_LineFile, tip)
+        lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,tip)
         tooltip, `% tip
         feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), tip )
         Clipboard := tip
@@ -349,7 +349,7 @@ UPDATE_ActionList_UsedByUser_since_midnight(){
 	    ;msgbox,% UPDATE
 		} catch e{
     		tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
-    		lll(A_LineNumber, A_LineFile, tip)
+    		lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,tip)
     		tooltip, `% tip
     		feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), tip )
     		Clipboard := tip
@@ -495,7 +495,7 @@ SendWord(WordIndex){
 		regIs_r_replacement := "^([^\|\n]+?)\|r\|(.*?)$"
 
         ; rX := {key:m1, rr:m2, send:"", lang:"" ,code:""}
-        regIsSynonym := "^([^\|\n]+?)\|(rr)\|$" ; ; synonymValue|rr|
+        regIsSynonym := "^([^\|\n]+?)\|(rr)\|q$" ; ; synonymValue|rr|
 
 ; Camtasia mp4|r|G:\fre\private\video\mp4\Camtasia
 ; may remember this vor later implementation: ^([^\|\n]+?)(?:\|(rr)\|(?:([^\n]*?)(?:\|(ahk|kts)\|)+([^\n]*?)$)*)*$
@@ -972,7 +972,7 @@ SendWord(WordIndex){
 		}
 		global g_sending_is_buggy
 		if( g_sending_is_buggy )
-			lll(A_LineNumber, A_LineFile, "send, `n 17-07-29_11-47")
+			lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"send, `n 17-07-29_11-47")
 		
         ;msgbox,(%A_LineFile%~%A_LineNumber%) `n %AHKcode2%
 		aWorkingDirBackUp := A_WorkingDir
@@ -1274,20 +1274,20 @@ SendFull(SendValue,ForceBackspace:= false){
 				
 				Send,{Backspace %BackSpaceLen%} ; workaround :) 29.07.2017 12:51 17-07-29_12-51 by sl5net
              ; just tested: words with ahk code goes here 13.03.2018 14:43
-        ;lll(A_LineNumber, A_LineFile, "%sending% `n >" . sending . "<  `n token=18-03-13_14-31")
+        ;lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"%sending% `n >" . sending . "<  `n token=18-03-13_14-31")
         ;Msgbox,`n (%A_LineFile%~%A_LineNumber%) 
 			}
 		}
 		if(!g_doUseSendPlay){
 			sending .= SendValue
      ; just tested: words with ahk code goes here. but sending gets the value1 not the value2 with the script or ahk part 13.03.2018 14:43
-        ;lll(A_LineNumber, A_LineFile, "%sending% `n >" . sending . "<  `n token=18-03-13_14-54")
+        ;lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"%sending% `n >" . sending . "<  `n token=18-03-13_14-54")
         ; Msgbox,sending `n >%sending%< `n (%A_LineFile%~%A_LineNumber%) 
 		}else{
 			
           ; sending .= "{Raw}" . SendValue ; till 13.03.2018 14:26
 			sending .= "{Text}" . SendValue ; new featrure in version  [v1.1.27+]
-			lll(A_LineNumber, A_LineFile, "%sending% `n >" . sending . "<  `n token=18-03-13_14-31")
+			lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"%sending% `n >" . sending . "<  `n token=18-03-13_14-31")
 			Msgbox,`n (%A_LineFile%~%A_LineNumber%) 
           ; Send {Raw}abi `n ^v ; interpretiert  `r, `n, `t and `b usw
             ; Send {Text}baby ^v {Clipboard} ; interpretiert nicht `r, `n, `t and `b usw
@@ -1340,22 +1340,22 @@ SendFull(SendValue,ForceBackspace:= false){
 				Send,{Text}%sending%
 	; feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), SendValue  )
 
-            ;lll(A_LineNumber, A_LineFile, "%sending% `n >" . sending . "<  `n token=18-03-13_14-44")
+            ;lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"%sending% `n >" . sending . "<  `n token=18-03-13_14-44")
 			
         ; Msgbox,sending `n >%sending%< `n (%A_LineFile%~%A_LineNumber%)
 			
 		}else{
 			SendPlay, %sending% ; First do the backspaces, Then send word (Raw because we want the string exactly as in ActionList . ahk)
-        ;lll(A_LineNumber, A_LineFile, "%sending% `n >" . sending . "<  `n token=18-03-13_14-44")
+        ;lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"%sending% `n >" . sending . "<  `n token=18-03-13_14-44")
         ; Msgbox,sending `n >%sending%< `n (%A_LineFile%~%A_LineNumber%) 
 		}
 		
 		global g_sending_is_buggy
 		if( g_sending_is_buggy )
-			lll(A_LineNumber, A_LineFile, "SendPlay, %sending% `n >" . sending . "<  `n 17-07-29_11-48")
+			lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"SendPlay, %sending% `n >" . sending . "<  `n 17-07-29_11-48")
 		
 		if(false && g_sending_is_buggy){
-			lll(A_LineNumber, A_LineFile, "let test sending with differenct methods `n SendValue =" . SendValue . " `n 17-07-29_12-23")
+			lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"let test sending with differenct methods `n SendValue =" . SendValue . " `n 17-07-29_12-23")
 ;
 			SendEvent, 1SendEvent = %sending% `n
 			SendInput, 2SendInput = %sending% `n
@@ -1393,7 +1393,7 @@ SendFull(SendValue,ForceBackspace:= false){
 ; Sleep,1000
 	global g_sending_is_buggy
 	if(fals && g_sending_is_buggy){
-		lll(A_LineNumber, A_LineFile, "let test sending with differenct methods `n SendValue =" . SendValue . " `n 29.07.2017 11:06 17-07-29_11-07")
+		lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"let test sending with differenct methods `n SendValue =" . SendValue . " `n 29.07.2017 11:06 17-07-29_11-07")
 ;
 		SendEvent, 1SendEvent = %SendValue% `n
 		SendInput, 2SendInput = %SendValue% `n
@@ -1427,7 +1427,7 @@ SendFull(SendValue,ForceBackspace:= false){
 				AHKcode := getRealisticDelayDynamicSendAHKcode(g_Word,SendValue)
 				global g_sending_is_buggy
 				if( g_sending_is_buggy )
-					lll(A_LineNumber, A_LineFile, " send, ")
+					lll( A_ThisFunc ":" A_LineNumber , A_LineFile ," send, ")
 ;send, ; avoids releasing Alt/Control/Shift/Win if they started out
 				DynaRun(AHKcode)
                } else {
@@ -1436,7 +1436,7 @@ SendFull(SendValue,ForceBackspace:= false){
 				
 				global g_sending_is_buggy
 				if( g_sending_is_buggy )
-					lll(A_LineNumber, A_LineFile, " Send, %sending% `n >" . sending . "<  `n 17-07-29_11-38")
+					lll( A_ThisFunc ":" A_LineNumber , A_LineFile ," Send, %sending% `n >" . sending . "<  `n 17-07-29_11-38")
 				
 			}
 			MsgBox,% ":( ERROR: " msg "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
@@ -1452,7 +1452,7 @@ SendFull(SendValue,ForceBackspace:= false){
 		
 		global g_sending_is_buggy
 		if( g_sending_is_buggy )
-			lll(A_LineNumber, A_LineFile, "SendInput, %sending% `n >" . sending . "<  `n 17-07-29_11-42")
+			lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"SendInput, %sending% `n >" . sending . "<  `n 17-07-29_11-42")
 		
 		Return
 	}
@@ -1461,7 +1461,7 @@ SendFull(SendValue,ForceBackspace:= false){
 	{
 		global g_sending_is_buggy
 		if( g_sending_is_buggy )
-			lll(A_LineNumber, A_LineFile, " SendEvent, %sending% ")
+			lll( A_ThisFunc ":" A_LineNumber , A_LineFile ," SendEvent, %sending% ")
 		
 		SendEvent, %sending% ; First do the backspaces, Then send word (Raw because we want the string exactly as in ActionList . ahk)
  ;Msgbox, '%SendValue%' = SendValue  `n `n '%sending%' = sending `n (line:%A_LineNumber%) n
@@ -1487,21 +1487,21 @@ SendFull(SendValue,ForceBackspace:= false){
 		SendPlay, %sending% ; First do the backspaces, Then send word via clipboard
 		global g_sending_is_buggy
 		if( g_sending_is_buggy )
-			lll(A_LineNumber, A_LineFile, "SendPlay, %sending% `n >" . sending . "<  `n 17-07-29_11-41")
+			lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"SendPlay, %sending% `n >" . sending . "<  `n 17-07-29_11-41")
 		
 	} else IfEqual, prefs_SendMethod, 2C
 	{
 		SendInput, %sending% ; First do the backspaces, Then send word via clipboard
 		global g_sending_is_buggy
 		if( g_sending_is_buggy )
-			lll(A_LineNumber, A_LineFile, "SendInput, %sending% `n >" . sending . "<  `n 17-07-29_11-43")
+			lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"SendInput, %sending% `n >" . sending . "<  `n 17-07-29_11-43")
 		
 	} else IfEqual, prefs_SendMethod, 3C
 	{
 		SendEvent, %sending% ; First do the backspaces, Then send word via clipboard
 		global g_sending_is_buggy
 		if( g_sending_is_buggy )
-			lll(A_LineNumber, A_LineFile, "SendEvent, %sending% `n >" . sending . "<  `n 17-07-29_11-44")
+			lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"SendEvent, %sending% `n >" . sending . "<  `n 17-07-29_11-44")
 		
 	} else {
 		ControlGetFocus, ActiveControl, ahk_id %g_Active_Id%
@@ -1526,7 +1526,7 @@ SendCompatible(SendValue,ForceSendForInput) {
 ;\____ used if triggered ...|ahk|... style __ 19.10.2018 10:28:34 __/
 
 
-	lll(A_LineNumber, A_LineFile, "SendCompatible(SendValue,ForceSendForInput) `n SendValue =" . SendValue . " `n 17-07-16_15-01")
+	lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"SendCompatible(SendValue,ForceSendForInput) `n SendValue =" . SendValue . " `n 17-07-16_15-01")
 	
 	global g_IgnoreSend
 	global prefs_SendMethod
@@ -1541,7 +1541,7 @@ SendCompatible(SendValue,ForceSendForInput) {
 
 	INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 	if( g_sending_is_buggy )
-		lll(A_LineNumber, A_LineFile, " Send, %SendValue% `n Send, %" . SendValue . "% `n 17-07-29_12-10")
+		lll( A_ThisFunc ":" A_LineNumber , A_LineFile ," Send, %SendValue% `n Send, %" . SendValue . "% `n 17-07-29_12-10")
 ; regeregregreg
 	Return
       ; GetKeyState, LshiftState, Lshift, P; 96+ lines in autocopy.ahk
@@ -1556,7 +1556,7 @@ SendCompatible(SendValue,ForceSendForInput) {
 		
 		global g_sending_is_buggy
 		if( g_sending_is_buggy )
-			lll(A_LineNumber, A_LineFile, "SendEvent, %SendValue% `n >" . SendValue . "<  `n 17-07-29_11-45")
+			lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"SendEvent, %SendValue% `n >" . SendValue . "<  `n 17-07-29_11-45")
 		
 		
 		Return
@@ -1569,7 +1569,7 @@ SendCompatible(SendValue,ForceSendForInput) {
 		
 		global g_sending_is_buggy
 		if( g_sending_is_buggy )
-			lll(A_LineNumber, A_LineFile, "SendInput, %SendValue% `n >" . SendValue . "<  `n 17-07-29_11-46")
+			lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"SendInput, %SendValue% `n >" . SendValue . "<  `n 17-07-29_11-46")
 		
 		Return
 	}
@@ -1580,7 +1580,7 @@ SendCompatible(SendValue,ForceSendForInput) {
 		SendEvent, %SendValue%
 		global g_sending_is_buggy
 		if( g_sending_is_buggy )
-			lll(A_LineNumber, A_LineFile, "SendInput, %SendValue% `n >" . SendValue . "<  `n 17-07-29_11-46")
+			lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"SendInput, %SendValue% `n >" . SendValue . "<  `n 17-07-29_11-46")
 		
 		Return
 	}
@@ -1590,7 +1590,7 @@ SendCompatible(SendValue,ForceSendForInput) {
 	SendInput, %SendValue%
 	global g_sending_is_buggy
 	if( g_sending_is_buggy )
-		lll(A_LineNumber, A_LineFile, "SendInput, %SendValue% `n >" . SendValue . "<  `n 17-07-29_11-46")
+		lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"SendInput, %SendValue% `n >" . SendValue . "<  `n 17-07-29_11-46")
 
     UPDATE_ActionList_UsedByUser_since_midnight()
 

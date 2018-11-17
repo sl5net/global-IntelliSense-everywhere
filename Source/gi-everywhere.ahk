@@ -237,7 +237,7 @@ IfWinExist, %scriptName% - Active ; maybe  work 26.04.2017 15:28
  ; Msgbox,%scriptName% ?= %g_ScriptTitle% `n (%A_LineFile%~%A_LineNumber%)
 global g_doSaveLogFiles
 
-lll(A_LineNumber, A_LineFile, "exit ")
+lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"exit ")
    ExitApp ; this protect hopefully the scipt from building 100drets of instances.
    ; this was happend during looking videos. tv- mediathek oder sometimes youtube.
 }
@@ -343,12 +343,12 @@ BlockInput, Send
 
 global g_doSaveLogFiles
 
-lll(A_LineNumber, A_LineFile, "InitializeHotKeys()")
+lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"InitializeHotKeys()")
 InitializeHotKeys()
 
 global g_doSaveLogFiles
 
-lll(A_LineNumber, A_LineFile, "DisableKeyboardHotKeys()")
+lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"DisableKeyboardHotKeys()")
 DisableKeyboardHotKeys()
 
 ;Change the Running performance speed (Priority changed to High in GetIncludedActiveWindow)
@@ -852,7 +852,7 @@ settitlematchmode,1
 if(activeTitleOLD && activeTitleOLD <> activeTitle ){
 global g_doSaveLogFiles
 
-    lll(A_LineNumber, A_LineFile,  "Goto, doReload `n reason for being carefully with reload `;) https://youtu.be/2a_AsYubzvE " )
+    lll( A_ThisFunc ":" A_LineNumber , A_LineFile , "Goto, doReload `n reason for being carefully with reload `;) https://youtu.be/2a_AsYubzvE " )
     ;~ ToolTip, % A_TickCount
 }
 return
@@ -898,7 +898,7 @@ return
                if(!isActuallyWrittenToLog){
 global g_doSaveLogFiles
 
-lll(A_LineNumber, A_LineFile, "Title changed, ActionList(modiTime) NOT changed so fast ... ups `n ActionList=>" . ActionList . "< `n Sleep,100")
+lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"Title changed, ActionList(modiTime) NOT changed so fast ... ups `n ActionList=>" . ActionList . "< `n Sleep,100")
                   isActuallyWrittenToLog := true
                }
                FileGetTime, ActionListModiTime, %ActionList%, M
@@ -907,7 +907,7 @@ lll(A_LineNumber, A_LineFile, "Title changed, ActionList(modiTime) NOT changed s
             msg = %activeTitleOLD%  <> `n%activeTitle%
 global g_doSaveLogFiles
 
-lll(A_LineNumber, A_LineFile, "`n Sleep,100 `n" . msg . "`n ==> Goto, doReload")
+lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"`n Sleep,100 `n" . msg . "`n ==> Goto, doReload")
            ;feedbackMsgBox("ReadInTheActionList",A_LineNumber . " , " . A_ScriptName,1,1)
             ReadInTheActionList(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")) ; 07.02.2018 17:28
          }
@@ -915,7 +915,7 @@ lll(A_LineNumber, A_LineFile, "`n Sleep,100 `n" . msg . "`n ==> Goto, doReload")
     ;Msgbox, ActionList was changed (%A_LineFile%~%A_LineNumber%)
     ActionListModiTime_OLD:=ActionListModiTime
 
-   ; lll(A_LineNumber, A_LineFile, "doReloadIfScriptDontMoveThisLine()")
+   ; lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"doReloadIfScriptDontMoveThisLine()")
 
     doReloadIfScriptDontMoveThisLine()
 ;
@@ -1571,7 +1571,7 @@ return
 couldIfindMyself:
 global g_doSaveLogFiles
 
-lll(A_LineNumber, A_LineFile, "couldIfindMyself cant find scripts running in tray. so its useless :( deprevated. return from function :( now.")
+lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"couldIfindMyself cant find scripts running in tray. so its useless :( deprevated. return from function :( now.")
 
 ; but BTW it works with oter windows (probably the proble is a changed window name???) . for e.x. this works: IfWinNotExist,Could not close the previous instance of this script_autoCloser.ahk
 ; 12.07.2017 17:49
@@ -1615,7 +1615,7 @@ IfWinNotExist,% scriptNameWithoutAHK
    ; reload 
 global g_doSaveLogFiles
 
-lll(A_LineNumber, A_LineFile, "ExitApp")
+lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"ExitApp")
    Sleep, 3000
    ExitApp
    Pause

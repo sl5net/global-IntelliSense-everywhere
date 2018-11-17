@@ -40,7 +40,7 @@ vDayVal := SubStr(A_Now,7,2) ; Start at the 7th character and get the next 2 for
 
 ;~ A_Now The current local time in YYYYMMDDHH24MISS format. Note: Date and time math can be performed with EnvAdd and EnvSub. Also, FormatTime can format the date and/or time according to your locale or preferences. 
 if(vTimeHour = 10 AND vTimeMinutes = 10){
-lll(A_LineNumber, A_LineFile, "lin1 at if")
+lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"lin1 at if")
   ; A_WDay Current 1-digit day of the week (1-7). 1 is Sunday in all locales. 
   ; mod(5.0, 3) is 2.0
   if(false and mod(A_WDay, 2) = 1 )

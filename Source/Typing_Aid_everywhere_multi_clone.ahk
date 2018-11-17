@@ -12,7 +12,7 @@ global g_ignReg := { feedbackMsgBox:{tit:".^", text:".^"} ,          saveLogFile
 ; please use it like this:     if( 1<RegExMatch(0 . A_ScriptName, g_ignReg["saveLogFiles"]["scriptName"])	|| ......
         ; OR: the regEx .^ never match anything. if you use .^ i recomand using: if( RegExMatch(ln, g_ignReg["saveLogFiles"]["ln"])	|| ......
 ; https://autohotkey.com/boards/viewtopic.php?f=6&t=44696&p=202322#p202322
-lll(A_LineNumber, A_LineFile, "hi from " A_LineFile)
+lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"hi from " A_LineFile)
 ;>>>>>>>> g_ignReg >>>> 180224082506 >>>> 24.02.2018 08:25:06 >>>>
 
 
@@ -126,10 +126,10 @@ while(true) {
 		}
     ; tooltip, RunWait %gi_everywhereAHK%
 		
-		lll(A_LineNumber, A_LineFile, "Debuggging!  NOT Run % gi_everywhereAHK (23.03.2018 14:24)" ) ; 18-01-20_18-56
+		lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"Debuggging!  NOT Run % gi_everywhereAHK (23.03.2018 14:24)" ) ; 18-01-20_18-56
 		
     ; RunWait, % gi_everywhereAHK
-    ; lll(A_LineNumber, A_LineFile, "RunWait, % gi_everywhereAHK")
+    ; lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"RunWait, % gi_everywhereAHK")
 	}
 ;>>>>>>>> IfWinNotExist >>>> 180323140141 >>>> 23.03.2018 14:01:41 >>>>
 	SetTitleMatchMode,2 ; thats my default. do i need it later ? 08.07.2017 14:12
@@ -249,7 +249,7 @@ while(true) {
 	if(RegExMatch(activeTitle,"^\d:.+")){
       ;Clipboard:=activeClass
 		tip= %activeTitle% ==> continue `n 17.02.2018 22:03 `n (%A_LineFile%~%A_LineNumber%)
-       ; lll(A_LineNumber, A_LineFile, tip)
+       ; lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,tip)
     ;Msgbox,`n (%A_LineFile%~%A_LineNumber%)
 		continue
 	}
@@ -282,7 +282,7 @@ while(true) {
 		FormatTime, timestampHHmmss, %A_now%,HH:mm:ss
 		global g_doSaveLogFiles
 		
-		lll(A_LineNumber, A_LineFile, regEx . " end of while(true)`n '" . activeTitle . "' = activeTitle `n  time:" . timestampHHmmss)
+		lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,regEx . " end of while(true)`n '" . activeTitle . "' = activeTitle `n  time:" . timestampHHmmss)
 		Msgbox,%activeTitle% `n`n %activeClass% `n`n  (%A_LineFile%~%A_LineNumber%)
 		
 ;ExitApp
@@ -351,7 +351,7 @@ while(true) {
 	}else
 		ActionListFilterPath2 :=  ActionListDirBase . activeClass . "\" . filterFileName ; todo: doesent work :( 28.03.2017 20:20 17-03-28_20-20
 	
-; lll(A_LineNumber, A_LineFile, "ActionListFilterPath2=" . ActionListFilterPath2 . " activeClass=" . activeClass . " filterFileName=" . filterFileName)
+; lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"ActionListFilterPath2=" . ActionListFilterPath2 . " activeClass=" . activeClass . " filterFileName=" . filterFileName)
 	
 	if(!ActionListDir) {
 		global g_lineNumberFeedback
@@ -653,7 +653,7 @@ if(1){
 		FormatTime, timestampHHmmss, %A_now%,HH:mm:ss
 		global g_doSaveLogFiles
 		
-		lll(A_LineNumber, A_LineFile, regEx . " end of while(true)`n '" . activeTitle . "' = activeTitle `n  time:" . timestampHHmmss)
+		lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,regEx . " end of while(true)`n '" . activeTitle . "' = activeTitle `n  time:" . timestampHHmmss)
 	}
 } ; end of while(true)
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -683,7 +683,7 @@ global g_lineNumberFeedback
     ActionListFilterPathBackup := ActionListDirBase . "\" . timestamp . "_" . filterFileName 
 
 
-lll(A_LineNumber, A_LineFile, ActionListFilterPath " FileCopy too " ActionListFilterPathBackup)
+lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,ActionListFilterPath " FileCopy too " ActionListFilterPathBackup)
    FileCopy, % ActionListFilterPath, % ActionListFilterPathBackup
    FileDelete, % ActionListFilterPath
    Sleep,100
@@ -784,7 +784,7 @@ global g_lineNumberFeedback
 )
  ; MsgBox, % RegExReplace( " -- - -___ _ _ _ __", "[_\s]{2,}" , "_"`)  
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
- lll(A_LineNumber, A_LineFile, "FileAppend too " ActionListFilterPath)
+ lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"FileAppend too " ActionListFilterPath)
 ;msgbox, % ActionListFilterPath " asdf77778"
 tooltip,% "FileAppend (" A_ThisFunc "~" A_LineNumber "~" RegExReplace(A_LineFile,".*\") ")"
 if(1 && InStr(A_ComputerName,"SL5") )
@@ -822,7 +822,7 @@ tooltip,% "FileAppend (" A_ThisFunc "~" A_LineNumber "~" RegExReplace(A_LineFile
    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, FileAppend , % A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
 FileAppend,  % ahkCodeInsideFile , % ActionListFilterPath ; ActionListNameFilter.inc.ahk
 
-lll(A_LineNumber, A_LineFile, "FileAppend too " ActionListFilterPath)
+lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"FileAppend too " ActionListFilterPath)
    if(!FileExist(ActionListFilterPath))
       MsgBox, :-( `n !FileExist(ActionListFilterPath)) `n  (line:%A_LineNumber%)  '%ActionListFilterPath%' = ActionListFilterPath  `n (line:%A_LineNumber%) `n 
 } else
@@ -1085,7 +1085,7 @@ if(0){ ; check if this is arrived 30.04.2017 09:43
                      WinSetTitle,main.ts.txt - Editor,, main.ts
                      WinSetTitle,main.ts.txt - WordPad,, main.ts
 
-lll(A_LineNumber, A_LineFile, "ExitApp")
+lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"ExitApp")
                      ExitApp
 
                      happendLog =
@@ -1106,7 +1106,7 @@ activeTitleOLD: %activeTitleOLD%
  (%A_LineFile%~%A_LineNumber%)
 )
 
-lll(A_LineNumber, A_LineFile, tip "reload 17-08-04_14-42")
+lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,tip "reload 17-08-04_14-42")
                 tooltip, =>Reload  `n  `n (%A_LineFile%~%A_LineNumber%)
 ToolTip5sec(tip A_LineNumber . " " . RegExReplace(A_LineFile,".*\\") )
                  sleep,1500

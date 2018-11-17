@@ -300,7 +300,7 @@ ProcessKey(InputChar,EndKey) {
 	IF ( 0 && StrLen(g_Word) < prefs_Length ){ ; 04.08.2017 15:17 changed by sl5 Oops lets see what happens :D
 		global g_doSaveLogFiles
 		
-		lll(A_LineNumber, A_LineFile, "g_Word=" . g_Word . " `n`n ==>j CloseListBox(calledFromStr)")
+		lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"g_Word=" . g_Word . " `n`n ==>j CloseListBox(calledFromStr)")
 		CloseListBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
 		Return
 	}
@@ -377,7 +377,7 @@ RecomputeMatches( calledFromStr ){
 		tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
 		sqlLastError := SQLite_LastError()
 		tip .= "`n sqlLastError=" sqlLastError "`n sql=" SELECT " `n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
-		lll(A_LineNumber, A_LineFile, tip)
+		lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,tip)
 		tooltip, `% tip
 		feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), tip )
 		Clipboard := tip
@@ -555,7 +555,7 @@ InitializeHotKeys() {
       ; Hotkey, $Down, Off ; 21.11.2017 15:23 17-11-21_15-23 let it OFF. deaktivated from sl5net  . it not helps using google adress bar or so.
 		
 		
-		lll(A_LineNumber, A_LineFile, " g_EnabledKeyboardHotKeys .= $Down . g_DelimiterChar")
+		lll( A_ThisFunc ":" A_LineNumber , A_LineFile ," g_EnabledKeyboardHotKeys .= $Down . g_DelimiterChar")
 		g_EnabledKeyboardHotKeys .= "$Down" . g_DelimiterChar
     ;Hotkey, $Down, Off ; let it OFF. deaktivated from sl5net 15.07.2017 09:43 17-07-15_09-43 . it not helps using google adress bar or so.
 		
@@ -596,7 +596,7 @@ EnableKeyboardHotKeys(){
 	global g_EnabledKeyboardHotKeys
 	Loop, Parse, g_EnabledKeyboardHotKeys, %g_DelimiterChar%
 	{
-;      lll(A_LineNumber, A_LineFile, "HotKey, %" . A_LoopField . "%, On")
+;      lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"HotKey, %" . A_LoopField . "%, On")
 		HotKey, %A_LoopField%, On
 	}
 	Return
@@ -611,7 +611,7 @@ EnableKeyboardHotKeys(){
 DisableKeyboardHotKeys() {
 	global g_doSaveLogFiles
 	
-	lll(A_LineNumber, A_LineFile, "DisableKeyboardHotKeys() { ... 17-07-16_13-31 ")
+	lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"DisableKeyboardHotKeys() { ... 17-07-16_13-31 ")
 	
 	global g_DelimiterChar
 	global g_EnabledKeyboardHotKeys
@@ -625,7 +625,7 @@ DisableKeyboardHotKeys() {
 			tooltip, % tip
 		}
 		
-; lll(A_LineNumber, A_LineFile, "HotKey, %" . A_LoopField . "%, Off")
+; lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"HotKey, %" . A_LoopField . "%, Off")
 	}
 	Return
 }
@@ -671,7 +671,7 @@ CheckWord(Key) {
 	
 	global g_doSaveLogFiles
 	
-	lll(A_LineNumber, A_LineFile, Key " = Key `n" . WordIndex " = WordIndex `n"  . g_NumKeyMethod . " = g_NumKeyMethod `n " )
+	lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,Key " = Key `n" . WordIndex " = WordIndex `n"  . g_NumKeyMethod . " = g_NumKeyMethod `n " )
 	
 	
 	
@@ -717,10 +717,10 @@ CheckWord(Key) {
 		
 		global g_sending_is_buggy 
 		if( g_sending_is_buggy ){
-			lll(A_LineNumber, A_LineFile, "Send,%Key% `n`n 17-07-29_11-58")
+			lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"Send,%Key% `n`n 17-07-29_11-58")
 			global g_doSaveLogFiles
 		}
-		lll(A_LineNumber, A_LineFile, "Send,%Key% `n 17-07-29_11-58")
+		lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"Send,%Key% `n 17-07-29_11-58")
 		
 		return
 	}
@@ -745,7 +745,7 @@ CheckWord(Key) {
 	{
 		global g_doSaveLogFiles
 		
-		lll(A_LineNumber, A_LineFile, Key " = Key `n" . WordIndex " = WordIndex `n"  . g_NumKeyMethod . " = g_NumKeyMethod `n " . "`n 17-07-16_14-16" )
+		lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,Key " = Key `n" . WordIndex " = WordIndex `n"  . g_NumKeyMethod . " = g_NumKeyMethod `n " . "`n 17-07-16_14-16" )
 		SendCompatible(Key,0)
 		ProcessKey(Key,"")
 		Return
@@ -757,7 +757,7 @@ CheckWord(Key) {
 		
 		lll(A_LineNumber, A_LineFile,"SuspendOn()`n" . Key " = Key `n" . WordIndex " = WordIndex `n"  . prefs_NumPresses . " = prefs_NumPresses `n " . "`n 17-07-16_14-16" )
 		
-;      lll(A_LineNumber, A_LineFile, "SuspendOn()")
+;      lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"SuspendOn()")
 		msgbox,% A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") "`n SuspendOn()`n"
 		SuspendOn()
 	}
@@ -1229,7 +1229,7 @@ EvaluateScriptPathAndTitle(){
                ; gosub,couldIfindMyself
 					global g_doSaveLogFiles
 					
-					lll(A_LineNumber, A_LineFile, "Run, %" . ScriptPath64 . "%, %" . A_WorkingDir . "%")
+					lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"Run, %" . ScriptPath64 . "%, %" . A_WorkingDir . "%")
 					Run, %ScriptPath64%, %A_WorkingDir%
 					feedbackMsgBox(ExitApp , A_LineNumber . " gi-everywhere.inc.ahk")
 					ExitApp
@@ -1260,7 +1260,7 @@ InactivateAll_Suspend_ListBox_WinHook(){
    ;Force unload of Keyboard Hook and WinEventHook
 	Input
 	SuspendOn()
-	lll(A_LineNumber, A_LineFile, "CloseListBox(calledFromStr)")
+	lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"CloseListBox(calledFromStr)")
 	CloseListBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
    ;MaybeSaveHelperWindowPos()
 	DisableWinHook()
@@ -1341,7 +1341,7 @@ ClearAllVars( calledFromStr , ClearWord ){
 ; too
 	
 	INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
-       ; lll(A_LineNumber, A_LineFile, "CloseListBox(calledFromStr)")
+       ; lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"CloseListBox(calledFromStr)")
        ; run,log\%A_LineFile%.log.txt ; this line woks :) but to often ;) may we dont need any more to check it ;) 04.08.2017 15:20
 	
 	CloseListBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
@@ -1565,7 +1565,7 @@ doReloadIfScriptDontMoveThisLine(sec := 5){
 			msgbox,'%g_nextCriticalCommandString%'g_nextCriticalCommandString'%g_nextCriticalCommandString%':`n`n '%g_nextCriticalCommandTimeIdle%' = g_nextCriticalCommandTimeIdle  `n`n (line:%A_LineNumber%) n  := , '%A_TimeIdle%' = A_TimeIdle  n (line:%A_LineNumber%) n
 			global g_doSaveLogFiles
 			{
-				lll(A_LineNumber, A_LineFile, "Reload")
+				lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"Reload")
 				run,log\%A_LineFile%.log.txt
 			}
         ;if(1 && InStr(A_ComputerName,"SL5") )

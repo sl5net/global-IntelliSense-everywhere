@@ -20,7 +20,7 @@ if(RegExMatch(A_ScriptName, g_ignReg["saveLogFiles"]["scriptName"]))
 else
 	MsgBox,ignore NOT matched
 )
-lll(A_LineNumber, A_LineFile, "hey from ini ")
+lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"hey from ini ")
 ;>>>>>>>> g_ignReg >>>> 180224082506 >>>> 24.02.2018 08:25:06 >>>>
 
 if(instr(A_LineFile,A_ScriptName)){

@@ -24,6 +24,8 @@ else if(errStr:=err_tests_preparser())
 }
 if(0){
 }
+else if(errStr:=test_synonym())
+	countErrors++
 else if(errStr:=err_multi_rr())
 	countErrors++
 else if(errStr:=test_getAutoKeywords())
@@ -49,6 +51,25 @@ reload??
 	)
 msgbox,% countErrors " errors counted. reload?? errStr= `n`n" errStr
 run,% "..\start.ahk"
+
+
+;/¯¯¯¯ test_synonym
+test_synonym(){
+    in := "test_synonym|rr||ahk|q"
+    expected := "test_synonym|rr||ahk|q"
+    expectedInFutureRelaise := "nothingSpecial nothing Special textlang"
+    result := getAutoKeywords(oldKeywords:="", in)
+    if(errStr := getAssertEqual_ErrorStr(expected,result,A_ThisFunc ":" A_LineNumber))
+        Return errStr " °" A_ThisFunc "° "
+
+    in := "A bit of a longer text"
+    expected := "longer text"
+    result := getAutoKeywords(oldKeywords:="", in)
+    if(errStr := getAssertEqual_ErrorStr(expected,result,A_ThisFunc ":" A_LineNumber))
+        Return errStr " °" A_ThisFunc "° "
+}
+;\____ test_synonym
+
 
 
 ;/¯¯¯¯ test_getAutoKeywords ¯¯ 181116202412 ¯¯ 16.11.2018 20:24:12 ¯¯\

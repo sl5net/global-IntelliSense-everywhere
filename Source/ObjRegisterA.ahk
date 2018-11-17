@@ -44,7 +44,7 @@ DllCall("FreeConsole")
 ExitApp
 
 Test(this){
-lll(A_LineNumber, A_LineFile, "lin1 at Test")
+lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"lin1 at Test")
 	ObjAddRef(&this)
 	FileOpen("CONOUT$", 1|4).WriteLine(A_ThisFunc . "->RefCount: " . ObjRelease(&this))
 }

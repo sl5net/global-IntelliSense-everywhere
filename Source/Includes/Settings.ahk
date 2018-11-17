@@ -7,7 +7,7 @@ LaunchSettings:
     {
        return
     }
-                 lll(A_LineNumber, A_LineFile, " InactivateAll_Suspend_ListBox_WinHook() 17-08-04_16-19b")
+                 lll( A_ThisFunc ":" A_LineNumber , A_LineFile ," InactivateAll_Suspend_ListBox_WinHook() 17-08-04_16-19b")
                  fileAddress := A_ScriptDir . "\log\" . A_ScriptName . ".log.txt"
                  if(FileExist(fileAddress) && !InStr(FileExist(fileAddress), "D") )
                     run,% fileAddress

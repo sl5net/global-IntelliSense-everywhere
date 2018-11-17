@@ -36,7 +36,7 @@ EnableWinHook(){
         msg := "Failed to register Event Hook! `n  g_WinChangedEventHook=" . g_WinChangedEventHook . "`n 17-07-16_16-21"
         ToolTip5sec(msg " (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") " " )
         ;msgbox, % msg
-        lll(A_LineNumber, A_LineFile, msg )
+        lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,msg )
          return false
          ;ExitApp
       }
@@ -317,7 +317,7 @@ GetIncludedActiveWindowGuts() {
 
          CurrentWindowIsActive := false
 
-             lll(A_LineNumber, A_LineFile, " InactivateAll_Suspend_ListBox_WinHook() 17-08-04_16-19c")
+             lll( A_ThisFunc ":" A_LineNumber , A_LineFile ," InactivateAll_Suspend_ListBox_WinHook() 17-08-04_16-19c")
              ; run,\.\log\%A_LineFile%.log.txt
 
          InactivateAll_Suspend_ListBox_WinHook()
@@ -337,7 +337,7 @@ GetIncludedActiveWindowGuts() {
          Break
       
       CurrentWindowIsActive := false
-                   lll(A_LineNumber, A_LineFile, "GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll_Suspend_ListBox_WinHook() 18-02-10_09-44")
+                   lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"GetIncludedActiveWindowGuts() > LOOP >  CurrentWindowIsActive := false > InactivateAll_Suspend_ListBox_WinHook() 18-02-10_09-44")
                   ; run,\.\log\%A_LineFile%.log.txt
 
       InactivateAll_Suspend_ListBox_WinHook()

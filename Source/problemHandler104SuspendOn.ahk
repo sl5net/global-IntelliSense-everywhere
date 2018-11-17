@@ -32,7 +32,7 @@ SetTitleMatchMode,1
 IfWinExist, gi-everywhere - Inactive
 {
    WinClose,
-   lll(A_LineNumber, A_LineFile, "34: RunWait,gi-everywhere.ahk")
+   lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"34: RunWait,gi-everywhere.ahk")
    RunWait,gi-everywhere.ahk
 }
 

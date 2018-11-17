@@ -305,7 +305,7 @@ ListBoxEnd() {
       g_ScrollEventHookThread =
       MaybeCoUninitialize()
    }
-   lll(A_LineNumber, A_LineFile, "DisableKeyboardHotKeys()")
+   lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"DisableKeyboardHotKeys()")
    DisableKeyboardHotKeys()
    return
 }
@@ -857,14 +857,14 @@ try {
          ; Msgbox,%g_ListBoxTitle% = g_ListBoxTitle `n (%A_LineFile%~%A_LineNumber%)
 
 } catch {
-   lll(A_LineNumber, A_LineFile, "ERROR Gui, ListBoxGui proably not ready ")
+   lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"ERROR Gui, ListBoxGui proably not ready ")
    return 
 }      
       
       IfEqual, g_ListBox_Id,
       {
-      ; lll(A_LineNumber, A_LineFile, "")
-         lll(A_LineNumber, A_LineFile, "EnableKeyboardHotKeys()")
+      ; lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"")
+         lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"EnableKeyboardHotKeys()")
          EnableKeyboardHotKeys()
       }
       
