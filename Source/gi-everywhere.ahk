@@ -209,6 +209,10 @@ SetTimer,checkWinChangedTitle,1000 ; RegRead, ActionListActive, HKEY_CURRENT_USE
 SetTimer,doListBoxFollowMouse,off
 ;SetTimer,doListBoxFollowMouse,off
 
+RegRead, g_ListBoxX, HKEY_CURRENT_USER, SOFTWARE\sl5net, g_ListBoxX
+RegRead, g_ListBoxY, HKEY_CURRENT_USER, SOFTWARE\sl5net, g_ListBoxY
+; a li s too
+
 ; SetTitleMatchMode,regEx
 ; #IfWinActive,(Autohotkey|\.ahk)
 ; Hotkey, ^+esc, off
