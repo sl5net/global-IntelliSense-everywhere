@@ -8,7 +8,7 @@ prepareGi()
 countErrors := 0
 if(false){
 }
-if(0){
+if(1){
  if(errStr:=err_is_without_keywords())
 	countErrors++
 else if(errStr:=err_multi_r_content())
@@ -22,7 +22,7 @@ else if(errStr:=err_unitTest1())
 else if(errStr:=err_tests_preparser())
 	countErrors++
 }
-if(0){
+if(1){
 }
 else if(errStr:=test_synonym())
 	countErrors++
@@ -33,6 +33,8 @@ else if(errStr:=test_getAutoKeywords())
 else if(errStr:=err_difficult_do_it_later())
 	countErrors++
 else if(errStr:=err_open_issues())
+	countErrors++
+else if(errStr:=test_dontDeleteComments())
 	countErrors++
 
 global errStr_first
@@ -69,6 +71,30 @@ test_synonym(){
         Return errStr " °" A_ThisFunc "° "
 }
 ;\____ test_synonym
+
+
+test_dontDeleteComments(){
+in =
+(
+dontDeleteComments|r|
+; a comment
+)
+expected =
+(
+dontDeleteComments|r|
+; a comment
+)
+    expectedInFutureRelaise := "nothingSpecial nothing Special textlang"
+    result := getAutoKeywords(oldKeywords:="", in)
+    if(errStr := getAssertEqual_ErrorStr(expected,result,A_ThisFunc ":" A_LineNumber))
+        Return errStr " °" A_ThisFunc "° "
+
+    in := "A bit of a longer text"
+    expected := "longer text"
+    result := getAutoKeywords(oldKeywords:="", in)
+    if(errStr := getAssertEqual_ErrorStr(expected,result,A_ThisFunc ":" A_LineNumber))
+        Return errStr " °" A_ThisFunc "° "
+}
 
 
 

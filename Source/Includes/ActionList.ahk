@@ -314,6 +314,8 @@ from: ActionList.ahk~%A_LineNumber%
 				
 				ActionListFileName := RegExReplace(ActionList, ".*\\")
 				
+				
+				
 				tip =
 				(
 				LoadActionList = "%LoadActionList%"
@@ -439,8 +441,34 @@ from: ActionList.ahk~%A_LineNumber%
 		
 		
 		
+		
+		
+		
+		SetTimer,checkInRegistryChangedActionListAddress,off ; RegRead, ActionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList
+; SetTimer,checkInRegistryChangedActionListAddress,off ; RegRead, ActionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList
+		SetTimer,checkActionListAHKfile_sizeAndModiTime, off
+		SetTimer,checkWinChangedTitle,off
+		
+		msgbox, % A_ThisFunc ":" A_LineNumber 
+		
 		; ParseWords := addListOpenAction_ifNotAlreadyInTheList(ParseWords,ActionList)
 		Loop_Parse_ParseWords(ParseWords)
+		
+		SetTimer,checkInRegistryChangedActionListAddress,On ; RegRead, ActionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList
+; SetTimer,checkInRegistryChangedActionListAddress,off ; RegRead, ActionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList
+		SetTimer,checkActionListAHKfile_sizeAndModiTime, On
+		SetTimer,checkWinChangedTitle,On
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
