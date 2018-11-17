@@ -359,6 +359,7 @@ RecomputeMatches( calledFromStr ){
 ; ttoolTip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 ; msg sm msgbox test msgb msgbox MsgBox
 
+    SetTimer, show_ListBox_Id, 600 ; setinterval ; 28.10.2018 02:39: fallback bugfix workaround help todo:
 	loop,6
 	{
 
@@ -403,16 +404,22 @@ RecomputeMatches( calledFromStr ){
 			if(1 && InStr(A_ComputerName,"SL5") )
 				toolTip, % g_Word "(" StrLen(g_Word) ")," prefs_Length "=prefs_Length:" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),1,1
         ; reload_IfNotExist_ListBoxGui()
-			SetTimer, show_ListBox_Id, 600 ; setinterval ; 28.10.2018 02:39: fallback bugfix workaround help todo:
         ;Sleep,100
 			g_reloadIf_ListBox_Id_notExist := true
         ; msgbox,% "g_reloadIf_ListBox_Id_notExist:= true(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
 		}
 		continue
 	}
-		IfNotEqual, g_MatchTotal, 0
+		; IfNotEqual, g_MatchTotal, 0
+		;    break
+        if(g_MatchTotal>20)
 		    break
 	}
+
+	; msgbox,% g_MatchTotal "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+
+	; m
+
 	IfEqual, g_MatchTotal, 0
 	{
 		Tooltip, no match found
