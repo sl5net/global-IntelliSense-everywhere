@@ -22,7 +22,13 @@ else if(errStr:=err_unitTest1())
 else if(errStr:=err_tests_preparser())
 	countErrors++
 }
- if(errStr:=err_difficult_do_it_later())
+if(0){
+}
+else if(errStr:=err_multi_rr())
+	countErrors++
+else if(errStr:=test_getAutoKeywords())
+	countErrors++
+else if(errStr:=err_difficult_do_it_later())
 	countErrors++
 else if(errStr:=err_open_issues())
 	countErrors++
@@ -43,6 +49,87 @@ reload??
 	)
 msgbox,% countErrors " errors counted. reload?? errStr= `n`n" errStr
 run,% "..\start.ahk"
+
+
+;/¯¯¯¯ test_getAutoKeywords ¯¯ 181116202412 ¯¯ 16.11.2018 20:24:12 ¯¯\
+test_getAutoKeywords(){
+    in := "nothingSpecial textlang"
+    expected := "nothing Special textlang"
+    expectedInFutureRelaise := "nothingSpecial nothing Special textlang"
+    result := getAutoKeywords(oldKeywords:="", in)
+    if(errStr := getAssertEqual_ErrorStr(expected,result,A_ThisFunc ":" A_LineNumber))
+        Return errStr " °" A_ThisFunc "° "
+
+    in := "A bit of a longer text"
+    expected := "longer text"
+    result := getAutoKeywords(oldKeywords:="", in)
+    if(errStr := getAssertEqual_ErrorStr(expected,result,A_ThisFunc ":" A_LineNumber))
+        Return errStr " °" A_ThisFunc "° "
+}
+;\____ test_getAutoKeywords __ 181116202416 __ 16.11.2018 20:24:16 __/
+
+
+
+err_multi_rr() {
+
+in =
+(
+thanks for the message|rr||ahk|
+msg =
+(
+superduper
+`)
+send,`% msg
+|r|
+ahkScripte
+PhpScripte
+)
+expected =
+(
+thanks for the message|rr||ahk|
+msg =
+(
+superduper
+`)
+send,`% msg
+Scripte |r|
+ahkScripte
+phpScripte
+)
+		result := Loop_Parse_ParseWords(in)
+		if(errStr := getAssertEqual_ErrorStr(expected,result,A_ThisFunc ":" A_LineNumber))
+			Return errStr " °" A_ThisFunc "° "
+
+
+in =
+(
+thanks for the message|rr||ahk|
+; Gi: do_indexFollowingLines4search = true
+msg =
+(
+superduper
+`)
+send,`% msg
+
+Skills|r|Skills.pdf
+)
+expected =
+(
+thanks for the message|rr||ahk|
+msg =
+(
+superduper
+`)
+send,`% msg
+
+Skills|r|Skills.pdf
+)
+		result := Loop_Parse_ParseWords(in)
+		if(errStr := getAssertEqual_ErrorStr(expected,result,A_ThisFunc ":" A_LineNumber))
+			Return errStr " °" A_ThisFunc "° "
+
+
+}
 
 
 

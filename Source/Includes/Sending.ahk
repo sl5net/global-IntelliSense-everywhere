@@ -56,7 +56,7 @@ getLineOfIndex(id) {
         tip .= "`n sqlLastError=" sqlLastError "`n sql=" select " `n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
         lll(A_LineNumber, A_LineFile, tip)
         tooltip, `% tip
-        feedbackMsgBox(RegExReplace(A_LineFile,".*\\") ">" . A_LineNumber, tip )
+        feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), tip )
         Clipboard := tip
         msgbox, % tip
     }
@@ -114,7 +114,7 @@ limit 1
         tip .= "`n sqlLastError=" sqlLastError "`n sql=" select " `n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
         lll(A_LineNumber, A_LineFile, tip)
         tooltip, `% tip
-        feedbackMsgBox(RegExReplace(A_LineFile,".*\\") ">" . A_LineNumber, tip )
+        feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), tip )
         Clipboard := tip
         msgbox, % tip
     }
@@ -174,7 +174,7 @@ limit 1
         tip .= "`n sqlLastError=" sqlLastError "`n sql=" select " `n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
         lll(A_LineNumber, A_LineFile, tip)
         tooltip, `% tip
-        feedbackMsgBox(RegExReplace(A_LineFile,".*\\") ">" . A_LineNumber, tip )
+        feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), tip )
         Clipboard := tip
         msgbox, % tip
     }
@@ -351,7 +351,7 @@ UPDATE_ActionList_UsedByUser_since_midnight(){
     		tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
     		lll(A_LineNumber, A_LineFile, tip)
     		tooltip, `% tip
-    		feedbackMsgBox(RegExReplace(A_LineFile,".*\\") ">" . A_LineNumber, tip )
+    		feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), tip )
     		Clipboard := tip
     	}
 }
@@ -1185,7 +1185,7 @@ SendFull(SendValue,ForceBackspace:= false){
 
 
 	; msgBox,% ":( ERROR: " SendValue "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
-	; feedbackMsgBox(RegExReplace(A_LineFile,".*\\") ">" . A_LineNumber, SendValue  )
+	; feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), SendValue  )
 
 	
    ; if the user chose a word with accented characters, then we need to
@@ -1232,13 +1232,13 @@ SendFull(SendValue,ForceBackspace:= false){
 		}
 		
 		NewSendValue .= SubStr(SendValue, SendIndex, StrLen(SendValue) - SendIndex + 1)
-	;feedbackMsgBox(RegExReplace(A_LineFile,".*\\") ">" . A_LineNumber, SendValue  )
+	;feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), SendValue  )
 
 		SendValue := NewSendValue
 	}
 	
 	StringCaseSense, %StringCaseSenseOld%
-	;feedbackMsgBox(RegExReplace(A_LineFile,".*\\") ">" . A_LineNumber, SendValue  )
+	;feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), SendValue  )
 
    ; If we are not backspacing, remove the typed characters from the string to send
 	if !(BackSpaceWord)
@@ -1249,7 +1249,7 @@ SendFull(SendValue,ForceBackspace:= false){
    ; if autospace is on, add a space to the string to send
 	IfEqual, prefs_AutoSpace, On
 	SendValue .= A_Space
-	;feedbackMsgBox(RegExReplace(A_LineFile,".*\\") ">" . A_LineNumber, SendValue  )
+	;feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), SendValue  )
 
       ; thats great :) here we find the complete line :) inside sending 17.03.2017 18:30 17-03-17_18-30
 ;      Msgbox, '%SendValue%' = SendValue  (line:%A_LineNumber%)  (line:%A_LineNumber%)
@@ -1293,7 +1293,7 @@ SendFull(SendValue,ForceBackspace:= false){
             ; Send {Text}baby ^v {Clipboard} ; interpretiert nicht `r, `n, `t and `b usw
 			
 		}
-	;feedbackMsgBox(RegExReplace(A_LineFile,".*\\") ">" . A_LineNumber, SendValue  )
+	;feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), SendValue  )
 
 		if(!g_doUseSendPlay){
      ; just tested: words with ahk code goes here. but sending gets the value1 not the value2 with the script or ahk part 13.03.2018 14:43
@@ -1338,7 +1338,7 @@ SendFull(SendValue,ForceBackspace:= false){
     ;SendLevel 0
 			} else
 				Send,{Text}%sending%
-	; feedbackMsgBox(RegExReplace(A_LineFile,".*\\") ">" . A_LineNumber, SendValue  )
+	; feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), SendValue  )
 
             ;lll(A_LineNumber, A_LineFile, "%sending% `n >" . sending . "<  `n token=18-03-13_14-44")
 			

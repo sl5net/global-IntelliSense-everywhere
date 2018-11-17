@@ -379,7 +379,7 @@ RecomputeMatches( calledFromStr ){
 		tip .= "`n sqlLastError=" sqlLastError "`n sql=" SELECT " `n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
 		lll(A_LineNumber, A_LineFile, tip)
 		tooltip, `% tip
-		feedbackMsgBox(RegExReplace(A_LineFile,".*\\") ">" . A_LineNumber, tip )
+		feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), tip )
 		Clipboard := tip
 		msgbox, % tip
 	}
