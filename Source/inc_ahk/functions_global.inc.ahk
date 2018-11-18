@@ -72,6 +72,9 @@ varExist(ByRef v) {
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
  lll(ByRef ln, scriptName, text := "") {
 global g_ignReg
+
+debugIt := 0
+
 	ln .= "`n"
 	n := "`n"
 if(0){
@@ -94,12 +97,20 @@ if(0){
 if(1){
 	if(is_ignReg_defined ){
 	if( RegExMatch( ln, g_ignReg["saveLogFiles"]["ln"]) ){
+
+	    if(debugIt)
+	        msgbox, return %ln% `n (%A_LineFile%~%A_LineNumber%)
 		return
 	}
 	if( RegExMatch( scriptName, g_ignReg["saveLogFiles"]["scriptName"])	){
+	    if(debugIt)
+	        msgbox, return %scriptName% `n (%A_LineFile%~%A_LineNumber%)
+
 		return
 	}
     if( RegExMatch( text, g_ignReg["saveLogFiles"]["text"]) ){
+	    if(debugIt)
+	        msgbox, return %text% `n (%A_LineFile%~%A_LineNumber%)
 		return
 	}}
 }
@@ -132,7 +143,7 @@ if(!Instr(logFileName,scriptName)){ ; plausibillity check . hopefully never happ
 
 	;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 	; proof randomly if ye should delte the log file 16.07.2017 12:05
-	Random, rand, 1, 50
+	Random, rand, 1, 150
 	if(rand == 1){
 		FileGetSize, logFileKbytes, %logFileName%, K  ; Retrieve the size in Kbytes.
 		if(!logFileKbytes){
@@ -140,7 +151,7 @@ if(!Instr(logFileName,scriptName)){ ; plausibillity check . hopefully never happ
 			if(!fileexist(logFileName))
     			msgbox,Oops  %A_LineNumber%
         }
-		if(logFileKbytes > 10){
+		if(logFileKbytes > 100){
 			FileDelete,%logFileName%
 			FileAppend, %A_LineNumber%: logFileDeleted %timestampHHmmss%, %logFileName%
 			; msgbox,deleted :) %A_LineNumber%
