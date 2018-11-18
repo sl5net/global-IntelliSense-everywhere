@@ -390,6 +390,8 @@ RecomputeMatches( calledFromStr ){
 	for each, row in Matches.Rows
 	{      
 		g_SingleMatch[++g_MatchTotal] := row[1]
+		if(!g_SingleMatch[g_MatchTotal])
+		    continue
 		g_SingleMatchDescription[g_MatchTotal] := row[2]
 		g_SingleMatchReplacement[g_MatchTotal] := row[3]
 		if(0 && InStr(A_ComputerName,"SL5"))

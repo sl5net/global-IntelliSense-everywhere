@@ -6,14 +6,15 @@ FileEncoding, UTF-8
 #Include %A_ScriptDir%\inc_ahk\init_global.init.inc.ahk
 #Include %A_ScriptDir%\inc_ahk\soundBeep.inc.ahk
 
+lll( A_ThisFunc ":" A_LineNumber , A_LineFile , "i am started 9" )
 ; #Include %A_ScriptDir%\unitTests.inc.ahk ; Use this if you just want to test the preparser 13.11.2018 21:17
+lll( A_ThisFunc ":" A_LineNumber , A_LineFile , "i am started 10" )
 
 
 
 
 #MaxHotkeysPerInterval 99000000
 #HotkeyInterval 99000000
-Process, Priority,, H ; <=== only use this if its not in a critical development 05.11.2018 13:20
 ; Process, Priority,, Normal
 SetBatchLines, -1 ; used till 03.11.2018 18:51. thats okay. Use SetBatchLines -1 to never sleep (i.e. have the script run at maximum speed). The default setting is 10m
 ; SetBatchLines, 20ms ; addet 03.11.2018 18:51
@@ -27,9 +28,8 @@ SetControlDelay, -1 ; A short delay (sleep) is done automatically after every Co
 lineFileName := RegExReplace(A_LineFile, ".*\\([\w\s\.]+)$", "$1")
 ; G:\fre\git\github\global-IntelliSense-everywhere-Nightly-Build\Source\inc_ahk\soundBeep.inc.ahk
 
+Process, Priority,, H ; <=== only use this if its not in a critical development 05.11.2018 13:20
 
-
-FileEncoding, UTF-8
 
 CoordMode, ToolTip,Screen
 
@@ -211,11 +211,11 @@ SetTimer,doListBoxFollowMouse,off
 
 RegRead, g_ListBoxX, HKEY_CURRENT_USER, SOFTWARE\sl5net, g_ListBoxX
 RegRead, g_ListBoxY, HKEY_CURRENT_USER, SOFTWARE\sl5net, g_ListBoxY
-; a li s too
+; a li s too test halo
 
 ; SetTitleMatchMode,regEx
 ; #IfWinActive,(Autohotkey|\.ahk)
-; Hotkey, ^+esc, off
+; Hotkey, ^+esc, off ; l
 
 
 #IfWinActive,

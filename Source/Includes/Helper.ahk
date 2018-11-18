@@ -1,6 +1,6 @@
 ﻿; These functions and labels are related to interacting with the Helper Window
 
-MaybeOpenOrCloseHelperWindow(ActiveProcess,ActiveTitle,ActiveId)
+MaybeOpenOrCloseHelperWindow(ActiveProcess,activeTitle,ActiveId)
 {
 
    ; This is called when switching the active window
@@ -13,7 +13,7 @@ MaybeOpenOrCloseHelperWindow(ActiveProcess,ActiveTitle,ActiveId)
       Return
    }
 
-   IF ( CheckHelperWindowAuto(ActiveProcess,ActiveTitle) )
+   IF ( CheckHelperWindowAuto(ActiveProcess,activeTitle) )
    {
       global g_HelperClosedWindowIds
       ; Remove windows which were closed
@@ -44,7 +44,7 @@ MaybeOpenOrCloseHelperWindow(ActiveProcess,ActiveTitle,ActiveId)
    
 }
 
-CheckHelperWindowAuto(ActiveProcess,ActiveTitle)
+CheckHelperWindowAuto(ActiveProcess,activeTitle)
 {
 
    global prefs_HelperWindowProgramExecutables
@@ -65,11 +65,11 @@ CheckHelperWindowAuto(ActiveProcess,ActiveTitle)
       {
          StringTrimLeft, TrimmedString, A_LoopField, 1
          StringTrimRight, TrimmedString, TrimmedString, 1
-         IfEqual, ActiveTitle, %TrimmedString%
+         IfEqual, activeTitle, %TrimmedString%
          {
             Return, true
          }
-      } else IfInString, ActiveTitle, %A_LoopField%
+      } else IfInString, activeTitle, %A_LoopField%
       {
          Return, true
       }
@@ -154,10 +154,10 @@ HelperWindowClosed()
    {
       ;Check g_LastActiveIdBeforeHelper and not g_Active_Id in case we are on the Helper Window
       global g_LastActiveIdBeforeHelper
-      WinGetTitle, ActiveTitle, ahk_id %g_LastActiveIdBeforeHelper%
+      WinGetTitle, activeTitle, ahk_id %g_LastActiveIdBeforeHelper%
       WinGet, ActiveProcess, ProcessName, ahk_id %g_LastActiveIdBeforeHelper%
       
-      If ( CheckHelperWindowAuto(ActiveProcess,ActiveTitle) )
+      If ( CheckHelperWindowAuto(ActiveProcess,activeTitle) )
       {
          global g_HelperClosedWindowIDs
          

@@ -85,7 +85,7 @@ ListBoxClickItem(wParam, lParam, msg, ClickedHwnd){
             SetTimer,doListBoxFollowMouse,off
             Hotkey, WheelUp, off
             Hotkey, WheelDown, off
-
+            ;
             RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, g_ListBoxX, %g_ListBoxX%
             RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, g_ListBoxY, %g_ListBoxY%
       }else{
