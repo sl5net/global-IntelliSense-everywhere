@@ -445,7 +445,7 @@ from: ActionList.ahk~%A_LineNumber%
 		
 		
 		Thread, NoTimers , False ; Prevents interruptions from any timers.
-
+		
 		
 		
 		SetTimer,checkInRegistryChangedActionListAddress,off ; RegRead, ActionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList
@@ -781,26 +781,6 @@ if(doAsimpleCopy){
 	Return "break" ; free for everything happens next	
 }
 
-if(0){ ; we do the sam in in this function in other line. todo: compare it. but it works. dont hurry.
-	; MsgBox, found doAsimpleCopy 670
-	cto := rootCmdTypeObj ; For shorter reading			
-	if(cto.is_IndexedAhkBlock && !IsAtEOF  ){
-		newKeywords := getAutoKeywords(ALoopField )
-		lll( A_ThisFunc ":" A_LineNumber , A_LineFile , AIndex ":" " oldKeywords=" oldKeywords "`n"  " newKeywords=" newKeywords "`n" ObjSToStrTrim(s:="", rootCollectObj) s )
-		lll( A_LineNumber , A_LineFile , A_ThisFunc "`n" Aindex ">ROOT>'" ALoopField "'=ALoopField`n" ObjSToStrTrim(s:="",rootLineObj, rootCmdTypeObj, rootCollectObj, rootDoObj) s )
-		
-;		feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), " oldKeywords=" oldKeywords "`n"  " newKeywords=" newKeywords "`n" ObjSToStrTrim(s:="", rootCollectObj) s )
-		valud2DB := newKeywords "|r|" trimLineInBlock "`n" ; add a replacment or simple sting 13.11.2018 10:26
-		lll( A_ThisFunc ":" A_LineNumber , A_LineFile , AIndex ":" valud2DB )
-		AddWordToList(strDebug4insert,strDebugByRef,A_LineNumber,Aindex, valud2DB , 0,"ForceLearn",LearnedWordsCount, rootCmdTypeObj.is_IndexedAhkBlock)
-		if(""==ALoopField){
-			
-			Pause,On  
-			msgBox,Oops 
-		}
-	}
-}
-
 if(isWithValueArea(rootCmdTypeObj)){
 	; rootLineObj.posBehindKeywords := (p:=instr(rootLineObj.value,"|")) ? p : 1
 	if( rootLineObj.posBehindKeywords := instr(rootLineObj.value,"|") )
@@ -816,6 +796,8 @@ if( rootDoObj.collectBlock && Aindex == rootLineObj.Aindex ) ; first contact
 	lll( A_LineNumber , A_LineFile , A_ThisFunc "`n" Aindex ">ROOT>'" ALoopField "'=ALoopField`n" ObjSToStrTrim(s:="",rootLineObj, rootCmdTypeObj, rootCollectObj, rootDoObj) s )
 	Return "continue"
 }
+
+
 
 
 
@@ -840,7 +822,7 @@ if( !rootDoObj.collectBlock && !rootDoObj.createKeys && CheckValid(rootLineObj.v
 }
 
 firstWordInLine := ( RegexMatch(ALoopField,"i)^\s*(\w+)",Match) ) ? Match1 : ""
-Tooltip, % firstWordInLine
+; Tooltip, % firstWordInLine
 
         ;/¯¯¯¯ if(rootDoObj.collectBlock) ¯¯ 181111201107 ¯¯ 11.11.2018 20:11:07 ¯¯\
 if(rootDoObj.collectBlock && ( Aindex <> rootLineObj.Aindex ) ){	
@@ -929,7 +911,7 @@ if(rootDoObj.collectBlock && ( Aindex <> rootLineObj.Aindex ) ){
 		
 		if( !rootLineObj.newKeywords 
 		&& ( rootDoObj.createKeys || rootCmdTypeObj.is_without_keywords ) ) {
-			rootLineObj.newKeywords := firstWordInLine getAutoKeywords(temp:=rootLineObj.oldKeywords " " rootCollectObj.value)
+			rootLineObj.newKeywords := getAutoKeywords(temp:= firstWordInLine " " rootLineObj.oldKeywords " " rootCollectObj.value)
 			lll( A_ThisFunc ":" A_LineNumber , A_LineFile , Aindex ":00000>" rootLineObj.newKeywords "<0000=rootLineObj.newKeywords" )
 		}
 		if(isPrefixMultilineAHK){
@@ -940,10 +922,26 @@ if(rootDoObj.collectBlock && ( Aindex <> rootLineObj.Aindex ) ){
 			strDebugByRef .= ">>>>>" rootCmdTypeObj.is_without_keywords
 			msgBox, % strDebugByRef "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
 		}
-		valud2DB := rootLineObj.newKeywords  " " rtrim(rootLineObj.value," `t`r`n") "`n" rootCollectObj.value 
-		lll( A_LineNumber , A_LineFile , A_ThisFunc "`n" Aindex ">ROOT>'" ALoopField "'=ALoopField`n#" rootCollectObj.value  "#")
-		lll( A_LineNumber , A_LineFile , A_ThisFunc "`n" Aindex ">ROOT>'" ALoopField "'=ALoopField`n###" valud2DB "###")
+		
+		lll( A_LineNumber , A_LineFile , A_ThisFunc "`n" Aindex ">ROOT>'" ALoopField "'=ALoopField`n" ObjSToStrTrim(s:="",rootLineObj, rootCmdTypeObj, rootCollectObj, rootDoObj) s )
+		; if(0 && rootDoObj.collectBlock && !rootDoObj.is_without_keywords ){
+		if(rootDoObj.createKeys && rootCmdTypeObj.is_without_keywords ){
+			; newKeyWords := getAutoKeywords(temp:= rootLineObj.value " "  rootLineObj.oldKeywords " " rootCollectObj.value)
+			valud2DB := setInNewKeywordsIntoLine( rootLineObj.newKeywords , rootLineObj.value ) "`n" rootCollectObj.value 
+			lll( A_ThisFunc ":" A_LineNumber , A_LineFile , rootLineObj.newKeywords ":" newKeyWords )
+			lll( A_LineNumber , A_LineFile , A_ThisFunc "`n" Aindex ">ROOT>'" rootLineObj.value "'=ALoopField`n###" valud2DB "###")
+		}else{
+			valud2DB := rootLineObj.value  "`n" rootCollectObj.value 
+			lll( A_LineNumber , A_LineFile , A_ThisFunc "`n" Aindex ">ROOT>'" rootLineObj.value "'=ALoopField`n###" valud2DB "###")
+		}
+		if(0 && !instr(rootCollectObj.value,"bit of "))
+			pause 
+		lll( A_LineNumber , A_LineFile , A_ThisFunc "`n" Aindex ">ROOT>'" rootLineObj.value "'=ALoopField`n#" rootCollectObj.value  "#")
+		
+		
+		
 		AddWordToList(strDebug4insert,strDebugByRef,A_LineNumber,Aindex, valud2DB , 0,"ForceLearn",LearnedWordsCount, isIndexedAhkBlock)
+		
 		lll( A_LineNumber , A_LineFile , A_ThisFunc "`n" Aindex ">ROOT>'" ALoopField "'=ALoopField`n" ObjSToStrTrim(s:="",rootLineObj, rootCmdTypeObj, rootCollectObj, rootDoObj) s )
 		if( false 
 && rootCmdTypeObj.is_without_keywords) { ; ; && g_config["FuzzySearch"]["enable"] ; && Aindex < g_config["FuzzySearch"]["MAXlines"]
@@ -1008,46 +1006,46 @@ Return "break"
 deepCopy_contObj_2_rootObj(rootLineObj, rootCmdTypeObj, rootCollectObj, rootDoObj
 							, contLineObj, contCmdTypeObj, contCollectObj, contDoObj){
 		; rootLineObj.Aindex := contLineObj.Aindex
-							rootLineObj.Aindex := contLineObj.Aindex ; this explicite copy of eache attribute does no speccel effect. dont need it probalby 18-11-14_23-24
-							contLineObj.Aindex := 0
-							
-							rootLineObj.value := contLineObj.value
-							rootLineObj.oldKeywords := "" ; contCmdTypeObj.oldKeywords
-							rootLineObj.newKeywords := "" ; contCmdTypeObj.oldKeywords
-							
-							rootCmdTypeObj.codePrefixChar := contCmdTypeObj.codePrefixChar
-							rootCmdTypeObj.is_ended := contCmdTypeObj.is_ended
-							rootCmdTypeObj.is_IndexedAhkBlock := contCmdTypeObj.is_IndexedAhkBlock ; is_
-							rootCmdTypeObj.is_multiline_r := contCmdTypeObj.is_multiline_r
-							rootCmdTypeObj.is_multiline_rr := contCmdTypeObj.is_multiline_rr
-							rootCmdTypeObj.is_r := contCmdTypeObj.is_r
-							rootCmdTypeObj.is_rr := contCmdTypeObj.is_rr
-							rootCmdTypeObj.is_str := contCmdTypeObj.is_str
-							rootCmdTypeObj.is_synonym := contCmdTypeObj.is_synonym
-							rootCmdTypeObj.is_without_keywords := contCmdTypeObj.is_without_keywords
-							backup := g_ignReg["feedbackMsgBox"]["tit"] ;
-							rootCollectObj.value := contCollectObj.value
-							lll( A_ThisFunc ":" A_LineNumber , A_LineFile , "ooooo>" rootCollectObj.value "<ooooo" )
-							
-							rootDoObj.collectBlock := true
-							
+rootLineObj.Aindex := contLineObj.Aindex ; this explicite copy of eache attribute does no speccel effect. dont need it probalby 18-11-14_23-24
+contLineObj.Aindex := 0
+
+rootLineObj.value := contLineObj.value
+rootLineObj.oldKeywords := "" ; contCmdTypeObj.oldKeywords
+rootLineObj.newKeywords := "" ; contCmdTypeObj.oldKeywords
+
+rootCmdTypeObj.codePrefixChar := contCmdTypeObj.codePrefixChar
+rootCmdTypeObj.is_ended := contCmdTypeObj.is_ended
+rootCmdTypeObj.is_IndexedAhkBlock := contCmdTypeObj.is_IndexedAhkBlock ; is_
+rootCmdTypeObj.is_multiline_r := contCmdTypeObj.is_multiline_r
+rootCmdTypeObj.is_multiline_rr := contCmdTypeObj.is_multiline_rr
+rootCmdTypeObj.is_r := contCmdTypeObj.is_r
+rootCmdTypeObj.is_rr := contCmdTypeObj.is_rr
+rootCmdTypeObj.is_str := contCmdTypeObj.is_str
+rootCmdTypeObj.is_synonym := contCmdTypeObj.is_synonym
+rootCmdTypeObj.is_without_keywords := contCmdTypeObj.is_without_keywords
+backup := g_ignReg["feedbackMsgBox"]["tit"] ;
+rootCollectObj.value := contCollectObj.value
+lll( A_ThisFunc ":" A_LineNumber , A_LineFile , "ooooo>" rootCollectObj.value "<ooooo" )
+
+rootDoObj.collectBlock := true
+
 		; g_ignReg["feedbackMsgBox"]["tit"]  :=  ".^"  means ingnores nothing
-							contLineObj.value := ""
-							contCollectObj.value := ""
-							contLineObj.oldKeywords := ""
-							contLineObj.newKeywords := ""
-							contCmdTypeObj.codePrefixChar := ""
-							contCmdTypeObj.is_ended := false
-							contCmdTypeObj.is_IndexedAhkBlock := false
-							contCmdTypeObj.is_multiline_r := false
-							contCmdTypeObj.is_multiline_rr := false
-							contCmdTypeObj.is_r := false
-							contCmdTypeObj.is_rr := false
-							contCmdTypeObj.is_str := false
-							contCmdTypeObj.is_synonym := false
-							contCmdTypeObj.is_without_keywords := false
-							contDoObj.collectBlock := false
-							}
+contLineObj.value := ""
+contCollectObj.value := ""
+contLineObj.oldKeywords := ""
+contLineObj.newKeywords := ""
+contCmdTypeObj.codePrefixChar := ""
+contCmdTypeObj.is_ended := false
+contCmdTypeObj.is_IndexedAhkBlock := false
+contCmdTypeObj.is_multiline_r := false
+contCmdTypeObj.is_multiline_rr := false
+contCmdTypeObj.is_r := false
+contCmdTypeObj.is_rr := false
+contCmdTypeObj.is_str := false
+contCmdTypeObj.is_synonym := false
+contCmdTypeObj.is_without_keywords := false
+contDoObj.collectBlock := false
+}
 ;\____ deepCopy_contObj_2_rootObj __ 181117033024 __ 17.11.2018 03:30:24 __/
 
 
@@ -1573,84 +1571,68 @@ ReverseWordNums(LearnedWordsCount){
 ;\____ ReverseWordNums __ 181116123242 __ 16.11.2018 12:32:42 __/
 
 
+; G:\fre\git\github\global-IntelliSense-everywhere-Nightly-Build\Source\Includes\ActionList.ahk
 
 ;/¯¯¯¯ getAutoKeywords ¯¯ 181106121229 ¯¯ 06.11.2018 12:12:29 ¯¯\
-getAutoKeywords(ByRef oldKeywords){
+getAutoKeywords(ByRef oldKeywords
+        , addKeysMAX := 9 , minLength := 4, doFirstWord := true
+		, regEx := "\b((\w+?(?=[A-Z]|\b))([A-Z][a-z]*)?)([A-Z][a-z]*)?"
+        , elseIfResulsEmpty := "without keywords" ){
+		   ; this function works also multiline. you must not use g)
+
     ; AddWord rootDoObj.createKeys https://g-intellisense.myjetbrains.com/youtrack/issues?q=project:%20g-IntelliSense#issueId=GIS-65
 	; https://github.com/sl5net/global-IntelliSense-everywhere/blob/master/Source/Includes/ActionList.ahk#L1438
     ; https://stackoverflow.com/questions/53345266/generate-search-words-from-text-with-camelcase-by-using-regex
-	newKeyWords := oldKeywords
-	resultStr  := ""
 
-	firstWord := RegExMatch(newKeyWords,"(\w+)",m) ? m1 : ""
-	resultStr := firstWord " "
 
-	addKeysMAX := 44
-	minLength := 4
-	regEx := "\b((\w+?(?=[A-Z]|\b))([A-Z][a-z]*)?)([A-Z][a-z]*)?"
-	StartingPosition  := 2
-	addedKeysCounter := 0
-	Array := [] ; or Array := Array()
-	while(foundPos := RegexMatch( newKeyWords, "(" regEx ")", Match, StartingPosition )){
+
+newKeyWords := ltrim( oldKeywords," `t`r`n") ; usefull for comparsison later with first wird is already insiede.
+	; MsgBox,% ">" resultStr "<  `n`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+resultStr  := ""
+
+Array := [] ; or Array := Array()
+if(doFirstWord){
+	firstWord := RegExMatch(newKeyWords,"^\s*(\w+)",m) ? m1 : ""
+	if(firstWord){
+		resultStr := firstWord " "
+		Array.Push(firstWord)
+	}
+}
+
+StartingPosition  := 2
+addedKeysCounter := 0
+while(foundPos := RegexMatch( newKeyWords, "(" regEx ")", Match, StartingPosition )){
 		; StartingPosition := Match.Pos(1) + Match.Len(1)
-		StartingPosition += strlen(Match1)
-
-		if(addedKeysCounter >= addKeysMAX)
-			break
-		loop,3
-		{
-			word := Match%A_Index%
+	StartingPosition += strlen(Match1)
+	
+	loop,3
+	{
+		word := Match%A_Index%
 			; MsgBox,% ">" word "<  (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
-			if(!HasVal(Array,word)){
-				if(!firstWord){
-					firstWord := word
-					resultStr .= firstWord " "
-				}
-				if(minLength <= strlen(word)){
-					Array.Push(word) ; Append this line to the array.
-				    ArrayCount++
-				    resultStr .= word " "
-				}
+		if(!HasVal(Array,word)){
+			if(!firstWord){
+				firstWord := word
+				resultStr .= firstWord " "
+			}
+			if(strlen(word) >= minLength ){
+				Array.Push(word) ; Append this line to the array.
+				ArrayCount++
+				resultStr .= word " "
 			}
 		}
-
 	}
-	; MsgBox,% ">" resultStr "<  `n`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
-	resultStr := rTrim(resultStr)
-	if(!resultStr)
-        resultStr := "without keywords"
-
-	return resultStr
-
-
-
-
-
-
-
-
-
-
-
-	newKeyWords := ""
-	Loop % ArrayCount
-	{
-        ; element := Array%A_Index%
-		element := Array[A_Index]
-        ; MsgBox % "Element number " . A_Index . " is " . Array%A_Index%
-		newKeyWords .= element " "
-	}
-	if(!newKeyWords := rTrim(newKeyWords))
-		if(!newKeyWords := firstWord)
-			newKeyWords := "without keywords"
-        ; MsgBox % "Element number " . A_Index . " is " . Array%A_Index%
-    if(!newKeyWords)
-       newKeyWords := "without keywords"
-	return newKeyWords
+	if(ArrayCount >= addKeysMAX)
+		break			
+}
+resultStr := Trim(resultStr)
+if(!resultStr)
+	resultStr := elseIfResulsEmpty ; "without keywords"
+	    ; MsgBox,% ">" resultStr "<  `n`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+return resultStr
 }
 ;\____ getAutoKeywords __ 181106121233 __ 06.11.2018 12:12:33 __/
 
-
+; G:\fre\git\github\global-IntelliSense-everywhere-Nightly-Build\Source\Includes\ActionList.ahk
 
 
 ;/¯¯¯¯ HasVal ¯¯ 181116205402 ¯¯ 16.11.2018 20:54:02 ¯¯\
@@ -1665,6 +1647,48 @@ HasVal(haystack, needle) { ; return index
 	return 0
 }
 ;\____ HasVal __ 181116205406 __ 16.11.2018 20:54:06 __/
+
+
+
+
+;/¯¯¯¯ setInNewKeywordsIntoLine ¯¯ 181119012306 ¯¯ 19.11.2018 01:23:06 ¯¯\
+; BTW please add keywords into the index row of your database.
+; i you want use this anyway ... use it :) 19.11.2018 10:01
+setInNewKeywordsIntoLine(	  newKeyWords := "" 
+						, ByRef line := ""
+						, posEndKeywords := 0
+						, doSetItBehindLastKeyword := true
+	, noOp:=false ){ ; <= has no function only for layout in this function
+newLine := ""
+
+newKeyWords := trim(newKeyWords)
+line := trim(line)
+
+if(!newKeyWords)
+	newKeyWords := getAutoKeywords(firstWordInLine newKeyWords line)
+if(!firstWordInLine)
+	firstWordInLine := ( RegexMatch(ALoopField,"i)^\s*(\w+)",Match) ) ? Match1 : ""
+
+if(doSetItBehindLastKeyword := true  ){ 
+	posSeperator := instr(Line,"|") 
+	posEndKeywords := ( posSeperator ) ? posSeperator  : StrLen(line)
+	if(!posSeperator)
+		newLine := line " " newKeyWords
+	else{
+		if(posSeperator>1)
+			newLine := substr(line,1,posEndKeywords -1 ) " " newKeyWords substr(line, posEndKeywords )
+		else
+			newLine := newKeyWords substr(line, posEndKeywords )
+	}
+}
+return newLine
+}
+;\____ setInNewKeywordsIntoLine __ 181119012311 __ 19.11.2018 01:23:11 __/
+
+
+
+
+
 
 
 
@@ -1743,8 +1767,11 @@ AddWordToList(ByRef strDebug4insert, ByRef strDebugByRef,fromLine,lineNr, AddWor
 	if(!CheckValid(AddWord,ForceLearn, is_IndexedAhkBlock)){
         ; msgbox,% ">>" AddWord "<<`n is NOT valid(" A_LineNumber ": " A_ThisFunc " " RegExReplace(A_LineFile, ".*\\") ")"
 		if(1 && InStr(A_ComputerName,"SL5")){
-			lll( A_LineNumber , A_LineFile , A_ThisFunc ": " INSERT_INTO_words )			
-			Speak(A_LineNumber ":" rootLineObj.value ,"PROD")
+			lll( A_LineNumber , A_LineFile , A_ThisFunc ": " INSERT_INTO_words )
+			if(!rootLineObj.value)
+			    Speak(A_LineNumber ". not valid. its empty " rootLineObj.value ,"PROD")
+           else
+			    Speak(A_LineNumber ". not valid: " rootLineObj.value ,"PROD")
 		}
 		return false
 	}

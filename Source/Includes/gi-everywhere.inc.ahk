@@ -311,6 +311,9 @@ ProcessKey(InputChar,EndKey) {
 
 
 ;<<<<<<<< RecomputeMatches <<<< 180319210937 <<<< 19.03.2018 21:09:37 <<<<
+; this version runs in:
+; v0.9  aa79a8d blue Mountain
+;@sl5net sl5net released this on 13 Oct · 107 commits to master since this release
 RecomputeMatches( ByRef calledFromStr ){
    ; This function will take the given word, and will recompile the list of matches and redisplay the ActionList.
    global g_MatchTotal
@@ -459,7 +462,6 @@ RecomputeMatches( ByRef calledFromStr ){
 
 
 
-; Too 
 
 
 
