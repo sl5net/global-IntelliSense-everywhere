@@ -1814,7 +1814,7 @@ AddWordToList(ByRef strDebug4insert, ByRef strDebugByRef,fromLine,lineNr, AddWor
 			tooltip, % "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")`n`n g_ActionListDone= >" g_ActionListDone "<`n`n" AddWord  
 	}
 	
-	if(1 || g_ActionListDone == "0"){ ;if this is read from the ActionList
+	if( g_ActionListDone == "0"){ ;if this is read from the ActionList ; 1 ||
 		if(1 || LearnedWordsCount){ ;if this is a stored learned word, this will only have a value when LearnedWords are read in from the ActionList
 			; must update wordreplacement since SQLLite3 considers nulls unique
 			INSERT_INTO_words := "INSERT INTO words (wordindexed, word , count , wordreplacement , ActionListID, lineNr) `n"
