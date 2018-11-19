@@ -31,7 +31,29 @@ lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"hey from ini ")
 
 global errStr_first := ""
 
+global g_LegacyLearnedWords
+global g_ScriptTitle
+global g_ActionListDone
+global g_ActionListDB
+global ActionList
+global g_ActionListID
+global g_ActionListDBfileAdress
+global g_config
+
+
+
 prepareGi()
+g_ActionListDB.BeginTransaction()
+
+fromLine := "`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+g_ActionListDB.Query("DROP TABLE Words;")
+if(sqlLastError := trim(SQLite_LastError()))
+    msgbox,:( g_ActionListID = %g_ActionListID%,sqlLastError = %sqlLastError% %fromLine%
+CreateWordsTable()
+if(sqlLastError := trim(SQLite_LastError()))
+    msgbox,:( g_ActionListID = %g_ActionListID%,sqlLastError = %sqlLastError% %fromLine%
+
+
 
 ;/¯¯¯¯ g_do_only_this_testCase ¯¯ 181118111647 ¯¯ 18.11.2018 11:16:47 ¯¯\
 ;/¯¯¯¯ g_do_only_this_testCase ¯¯ 181118111647 ¯¯ 18.11.2018 11:16:47 ¯¯\
@@ -52,10 +74,27 @@ WinWaitNotActive,WinMerge
 WinGetActiveTitle,activeTitle
 
 
+
+; err_read_actionList_from_file_and_preParse()
+;/¯¯¯¯ err_bewe ¯¯ 181119210955 ¯¯ 19.11.2018 21:09:55 ¯¯\
+err_read_actionList_from_file_and_preParse(){
+    fileAddress := "..\ActionLists\_globalActionLists\.....................ahk"
+    FileRead, in , % fileAddress
+    result := Loop_Parse_ParseWords( in )
+    clipboard  := result
+    msgbox , clipboard  := result
+}
+;\____ err_bewe __ 181119210958 __ 19.11.2018 21:09:58 __/
+
+
+err_ReadActionList()
+
 ;/¯¯¯¯ AutoKeywords ¯¯ 181118181811 ¯¯ 18.11.2018 18:18:11 ¯¯\
 if(1 && errStr:=test_getAutoKeywords())
 	countErrors++ ; Msgbox,% A_LineNumber  ;
 ;\____ AutoKeywords __ 181118181814 __ 18.11.2018 18:18:14 __/
+else if(1 && errStr:=err_CheckValid())
+		countErrors++ ; Msgbox,% A_LineNumber  ;
 else if(1 && errStr:=err_is_without_keywords())
 		countErrors++ ; Msgbox,% A_LineNumber  ;
 else if(1 && errStr:=err_problemNow())
@@ -93,6 +132,7 @@ else if(1 && errStr:=err_open_issues())
     countErrors++ ; Msgbox,% A_LineNumber  ;
 
 
+
 ifWinNotActive, WinMerge
 	WinGetActiveTitle,activeTitle
 
@@ -102,9 +142,11 @@ if(countErrors<1)
 if(countErrors>0){
 	Speak( countErrors " Error found. " ALineNumber, "PROD" )
 	tooltip,% errStr,1,1
-	; Msgbox,% errStr,1,1
+	Msgbox,,% errStr ,,2
 	sleep,2000
 }
+
+g_ActionListDB.EndTransaction()
 
 
 Critical,Off
@@ -153,6 +195,88 @@ exitapp
 return
 ; run,% "..\start.ahk"
 
+
+
+
+
+;/¯¯¯¯ ReadActionList ¯¯ 181028133202 ¯¯ 28.10.2018 13:32:02 ¯¯\
+err_ReadActionList(){
+
+info =
+(
+	global g_LegacyLearnedWords
+	global g_ScriptTitle
+	global g_ActionListDone
+	global g_ActionListDB
+	global ActionList
+	global g_ActionListID
+	global g_ActionListDBfileAdress
+	global g_config
+)
+
+global g_ActionListDB
+g_ActionListDBfileAdress := "G:\fre\private\sql\sqlite\ActionList.db"
+g_ActionListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", g_ActionListDBfileAdress ) ;
+global g_LegacyLearnedWords =
+global g_ScriptTitle = gi-everywhere
+global ActionList
+ActionList = ..\ActionLists\ChromeWidgetWin1\lubuntu18-11-19_16-05_Piratenpad_Google_Chrome.ahk._Generated.ahk
+global g_ActionListID
+global g_ActionListDBfileAdress
+g_ActionListDBfileAdress = G:\fre\private\sql\sqlite\ActionList.db
+global g_config
+
+if(!g_ActionListDB)
+    g_ActionListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", g_ActionListDBfileAdress ) ;
+
+if(!g_ActionListID := getActionListID(ActionList)){ ; 24.03.2018 23:02
+	sql := "INSERT INTO ActionLists "
+	sql .= " (id, ActionList, ActionListmodified, ActionListsize) VALUES "
+	sql .= " (null, '" ActionList "', '" ActionListModified "', '" ActionListSize "' );"
+    g_ActionListDB.Query(sql)
+    fromLine := "`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+    if(!g_ActionListID := getActionListID(ActionList))
+        if(sqlLastError := trim(SQLite_LastError()))
+            msgbox,:( g_ActionListID = %g_ActionListID%,sqlLastError = %sqlLastError% %fromLine%
+}
+fromLine := "`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+if(sqlLastError := trim(SQLite_LastError()))
+    msgbox,:( g_ActionListID = %g_ActionListID%,sqlLastError = %sqlLastError% %fromLine%
+
+fromLine := "`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+
+; VALUES ('" AddWordIndexTransformed "', '" AddWordTransformed "', " LearnedWordsCount++ ", " g_ActionListID ", " lineNr ");"
+
+VALUES = VALUES ('%fromLine% %A_TickCount%' , '%fromLine%', 0, '%fromLine% %A_TickCount%', %g_ActionListID% , 555);
+INSERT_INTO_words := "INSERT INTO words (wordindexed, word, count, wordreplacement, ActionListID, lineNr) "
+INSERT_INTO_words .= VALUES
+g_ActionListDB.Query(INSERT_INTO_words)
+
+fromLine := "`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+if(sqlLastError := trim(SQLite_LastError()))
+    msgbox,:( g_ActionListID = %g_ActionListID%,sqlLastError = %sqlLastError% %fromLine%
+msgbox,, :-) g_ActionListID = %g_ActionListID%,%sqlLastError% %fromLine%,2
+
+}
+    ; ParseWordsCount := ReadActionList(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
+;\____ err_ReadActionList __ 181119181923 __ 19.11.2018 18:19:23 __/
+
+
+
+
+
+
+
+;/¯¯¯¯ err_CheckValid() ¯¯ 181119174125 ¯¯ 19.11.2018 17:41:25 ¯¯\
+err_CheckValid(){
+    if(!CheckValid("Word",ForceLearn:= false, is_IndexedAhkBlock := false))
+        return " °" A_ThisFunc "° <" A_LineNumber
+    if(CheckValid("",ForceLearn:= false, is_IndexedAhkBlock := false))
+        return " °" A_ThisFunc "° <" A_LineNumber
+    if(CheckValid("; käsewurst ",ForceLearn:= false, is_IndexedAhkBlock := false))
+        return " °" A_ThisFunc "° <" A_LineNumber
+}
+;\____ err_CheckValid() __ 181119174128 __ 19.11.2018 17:41:28 __/
 
 
 
@@ -257,7 +381,7 @@ testsynonym2|rr||ahk|q
 test1 baum testsynonym1|rr||ahk|q
 testsynonym2|rr||ahk|q
 )
-	if(errStr := getAssertEqual_ErrorStr(in,expected,A_ThisFunc ":" A_LineNumber, "Loop_Parse_ParseWords"))
+	if(errStr := getAssertEqual_ErrorStr(in,expected,A_ThisFunc ":" A_LineNumber, "Loop_Parse_ParseWords")) ; line 727 = Loop_Parse_ParseWords
 		Return errStr " °" A_ThisFunc "° "
 	
 	in := "A bit of a longer text"
@@ -1318,8 +1442,43 @@ getAssertEqual_ErrorStr(ByRef in,ByRef expected,ALineNumber,myFuncName := "Loop_
 		;MsgBox,% ALineNumber " wants func:" myFuncName "`n`n`n`n"  "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
 	}else{
 		result := Loop_Parse_ParseWords( in )
+		; ^==== ca line Loop_Parse_ParseWords:1064 > Loop_Parse_ParseWords_LoopField:726 > AddWordToList:1703
 		;MsgBox,% ALineNumber " wants func:" myFuncName "`n`n`n`n"  "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+
+
+
     }
+
+        timeStampMini = %A_DD%%A_Min%%A_Sec%
+
+		fromLine := ALineNumber ">`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+        sqlLastError := SQLite_LastError()
+        if(trim(sqlLastError))
+            msgbox,:( g_ActionListID = %g_ActionListID%,sqlLastError = %sqlLastError% %fromLine%
+        if(1){
+            VALUES = VALUES ('%A_ScriptName%_%A_ThisFunc%' , '%fromLine%', 0, '%timeStampMini%', %g_ActionListID% , 555);
+            INSERT_INTO_words := "INSERT INTO words (wordindexed, word, count,     wordreplacement   , ActionListID, lineNr) "
+            INSERT_INTO_words .= VALUES
+            g_ActionListDB.Query(INSERT_INTO_words)
+
+            ; check if its really in db:
+            SELECT := "SELECT wordreplacement FROM Words Where wordreplacement like '"
+            SELECT .= timeStampMini "' LIMIT 1 " ";"
+            Matches := g_ActionListDB.Query(SELECT)
+            isFound  := false
+            for each, row in Matches.Rows
+                if( row[1] )
+                    isFound  := true
+
+    		fromLine := ALineNumber ">`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+            sqlLastError := SQLite_LastError()
+            if(!isFound)
+                msgbox,:( g_ActionListID = %g_ActionListID%,sqlLastError = %sqlLastError% %fromLine% `n`n %SELECT%
+
+
+        }
+
+
 	expected := Trim(expected," `t`r`n")
 	result := Trim(result," `t`r`n")
 	if(result == expected){

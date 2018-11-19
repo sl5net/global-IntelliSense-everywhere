@@ -62,7 +62,6 @@ ReadActionList( calledFromStr ){
 	
 	
 	
-	
     ; msgBox,% g_config["FuzzySearch"]["keysMAXperEntry"] "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 	
 	; global g_config ; ["FuzzySearch"]["enable"]
@@ -453,14 +452,10 @@ from: ActionList.ahk~%A_LineNumber%
 		SetTimer,checkActionListAHKfile_sizeAndModiTime, off
 		SetTimer,checkWinChangedTitle,off
 		
+		; Critical,On
 		
 		; ParseWords := addListOpenAction_ifNotAlreadyInTheList(ParseWords,ActionList)
 		Loop_Parse_ParseWords(ParseWords)
-		
-		SetTimer,checkInRegistryChangedActionListAddress,On ; RegRead, ActionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList
-; SetTimer,checkInRegistryChangedActionListAddress,off ; RegRead, ActionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList
-		SetTimer,checkActionListAHKfile_sizeAndModiTime, On
-		SetTimer,checkWinChangedTitle,On
 		
 		
 		
@@ -485,6 +480,17 @@ from: ActionList.ahk~%A_LineNumber%
 		
 		ParseWords =
 		g_ActionListDB.EndTransaction()
+		
+		
+		Critical,Off
+		
+		SetTimer,checkInRegistryChangedActionListAddress,On ; RegRead, ActionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList
+; SetTimer,checkInRegistryChangedActionListAddress,off ; RegRead, ActionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList
+		SetTimer,checkActionListAHKfile_sizeAndModiTime, On
+		SetTimer,checkWinChangedTitle,On
+		
+		
+		
       ;Progress, Off
 		
 ; tool msg
@@ -778,6 +784,8 @@ if(doAsimpleCopy){
 		AddWordToList(strDebug4insert,strDebugByRef,A_LineNumber,Aindex, rootLineObj.value , 0,"ForceLearn",LearnedWordsCount, rootCmdTypeObj.is_IndexedAhkBlock)
 	}
 	lll( A_LineNumber , A_LineFile , A_ThisFunc "`n" Aindex ">ROOT>'" ALoopField "'=ALoopField`n" ObjSToStrTrim(s:="",rootLineObj, rootCmdTypeObj, rootCollectObj, rootDoObj) s )
+	deepCopy_contObj_2_rootObj(rootLineObj, rootCmdTypeObj, rootCollectObj, rootDoObj ; Now we can reuse the END as the BEGINNING (copy that):
+							, contLineObj, contCmdTypeObj, contCollectObj, contDoObj)
 	Return "break" ; free for everything happens next	
 }
 
@@ -1351,6 +1359,7 @@ setCommandTypeS(rootLineObj, rootCmdTypeObj, rootCollectObj, rootDoObj ){
 addListOpenAction_ifNotAlreadyInTheList(ByRef contentActionList,ByRef ActionList){
 	INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 	
+	return
 ; thats a way how you could add ActionList lines vocabularies inside onlive 12.08.2017 23:24
 ; if you may destroy your path to your config file, thats a way to find it again.
 ;                        foundOpenLibLine := 0
@@ -1525,11 +1534,12 @@ new = %newListSynonym%
 			sleep,3000
 		}
 		; AddWordToList(strDebug4insert,strDebugByRef,A_LineNumber,Aindex, newListSynonym ,0,"ForceLearn") ; <==== NOT WORKING !!!
-		AddWordToList(strDebug4insert,strDebugByRef,lineNr, newListSynonym ,0,"ForceLearn",LearnedWordsCount)   ; springt dann in zeile 490 ungefähr
+		; AddWordToList(ByRef strDebug4insert, ByRef strDebugByRef,fromLine				,lineNr			, AddWord		  ,ForceCountNewOnly,ForceLearn:= false, ByRef LearnedWordsCount := false,
+		AddWordToList(strDebug4insert		,strDebugByRef		,lineNr " >" A_LineNumber " "	, lineNr 			, newListSynonym ,0				,"ForceLearn"		,LearnedWordsCount)   ; springt dann in zeile 490 ungefähr
 		addedKeysCounter++
 		; tooltip,% newListSynonym " `n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 	} ; endOf while
-	return
+	return true
 } ; endIf addFuzzySearch_in_generatedList
 ;\____ addFuzzySearch_in_generatedList __ 181106192805 __ 06.11.2018 19:28:05 __/
 
@@ -1726,8 +1736,10 @@ AddWordToList(ByRef strDebug4insert, ByRef strDebugByRef,fromLine,lineNr, AddWor
 	strDebug4insert   .= Trim(AddWord," `t`r`n") "`n"  ; interesting for debugging
 	
    ;AddWord = Word to add to the list
-	if(0 && AddWord)
-		tooltip, % "AddWord = " AddWord  "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+	if(A_ScriptName == "unitTests.ahk" && AddWord)
+		tooltip, % "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")`n`n`n" AddWord  
+	
+	
 	
 	if !(LearnedWordsCount) {
 		StringSplit, SplitAddWord,  AddWord, | ; old method 17.03.2017 17:54 17-03-17_17-54
@@ -1764,33 +1776,60 @@ AddWordToList(ByRef strDebug4insert, ByRef strDebugByRef,fromLine,lineNr, AddWor
 		}
 	}
 	
-	if(!CheckValid(AddWord,ForceLearn, is_IndexedAhkBlock)){
+	
+	
+	
+	if(1 && !CheckValid(AddWord,ForceLearn, is_IndexedAhkBlock)){
         ; msgbox,% ">>" AddWord "<<`n is NOT valid(" A_LineNumber ": " A_ThisFunc " " RegExReplace(A_LineFile, ".*\\") ")"
 		if(1 && InStr(A_ComputerName,"SL5")){
-			lll( A_LineNumber , A_LineFile , A_ThisFunc ": " INSERT_INTO_words )			
-			Speak(A_LineNumber ":" rootLineObj.value ,"PROD")
+			lll( A_LineNumber , A_LineFile , A_ThisFunc ": " fromLine ":" AddWord )			
+			; lll( A_LineNumber , A_LineFile , A_ThisFunc ": " fromLine ":" INSERT_INTO_words )			
+			Speak(" not valid:" AddWord "( from:" A_LineNumber  ")","PROD")
+			; pause
 		}
+		if(A_ScriptName == "unitTests.ahk" && AddWord)
+			tooltip, % "return false <==== " AddWord  "`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+		
 		return false
 	}
+	
+	
+	if(A_ScriptName == "unitTests.ahk" && AddWord)
+		tooltip, % "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")`n`n`n" AddWord  
+	
+	
+	
         ; msgBox,% "is valid: " AddWord "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
    ; TransformWord normalizes the word, converting it to uppercase and removing certain accented characters.
 	TransformWord(AddWord, AddWordReplacement, AddWordDescription, AddWordTransformed, AddWordIndexTransformed, AddWordReplacementTransformed, AddWordDescriptionTransformed)
 	
+	if(1 && A_ScriptName == "unitTests.ahk" && AddWord){
+		tooltip, % "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")`n`n`n" AddWord  
+		; sleep,1000
+	}
 	
-	
-	
-	IfEqual, g_ActionListDone, 0 ;if this is read from the ActionList
+	If(g_ActionListDone) ;if this is read from the ActionList
 	{
-		IfNotEqual,LearnedWordsCount,  ;if this is a stored learned word, this will only have a value when LearnedWords are read in from the ActionList
-		{
-         ; must update wordreplacement since SQLLite3 considers nulls unique
-			INSERT_INTO_words := "INSERT INTO words (wordindexed, word, count, wordreplacement, ActionListID, lineNr) VALUES ('" AddWordIndexTransformed "', '" AddWordTransformed "', " LearnedWordsCount++ ", " g_ActionListID ", " lineNr ");"
+		if(A_ScriptName == "unitTests.ahk" && AddWord)
+			tooltip, % "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")`n`n g_ActionListDone= >" g_ActionListDone "<`n`n" AddWord  
+	}
+	
+	if(1 || g_ActionListDone == "0"){ ;if this is read from the ActionList
+		if(1 || LearnedWordsCount){ ;if this is a stored learned word, this will only have a value when LearnedWords are read in from the ActionList
+			; must update wordreplacement since SQLLite3 considers nulls unique
+			INSERT_INTO_words := "INSERT INTO words (wordindexed, word , count , wordreplacement , ActionListID, lineNr) `n"
+			VALUES := "VALUES ('" AddWordIndexTransformed 	"', '" AddWordTransformed "', '" LearnedWordsCount++ "', '" WordReplacementQuery "' , " g_ActionListID ", " lineNr ");"
+			INSERT_INTO_words .= VALUES 
+			
+			;INSERT_INTO_words := "INSERT INTO words (wordindexed, word, worddescription, wordreplacement, ActionListID, lineNr) 
+			;"VALUES ('"  AddWordIndexTransformed  "','"  AddWordTransformed . "',"  WordDescriptionQuery  ","  WordReplacementQuery  "," g_ActionListID ", " lineNr ");"
+			
 			
         ; msgbox,% INSERT_INTO_words "`n(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 			
-			if(1 && InStr(A_ComputerName,"SL5")){
-				Speak(A_LineNumber ":" INSERT_INTO_words ,"PROD")
-				msgbox,% "never used ? 18-11-12_18-4" INSERT_INTO_words "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+			if(1 && A_ScriptName == "unitTests.ahk" && AddWord){
+				tooltip, % "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")`n`n`n" AddWord  
+				; sleep,1000
 			}
 			
 			try{
@@ -1804,7 +1843,11 @@ AddWordToList(ByRef strDebug4insert, ByRef strDebugByRef,fromLine,lineNr, AddWor
 				feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), tip )
 				Clipboard := tip
 				msgbox, % tip
+				if(A_ScriptName == "unitTests.ahk" && AddWord)
+					tooltip, % "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")`n`n`n" AddWord  "`n`n`n" INSERT_INTO_words
 			}
+			if(A_ScriptName == "unitTests.ahk" && AddWord)
+				tooltip, % "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")`n`n`n" AddWord  "`n`n`n" INSERT_INTO_words
 			
 			
 		} else {
@@ -1826,6 +1869,12 @@ AddWordToList(ByRef strDebug4insert, ByRef strDebugByRef,fromLine,lineNr, AddWor
 			
 			
         ; msgbox,% INSERT_INTO_words "`n(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+			
+			if(1 && A_ScriptName == "unitTests.ahk" && AddWord){
+				tooltip, % "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")`n`n`n" AddWord  
+				; sleep,1000
+			}
+			
 			
 			try{
 				g_ActionListDB.Query(INSERT_INTO_words)
@@ -1940,7 +1989,6 @@ AddWordToList(ByRef strDebug4insert, ByRef strDebugByRef,fromLine,lineNr, AddWor
 	Return true
 }
 ;\____ AddWordToList __ 181106193901 __ 06.11.2018 19:39:01 __/
-
 
 
 
