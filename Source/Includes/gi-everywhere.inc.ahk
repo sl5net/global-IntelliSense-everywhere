@@ -408,7 +408,10 @@ RecomputeMatches( ByRef calledFromStr ){
 		}
 	}
 	
-	WhereQuery := " WHERE wordindexed GLOB '" . WordMatchEscaped . "*' " . SuppressMatchingWordQuery . WordAccentQuery  " AND ActionListID = '" g_ActionListID "'"
+	;WhereQuery := " WHERE wordindexed GLOB '"  WordMatchEscaped  "*' "  SuppressMatchingWordQuery  WordAccentQuery  " AND ActionListID = '" g_ActionListID "'"
+	; ^--- before 20.11.2018 00:05
+
+	WhereQuery := " WHERE wordindexed GLOB '*"  WordMatchEscaped  "*' "  SuppressMatchingWordQuery  WordAccentQuery  " AND ActionListID = '" g_ActionListID "'" ; <==== I LIKE THIE MUCH MORE
 	
 	Critical,On
 	

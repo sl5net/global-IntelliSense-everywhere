@@ -1408,7 +1408,7 @@ addListOpenAction_ifNotAlreadyInTheList(ByRef contentActionList,ByRef ActionList
 
 
 
-
+; too msg kk
 
 ;/¯¯¯¯ addFuzzySearch_in_generatedList ¯¯ 181107004148 ¯¯ 07.11.2018 00:41:48 ¯¯\
 ; addFuzzySearch_in_generatedList(ALoopField)
@@ -1708,12 +1708,15 @@ AddWordToList(ByRef strDebug4insert, ByRef strDebugByRef,fromLine,lineNr, AddWor
 	if(1 && InStr(A_ComputerName,"SL5")){
 		if(trim(AddWord," `t`r`n")  == "|r|"){
 			lll( A_ThisFunc ":" A_LineNumber , A_LineFile , AIndex ":" )
-			msgbox, 18-11-17_14-38
-			Pause,On
+            m := % " AddWord == ""|r|"" `n`n`n " ActionList " `n`n`n(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
+            tooltip, % m
+            sleep, 5555
+            return false
 		}
 	}
 	
-	
+	; ms to
+
    ;AddWord = Word to add to the list
    ;ForceCountNewOnly = force this word to be permanently learned even if learnmode is off
    ;ForceLearn = disables some checks in CheckValid

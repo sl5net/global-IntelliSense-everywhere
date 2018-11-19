@@ -1,4 +1,11 @@
 ﻿
+
+;/¯¯¯¯ todo
+; indizier ...... |[
+^--- fehlt noch 19.11.2018 23:53
+;\____ todo __ 181119235301 __ 19.11.2018 23:53:01 __/
+
+
 #SingleInstance,Force
 #Include %A_ScriptDir%\inc_ahk\init_global.init.inc.ahk
 #Include %A_ScriptDir%\inc_ahk\soundBeep.inc.ahk
@@ -78,6 +85,11 @@ WinGetActiveTitle,activeTitle
 ; err_read_actionList_from_file_and_preParse()
 ;/¯¯¯¯ err_bewe ¯¯ 181119210955 ¯¯ 19.11.2018 21:09:55 ¯¯\
 err_read_actionList_from_file_and_preParse(){
+    ; maybe you need to set 	g_ActionListDone  to 0 19.11.2018 21:45
+    ; if( g_ActionListDone == "0"){ ;if this is read from the ActionList ; 1 ||
+
+
+
     fileAddress := "..\ActionLists\_globalActionLists\.....................ahk"
     FileRead, in , % fileAddress
     result := Loop_Parse_ParseWords( in )
