@@ -925,7 +925,7 @@ if(rootDoObj.collectBlock && ( Aindex <> rootLineObj.Aindex ) ){
 		
 		lll( A_LineNumber , A_LineFile , A_ThisFunc "`n" Aindex ">ROOT>'" ALoopField "'=ALoopField`n" ObjSToStrTrim(s:="",rootLineObj, rootCmdTypeObj, rootCollectObj, rootDoObj) s )
 		; if(0 && rootDoObj.collectBlock && !rootDoObj.is_without_keywords ){
-		if(rootDoObj.createKeys && rootCmdTypeObj.is_without_keywords ){
+		if(rootDoObj.createKeys || rootCmdTypeObj.is_without_keywords ){
 			; newKeyWords := getAutoKeywords(temp:= rootLineObj.value " "  rootLineObj.oldKeywords " " rootCollectObj.value)
 			valud2DB := setInNewKeywordsIntoLine( rootLineObj.newKeywords , rootLineObj.value ) "`n" rootCollectObj.value 
 			lll( A_ThisFunc ":" A_LineNumber , A_LineFile , rootLineObj.newKeywords ":" newKeyWords )
@@ -1767,11 +1767,8 @@ AddWordToList(ByRef strDebug4insert, ByRef strDebugByRef,fromLine,lineNr, AddWor
 	if(!CheckValid(AddWord,ForceLearn, is_IndexedAhkBlock)){
         ; msgbox,% ">>" AddWord "<<`n is NOT valid(" A_LineNumber ": " A_ThisFunc " " RegExReplace(A_LineFile, ".*\\") ")"
 		if(1 && InStr(A_ComputerName,"SL5")){
-			lll( A_LineNumber , A_LineFile , A_ThisFunc ": " INSERT_INTO_words )
-			if(!rootLineObj.value)
-			    Speak(A_LineNumber ". not valid. its empty " rootLineObj.value ,"PROD")
-           else
-			    Speak(A_LineNumber ". not valid: " rootLineObj.value ,"PROD")
+			lll( A_LineNumber , A_LineFile , A_ThisFunc ": " INSERT_INTO_words )			
+			Speak(A_LineNumber ":" rootLineObj.value ,"PROD")
 		}
 		return false
 	}

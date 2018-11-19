@@ -51,51 +51,55 @@ SetTitleMatchMode,1
 WinWaitNotActive,WinMerge
 WinGetActiveTitle,activeTitle
 
+
 ;/¯¯¯¯ AutoKeywords ¯¯ 181118181811 ¯¯ 18.11.2018 18:18:11 ¯¯\
 if(1 && errStr:=test_getAutoKeywords())
-	countErrors++
+	countErrors++ ; Msgbox,% A_LineNumber  ;
 ;\____ AutoKeywords __ 181118181814 __ 18.11.2018 18:18:14 __/
 else if(1 && errStr:=err_is_without_keywords())
-		countErrors++
+		countErrors++ ; Msgbox,% A_LineNumber  ;
 else if(1 && errStr:=err_problemNow())
-	countErrors++
-else if(1 && err_multi_rr_stop_by_is_r())
-	countErrors++
-else if(1 && errStr:=test_short_keywords())
-	countErrors++
-else if(1 && test_do_indexFollowingLines4search())
-		countErrors++
-else if(1 && errStr:=test_synonym())
-		countErrors++
-else if(false && errStr:=test_dontDeleteComments())
-		countErrors++
+	countErrors++ ; Msgbox,% A_LineNumber  ;
+
 else if(1 && errStr:=err_multi_r_content())
-		countErrors++
-else if(1 && errStr:=test_synonym())
-		countErrors++
+    countErrors++ ; Msgbox,% A_LineNumber  ;
+else if(1 && err_multi_rr_stop_by_is_r())
+	countErrors++ ; Msgbox,% A_LineNumber  ;
+
 else if(errStr:=err_multi_r_content())
-			countErrors++
+    countErrors++ ; Msgbox,% A_LineNumber  ;
+
+else if(1 && errStr:=test_short_keywords())
+	countErrors++ ; Msgbox,% A_LineNumber  ;
+else if(1 && test_do_indexFollowingLines4search())
+    countErrors++ ; Msgbox,% A_LineNumber  ;
+else if(1 && errStr:=test_synonym())
+    countErrors++ ; Msgbox,% A_LineNumber  ;
+else if(false && errStr:=test_dontDeleteComments())
+    countErrors++ ; Msgbox,% A_LineNumber  ;
+else if(1 && errStr:=test_synonym())
+		countErrors++ ; Msgbox,% A_LineNumber  ;
 else if(errStr:=err_tests_easy_0())
-    countErrors++
+    countErrors++ ; Msgbox,% A_LineNumber  ;
 else if(errStr:=err_unitTest1())
-    countErrors++
+    countErrors++ ; Msgbox,% A_LineNumber  ;
 else if(errStr:=err_tests_preparser())
-    countErrors++
+    countErrors++ ; Msgbox,% A_LineNumber  ;
 else if(1 && errStr:=err_multi_rr())
-		countErrors++
+		countErrors++ ; Msgbox,% A_LineNumber  ;
 else if(1 && errStr:=err_difficult_do_it_later())
-    countErrors++
+    countErrors++ ; Msgbox,% A_LineNumber  ;
 else if(1 && errStr:=err_open_issues())
-    countErrors++
+    countErrors++ ; Msgbox,% A_LineNumber  ;
 
 
 ifWinNotActive, WinMerge
 	WinGetActiveTitle,activeTitle
 
 
-if(!countErrors)
+if(countErrors<1)
 	Speak("Its Okey. No Error found. " ALineNumber, "PROD" )
-else if(1){
+if(countErrors>0){
 	Speak( countErrors " Error found. " ALineNumber, "PROD" )
 	tooltip,% errStr,1,1
 	; Msgbox,% errStr,1,1
@@ -253,17 +257,12 @@ testsynonym2|rr||ahk|q
 test1 baum testsynonym1|rr||ahk|q
 testsynonym2|rr||ahk|q
 )
-; expectedInFutureRelaise := "nothingSpecial nothing Special textlang"
-	
 	if(errStr := getAssertEqual_ErrorStr(in,expected,A_ThisFunc ":" A_LineNumber, "Loop_Parse_ParseWords"))
 		Return errStr " °" A_ThisFunc "° "
 	
 	in := "A bit of a longer text"
 	expected := "A longer text"
 	if(errStr := getAssertEqual_ErrorStr(in,expected,A_ThisFunc ":" A_LineNumber,"getAutoKeywords"))
-		Return errStr " °" A_ThisFunc "° "
-	
-	if(errStr := (result<>expected))
 		Return errStr " °" A_ThisFunc "° "
 }
 ;\____ test_synonym
@@ -389,11 +388,16 @@ msg =
 superduper
 `)
 send,`% msg
-Scripte |r|
+ahkScripte PhpScripte|r|
 ahkScripte
 PhpScripte
 )
 	
+f=G:\fre\git\github\global-IntelliSense-everywhere-Nightly-Build\Source\log\ActionList.ahk.log.txt
+fileDelete,G:\fre\git\github\global-IntelliSense-everywhere-Nightly-Build\Source\log\ActionList.ahk.log.txt
+while(fileExist(f))
+    sleep,150
+
 	if(errStr := getAssertEqual_ErrorStr(in,expected,A_ThisFunc ":" A_LineNumber))
 		Return errStr " °" A_ThisFunc "° "
 	
@@ -470,7 +474,7 @@ another
 )
 	expected =
 (
-something another |r|
+something another|r|
 something
 
 another
@@ -491,14 +495,12 @@ Computer is better2
 )
 	expected =
 (
-Keyboard better |r|
+Keyboard better1|r|
 Keyboard is better1
-Computer better |r|
+Computer better2|r|
 Computer is better2
 )
 	feedbackMsgBoxCloseAllWindows()
-	
-	; MsgBox, % result
 	if(errStr := getAssertEqual_ErrorStr(in,expected,A_ThisFunc ":" A_LineNumber))
 		Return errStr " °" A_ThisFunc "° "
 	
@@ -906,10 +908,9 @@ A bit of a longer text
 )
 	expected =
 (
-longer text|r|
+A longer text|r|
 A bit of a longer text
 )
-	
 	if(errStr := getAssertEqual_ErrorStr(in,expected,A_ThisFunc ":" A_LineNumber))
 		Return errStr " °" A_ThisFunc "° "
 	
@@ -921,7 +922,7 @@ a
 )
 	expected =
 (
-a |r|
+a|r|
 a
 )
 	
@@ -937,31 +938,29 @@ Computer is better
 )
 	expected =
 (
-Keyboard better |r|
+Keyboard better|r|
 Keyboard is better
-Computer better |r|
+Computer better|r|
 Computer is better
 )
 	feedbackMsgBoxCloseAllWindows()
-	
-	; MsgBox, % result
 	if(errStr := getAssertEqual_ErrorStr(in,expected,A_ThisFunc ":" A_LineNumber))
 		Return errStr " °" A_ThisFunc "° "
 	
 	
 	in =
 (
-a |r|
+a|r|
 a
-b |r|
+b|r|
 b
 )
 	
 	expected =
 (
-a |r|
+a|r|
 a
-b |r|
+b|r|
 b
 )
 	if(errStr := getAssertEqual_ErrorStr(in,expected,A_ThisFunc ":" A_LineNumber))
@@ -985,11 +984,11 @@ if(errStr := getAssertEqual_ErrorStr(in,Trim(expected," `t`r`n"),A_ThisFunc ":" 
 	
 	in =
 (
-abc |r|With a bit of content
+abc|r|With a bit of content
 )
 	expected =
 (
-abc |r|With a bit of content
+abc|r|With a bit of content
 )
 if(errStr := getAssertEqual_ErrorStr(in,Trim(expected," `t`r`n"),A_ThisFunc ":" A_LineNumber))
     Return errStr " °" A_ThisFunc "° "
@@ -1373,10 +1372,11 @@ getAssertEqual_ErrorStr(ByRef in,ByRef expected,ALineNumber,myFuncName := "Loop_
 		if(!errStr_first)
 			errStr_first := strCompareBoth
 		g_do_only_this_testCase := ALineNumber
+    	; msgbox, % ALineNumber ":`n" strCompareBoth "`n`n`n`n"  "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
 		Return ALineNumber ":`n" strCompareBoth
 	}
+	; msgbox, % ":)" strDebugByRef "`n`n`n`n"  "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
 	return false
-	msgbox, % ":)" strDebugByRef "`n`n`n`n"  "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
 }
 
 
@@ -1417,6 +1417,8 @@ sleep,111
 reload
 ; do sth
 return
+settitlematchmode,2
+#IfWinNotActive,ahk_class SunAwtFrame
 esc::
      exitapp
  return
