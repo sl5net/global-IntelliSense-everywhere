@@ -400,14 +400,18 @@ if(activeTitleREAL)
 		msgbox,!activeTitle exitap (line:`%A_LineNumber`%) `n 17-03-19_14-19
 		exitapp
 	}
-	
+
 	if(!activeClass) {
 		global g_lineNumberFeedback
 		g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
-		msgbox,!activeClass exitap (line:`%A_LineNumber`%) `n 17-03-19_14-15
-		exitapp
+		; msgbox,!activeClass exitap (line: %A_LineNumber% > `%A_LineNumber`%) `n 17-03-19_14-15
+		tooltip,!activeClass (line: %A_LineNumber% `%A_LineNumber`%) `n 17-03-19_14-15
+		sleep,1703
+		reload
 	}
-	
+
+	;
+
 ;<<<<<<<<<<<<< demoData =  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 	activeTitle := RegExReplace(activeTitle, "m)\n.*", "") ; title should never is multioline. this proof is hoprefulle redundatnd. 15.02.2018
 	ActionListOLD := RegExReplace(ActionListOLD, "m)\n.*", "") ; never is multioline. this proof is hoprefulle redundatnd. 15.02.2018

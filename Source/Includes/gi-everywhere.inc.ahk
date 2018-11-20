@@ -455,9 +455,9 @@ RecomputeMatches( ByRef calledFromStr ){
 	
 	for each, row in Matches.Rows
 	{
-		g_SingleMatch[++g_MatchTotal] := ltrim(row[1])
-		g_SingleMatchDescription[g_MatchTotal] := ltrim(row[2])
-		g_SingleMatchReplacement[g_MatchTotal] := ltrim(row[3])
+		g_SingleMatch[++g_MatchTotal] := ltrim(row[1]) ; that was really usfuls!!! since i used glob *...* 20.11.2018 09:52
+		g_SingleMatchDescription[g_MatchTotal] := ltrim(row[2]) ; <==== maybe useful 20.11.2018 09:52
+		g_SingleMatchReplacement[g_MatchTotal] := ltrim(row[3]) ; <==== maybe useful 20.11.2018 09:52
 		
 		continue
 	}

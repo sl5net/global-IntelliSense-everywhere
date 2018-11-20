@@ -285,7 +285,16 @@ Class TTS { ; https://autohotkey.com/boards/viewtopic.php?p=247009#p247009
 	}
 
 	SetPitch(pitch){
-		this.oVoice.Speak("<pitch absmiddle = '" pitch "'/>",0x20)
+        try{
+            this.oVoice.Speak("<pitch absmiddle = '" pitch "'/>",0x20)
+        } catch e{
+            if(1 && InStr(A_ComputerName,"SL5") ){
+                m := "this.oVoice.Speak failed `n`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+                ToolTip5sec( m "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")", 1 , 1 )
+                lll( A_ThisFunc ":" A_LineNumber , A_LineFile , m )
+            }
+        }
+
 	}
 
 	SetVoice(VoiceName){

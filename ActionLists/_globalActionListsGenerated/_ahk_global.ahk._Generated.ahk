@@ -9,6 +9,8 @@ RegExReplace(A_LineFile,".*\\")
 RegExMatch(fileName, "\.ahk$")
 RegExMatch(activeTitle , "i)\b(Gmail|Google Contacts|Google Kalender)\b"  )  
 
+InStr(A_fi, "D") )
+InStr(A_LoopFileName, "" )
 
 ; Speak(A_LineNumber ":" A_thisFunc A_ThisLabel)
 ToolTip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
@@ -37,20 +39,22 @@ Channel IRQ: #ahk
 ActionLists
 Source
 
-Msgbox,% "(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
-MsgBox info on top|r|MsgBox,262208,% ":)" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ,% ":)`n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")" 
-MsgBox error on top|r|MsgBox,262160,% ":(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ,% ":(`n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")" 
-Msgbox,(%A_LineFile%~%A_LineNumber%)
+Msgbox,% "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+MsgBox info on top|r|MsgBox,262208,% ":)`n" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ,% ":)`n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")" 
+MsgBox error on top|r|MsgBox,262160,% ":(`n" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ,% ":(`n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")" 
+Msgbox,`n(%A_LineFile%~%A_LineNumber%)
+Msgbox|rr|Msgbox,`n(%A_LineFile%~%A_LineNumber%)|ahk|Send,{shift down}{left 33}{shift up}
 
 ToolTip2sec lineFileName|rr|ToolTip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )|ahk|Send,{CtrlDown}{left 8}{CtrlUp}
 ToolTip2sec lineFileName|rr|ToolTip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )|ahk|Send,{CtrlDown}{left 8}{CtrlUp}
 ToolTip4sec lineFileName|rr|ToolTip4sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )|ahk|Send,{CtrlDown}{left 8}{CtrlUp}
 ToolTip5sec lineFileName|rr|ToolTip5sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )|ahk|Send,{CtrlDown}{left 8}{CtrlUp}
 
-Msgbox|rr|Msgbox,(%A_LineFile%~%A_LineNumber%)|ahk|Send,{shift down}{left 33}{shift up}
 
 Sleep, 000|rr|Sleep, 000|ahk|Send,{left 3}
 
+FileMove
+FileMove,% A_LoopFileFullPath, % A_LoopFileDir "\" fileNameNew
 
 InputBox, UserInput|rr||ahk
 m =
@@ -473,7 +477,7 @@ regEx find AHK functios definitions|r|^[ ]*?\w[\w\d_]{5,}\s*\([^()+<>]+\)[\s\S]{
 				Comobjvalue
 				ComSpec
 				contains(var, matchlist) { 
-					continue  ; Start a new iteration to move on to the next component type. 
+					continue  ; Start a new iteration to move on to the next component type. |r|continue
 					Control, Choose, 1, SysListView321, %MainWnd% 
 					ControlClick , ,  ahk_class Notepad 
 					ControlFocus, Edit1 
@@ -602,4 +606,6 @@ regEx find AHK functios definitions|r|^[ ]*?\w[\w\d_]{5,}\s*\([^()+<>]+\)[\s\S]{
 						move2ImgORImg(i, i2 , textInfo, mm) 
 						move2Img(i , textInfo, mm) 
 						clickImg(i, textInfo, mm, offset = 20) 
-						
+
+						|r|
+G:\fre\git\github\global-IntelliSense-everywhere-Nightly-Build\Source\gi-everywhere.ahk

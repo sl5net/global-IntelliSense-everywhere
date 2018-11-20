@@ -420,7 +420,8 @@ MainLoop()
    KeyWait, c, L
    ; KeyWait, Ctrl, L
    diffMilli := A_tickCount - copyCTriggeredTimeMilli
-   if(diffMilli > 750 || diffMilli < 9 ){ ; diffMilli < 10 probably not human triggerd
+   ; diffMilli > 750 ... was not ok 20.11.2018 20:58
+   if( diffMilli > 750 || diffMilli < 15 ){ ; diffMilli < 10 probably not human triggerd
       copyCTriggeredTimeMilli := A_tickCount
       return
    }
@@ -1847,10 +1848,9 @@ check_ActionList_GUI_is_hanging_or_freezed:
      ;/¯¯¯¯ return ¯¯ 181107181830 ¯¯ 07.11.2018 18:18:30 ¯¯\
      m =
      (
-Reload GI? It's frozen? ==> Ctrl+Shift+F5
-Move the ActionLists? ==> Click on it once, move the mouse, click it again. Resize Font by MouseWheel.
+Reload ==> Ctrl+Shift+F5, Move ==> Click it, Resize Font by MouseWheel.
      )
-     ToolTip9sec(m "`n`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ") ",60,-5)
+     ToolTip9sec(m "`n`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ") ",140,-5)
      return
      ;\____ return __ 181107181826 __ 07.11.2018 18:18:26 __/
 
