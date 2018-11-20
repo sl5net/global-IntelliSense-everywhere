@@ -332,7 +332,10 @@ RecomputeMatches( ByRef calledFromStr ){
 	global prefs_NoBackSpace
 	global prefs_ShowLearnedFirst
 	global prefs_SuppressMatchingWord
-	
+
+
+
+
    ;Msgbox,g_Word = %g_Word% (%A_LineFile%~%A_LineNumber%)
 	if(!g_Word) ; if g_Word is empty and you run, it shows the complete list. you want it? maybe sometimes its helpful 25.03.2018 19:42 18-03-25_19-42
 		Return
@@ -341,7 +344,10 @@ RecomputeMatches( ByRef calledFromStr ){
    ; if(LoopCount < 2 ) ; 18-03-31_22-43 addet TOD: proof
       ; return
 	
-	
+    Critical,On ; 20.11.2018 09:48 i like that
+
+
+
 	SavePriorMatchPosition()
 	
    ;Match part-word with command
@@ -412,9 +418,8 @@ RecomputeMatches( ByRef calledFromStr ){
 	; ^--- before 20.11.2018 00:05
 
 	WhereQuery := " WHERE wordindexed GLOB '*"  WordMatchEscaped  "*' "  SuppressMatchingWordQuery  WordAccentQuery  " AND ActionListID = '" g_ActionListID "'" ; <==== I LIKE THIE MUCH MORE
-	
-	Critical,On
-	
+
+
 	
 	NormalizeTable := g_ActionListDB.Query("SELECT MIN(count) AS normalize FROM Words" . WhereQuery . " AND count IS NOT NULL LIMIT " . LimitTotalMatches . ";")
 	
@@ -441,16 +446,18 @@ RecomputeMatches( ByRef calledFromStr ){
 	OrderByQuery .= " end, CASE WHEN count IS NOT NULL then ( (count - " . Normalize . ") * ( 1 - ( '0.75' / (LENGTH(word) - " . WordLen . ")))) end DESC, Word"
 	
 	Matches := g_ActionListDB.Query("SELECT word, worddescription, wordreplacement FROM Words" . WhereQuery . OrderByQuery . " LIMIT " . LimitTotalMatches . ";")
-	
+
+	; box box too box
+
 	g_SingleMatch := Object()
 	g_SingleMatchDescription := Object()
 	g_SingleMatchReplacement := Object()
 	
 	for each, row in Matches.Rows
 	{
-		g_SingleMatch[++g_MatchTotal] := row[1]
-		g_SingleMatchDescription[g_MatchTotal] := row[2]
-		g_SingleMatchReplacement[g_MatchTotal] := row[3]
+		g_SingleMatch[++g_MatchTotal] := ltrim(row[1])
+		g_SingleMatchDescription[g_MatchTotal] := ltrim(row[2])
+		g_SingleMatchReplacement[g_MatchTotal] := ltrim(row[3])
 		
 		continue
 	}

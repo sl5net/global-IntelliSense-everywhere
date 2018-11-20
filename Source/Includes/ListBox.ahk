@@ -830,7 +830,11 @@ else if(0){
       ForceWithinMonitorBounds(g_ListBoxPosX,ListBoxPosY,ListBoxActualSizeW,ListBoxActualSizeH)
       
       g_ListBoxContentWidth := ListBoxActualSizeW - ScrollBarWidth - BorderWidthX
-      
+      tooltip,% g_ListBoxContentWidth
+
+      if(g_ListBoxContentWidth<300)
+        g_ListBoxContentWidth := 300 ; <=== maybe thi has no effect.
+
       IfEqual, g_ListBox_Id,
       {
          
@@ -899,6 +903,7 @@ try {
 
 
 
+;/¯¯¯¯ ForceWithinMonitorBounds ¯¯ 181120003112 ¯¯ 20.11.2018 00:31:12 ¯¯\
 ; Any changes to this function may need to be reflected in ComputeListBoxMaxLength()
 ForceWithinMonitorBounds(ByRef ListBoxPosX, ByRef ListBoxPosY, ListBoxActualSizeW, ListBoxActualSizeH){
 
@@ -961,11 +966,16 @@ ForceWithinMonitorBounds(ByRef ListBoxPosX, ByRef ListBoxPosY, ListBoxActualSize
 
    Return      
 }
+;\____ ForceWithinMonitorBounds __ 181120003127 __ 20.11.2018 00:31:27 __/
+
+
+
 
 ;------------------------------------------------------------------------
 
-GetRows()
-{
+
+;/¯¯¯¯ GetRows ¯¯ 181120003132 ¯¯ 20.11.2018 00:31:32 ¯¯\
+GetRows(){
    global g_MatchTotal
    global prefs_ListBoxRows
    IfGreater, g_MatchTotal, %prefs_ListBoxRows%
@@ -974,8 +984,12 @@ GetRows()
    
    Return, Rows
 }
-;------------------------------------------------------------------------
+;\____ GetRows __ 181120003138 __ 20.11.2018 00:31:38 __/
 
+
+
+
+;/¯¯¯¯ CaretXorMouseXfallback ¯¯ 181120003149 ¯¯ 20.11.2018 00:31:49 ¯¯\
 ; function to grab the X position of the caret for the ListBox
 CaretXorMouseXfallback() {
    global g_DpiAware
@@ -1004,10 +1018,13 @@ CaretXorMouseXfallback() {
    }
    
    return A_CaretX 
-} 
+}
+;\____ CaretXorMouseXfallback __ 181120003158 __ 20.11.2018 00:31:58 __/
 
-;------------------------------------------------------------------------
 
+
+
+;/¯¯¯¯ CaretYorMouseYfallback ¯¯ 181120003206 ¯¯ 20.11.2018 00:32:06 ¯¯\
 ; function to grab the Y position of the caret for the ListBox
 CaretYorMouseYfallback() {
    global g_DpiAware
@@ -1034,11 +1051,12 @@ CaretYorMouseYfallback() {
    
    return A_CaretY 
 }
+;\____ CaretYorMouseYfallback __ 181120003212 __ 20.11.2018 00:32:12 __/
 
-;------------------------------------------------------------------------
 
-CheckIfCaretNotDetectable()
-{
+
+;/¯¯¯¯ CheckIfCaretNotDetectable ¯¯ 181120003220 ¯¯ 20.11.2018 00:32:20 ¯¯\
+CheckIfCaretNotDetectable(){
    ;Grab the number of non-dummy monitors
    SysGet, NumMonitors, 80
    
@@ -1063,3 +1081,4 @@ CheckIfCaretNotDetectable()
    
    Return, 0
 }
+;\____ CheckIfCaretNotDetectable __ 181120003223 __ 20.11.2018 00:32:23 __/
