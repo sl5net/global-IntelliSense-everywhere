@@ -994,9 +994,12 @@ Clipboard = selfPerformanceTest2
 		DetectHiddenWindows,On
 		SetTitleMatchMode,2
 		winTC := sayHelloFunctionInc . " ahk_class AutoHotkey"
-		if(winexist(winTC)){
+		if(winExist(winTC)){
 			WinClose,% winTC
-			tooltip, % "Wait" A_LineNumber " " RegExReplace(A_LineFile,".*\")
+            if(1 && InStr(A_ComputerName,"SL5") ){
+                tip := "Wait WinWaitClose`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+                tooltip, % tip , 1,1
+			}
 			WinWaitClose,% winTC,,1
 			tooltip,
 		}

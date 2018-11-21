@@ -410,9 +410,6 @@ MainLoop()
 ; doubleCtrlC for add entry to actionsList
 #IfWinActive,
 ~^c::
-   ;if(1 && InStr(A_ComputerName,"SL5"))
-    ;toolTip2sec( "BTW: work only in projects `n(" A_ThisLabel " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
-    toolTip2sec( "First, create a list (__cre...)`n before entry can be added. `n(" A_ThisLabel " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 
    KeyWait, c, L
    ; KeyWait, Ctrl, L

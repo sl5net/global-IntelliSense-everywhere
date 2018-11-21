@@ -1,4 +1,6 @@
 ﻿
+
+;/¯¯¯¯ setRegistry_ActionList ¯¯ 181121115201 ¯¯ 21.11.2018 11:52:01 ¯¯\
 setRegistry_ActionList( ActionListNewTemp_withoutExt ){   ; RegWrite , RegSave , Registry
 
     if(InStr(ActionListNewTemp_withoutExt,"._Generated.ahk._Generated")){
@@ -22,9 +24,10 @@ setRegistry_ActionList( ActionListNewTemp_withoutExt ){   ; RegWrite , RegSave ,
     ; RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionListNEW, % ActionListNewTemp_withoutExt ; RegWrite , RegSave , Registry
 
     if(1 && InStr(A_ComputerName,"SL5"))
-        ToolTip8sec(ActionListNewTemp_withoutExt "`n" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") )
+        ToolTip8sec(ActionListNewTemp_withoutExt "`n`n" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),1,50 )
     return ActionListNewTemp_withoutExt
 }
+;\____ setRegistry_ActionList __ 181121115205 __ 21.11.2018 11:52:05 __/
 
 
 
