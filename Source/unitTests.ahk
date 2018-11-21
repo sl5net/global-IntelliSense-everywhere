@@ -3,6 +3,8 @@
 ;/¯¯¯¯ todo
 ; indizier ...... |[
 ^--- fehlt noch 19.11.2018 23:53
+
+; intersting may useful for debugging: https://hotkeyit.github.io/v2/docs/commands/ahkExecuteLine.htm
 ;\____ todo __ 181119235301 __ 19.11.2018 23:53:01 __/
 
 

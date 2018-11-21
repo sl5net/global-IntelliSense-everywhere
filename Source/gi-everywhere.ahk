@@ -413,18 +413,23 @@ MainLoop()
    ;if(1 && InStr(A_ComputerName,"SL5"))
     ;toolTip2sec( "BTW: work only in projects `n(" A_ThisLabel " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
     toolTip2sec( "First, create a list (__cre...)`n before entry can be added. `n(" A_ThisLabel " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
-   if(instr(ActionList,"\isNotAProject")){
-        toolTip6sec( ActionList "`n`nFirst, create a list`n before entry can be added. `n(" A_ThisLabel " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")",1,1 )
-    return
-    }
+
    KeyWait, c, L
    ; KeyWait, Ctrl, L
    diffMilli := A_tickCount - copyCTriggeredTimeMilli
    ; diffMilli > 750 ... was not ok 20.11.2018 20:58
-   if( diffMilli > 750 || diffMilli < 15 ){ ; diffMilli < 10 probably not human triggerd
+   if( diffMilli > 750 || diffMilli < 18 ){ ; diffMilli < 10 probably not human triggerd
       copyCTriggeredTimeMilli := A_tickCount
       return
    }
+
+  if(instr(ActionList,"\isNotAProject") || !ActionList ){
+       toolTip4sec( ActionList "`n`nFirst, create a list`n before entry can be added. `n(" A_ThisLabel " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")",1,1 )
+   return
+  }
+
+
+
     ; MsgBox,262208,% diffMilli "=diffMilli :)`n" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ,% ":)`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
     RegExReplace(A_LineFile,".*\\")
     ; msgbox,% "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
@@ -1856,6 +1861,9 @@ Reload ==> Ctrl+Shift+F5, Move ==> Click it, Resize Font by MouseWheel.
 
      ToolTip4sec("check_ActionList_GUI_is_hanging_or_freezed: elapsedSec > 11: DestroyListBox()`n`n" A_LineNumber " " A_ScriptName )
      DestroyListBox()
+
+    ; ToolTip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\"; ) ":"  A_LineNumber ")" )
+
 
      ; script hangs at this position
      ;winclose, % g_ListBoxTitle
