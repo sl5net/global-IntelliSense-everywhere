@@ -50,6 +50,7 @@ class Stuff{
 }
 
 
+global g_isEnabledKeyboardHotKeys
 
 global g_config
 g_config := { list:{ change: { stopRexExTitle: false } } }
@@ -153,11 +154,14 @@ if(1 && InStr(A_ComputerName,"SL5")){
 global g_ListBoxFontSize := 16 ; works
 global g_ListBoxFontSize := 2 ; work but its so small i could not read it too
 global g_ListBoxFontSize := 8 ; work but its so small i could not read it too too tool
+global g_fontColor
+g_fontColor := "cGreen"
+
 listBoxFontSizeOLD := g_ListBoxFontSize
 
 ; ActionList := ActionListActive
 ; msgbox,% ActionList "(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
-
+; too tool tDateTime test2
 
 feedbackMsgBoxCloseAllWindows()
 
@@ -406,7 +410,27 @@ MainLoop()
     ; SetTimer,checkActionListAHKfile_sizeAndModiTime,1200
 ; return
 
-;/¯¯¯¯ doubleCtrlC ¯¯ 181108142340 ¯¯ 08.11.2018 14:23:40 ¯¯\
+
+
+
+isListBoxEnabled := false
+#IfWinActive,
+~ctrl::
+   If (A_TimeSincePriorHotkey < 500) and (A_TimeSincePriorHotkey > 5){
+     toolTip2sec( "Ctrl+Ctrl = toggle listbox`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+
+    isListBoxEnabled := !isListBoxEnabled
+    ; g_fontColor := (isListBoxEnabled) ? "cRed" : "cGreen"
+    if(isListBoxEnabled)
+        DestroyListBox()
+    else
+        InitializeListBox()
+;       Gui, ListBoxGui:Font, s%g_ListBoxFontSize% %g_fontColor% Bold, %ListBoxFont% ; https://autohotkey.com/docs/commands/GuiControl.htm#Font
+    return
+}
+return
+
+;/¯¯¯¯ doubleCtrlC Ctrl+C¯¯ 181108142340 ¯¯ 08.11.2018 14:23:40 ¯¯\
 ; doubleCtrlC for add entry to actionsList
 #IfWinActive,
 ~^c::

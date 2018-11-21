@@ -775,6 +775,7 @@ EnableKeyboardHotKeys(){
 ;      lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"HotKey, %" . A_LoopField . "%, On")
 		HotKey, %A_LoopField%, On
 	}
+	g_isEnabledKeyboardHotKeys := true
 	Return
 }
 ;\____ EnableKeyboardHotKeys __ 181027205226 __ 27.10.2018 20:52:26 __/
@@ -786,7 +787,8 @@ EnableKeyboardHotKeys(){
 ;/¯¯¯¯ DisableKeyboardHotKeys ¯¯ 181027205321 ¯¯ 27.10.2018 20:53:21 ¯¯\
 DisableKeyboardHotKeys() {
 	global g_doSaveLogFiles
-	
+	global g_isEnabledKeyboardHotKeys
+
 	lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"DisableKeyboardHotKeys() { ... 17-07-16_13-31 ")
 	
 	global g_DelimiterChar
@@ -803,6 +805,7 @@ DisableKeyboardHotKeys() {
 		
 ; lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"HotKey, %" . A_LoopField . "%, Off")
 	}
+	g_isEnabledKeyboardHotKeys := true
 	Return
 }
 ;\____ DisableKeyboardHotKeys __ 181027205339 __ 27.10.2018 20:53:39 __/

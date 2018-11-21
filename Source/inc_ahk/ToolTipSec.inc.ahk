@@ -87,14 +87,19 @@ ToolTipSec(t,x=123,y=321,sec=1000)
     Last_A_This:=A_ThisFunc . A_ThisLabel
    ; lll(A_LineNumber, "ToolTipSec.inc.ahk",Last_A_This)
 
+    MouseGetPos,xMouse,yMouse
+
   if( x=123 AND y=321 )
   {
-  	ToolTip, %t%
+  	ToolTip, %t%,,% yMouse + 10
    ; lll(A_LineNumber, "ToolTipSec.inc.ahk")
   }
   else
   {
     ;  lll(A_LineNumber, "ToolTipSec.inc.ahk")
+      if(abs(yMouse - y ) < 90 ){
+        y := ( y < 500 ) ? (y+150) : (y-150)
+      }
 	  ToolTip, %t%,%x%,%y%
       ;~ MsgBox,ToolTip %t% %x% %y%
   }
