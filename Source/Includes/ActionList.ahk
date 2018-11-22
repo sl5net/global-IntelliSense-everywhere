@@ -333,6 +333,11 @@ from: ActionList.ahk~%A_LineNumber%
 				==> update database next.
 				(%A_LineFile%~%A_LineNumber%)
 				)
+				; i like to hava a smaler version of this:
+				tip =
+				(
+				changed "%ActionListFileName%" (%A_LineFile%~%A_LineNumber%)
+				)
 				;tooltip,% tip,1,1
 				if(1 && InStr(A_ComputerName,"SL5"))
 					ToolTip4sec(tip "`n" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") " " ,1,1)

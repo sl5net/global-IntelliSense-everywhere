@@ -293,7 +293,7 @@ g_nextCriticalCommandString := ""
 
 ; Gosub, setActionListFileUpdatedTime ; 29.04.2017 14:03
 
-BuildTrayMenu()      
+BuildTrayMenu()
 
 
 ;Change the setup performance speed
@@ -833,9 +833,18 @@ Return
 ; GoSub, LaunchSettings
 ; Return
 
+lbl_HelpOnline_features:
+    t := "open `n`n g-IntelliSense Features`n`n in myjetbrains.com ?"
+    msgbox, ,% t,% t "`n`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+    IfMsgBox, Cancel
+       return
+    run,https://g-intellisense.myjetbrains.com/youtrack/issues/GIS?q=project:`%20g-IntelliSense`%20`%23Feature`%20order`%20by:`%20updated`%20asc`%20
+return
+
 PauseResumeScript:
 if (g_PauseState == "Paused"){
-    Msgbox,g_PauseState == "Paused"`n (%A_LineFile%~%A_LineNumber%)
+    if(1 && InStr(A_ComputerName,"SL5"))
+        Msgbox,g_PauseState == "Paused"`n (%A_LineFile%~%A_LineNumber%)
    g_PauseState =
    Pause, Off
    EnableWinHook()

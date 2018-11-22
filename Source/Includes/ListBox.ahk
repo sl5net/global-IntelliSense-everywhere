@@ -26,12 +26,18 @@ InitializeListBox(){
    ; Gui, ListBoxGui:Font, s%prefs_ListBoxFontSize%, %ListBoxFont% ;
    if(0 && InStr(A_ComputerName,"SL5"))
     ToolTip5sec( g_ListBoxFontSize " = font size of ListBoxGui `n (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") )
-   Gui, ListBoxGui:Font, s%g_ListBoxFontSize%, %ListBoxFont%
+   ; Gui, ListBoxGui:Font, s%g_ListBoxFontSize%, %ListBoxFont%
    ;Gui, ListBoxGui:Font, s%g_ListBoxFontSize% cRed Bold, %ListBoxFont% ; https://autohotkey.com/docs/commands/GuiControl.htm#Font
    ; Gui, ListBoxGui:Font, s%g_ListBoxFontSize% cGreen Bold, %ListBoxFont% ; https://autohotkey.com/docs/commands/GuiControl.htm#Font
 
+    ; Gui,ListBoxGui:Color, , Black, ; https://autohotkey.com/boards/viewtopic.php?f=76&t=59191&p=249369#p249369
+    ; Gui,ListBoxGui:Color, , Black, ; https://autohotkey.com/boards/viewtopic.php?f=76&t=59191&p=249369#p249369
+    ; Gui,ListBoxGui:Color, , BackgroundTrans , ; this sets background of the listbox ; https://autohotkey.com/boards/viewtopic.php?f=76&t=59191&p=249369#p249369
+    ; Gui,ListBoxGui:Color,Gray ; works: https://autohotkey.com/boards/viewtopic.php?f=76&t=59191&p=249369#p249369
+
     Gui, ListBoxGui:Font, s%g_ListBoxFontSize% %g_fontColor% Bold, %ListBoxFont% ; https://autohotkey.com/docs/commands/GuiControl.htm#Font
 
+    ; t to to too
 
    ; Gui, ListBoxGui:Font, s%g_ListBoxFontSize% cGreen Bold, %ListBoxFont% ; https://autohotkey.com/docs/commands/Gui.htm#Color
    ; Gui, ListBoxGui:Font,BackgroundTrans  ; ??? too . i seee no effect

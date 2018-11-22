@@ -1488,14 +1488,20 @@ SuspendOff(){
 
 
 
+
+
+
 ;/¯¯¯¯ BuildTrayMenu ¯¯ 181024140140 ¯¯ 24.10.2018 14:01:40 ¯¯\
 BuildTrayMenu(){
+    ; https://autohotkey.com/docs/commands/Menu.htm
+
 ;feedbackMsgBox("BuildTrayMenu test 17-11-22_13-52","test 17-11-22_13-52",1,1)
-	
-	Menu, Tray, DeleteAll
-	Menu, Tray, NoStandard
+	Menu, Tray, DeleteAll ; DeleteAll: Deletes all custom menu items from the menu.
+	Menu, Tray, NoStandard ; NoStandard: Removes all standard menu items from the menu. https://autohotkey.com/docs/commands/Menu.htm#NoDefault
+	Menu, Tray, NoDefault ; Reverses setting a user-defined default menu item.
    ; Menu, Tray, add, Settings, Configuration
-	Menu, Tray, add, Pause, PauseResumeScript
+	; Menu, Tray, add, Pause, PauseResumeScript
+	Menu, Tray, add, Help Features online, lbl_HelpOnline_features
 	IF (A_IsCompiled) ; A_IsCompiled	Contains 1 if the script is running as a compiled EXE and an empty string (which is considered false) if it is not.
 	{
 		Menu, Tray, add, Exit, ExitScript
@@ -1504,6 +1510,7 @@ BuildTrayMenu(){
 	}
    ; Menu, Tray, Default, Settings
    ;Initialize Tray Icon
+   Menu, Tray, Tip , ; i dont want text there. The tray icon's tooltip is displayed when the mouse hovers over it.
 	Menu, Tray, Icon
 }
 ;\____ BuildTrayMenu __ 181024140152 __ 24.10.2018 14:01:52 __/
