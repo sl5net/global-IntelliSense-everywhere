@@ -1455,7 +1455,7 @@ SuspendOn(){
 	global g_ScriptTitle
    ;ToolTip2sec("Suspend deaktivad TEST " A_LineNumber   " "   RegExReplace(A_LineFile,".*\\")    " "   Last_A_This)
    ;Suspend, On  ; deaktivated now. for testing reasons 16.07.2017 11:34 17-07-16_11-34
-	Menu, Tray, Tip, %g_ScriptTitle% - Inactive
+	; Menu, Tray, Tip, %g_ScriptTitle% - Inactive
 	If A_IsCompiled
 	{
             ; A_IsCompiled	Contains 1 if the script is running as a compiled EXE and an empty string (which is considered false) if it is not.
@@ -1471,7 +1471,7 @@ SuspendOn(){
 SuspendOff(){
 	global g_ScriptTitle
 	Suspend, Off
-	Menu, Tray, Tip, %g_ScriptTitle% - Active
+	; Menu, Tray, Tip, %g_ScriptTitle% - Active
 	If A_IsCompiled
 	{
             ; A_IsCompiled	Contains 1 if the script is running as a compiled EXE and an empty string (which is considered false) if it is not.
@@ -1510,7 +1510,11 @@ BuildTrayMenu(){
 	}
    ; Menu, Tray, Default, Settings
    ;Initialize Tray Icon
-   Menu, Tray, Tip , ; i dont want text there. The tray icon's tooltip is displayed when the mouse hovers over it.
+   ; Menu, Tray, Tip , % Chr(8203) ; i dont want text there. The tray icon's tooltip is displayed when the mouse hovers over it.
+   Menu, Tray, Tip , % Chr(8203) ; i dont want text there. The tray icon's tooltip is displayed when the mouse hovers over it.
+   ; Menu, Tray, Tip ,  ; works not . i dont want text there. The tray icon's tooltip is displayed when the mouse hovers over it.
+	; Menu, Tray, Delete, Open ; dont work: erro nonexistend menu item
+	; Menu, Tray, Rename, Help, AHK Help ; dont work: erro nonexistend menu item
 	Menu, Tray, Icon
 }
 ;\____ BuildTrayMenu __ 181024140152 __ 24.10.2018 14:01:52 __/

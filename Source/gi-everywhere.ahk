@@ -249,7 +249,7 @@ lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"exit ")
    ExitApp ; this protect hopefully the scipt from building 100drets of instances.
    ; this was happend during looking videos. tv- mediathek oder sometimes youtube.
 }
-Menu, Tray, Tip, %g_ScriptTitle% - Inactive ; make it visible again
+; Menu, Tray, Tip, %g_ScriptTitle% - Inactive ; make it visible again
 WinShow,%g_ScriptTitle%
 DetectHiddenWindows,On ; if this is off it does not find the tool in tray bar 27.04.2017 12:04
 SetTitleMatchMode,2  ; if this is 1 it does not find the tool in tray bar 27.04.2017 12:04

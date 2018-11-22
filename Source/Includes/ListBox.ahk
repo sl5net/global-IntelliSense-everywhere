@@ -90,10 +90,15 @@ ListBoxClickItem(wParam, lParam, msg, ClickedHwnd){
    
 
    if (ClickedHwnd != g_ListBoxHwnd%TempRows%)
-   {
       return
-   }
-   
+
+   ; plausibility check
+   if(!g_ListBoxPosX)
+    msgbox,% " ERROR !g_ListBoxPosX `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+   if(!g_ListBoxContentWidth)
+    msgbox,% " ERROR !g_ListBoxContentWidth `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+
+;/¯¯¯¯ clickedScrollbar ¯¯ 181122141515 ¯¯ 22.11.2018 14:15:15 ¯¯\
    ; if we clicked in the scrollbar, jump out
    if (A_GuiX > (g_ListBoxPosX + g_ListBoxContentWidth))
    {
@@ -176,7 +181,6 @@ SetSwitchOffListBoxTimer(){
     ; is for e.g. triggerd if listbox is scrolled 22.10.2018 21:21
    static DoubleClickTime
 
-    msgbox,`n(%A_LineFile%~%A_LineNumber%) ; to
 
    if !(DoubleClickTime)
    {
@@ -728,7 +732,7 @@ ShowListBox(paraX:="",paraY:=""){
 
    global
     INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
-    g_ListBoxTitle := "käsewurscht"
+    g_ListBoxTitle := "Word List Appears Here."
     g_ListBoxTitle_firstTimeInMilli := A_TickCount ; milliseconds
 
 
@@ -895,7 +899,7 @@ try {
    lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"ERROR Gui, ListBoxGui proably not ready ")
    return 
 }      
-      
+
       IfEqual, g_ListBox_Id,
       {
       ; lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"")
