@@ -102,10 +102,26 @@ ListBoxClickItem(wParam, lParam, msg, ClickedHwnd){
    ; if we clicked in the scrollbar, jump out
    if (A_GuiX > (g_ListBoxPosX + g_ListBoxContentWidth))
    {
-      SetSwitchOffListBoxTimer()
+    Speak("clicked Scrollbar","PROD")
+     SetSwitchOffListBoxTimer()
+
+    ; g_ListBoxX := ""
+    ; g_ListBoxY := ""
+    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, g_ListBoxX,0
+    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, g_ListBoxY,0
+    ; sleep,1500
+    Msgbox,clickedScrollbar `n(%A_LineFile%~%A_LineNumber%)
+    reload
+
+    ;SetTimer,doListBoxFollowMouse,on
+    ;msgbox , , follow mouse, now listbox is follow your mouse again. `n`n clicked in the scrollbar`n(%A_LineFile%~%A_LineNumber%)
+
+
       Return
    }
-   
+;\____ clickedScrollbar __ 181122141522 __ 22.11.2018 14:15:22 __/
+
+; to to to too to to to to to to to tto too too to to
 
       ; global g_doListBoxFollowMouse  __
       if(g_doListBoxFollowMouse){
@@ -721,7 +737,7 @@ else
 
 
    
-; t too msg  to  too
+; t too msg  to  too to t t t to tooo
 
 
 

@@ -316,7 +316,7 @@ ProcessKey(InputChar,EndKey) {
 ; this version runs in:
 ; v0.9  aa79a8d blue Mountain
 ;@sl5net sl5net released this on 13 Oct · 107 commits to master since this release
-RecomputeMatches( ByRef calledFromStr ){
+RecomputeMatchesOFF( ByRef calledFromStr ){
    ; This function will take the given word, and will recompile the list of matches and redisplay the ActionList.
 	global g_MatchTotal
 	global g_SingleMatch
@@ -419,8 +419,6 @@ RecomputeMatches( ByRef calledFromStr ){
 
 	WhereQuery := " WHERE wordindexed GLOB '*"  WordMatchEscaped  "*' "  SuppressMatchingWordQuery  WordAccentQuery  " AND ActionListID = '" g_ActionListID "'" ; <==== I LIKE THIE MUCH MORE
 
-
-	
 	NormalizeTable := g_ActionListDB.Query("SELECT MIN(count) AS normalize FROM Words" . WhereQuery . " AND count IS NOT NULL LIMIT " . LimitTotalMatches . ";")
 	
 	for each, row in NormalizeTable.Rows
@@ -437,12 +435,10 @@ RecomputeMatches( ByRef calledFromStr ){
 	WordLen := StrLen(g_Word)
 	OrderByQuery := " ORDER BY CASE WHEN count IS NULL then "
 	IfEqual, prefs_ShowLearnedFirst, On
-	{
 		OrderByQuery .= "ROWID + 1 else 0"
-	} else {
+	else
 		OrderByQuery .= "ROWID else 'z'"
-	}
-	
+
 	OrderByQuery .= " end, CASE WHEN count IS NOT NULL then ( (count - " . Normalize . ") * ( 1 - ( '0.75' / (LENGTH(word) - " . WordLen . ")))) end DESC, Word"
 	
 	Matches := g_ActionListDB.Query("SELECT word, worddescription, wordreplacement FROM Words" . WhereQuery . OrderByQuery . " LIMIT " . LimitTotalMatches . ";")
@@ -455,7 +451,7 @@ RecomputeMatches( ByRef calledFromStr ){
 	
 	for each, row in Matches.Rows
 	{
-		g_SingleMatch[++g_MatchTotal] := ltrim(row[1]) ; that was really usfuls!!! since i used glob *...* 20.11.2018 09:52
+		g_SingleMatch[++g_MatchTotal] := ltrim(row[1]) ; that ltrim was really usfuls!!! since i used glob *...* 20.11.2018 09:52
 		g_SingleMatchDescription[g_MatchTotal] := ltrim(row[2]) ; <==== maybe useful 20.11.2018 09:52
 		g_SingleMatchReplacement[g_MatchTotal] := ltrim(row[3]) ; <==== maybe useful 20.11.2018 09:52
 		
@@ -483,7 +479,7 @@ RecomputeMatches( ByRef calledFromStr ){
 
 
 ;/¯¯¯¯ RecomputeMatches ¯¯ 181025105946 ¯¯ 25.10.2018 10:59:46 ¯¯\
-RecomputeMatches2( calledFromStr ){
+RecomputeMatches( calledFromStr ){
    ; This function will take the given word, and will recompile the list of matches and redisplay the ActionList.
 	global g_MatchTotal
 	global g_SingleMatch
@@ -499,8 +495,13 @@ RecomputeMatches2( calledFromStr ){
 	global prefs_NoBackSpace
 	global prefs_ShowLearnedFirst
 	global prefs_SuppressMatchingWord
-	
+
+	global Sql_Temp
+
     ; Menu, Tray, Icon, shell32.dll, 266 ; pretty black clock
+
+    ; toot too
+
 	setTrayIcon("RecomputeMatches")
 	RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, RecomputeMatches , % calledFromStr
 	if(!g_Word){ ; if g_Word is empty and you run, it shows the complete list. you want it? maybe sometimes its helpful 25.03.2018 19:42 18-03-25_19-42
@@ -508,7 +509,9 @@ RecomputeMatches2( calledFromStr ){
 		Return
 	}
 	SavePriorMatchPosition()
-	
+
+	; tooo tooo tool
+
    ;Match part-word with command
 	g_MatchTotal = 0
 	
@@ -527,17 +530,33 @@ RecomputeMatches2( calledFromStr ){
 ; msg sm msgbox test msgb msgbox MsgBox
 	
 	SetTimer, show_ListBox_Id, 600 ; setinterval ; 28.10.2018 02:39: fallback bugfix workaround help todo:
-	loop,6
-	{
-		
-		fileAdress := A_ScriptDir "\sql\template\select0" A_Index ".sql"
-		if(!FileExist(fileAdress))
-			MsgBox,  % fileAdress " not exist `n`n("A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
-		FileRead, SELECT,% fileAdress
-		if(!SELECT)
-			MsgBox, % "!SELECT  `n`n("A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
-		SELECT := RegExReplace( SELECT , "im)((GLOB|LIKE)\s*'[^'\w]?)[^']+?([^'\w]?')" , "$1" g_Word "$3" )
-		SELECT := RegExReplace( SELECT , "im)ActionListID\s+>\s*0" , "ActionListID = " g_ActionListID  )
+        if(!Sql_Temp.valueObj)
+            tooltip,% " ERROR !Sql_Temp.valueObj `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" , 50,50
+        valueObj := Sql_Temp.valueObj ; Sql_Temp
+
+    ; t
+
+        sql := Array()
+        g_SingleMatch := Object()
+        g_SingleMatchDescription := Object()
+        g_SingleMatchReplacement := Object()
+
+        loop,6
+        {
+            o := valueObj[A_Index]
+            o["listID"]["len"] := ""
+            sql["pre_Where"] := substr( o["sql"], 1 , o["word"]["pos"] - 1 )
+            sql["postWhere"] := substr( o["sql"] , o["word"]["pos"] + 1, - 1 + o["listID"]["pos"] - o["word"]["pos"] )
+            sql["rest"] := substr( o["sql"] , o["listID"]["pos"] + 1 + o["listID"]["len"] )
+
+            if(o["listID"]["len"])
+                SELECT := sql["pre_Where"] g_Word sql["postWhere"] " = " g_ActionListID sql["rest"]
+            ELSE
+                SELECT := sql["pre_Where"] g_Word sql["postWhere"]
+
+            ; clipboard := SELECT "`n`n`n" o["listID"]["len"]
+            ;  msgbox,% SELECT t $ t to
+
 	;SELECT := regExReplace(SELECT,"(``|`%)","``$1")
 		try{
 			Matches := g_ActionListDB.Query(SELECT)
@@ -551,16 +570,16 @@ RecomputeMatches2( calledFromStr ){
 			Clipboard := tip
 			msgbox, % tip
 		}
-		g_SingleMatch := Object()
-		g_SingleMatchDescription := Object()
-		g_SingleMatchReplacement := Object()
 		for each, row in Matches.Rows
-		{      
-			g_SingleMatch[++g_MatchTotal] := row[1]
-			if(!g_SingleMatch[g_MatchTotal])
+		{
+; tooltip msgb box box tooltip msgbox tooltip msg box line Line Too
+			g_SingleMatch[++g_MatchTotal] := trim(row[1]," `t`r`n") ; rTrim(clipboard," `t`r`n")
+			if(!g_SingleMatch[g_MatchTotal]){
+			    --g_MatchTotal
 				continue
-			g_SingleMatchDescription[g_MatchTotal] := row[2]
-			g_SingleMatchReplacement[g_MatchTotal] := row[3]
+            }
+			g_SingleMatchDescription[g_MatchTotal] := trim(row[2]," `t`r`n")
+			g_SingleMatchReplacement[g_MatchTotal] := trim(row[3]," `t`r`n")
 			if(0 && InStr(A_ComputerName,"SL5"))
 				tooltip,% ":-) row[1]=" row[1] ", row[2]=" row[2] " , g_Word=" g_Word  " , g_MatchTotal=" g_MatchTotal " , Normalize=" Normalize "`n" SELECT  "`nRecomputeMatches(calledFromStr):(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),1,1
 			
@@ -568,7 +587,7 @@ RecomputeMatches2( calledFromStr ){
 			if(!prefs_Length)
 				msgbox,% SELECT "`n`n :( Oops !prefs_Length (" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
     ; check if gui is opening
-    ; if(strlen(g_Word)>=3){
+    ; if(strlen(g_Word)>=3)
 			if(!g_reloadIf_ListBox_Id_notExist && StrLen(g_Word) == prefs_Length ){
 				if(1 && InStr(A_ComputerName,"SL5") )
 					toolTip, % g_Word "(" StrLen(g_Word) ")," prefs_Length "=prefs_Length:" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),1,1
@@ -577,17 +596,19 @@ RecomputeMatches2( calledFromStr ){
 				g_reloadIf_ListBox_Id_notExist := true
         ; msgbox,% "g_reloadIf_ListBox_Id_notExist:= true(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
 			}
-			continue
-		}
+            if(g_MatchTotal == 10)
+                break
+		} ; end or forech
 		; IfNotEqual, g_MatchTotal, 0
 		;    break
-		if(g_MatchTotal>20)
+		if(g_MatchTotal == 10)
 			break
 	}
-	
+	; to box ms reg match
+
 	; msgbox,% g_MatchTotal "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
 	
-	; m
+	; tooltip msg box reg
 	
 	IfEqual, g_MatchTotal, 0
 	{
@@ -610,7 +631,7 @@ RecomputeMatches2( calledFromStr ){
 }
 ;\____ RecomputeMatches __ 181025110000 __ 25.10.2018 11:00:00 __/
 
-
+; t
 
 ; SELECT word, worddescription, wordreplacement FROM Words WHERE wordindexed GLOB 'TOO*'  AND ActionListID = '2' ORDER BY CASE WHEN count IS NULL then ROWID else 'z' end, CASE WHEN count IS NOT NULL then ( (count - 0) * ( 1 - ( '0.75' / (LENGTH(word) - 3)))) end DESC, Word LIMIT 10;
 
@@ -1511,7 +1532,8 @@ BuildTrayMenu(){
    ; Menu, Tray, Default, Settings
    ;Initialize Tray Icon
    ; Menu, Tray, Tip , % Chr(8203) ; i dont want text there. The tray icon's tooltip is displayed when the mouse hovers over it.
-   Menu, Tray, Tip , % Chr(8203) ; i dont want text there. The tray icon's tooltip is displayed when the mouse hovers over it.
+   ; Menu, Tray, Tip , % Chr(8203) ; works but then i could not find it winSeach. i dont want text there. The tray icon's tooltip is displayed when the mouse hovers over it.
+   Menu, Tray, Tip , gi ; i dont want text there. The tray icon's tooltip is displayed when the mouse hovers over it.
    ; Menu, Tray, Tip ,  ; works not . i dont want text there. The tray icon's tooltip is displayed when the mouse hovers over it.
 	; Menu, Tray, Delete, Open ; dont work: erro nonexistend menu item
 	; Menu, Tray, Rename, Help, AHK Help ; dont work: erro nonexistend menu item

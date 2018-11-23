@@ -363,7 +363,8 @@ from: ActionList.ahk~%A_LineNumber%
             )
 			if(1 && InStr(A_ComputerName,"SL5") ){
 				msgbox, %tip% `n(%A_LineFile%~%A_LineNumber%)
-				feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), tip )
+				closeInSeconds := 5
+				feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), tip, closeInSeconds )
 			}
 		}
 		

@@ -98,22 +98,62 @@ RebuildDatabase(){
 ;
 	global g_ActionListDB
 	g_ActionListDB.BeginTransaction()
-	g_ActionListDB.Query("DROP TABLE Words;")
-	g_ActionListDB.Query("DROP INDEX WordIndex;")
-	g_ActionListDB.Query("DROP TABLE LastState;")
-	g_ActionListDB.Query("DROP TABLE ActionLists;")
-	
+
+    try{
+        g_ActionListDB.Query("DROP INDEX WordIndex;")
+        g_ActionListDB.Query("DROP TABLE IF EXISTS  ActionLists;")
+        g_ActionListDB.Query("DROP TABLE IF EXISTS  performance;")
+        g_ActionListDB.Query("DROP TABLE IF EXISTS  Words;")
+        g_ActionListDB.Query("DROP TABLE IF EXISTS  cache;")
+        g_ActionListDB.Query("DROP TABLE IF EXISTS  LastState;")
+        g_ActionListDB.EndTransaction()
+
+
+	    } catch e{
+            tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
+            sqlLastError := SQLite_LastError()
+            tip .= "`n sqlLastError=" sqlLastError "`n `n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
+            lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,tip)
+            tooltip, `% tip
+            feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), tip )
+            Clipboard := tip
+            msgbox, % tip
+        }
+
+	;sleep,1000
+	;pause
+	g_ActionListDB.BeginTransaction()
+
 	CreateWordsTable()
 	CreateWordIndex()
 
 	CreateLastStateTable()
 	CREATE_TABLE_ActionLists()
 
+    CreateCacheTable()
+
 	Create_PerformanceMeasurementOf_Functions_Table()
 	
 	SetDbVersion()
+	set_SqlTemplateFiles2TempTable()
 	g_ActionListDB.EndTransaction()
 }
+;\____ RebuildDatabase __ 181123064751 __ 23.11.2018 06:47:51 __/
+
+
+
+;/¯¯¯¯ insertSqlFilesIntoTempTable ¯¯ 181123064851 ¯¯ 23.11.2018 06:48:51 ¯¯\
+set_SqlTemplateFiles2TempTable(){
+    key := "selects" A_TickCount ; demo demonstration key
+    Sql_Temp.file2sqLite() ; fileNamePrefix := "select0"
+    Sql_Temp.sqLite2obj()
+    ; Sql_Temp.get_valueObj()
+    ;Sql_Temp.msgBoxSelectBuild_example( word, listID )
+    ; msgbox,% ObjToStrTrim(Sql_Temp.valueObj) "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+}
+;\____ insertSqlFilesIntoTempTable __ 181123064856 __ 23.11.2018 06:48:56 __/
+
+; to
 
 ;Runs the first conversion
 RunConversionOne(ActionListConverted){
@@ -398,8 +438,12 @@ small_LineFile TEXT NOT NULL
 		ExitApp
 	}
 } ; endOfFunction
-	
-	CreateWordsTable(WordsTableName:="Words"){
+
+
+
+
+;/¯¯¯¯ CreateWordsTable ¯¯ 181122195232 ¯¯ 22.11.2018 19:52:32 ¯¯\
+CreateWordsTable(WordsTableName:="Words"){
 		lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"lin1 at CREATE_TABLE_wordS")
 		global g_ActionListDB
 		global g_ActionListDBfileAdress
@@ -440,12 +484,18 @@ ActionListID INTEGER NOT NULL
 		IF not g_ActionListDB.Query("CREATE INDEX WordIndex ON Words (ActionListID, wordindexed);")
 		{
 			ErrMsg := g_ActionListDB.ErrMsg()
-			ErrCode := g_ActionListDB.ErrCode()
-			msgbox Cannot Create WordIndex Index - fatal error: %ErrCode% - %ErrMsg%
-			ExitApp
+			if(!instr(ErrMsg," already exists" )){ ; todo: dirty bugfix 22.11.2018 22:15
+                ErrCode := g_ActionListDB.ErrCode()
+                tip := "Cannot Create WordIndex Index - fatal error: `n`n" ErrCode " `n`n-`n`n " ErrMsg " `n`n(" A_LineNumber . " " . RegExReplace(A_LineFile,".*\\")
+                msgbox %tip%
+                ExitApp
+			}
 		}
 	}
 ;
+;\____ CreateWordsTable __ 181122195242 __ 22.11.2018 19:52:42 __/
+
+
 	
 ;<<<<<<<< CREATE_TABLE_ActionLists <<<< 180218062159 <<<< 18.02.2018 06:21:59 <<<<
 	CREATE_TABLE_ActionLists(){
@@ -497,3 +547,29 @@ ActionListID INTEGER NOT NULL
 		}
 	}
 ;\____ CreateActionListsTable __ 181106182623 __ 06.11.2018 18:26:23 __/
+
+
+
+
+;/¯¯¯¯ CreateCacheTable ¯¯ 181122195404 ¯¯ 22.11.2018 19:54:04 ¯¯\
+CreateCacheTable(){
+    global g_ActionListDB
+
+    sql =
+    (
+    CREATE TABLE temp
+    ( key TEXT PRIMARY KEY
+    , value TEXT
+    WITHOUT ROWID  );
+    )
+
+    IF not g_ActionListDB.Query( sql )
+    {
+        ErrMsg := g_ActionListDB.ErrMsg()
+        ErrCode := g_ActionListDB.ErrCode()
+        clipboard := sql
+        msgbox Cannot Create ActionLists Table - fatal error: %ErrCode% - %ErrMsg% `n %sql%
+        ExitApp
+    }
+}
+;\____ CreateCacheTable __ 181122195408 __ 22.11.2018 19:54:08 __/

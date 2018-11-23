@@ -5,6 +5,7 @@ FileEncoding, UTF-8
 
 #Include %A_ScriptDir%\inc_ahk\init_global.init.inc.ahk
 #Include %A_ScriptDir%\inc_ahk\soundBeep.inc.ahk
+#Include %A_ScriptDir%\inc_ahk\sql_temp.class.inc.ahk
 
 lll( A_ThisFunc ":" A_LineNumber , A_LineFile , "i am started 9" )
 ; #Include %A_ScriptDir%\unitTests.inc.ahk ; Use this if you just want to test the preparser 13.11.2018 21:17
@@ -32,7 +33,6 @@ Process, Priority,, H ; <=== only use this if its not in a critical development 
 
 
 CoordMode, ToolTip,Screen
-
 
 
 
@@ -345,6 +345,36 @@ if (A_PtrSize == 8) {
 g_PID := DllCall("GetCurrentProcessId")
 AutoTrim, Off 
 
+
+; feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), "test  6", 1, 1, 6 )
+
+; RebuildDatabase()
+
+; while(RegExMatch(Build,"O)(\w+)",Found,Pos),Pos:=Found.Pos(1)+Found.Len(1)){
+;    LastWord:=Found.1
+
+
+
+
+if(0){
+set_SqlTemplateFiles2TempTable()
+
+key := "selects" A_TickCount ; demo demonstration key
+Sql_Temp.file2sqLite(key)
+Sql_Temp.sqLite2obj(key)
+; Sql_Temp.get_valueObj()
+reload
+}
+; RebuildDatabase()
+; Sql_Temp.msgBoxSelectBuild_example( word, listID )
+
+Sql_Temp.sqLite2obj()
+if(!Sql_Temp.valueObj)
+    set_SqlTemplateFiles2TempTable()
+if(!Sql_Temp.valueObj)
+    msgbox,% " ERROR !Sql_Temp.valueObj `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" , 50,50
+
+
 InitializeListBox()
 
 BlockInput, Send
@@ -432,7 +462,7 @@ return
 
 ;/¯¯¯¯ doubleCtrlC Ctrl+C¯¯ 181108142340 ¯¯ 08.11.2018 14:23:40 ¯¯\
 ; doubleCtrlC for add entry to actionsList
-#IfWinActive,
+#IfWinNotActive,ahk_class #32770 ; let messageboxes out because i won't copy the message completely 22.11.2018 22:11
 ~^c::
 
    KeyWait, c, L
