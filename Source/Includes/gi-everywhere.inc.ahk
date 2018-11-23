@@ -582,7 +582,8 @@ RecomputeMatches( calledFromStr ){
 			g_SingleMatchReplacement[g_MatchTotal] := trim(row[3]," `t`r`n")
 			if(0 && InStr(A_ComputerName,"SL5"))
 				tooltip,% ":-) row[1]=" row[1] ", row[2]=" row[2] " , g_Word=" g_Word  " , g_MatchTotal=" g_MatchTotal " , Normalize=" Normalize "`n" SELECT  "`nRecomputeMatches(calledFromStr):(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),1,1
-			
+
+
 			global prefs_Length
 			if(!prefs_Length)
 				msgbox,% SELECT "`n`n :( Oops !prefs_Length (" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
@@ -604,7 +605,7 @@ RecomputeMatches( calledFromStr ){
 		if(g_MatchTotal == 10)
 			break
 	}
-	; to box ms reg match
+	;
 
 	; msgbox,% g_MatchTotal "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
 	
