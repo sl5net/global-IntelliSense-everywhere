@@ -45,7 +45,7 @@ class Sql_Temp {
             g_ActionListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", g_ActionListDBfileAdress ) ;
          escaped_string := RegExReplace(jsonStr, "'", "''")
         sql := "INSERT INTO temp (key, value) VALUES ('" fileNamePrefix "','" escaped_string "');"
-        clipboard := sql
+        ; clipboard := sql
 
         try{
             g_ActionListDB.Query(sql)
@@ -90,8 +90,8 @@ class Sql_Temp {
             lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,tip)
             tooltip, `% tip
             feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), tip )
-            Clipboard := tip
-            msgbox, % tip
+            ; Clipboard := tip
+            ; msgbox, % tip
         }
         for each, row in Matches.Rows
             valueStr := row[1]
