@@ -358,12 +358,14 @@ from: ActionList.ahk~%A_LineNumber%
 			tip =
             (
             something wrong Oops
-         %ActionListLastModified% := row[1]
-         %ActionListLastSize% := row[2]
+            ActionList = %ActionList%
+         ActionListLastModified = %ActionListLastModified% = row[1]
+         ActionListLastSize = %ActionListLastSize% = row[2]
             )
 			if(1 && InStr(A_ComputerName,"SL5") ){
-				msgbox, %tip% `n(%A_LineFile%~%A_LineNumber%)
+				; msgbox, %tip% `n(%A_LineFile%~%A_LineNumber%)
 				closeInSeconds := 5
+				ToolTip5sec( tip "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 				feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), tip, closeInSeconds )
 			}
 		}
@@ -1712,17 +1714,26 @@ return newLine
 AddWordToList(ByRef strDebug4insert, ByRef strDebugByRef,fromLine,lineNr, AddWord,ForceCountNewOnly,ForceLearn:= false, ByRef LearnedWordsCount := false, is_IndexedAhkBlock := false) {
 	
 	if(1 && InStr(A_ComputerName,"SL5")){
+		if(0 && instr(AddWord,"|r|")){
+			lll( A_ThisFunc ":" A_LineNumber , A_LineFile , AIndex ":" )
+			m := % " AddWord == ""|r|"" `n`n`n " ActionList " `n`n`n(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
+			tooltip, % m
+			msgBox,reload 44444444444444444
+			reload
+			sleep, 5555
+			return false
+		}
 		if(trim(AddWord," `t`r`n")  == "|r|"){
 			lll( A_ThisFunc ":" A_LineNumber , A_LineFile , AIndex ":" )
-            m := % " AddWord == ""|r|"" `n`n`n " ActionList " `n`n`n(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
-            tooltip, % m
-            sleep, 5555
-            return false
+			m := % " AddWord == ""|r|"" `n`n`n " ActionList " `n`n`n(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
+			tooltip, % m
+			sleep, 5555
+			return false
 		}
 	}
 	
 	; ms to
-
+	
    ;AddWord = Word to add to the list
    ;ForceCountNewOnly = force this word to be permanently learned even if learnmode is off
    ;ForceLearn = disables some checks in CheckValid
@@ -1755,9 +1766,9 @@ AddWordToList(ByRef strDebug4insert, ByRef strDebugByRef,fromLine,lineNr, AddWor
          ; SplitAddWord := StrSplit(AddWord, "|")
          ; Tooltip,%A_LineNumber%: %AddWord%  ; show others its loading all this vocabularies 17.03.2017 19:44 17-03-17_19-44
 		if(false){
-         ;MsgBox,4 ,MaxIndex, % SplitAddWord.MaxIndex(), 5
-			if( SplitAddWord.MaxIndex() > 3 )
-				MsgBox, ,MaxIndex, % SplitAddWord.MaxIndex() . "`n" . AddWord ; z.B. 4 elements: eins|r|zwei|drei
+			;MsgBox,4 ,MaxIndex, % SplitAddWord.MaxIndex(), 5
+			; if( SplitAddWord.MaxIndex() > 3 )
+			; 	MsgBox, ,MaxIndex, % SplitAddWord.MaxIndex() . "`n" . AddWord ; z.B. 4 elements: eins|r|zwei|drei
 			if(SplitAddWord2)
 				tooltip, '%SplitAddWord2%' = SplitAddWord2 `n '%SplitAddWord3%' = SplitAddWord3 `n (line:%A_LineNumber%)
 			if(SplitAddWord3)
@@ -1774,7 +1785,8 @@ AddWordToList(ByRef strDebug4insert, ByRef strDebugByRef,fromLine,lineNr, AddWor
 			{
 				AddWordReplacement := SplitAddWord5
 			}
-		} else IfEqual, SplitAddword2, R
+		} 
+		else IfEqual, SplitAddword2, R
 		{
 			AddWordReplacement := SplitAddWord3
 			AddWord := SplitAddWord1
@@ -1782,6 +1794,16 @@ AddWordToList(ByRef strDebug4insert, ByRef strDebugByRef,fromLine,lineNr, AddWor
 			{
 				AddWordDescription := SplitAddWord5
 			}
+		}
+		else IfEqual, SplitAddword2, r
+		{
+			AddWordReplacement := SplitAddWord3
+			AddWord := SplitAddWord1
+			IfEqual, SplitAddWord4, D
+			{
+				AddWordDescription := SplitAddWord5
+			}
+			tooltip, '%SplitAddWord3%' = SplitAddWord3  `n (line:%A_LineNumber%) `n
 		}
 	}
 	
@@ -1823,11 +1845,25 @@ AddWordToList(ByRef strDebug4insert, ByRef strDebugByRef,fromLine,lineNr, AddWor
 			tooltip, % "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")`n`n g_ActionListDone= >" g_ActionListDone "<`n`n" AddWord  
 	}
 	
+	
+	
+	if(instr(AddWord,"|r|") && !WordReplacementQuery ){
+		lll( A_ThisFunc ":" A_LineNumber , A_LineFile , AIndex ":" )
+		m := % " AddWord == ""|r|"" `n`n`n " ActionList " `n`n`n(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
+		tooltip, % m
+		msgBox,asdfasdf 44444444444444444
+		reload
+		sleep, 5555
+		return false
+	}
+	
+	
+	
 	if( g_ActionListDone == "0"){ ;if this is read from the ActionList ; 1 ||
 		if(1 || LearnedWordsCount){ ;if this is a stored learned word, this will only have a value when LearnedWords are read in from the ActionList
 			; must update wordreplacement since SQLLite3 considers nulls unique
 			INSERT_INTO_words := "INSERT INTO words (wordindexed, word , count , wordreplacement , ActionListID, lineNr) `n"
-			VALUES := "VALUES ('" AddWordIndexTransformed 	"', '" AddWordTransformed "', '" LearnedWordsCount++ "', '" WordReplacementQuery "' , " g_ActionListID ", " lineNr ");"
+			VALUES := "VALUES ('" AddWordIndexTransformed 	"', '" AddWordTransformed "', '" LearnedWordsCount++ "', '" AddWordReplacementTransformed "' , " g_ActionListID ", " lineNr ");"
 			INSERT_INTO_words .= VALUES 
 			
 			;INSERT_INTO_words := "INSERT INTO words (wordindexed, word, worddescription, wordreplacement, ActionListID, lineNr) 
@@ -1951,7 +1987,8 @@ AddWordToList(ByRef strDebug4insert, ByRef strDebugByRef,fromLine,lineNr, AddWor
 			}
 			
          ; must update wordreplacement since SQLLite3 considers nulls unique
-			INSERT_INTO_words := "INSERT INTO words (wordindexed, word, count, wordreplacement, ActionListID, lineNr) VALUES ('" AddWordIndexTransformed "','"  AddWordTransformed  "','"  CountValue  "', " g_ActionListID ", " lineNr ");"
+			INSERT_INTO_words := "INSERT INTO words (wordindexed, word, count, wordreplacement, ActionListID, lineNr)"
+			INSERT_INTO_words .= "VALUES ('" AddWordIndexTransformed "','"  AddWordTransformed  "','"  CountValue  "','" AddWordReplacement "', " g_ActionListID ", " lineNr ");"
 			
 			msgbox,% INSERT_INTO_words "`n(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 			
