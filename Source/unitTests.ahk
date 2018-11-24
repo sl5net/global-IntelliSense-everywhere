@@ -17,7 +17,8 @@ SetTimer,checkWinChangedTitle,off
 Thread, NoTimers , False ; Prevents interruptions from any timers.
 lineFileName := RegExReplace(A_LineFile, ".*\\([\w\s\.]+)$", "$1")
 #SingleInstance,Force
-;<<<<<<<< g_ignRegm <<<< 180224082501 <<<< 24.02.2018 08:25:01 <<<<
+
+;/¯¯¯¯ g_ignRegm ¯¯ 181124100933 ¯¯ 24.11.2018 10:09:33 ¯¯\
 if(InStr(A_ComputerName,"xxxxxxxxx SL5")) ; do ignore nothing. development computer
 	global g_ignReg := { feedbackMsgBox:{tit:".^", text:".^"} ,          saveLogFiles: {ln:".^", scriptName:"\b(Window|ListBox)\.ahk", text:"(WordIndex|CloseListBox|HotKeys|g_ListBox_Id)\b"},                    sqlQuery: {ln:".^", scriptName:".^", text:".^"},                    hotKeyStuff: {ln:".^", scriptName:".^", text:".^"},                    runLogFile: {ln:".^", scriptName:".^", text:".^"} } ;;;; regEx ignoreConfigList ;;;;
 ; please use it like this:     if( 1<RegExMatch(0 . A_ScriptName, g_ignReg["saveLogFiles"]["scriptName"])	|| ......
@@ -34,7 +35,7 @@ else
 	MsgBox,ignore NOT matched
 )
 lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"hey from ini ")
-;>>>>>>>> g_ignReg >>>> 180224082506 >>>> 24.02.2018 08:25:06 >>>>
+;\____ g_ignRegm __ 181124100939 __ 24.11.2018 10:09:39 __/
 
 ; to ms ms Spe to Ms mes mes too t mu 
 

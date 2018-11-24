@@ -6,7 +6,9 @@
 Menu, Tray, Tip , % Chr(8203) ; i dont want text there. The tray icon's tooltip is displayed when the mouse hovers over it.
 
 
-;<<<<<<<< g_ignReg <<<< 180224082501 <<<< 24.02.2018 08:25:01 <<<<
+;/¯¯¯¯ g_ignReg ¯¯ 181124115548 ¯¯ 24.11.2018 11:55:48 ¯¯\
+;/¯¯¯¯ g_ignReg ¯¯ 181124115548 ¯¯ 24.11.2018 11:55:48 ¯¯\
+;/¯¯¯¯ g_ignReg ¯¯ 181124115548 ¯¯ 24.11.2018 11:55:48 ¯¯\
 if(InStr(A_ComputerName,"xxxxxxxxx SL5")) ; do ignore nothing. development computer
 global g_ignReg := { feedbackMsgBox:{tit:".^", text:".^"} ,          saveLogFiles: {ln:".^", scriptName:"\b(Window|ListBox)\.ahk", text:"(WordIndex|CloseListBox|HotKeys|g_ListBox_Id)\b"},                    sqlQuery: {ln:".^", scriptName:".^", text:".^"},                    hotKeyStuff: {ln:".^", scriptName:".^", text:".^"},                    runLogFile: {ln:".^", scriptName:".^", text:".^"} } ;;;; regEx ignoreConfigList ;;;;
 ; please use it like this:     if( 1<RegExMatch(0 . A_ScriptName, g_ignReg["saveLogFiles"]["scriptName"])	|| ......
@@ -23,7 +25,14 @@ else
 	MsgBox,ignore NOT matched
 )
 lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"hey from ini ")
-;>>>>>>>> g_ignReg >>>> 180224082506 >>>> 24.02.2018 08:25:06 >>>>
+
+g_ignReg["saveLogFiles"]["scriptName"] := "\b(gi\-|Typing|ListBox)" ;
+
+;\____ g_ignReg __ 181124115556 __ 24.11.2018 11:55:56 __/
+;\____ g_ignReg __ 181124115556 __ 24.11.2018 11:55:56 __/
+;\____ g_ignReg __ 181124115556 __ 24.11.2018 11:55:56 __/
+
+
 
 if(instr(A_LineFile,A_ScriptName)){
 	MsgBox,WTF 18-02-27_18-19

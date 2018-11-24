@@ -1845,19 +1845,10 @@ AddWordToList(ByRef strDebug4insert, ByRef strDebugByRef,fromLine,lineNr, AddWor
 			tooltip, % "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")`n`n g_ActionListDone= >" g_ActionListDone "<`n`n" AddWord  
 	}
 	
-	
-	
 	if(instr(AddWord,"|r|") && !WordReplacementQuery ){
-		lll( A_ThisFunc ":" A_LineNumber , A_LineFile , AIndex ":" )
-		m := % " AddWord == ""|r|"" `n`n`n " ActionList " `n`n`n(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
-		tooltip, % m
-		msgBox,asdfasdf 44444444444444444
-		reload
-		sleep, 5555
+		msgbox, "that should never happens. `n`n`n(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
 		return false
 	}
-	
-	
 	
 	if( g_ActionListDone == "0"){ ;if this is read from the ActionList ; 1 ||
 		if(1 || LearnedWordsCount){ ;if this is a stored learned word, this will only have a value when LearnedWords are read in from the ActionList

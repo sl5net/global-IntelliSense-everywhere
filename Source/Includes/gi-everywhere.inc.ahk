@@ -1523,13 +1523,21 @@ BuildTrayMenu(){
 	Menu, Tray, NoDefault ; Reverses setting a user-defined default menu item.
    ; Menu, Tray, add, Settings, Configuration
 	; Menu, Tray, add, Pause, PauseResumeScript
-	Menu, Tray, add, Help Features online, lbl_HelpOnline_features
+	Menu, Tray, add, Help GI- Features online, lbl_HelpOnline_features
+	Menu, Tray, add, Help GI- Shortcut online, lbl_HelpOnline_shortcut
+	Menu, Tray, add, open issues online, lbl_HelpOnline_issues_open
+    Menu, Tray, add, Help AutoHotkey online, lbl_Help_AutoHotkey_online
+
 	IF (A_IsCompiled) ; A_IsCompiled	Contains 1 if the script is running as a compiled EXE and an empty string (which is considered false) if it is not.
 	{
-		Menu, Tray, add, Exit, ExitScript
+		; Menu, Tray, add, Exit, ExitScript
+		msgbox,% "not implemented jet `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
 	} else {
-		Menu, Tray, Standard
+		; Menu, Tray, Standard
 	}
+
+    Menu, Tray, add, Exit, ExitScript
+
    ; Menu, Tray, Default, Settings
    ;Initialize Tray Icon
    ; Menu, Tray, Tip , % Chr(8203) ; i dont want text there. The tray icon's tooltip is displayed when the mouse hovers over it.

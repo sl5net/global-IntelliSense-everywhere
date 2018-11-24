@@ -7,10 +7,15 @@ FileEncoding, UTF-8
 #Include %A_ScriptDir%\inc_ahk\soundBeep.inc.ahk
 #Include %A_ScriptDir%\inc_ahk\sql_temp.class.inc.ahk
 
+;global g_ignReg := { feedbackMsgBox:{tit:".^", text:".^"} ,          saveLogFiles: {ln:".^", scriptName:"\b(Window|ListBox)\.ahk", text:"
+;global g_ignReg := { feedbackMsgBox:{tit:".^", text:".^"} ,          saveLogFiles: {ln:".^", scriptName:"\b(Window|ListBox)\.ahk", text:"
+;g_ignReg["saveLogFiles"]["scriptName"] := "." ; ignore all. if I do not developing , its not need to constantly save log files. 24.11.2018 10:12
+;^--- please do that in: \Source\inc_ahk\init_global.init.inc.ahk
+
+
 lll( A_ThisFunc ":" A_LineNumber , A_LineFile , "i am started 9" )
 ; #Include %A_ScriptDir%\unitTests.inc.ahk ; Use this if you just want to test the preparser 13.11.2018 21:17
 lll( A_ThisFunc ":" A_LineNumber , A_LineFile , "i am started 10" )
-
 
 
 
@@ -28,6 +33,9 @@ SetControlDelay, -1 ; A short delay (sleep) is done automatically after every Co
 
 lineFileName := RegExReplace(A_LineFile, ".*\\([\w\s\.]+)$", "$1")
 ; G:\fre\git\github\global-IntelliSense-everywhere-Nightly-Build\Source\inc_ahk\soundBeep.inc.ahk
+
+BuildTrayMenu()
+
 
 Process, Priority,, H ; <=== only use this if its not in a critical development 05.11.2018 13:20
 
@@ -293,7 +301,6 @@ g_nextCriticalCommandString := ""
 
 ; Gosub, setActionListFileUpdatedTime ; 29.04.2017 14:03
 
-BuildTrayMenu()
 
 
 ;Change the setup performance speed
@@ -377,6 +384,8 @@ if(!Sql_Temp.valueObj)
 
 InitializeListBox()
 
+
+
 BlockInput, Send
 
 global g_doSaveLogFiles
@@ -408,6 +417,9 @@ if !(g_ListBoxScrollCallback){
 }
    
 GetIncludedActiveWindow() ;Find the ID of the window we are using
+
+
+
 
 MainLoop()
 
@@ -863,12 +875,36 @@ Return
 ; GoSub, LaunchSettings
 ; Return
 
+lbl_Help_AutoHotkey_online:
+    t := "open `n`n autohotkey help online`n`n ?"
+    msgbox, ,% t,% t "`n`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+    IfMsgBox, Cancel
+       return
+    run,https://autohotkey.com/docs/Tutorial.htm
+return
+
 lbl_HelpOnline_features:
     t := "open `n`n g-IntelliSense Features`n`n in myjetbrains.com ?"
     msgbox, ,% t,% t "`n`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
     IfMsgBox, Cancel
        return
     run,https://g-intellisense.myjetbrains.com/youtrack/issues/GIS?q=project:`%20g-IntelliSense`%20`%23Feature`%20order`%20by:`%20updated`%20asc`%20
+return
+
+lbl_HelpOnline_shortcut:
+    t := "open `n`n g-IntelliSense about Shortcuts`n`n in myjetbrains.com ?"
+    msgbox, ,% t,% t "`n`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+    IfMsgBox, Cancel
+       return
+    run,https://g-intellisense.myjetbrains.com/youtrack/issues/GIS?q=project:`%20g-IntelliSense`%20`%23shortcut`%20order`%20by:`%20updated`%20asc`%20
+return
+
+lbl_HelpOnline_issues_open:
+    t := "open `n`n g-IntelliSense open issues `n`n in myjetbrains.com ?"
+    msgbox, ,% t,% t "`n`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+    IfMsgBox, Cancel
+       return
+    run,https://g-intellisense.myjetbrains.com/youtrack/issues/GIS?q=project:`%20g-IntelliSense`%20`%23Unresolved`%20order`%20by:`%20Priority
 return
 
 PauseResumeScript:
