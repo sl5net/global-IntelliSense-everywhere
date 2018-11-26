@@ -512,6 +512,15 @@ return
      s := regExReplace(s,"^([ ]*)\)","$1`)")
      ; msgbox,% s "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
     isMuliline := (regExMatch(trim(s), "m)\n"))
+
+if(isMuliline){
+s =
+(
+|r|
+%s%
+)
+}
+
     ;if(isMuliline)
      ;   msgbox,% clipboard "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
     ;msgbox,% clipboard "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
@@ -529,19 +538,11 @@ SetWorkingDir,%A_ScriptDir%
 ; ActionList_witExt = %ActionList_witExt%
 ; ActionListWithoutGenerated_witExt = %ActionListWithoutGenerated_witExt%
 ; ActionList = %ActionList%
-if("%isMuliline%"){
 s =
 (
 
-|r|
 %s%
 `)
-}else{
-s =
-(
-%s%
-`)
-}
 if(true){
     inputBox, s, add to ActionLists?, add to ``n%sActionListFileName%  ? ``n``n timeoutSec = %timeoutSec% , , 350, 180,,,,%timeoutSec%,`% s
      if ErrorLevel
@@ -557,6 +558,14 @@ FileAppend, `% s , %sActionListWithoutGenerated_witExt%
 exitApp
     )
     ; clipboard := AHKcode AHKcode2 " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+
+
+; if("%isMuliline%"){
+result := Loop_Parse_ParseWords( s )
+; rootLineObj := { value:s, Aindex: 1 }
+; isCommandType := setCommandTypeS(rootLineObj, rootCmdTypeObj, rootCollectObj, rootDoObj )
+; AddWordToList(rootCmdTypeObj,strDebug4insert:="",strDebugByRef:="",1,1, s , 0,"ForceLearn",LearnedWordsCount, rootCmdTypeObj.is_IndexedAhkBlock)
+
     DynaRun(AHKcode AHKcode2)
     if(0 && InStr(A_ComputerName,"SL5"))
         msgbox,% AHKcode2 "`n saved to " sActionListWithoutGenerated_witExt "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
@@ -2029,8 +2038,8 @@ show_ListBox_Id:
         }
         if(1 && g_show_ListBox_Id_EMTY_COUNT >= 2){ ; the only think that helps today 24.10.2018 15:11
             RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, Reload , % A_LineNumber " " RegExReplace(A_LineFile, ".*\\") " " A_now
-            if(1 && InStr(A_ComputerName,"SL5"))
-                soundBeep,3000
+            ; if(1 && InStr(A_ComputerName,"SL5"))
+                sleep,2000
             reload ;  [^;\n]*[ ]*\breload\b\n <= cactive reloads 18-10-28_11-47
             ; run,% "..\start.ahk" ; deactivated. test 22.10.2018 05:54
         }
