@@ -877,8 +877,7 @@ get_obj_ToString(obj){
    return s
 }
 
-SoundBeepString(s4)
-{
+SoundBeepString(s4){
    ; converts letters to a 4 digit number oft the alphabet
    ;~ s4:=lower(s4)
    asc_a := Asc("a")
@@ -898,7 +897,7 @@ SoundBeepString(s4)
       
    }
 ;~ MsgBox, '%s4%' = s4  `n to `n  '%n%' = n (line:%A_LineNumber%) `n        ;  ; 
-   SoundBeep,n ,200 ; high beep
+   ; SoundBeep,n ,200 ; high beep
 
 return n
 }

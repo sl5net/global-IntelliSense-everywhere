@@ -889,6 +889,12 @@ if(rootDoObj.collectBlock && ( Aindex <> rootLineObj.Aindex ) ){
 
 		; deeo copy here is wrong.
 		; deepCopy_contObj_2_rootObj(rootLineObj, rootCmdTypeObj, rootCollectObj, rootDoObj , contLineObj, contCmdTypeObj, contCollectObj, contDoObj)
+
+        rootLineObj := { value: "", Aindex: 0, oldKeywords:"", newKeywords:"" }
+        rootCmdTypeObj :=  { is_str: false , is_r: false , is_rr: false, is_multiline_r: false, is_multiline_rr: false }
+        rootCollectObj := { value: "", is_ended: false } ; .value .is_ended
+        rootDoObj := { collectBlock: false, createKeys: false}
+
 		
 		lll( A_LineNumber , A_LineFile , A_ThisFunc "`n" Aindex ">ROOT>'" ALoopField "'=ALoopField`n" ObjSToStrTrim(s:="",rootLineObj, rootCmdTypeObj, rootCollectObj, rootDoObj) s )
 		lll( A_LineNumber , A_LineFile , A_ThisFunc "`n" Aindex ":'" ALoopField "'=ALoopField`n" ObjSToStrTrim(s:="",contLineObj, contCmdTypeObj, contCollectObj, contDoObj) s )
@@ -991,6 +997,9 @@ if(rootDoObj.collectBlock && ( Aindex <> rootLineObj.Aindex ) ){
 
 		AddWordToList(rootCmdTypeObj,strDebug4insert,strDebugByRef,A_LineNumber,Aindex, valud2DB , 0,"ForceLearn",LearnedWordsCount, isIndexedAhkBlock,doAsimpleCopy)
 
+        ; dirty bugfid: 26.11.2018 13:49 todo: prettyfy
+        if(contCmdTypeObj.is_r)
+    		AddWordToList(contCmdTypeObj,strDebug4insert,strDebugByRef,A_LineNumber,Aindex, contLineObj.value , 0,"ForceLearn",LearnedWordsCount, isIndexedAhkBlock,doAsimpleCopy)
 
 		lll( A_LineNumber , A_LineFile , A_ThisFunc "`n" Aindex ">ROOT>'" ALoopField "'=ALoopField`n" ObjSToStrTrim(s:="",rootLineObj, rootCmdTypeObj, rootCollectObj, rootDoObj) s )
 		if( false && rootCmdTypeObj.is_without_keywords) { ; ; && g_config["FuzzySearch"]["enable"] ; && Aindex < g_config["FuzzySearch"]["MAXlines"]
@@ -1139,7 +1148,7 @@ Loop_Parse_ParseWords(ByRef ParseWords){
 	rootCmdTypeObj :=  { is_str: false , is_r: false , is_rr: false, is_multiline_r: false, is_multiline_rr: false }
 	rootCollectObj := { value: "", is_ended: false } ; .value .is_ended
 	rootDoObj := { collectBlock: false, createKeys: false}
-	
+
 	contLineObj := { value: "", Aindex: 0, oldKeywords:"", newKeywords:"" }
 	contCmdTypeObj := { is_str: false , is_r: false , is_rr: false, is_multiline_r: false, is_multiline_rr: false }
 	contCollectObj := { value: "", is_ended: false } ; .value .is_ended
@@ -1840,7 +1849,7 @@ if(rootCmdTypeObj.is_str || rootCmdTypeObj.is_rr || rootCmdTypeObj.is_multiline_
         ; TransformWord normalizes the word, converting it to uppercase and removing certain accented characters.
         TransformWord(AddWord, AddWordReplacement, AddWordDescription, AddWord_Transformed, AddWordIndex_Transformed, AddWordReplacement_Transformed, AddWordDescription_Transformed)
 
-		INSERT_INTO_words := "INSERT INTO words (wordindexed, word , count , wordreplacement , ActionListID, lineNr) `n"
+		INSERT_INTO_words := "REPLACE INTO words(wordindexed, word , count , wordreplacement , ActionListID, lineNr) `n"
 		VALUES := "VALUES ('" AddWordIndex_Transformed 	"', '" AddWord_Transformed "', '" LearnedWordsCount++ "', '" AddWordReplacement_Transformed "' , " g_ActionListID ", " lineNr ");"
 		INSERT_INTO_words .= VALUES
 		try{
@@ -1894,7 +1903,7 @@ TransformWord(AddWord, AddWordReplacement, AddWordDescription, AddWord_Transform
 		lll( A_LineNumber , A_LineFile , A_ThisFunc ": AddWordReplacement :" AddWordReplacement )
 		lll( A_LineNumber , A_LineFile , A_ThisFunc ": AddWordReplacement_Transformed :" AddWordReplacement_Transformed )
 
-		INSERT_INTO_words := "INSERT INTO words (wordindexed, word , count , wordreplacement , ActionListID, lineNr) `n"
+		INSERT_INTO_words := "REPLACE INTO words(wordindexed, word , count , wordreplacement , ActionListID, lineNr) `n"
 		VALUES := "VALUES ('" AddWordIndex_Transformed 	"', '" AddWord_Transformed "', '" LearnedWordsCount++ "', '" AddWordReplacement_Transformed "' , " g_ActionListID ", " lineNr ");"
 		INSERT_INTO_words .= VALUES
 		lll( A_LineNumber , A_LineFile , A_ThisFunc ": INSERT_INTO_words :" INSERT_INTO_words )
@@ -2058,13 +2067,13 @@ if( g_ActionListDone == "0"){ ;if this is read from the ActionList ; 1 ||
 	lll( A_LineNumber , A_LineFile , A_ThisFunc ": " fromLine ":" AddWord )
 	if(1 || LearnedWordsCount){ ;if this is a stored learned word, this will only have a value when LearnedWords are read in from the ActionList
 			; must update wordreplacement since SQLLite3 considers nulls unique
-		INSERT_INTO_words := "INSERT INTO words (wordindexed, word , count , wordreplacement , ActionListID, lineNr) `n"
+		INSERT_INTO_words := "REPLACE INTO words(wordindexed, word , count , wordreplacement , ActionListID, lineNr) `n"
 		VALUES := "VALUES ('" AddWordIndex_Transformed 	"', '" AddWord_Transformed "', '" LearnedWordsCount++ "', '" AddWordReplacement_Transformed "' , " g_ActionListID ", " lineNr ");"
 		INSERT_INTO_words .= VALUES 
 		lll( A_LineNumber , A_LineFile , A_ThisFunc ": INSERT_INTO_words :" INSERT_INTO_words )
 		lll( A_LineNumber , A_LineFile , A_ThisFunc ": " fromLine ":" AddWord )
 		
-			;INSERT_INTO_words := "INSERT INTO words (wordindexed, word, worddescription, wordreplacement, ActionListID, lineNr) 
+			;INSERT_INTO_words := "REPLACE INTO words(wordindexed, word, worddescription, wordreplacement, ActionListID, lineNr) 
 			;"VALUES ('"  AddWordIndex_Transformed  "','"  AddWord_Transformed . "',"  WordDescriptionQuery  ","  WordReplacementQuery  "," g_ActionListID ", " lineNr ");"
 		
 		
@@ -2113,7 +2122,7 @@ if( g_ActionListDone == "0"){ ;if this is read from the ActionList ; 1 ||
 		}
 		
 		lll( A_LineNumber , A_LineFile , A_ThisFunc ": " fromLine ":" AddWord )
-		INSERT_INTO_words := "INSERT INTO words (wordindexed, word, worddescription, wordreplacement, ActionListID, lineNr) VALUES ('"  AddWordIndex_Transformed  "','"  AddWord_Transformed . "',"  WordDescriptionQuery  ","  WordReplacementQuery  "," g_ActionListID ", " lineNr ");"
+		INSERT_INTO_words := "REPLACE INTO words(wordindexed, word, worddescription, wordreplacement, ActionListID, lineNr) VALUES ('"  AddWordIndex_Transformed  "','"  AddWord_Transformed . "',"  WordDescriptionQuery  ","  WordReplacementQuery  "," g_ActionListID ", " lineNr ");"
 		lll( A_LineNumber , A_LineFile , A_ThisFunc ": INSERT_INTO_words :" INSERT_INTO_words )
 		
 		
@@ -2193,9 +2202,10 @@ if( g_ActionListDone == "0"){ ;if this is read from the ActionList ; 1 ||
 			} else {
 				CountValue := prefs_LearnCount ;set the count to LearnCount so it gets written to the file
 			}
-			
+			; 
+
          ; must update wordreplacement since SQLLite3 considers nulls unique
-			INSERT_INTO_words := "INSERT INTO words (wordindexed, word, count, wordreplacement, ActionListID, lineNr)"
+			INSERT_INTO_words := "REPLACE INTO words(wordindexed, word, count, wordreplacement, ActionListID, lineNr)"
 			INSERT_INTO_words .= "VALUES ('" AddWordIndex_Transformed "','"  AddWord_Transformed  "','"  CountValue  "','" AddWordReplacement "', " g_ActionListID ", " lineNr ");"
 			lll( A_LineNumber , A_LineFile , A_ThisFunc ": INSERT_INTO_words :" INSERT_INTO_words )			lll( A_LineNumber , A_LineFile , A_ThisFunc ": INSERT_INTO_words :" INSERT_INTO_words )
 			

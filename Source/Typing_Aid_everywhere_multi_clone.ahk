@@ -5,6 +5,7 @@
 FileEncoding, UTF-8
 
 CoordMode, Caret, Screen
+CoordMode, ToolTip, Screen
 ; CoordMode, Mouse, Screen
 
 
@@ -196,7 +197,8 @@ while(true) {
 		msg = !fileExist(ActionListFilterPathNEWdir === >%ActionListFilterPathNEWdir%<)  `n '%activeTitle%'=activeTitle , '%activeClass%' = activeClass
 		lineFileName := RegExReplace(A_LineFile, ".*\\([\w\s\.]+)$", "$1")
 		lineFileNameWithoutPATHandEXT := RegExReplace(A_LineFile, ".*\\([\w\s\._]+)\.\w+$", "$1")
-		tip=%msg% (%lineFileNameWithoutPATHandEXT%~%A_LineNumber%),1,1
+
+		tip=%msg% (%lineFileNameWithoutPATHandEXT%~%A_LineNumber%)
 		
 		if(InStr(A_ComputerName,"SL5"))
 			ToolTip2sec(tip,-1,-40)

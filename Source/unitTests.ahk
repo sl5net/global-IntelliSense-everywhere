@@ -2,7 +2,7 @@
 
 ;/¯¯¯¯ todo
 ; indizier ...... |[
-^--- fehlt noch 19.11.2018 23:53
+; ^--- fehlt noch 19.11.2018 23:53
 
 ; intersting may useful for debugging: https://hotkeyit.github.io/v2/docs/commands/ahkExecuteLine.htm
 ;\____ todo __ 181119235301 __ 19.11.2018 23:53:01 __/
@@ -37,6 +37,10 @@ else
 lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"hey from ini ")
 ;\____ g_ignRegm __ 181124100939 __ 24.11.2018 10:09:39 __/
 
+setTitleMatchMode,2
+if(!winExist("ActionList.ahk.log.txt"))
+    run,log\ActionList.ahk.log.txt
+
 ; to ms ms Spe to Ms mes mes too t mu 
 
 global errStr_first := ""
@@ -56,7 +60,7 @@ prepareGi()
 g_ActionListDB.BeginTransaction()
 
 fromLine := "`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
-g_ActionListDB.Query("DROP TABLE Words;")
+g_ActionListDB.Query("delete from Words where ActionListID = " g_ActionListID ";")
 if(sqlLastError := trim(SQLite_LastError()))
     msgbox,:( g_ActionListID = %g_ActionListID%,sqlLastError = %sqlLastError% %fromLine%
 CreateWordsTable()
@@ -72,7 +76,12 @@ global g_do_only_this_testCase
 g_do_only_this_testCase  := "test_short_keywords"
 g_do_only_this_testCase  := "test_getAutoKeywords"
 g_do_only_this_testCase  := "err_problemNow"
-g_do_only_this_testCase  := ""
+g_do_only_this_testCase  := "err_doAsimpleCopyOfLine"
+g_do_only_this_testCase  := "err_indexFollowingLines4search"
+g_do_only_this_testCase  := "err_is_without_keywords"
+g_do_only_this_testCase  := "err_problemNow" ; then all test will be run 24.11.2018 20:33
+g_do_only_this_testCase  := "err_multi_rr_stop_by_is_r" ; then all test will be run 24.11.2018 20:33
+g_do_only_this_testCase  := "" ; then all test will be run 24.11.2018 20:33
 ;\____ g_do_only_this_testCase __ 181118111650 __ 18.11.2018 11:16:50 __/
 ;\____ g_do_only_this_testCase __ 181118111650 __ 18.11.2018 11:16:50 __/
 ;\____ g_do_only_this_testCase __ 181118111650 __ 18.11.2018 11:16:50 __/
@@ -82,6 +91,8 @@ countErrors := 0
 SetTitleMatchMode,1
 WinWaitNotActive,WinMerge
 WinGetActiveTitle,activeTitle
+
+
 
 
 
@@ -108,8 +119,17 @@ err_ReadActionList()
 if(1 && errStr:=test_getAutoKeywords())
 	countErrors++ ; Msgbox,% A_LineNumber  ;
 ;\____ AutoKeywords __ 181118181814 __ 18.11.2018 18:18:14 __/
+if(false){
+noop=1
+}
+else if(0 && errStr:=err_indexFollowingLines4search())
+ 		countErrors++ ; Msgbox,% A_LineNumber  ;
+else if(1 && errStr:=err_doAsimpleCopyOfLine())
+		countErrors++ ; Msgbox,% A_LineNumber  ;
+;ToolTip4sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 else if(1 && errStr:=err_CheckValid())
 		countErrors++ ; Msgbox,% A_LineNumber  ;
+
 else if(1 && errStr:=err_is_without_keywords())
 		countErrors++ ; Msgbox,% A_LineNumber  ;
 else if(1 && errStr:=err_problemNow())
@@ -442,6 +462,31 @@ Hey JavaScript
 
 
 
+;/¯¯¯¯ err_indexFollowingLines4search ¯¯ 181124195020 ¯¯ 24.11.2018 19:50:20 ¯¯\
+err_indexFollowingLines4search(){
+	in =
+(
+indexFollowingLines|rr||ahk|
+Gi: do_indexFollowingLines4search := true
+something
+a nother thing
+)
+	expected =
+(
+PHP|r|
+Hey PHP
+JS|r|
+Hey JavaScript
+)
+	expectedInFutureRelaise := "nothingSpecial nothing Special textlang"
+	if(errStr := getAssertEqual_ErrorStr(in,expected,A_ThisFunc ":" A_LineNumber))
+		Return errStr " °" A_ThisFunc "° "
+}
+;\____ err_indexFollowingLines4search __ 181124195036 __ 24.11.2018 19:50:36 __/
+
+
+
+
 
 ;/¯¯¯¯ test_dontDeleteComments ¯¯ 181118073106 ¯¯ 18.11.2018 07:31:06 ¯¯\
 test_dontDeleteComments(){
@@ -470,6 +515,55 @@ dont Delete Comments comment|r|
 
 ;/¯¯¯¯ test_multi_rr_stop_by_is_r ¯¯ 181117224250 ¯¯ 17.11.2018 22:42:50 ¯¯\
 err_multi_rr_stop_by_is_r(){
+in =
+(
+Skills|r|Skills.pdf
+Skills2|r|Skills2.pdf
+Skills3|r|Skills3.pdf
+)
+	expected =
+(
+Skills|r|Skills.pdf
+Skills2|r|Skills2.pdf
+Skills3|r|Skills3.pdf
+)
+	if(errStr := getAssertEqual_ErrorStr(in,expected,A_ThisFunc ":" A_LineNumber))
+		Return errStr " °" A_ThisFunc "° "
+
+in =
+(
+thanks for the message|r|
+hiHo
+Skills|r|Skills.pdf
+Skills2|r|Skills2.pdf
+)
+	expected =
+(
+thanks for the message|r|
+hiHo
+Skills|r|Skills.pdf
+Skills2|r|Skills2.pdf
+)
+	if(errStr := getAssertEqual_ErrorStr(in,expected,A_ThisFunc ":" A_LineNumber))
+		Return errStr " °" A_ThisFunc "° "
+
+in =
+(
+thanks for the message|rr||ahk|
+send,hiHo
+Skills|r|Skills.pdf
+Skills2|r|Skills2.pdf
+)
+	expected =
+(
+thanks for the message|rr||ahk|
+send,hiHo
+Skills|r|Skills.pdf
+Skills2|r|Skills2.pdf
+)
+	if(errStr := getAssertEqual_ErrorStr(in,expected,A_ThisFunc ":" A_LineNumber))
+		Return errStr " °" A_ThisFunc "° "
+
 	in =
 (
 thanks for the message|rr||ahk|
@@ -480,6 +574,7 @@ superduper
 `)
 send,`% msg
 Skills|r|Skills.pdf
+Skills2|r|Skills2.pdf
 )
 	expected =
 (
@@ -495,6 +590,7 @@ superduper
 `)
 send,`% msg
 Skills|r|Skills.pdf
+Skills2|r|Skills2.pdf
 )
 	
 	if(errStr := getAssertEqual_ErrorStr(in,expected,A_ThisFunc ":" A_LineNumber))
@@ -648,8 +744,19 @@ Computer is better2
 ;\____ err_open_issues __ 181114094059 __ 14.11.2018 09:40:59 __/
 
 
-
-
+;/¯¯¯¯ err_doAsimpleCopyOfLine ¯¯ 181124201212 ¯¯ 24.11.2018 20:12:12 ¯¯\
+err_doAsimpleCopyOfLine(){
+in := "a|r|A"
+expected := true
+rootLineObj := { value:in, Aindex: 1 }
+isCommandType := setCommandTypeS(rootLineObj, rootCmdTypeObj, rootCollectObj, rootDoObj )
+result := doAsimpleCopyOfLine(ByRef rootCmdTypeObj,infoBox := "")
+if(result <> expected){
+    feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), A_This )
+    Return errStr " °" A_ThisFunc "° "
+}
+}
+;\____ err_doAsimpleCopyOfLine __ 181124201215 __ 24.11.2018 20:12:15 __/
 
 
 
@@ -665,23 +772,34 @@ while(fileExist(f))
     sleep,100
 
 
+
 	in =
 (
-___open pfade E|rr||ahk|openInEditor,D:\pfade.ahk
-string
 |r|
 al color
+no colors
 |r|
 weeks and years
+|r|
+girls and boys
+|r|
+trees and animals
+|r|
+java and javascript
 )
 	expected =
 (
-___open pfade E|rr||ahk|openInEditor,D:\pfade.ahk
-string
-al color|r|
+al color colors|r|
 al color
+no colors
 weeks years|r|
 weeks and years
+girls boys|r|
+girls and boys
+trees animals|r|
+trees and animals
+java javascript|r|
+java and javascript
 )
 ; todo: future: weeks years |r|
 	if(errStr := getAssertEqual_ErrorStr(in,expected,A_ThisFunc ":" A_LineNumber))
@@ -741,7 +859,6 @@ weeks years|r|
 weeks and years
 )
 	feedbackMsgBoxCloseAllWindows()
-	
 	if(errStr := getAssertEqual_ErrorStr(in,expected,A_ThisFunc ":" A_LineNumber))
 		Return errStr " °" A_ThisFunc "° "
 	
@@ -1468,8 +1585,10 @@ getAssertEqual_ErrorStr(ByRef in,ByRef expected,ALineNumber,myFuncName := "Loop_
 
 		fromLine := ALineNumber ">`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
         sqlLastError := SQLite_LastError()
-        if(trim(sqlLastError))
-            msgbox,:( g_ActionListID = %g_ActionListID%,sqlLastError = %sqlLastError% %fromLine%
+        if(trim(sqlLastError)){
+            tooltip,% ":( g_ActionListID = " g_ActionListID ",sqlLastError = " sqlLastError ", fromLine= " fromLine
+            sleep,3000
+        }
         if(1){
             VALUES = VALUES ('%A_ScriptName%_%A_ThisFunc%' , '%fromLine%', 0, '%timeStampMini%', %g_ActionListID% , 555);
             INSERT_INTO_words := "INSERT INTO words (wordindexed, word, count,     wordreplacement   , ActionListID, lineNr) "
@@ -1530,7 +1649,7 @@ getAssertEqual_ErrorStr(ByRef in,ByRef expected,ALineNumber,myFuncName := "Loop_
      ; s := regExReplace(s,"`%","``%")
 		result := regExReplace(result,"([\n\r][ ]*)\)","$1``)")
 		
-		If(!WinExist(fileNameResult) && result)
+		; If(!WinExist(fileNameResult) && result)
 			run,E:\____\_Portable\HTTP_gif_html_php_sql\WinMerge\WinMerge.exe "%fileNameResult%" "%fileNameExpected%"
 		
 		strCompareBoth4clipboard :=  ":( result<>expected" r1 result r2 "<>" e1 expected e2
@@ -1540,7 +1659,7 @@ getAssertEqual_ErrorStr(ByRef in,ByRef expected,ALineNumber,myFuncName := "Loop_
 		; msgbox,  , % "Not Okey in " ALineNumber , % strCompareBoth "#####################`n" strDebugByRef "`n`n ("
 		
 		; feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), msg )
-		, ALineNumber ">" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+		; , ALineNumber ">" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
 		
 		global errStr_first
 		if(!errStr_first)
@@ -1567,7 +1686,9 @@ prepareGi(){
 	
 	Hotkey, WheelUp, off
 	Hotkey, WheelDown, off
-	BuildTrayMenu()
+	;BuildTrayMenu()
+
+    Menu, Tray, Standard
 }
 waitUserDoSometingMilli(needetMilli,sleepi:=111){
 	tooltip, % "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),1,1
@@ -1587,7 +1708,7 @@ waitUserDoNothingMilli(needetMilli := 4111,sleepi:=111){
 #IfWinActive,
 ~^s::
 ;tooltip,saved ??
-sleep,111
+sleep,876
 reload
 ; do sth
 return
@@ -1611,10 +1732,11 @@ doListBoxFollowMouse:
 show_ListBox_Id:
 checkInRegistryChangedActionListAddress:
 checkActionListAHKfile_sizeAndModiTime:
+lbl_Help_AutoHotkey_online:
+lbl_HelpOnline_features:
+lbl_HelpOnline_shortcut:
+lbl_HelpOnline_issues_open:
 return
-
-;
-
 
 
 
