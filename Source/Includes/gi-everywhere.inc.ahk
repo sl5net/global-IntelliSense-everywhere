@@ -225,7 +225,7 @@ ProcessKey(InputChar,EndKey) {
 			Return
 			
          ; add the word if switching lines
-         ;AddWordToList(g_Word,0)
+         ;AddWordToList(ByRef rootCmdTypeObj,g_Word,0)
 			ClearAllVars(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),true)
 			g_Word := InputChar
 			Return
@@ -255,7 +255,7 @@ ProcessKey(InputChar,EndKey) {
       ;learn and blank word, then assign number pressed to the word
 		IfNotEqual, g_LastInput_Id, %g_Active_Id%
 		{
-         ;AddWordToList(g_Word,0)
+         ;AddWordToList(ByRef rootCmdTypeObj,g_Word,0)
 			ClearAllVars(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),true)
 			g_Word := InputChar
 			g_LastInput_Id := g_Active_Id
@@ -268,13 +268,13 @@ ProcessKey(InputChar,EndKey) {
 		{
 			if(1 && InStr(A_ComputerName,"SL5"))
 				tooltip,% "str=" NewInput " , chr=" InputChar "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
-         ;AddWordToList(g_Word,0)
+         ;AddWordToList(ByRef rootCmdTypeObj,g_Word,0)
 			ClearAllVars(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),true)
 			g_Word := InputChar
 		} else if InputChar in %prefs_EndWordCharacters%
 		{
 			g_Word .= InputChar
-         ;AddWordToList(g_Word, 1)
+         ;AddWordToList(ByRef rootCmdTypeObj,g_Word, 1)
 			ClearAllVars(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),true)
 		} else {
 			g_Word .= InputChar
@@ -289,7 +289,7 @@ ProcessKey(InputChar,EndKey) {
 	} else {
 		if(0 && InStr(A_ComputerName,"SL5"))
 			tooltip,% "str=" NewInput " , chr=" InputChar "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),1,1
-      ;AddWordToList(g_Word,0)
+      ;AddWordToList(ByRef rootCmdTypeObj,g_Word,0)
 		ClearAllVars(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),true)
 		Return
 	}
@@ -689,7 +689,7 @@ CheckForCaretMove(MouseButtonClick, UpdatePosition := false){
 			if (( g_OldCaretY != CaretYorMouseYfallback() ) || (g_OldCaretX != CaretXorMouseXfallback() ))
 			{
             ; add the word if switching lines
-            ;AddWordToList(g_Word,0)
+            ;AddWordToList(ByRef rootCmdTypeObj,g_Word,0)
 				ClearAllVars(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),true)
 			}
 		}
@@ -1376,7 +1376,7 @@ AddSelectedWordToList(){
 	ClipWait, 0
 	IfNotEqual, Clipboard, 
 	{
-      ;AddWordToList(Clipboard,1,"ForceLearn")
+      ;AddWordToList(ByRef rootCmdTypeObj,Clipboard,1,"ForceLearn")
 	}
 	Clipboard = %ClipboardSave%
 	enableCopyQ() ;
@@ -1510,9 +1510,6 @@ SuspendOff(){
 
 
 
-
-
-
 ;/¯¯¯¯ BuildTrayMenu ¯¯ 181024140140 ¯¯ 24.10.2018 14:01:40 ¯¯\
 BuildTrayMenu(){
     ; https://autohotkey.com/docs/commands/Menu.htm
@@ -1523,8 +1520,8 @@ BuildTrayMenu(){
 	Menu, Tray, NoDefault ; Reverses setting a user-defined default menu item.
    ; Menu, Tray, add, Settings, Configuration
 	; Menu, Tray, add, Pause, PauseResumeScript
-	Menu, Tray, add, Help GI- Features online, lbl_HelpOnline_features
-	Menu, Tray, add, Help GI- Shortcut online, lbl_HelpOnline_shortcut
+	Menu, Tray, add, Help Gi-Features online, lbl_HelpOnline_features
+	Menu, Tray, add, Help Gi-Shortcuts online, lbl_HelpOnline_shortcut
 	Menu, Tray, add, open issues online, lbl_HelpOnline_issues_open
     Menu, Tray, add, Help AutoHotkey online, lbl_Help_AutoHotkey_online
 

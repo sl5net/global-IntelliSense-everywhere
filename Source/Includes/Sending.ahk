@@ -700,6 +700,9 @@ SendWord(WordIndex){
 				was_a_Editor_open_command := openInEditor(ActionListFolderOfThisActionList, isAHKcode, AHKcode, isStartingUnderline, is_OpenA_edit_open_lib, isDeprecated_OpenA_edit_open_lib)
 				if(was_a_Editor_open_command) {
 					RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, return , % g_Word "=key|" A_ThisFunc ":"  A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+
+
+
 					return ; endOf function: SendWord(WordIndex)
 					
 				}
@@ -1024,10 +1027,10 @@ SendWord(WordIndex){
 		IfMsgBox yes
 			if(fExist)
             ; run, %sending%
-				openInEditor("..\ActionLists\" . ActiveClass, true, "run," sending, true, true, true)
+				openInEditor("..\ActionLists\" ActiveClass, true, "run," sending, true, true, true)
 		else
              ; run, %absActionListAddress%
-			openInEditor("..\ActionLists\" . ActiveClass, true, "run," absActionListAddress, true, true, true)
+			openInEditor("..\ActionLists\" ActiveClass, true, "run," absActionListAddress, true, true, true)
                  ;Msgbox,%absActionListAddress% `n (from: %A_LineFile%~%A_LineNumber%)
 		
 	}
