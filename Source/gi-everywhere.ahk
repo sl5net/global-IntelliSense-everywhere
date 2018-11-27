@@ -1,6 +1,9 @@
 ﻿; Indentation_style: https://de.wikipedia.org/wiki/Einrueckungsstil#SL5small-Stil
 ; # ErrorStdOut
 
+
+
+
 FileEncoding, UTF-8
 
 #Include %A_ScriptDir%\inc_ahk\init_global.init.inc.ahk
@@ -60,6 +63,7 @@ class Stuff{
 
 global g_isEnabledKeyboardHotKeys
 
+global Sql_Temp
 
 global g_config
 g_config := { list:{ change: { stopRexExTitle: false } } }
@@ -85,8 +89,8 @@ if(1 && InStr(A_ComputerName,"SL5") )
 ; msgBox,% g_config["FuzzySearch"]["keysMAXperEntry"] "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 ;msgBox,% g_config["FuzzySearch"]["MAXlines"] "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 
-; global g_config := { Send:{ RealisticDelayDynamic: true } }
-g_config .= { Send:{ RealisticDelayDynamic: false } }
+global g_config ; := { Send:{ RealisticDelayDynamic: true } }
+g_config["Send"]["RealisticDelayDynamic"] := false
 ; msgBox,% g_config["FuzzySearch"]["keysMAXperEntry"] "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 
 
@@ -378,11 +382,6 @@ reload
 ; RebuildDatabase()
 ; Sql_Temp.msgBoxSelectBuild_example( word, listID )
 
-Sql_Temp.sqLite2obj()
-if(!Sql_Temp.valueObj)
-    set_SqlTemplateFiles2TempTable()
-if(!Sql_Temp.valueObj)
-    msgbox,% " ERROR !Sql_Temp.valueObj `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" , 50,50
 
 
 InitializeListBox()
@@ -422,6 +421,12 @@ if !(g_ListBoxScrollCallback){
 GetIncludedActiveWindow() ;Find the ID of the window we are using
 
 
+
+Sql_Temp.sqLite2obj()
+if(!Sql_Temp.valueObj)
+    set_SqlTemplateFiles2TempTable()
+if(!Sql_Temp.valueObj)
+    msgbox,% " ERROR !Sql_Temp.valueObj `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
 
 
 MainLoop()

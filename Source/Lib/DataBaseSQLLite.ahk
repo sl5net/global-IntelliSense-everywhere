@@ -175,7 +175,9 @@ class DataBaseSQLLite extends DBA.DataBase
 		
 		query := SQLite_Query(this._handleDB, sql) ;prepare the query
 		if ErrorLevel
-			msgbox % ErrorLevel
+			msgbox % ErrorLevel "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+
+
 		
 		try
 		{

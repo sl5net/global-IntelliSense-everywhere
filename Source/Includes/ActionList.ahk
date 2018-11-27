@@ -2681,7 +2681,7 @@ ActionList = '%ActionList%' ;
 		
 		tooltip,% m "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 		lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,m)
-		msgbox,% m "`n `n (" . A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\") ")"
+		msgbox,% m "`n `n (" A_LineNumber " "  RegExReplace(A_LineFile,".*\\") ")"
 	}
 	; g_ActionList_UsedByUser_since_midnight[g_ActionListID] := lastUsedByUser_since_midnight
     ; g_ActionListDB.Query("UPDATE ActionList SET lastUsedByUser_since_midnight = " g_ActionList_UsedByUser_since_midnight[g_ActionListID] " WHERE id = " g_ActionListID ";")

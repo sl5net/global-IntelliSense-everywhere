@@ -74,7 +74,7 @@ if(False) {
 global g_lineNumberFeedback
  g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
    msg := getWelcomeMsg()
-   MsgBox,% msg
+   MsgBox,% msg " from getWelcomeMsg"
 } ;
 isInternMsgTransportIsClipboard := false ; false. then using fileSystem: readfile, include copyfile
 debugIt := true

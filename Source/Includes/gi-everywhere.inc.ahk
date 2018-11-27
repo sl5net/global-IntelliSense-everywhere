@@ -496,7 +496,6 @@ RecomputeMatches( calledFromStr ){
 	global prefs_ShowLearnedFirst
 	global prefs_SuppressMatchingWord
 
-	global Sql_Temp
 
     ; Menu, Tray, Icon, shell32.dll, 266 ; pretty black clock
 
