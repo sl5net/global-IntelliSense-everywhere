@@ -110,24 +110,30 @@ RebuildDatabase(){
 
 
 	    } catch e{
-            tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
+            tip := "Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
             sqlLastError := SQLite_LastError()
-            tip .= "`n sqlLastError=" sqlLastError "`n `n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
+            tip .= "`n sqlLastError=" sqlLastError
             lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,tip)
             tooltip, `% tip
             feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), tip )
             Clipboard := tip
-            msgbox, % tip
+            msgbox, % tip "`n `n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
         }
 
 	;sleep,1000
 	;pause
 	g_ActionListDB.BeginTransaction()
 
+	g_ActionListDB.Query("DROP INDEX WordIndex;")
+	g_ActionListDB.Query("DROP TABLE LastState;")
+	g_ActionListDB.Query("DROP TABLE ActionLists;")
+
 	CreateWordsTable()
+
 	CreateWordIndex()
 
 	CreateLastStateTable()
+
 	CREATE_TABLE_ActionLists()
 
     CreateCacheTable()
@@ -136,6 +142,7 @@ RebuildDatabase(){
 	
 	SetDbVersion()
 	set_SqlTemplateFiles2TempTable()
+
 	g_ActionListDB.EndTransaction()
 }
 ;\____ RebuildDatabase __ 181123064751 __ 23.11.2018 06:47:51 __/
@@ -486,8 +493,8 @@ ActionListID INTEGER NOT NULL
 			ErrMsg := g_ActionListDB.ErrMsg()
 			if(!instr(ErrMsg," already exists" )){ ; todo: dirty bugfix 22.11.2018 22:15
                 ErrCode := g_ActionListDB.ErrCode()
-                tip := "Cannot Create WordIndex Index - fatal error: `n`n" ErrCode " `n`n-`n`n " ErrMsg " `n`n(" A_LineNumber . " " . RegExReplace(A_LineFile,".*\\")
-                msgbox %tip%
+                tip := "Cannot Create WordIndex Index - fatal error: `n`n" ErrCode " `n`n-`n`n " ErrMsg
+                msgbox, % tip "`n `n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
                 ExitApp
 			}
 		}
@@ -499,6 +506,7 @@ ActionListID INTEGER NOT NULL
 	
 ;<<<<<<<< CREATE_TABLE_ActionLists <<<< 180218062159 <<<< 18.02.2018 06:21:59 <<<<
 	CREATE_TABLE_ActionLists(){
+
 		lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"lin1 at CREATE_TABLE_ActionLists")
 		global g_ActionListDB
 		global g_ActionListDBfileAdress
@@ -519,8 +527,7 @@ ActionListID INTEGER NOT NULL
 ;>>>>>>>> CREATE_TABLE_ActionLists >>>> 180218062205 >>>> 18.02.2018 06:22:05 >>>>
 
 ;/¯¯¯¯ CreateActionListsTable ¯¯ 181106182616 ¯¯ 06.11.2018 18:26:16 ¯¯\
-	CreateActionListsTable()
-	{
+	CreateActionListsTable(){
 		Msgbox,deprecated ==> return `n (%A_LineFile%~%A_LineNumber%)
 		return
 		
