@@ -80,6 +80,9 @@ Receive_ActionListAddress(CopyOfData){
 ;DisableKeyboardHotKeys()
 ;SetBatchLines, -1 ;Change the Running performance speed (Priority changed to High in GetIncludedActiveWindow)
 ;ReadInTheActionList(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
+
+
+
 	MainLoop()
 	return true  ; Returning 1 (true) is the traditional way to acknowledge this message.
 }
@@ -540,6 +543,8 @@ RecomputeMatches( calledFromStr ){
         g_SingleMatchDescription := Object()
         g_SingleMatchReplacement := Object()
 
+        ; to to to to to to
+
         loop,6
         {
             o := valueObj[A_Index]
@@ -604,7 +609,7 @@ RecomputeMatches( calledFromStr ){
 		if(g_MatchTotal == 10)
 			break
 	}
-	;
+	; tooltip hallo msgbox tooltip tooltip
 
 	; msgbox,% g_MatchTotal "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
 	
@@ -612,7 +617,7 @@ RecomputeMatches( calledFromStr ){
 	
 	IfEqual, g_MatchTotal, 0
 	{
-		Tooltip, no match found
+		Tooltip, no match found for `n`n%g_Word%
 		; MsgBox, % SELECT 
 		; Clipboard := SELECT
 		ClearAllVars(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),false)

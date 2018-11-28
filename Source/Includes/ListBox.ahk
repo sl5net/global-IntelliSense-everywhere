@@ -2,16 +2,21 @@
 ;/¯¯¯¯ InitializeListBox ¯¯ 181107232104 ¯¯ 07.11.2018 23:21:04 ¯¯\
 InitializeListBox(){
    global
-   
+
+    ; https://autohotkey.com/docs/commands/Gui.htm:
+    ; DPIScale [v1.1.11+]: Use Gui -DPIScale to disable DPI scaling, which is enabled by default. If DPI scaling is enabled on a system with a non-standard DPI setting, the Gui sub-commands automatically scale coordinates and sizes to give controls roughly the same apparent size (but higher resolution). For example, with a DPI of 144 (150%), Gui Show, w100 would make the Gui 150 pixels wide, but A_GuiWidth would still return 100. A_ScreenDPI contains the system's current DPI.
+
    ; Gui, ListBoxGui: Color, 010101 ; works ??? 21.11.2018 22:41
    ; Gui, ListBoxGui: Color, 010101 ; works ??? 21.11.2018 22:41
-   Gui, ListBoxGui: -DPIScale -Caption +AlwaysOnTop +ToolWindow +Delimiter%g_DelimiterChar%
-    ; too to
+   ; Gui, ListBoxGui: -DPIScale -Caption +AlwaysOnTop +ToolWindow +Delimiter%g_DelimiterChar%
+   ; +AlwaysOnTop seems not necassary 28.11.2018 11:41
+   Gui, ListBoxGui: -DPIScale -Caption +Delimiter%g_DelimiterChar%
+    ; too to t t tooltip to toooltip msg msg m msgb msgbox tool tooltip tip
 
     ; Gui +LastFound ; ??? has no effect
     ; WinSet, TransColor, %CustomColor% 150  ; ???? has no effect
 
-   ;
+   ; toolip
 
    Local ListBoxFont
    if (prefs_ListBoxFontOverride && prefs_ListBoxFontOverride != "<Default>"){
@@ -48,7 +53,7 @@ InitializeListBox(){
 
   INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 
-   Loop, %prefs_ListBoxRows%
+   Loop, % prefs_ListBoxRows
    {
       ; all the not selected lines are here. 21.11.2018 23:01
       ; msg= 1: vg_ListBox%A_Index% ,2: R%A_Index% X0 Y0 ,3: T%prefs_ListBoxFontSize% T32 ,4: hwndg_ListBoxHwnd%A_Index%
@@ -57,7 +62,6 @@ InitializeListBox(){
       ;can't use a g-label here as windows sometimes passes the click message when spamming the scrollbar arrows
       ;Gui, ListBoxGui: Add, ListBox, vg_ListBox%A_Index% R%A_Index% X0 Y0 T%prefs_ListBoxFontSize% T32 hwndg_ListBoxHwnd%A_Index%
     try{
-      ; Gui,Color,Black, Black ; no effect too
       Gui, ListBoxGui: Add, ListBox, vg_ListBox%A_Index% R%A_Index% X0 Y0 T%g_ListBoxFontSize% T32 hwndg_ListBoxHwnd%A_Index%
     } catch e{
         if(1 && InStr(A_ComputerName,"SL5"))

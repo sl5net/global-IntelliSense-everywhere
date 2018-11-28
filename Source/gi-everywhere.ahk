@@ -39,9 +39,18 @@ lineFileName := RegExReplace(A_LineFile, ".*\\([\w\s\.]+)$", "$1")
 
 BuildTrayMenu()
 
+;Change the Running performance speed (Priority changed to High in GetIncludedActiveWindow)
+SetBatchLines, -1 ; I can not do recognice any improvement with that right now
 
+; https://autohotkey.com/docs/commands/Process.htm#Priority
+; L (or Low), B (or BelowNormal), N (or Normal), A (or AboveNormal), H (or High), R (or Realtime)
 Process, Priority,, H ; <=== only use this if its not in a critical development 05.11.2018 13:20
+; Process, Priority,, R ; <=== it acts on me as if the script was working more UNstable
 
+; Critical,On  ; I can not do recognice any improvement with that right now
+
+; tooltip tooltip tooltip  tooltip too tool toolt tool tool tool msgbxo ms msgbox m m  m msgb msgbo msgbox tooltip
+; tooltip tooltip t t t t t tooltip msgbox tooltip msgbxo toolt
 
 CoordMode, ToolTip,Screen
 
@@ -367,23 +376,6 @@ AutoTrim, Off
 ; while(RegExMatch(Build,"O)(\w+)",Found,Pos),Pos:=Found.Pos(1)+Found.Len(1)){
 ;    LastWord:=Found.1
 
-
-
-
-if(0){
-set_SqlTemplateFiles2TempTable()
-
-key := "selects" A_TickCount ; demo demonstration key
-Sql_Temp.file2sqLite(key)
-Sql_Temp.sqLite2obj(key)
-; Sql_Temp.get_valueObj()
-reload
-}
-; RebuildDatabase()
-; Sql_Temp.msgBoxSelectBuild_example( word, listID )
-
-
-
 InitializeListBox()
 
 
@@ -400,8 +392,8 @@ global g_doSaveLogFiles
 lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"DisableKeyboardHotKeys()")
 DisableKeyboardHotKeys()
 
-;Change the Running performance speed (Priority changed to High in GetIncludedActiveWindow)
-; SetBatchLines, -1
+
+; tooltip tooltip msgbox toooltip tooltip  tooltip tooltip msgbx
 
 g_ActionListID := getActionListID(ActionList) ; 24.03.2018 23:02
 ReadInTheActionList(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
@@ -421,13 +413,16 @@ if !(g_ListBoxScrollCallback){
 GetIncludedActiveWindow() ;Find the ID of the window we are using
 
 
-
-Sql_Temp.sqLite2obj()
-if(!Sql_Temp.valueObj)
-    set_SqlTemplateFiles2TempTable()
-if(!Sql_Temp.valueObj)
-    msgbox,% " ERROR !Sql_Temp.valueObj `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
-
+if(true){
+    ; is updated each time relods the script. currently independent of the timestamp of the file.
+    ; This allows someone to change the files and does not have to delete the table first ; 28.11.2018 12:15
+    ; Sql_Temp.sqLite2obj()
+    ; if(!Sql_Temp.valueObj)
+    Sql_Temp.file2sqLite()
+    Sql_Temp.sqLite2obj()
+    if(!Sql_Temp.valueObj)
+        msgbox,% " ERROR !Sql_Temp.valueObj `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+}
 
 MainLoop()
 
@@ -707,8 +702,10 @@ return
 #s::
  toggle_RealisticDelayDynamic(){
      global g_config
-     g_config["Send"]["RealisticDelayDynamic"] := ( g_config["Send"]["RealisticDelayDynamic"] ) ? false : true
-     ToolTip2sec("RealisticDelayDynamic = " g_config["Send"]["RealisticDelayDynamic"] " `n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") " " Last_A_This,1,1)
+     global test
+     Msgbox,% test "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+     g_config["Send"]["RealisticDelayDynamic"] := !g_config["Send"]["RealisticDelayDynamic"]
+     ToolTip5sec("RealisticDelayDynamic = `n`n`n >" g_config["Send"]["RealisticDelayDynamic"] "< `n`n`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") " " Last_A_This,1,1)
  }
 
 ; SetTitleMatchMode,2

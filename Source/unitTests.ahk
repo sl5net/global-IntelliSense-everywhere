@@ -81,6 +81,7 @@ g_do_only_this_testCase  := "err_indexFollowingLines4search"
 g_do_only_this_testCase  := "err_is_without_keywords"
 g_do_only_this_testCase  := "err_problemNow" ; then all test will be run 24.11.2018 20:33
 g_do_only_this_testCase  := "err_multi_rr_stop_by_is_r" ; then all test will be run 24.11.2018 20:33
+g_do_only_this_testCase  := "err_is_r_without_keywords" ; then all test will be run 24.11.2018 20:33
 g_do_only_this_testCase  := "" ; then all test will be run 24.11.2018 20:33
 ;\____ g_do_only_this_testCase __ 181118111650 __ 18.11.2018 11:16:50 __/
 ;\____ g_do_only_this_testCase __ 181118111650 __ 18.11.2018 11:16:50 __/
@@ -113,6 +114,12 @@ err_read_actionList_from_file_and_preParse(){
 ;\____ err_bewe __ 181119210958 __ 19.11.2018 21:09:58 __/
 
 
+
+
+
+
+
+
 err_ReadActionList()
 
 ;/¯¯¯¯ AutoKeywords ¯¯ 181118181811 ¯¯ 18.11.2018 18:18:11 ¯¯\
@@ -122,6 +129,8 @@ if(1 && errStr:=test_getAutoKeywords())
 if(false){
 noop=1
 }
+else if(1 && errStr:=err_is_r_without_keywords())
+ 		countErrors++ ; Msgbox,% A_LineNumber  ;
 else if(0 && errStr:=err_indexFollowingLines4search())
  		countErrors++ ; Msgbox,% A_LineNumber  ;
 else if(1 && errStr:=err_doAsimpleCopyOfLine())
@@ -760,6 +769,27 @@ if(result <> expected){
 
 
 
+;/¯¯¯¯ err_is_r_without_keywords ¯¯ 181128135906 ¯¯ 28.11.2018 13:59:06 ¯¯\
+err_is_r_without_keywords(){
+; automatically create keywords. by using: |r|value value value ...
+    f=G:\fre\git\github\global-IntelliSense-everywhere-Nightly-Build\Source\log\ActionList.ahk.log.txt
+    fileDelete,G:\fre\git\github\global-IntelliSense-everywhere-Nightly-Build\Source\log\ActionList.ahk.log.txt
+    while(fileExist(f))
+        sleep,100
+
+	in =
+(
+|r|om is a color
+)
+	expected =
+(
+om color|r|om is a color
+)
+if(errStr := getAssertEqual_ErrorStr(in,expected,A_ThisFunc ":" A_LineNumber))
+    Return errStr " °" A_ThisFunc "° "
+}
+;\____ err_is_r_without_keywords __ 181128135910 __ 28.11.2018 13:59:10 __/
+
 
 
 ;/¯¯¯¯ err_is_without_keywords ¯¯ 181114072044 ¯¯ 14.11.2018 07:20:44 ¯¯\
@@ -770,8 +800,6 @@ f=G:\fre\git\github\global-IntelliSense-everywhere-Nightly-Build\Source\log\Acti
 fileDelete,G:\fre\git\github\global-IntelliSense-everywhere-Nightly-Build\Source\log\ActionList.ahk.log.txt
 while(fileExist(f))
     sleep,100
-
-
 
 	in =
 (
@@ -801,7 +829,6 @@ trees and animals
 java javascript|r|
 java and javascript
 )
-; todo: future: weeks years |r|
 	if(errStr := getAssertEqual_ErrorStr(in,expected,A_ThisFunc ":" A_LineNumber))
 		Return errStr " °" A_ThisFunc "° "
 
@@ -1566,7 +1593,6 @@ getAssertEqual_ErrorStr(ByRef in,ByRef expected,ALineNumber,myFuncName := "Loop_
     }
 
 
-	
 	fileNameResult := "result18-11-13_18-03.txt"
 	fileNameExpected := "expected18-11-13_18-03.txt"
 	if(myFuncName == "getAutoKeywords"){

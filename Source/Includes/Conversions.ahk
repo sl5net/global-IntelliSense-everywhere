@@ -121,12 +121,13 @@ RebuildDatabase(){
         }
 
 	;sleep,1000
-	;pause
+	;pause ; tool tool __ tool to toltip olt
 	g_ActionListDB.BeginTransaction()
 
 	g_ActionListDB.Query("DROP INDEX WordIndex;")
 	g_ActionListDB.Query("DROP TABLE LastState;")
 	g_ActionListDB.Query("DROP TABLE ActionLists;")
+	g_ActionListDB.Query("DROP TABLE temp;")
 
 	CreateWordsTable()
 
@@ -141,26 +142,20 @@ RebuildDatabase(){
 	Create_PerformanceMeasurementOf_Functions_Table()
 	
 	SetDbVersion()
-	set_SqlTemplateFiles2TempTable()
+
+    Sql_Temp.file2sqLite()
+    Sql_Temp.sqLite2obj()
+    if(!Sql_Temp.valueObj)
+        msgbox,% " ERROR !Sql_Temp.valueObj `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
 
 	g_ActionListDB.EndTransaction()
 }
 ;\____ RebuildDatabase __ 181123064751 __ 23.11.2018 06:47:51 __/
 
 
+; to tool tool tooltip toolipt toolip msgbox msgbox ms msgbox msg msg
 
-;/¯¯¯¯ insertSqlFilesIntoTempTable ¯¯ 181123064851 ¯¯ 23.11.2018 06:48:51 ¯¯\
-set_SqlTemplateFiles2TempTable(){
-    key := "selects" A_TickCount ; demo demonstration key
-    Sql_Temp.file2sqLite() ; fileNamePrefix := "select0"
-    Sql_Temp.sqLite2obj()
-    ; Sql_Temp.get_valueObj()
-    ;Sql_Temp.msgBoxSelectBuild_example( word, listID )
-    ; msgbox,% ObjToStrTrim(Sql_Temp.valueObj) "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
-}
-;\____ insertSqlFilesIntoTempTable __ 181123064856 __ 23.11.2018 06:48:56 __/
 
-; to
 
 ;Runs the first conversion
 RunConversionOne(ActionListConverted){
@@ -474,7 +469,6 @@ ActionListID INTEGER NOT NULL
 
 ; ActionListID,
 ;clipboard := sql
-		tooltip, % sql
 		IF not g_ActionListDB.Query(sql)
 		{
 			ErrMsg := g_ActionListDB.ErrMsg() . "`n" . sql . "`n"
@@ -565,7 +559,9 @@ CreateCacheTable(){
     sql =
     (
     CREATE TABLE temp
-    ( key TEXT PRIMARY KEY
+    (
+    key TEXT PRIMARY KEY
+    , fileModiTime INTEGER
     , value TEXT
     WITHOUT ROWID  );
     )

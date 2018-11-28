@@ -5,6 +5,7 @@ class Sql_Temp {
     valueObj := {}
     static fileNamePrefix := "select0"
 ; https://autohotkey.com/boards/viewtopic.php?f=76&t=59215&p=249470#p249470
+
     ;/¯¯¯¯ file2sqLite ¯¯ 181123030022 ¯¯ 23.11.2018 03:00:22 ¯¯\
     file2sqLite(fileNamePrefix := "select0"){ ;  Sql_Temp.file2sqLite()
         if(!fileNamePrefix)
@@ -17,9 +18,11 @@ class Sql_Temp {
         loop,6
         {
             fileName := fileNamePrefix A_Index ".sql"
+
             fileAdress := A_ScriptDir "\sql\template\" fileName
             if(!FileExist(fileAdress))
                 MsgBox,  % fileAdress " not exist `n`n("A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+            FileGetTime, fileModiTime, % fileAdress ;  YYYYMMDDHH24MISS
             FileRead, SELECT,% fileAdress
             if(!SELECT)
                 MsgBox, % "!SELECT  `n`n("A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
@@ -44,7 +47,7 @@ class Sql_Temp {
         if(!g_ActionListDB)
             g_ActionListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", g_ActionListDBfileAdress ) ;
          escaped_string := RegExReplace(jsonStr, "'", "''")
-        sql := "INSERT INTO temp (key, value) VALUES ('" fileNamePrefix "','" escaped_string "');"
+        sql := "REPLACE INTO temp (fileModiTime, key, value) VALUES ('" fileModiTime "', '" fileNamePrefix "','" escaped_string "');"
         ; clipboard := sql
 
         try{
@@ -61,6 +64,9 @@ class Sql_Temp {
         }
    }
     ;\____ file2sqLite __ 181123030130 __ 23.11.2018 03:01:30 __/
+
+
+; toot
 
 
 

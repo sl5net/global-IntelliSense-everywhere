@@ -1021,10 +1021,8 @@ HandleSettingsMessage( p_w, p_l, p_m, p_hw )
 			GuiControl, MenuGui:Font, %Old_GuiControl% ;;; xyz
       }
       
-      if ( SubStr(A_GuiControl, 1, 9) == "helpinfo_" )
-		{
-			if !(Help_Hover)
-			{
+      if ( SubStr(A_GuiControl, 1, 9) == "helpinfo_" ){
+			if !(Help_Hover){
 				IF !(h_cursor_help)
 				{
 					h_cursor_help := DllCall( "LoadImage", "Ptr", g_NULL, "Uint", g_IDC_HELP , "Uint", g_IMAGE_CURSOR, "Int", g_NULL, "Int", g_NULL, "Uint", g_LR_SHARED ) 
@@ -1035,14 +1033,13 @@ HandleSettingsMessage( p_w, p_l, p_m, p_hw )
 				Gui, MenuGui:Font, cBlue        ;;; xyz
 				GuiControl, MenuGui:Font, %A_GuiControl% ;;; xyz
 			}
-		} else if (A_GuiControl == "Menu_VisitForum")
-		{	
+		} else if (A_GuiControl == "Menu_VisitForum"){
 			if !(URL_Hover)
 			{
 				old_cursor := DllCall( "SetCursor", "uint", g_cursor_hand )
 				URL_Hover := true
 				Help_Hover =
-				Gui, MenuGui:Font, cBlue        ;;; xyz
+				Gui, MenuGui:Font, cRed ; cBlue        ;;; xyz g
 				GuiControl, MenuGui:Font, %A_GuiControl% ;;; xyz
 			}
 				
