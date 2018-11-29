@@ -7,16 +7,39 @@ InitializeListBox(){
     ; DPIScale [v1.1.11+]: Use Gui -DPIScale to disable DPI scaling, which is enabled by default. If DPI scaling is enabled on a system with a non-standard DPI setting, the Gui sub-commands automatically scale coordinates and sizes to give controls roughly the same apparent size (but higher resolution). For example, with a DPI of 144 (150%), Gui Show, w100 would make the Gui 150 pixels wide, but A_GuiWidth would still return 100. A_ScreenDPI contains the system's current DPI.
 
    ; Gui, ListBoxGui: Color, 010101 ; works ??? 21.11.2018 22:41
-   ; Gui, ListBoxGui: Color, 010101 ; works ??? 21.11.2018 22:41
-   ; Gui, ListBoxGui: -DPIScale -Caption +AlwaysOnTop +ToolWindow +Delimiter%g_DelimiterChar%
+   ; Gui, ListBoxGui: Color, cBlue, cBlue ; works ??? 21.11.2018 22:41
+   ; Gui, New: Color: cBlue, title
+
+   UnsichtbareFarbe := "EEAA99"  ; Kann eine beliebige RGB-Farbe sein (wird weiter unten transparent gemacht).
+   Gui, ListBoxGui: -DPIScale -Caption +AlwaysOnTop +ToolWindow +Delimiter%g_DelimiterChar%
+   ; Gui, ListBoxGui: +LastFound +AlwaysOnTop -Caption +ToolWindow  ; +ToolWindow entfernt die Taskleistenschaltfläche und die Möglichkeit, via ALT+TAB angesteuert zu werden.
+m
+  ; GuiControl +BackgroundFF9977, ListBoxGui
+  ; GuiControl +BackgroundFF9977, ListBox
+  ; Gui, ListBoxGui: Color, , cBlue ; works changing the background color https://ahkde.github.io/docs/commands/Gui.htm#Examples
+  ; Gui, ListBoxGui: Color, , 46BAB6 ; works changing the background color https://ahkde.github.io/docs/commands/Gui.htm#Examples
+  ; Gui, ListBoxGui: Color, , 096FBF ; works changing the background color https://ahkde.github.io/docs/commands/Gui.htm#Examples
+  Gui, ListBoxGui: Color, , 096FBF ; works changing the background color https://ahkde.github.io/docs/commands/Gui.htm#Examples
+; https://autohotkey.com/boards/viewtopic.php?f=76&t=59191&p=249378#p249378
+; https://autohotkey.com/boards/viewtopic.php?f=76&t=59191&p=250519#p250519
+
+;    Gui , ListBoxGui: +LastFound +AlwaysOnTop -Caption +ToolWindow  ; +ToolWindow entfernt die Taskleistenschaltfläche und die Möglichkeit, via ALT+TAB angesteuert zu werden.
+ ;;  Gui, ListBoxGui: Color, %UnsichtbareFarbe%
+   ; WinSet, TransColor, %UnsichtbareFarbe% 150 ; 29.11.2018 18:54
+    ; Gui, ListBoxGui: Show, x0 y400 NoActivate  ; NoActivate verhindert, dass ein anderes Fenster seinen Aktivzustand verliert.
+; tt to t29.11.2018 18:54toto to 29.11.2018 19:00
+; t tto t totot t lkl t t tz ttt t t tt tui ut tk tootti
+; to t to
+
+
    ; +AlwaysOnTop seems not necassary 28.11.2018 11:41
-   Gui, ListBoxGui: -DPIScale -Caption +Delimiter%g_DelimiterChar%
-    ; too to t t tooltip to toooltip msg msg m msgb msgbox tool tooltip tip
+   ; Gui, ListBoxGui: -DPIScale -Caption +Delimiter%g_DelimiterChar%
+    ; too to t t tooltip to toooltip msg msg m msgb msgbox tool tooltip tip tttt
 
     ; Gui +LastFound ; ??? has no effect
     ; WinSet, TransColor, %CustomColor% 150  ; ???? has no effect
 
-   ; toolip
+   ; toolip tttt t
 
    Local ListBoxFont
    if (prefs_ListBoxFontOverride && prefs_ListBoxFontOverride != "<Default>"){
@@ -27,29 +50,32 @@ InitializeListBox(){
    } else {
       ListBoxFont = Tahoma
    }
-      ; to too  to1111  to   too   too  tooltip
+      ; to too  to1111  to   too   too  tooltip t t
    ; Gui, ListBoxGui:Font, s%prefs_ListBoxFontSize%, %ListBoxFont% ;
    if(0 && InStr(A_ComputerName,"SL5"))
     ToolTip5sec( g_ListBoxFontSize " = font size of ListBoxGui `n (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") )
    ; Gui, ListBoxGui:Font, s%g_ListBoxFontSize%, %ListBoxFont%
    ;Gui, ListBoxGui:Font, s%g_ListBoxFontSize% cRed Bold, %ListBoxFont% ; https://autohotkey.com/docs/commands/GuiControl.htm#Font
    ; Gui, ListBoxGui:Font, s%g_ListBoxFontSize% cGreen Bold, %ListBoxFont% ; https://autohotkey.com/docs/commands/GuiControl.htm#Font
+   Gui, ListBoxGui:Font, s%g_ListBoxFontSize% cWhite , %ListBoxFont% ; https://autohotkey.com/docs/commands/GuiControl.htm#Font
 
     ; Gui,ListBoxGui:Color, , Black, ; https://autohotkey.com/boards/viewtopic.php?f=76&t=59191&p=249369#p249369
     ; Gui,ListBoxGui:Color, , Black, ; https://autohotkey.com/boards/viewtopic.php?f=76&t=59191&p=249369#p249369
     ; Gui,ListBoxGui:Color, , BackgroundTrans , ; this sets background of the listbox ; https://autohotkey.com/boards/viewtopic.php?f=76&t=59191&p=249369#p249369
-    ; Gui,ListBoxGui:Color,Gray ; works: https://autohotkey.com/boards/viewtopic.php?f=76&t=59191&p=249369#p249369
 
-    Gui, ListBoxGui:Font, s%g_ListBoxFontSize% %g_fontColor% Bold, %ListBoxFont% ; https://autohotkey.com/docs/commands/GuiControl.htm#Font
+    ; Gui , ListBoxGui:Color,cBlue ; works: https://autohotkey.com/boards/viewtopic.php?f=76&t=59191&p=249369#p249369
+; to
+    ; 29.11.2018 18:56Gui, ListBoxGui:Font, s%g_ListBoxFontSize% %g_fontColor% Bold, %ListBoxFont% ; https://autohotkey.com/docs/commands/GuiControl.htm#Font
 
-    ; t to to too
+
+    ; t to to toot t to to to tt T TO  to
 
    ; Gui, ListBoxGui:Font, s%g_ListBoxFontSize% cGreen Bold, %ListBoxFont% ; https://autohotkey.com/docs/commands/Gui.htm#Color
    ; Gui, ListBoxGui:Font,BackgroundTrans  ; ??? too . i seee no effect
    ;WinSet, TransColor, EEAA99
    ; too to
    ; Gui, ListBoxGui: Font, s18 cRed Bold, g_ListBox%A_Index%
-   ; to to to t to too
+   ; to to to t to too t t
 
   INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 
