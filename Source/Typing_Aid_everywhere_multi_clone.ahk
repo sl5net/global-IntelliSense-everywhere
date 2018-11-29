@@ -461,11 +461,12 @@ ActionListNEW = %activeTitle%
         ; ahkSource .= "KeyWait Control  `; Wartet darauf, dass sowohl STRG als auch ALT losgelassen wird. `n"
 	ahkSource .= "if( !fileEx ) { `n"
 	ahkSource .= "message = :(  ``n '%ActionListFilterPath2%'  ``n '%ActionListFilterPath2Abs%'  ``n existiert nicht ( `%fileEx%` = fileEx ) . ``n ``n message with id (1704171514) was copied to the Clipboard. Sor you probably could find this source code little bit easier. ``n (from: %A_LineFile%~%A_LineNumber%) `n "
-	ahkSource .= "tooltip, `%message`% `n "
+	ahkSource .= "tooltip, `%message`% , 1,1 `n "
 	
-	ahkSource .= "Clipboard = `%message`%  `n "
-	ahkSource .= "Msgbox,4 , :( ActionListNameFilter.inc.ahk not found , `%message`% , 4  `n "
-	
+	; ahkSource .= "Clipboard = `%message`%  `n "
+	; ahkSource .= "Msgbox,4 , :( ActionListNameFilter.inc.ahk not found , `%message`% , 4  `n "
+	; ahkSource .= "tooltip,:( ActionListNameFilter.inc.ahk not found : `%message`% , 1,1  `n "
+
 	ahkSource .= "Sleep, 4000 `n"
 	ahkSource .= "ExitApp  `n"
 	ahkSource .= "} `n"

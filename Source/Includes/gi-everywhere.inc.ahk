@@ -116,9 +116,15 @@ ReadInTheActionList(calledFromStr){ ;Read in the ActionList
 MainLoop(){
 	
 	global g_TerminatingEndKeys
+    global g_isListBoxDisabled
 	Loop
 	{
-		
+		if(g_isListBoxDisabled){
+		    sleep,500
+		    continue
+		}
+		; tooltip 5 tlkjk to to ttt t t to totolsotolsotlsolilkj
+
       ;If the active window has changed, wait for a new one
       ;IF (false && !ReturnWinActive() ) { ; "false &&" addet 18-03-31_13-42 lets try
 		IF !( ReturnWinActive() )
@@ -1527,6 +1533,8 @@ BuildTrayMenu(){
 	Menu, Tray, add, Help Gi-Features online, lbl_HelpOnline_features
 	Menu, Tray, add, Help Gi-Shortcuts online, lbl_HelpOnline_shortcut
 	Menu, Tray, add, open issues online, lbl_HelpOnline_issues_open
+	; Menu, Tray, add
+	Menu, Tray, add, _______________________________,lbl_noOp
     Menu, Tray, add, Help AutoHotkey online, lbl_Help_AutoHotkey_online
 
 	IF (A_IsCompiled) ; A_IsCompiled	Contains 1 if the script is running as a compiled EXE and an empty string (which is considered false) if it is not.

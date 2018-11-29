@@ -423,7 +423,10 @@ ValidatePreferences(){
       prefs_ListBoxOpacity = 0
    else IfGreater, prefs_ListBoxOpacity, 255
       prefs_ListBoxOpacity = 255
-                  
+
+    prefs_ListBoxOpacity := 200
+    ; tr tr tp too to
+
    If prefs_ListBoxRows is not Integer
       prefs_ListBoxRows := dft_ListBoxRows
 

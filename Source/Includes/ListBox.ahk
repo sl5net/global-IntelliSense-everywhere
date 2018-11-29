@@ -10,18 +10,26 @@ InitializeListBox(){
    ; Gui, ListBoxGui: Color, cBlue, cBlue ; works ??? 21.11.2018 22:41
    ; Gui, New: Color: cBlue, title
 
-   UnsichtbareFarbe := "EEAA99"  ; Kann eine beliebige RGB-Farbe sein (wird weiter unten transparent gemacht).
    Gui, ListBoxGui: -DPIScale -Caption +AlwaysOnTop +ToolWindow +Delimiter%g_DelimiterChar%
    ; Gui, ListBoxGui: +LastFound +AlwaysOnTop -Caption +ToolWindow  ; +ToolWindow entfernt die Taskleistenschaltfläche und die Möglichkeit, via ALT+TAB angesteuert zu werden.
-m
+
   ; GuiControl +BackgroundFF9977, ListBoxGui
   ; GuiControl +BackgroundFF9977, ListBox
   ; Gui, ListBoxGui: Color, , cBlue ; works changing the background color https://ahkde.github.io/docs/commands/Gui.htm#Examples
   ; Gui, ListBoxGui: Color, , 46BAB6 ; works changing the background color https://ahkde.github.io/docs/commands/Gui.htm#Examples
   ; Gui, ListBoxGui: Color, , 096FBF ; works changing the background color https://ahkde.github.io/docs/commands/Gui.htm#Examples
-  Gui, ListBoxGui: Color, , 096FBF ; works changing the background color https://ahkde.github.io/docs/commands/Gui.htm#Examples
+
+;/¯¯¯¯ instant-eyedropper ¯¯ 181129203624 ¯¯ 29.11.2018 20:36:24 ¯¯\
+  ; this color 096FBF was picked up by http://instant-eyedropper.com/?ref=ie1.9.1.0
+;  Gui, ListBoxGui: Color, , 096FBF ; works changing the background color https://ahkde.github.io/docs/commands/Gui.htm#Examples
+  Gui, ListBoxGui: Color, , 0078D7 ; works changing the background color https://ahkde.github.io/docs/commands/Gui.htm#Examples
 ; https://autohotkey.com/boards/viewtopic.php?f=76&t=59191&p=249378#p249378
 ; https://autohotkey.com/boards/viewtopic.php?f=76&t=59191&p=250519#p250519
+;\____ instant-eyedropper __ 181129203628 __ 29.11.2018 20:36:28 __/
+
+
+; to tt t t t ttt to
+
 
 ;    Gui , ListBoxGui: +LastFound +AlwaysOnTop -Caption +ToolWindow  ; +ToolWindow entfernt die Taskleistenschaltfläche und die Möglichkeit, via ALT+TAB angesteuert zu werden.
  ;;  Gui, ListBoxGui: Color, %UnsichtbareFarbe%
@@ -57,7 +65,7 @@ m
    ; Gui, ListBoxGui:Font, s%g_ListBoxFontSize%, %ListBoxFont%
    ;Gui, ListBoxGui:Font, s%g_ListBoxFontSize% cRed Bold, %ListBoxFont% ; https://autohotkey.com/docs/commands/GuiControl.htm#Font
    ; Gui, ListBoxGui:Font, s%g_ListBoxFontSize% cGreen Bold, %ListBoxFont% ; https://autohotkey.com/docs/commands/GuiControl.htm#Font
-   Gui, ListBoxGui:Font, s%g_ListBoxFontSize% cWhite , %ListBoxFont% ; https://autohotkey.com/docs/commands/GuiControl.htm#Font
+   Gui, ListBoxGui:Font, s%g_ListBoxFontSize% cWhite Bold, %ListBoxFont% ; https://autohotkey.com/docs/commands/GuiControl.htm#Font
 
     ; Gui,ListBoxGui:Color, , Black, ; https://autohotkey.com/boards/viewtopic.php?f=76&t=59191&p=249369#p249369
     ; Gui,ListBoxGui:Color, , Black, ; https://autohotkey.com/boards/viewtopic.php?f=76&t=59191&p=249369#p249369
@@ -68,7 +76,7 @@ m
     ; 29.11.2018 18:56Gui, ListBoxGui:Font, s%g_ListBoxFontSize% %g_fontColor% Bold, %ListBoxFont% ; https://autohotkey.com/docs/commands/GuiControl.htm#Font
 
 
-    ; t to to toot t to to to tt T TO  to
+    ; t to to toot t to to to tt T TO  to to to
 
    ; Gui, ListBoxGui:Font, s%g_ListBoxFontSize% cGreen Bold, %ListBoxFont% ; https://autohotkey.com/docs/commands/Gui.htm#Color
    ; Gui, ListBoxGui:Font,BackgroundTrans  ; ??? too . i seee no effect
@@ -97,6 +105,7 @@ m
    }
 
   INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+
 
    Return
 }
@@ -974,6 +983,11 @@ try {
       
       IfNotEqual, prefs_ListBoxOpacity, 255
          WinSet, Transparent, %prefs_ListBoxOpacity%, ahk_id %g_ListBox_Id%
+; WinSet, TransColor, 096FBF 150
+; WinSet, TransColor, 0078D7 255
+
+; ; too too tott  to to to t t t to to t to tr
+
    }
 }
 ;\____ ShowListBox __ 181107184837 __ 07.11.2018 18:48:37 __/

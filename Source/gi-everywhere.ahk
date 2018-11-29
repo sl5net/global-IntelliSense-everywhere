@@ -376,7 +376,15 @@ AutoTrim, Off
 ; while(RegExMatch(Build,"O)(\w+)",Found,Pos),Pos:=Found.Pos(1)+Found.Len(1)){
 ;    LastWord:=Found.1
 
-InitializeListBox()
+global g_isListBoxDisabled
+g_isListBoxDisabled := false
+RegRead, g_isListBoxDisabled, HKEY_CURRENT_USER, SOFTWARE\sl5net, g_isListBoxDisabled
+if(g_isListBoxDisabled){
+    DestroyListBox()
+    setTrayIcon("g_isListBoxDisabled")
+}
+else
+    InitializeListBox()
 
 
 
@@ -458,19 +466,22 @@ MainLoop()
 
 
 
-isListBoxEnabled := false
 #IfWinActive,
 ~ctrl::
    If (A_TimeSincePriorHotkey < 500) and (A_TimeSincePriorHotkey > 5){
      toolTip2sec( "Ctrl+Ctrl = toggle listbox`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 
-    isListBoxEnabled := !isListBoxEnabled
-    ; g_fontColor := (isListBoxEnabled) ? "cRed" : "cGreen"
-    if(isListBoxEnabled)
+    g_isListBoxDisabled := !g_isListBoxDisabled
+    ; g_fontColor := (g_isListBoxDisabled) ? "cRed" : "cGreen"
+    if(g_isListBoxDisabled){
         DestroyListBox()
-    else
+        setTrayIcon("g_isListBoxDisabled")
+    }else{
         InitializeListBox()
+        setTrayIcon()
+    }
 ;       Gui, ListBoxGui:Font, s%g_ListBoxFontSize% %g_fontColor% Bold, %ListBoxFont% ; https://autohotkey.com/docs/commands/GuiControl.htm#Font
+    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, g_isListBoxDisabled, %g_isListBoxDisabled% ; RegWrite , RegSave , Registry
     return
 }
 return
@@ -907,6 +918,8 @@ lbl_HelpOnline_features:
     run,https://g-intellisense.myjetbrains.com/youtrack/issues/GIS?q=project:`%20g-IntelliSense`%20`%23Feature`%20order`%20by:`%20updated`%20asc`%20
 return
 
+lbl_noOp:
+return
 lbl_HelpOnline_shortcut:
     t := "open `n`n g-IntelliSense about Shortcuts`n`n in myjetbrains.com ?"
     if(!InStr(A_ComputerName,"SL5"))
