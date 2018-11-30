@@ -98,7 +98,7 @@ class gDBA_SQLiteDataType
 
 
 SQLite_Startup() {
-   Static MinVersion := "3.5"
+   Static MinVersion := "3.25"
    
    sqliteDllPath := SQLite_DLLPath()
    
@@ -115,7 +115,7 @@ SQLite_Startup() {
       
         ver := SQLite_LibVersion()
         RegExMatch(ver, "(\d+[\d\.]*)", verNumber)
-        if( 0 && verNumber1 < MinVersion){
+        if( 1 && verNumber1 < MinVersion){
             msg := "SQLite ERROR: Version `n" verNumber1 " < " MinVersion "`n of sqlite3.dll is not supported!`n`n was copied to Clipboard"
             Clipboard := msg
             ;ToolTip5sec(msg " (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") " " Last_A_This)
