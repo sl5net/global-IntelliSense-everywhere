@@ -553,10 +553,24 @@ RecomputeMatches( calledFromStr ){
         g_SingleMatchReplacement := Object()
 
         ; to to to to to to
+        ; totoo to toot to ttto
 
         loop,6
         {
             o := valueObj[A_Index]
+            if(!o){
+        		; Msgbox,:( Oops >%A_Index%<(%A_LineFile%~%A_LineNumber%)
+			    toolTip, % "Oops no SQL-Template `nNr." A_Index "(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),1,1
+                continue
+            }
+            if(!o["word"]["pos"]){
+                tip := "Oops ERROR in SQL-Template `nNr.>" A_Index "<`n`n Could not be found: `n o[word][pos]`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+                toolTip,% tip ,1 ,1
+        		Msgbox,:( Oops `n %tip%(%A_LineFile%~%A_LineNumber%)
+                continue
+            }
+            ; t t
+
             o["listID"]["len"] := ""
             sql["pre_Where"] := substr( o["sql"], 1 , o["word"]["pos"] - 1 )
             sql["postWhere"] := substr( o["sql"] , o["word"]["pos"] + 1, - 1 + o["listID"]["pos"] - o["word"]["pos"] )

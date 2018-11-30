@@ -12,7 +12,7 @@ class Sql_Temp {
             msgbox,% " ERROR !This.fileNamePrefix `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
         This.fileNamePrefix := fileNamePrefix
 
-; too
+; too tot too too toot toot t
 
         o := array()
         loop,6
@@ -20,14 +20,23 @@ class Sql_Temp {
             fileName := fileNamePrefix A_Index ".sql"
 
             fileAdress := A_ScriptDir "\sql\template\" fileName
-            if(!FileExist(fileAdress))
-                MsgBox,  % fileAdress " not exist `n`n("A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+            if(!FileExist(fileAdress)){
+                tip := fileAdress " not exist `n`n("A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+                toolTip2sec( tip )
+                continue
+            }
             FileGetTime, fileModiTime, % fileAdress ;  YYYYMMDDHH24MISS
             FileRead, SELECT,% fileAdress
             if(!SELECT)
                 MsgBox, % "!SELECT  `n`n("A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
             fileIndex := A_Index
+            ; for most cases:
             regex := "((GLOB|LIKE)\s*'[^'\w]?)([^']+?)([^'\w]?')"
+
+            ; more open works also for:
+            ; WHERE wordindexed GLOB upper('s') || '*'
+            regex := "((.)'[^'\w]?)([^']+?)([^'\w]?')"
+
             if(RegExMatch(SELECT,"Oim)" regex,Found)){
                 oWord := { pos : Found.Pos(3), len : Found.Len(3) }
                 ; msgbox,% ObjToStrTrim(oWord) "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
