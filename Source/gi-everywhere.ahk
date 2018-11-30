@@ -52,9 +52,7 @@ Process, Priority,, H ; <=== only use this if its not in a critical development 
 ; tooltip tooltip tooltip  tooltip too tool toolt tool tool tool msgbxo ms msgbox m m  m msgb msgbo msgbox tooltip
 ; tooltip tooltip t t t t t tooltip msgbox tooltip msgbxo toolt
 
-CoordMode, ToolTip,Screen
-
-
+CoordMode, ToolTip, Screen
 
 
 fnReceive_ActionListAddress := Func("Receive_ActionListAddress").Bind(1)

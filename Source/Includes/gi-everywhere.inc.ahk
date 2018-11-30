@@ -505,10 +505,13 @@ RecomputeMatches( calledFromStr ){
 	global prefs_ShowLearnedFirst
 	global prefs_SuppressMatchingWord
 
+	global g_ListBoxPosX
+	global g_ListBoxPosY
+
 
     ; Menu, Tray, Icon, shell32.dll, 266 ; pretty black clock
 
-    ; toot too
+    ; toot too t
 
 	setTrayIcon("RecomputeMatches")
 	RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, RecomputeMatches , % calledFromStr
@@ -619,12 +622,15 @@ RecomputeMatches( calledFromStr ){
 
 	; msgbox,% g_MatchTotal "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
 	
-	; tooltip msg box reg
-	
+	; tooltip msg bxox reg tsk ekejskj kjk jjk binat bi bzui tooo bigf fsd asd nnn nnnn nnnvcxcfggdfgvfdfvxcvfdfvvdfdfggbbvms dscxxcdfvx sfvdfvdfss sfd
+	; dsfdsfdfdsafd adfsfd sdffadf dfafds
+
+	; msgbox,% "1: "g_ListBoxPosX " 2:" g_ListBoxX asxsdcxsdsa
 	IfEqual, g_MatchTotal, 0
 	{
-		Tooltip, no match found for `n`n%g_Word%
-		; MsgBox, % SELECT 
+        CoordMode, ToolTip,Screen
+		Tooltip, % g_Word " not found", % g_ListBoxX + 20 , % g_ListBoxY + 10
+		; MsgBox, % SELECT
 		; Clipboard := SELECT
 		ClearAllVars(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),false)
 		setTrayIcon()

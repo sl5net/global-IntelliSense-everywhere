@@ -265,8 +265,7 @@ from: ActionList.ahk~%A_LineNumber%
 		
 		
 		
-		CoordMode, ToolTip,Screen
-		
+
 		SELECT := "SELECT ActionListmodified, ActionListsize FROM ActionLists WHERE ActionList = '" ActionList "';"
 		if(1 && InStr(A_ComputerName,"SL5") && activeTitle == "isNotAProject")
 			ToolTip4sec(msg "`n`n" SELECT "`n" A_LineNumber . " " . RegExReplace(A_LineFile, ".*\\", ""),1,1  )
