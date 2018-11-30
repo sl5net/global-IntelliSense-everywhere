@@ -1503,9 +1503,27 @@ DynaRun(TempScript, pipename=""){
 	;if(!FileExist(A_AhkPath . "\\.\pipe\" . name))
 	;  Return 0
 	;IfNotExist, %A_AhkPath% "\\.\pipe\%name%"
-		Run, %A_AhkPath% "\\.\pipe\%name%",,UseErrorLevel HIDE, PID
-		If ErrorLevel
-			tooltip, % "Could not open file:`n" __AHK_EXE_ """\\.\pipe\" name """"
+
+    ; https://autohotkey.com/board/topic/103403-ipc-using-named-pipes/
+    ; ToolTip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+
+        try{
+          fileAdress = %A_AhkPath% "\\.\pipe\%name%"
+            if(0)
+            while(!FileExist(fileAdress)){
+                Sleep,100
+                if(A_Index > 10)
+                    return 0
+            }
+            Run, %fileAdress%,,UseErrorLevel HIDE, PID
+       } catch e{
+          ;throw Exception("Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line, -1)
+          tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
+          tooltip, % tip
+         TempScript .= "`n#" "Include " A_ScriptDir "\inc_ahk\functions_global.inc.ahk"
+         FileAppend, `% TempScript, `% name
+       }
+
 		DllCall("ConnectNamedPipe",@,__PIPE_GA_,@,0)
 		DllCall("CloseHandle",@,__PIPE_GA_)
 		DllCall("ConnectNamedPipe",@,__PIPE_,@,0)

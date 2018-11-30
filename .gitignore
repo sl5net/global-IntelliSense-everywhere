@@ -24,7 +24,7 @@ Source -*/*
 .gitignore
 **/created token*.*
 **/*.txt
-Source/icon/*
+# Source/icon/*
 Source/plugins/*
 Source/_global
 Source/Could not close the previous instance of this script_autoCloser.ahk
@@ -180,7 +180,7 @@ ActionLists/_globalActionListsGenerated/*
 **/Source/*Visual Studio Code*
 **/Source/TypingAid_usingSQLite17-04-02_11-35*
 **/Source/regextestdempplca.ahk
-**/Source/*.ico
+# **/Source/*.ico
 **/Source/setWl2*
 
 **/*.status.txt
