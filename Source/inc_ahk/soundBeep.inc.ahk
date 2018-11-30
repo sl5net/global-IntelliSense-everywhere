@@ -255,7 +255,8 @@ Class TTS { ; https://autohotkey.com/boards/viewtopic.php?p=247009#p247009
         } catch e{
             ;throw Exception("Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line, -1)
             tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
-            tooltip, % tip, 1,1
+            if(1 && InStr(A_ComputerName,"SL5"))
+                tooltip, % tip, 1,1
         }
 	}
 
