@@ -249,8 +249,14 @@ Class TTS { ; https://autohotkey.com/boards/viewtopic.php?p=247009#p247009
 		Status := this.oVoice.Status.RunningState
 		if Status = 0
 			this.oVoice.Resume
+		try{
 		this.oVoice.Speak("",0x1|0x2)
 		this.oVoice.Speak(text,0x1)
+        } catch e{
+            ;throw Exception("Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line, -1)
+            tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
+            tooltip, % tip, 1,1
+        }
 	}
 
 	SpeakWait(text){
