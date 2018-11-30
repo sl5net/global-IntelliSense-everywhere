@@ -845,23 +845,15 @@ SQLite_LastError(Error = "") {
 ; Parameter(s):     Optional Path - Path for sqlite3.dll
 ; Return Value:     Path to SQLite DLL
 ;=======================================================================================================================
-
 SQLite_DLLPath(forcedPath = "") {
    static DLLPath := ""
-;   static dllname := "sqlite3.dll" ; filename is not CamelCase "sqlite3.dll" work at most computer 12.10.2018 11:46
-   static dllname := "sqlite3.dll" ; todo reason or error? may not work at jeeswg Sent: Fri Oct 12, 2018 5:04
-    ;/¯¯¯¯ ERROR-Log ¯¯ 181012114804 ¯¯ 12.10.2018 11:48:04 ¯¯\
-    ; ERROR-Log
-   ; Can't load \Source\Lib\sqlite3.dll!
-    ; !!!! DllCall is in v2 is case sensitive https://autohotkey.com/boards/viewtopic.php?t=3280
-   ; 012: SQLite_Startup()
-   ;\____ ERROR-Log __ 181012114808 __ 12.10.2018 11:48:08 __/
+   static dllname := "SQLite3.dll"
 
    if(DLLPath == ""){
       ; search the dll
       prefix := (A_PtrSize == 8) ? "x64\" : ""
       dllpath := prefix . dllname
-      
+
       if (FileExist(A_ScriptDir . "\" . dllpath))
          DLLPath := A_ScriptDir . "\"  . dllpath
       else
