@@ -363,18 +363,15 @@ if(0 && calledFromName)
 
 
 
-;
-
-
 
 ;/¯¯¯¯ DestroyListBox ¯¯ 181107231843 ¯¯ 07.11.2018 23:18:43 ¯¯\
 DestroyListBox(){
     global g_ListBoxTitle
 
     global g_min_searchWord_length
-    if(!g_min_searchWord_length) ; does hav effect ??
-        return
-    ; too to
+    ; if(!g_min_searchWord_length) ; does hav effect ??
+    ;    return
+    ; too to to kjh
     ; Msgbox,DestroyListBox`n (%A_LineFile%~%A_LineNumber%)
    Gui, ListBoxGui:Destroy
    ListBoxEnd()

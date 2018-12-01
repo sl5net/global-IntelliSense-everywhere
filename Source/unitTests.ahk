@@ -193,7 +193,7 @@ if(countErrors>0){
 g_ActionListDB.EndTransaction()
 
 
-Critical,Off
+Critical, Off
 SetTitleMatchMode,1
 WinWaitActive,WinMerge,,6 ; [result,,5
 ;tooltip,activate %activeTitle%
@@ -218,7 +218,7 @@ waitUserDoNothingMilli(needetMilli,200)
 }
 needetMilli := 111
 waitUserDoNothingMilli(needetMilli,500)
-Critical,Off
+Critical, Off
 
 KeyWait, s, D
 If GetKeyState("Ctrl", "P"){

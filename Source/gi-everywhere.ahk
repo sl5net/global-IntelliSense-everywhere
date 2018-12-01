@@ -47,7 +47,7 @@ SetBatchLines, -1 ; I can not do recognice any improvement with that right now
 Process, Priority,, H ; <=== only use this if its not in a critical development 05.11.2018 13:20
 ; Process, Priority,, R ; <=== it acts on me as if the script was working more UNstable
 
-; Critical,On  ; I can not do recognice any improvement with that right now
+; Critical, On  ; I can not do recognice any improvement with that right now
 
 ; tooltip tooltip tooltip  tooltip too tool toolt tool tool tool msgbxo ms msgbox m m  m msgb msgbo msgbox tooltip
 ; tooltip tooltip t t t t t tooltip msgbox tooltip msgbxo toolt
@@ -853,7 +853,7 @@ Return
 ; #include,%A_ScriptDir%\shortcuts\listbox_shortcutStyle_shiftNumpad09.inc.ahk
 #include,%A_ScriptDir%\shortcuts\listbox_shortcutStyle_ctrlNumpad09.inc.ahk
 
-; too
+; too depreca 1 deprecated
 
 ; $^Enter::
 ; $^Space::

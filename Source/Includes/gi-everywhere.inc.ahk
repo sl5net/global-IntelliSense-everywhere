@@ -94,9 +94,9 @@ ReadInTheActionList(calledFromStr){ ;Read in the ActionList
 	global ParseWordsCount
 	global g_min_searchWord_length
 	RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, % A_ThisFunc , % calledFromStr
-	Critical,On	
+	; Critical, On
 	ParseWordsCount := ReadActionList(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
-	Critical,Off
+	; Critical, Off
 	g_min_searchWord_length := getMinLength_Needetthat_ListBecomesVisible(ParseWordsCount, maxLinesOfCode4length1)
 	return ParseWordsCount
 }
@@ -104,7 +104,9 @@ ReadInTheActionList(calledFromStr){ ;Read in the ActionList
 
 
 
-
+; too tooltip 5 toolTip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+; oooltip tip ToolTip4sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+; MsgBox,262208,% ":)`n" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ,% ":)`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 
 
 
@@ -114,7 +116,9 @@ ReadInTheActionList(calledFromStr){ ;Read in the ActionList
 ;<<<<<<<< MainLoop <<<< 180208192114 <<<< 08.02.2018 19:21:14 <<<<
 ;<<<<<<<< MainLoop <<<< 180208192114 <<<< 08.02.2018 19:21:14 <<<<
 MainLoop(){
-	
+	; tooltip E:\fre\private\HtmlDevelop\Human-Connection\WebApp\
+	; msgbox tool tooltip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+	; box msgbox,% "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
 	global g_TerminatingEndKeys
     global g_isListBoxDisabled
 	Loop
@@ -129,10 +133,10 @@ MainLoop(){
       ;IF (false && !ReturnWinActive() ) { ; "false &&" addet 18-03-31_13-42 lets try
 		IF !( ReturnWinActive() )
 		{ ; "false &&" addet 18-03-31_13-42 lets try
-			Critical, Off ; on Verhindert, dass der aktuelle Thread von anderen Threads unterbrochen werden kann, oder macht ihn unterbrechbar.
+			; Critical, Off ; on Verhindert, dass der aktuelle Thread von anderen Threads unterbrochen werden kann, oder macht ihn unterbrechbar.
 			GetIncludedActiveWindow()
 		} else {
-			Critical, Off
+			; Critical, Off
 		}
 		
       ;Get one key at a time ; Waits for the user to type a string.
@@ -148,7 +152,7 @@ MainLoop(){
        ; ???????????????????
        ; ???????????????????
        ; ???????????????????
-      ; Critical,On ; Wenn der erste Parameter fehlt (oder das Wort On ist), wird der aktuelle Thread als kritisch eingestuft; das heiÃŸt, dass dieser Thread nicht von anderen Threads unterbrochen werden kann. ; If the first parameter is omitted (or the word On), the current thread is made critical, meaning that it cannot be interrupted by another thread.
+      ; Critical, On ; Wenn der erste Parameter fehlt (oder das Wort On ist), wird der aktuelle Thread als kritisch eingestuft; das heiÃŸt, dass dieser Thread nicht von anderen Threads unterbrochen werden kann. ; If the first parameter is omitted (or the word On), the current thread is made critical, meaning that it cannot be interrupted by another thread.
 		EndKey := ErrorLevel
     ;\____ Critical, __ 181021220525 __ 21.10.2018 22:05:25 __/
 		
@@ -353,7 +357,7 @@ RecomputeMatchesOFF( ByRef calledFromStr ){
    ; if(LoopCount < 2 ) ; 18-03-31_22-43 addet TOD: proof
       ; return
 	
-    Critical,On ; 20.11.2018 09:48 i like that
+    Critical, On ; 20.11.2018 09:48 i like that
 
 
 
@@ -467,7 +471,7 @@ RecomputeMatchesOFF( ByRef calledFromStr ){
 		continue
 	}
 	
-	Critical,Off	
+	; Critical, Off
 	
    ;If no match then clear Tip
 	IfEqual, g_MatchTotal, 0

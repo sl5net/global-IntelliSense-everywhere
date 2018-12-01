@@ -464,7 +464,7 @@ from: ActionList.ahk~%A_LineNumber%
 		SetTimer,checkActionListAHKfile_sizeAndModiTime, off
 		SetTimer,checkWinChangedTitle,off
 		
-		; Critical,On
+		; Critical, On
 		
 		; ParseWords := addListOpenAction_ifNotAlreadyInTheList(ParseWords,ActionList)
 		Loop_Parse_ParseWords(ParseWords)
@@ -494,7 +494,7 @@ from: ActionList.ahk~%A_LineNumber%
 		g_ActionListDB.EndTransaction()
 		
 		
-		Critical,Off
+		; Critical, Off
 		
 		SetTimer,checkInRegistryChangedActionListAddress,On ; RegRead, ActionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList
 ; SetTimer,checkInRegistryChangedActionListAddress,off ; RegRead, ActionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList
