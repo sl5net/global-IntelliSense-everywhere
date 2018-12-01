@@ -27,7 +27,10 @@ Sound( text ){
 ;/¯¯¯¯ speaking ¯¯ 181101030122 ¯¯ 01.11.2018 03:01:22 ¯¯\
 Speak( text, mode := "DEV" ){ ;   ;  (DEV, TEST, STAGING, PROD),
     global g_doSound
-    if(!g_doSound && mode != "PROD")
+    ; if(!g_doSound && mode != "PROD")
+    if(!g_doSound)
+        return
+    if(mode != "PROD")
         return
     text := RegExReplace(text, "([a-z])([A-Z])", "$1 $2")
     text := RegExReplace(text, "(_|\-)", " ")

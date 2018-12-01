@@ -1567,8 +1567,16 @@ BuildTrayMenu(){
    ; Menu, Tray, add, Settings, Configuration
 	; Menu, Tray, add, Pause, PauseResumeScript
 
+
+	Menu, Tray, add, set g_doSound TRUE (experimental feature), lbl_g_doSoundTRUE
+	Menu, Tray, add, set g_doSound FALSE (experimental feature), lbl_g_doSoundFALSE
+
+	Menu, Tray, add
+
 	Menu, Tray, add, set g_min_searchWord_length := 0 (it stays open`, experimental feature), lbl_g_min_searchWord_length_0
 	Menu, Tray, add, set g_min_searchWord_length := 1, lbl_g_min_searchWord_length_1
+
+
 
 	Menu, Tray, add
 	Menu, Tray, add, tipps:,lbl_noOp

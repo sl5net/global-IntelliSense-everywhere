@@ -377,6 +377,8 @@ AutoTrim, Off
 ;    LastWord:=Found.1
 ; to tooltiip too
 
+RegRead, g_doSound , HKEY_CURRENT_USER, SOFTWARE\sl5net, g_doSound
+
 global g_isListBoxDisabled
 g_isListBoxDisabled := false
 RegRead, g_isListBoxDisabled    , HKEY_CURRENT_USER, SOFTWARE\sl5net, g_isListBoxDisabled
@@ -886,6 +888,17 @@ Return
 ; toolTip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 ; 4 44 4 4 4  test too
 ; tootool too tools tip
+
+lbl_g_doSoundTRUE:
+g_doSound := TRUE
+    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, g_doSound, %g_doSound% ; RegWrite , RegSave
+return
+
+lbl_g_doSoundFALSE:
+g_doSound := FALSE
+    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, g_doSound, %g_doSound% ; RegWrite , RegSave
+return
+
 
 lbl_g_min_searchWord_length_0:
     g_min_searchWord_length := 0
