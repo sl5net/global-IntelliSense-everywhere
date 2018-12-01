@@ -1563,7 +1563,7 @@ BuildTrayMenu(){
    ; Menu, Tray, add, Settings, Configuration
 	; Menu, Tray, add, Pause, PauseResumeScript
 
-	Menu, Tray, add, set g_min_searchWord_length := 0 (it stays open`, experimental feature), lbl_g_min_searchWord_length_0
+	Menu, Tray, add, set g_min_searchWord_length := 0 (it stays open`, experimental feature. `n ESC to close), lbl_g_min_searchWord_length_0
 	Menu, Tray, add, set g_min_searchWord_length := 1, lbl_g_min_searchWord_length_1
 
 	Menu, Tray, add
