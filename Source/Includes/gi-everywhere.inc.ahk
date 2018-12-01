@@ -521,13 +521,15 @@ RecomputeMatches( calledFromStr ){
 
 	; g_min_searchWord_length := getMinLength_Needetthat_ListBecomesVisible(ParseWordsCount, maxLinesOfCode4length1)
 
-	if(!g_Word && g_min_searchWord_length){ ; if g_Word is empty and you run, it shows the complete list. you want it? maybe sometimes its helpful 25.03.2018 19:42 18-03-25_19-42
+	if(g_isListBoxDisabled
+	 || ( !g_Word && g_min_searchWord_length )) { ; if g_Word is empty and you run, it shows the complete list. you want it? maybe sometimes its helpful 25.03.2018 19:42 18-03-25_19-42
 		setTrayIcon()
 		Return
 	}
 	SavePriorMatchPosition()
 
-	; tooo tooo tool t
+	; tooo tooo tool t to  toolTip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+	; t kada  4 test  sdasdf tset
 
    ;Match part-word with command
 	g_MatchTotal = 0
@@ -1548,7 +1550,7 @@ SuspendOff(){
 }
 ;\____ SuspendOff __ 181024140111 __ 24.10.2018 14:01:11 __/
 
-
+; tool
 
 ;/¯¯¯¯ BuildTrayMenu ¯¯ 181024140140 ¯¯ 24.10.2018 14:01:40 ¯¯\
 BuildTrayMenu(){

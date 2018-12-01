@@ -488,12 +488,12 @@ MainLoop()
 
         ; g_min_searchWord_length := getMinLength_Needetthat_ListBecomesVisible(ParseWordsCount, maxLinesOfCode4length1)
         g_min_searchWord_length := 0
-        RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, g_min_searchWord_length, %g_min_searchWord_length% ; RegWrite , RegSave
-        ; ShowListBox()
+    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, g_min_searchWord_length, %g_min_searchWord_length% ; RegWrite , RegSave
+        ShowListBox() ; maybe sometimes neeedet 01.12.2018 11:32
         RecomputeMatches(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
         setTrayIcon()
     }
-;
+; to too
 ;       Gui, ListBoxGui:Font, s%g_ListBoxFontSize% %g_fontColor% Bold, %ListBoxFont% ; https://autohotkey.com/docs/commands/GuiControl.htm#Font
     RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, g_isListBoxDisabled, %g_isListBoxDisabled% ; RegWrite , RegSave , Registry
 , Registry
@@ -614,8 +614,10 @@ return
 ~esc::
    toolTip2sec("esc::" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") )
    ; InactivateAll_Suspend_ListBox_WinHook()
-   if(!g_min_searchWord_length)
+   if(!g_min_searchWord_length){
         g_isListBoxDisabled := true ; otherwise the listbox would open immediately again 01.12.2018 10:55
+        setTrayIcon()
+    }
    CloseListBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),A_ThisLabel)
    DisableWinHook()
    DisableKeyboardHotKeys()
@@ -940,6 +942,9 @@ Return
 ; Configuration:
 ; GoSub, LaunchSettings
 ; Return
+; toolTip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+; 4 44 4 4 4  test too
+; tootool too tools tip
 
 lbl_g_min_searchWord_length_0:
     g_min_searchWord_length := 0
