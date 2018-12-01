@@ -791,7 +791,7 @@ else
 
    
 ; t too msg  to  too to t t t to tooo
-
+; to to
 
 
 ;Show matched values
@@ -803,6 +803,10 @@ ShowListBox(paraX:="",paraY:=""){
     INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
     g_ListBoxTitle := "Word List Appears Here."
     g_ListBoxTitle_firstTimeInMilli := A_TickCount ; milliseconds
+
+
+	if(g_isListBoxDisabled)
+	    return
 
 
    IfNotEqual, g_Match,
