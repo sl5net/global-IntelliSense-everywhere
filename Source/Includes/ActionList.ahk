@@ -2321,7 +2321,7 @@ CheckValid(Word,ForceLearn:= false, is_IndexedAhkBlock := false){
         ; ALoopField  := RegExReplace(ALoopField, "^\s+" , "" ) ; anfangs leerzeichen raus 06.11.2017 18:28
 		
 		
-		IF ( StrLen(Word) <= prefs_Length ){ ; don't add the word if it's not longer than the minimum length
+		IF ( StrLen(Word) <= g_min_searchWord_length ){ ; don't add the word if it's not longer than the minimum length
 			lll( A_LineNumber , A_LineFile , A_ThisFunc ": is NOT CheckValid"  )
 			Return
 		}

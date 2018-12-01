@@ -124,6 +124,8 @@ global g_show_ListBox_Id_EMTY_COUNT := 0
 
 global g_method := "Clipboard"
 
+
+; Display on the hotstring only, not the whole string
 global g_regExReplaceInVisibleLine ; https://g-intellisense.myjetbrains.com/youtrack/issue/GIS-24
 g_regExReplaceInVisibleLine := "^([\w\d_-]+).*" ; show only first text , numers _ or -
 g_regExReplaceInVisibleLine := "^([^|]+).*" ; the string only before the first "|"
@@ -373,10 +375,12 @@ AutoTrim, Off
 
 ; while(RegExMatch(Build,"O)(\w+)",Found,Pos),Pos:=Found.Pos(1)+Found.Len(1)){
 ;    LastWord:=Found.1
+; to tooltiip too
 
 global g_isListBoxDisabled
 g_isListBoxDisabled := false
-RegRead, g_isListBoxDisabled, HKEY_CURRENT_USER, SOFTWARE\sl5net, g_isListBoxDisabled
+RegRead, g_isListBoxDisabled    , HKEY_CURRENT_USER, SOFTWARE\sl5net, g_isListBoxDisabled
+RegRead, g_min_searchWord_length, HKEY_CURRENT_USER, SOFTWARE\sl5net, g_min_searchWord_length ; RegWrite , RegSave
 if(g_isListBoxDisabled){
     DestroyListBox()
     setTrayIcon("g_isListBoxDisabled")
@@ -384,7 +388,12 @@ if(g_isListBoxDisabled){
 else
     InitializeListBox()
 
-
+if(g_min_searchWord_length==0){
+    InitializeListBox()
+    RecomputeMatches(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
+    ShowListBox()
+}
+;
 
 BlockInput, Send
 
@@ -463,7 +472,7 @@ MainLoop()
 
 
 
-
+;/¯¯¯¯ doubleCtrl ¯¯ 181201095644 ¯¯ 01.12.2018 09:56:44 ¯¯\
 #IfWinActive,
 ~ctrl::
    If (A_TimeSincePriorHotkey < 500) and (A_TimeSincePriorHotkey > 5){
@@ -476,15 +485,26 @@ MainLoop()
         setTrayIcon("g_isListBoxDisabled")
     }else{
         InitializeListBox()
+
+        ; g_min_searchWord_length := getMinLength_Needetthat_ListBecomesVisible(ParseWordsCount, maxLinesOfCode4length1)
+        g_min_searchWord_length := 0
+        RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, g_min_searchWord_length, %g_min_searchWord_length% ; RegWrite , RegSave
+        ; ShowListBox()
+        RecomputeMatches(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
         setTrayIcon()
     }
+;
 ;       Gui, ListBoxGui:Font, s%g_ListBoxFontSize% %g_fontColor% Bold, %ListBoxFont% ; https://autohotkey.com/docs/commands/GuiControl.htm#Font
     RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, g_isListBoxDisabled, %g_isListBoxDisabled% ; RegWrite , RegSave , Registry
+, Registry
     return
 }
 return
+;\____ doubleCtrl __ 181201095649 __ 01.12.2018 09:56:49 __/
 
-;/¯¯¯¯ doubleCtrlC Ctrl+C¯¯ 181108142340 ¯¯ 08.11.2018 14:23:40 ¯¯\
+
+
+;/¯¯¯¯ doubleCtrlC Ctrl+C double CtrlC ¯¯ 181108142340 ¯¯ 08.11.2018 14:23:40 ¯¯\
 ; doubleCtrlC for add entry to actionsList
 #IfWinNotActive,ahk_class #32770 ; let messageboxes out because i won't copy the message completely 22.11.2018 22:11
 ~^c::
@@ -589,18 +609,24 @@ return
 
 
 
-
+;/¯¯¯¯ esc ¯¯ 181201095059 ¯¯ 01.12.2018 09:50:59 ¯¯\
 #IfWinActive,
 ~esc::
    toolTip2sec("esc::" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") )
    ; InactivateAll_Suspend_ListBox_WinHook()
-   CloseListBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
+   if(!g_min_searchWord_length)
+        g_isListBoxDisabled := true ; otherwise the listbox would open immediately again 01.12.2018 10:55
+   CloseListBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),A_ThisLabel)
    DisableWinHook()
    DisableKeyboardHotKeys()
    g_Word := ""
    ; EnableKeyboardHotKeys() ; <== not usefull. disturbing 28.10.2018 09:59
    ; InitializeHotKeys() ; <= if i use this ListBox never close 28.10.2018 09:56
 return
+;\____ esc __ 181201095103 __ 01.12.2018 09:51:03 __/
+
+
+;/¯¯¯¯ underscores__ ¯¯ 181201095127 ¯¯ 01.12.2018 09:51:27 ¯¯\
 #IfWinActive,alsdkfjasödklfjasdöklfasödf
 :b0*?:__:: ;does not delete the underscores
     ; ToolTip4sec(" (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") " " Last_A_This)
@@ -611,8 +637,12 @@ return
     ; reload_IfNotExist_ListBoxGui()
     ; ~_:: countUnderscore++ if(countUnderscore == 2){ countUnderscore := 0 reload_IfNotExist_ListBoxGui()
 return
-;>>>>>>>>>>>>>>>>> workaround >>>>>>>>>>>>>>>
+;\____ underscores__ __ 181201095132 __ 01.12.2018 09:51:32 __/
 
+
+
+
+;/¯¯¯¯ reload_IfNotExist_ListBoxGui ¯¯ 181201095157 ¯¯ 01.12.2018 09:51:57 ¯¯\
 reload_IfNotExist_ListBoxGui(){
    global g_ListBox_Id
 
@@ -661,6 +691,9 @@ if(true){
 
     return
 }
+;\____ reload_IfNotExist_ListBoxGui __ 181201095204 __ 01.12.2018 09:52:04 __/
+
+
 
 
 
@@ -683,6 +716,8 @@ return
 ;    pause
 ; return
 
+
+;/¯¯¯¯ Ctrl+Shift+F5 ¯¯ 181201095247 ¯¯ 01.12.2018 09:52:47 ¯¯\
 ; Ctrl+Shift+F5
 ^+f5:: ; exit-all-scripts and restart
     ;if(1 && InStr(A_ComputerName,"SL5")){
@@ -692,6 +727,9 @@ return
         run,..\start.ahk
     }
 return
+;\____ Ctrl+Shift+F5 __ 181201095253 __ 01.12.2018 09:52:53 __/
+
+
 ; #IfWinActive,Action List Appears Here. ahk_class AutoHotkeyGUI
 ; #IfWinActive,ahk_class AutoHotkeyGUI
 ;#IfWinActive,"ListBoxTitle (sec="
@@ -707,6 +745,8 @@ WheelDown::
  g_ListBoxFontSize := g_ListBoxFontSize - 1
  Tooltip,WheelDown:: Size=%g_ListBoxFontSize% `n (from: %A_LineFile%~%A_LineNumber%) ; to to
 return
+
+;/¯¯¯¯ toggle_RealisticDelayDynamic ¯¯ 181201095447 ¯¯ 01.12.2018 09:54:47 ¯¯\
 #IfWinActive,
 #s::
  toggle_RealisticDelayDynamic(){
@@ -716,6 +756,9 @@ return
      g_config["Send"]["RealisticDelayDynamic"] := !g_config["Send"]["RealisticDelayDynamic"]
      ToolTip5sec("RealisticDelayDynamic = `n`n`n >" g_config["Send"]["RealisticDelayDynamic"] "< `n`n`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") " " Last_A_This,1,1)
  }
+;\____ toggle_RealisticDelayDynamic __ 181201095452 __ 01.12.2018 09:54:52 __/
+
+
 
 ; SetTitleMatchMode,2
 ; #IfWinActive,ahk_class Notepad++  ; ahk - Notepad
@@ -779,10 +822,10 @@ RecomputeMatchesTimer:
 
     ;/¯¯¯¯ Temporary ¯¯ 181107201243 ¯¯ 07.11.2018 20:12:43 ¯¯\
     ; Temporary switched off
-    ; prefs_Length := getMinLength_Needetthat_ListBecomesVisible(ParseWordsCount, maxLinesOfCode4length1)
-    ; if(1 && !g_reloadIf_ListBox_Id_notExist && StrLen(g_Word) == prefs_Length ){
+    ; g_min_searchWord_length := getMinLength_Needetthat_ListBecomesVisible(ParseWordsCount, maxLinesOfCode4length1)
+    ; if(1 && !g_reloadIf_ListBox_Id_notExist && StrLen(g_Word) == g_min_searchWord_length ){
     if(!g_reloadIf_ListBox_Id_notExist && RegExMatch(g_Word,"^_{2,}$")  ){ ; tried open edit-mode
-        toolTip, % g_Word "(" StrLen(g_Word) ")," prefs_Length "=prefs_Length:" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),1,1
+        toolTip, % g_Word "(" StrLen(g_Word) ")," g_min_searchWord_length "=g_min_searchWord_length:" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),1,1
         ; reload_IfNotExist_ListBoxGui()
         SetTimer, show_ListBox_Id, 600 ; setinterval ; 28.10.2018 02:39: fallback bugfix workaround help todo:
         ;Sleep,100
@@ -898,6 +941,17 @@ Return
 ; GoSub, LaunchSettings
 ; Return
 
+lbl_g_min_searchWord_length_0:
+    g_min_searchWord_length := 0
+    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, g_min_searchWord_length, %g_min_searchWord_length% ; RegWrite , RegSave
+return
+
+; 18-12-01_10-50 too
+lbl_g_min_searchWord_length_1:
+    g_min_searchWord_length := 1
+    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, g_min_searchWord_length, %g_min_searchWord_length% ; RegWrite , RegSave
+return
+
 lbl_Help_AutoHotkey_online:
     t := "open `n`n autohotkey help online`n`n ?"
     if(!InStr(A_ComputerName,"SL5"))
@@ -964,7 +1018,7 @@ reloadActionList:
 Speak("reload ActionList")
 ; SoundbeepString2Sound(A_ThisFunc)
 ParseWordsCount := ReadActionList(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
-prefs_Length := getMinLength_Needetthat_ListBecomesVisible(ParseWordsCount, maxLinesOfCode4length1)
+g_min_searchWord_length := getMinLength_Needetthat_ListBecomesVisible(ParseWordsCount, maxLinesOfCode4length1)
  ;feedbackMsgBox("reloadActionList:",A_LineNumber . " " .  A_LineFile,1,1)
 
 ; ToolTipSec(t,x=123,y=321,sec=1000); 75+ lines in Live Edit Live_Edit Pseudo Live Edit for Chrome Firefox PhpStorm.ahk
@@ -1013,7 +1067,7 @@ return
         SetTimer, ifActionListFileWasUpdatedChanged, 1500 ; one second is really slow. this line is a little obsulete. but better let it be. 31.07.2017 22:45
         ActionListOLD := ActionList
         ParseWordsCount := ReadActionList(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
-        prefs_Length := getMinLength_Needetthat_ListBecomesVisible(ParseWordsCount, maxLinesOfCode4length1)
+        g_min_searchWord_length := getMinLength_Needetthat_ListBecomesVisible(ParseWordsCount, maxLinesOfCode4length1)
         ;GoSub, reloadActionList
         WinGetActiveTitle, activeTitle
         if(activeTitleOLD <> activeTitle )
@@ -1176,7 +1230,7 @@ checkActionListAHKfile_sizeAndModiTime:
             Speak(A_LineNumber ": ReadInTheActionList")
         ReadInTheActionList("checkActionListAHKfile_sizeAndModiTime:" doReadActionListTXTfileSTR " " A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
         ;ParseWordsCount := ReadActionList(calledFromStr) ; there is also update and select of time of the ActionList
-        ;prefs_Length := getMinLength_Needetthat_ListBecomesVisible(ParseWordsCount, maxLinesOfCode4length1)
+        ;g_min_searchWord_length := getMinLength_Needetthat_ListBecomesVisible(ParseWordsCount, maxLinesOfCode4length1)
         ; RebuildDatabase()
         ; msgbox, have fun with :) `n %ActionList% 18-03-02_18-37  (%A_LineFile%~%A_LineNumber%)
 
@@ -1672,11 +1726,11 @@ if(g_doListBoxFollowMouse)
     if(ActionListModiTime_OLD <> ActionListModiTime && ActionListModiTime_OLD ){
         ;Msgbox,ActionListModiTime_OLD <> ActionListModiTime `n (%A_LineFile%~%A_LineNumber%)
         ; ParseWordsCount := ReadActionList(calledFromStr)
-        ; prefs_Length := getMinLength_Needetthat_ListBecomesVisible(ParseWordsCount, maxLinesOfCode4length1)
+        ; g_min_searchWord_length := getMinLength_Needetthat_ListBecomesVisible(ParseWordsCount, maxLinesOfCode4length1)
 
         g_ActionListID := getActionListID(ActionList) ; 24.03.2018 23:02
         ReadInTheActionList(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
-        prefs_Length := getMinLength_Needetthat_ListBecomesVisible(ParseWordsCount, maxLinesOfCode4length1)
+        g_min_searchWord_length := getMinLength_Needetthat_ListBecomesVisible(ParseWordsCount, maxLinesOfCode4length1)
         ; RebuildDatabase()
 
         ;If(WinExist("ActionListChangedInRegistry"))
@@ -2068,7 +2122,7 @@ show_ListBox_Id:
         if(1 && g_show_ListBox_Id_EMTY_COUNT >= 3)
             RecomputeMatches(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")) ; <=== hope it helps. not sure 22.10.2018 07:59
 
-
+; n n  n
         ;/¯¯¯¯ ;ToolTip1sec(g_ListBox_Id ¯¯ 181022055812 ¯¯ 22.10.2018 05:58:12 ¯¯\
         ; tested . it works. dont need to reload or so
         ToolTip5sec( g_show_ListBox_Id_EMTY_COUNT ": DisEn (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") " al= " RegExReplace(ActionList,".*\\") "  2:" ActionListNEW ,1,1)

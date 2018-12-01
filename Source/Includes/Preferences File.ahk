@@ -55,7 +55,7 @@ ReadPreferences(RestoreDefaults := false,RestorePreferences := false)
    global prefs_IncludeProgramTitles
    global prefs_ExcludeProgramExecutables
    global prefs_ExcludeProgramTitles
-   global prefs_Length
+   global g_min_searchWord_length
    global prefs_NumPresses
    global prefs_LearnMode
    global prefs_LearnCount
@@ -114,7 +114,9 @@ ReadPreferences(RestoreDefaults := false,RestorePreferences := false)
    }      
    
    SpaceVar := "%A_Space%"
-   
+
+  ; dft_Length,g_min_searchWord_length,Settings,3
+
    IniValues =
    (
       dft_IncludeProgramExecutables,prefs_IncludeProgramExecutables,IncludePrograms,%SpaceVar%
@@ -122,7 +124,6 @@ ReadPreferences(RestoreDefaults := false,RestorePreferences := false)
       dft_ExcludeProgramExecutables,prefs_ExcludeProgramExecutables,ExcludePrograms,%SpaceVar%
       dft_ExcludeProgramTitles,prefs_ExcludeProgramTitles,ExcludePrograms,%SpaceVar%
       ,Title,Settings,%SpaceVar%
-      dft_Length,prefs_Length,Settings,3
       dft_NumPresses,prefs_NumPresses,Settings,1
       dft_LearnMode,prefs_LearnMode,Settings,On
       dft_LearnCount,prefs_LearnCount,Settings,5
@@ -234,21 +235,21 @@ ValidatePreferences(){
    global g_ListBoxCharacterWidthComputed, g_ListBoxOffsetComputed, g_NumKeyMethod
    global prefs_ArrowKeyMethod, prefs_DisabledAutoCompleteKeys
    global dft_ArrowKeyMethod
-   global prefs_AutoSpace, prefs_DetectMouseClickMove, prefs_LearnCount, prefs_LearnLength, prefs_LearnMode, prefs_Length
+   global prefs_AutoSpace, prefs_DetectMouseClickMove, prefs_LearnCount, prefs_LearnLength, prefs_LearnMode, g_min_searchWord_length
    global dft_AutoSpace, dft_DetectMouseClickMove, dft_LearnCount, dft_LearnLength, dft_LearnMode, dft_Length
    global prefs_ListBoxCharacterWidth, prefs_ListBoxFontFixed, prefs_ListBoxFontSize, prefs_ListBoxMaxWidth, prefs_ListBoxOffset, prefs_ListBoxOpacity, prefs_ListBoxRows
    global dft_ListBoxCharacterWidth, dft_ListBoxFontFixed, dft_ListBoxFontSize, dft_ListBoxMaxWidth, dft_ListBoxOffset, dft_ListBoxOpacity, dft_ListBoxRows
    global prefs_NoBackSpace, prefs_NumPresses, prefs_SendMethod, prefs_ShowLearnedFirst, prefs_SuppressMatchingWord, prefs_TerminatingCharacters
    global dft_NoBackSpace, dft_NumPresses, dft_SendMethod, dft_ShowLearnedFirst, dft_SuppressMatchingWord, dft_TerminatingCharacters
    
-   if prefs_Length is not integer
-   {
-      prefs_Length := dft_Length
-      tooltip,% "prefs_Length is not integer`n(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
-   }
+   ; if g_min_searchWord_length is not integer
+   ; {
+;      g_min_searchWord_length := dft_Length
+;      tooltip,% "g_min_searchWord_length is not integer`n(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
+;   }
    
-   if (prefs_Length < 1) {
-      prefs_Length = 1
+   if (0 && g_min_searchWord_length < 1) {
+      g_min_searchWord_length = 1
    }
 
 
@@ -274,15 +275,15 @@ ValidatePreferences(){
    
    if dft_LearnLength is not Integer
    {
-      dft_LearnLength := prefs_Length + 2
+      dft_LearnLength := g_min_searchWord_length + 2
    }
    
    if prefs_LearnLength is not Integer
    {
       prefs_LearnLength := dft_LearnLength
-   } else If ( prefs_LearnLength < ( prefs_Length + 1 ) )
+   } else If ( prefs_LearnLength < ( g_min_searchWord_length + 1 ) )
    {
-      prefs_LearnLength := prefs_Length + 1
+      prefs_LearnLength := g_min_searchWord_length + 1
    }
    
    if prefs_DisabledAutoCompleteKeys contains N

@@ -41,7 +41,7 @@ ConstructGui()
 {
    global prefs_ArrowKeyMethod, prefs_AutoSpace, prefs_DetectMouseClickMove, prefs_DisabledAutoCompleteKeys, prefs_DoNotLearnStrings
    global helpinfo_ArrowKeyMethod, helpinfo_AutoSpace, helpinfo_DetectMouseClickMove, helpinfo_DisabledAutoCompleteKeys, helpinfo_DoNotLearnStrings
-   global prefs_EndWordCharacters, prefs_ForceNewWordCharacters, prefs_LearnCount, prefs_LearnLength, prefs_LearnMode, prefs_Length
+   global prefs_EndWordCharacters, prefs_ForceNewWordCharacters, prefs_LearnCount, prefs_LearnLength, prefs_LearnMode, g_min_searchWord_length
    global helpinfo_EndWordCharacters, helpinfo_ForceNewWordCharacters, helpinfo_LearnCount, helpinfo_LearnLength, helpinfo_LearnMode, helpinfo_Length
    global prefs_NoBackSpace, prefs_NumPresses, prefs_SendMethod, prefs_ShowLearnedFirst, prefs_SuppressMatchingWord, prefs_TerminatingCharacters
    global helpinfo_NoBackSpace, helpinfo_NumPresses, helpinfo_SendMethod, helpinfo_ShowLearnedFirst, helpinfo_SuppressMatchingWord, helpinfo_TerminatingCharacters
@@ -294,7 +294,7 @@ ConstructGui()
 
    Gui, MenuGui:Add, GroupBox, x%MenuGroup2of3BoxX% y%MenuRowY% w%MenuThreeColGroupWidth% h%MenuRowHeight% , Show ActionList after X characters
    Menu_LengthOptions=|1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|
-   StringReplace,  Menu_LengthOptions, Menu_LengthOptions, |%prefs_Length%|,|%prefs_Length%||
+   StringReplace,  Menu_LengthOptions, Menu_LengthOptions, |%g_min_searchWord_length%|,|%g_min_searchWord_length%||
    StringTrimLeft, Menu_LengthOptions, Menu_LengthOptions, 1
    Gui, MenuGui:Add, DDL, x%MenuGroup2of3EditX% y%MenuRowEditY% w%MenuThreeColEditWidth% r5 vprefs_Length gEditValue, %Menu_LengthOptions%
    Gui, MenuGui:Font, cGreen

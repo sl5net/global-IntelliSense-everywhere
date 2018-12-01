@@ -330,14 +330,22 @@ ListBoxChooseItem(Row){
 ;\____ ListBoxChooseItem __ 181107231956 __ 07.11.2018 23:19:56 __/
 
 
-
+; tool toool tool
 
 
 ;/¯¯¯¯ CloseListBox ¯¯ 181107231921 ¯¯ 07.11.2018 23:19:21 ¯¯\
 ; SciTEWindow\_global.ahk __SunAwtFrame\.txt
 ; __SciTEWindow\_global.ahk
-CloseListBox(calledFromStr){
+CloseListBox(calledFromStr,calledFromName:=""){
    global g_ListBox_Id
+
+if(0 && calledFromName)
+    msgbox,% calledFromName "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+
+    global g_min_searchWord_length
+    if(calledFromName != "~esc" && !g_min_searchWord_length) ; does hav effect ???
+        return
+; to too  too too too too msg too tool i tool  tool cal t
    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, % A_ThisFunc , % calledFromStr
    IfNotEqual, g_ListBox_Id,
    {
@@ -355,12 +363,18 @@ CloseListBox(calledFromStr){
 
 
 
+;
 
 
 
 ;/¯¯¯¯ DestroyListBox ¯¯ 181107231843 ¯¯ 07.11.2018 23:18:43 ¯¯\
 DestroyListBox(){
     global g_ListBoxTitle
+
+    global g_min_searchWord_length
+    if(!g_min_searchWord_length) ; does hav effect ??
+        return
+    ; too to
     ; Msgbox,DestroyListBox`n (%A_LineFile%~%A_LineNumber%)
    Gui, ListBoxGui:Destroy
    ListBoxEnd()

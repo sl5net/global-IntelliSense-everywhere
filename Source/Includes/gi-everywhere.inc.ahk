@@ -61,7 +61,7 @@ Receive_ActionListAddress(CopyOfData){
         ; SetBatchLines, -1 ;Change the Running performance speed (Priority changed to High in GetIncludedActiveWindow)
         ;feedbackMsgBox("ReadInTheActionList(calledFromStr)",ActionList . "`n" . activeTitle . " = activeTitle  `n " .  A_ScriptName . "(inc)~" . A_LineNumber)
 		ReadInTheActionList(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
-        ;prefs_Length := getMinLength_Needetthat_ListBecomesVisible(ParseWordsCount, maxLinesOfCode4length1)
+        ;g_min_searchWord_length := getMinLength_Needetthat_ListBecomesVisible(ParseWordsCount, maxLinesOfCode4length1)
 		ActionListOLD := ActionList
         ;MainLoop()
 		
@@ -92,12 +92,12 @@ Receive_ActionListAddress(CopyOfData){
 ;/¯¯¯¯ ReadInTheActionList( ¯¯ 181028125821 ¯¯ 28.10.2018 12:58:21 ¯¯\
 ReadInTheActionList(calledFromStr){ ;Read in the ActionList
 	global ParseWordsCount
-	global prefs_Length
+	global g_min_searchWord_length
 	RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, % A_ThisFunc , % calledFromStr
 	Critical,On	
 	ParseWordsCount := ReadActionList(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
 	Critical,Off
-	prefs_Length := getMinLength_Needetthat_ListBecomesVisible(ParseWordsCount, maxLinesOfCode4length1)
+	g_min_searchWord_length := getMinLength_Needetthat_ListBecomesVisible(ParseWordsCount, maxLinesOfCode4length1)
 	return ParseWordsCount
 }
 ;\____ ReadInTheActionList( __ 181028125831 __ 28.10.2018 12:58:31 __/
@@ -176,7 +176,7 @@ ProcessKey(InputChar,EndKey) {
 	global prefs_DetectMouseClickMove
 	global prefs_EndWordCharacters
 	global prefs_ForceNewWordCharacters
-	global prefs_Length
+	global g_min_searchWord_length
 	
 	IfEqual, g_IgnoreSend, 1
 	{
@@ -308,7 +308,7 @@ ProcessKey(InputChar,EndKey) {
 ; to to
 	
    ;Wait till minimum letters
-	IF ( 0 && StrLen(g_Word) < prefs_Length ){ ; 04.08.2017 15:17 changed by sl5 Oops lets see what happens :D
+	IF ( 0 && StrLen(g_Word) < g_min_searchWord_length ){ ; 04.08.2017 15:17 changed by sl5 Oops lets see what happens :D
 		global g_doSaveLogFiles
 		
 		lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"g_Word=" . g_Word . " `n`n ==>j CloseListBox(calledFromStr)")
@@ -505,8 +505,11 @@ RecomputeMatches( calledFromStr ){
 	global prefs_ShowLearnedFirst
 	global prefs_SuppressMatchingWord
 
+	global g_min_searchWord_length
+
 	global g_ListBoxPosX
 	global g_ListBoxPosY
+
 
 
     ; Menu, Tray, Icon, shell32.dll, 266 ; pretty black clock
@@ -515,13 +518,16 @@ RecomputeMatches( calledFromStr ){
 
 	setTrayIcon("RecomputeMatches")
 	RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, RecomputeMatches , % calledFromStr
-	if(!g_Word){ ; if g_Word is empty and you run, it shows the complete list. you want it? maybe sometimes its helpful 25.03.2018 19:42 18-03-25_19-42
+
+	; g_min_searchWord_length := getMinLength_Needetthat_ListBecomesVisible(ParseWordsCount, maxLinesOfCode4length1)
+
+	if(!g_Word && g_min_searchWord_length){ ; if g_Word is empty and you run, it shows the complete list. you want it? maybe sometimes its helpful 25.03.2018 19:42 18-03-25_19-42
 		setTrayIcon()
 		Return
 	}
 	SavePriorMatchPosition()
 
-	; tooo tooo tool
+	; tooo tooo tool t
 
    ;Match part-word with command
 	g_MatchTotal = 0
@@ -611,14 +617,18 @@ RecomputeMatches( calledFromStr ){
 				tooltip,% ":-) row[1]=" row[1] ", row[2]=" row[2] " , g_Word=" g_Word  " , g_MatchTotal=" g_MatchTotal " , Normalize=" Normalize "`n" SELECT  "`nRecomputeMatches(calledFromStr):(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),1,1
 
 
-			global prefs_Length
-			if(!prefs_Length)
-				msgbox,% SELECT "`n`n :( Oops !prefs_Length (" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
+			global g_min_searchWord_length
+			; if(!g_min_searchWord_length)
+			; 	msgbox,% SELECT "`n`n :( Oops !g_min_searchWord_length (" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
+			;
+		    ; it shows the complete list. you want it? maybe sometimes its helpful 25.03.2018 19:42 18-03-25_19-42
+
+
     ; check if gui is opening
     ; if(strlen(g_Word)>=3)
-			if(!g_reloadIf_ListBox_Id_notExist && StrLen(g_Word) == prefs_Length ){
+			if(!g_reloadIf_ListBox_Id_notExist && StrLen(g_Word) == g_min_searchWord_length ){
 				if(1 && InStr(A_ComputerName,"SL5") )
-					toolTip, % g_Word "(" StrLen(g_Word) ")," prefs_Length "=prefs_Length:" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),1,1
+					toolTip, % g_Word "(" StrLen(g_Word) ")," g_min_searchWord_length "=g_min_searchWord_length:" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),1,1
         ; reload_IfNotExist_ListBoxGui()
         ;Sleep,100
 				g_reloadIf_ListBox_Id_notExist := true
@@ -662,7 +672,7 @@ RecomputeMatches( calledFromStr ){
 }
 ;\____ RecomputeMatches __ 181025110000 __ 25.10.2018 11:00:00 __/
 
-; t
+;
 
 ; SELECT word, worddescription, wordreplacement FROM Words WHERE wordindexed GLOB 'TOO*'  AND ActionListID = '2' ORDER BY CASE WHEN count IS NULL then ROWID else 'z' end, CASE WHEN count IS NOT NULL then ( (count - 0) * ( 1 - ( '0.75' / (LENGTH(word) - 3)))) end DESC, Word LIMIT 10;
 
@@ -1550,6 +1560,12 @@ BuildTrayMenu(){
 	Menu, Tray, NoDefault ; Reverses setting a user-defined default menu item.
    ; Menu, Tray, add, Settings, Configuration
 	; Menu, Tray, add, Pause, PauseResumeScript
+
+	Menu, Tray, add, set g_min_searchWord_length := 0 (it stays open`, experimental feature), lbl_g_min_searchWord_length_0
+	Menu, Tray, add, set g_min_searchWord_length := 1, lbl_g_min_searchWord_length_1
+
+	Menu, Tray, add
+
 	Menu, Tray, add, Help Gi-Features online, lbl_HelpOnline_features
 	Menu, Tray, add, Help Gi-Shortcuts online, lbl_HelpOnline_shortcut
 	Menu, Tray, add, open issues online, lbl_HelpOnline_issues_open
@@ -1776,20 +1792,23 @@ MaybeCoUninitialize(){
 
 ;/¯¯¯¯ getMinLength_Needetthat_ListBecomesVisible( ¯¯ 181028024531 ¯¯ 28.10.2018 02:45:31 ¯¯\
 getMinLength_Needetthat_ListBecomesVisible(ParseWordsCount, maxLinesOfCode4length1) {
-	global prefs_Length
-	prefs_Length = 2 ; 27.03.2017 10:25 17-03-27_10-25 sl5.net
+	global g_min_searchWord_length
+	if(g_min_searchWord_length == 0){ ; possibly wanted to show it always
+	    return g_min_searchWord_length
+	}
+	g_min_searchWord_length = 2 ; 27.03.2017 10:25 17-03-27_10-25 sl5.net
 	if( ParseWordsCount > 0 ){
             ;~           Tooltip,%ParseWordsCount% = ParseWordsCount(`from: %A_LineFile%~%A_LineNumber%) `
 		if(ParseWordsCount <= maxLinesOfCode4length1) ; 16 for 16 lines
-			prefs_Length = 1 ; 27.03.2017 10:25 17-03-27_10-25 sl5.net
-		Msgbox,%prefs_Length% = prefs_Length`n (from: %A_LineFile%~%A_LineNumber%)
+			g_min_searchWord_length = 1 ; 27.03.2017 10:25 17-03-27_10-25 sl5.net
+		Msgbox,%g_min_searchWord_length% = g_min_searchWord_length`n (from: %A_LineFile%~%A_LineNumber%)
 	}
         ;else
-         ;   Msgbox,%prefs_Length% = prefs_Length`n (from: %A_LineFile%~%A_LineNumber%)
+         ;   Msgbox,%g_min_searchWord_length% = g_min_searchWord_length`n (from: %A_LineFile%~%A_LineNumber%)
 	
-        ; prefs_Length = 1 ; has effekt at this position 27.03.2017 20:48 17-03-27_20-48 sl5.net
+        ; g_min_searchWord_length = 1 ; has effekt at this position 27.03.2017 20:48 17-03-27_20-48 sl5.net
 	
-	return prefs_Length
+	return g_min_searchWord_length
 }
 ;\____ getMinLength_Needetthat_ListBecomesVisible( __ 181028024549 __ 28.10.2018 02:45:49 __/
 
