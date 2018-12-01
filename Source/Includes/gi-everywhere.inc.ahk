@@ -1563,9 +1563,13 @@ BuildTrayMenu(){
    ; Menu, Tray, add, Settings, Configuration
 	; Menu, Tray, add, Pause, PauseResumeScript
 
-	Menu, Tray, add, set g_min_searchWord_length := 0 (it stays open`, experimental feature. `n ESC to close), lbl_g_min_searchWord_length_0
+	Menu, Tray, add, set g_min_searchWord_length := 0 (it stays open`, experimental feature), lbl_g_min_searchWord_length_0
 	Menu, Tray, add, set g_min_searchWord_length := 1, lbl_g_min_searchWord_length_1
 
+	Menu, Tray, add
+	Menu, Tray, add, tipps:,lbl_noOp
+	Menu, Tray, add, see \Source\shortcuts\listbox_shortcutStyle_... for trigger an action,lbl_noOp
+	Menu, Tray, add, use double Ctrl to togle Listbox ),lbl_noOp
 	Menu, Tray, add
 
 	Menu, Tray, add, Help Gi-Features online, lbl_HelpOnline_features

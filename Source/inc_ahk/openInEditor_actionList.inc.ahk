@@ -1,18 +1,28 @@
 ﻿;<<<<<<<< openInEditor <<<< 1810111507 <<<< 01.10.2018 11:54:07 <<<<
 ; called from 				was_a_Editor_open_command := openInEditor(ActionListFolderOfThisActionList, isAHKcode, AHKcode, isStartingUnderline, is_OpenA_edit_open_lib, isDeprecated_OpenA_edit_open_lib) if(was_a_Editor_open_command) return ; endOf function: SendWord(WordIndex)
 
+; tooltip tool ToolTip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+; ToolTip5sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 
 
 ;/¯¯¯¯ openInEditor ¯¯ 181028104913 ¯¯ 28.10.2018 10:49:13 ¯¯\
-openInEditor(ActionListFolderOfThisActionList, isAHKcode, AHKcode, isStartingUnderline, is_OpenA_edit_open_lib, isDeprecated_OpenA_edit_open_lib){
+; isStartingUnderline deprecated 01.12.2018 19:20
+openInEditor(ActionListFolderOfThisActionList
+            , isAHKcode
+            , AHKcode
+            , isStartingUnderline
+            , is_OpenA_edit_open_lib
+            , isDeprecated_OpenA_edit_open_lib){
     if(!AHKcode){
         return false
         Clipboard := AHKcode
         Msgbox,% ":( ups is empty: " AHKcode "=AHKcode `n (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
         ExitApp, 
     }
+    ; open ahk_global|rr||ahk|openInEditor,_ahk_global.ahk
     foundPos := RegExMatch( AHKcode , "^\s*(?:AHK-Studio|AutoGUI|openInEditor)\s*,?\s*(.+\.ahk)\s*$\b$" ,  m )
-    ifIsIt := (isStartingUnderline && is_OpenA_edit_open_lib && foundPos ) 
+    ; ifIsIt := (isStartingUnderline && is_OpenA_edit_open_lib && foundPos )
+    ifIsIt := (is_OpenA_edit_open_lib && foundPos )
     if(!ifIsIt){
         m =
         (
