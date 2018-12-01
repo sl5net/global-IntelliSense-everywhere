@@ -5,20 +5,4 @@
 
 create_own_project|rr||ahk|run,..\..\Source\createOwnProjectDirOrThis.ahk
 ___create own project|rr||ahk|run,..\..\Source\createOwnProjectDirOrThis.ahk
-; if this german au is readable your UTF8 is probalby correct: ä
-
-
-; help / hilfe / aider / ayudar 'create own project' in global-IntelliSense-everywhere|rr||ahk|run,https://www.google.de/search?q=global-IntelliSense-everywhere+%22create+own+project%22
-help / hilfe / aider / ayudar 'create own project' in global-IntelliSense-everywhere|rr||ahk|run,https://www.google.de/search?q=global-IntelliSense-everywhere+`%22create+own+project`%22
-hilfe|rr|
-aider|rr|
-ayudar|rr|
-howto|rr|
-how to|rr|
-tips|rr|
-tipps|rr|
-hint|rr|
-
-
-
-
+; if this german au is readable your UTF8 is probalby corre
