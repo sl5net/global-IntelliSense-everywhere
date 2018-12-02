@@ -1,6 +1,17 @@
-﻿#import,_global.ahk
+﻿#import,docs_commands_index.ahk
+;#import,_global.ahk
+
+
+
+
+
+
 ___your library open|rr||ahk|openInEditor,AutoHotkey_Community.ahk
 ; if this german au is readable your UTF8 is probalby correct: ä
+
+
+
+newposts autohotkey.com|rr||ahk|run,https://www.autohotkey.com/boards/search.php?search_id=newposts
 
 Please more details, e.g. your previous source code
 
@@ -92,7 +103,6 @@ send, ^v
 
 
 
-
 code|rr||ahk|
 ahkCode = 
 (
@@ -103,7 +113,7 @@ ahkCode =
 Clipboard := ahkCode
 send, ^v
 
-
+stop|r|stop
 
 url|rr|[url=]title[/url]|ahk|send,{left 12}{text}%clipboard% `n send,{CtrlDown}{ShiftDown}{Left}{ShiftUp}{CtrlUp}
 
@@ -141,3 +151,10 @@ onlineAHKprettyfy|r|[url=http://ahkscript.org/boards/viewtopic.php?f=22&t=8678]a
 
 Refactoring|r|[url=https://autohotkey.com/boards/viewtopic.php?f=6&t=8628]ahk..com>Refactoring[/url]
 riot rooms|r|[url=https://about.riot.im/]#Autohotkey:matrix.org[/url] ([url=https://about.riot.im/need-help/#rooms-sectiong]c[/url])
+
+blue|r|red green
+
+HomeBoard|r|
+HomeBoard indexAutoHotkeyBug Reports
+Hotkey with ~ modifier has side effects in this case
+
