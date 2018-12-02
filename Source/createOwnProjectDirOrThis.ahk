@@ -40,7 +40,7 @@ if(false){
   fileExist := FileExist(globalTxt)
   if(fileExist){
     run,% globalTxt
-    tooltip, WinWaitActive`, globalTxt  `n (%A_LineFile%~%A_LineNumber%)
+    tooltip, WinWaitActive globalTxt  `n (%A_LineFile%~%A_LineNumber%)
     clipboard := globalTxt
     msgbox,ups globalTxt (its copied to clipboard) already exist `n ExitApp `n 13.05.2018 06:58
     WinWaitActive,% globalTxt

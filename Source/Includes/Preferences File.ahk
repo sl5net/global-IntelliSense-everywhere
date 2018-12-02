@@ -56,6 +56,7 @@ ReadPreferences(RestoreDefaults := false,RestorePreferences := false)
    global prefs_ExcludeProgramExecutables
    global prefs_ExcludeProgramTitles
    global g_min_searchWord_length
+   global g_min_searchWord_length_2
    global prefs_NumPresses
    global prefs_LearnMode
    global prefs_LearnCount

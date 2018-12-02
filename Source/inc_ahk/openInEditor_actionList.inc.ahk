@@ -149,7 +149,7 @@ the emeditor.ahk is going to be the name of the program then the file extension.
             winclose,`% winTitleError,Script file not found ; thats disturbing opening ahk-studio. if closed ahk-studio opens
             winkill,`% winTitleError,Script file not found ; thats disturbing opening ahk-studio. if closed ahk-studio opens
         	if(1 && InStr(A_ComputerName,"SL5"))
-        	    Tooltip,`% A_index ", " A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") , 30,30
+        	    Tooltip,`% A_index " " A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") , 30,30
             sleep,50
         }
     )

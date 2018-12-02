@@ -43,7 +43,7 @@ getCaretPos(activedoProtectOutOfWindowPos:=true){
 			CaretY := g_CaretY_Old 
 		} 
 		if(CaretX < wX || CaretY < wY || CaretX > (wX+wH) || CaretY > (wX+wH)){
-			msg=line29 :( thats out. `n Caret = (%CaretX%,%CaretY%) `n
+			msg=line29 :( thats out. `n Caret = (%CaretX% : %CaretY%) `n
 			ToolTip5sec(msg . A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\")  . " " . A_ThisFunc ,0,0 )
 			return
 		}
@@ -332,7 +332,8 @@ if(StrLen_source < 100 )
 {
 	errormsg=ERROR StrLen(source of %f%) < 100 `n source=%source% `n f=%f% `n
 	;~ MsgBox,,,errormsg=%errormsg% `n , 2
-	ToolTip,errormsg=%errormsg% `n
+	; ToolTip,errormsg=%errormsg% `n
+	ToolTip4sec( errormsg " = errormsg `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 	;~ Reload
 	return -1
 }
@@ -504,7 +505,8 @@ if(isHttp || fExist) {
 			;~ MsgBox, IfWinNotExist %fileNameWithoutPATHandEXT% `n fileName = %fileName%
 			;~ ExitApp
 
-			ToolTip,%m_category%: %fileNameWithoutPATHandEXT%
+			tip = %m_category%: %fileNameWithoutPATHandEXT%
+			ToolTip5sec( tip "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 			;feedbackMsgBox(A_ScriptName,"run," . m_r . " `n line = " . A_LineNumber)
 			run,%m_r%
 			; Waits until the specified window exists.
@@ -603,7 +605,8 @@ contextHelp(HardDriveLetter){
   ; nur anfangsbuchstaben des titells, maximal begrentzt stï¿½ck
 	temT := SubStr( RegExReplace(activeTitle, "([\d\w])\w*\W*", "$1", ReplacementCount) , 1 , 6 )
 
-	ToolTip3sec(temT )
+	; ToolTip3sec(temT )
+	ToolTip5sec(temT  "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 
 	fNameContextHelp=%temp%.txt ; class_spezifisch
   ;MsgBox, %temT% 91

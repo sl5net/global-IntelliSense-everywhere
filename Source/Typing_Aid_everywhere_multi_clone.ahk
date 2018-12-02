@@ -622,7 +622,7 @@ if(1){
 	
     ; lll("`n" . A_LineNumber, A_ScriptName, "FileDeleteAsyncDynaRun(temp.ahk , 4000)")
 	
-	g_tooltipText = WaitNotActive, %activeTitle%
+	g_tooltipText = WaitNotActive %activeTitle%
     ; WinWaitNotActive [, WinTitle, WinText, Seconds, ExcludeTitle, ExcludeText]
 	g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 	
@@ -641,11 +641,11 @@ if(1){
 	
     ; WinWaitNotActive, %activeTitle% ahk_class %activeClass% ; seems not work alway. be careful !! with that :( 29.04.2017 22:13
 ;    WinWaitNotActive, %activeTitle% %activeClass%
-	g_tooltipText = WinWaitNotActive, CopyQ
+	g_tooltipText = WinWaitNotActive CopyQ
 	g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 	
 	WinWaitNotActive,CopyQ , , 9
-	g_tooltipText = WinWaitNotActive,- Everything
+	g_tooltipText = WinWaitNotActive - Everything
 	g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 	
 	WinWaitNotActive,- Everything , , 9 ; ahk_class EVERYTHING
@@ -952,7 +952,7 @@ if(!do_g_tooltipText)
     if(!g_tooltipText)
       Return
     if(dog_lineNumberFeedback)
-        tooltip, % "X " . g_tooltipText . "`n" . g_lineNumberFeedback , 110 , 122
+        tooltip, % "X " g_tooltipText "`n" g_lineNumberFeedback , 110 , 122
     else
         tooltip, % "X " . g_tooltipText , 110 , 122
 

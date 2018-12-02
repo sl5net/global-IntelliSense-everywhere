@@ -510,11 +510,13 @@ RecomputeMatches( calledFromStr ){
 	global prefs_SuppressMatchingWord
 
 	global g_min_searchWord_length
+	global g_min_searchWord_length_2
 
 	global g_ListBoxPosX
 	global g_ListBoxPosY
 
-
+; box box msgb bo
+    ; msgbox,% g_min_searchWord_length_2 "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
 
     ; Menu, Tray, Icon, shell32.dll, 266 ; pretty black clock
 
@@ -564,11 +566,19 @@ RecomputeMatches( calledFromStr ){
         g_SingleMatchDescription := Object()
         g_SingleMatchReplacement := Object()
 
-        ; to to to to to to
-        ; totoo to toot to ttto
-
+        ; to to to to to to to tooltip box
+        ; totoo to toot to ttto t to box win
+        ; bo box t m m ms to to box msg box
+        ; ToolTip2sec(g_min_searchWord_length_2 "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+        StrLen_g_Word := StrLen(g_Word)
         loop,6
         {
+
+            ; becouse of performance reasons. thats optional. dont need 02.12.2018 09:25
+            if(a_index >= 2
+                && StrLen_g_Word < g_min_searchWord_length_2 )
+                break
+
             o := valueObj[A_Index]
             if(!o){
         		; Msgbox,:( Oops >%A_Index%<(%A_LineFile%~%A_LineNumber%)
@@ -581,20 +591,24 @@ RecomputeMatches( calledFromStr ){
         		Msgbox,:( Oops `n %tip%(%A_LineFile%~%A_LineNumber%)
                 continue
             }
-            ; t t
 
-            o["listID"]["len"] := ""
+
+            ; o["listID"]["len"] := 0 ; dont to this ! it changes the data object! its referene !
             sql["pre_Where"] := substr( o["sql"], 1 , o["word"]["pos"] - 1 )
             sql["postWhere"] := substr( o["sql"] , o["word"]["pos"] + 1, - 1 + o["listID"]["pos"] - o["word"]["pos"] )
             sql["rest"] := substr( o["sql"] , o["listID"]["pos"] + 1 + o["listID"]["len"] )
 
             if(o["listID"]["len"])
-                SELECT := sql["pre_Where"] g_Word sql["postWhere"] " = " g_ActionListID sql["rest"]
+                SELECT := sql["pre_Where"] g_Word sql["postWhere"] " = " g_ActionListID " " sql["rest"] ; ; <== dirty bugfix
             ELSE
                 SELECT := sql["pre_Where"] g_Word sql["postWhere"]
 
-            ; clipboard := SELECT "`n`n`n" o["listID"]["len"]
+            ; if(a_index == 1)
+              ;  clipboard := SELECT "`n`n`n" o["listID"]["len"]
+                ; clipboard := SELECT
             ;  msgbox,% SELECT t $ t to
+            ; to
+            ; t b box
 
 	;SELECT := regExReplace(SELECT,"(``|`%)","``$1")
 		try{

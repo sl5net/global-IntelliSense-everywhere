@@ -383,6 +383,12 @@ global g_isListBoxDisabled
 g_isListBoxDisabled := false
 RegRead, g_isListBoxDisabled    , HKEY_CURRENT_USER, SOFTWARE\sl5net, g_isListBoxDisabled
 RegRead, g_min_searchWord_length, HKEY_CURRENT_USER, SOFTWARE\sl5net, g_min_searchWord_length ; RegWrite , RegSave
+
+if(g_min_searchWord_length <= 2) ; becouse of performance reasons. thats optional. dont need 02.12.2018 09:25
+    g_min_searchWord_length_2 := g_min_searchWord_length + 2
+
+; box box to to bo bo box ms to sec
+
 if(g_isListBoxDisabled){
     DestroyListBox()
     setTrayIcon("g_isListBoxDisabled")
