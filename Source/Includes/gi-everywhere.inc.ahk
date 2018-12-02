@@ -325,174 +325,8 @@ ProcessKey(InputChar,EndKey) {
 
 
 
-;<<<<<<<< RecomputeMatches <<<< 180319210937 <<<< 19.03.2018 21:09:37 <<<<
-; this version runs in:
-; v0.9  aa79a8d blue Mountain
-;@sl5net sl5net released this on 13 Oct · 107 commits to master since this release
-RecomputeMatchesOFF( ByRef calledFromStr ){
-   ; This function will take the given word, and will recompile the list of matches and redisplay the ActionList.
-	global g_MatchTotal
-	global g_SingleMatch
-	global g_SingleMatchDescription
-	global g_SingleMatchReplacement
-	global g_Word
-	global g_ActionListDB
-	global ActionList
-	global g_ActionListID
-	global prefs_ArrowKeyMethod
-	global prefs_LearnMode
-	global prefs_ListBoxRows
-	global prefs_NoBackSpace
-	global prefs_ShowLearnedFirst
-	global prefs_SuppressMatchingWord
-
-
-
-
-   ;Msgbox,g_Word = %g_Word% (%A_LineFile%~%A_LineNumber%)
-	if(!g_Word) ; if g_Word is empty and you run, it shows the complete list. you want it? maybe sometimes its helpful 25.03.2018 19:42 18-03-25_19-42
-		Return
-	
-   ; LoopCount := StrLen(g_Word)
-   ; if(LoopCount < 2 ) ; 18-03-31_22-43 addet TOD: proof
-      ; return
-	
-    Critical, On ; 20.11.2018 09:48 i like that
-
-
-
-	SavePriorMatchPosition()
-	
-   ;Match part-word with command
-	g_MatchTotal = 0
-	
-	IfEqual, prefs_ArrowKeyMethod, Off
-	{
-		IfLess, prefs_ListBoxRows, 10
-		LimitTotalMatches := prefs_ListBoxRows
-		else LimitTotalMatches = 10
-	} else {
-			LimitTotalMatches = 200
-		}
-	
-	StringUpper, WordMatchOriginal, g_Word
-	
-	WordMatch := StrUnmark(WordMatchOriginal)
-	
-	StringUpper, WordMatch, WordMatch
-	
-   ; if a user typed an accented character, we should exact match on that accented character
-	if (WordMatch != WordMatchOriginal) {
-		WordAccentQuery =
-		if(!LoopCount) ; ader 18-03-31_22-45
-			LoopCount := StrLen(g_Word)
-		Loop, %LoopCount%
-		{
-			Position := A_Index
-			SubChar := SubStr(g_Word, Position, 1)
-			SubCharNormalized := StrUnmark(SubChar)
-			if !(SubCharNormalized == SubChar) {
-				StringUpper, SubCharUpper, SubChar
-				StringLower, SubCharLower, SubChar
-				StringReplace, SubCharUpperEscaped, SubCharUpper, ', '', All
-				StringReplace, SubCharLowerEscaped, SubCharLower, ', '', All
-				PrefixChars =
-				Loop, % Position - 1
-				{
-					PrefixChars .= "?"
-				}
-				
-            ; Yes, wordindexed is the transformed word that is actually searched upon.
-				
-            ; because SQLite cannot do case-insensitivity on accented characters using LIKE, we need
-            ; to handle it manually, so we need 2 searches for each accented character the user typed.
-            ;GLOB is used for consistency with the wordindexed search.
-				WordAccentQuery .= " AND (word GLOB '" . PrefixChars . SubCharUpperEscaped . "*' OR word GLOB '" . PrefixChars . SubCharLowerEscaped . "*')"
-			}
-		}
-	} else {
-		WordAccentQuery := ""
-	}
-	
-	StringReplace, WordExactEscaped, g_Word, ', '', All
-	StringReplace, WordMatchEscaped, WordMatch, ', '', All
-	
-	IfEqual, prefs_SuppressMatchingWord, On
-	{
-		IfEqual, prefs_NoBackSpace, Off
-		{
-			SuppressMatchingWordQuery := " AND word <> '" . WordExactEscaped . "'"
-		} else {
-               SuppressMatchingWordQuery := " AND wordindexed <> '" . WordMatchEscaped . "'"
-		}
-	}
-	
-	;WhereQuery := " WHERE wordindexed GLOB '"  WordMatchEscaped  "*' "  SuppressMatchingWordQuery  WordAccentQuery  " AND ActionListID = '" g_ActionListID "'"
-	; ^--- before 20.11.2018 00:05
-
-	WhereQuery := " WHERE wordindexed GLOB '*"  WordMatchEscaped  "*' "  SuppressMatchingWordQuery  WordAccentQuery  " AND ActionListID = '" g_ActionListID "'" ; <==== I LIKE THIE MUCH MORE
-
-	NormalizeTable := g_ActionListDB.Query("SELECT MIN(count) AS normalize FROM Words" . WhereQuery . " AND count IS NOT NULL LIMIT " . LimitTotalMatches . ";")
-	
-	for each, row in NormalizeTable.Rows
-	{
-		Normalize := row[1]
-	}
-	
-	IfEqual, Normalize,
-	{
-		Normalize := 0
-	}
-;
-	
-	WordLen := StrLen(g_Word)
-	OrderByQuery := " ORDER BY CASE WHEN count IS NULL then "
-	IfEqual, prefs_ShowLearnedFirst, On
-		OrderByQuery .= "ROWID + 1 else 0"
-	else
-		OrderByQuery .= "ROWID else 'z'"
-
-	OrderByQuery .= " end, CASE WHEN count IS NOT NULL then ( (count - " . Normalize . ") * ( 1 - ( '0.75' / (LENGTH(word) - " . WordLen . ")))) end DESC, Word"
-	
-	Matches := g_ActionListDB.Query("SELECT word, worddescription, wordreplacement FROM Words" . WhereQuery . OrderByQuery . " LIMIT " . LimitTotalMatches . ";")
-
-	; box box too box
-
-	g_SingleMatch := Object()
-	g_SingleMatchDescription := Object()
-	g_SingleMatchReplacement := Object()
-	
-	for each, row in Matches.Rows
-	{
-		g_SingleMatch[++g_MatchTotal] := ltrim(row[1]) ; that ltrim was really usfuls!!! since i used glob *...* 20.11.2018 09:52
-		g_SingleMatchDescription[g_MatchTotal] := ltrim(row[2]) ; <==== maybe useful 20.11.2018 09:52
-		g_SingleMatchReplacement[g_MatchTotal] := ltrim(row[3]) ; <==== maybe useful 20.11.2018 09:52
-		
-		continue
-	}
-	
-	; Critical, Off
-	
-   ;If no match then clear Tip
-	IfEqual, g_MatchTotal, 0
-	{
-		ClearAllVars(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),true)
-		Return
-	}
-	
-	SetupMatchPosition()
-	RebuildMatchList()
-	ShowListBox()
-}
-;>>>>>>>> RecomputeMatches >>>> 180319210950 >>>> 19.03.2018 21:09:50 >>>>
-
-
-
-
-
-
 ;/¯¯¯¯ RecomputeMatches ¯¯ 181025105946 ¯¯ 25.10.2018 10:59:46 ¯¯\
-RecomputeMatches( calledFromStr ){
+RecomputeMatches( calledFromStr, is_Recursion := false ){
    ; This function will take the given word, and will recompile the list of matches and redisplay the ActionList.
 	global g_MatchTotal
 	global g_SingleMatch
@@ -603,8 +437,10 @@ RecomputeMatches( calledFromStr ){
             ELSE
                 SELECT := sql["pre_Where"] g_Word sql["postWhere"]
 
-            ; if(a_index == 1)
-              ;  clipboard := SELECT "`n`n`n" o["listID"]["len"]
+            ; winpo
+
+            if(false && a_index == 1)
+               clipboard := SELECT "`n`n`n" o["listID"]["len"]
                 ; clipboard := SELECT
             ;  msgbox,% SELECT t $ t to
             ; to
@@ -670,8 +506,78 @@ RecomputeMatches( calledFromStr ){
 	; dsfdsfdfdsafd adfsfd sdffadf dfafds
 
 	; msgbox,% "1: "g_ListBoxPosX " 2:" g_ListBoxX asxsdcxsdsa
+	; r tol tolb tolb tp tp tp tp tp tp tp ool to olti tp tolp tolp ess msg esg box too
+	; tolp olb oltip ifu ifu win winpos
+	; winpo win Winpos win winpos winpos winpos winpos winpos winpos winpo winpo
+	; winpos winpos
+	; winpos
+	if(is_Recursion)
+	    return
 	IfEqual, g_MatchTotal, 0
 	{
+        ;/¯¯¯¯ StrLen_g_Word > ¯¯ 181202164223 ¯¯ 02.12.2018 16:42:23 ¯¯\
+        if(!is_Recursion && StrLen_g_Word >= 3){
+            is_Recursion := true
+            count_Recursions := 0
+            g_Word_backup := g_Word
+            loop, % StrLen_g_Word
+            {
+                count_Recursions++
+                s1 := substr(g_Word_backup , 1 , count_Recursions  )
+                s2 := substr(g_Word_backup , count_Recursions + 1 )
+                ; Word2 := s1 "%" s2
+                ;RecomputeMatches( calledFromStr, is_Recursion )
+                ; winp winp
+                ; winp wi winpowinp winpos Winp ToTip totip winpos contrcl mbox msmul
+
+
+                SELECT =
+                (
+SELECT distinct word, worddescription, wordreplacement
+FROM Words w
+WHERE w.word like '`%%s1%`%'
+and w.word like '`%%s2%`%'
+order by ROWID desc
+LIMIT 9
+                )
+                ;tooltip,% SELECT
+                clipboard := SELECT
+                ; winp
+                try{
+                    Matches := g_ActionListDB.Query(SELECT)
+                } catch e{
+                    tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
+                    sqlLastError := SQLite_LastError()
+                    tip .= "`n sqlLastError=" sqlLastError "`n sql=" SELECT " `n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
+                    lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,tip)
+                    tooltip, `% tip
+                    feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), tip )
+                    Clipboard := tip
+                    msgbox, % tip
+                }
+                for each, row in Matches.Rows
+                {
+        ; tooltip msgb box box tooltip msgbox tooltip msg box line Line Too
+                    g_SingleMatch[++g_MatchTotal] := trim(row[1]," `t`r`n") ; rTrim(clipboard," `t`r`n")
+                    if(!g_SingleMatch[g_MatchTotal]){
+                        --g_MatchTotal
+                        continue
+                    }
+                    g_SingleMatchDescription[g_MatchTotal] := trim(row[2]," `t`r`n")
+                    g_SingleMatchReplacement[g_MatchTotal] := trim(row[3]," `t`r`n")
+                }
+
+                if(g_MatchTotal > 0)
+                    break
+            }
+        }
+        ;\____ if StrLen_g_Word >
+
+    }
+	IfEqual, g_MatchTotal, 0
+	{
+
+
         CoordMode, ToolTip,Screen
 		Tooltip, % g_Word " not found", % g_ListBoxX + 20 , % g_ListBoxY + 10
 		; MsgBox, % SELECT
