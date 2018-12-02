@@ -1,4 +1,5 @@
-﻿; Indentation_style: https://de.wikipedia.org/wiki/EinrÃ¼ckungsstil#SL5small-Stil
+﻿
+; Indentation_style: https://de.wikipedia.org/wiki/EinrÃ¼ckungsstil#SL5small-Stil
 global g_lineNumberFeedback
 global ActionListDirBase
 global ActionListActive
@@ -541,7 +542,7 @@ order by ROWID desc
 LIMIT 9
                 )
                 ;tooltip,% SELECT
-                clipboard := SELECT
+                ; clipboard := SELECT
                 ; winp
                 try{
                     Matches := g_ActionListDB.Query(SELECT)
