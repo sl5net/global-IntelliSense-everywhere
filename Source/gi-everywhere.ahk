@@ -382,12 +382,13 @@ RegRead, g_doSound , HKEY_CURRENT_USER, SOFTWARE\sl5net, g_doSound
 global g_isListBoxDisabled
 g_isListBoxDisabled := false
 RegRead, g_isListBoxDisabled    , HKEY_CURRENT_USER, SOFTWARE\sl5net, g_isListBoxDisabled
-RegRead, g_min_searchWord_length, HKEY_CURRENT_USER, SOFTWARE\sl5net, g_min_searchWord_length ; RegWrite , RegSave
-
+;/¯¯¯¯ g_min_searchWord_length ¯¯ 181202112524 ¯¯ 02.12.2018 11:25:24 ¯¯\
+RegRead, g_min_searchWord_length, HKEY_CURRENT_USER, SOFTWARE\sl5net, g_min_searchWord_length
+ ; RegWrite , RegSave
 if(g_min_searchWord_length <= 2) ; becouse of performance reasons. thats optional. dont need 02.12.2018 09:25
     g_min_searchWord_length_2 := g_min_searchWord_length + 2
+;\____ g_min_searchWord_length __ 181202112528 __ 02.12.2018 11:25:28 __/
 
-; box box to to bo bo box ms to sec
 
 if(g_isListBoxDisabled){
     DestroyListBox()
@@ -479,11 +480,13 @@ MainLoop()
 ; return
 
 
+;
+
 
 ;/¯¯¯¯ doubleCtrl double Ctrl ListBoxDisabled¯¯ 181201095644 ¯¯ 01.12.2018 09:56:44 ¯¯\
 #IfWinActive,
 ~ctrl::
-   If (A_TimeSincePriorHotkey < 500) and (A_TimeSincePriorHotkey > 5){
+   If (A_TimeSincePriorHotkey < 500) and (A_TimeSincePriorHotkey > 80){ ; 50 was to shourt. i tested it with holding the ctrl key
      toolTip2sec( "Ctrl+Ctrl = toggle listbox`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 
     g_isListBoxDisabled := !g_isListBoxDisabled
@@ -908,13 +911,15 @@ return
 
 lbl_g_min_searchWord_length_0:
     g_min_searchWord_length := 0
-    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, g_min_searchWord_length, %g_min_searchWord_length% ; RegWrite , RegSave
+    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, g_min_searchWord_length, %g_min_searchWord_length%
+     ; RegWrite , RegSave
 return
 
 ; 18-12-01_10-50 too
 lbl_g_min_searchWord_length_1:
     g_min_searchWord_length := 1
-    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, g_min_searchWord_length, %g_min_searchWord_length% ; RegWrite , RegSave
+    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, g_min_searchWord_length, %g_min_searchWord_length%
+    ; RegWrite , RegSave
 return
 
 lbl_Help_AutoHotkey_online:

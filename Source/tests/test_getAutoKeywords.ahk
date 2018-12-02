@@ -5,7 +5,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 o := "ABC"
 n := getAutoKeywords(o )
-ToolTip,% n "   =n" ,190 ,1
+ToolTip5sec( n "   =n `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")",190,1 )
 Sleep,1000
 Reload
 
