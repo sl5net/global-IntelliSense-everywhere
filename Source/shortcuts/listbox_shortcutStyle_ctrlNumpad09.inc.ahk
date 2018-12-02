@@ -26,5 +26,5 @@ $^Numpad9::
 CheckWord("$9")
 return
 $^Numpad0::
-CheckWord("$^Numpad0")
+CheckWord("$0")
 Return
