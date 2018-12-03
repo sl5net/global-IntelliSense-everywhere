@@ -6,25 +6,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ;/¯¯¯¯ ActionListNEWactivate( ¯¯ 181012014107 ¯¯ 12.10.2018 01:41:07 ¯¯\
 ; hier wird das active ueberschrieben: 12.07.2017 21:33
 ; here the current list will be overwritten
@@ -57,24 +38,6 @@ ActionListNEWactivate( ActionListDir , ActionListNEW, ActionListActive , gi_ever
 		
 	}
 	
-	
-	
-	
-	if(1 && InStr(A_ComputerName,"SL5") )
-		g_doSound := true
-	
-	if(g_doSound){
-		global g_ttSpeakObject
-		g_ttSpeakObject := new TTS()
-        ; s.SetRate(-2)
-		g_ttSpeakObject.SetRate(5) ; speed higher value is faster. 2 is about 200 procent. 1 sounds like normal speak
-        ; -1 is very slow
-        ; -5 is terrible slow
-        ; 0 seems normal
-        ; 2 little faster
-        ; 5 reaky fast but possible to understand
-		g_ttSpeakObject.SetPitch(10)
-	}
 	
 	
 ;Msgbox,n (%A_LineFile%~%A_LineNumber%)
@@ -275,7 +238,8 @@ ActionListDir = '%ActionListDir%'
 			
 			;/¯¯¯¯ isIncludeFileInside ¯¯ 181012004940 ¯¯ 12.10.2018 00:49:40 ¯¯\
 			if(foundPos){
-				isIncludeFileInside := true
+				isIncludeFileInside := true ; is_IncludeFileInside
+
 				
 				regExAbsolutePath := "i)^\w\:" ; addet 01.11.2018 11:36
 				foundPosAbsolutePath := RegexMatch( matchs1, regExAbsolutePath, matchsPath)

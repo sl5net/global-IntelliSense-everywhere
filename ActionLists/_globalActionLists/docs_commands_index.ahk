@@ -1,4 +1,4 @@
-﻿;|r|list is from here: https://autohotkey.com/docs/commands/index.htm
+﻿; list is from here: https://autohotkey.com/docs/commands/index.htm
 Object()|r|Creates a scriptable associative array.
 Array()|r|Creates a scriptable associative array with integer keys.
 Abs()|r|Returns|r|the absolute value of Number.
@@ -342,4 +342,3 @@ SingleInstance|r|Determines whether a script is allowed to run again when it is 
 UseHook|r|Forces the use of the hook to implement all or some keyboard hotkeys.
 Warn|r|Enables or disables warnings for selected conditions that may be indicative of developer errors.
 WinActivateForce|r|Skips the gentle method of activating a window and goes straight to the forceful method.
-Copyright|r|© 2003-2018 autohotkey.com - LIC: GNU GPLv2

@@ -47,9 +47,10 @@ ReadActionList( calledFromStr ){
 	
 	global g_config
 	
-	if(!ActionList)
+	if(!ActionList){
+        ;Speak(A_lineNumber,"PROD")
 		return false
-	
+	}
 	postFixGenerated := "._Generated.ahk"
 	ActionListPostFix  := SubStr(rtrim(ActionList), - StrLen(postFixGenerated) + 1 ) ; That works I've tested it 01.11.2018 14:59
 	itsAGeneratedList := ( postFixGenerated == ActionListPostFix )
@@ -61,6 +62,7 @@ ReadActionList( calledFromStr ){
 			Speak(A_LineNumber ": Prima. zwei Listen " ,"PROD") ; bug entecekt ActionList 12.11.2018 11:02 todo:
 			ToolTip8sec( ActionList "`n`n`n Sleep 3000`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 			Sleep, 3000
+        	;Speak(A_lineNumber,"PROD")
 			return false
 		}
 	}

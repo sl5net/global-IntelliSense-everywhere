@@ -94,10 +94,12 @@ Receive_ActionListAddress(CopyOfData){
 ReadInTheActionList(calledFromStr){ ;Read in the ActionList
 	global ParseWordsCount
 	global g_min_searchWord_length
+	; Speak(A_lineNumber,"PROD")
+
 	RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, % A_ThisFunc , % calledFromStr
-	; Critical, On
+	Critical, On
 	ParseWordsCount := ReadActionList(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
-	; Critical, Off
+	Critical, Off
 	g_min_searchWord_length := getMinLength_Needetthat_ListBecomesVisible(ParseWordsCount, maxLinesOfCode4length1)
 	return ParseWordsCount
 }

@@ -8,6 +8,10 @@ CoordMode, Caret, Screen
 CoordMode, ToolTip, Screen
 ; CoordMode, Mouse, Screen
 
+global g_doSound
+g_doSound := false
+#Include %A_ScriptDir%\inc_ahk\soundBeep.inc.ahk
+; msgbox,% "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
 
 ;<<<<<<<< g_ignReg <<<< 180224082501 <<<< 24.02.2018 08:25:01 <<<<
 if(InStr(A_ComputerName,"SL5")) ; do ignore nothing
@@ -633,6 +637,7 @@ if(1){
 	g_nextCriticalCommandString := "327:WinWaitNotActive, %activeTitle%" ; checkCriticalCommand()
 	
 	SetTimer, checkCriticalCommandLbl, On
+	;Speak(A_lineNumber " " A_ThisFunc,"PROD")
 	WinWaitNotActive, %activeTitle%
 	SetTimer, checkCriticalCommandLbl, Off
 	

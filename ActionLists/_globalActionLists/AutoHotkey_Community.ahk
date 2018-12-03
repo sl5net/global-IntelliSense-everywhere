@@ -1,9 +1,10 @@
-﻿#import,docs_commands_index.ahk
-;#import,_global.ahk
-
-
-
-
+﻿#Include,..\_globalActionLists\docs_commands_index.ahk
+#Include,..\_globalActionLists\autohotkey_docs_variables_builtIn.ahk
+#Include,..\_globalActionLists\autohotkey_gui_comman_property.ahk
+#Include,..\_globalActionLists\ahk_commands_ErrorLevel.ahk
+#Include,..\_globalActionLists\autohotkey_object_property_method.ahk
+#Include,..\_globalActionLists\autohotkey_INSTALLATION_FOLDERS_FILES_REGISTRY_KEYS.ahk
+#Include,..\_globalActionLists\autohotkey_Command_Function.ahk
 
 
 ___your library open|rr||ahk|openInEditor,AutoHotkey_Community.ahk

@@ -48,6 +48,7 @@ Process, Priority,, H ; <=== only use this if its not in a critical development 
 ; Process, Priority,, R ; <=== it acts on me as if the script was working more UNstable
 
 ; Critical, On  ; I can not do recognice any improvement with that right now
+; Thread, NoTimers ; https://autohotkey.com/docs/commands/Thread.htm
 
 ; tooltip tooltip tooltip  tooltip too tool toolt tool tool tool msgbxo ms msgbox m m  m msgb msgbo msgbox tooltip
 ; tooltip tooltip t t t t t tooltip msgbox tooltip msgbxo toolt
@@ -985,9 +986,12 @@ Return
 
 ;<<<<<<<< reloadActionList <<<< 180208163147 <<<< 08.02.2018 16:31:47 <<<<
 reloadActionList:
-Speak("reload ActionList")
+; Speak("reload ActionList","PROD")
 ; SoundbeepString2Sound(A_ThisFunc)
+
+Critical, On
 ParseWordsCount := ReadActionList(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
+Critical, Off
 g_min_searchWord_length := getMinLength_Needetthat_ListBecomesVisible(ParseWordsCount, maxLinesOfCode4length1)
  ;feedbackMsgBox("reloadActionList:",A_LineNumber . " " .  A_LineFile,1,1)
 
