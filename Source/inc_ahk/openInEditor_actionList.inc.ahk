@@ -20,7 +20,8 @@ openInEditor(ActionListFolderOfThisActionList
         ExitApp, 
     }
     ; open ahk_global|rr||ahk|openInEditor,_ahk_global.ahk
-    foundPos := RegExMatch( AHKcode , "^\s*(?:AHK-Studio|AutoGUI|openInEditor)\s*,?\s*(.+\.ahk)\s*$\b$" ,  m )
+    ;
+    foundPos := RegExMatch( AHKcode , "i)^\s*(?:AHK-Studio|AutoGUI|openInEditor|edit)\s*,?\s*(.+\.ahk)\s*$\b$" ,  m )
     ; ifIsIt := (isStartingUnderline && is_OpenA_edit_open_lib && foundPos )
     ifIsIt := (is_OpenA_edit_open_lib && foundPos )
     if(!ifIsIt){
