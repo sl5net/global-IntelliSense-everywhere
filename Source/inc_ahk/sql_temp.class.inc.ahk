@@ -1,4 +1,4 @@
-;/¯¯¯¯ Sql_Temp ¯¯ 181123025153 ¯¯ 23.11.2018 02:51:53 ¯¯\
+﻿;/Â¯Â¯Â¯Â¯ Sql_Temp Â¯Â¯ 181123025153 Â¯Â¯ 23.11.2018 02:51:53 Â¯Â¯\
 class Sql_Temp {
     ; Static declarations are evaluated only once, before the auto-execute section,
     ; https://autohotkey.com/docs/Objects.htm#Custom_Classes
@@ -6,7 +6,7 @@ class Sql_Temp {
     static fileNamePrefix := "select0"
 ; https://autohotkey.com/boards/viewtopic.php?f=76&t=59215&p=249470#p249470
 
-    ;/¯¯¯¯ file2sqLite ¯¯ 181123030022 ¯¯ 23.11.2018 03:00:22 ¯¯\
+    ;/Â¯Â¯Â¯Â¯ file2sqLite Â¯Â¯ 181123030022 Â¯Â¯ 23.11.2018 03:00:22 Â¯Â¯\
     file2sqLite(fileNamePrefix := "select0"){ ;  Sql_Temp.file2sqLite()
         if(!fileNamePrefix)
             msgbox,% " ERROR !This.fileNamePrefix `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
@@ -79,7 +79,7 @@ class Sql_Temp {
 
 
 
-    ;/¯¯¯¯ get_valueObj ¯¯ 181123033300 ¯¯ 23.11.2018 03:33:00 ¯¯\
+    ;/Â¯Â¯Â¯Â¯ get_valueObj Â¯Â¯ 181123033300 Â¯Â¯ 23.11.2018 03:33:00 Â¯Â¯\
     get_valueObj(){
         if(!This.valueObj)
             msgbox,% " ERROR !This.valueObj `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
@@ -88,7 +88,7 @@ class Sql_Temp {
     ;\____ get_valueObj __ 181123033303 __ 23.11.2018 03:33:03 __/
 
 
-    ;/¯¯¯¯ sqLite2file ¯¯ 181123030211 ¯¯ 23.11.2018 03:02:11 ¯¯\
+    ;/Â¯Â¯Â¯Â¯ sqLite2file Â¯Â¯ 181123030211 Â¯Â¯ 23.11.2018 03:02:11 Â¯Â¯\
     sqLite2obj(){
         if(!This.fileNamePrefix)
             msgbox,% " ERROR !This.fileNamePrefix `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
@@ -116,7 +116,7 @@ class Sql_Temp {
     ;\____ sqLite2file __ 181123030328 __ 23.11.2018 03:03:28 __/
 
 
-    ;/¯¯¯¯ msgBoxSelectBuild_example ¯¯ 181123031031 ¯¯ 23.11.2018 03:10:31 ¯¯\
+    ;/Â¯Â¯Â¯Â¯ msgBoxSelectBuild_example Â¯Â¯ 181123031031 Â¯Â¯ 23.11.2018 03:10:31 Â¯Â¯\
     msgBoxSelectBuild_example( word, listID ){
         if(!This.valueObj){
             This.file2sqLite()

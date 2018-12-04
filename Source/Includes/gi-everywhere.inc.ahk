@@ -1528,6 +1528,7 @@ BuildTrayMenu(){
 		; Menu, Tray, Standard
 	}
 
+    Menu, Tray, add, Edit This Script, lblEditThisScript
     Menu, Tray, add, Exit, ExitScript
 
    ; Menu, Tray, Default, Settings

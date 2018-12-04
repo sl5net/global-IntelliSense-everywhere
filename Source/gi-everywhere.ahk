@@ -981,7 +981,10 @@ Return
 ExitScript:
     ExitApp
 Return
-; 
+lblEditThisScript:
+    edit,% A_ScriptFullPath
+return
+
 #Include %A_ScriptDir%\Includes\gi-everywhere.inc.ahk
 
 ;<<<<<<<< reloadActionList <<<< 180208163147 <<<< 08.02.2018 16:31:47 <<<<
