@@ -1477,19 +1477,25 @@ SuspendOff(){
 }
 ;\____ SuspendOff __ 181024140111 __ 24.10.2018 14:01:11 __/
 
-; tool
+; ToolTip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 
 ;/¯¯¯¯ BuildTrayMenu ¯¯ 181024140140 ¯¯ 24.10.2018 14:01:40 ¯¯\
 BuildTrayMenu(){
     ; https://autohotkey.com/docs/commands/Menu.htm
 
 ;feedbackMsgBox("BuildTrayMenu test 17-11-22_13-52","test 17-11-22_13-52",1,1)
-	Menu, Tray, DeleteAll ; DeleteAll: Deletes all custom menu items from the menu.
-	Menu, Tray, NoStandard ; NoStandard: Removes all standard menu items from the menu. https://autohotkey.com/docs/commands/Menu.htm#NoDefault
-	Menu, Tray, NoDefault ; Reverses setting a user-defined default menu item.
+    if(1 || !InStr(A_ComputerName,"SL5") )
+    	Menu, Tray, DeleteAll ; DeleteAll: Deletes all custom menu items from the menu.
+    ; if(0 || !InStr(A_ComputerName,"SL5") )
+    	Menu, Tray, NoStandard ; NoStandard: Removes all standard menu items from the menu. https://autohotkey.com/docs/commands/Menu.htm#NoDefault
+    if(1 || !InStr(A_ComputerName,"SL5") )
+    	Menu, Tray, NoDefault ; Reverses setting a user-defined default menu item.
+
    ; Menu, Tray, add, Settings, Configuration
 	; Menu, Tray, add, Pause, PauseResumeScript
 
+
+	Menu, Tray, add
 
 	Menu, Tray, add, set g_doSound TRUE (experimental feature), lbl_g_doSoundTRUE
 	Menu, Tray, add, set g_doSound FALSE (experimental feature), lbl_g_doSoundFALSE

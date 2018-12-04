@@ -888,7 +888,16 @@ SendWord(WordIndex){
 		AHKcode2 .= "SetWinDelay, -1 `n "
 		AHKcode2 .= "SetControlDelay, -1 `n "
 		AHKcode2 .= "Process, Priority,, H `n "
-		
+		escaped_Sending := RegExReplace(Sending, """", """""")      ; "
+		AHKcode2 .= "Sending := """ escaped_Sending """ `n "
+		AHKcode2 .= "sendingStrLen := " StrLen(Sending) " `n "
+
+		AHKcode2 .= "lineStrLen := " StrLen(g_Word) " `n "
+		AHKcode2 .= "AHKcodeLen := " StrLen(AHKcode) " `n "
+		AHKcode2 .= "ActionList := """ ActionList """ `n "
+
+		; pause ; toCloseAll tToolTip5sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+
 ;>>>>>>>> DynaRun >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		if( RegExMatch( AHKcode , "mPi)\bDynaRun[ ]*\("  ) ) {
 			FileRead,dynaRunFunctionImplementationSource,dynaRunFunctionImplementationSource.inc.ahk
@@ -1002,7 +1011,7 @@ SendWord(WordIndex){
         if(0 && InStr(A_ComputerName,"SL5") )
             msgbox,% AHKcode2 " `n`n gefunden `n`n (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 
-		DynaRun(AHKcode2)
+ 		DynaRun(AHKcode2) ; inside of SendWord()
 		
         ; suspend,off
 		SetWorkingDir,%aWorkingDirBackUp%

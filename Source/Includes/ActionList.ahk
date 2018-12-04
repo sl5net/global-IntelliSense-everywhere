@@ -468,6 +468,9 @@ from: ActionList.ahk~%A_LineNumber%
 		
 		Critical, On
 		; ParseWords := addListOpenAction_ifNotAlreadyInTheList(ParseWords,ActionList)
+
+        CleanupEntriesOfThisActionList(g_ActionListID)
+
 		Loop_Parse_ParseWords(ParseWords)
 		Critical, Off
 
@@ -2448,16 +2451,29 @@ UpdateWordCount(word,SortOnly){
 
 
 
-;/¯¯¯¯ CleanupActionListOfThisActionList ¯¯ 181106194013 ¯¯ 06.11.2018 19:40:13 ¯¯\
-CleanupActionListOfThisActionList(ActionList){
-	
+;/¯¯¯¯ CleanupEntriesOfThisActionList ¯¯ 181106194013 ¯¯ 06.11.2018 19:40:13 ¯¯\
+CleanupEntriesOfThisActionList(g_ActionListID){
+	global g_ActionListDB
 	INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
-	
    ;Function cleans up all words from given ActionList
-	Msgbox,not yet implemented `n (%A_LineFile%~%A_LineNumber%)
-	g_ActionListDB.Query("DELETE FROM Words WHERE ActionListID = '" . g_ActionListID . "';")
+	; Msgbox,not yet implemented `n (%A_LineFile%~%A_LineNumber%)
+	sql := "DELETE FROM Words WHERE ActionListID = " g_ActionListID ";"
+    try{
+        g_ActionListDB.Query(sql)
+    } catch e{
+        tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
+        sqlLastError := SQLite_LastError()
+        tip .= "`n sqlLastError=" sqlLastError "`n sql=" select " `n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
+        lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,tip)
+        tooltip, `% tip
+        feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), tip )
+        Clipboard := tip
+        msgbox, % tip
+    }
+    ; msgbox,% sql "`n`n deleted?? `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
 }
-;\____ CleanupActionListOfThisActionList __ 181106194018 __ 06.11.2018 19:40:18 __/
+;\____ CleanupEntriesOfThisActionList __ 181106194018 __ 06.11.2018 19:40:18 __/
+
 
 
 
