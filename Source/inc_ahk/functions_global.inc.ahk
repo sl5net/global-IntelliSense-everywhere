@@ -934,8 +934,7 @@ convert123To_NumPad123(t)
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-clipboardPaste(s)
-{
+clipboardPaste(s){
   ToolTip1sec(A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\")  . " " . A_ThisFunc . A_ThisLabel)
 	if(!s){
 		MsgBox, :(  clipboardPaste(s)  '%s%' = s (line:%A_LineNumber%) `n 

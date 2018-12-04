@@ -466,11 +466,11 @@ from: ActionList.ahk~%A_LineNumber%
 		SetTimer,checkActionListAHKfile_sizeAndModiTime, off
 		SetTimer,checkWinChangedTitle,off
 		
-		; Critical, On
-		
+		Critical, On
 		; ParseWords := addListOpenAction_ifNotAlreadyInTheList(ParseWords,ActionList)
 		Loop_Parse_ParseWords(ParseWords)
-		
+		Critical, Off
+
 		
 		
 		
