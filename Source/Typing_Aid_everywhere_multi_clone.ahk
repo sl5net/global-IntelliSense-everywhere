@@ -281,12 +281,6 @@ while(true) {
 	
 	if(activeTitleOLD == activeTitle && activeClassOLD == activeClass ){
         ; WinWaitNotActive, %activeTitle% ahk_class %activeClass%
-		if(0){
-			tip=WinWaitNotActive %activeTitleREAL%`n (%A_LineFile%~%A_LineNumber%)
-			ToolTip4sec(tip)
-			WinWaitNotActive, %activeTitleREAL%
-		}
-        ; Sleep, 1000 ; 1 Sekunde
 		continue
 		FormatTime, timestampHHmmss, %A_now%,HH:mm:ss
 		global g_doSaveLogFiles
@@ -466,7 +460,7 @@ ActionListNEW = %activeTitle%
         ; ahkSource .= "KeyWait Control  `; Wartet darauf, dass sowohl STRG als auch ALT losgelassen wird. `n"
 	ahkSource .= "if( !fileEx ) { `n"
 	ahkSource .= "message = :(  ``n '%ActionListFilterPath2%'  ``n '%ActionListFilterPath2Abs%'  ``n existiert nicht ( `%fileEx%` = fileEx ) . ``n ``n message with id (1704171514) was copied to the Clipboard. Sor you probably could find this source code little bit easier. ``n (from: %A_LineFile%~%A_LineNumber%) `n "
-	ahkSource .= "tooltip, `%message`% , 1,1 `n "
+	ahkSource .= "tooltip, `%message`%=m , 1,1 `n "
 	
 	; ahkSource .= "Clipboard = `%message`%  `n "
 	; ahkSource .= "Msgbox,4 , :( ActionListNameFilter.inc.ahk not found , `%message`% , 4  `n "
@@ -976,7 +970,7 @@ if(!do_g_tooltipText)
     MouseGetPos, mX, mY
     if (mX >= X && mX <= (X+W)) && (mY >= Y && mY <= (Y+H)){
         g_tooltipText:=
-		ToolTip
+		ToolTip,
     }
     return
 

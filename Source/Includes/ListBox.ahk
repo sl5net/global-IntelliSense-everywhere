@@ -778,7 +778,7 @@ else
    if(ret < 100){
         ret := 100 ; dirty bug fix 07.11.2018 19:08
         if(1 && InStr(A_ComputerName,"SL5"))
-            tooltip,% "ret := 100 - dirty bug fix 07.11.2018 19:08 . works???(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
+            tooltip,% "ret := 100 - dirty bug fix 07.11.2018 19:08 . works???(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")", 100. 70
             ; msgbox,% "ret := 100 - dirty bug fix 07.11.2018 19:08 . works???(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
     }
    return ret
@@ -932,7 +932,8 @@ else if(0){
       ForceWithinMonitorBounds(g_ListBoxPosX,ListBoxPosY,ListBoxActualSizeW,ListBoxActualSizeH)
       
       g_ListBoxContentWidth := ListBoxActualSizeW - ScrollBarWidth - BorderWidthX
-      tooltip,% g_ListBoxContentWidth
+      if(0)
+        ToolTip, % g_ListBoxContentWidth "`n = g_ListBoxContentWidth `n`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
 
       if(g_ListBoxContentWidth<300)
         g_ListBoxContentWidth := 300 ; <=== maybe thi has no effect.

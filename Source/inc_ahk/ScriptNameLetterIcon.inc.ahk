@@ -54,7 +54,7 @@ isNearBorder(){
 
 ;/¯¯¯¯ showTempTrayIf_isNearTrayMenue ¯¯ 181204193517 ¯¯ 04.12.2018 19:35:17 ¯¯\
 
-;/ϯϯ isNearTrayMenue ϯ 181204185532 ϯ 04.12.2018 18:55:32 ϯ\
+;/���� isNearTrayMenue �� 181204185532 �� 04.12.2018 18:55:32 ��\
 isNearTrayMenue(){
 	MouseGetPos,mousex,mousey
 	SysGet, VirtualWidth, 78 ; https://autohotkey.com/docs/Variables.htm
@@ -70,11 +70,14 @@ isNearTrayMenue(){
 }
 ;\____ isNearTrayMenue __ 181204185536 __ 04.12.2018 18:55:36 __/
 
-;/ϯϯ showTempTrayIf_isNearTrayMenue ϯ 181204193517 ϯ 04.12.2018 19:35:17 ϯ\
+
+
+;/���� showTempTrayIf_isNearTrayMenue �� 181204193517 �� 04.12.2018 19:35:17 ��\
 showTempTrayIf_isNearTrayMenue(iconAdress){
 	; trayName :=  := RegExReplace(A_ScriptName, "\..*","") "_icon"
 	trayName := RegExReplace(A_ScriptName , ".*\\([\w\s\._]+)\.\w+$", "$1") "_icon"
-	isNearTrayMenue := isNearTrayMenue()
+	; isNearTrayMenue := isNearTrayMenue() ; thtas buggy if you move it to a nother Border
+	isNearTrayMenue := isNearBorder()
 	if(isNearTrayMenue, A_IconHidden ){
 		; Msgbox, % A_IconHidden
 		ahkCode =
@@ -88,7 +91,15 @@ else
   ToolTip,http://www.branchenbuch-weltweit.dk/img/abc/a.png
 Menu, Tray, Tip , `% Chr(8203) ; i dont want text there. The tray icon's tooltip is displayed when the mouse hovers over it.
 Menu, Tray, add
-Menu, Tray, add, ExitApp, lbl_ExitApp
+Menu, Tray, add, Reload Script (parent), lbl_reload
+Menu, Tray, add, Edit Script (parent), lbl_edit
+Menu, Tray, add, ExitApp (parent), lbl_ExitApp
+return
+lbl_reload:
+	Run, "%A_ScriptFullPath%"
+return
+lbl_edit:
+	Run, edit "%A_ScriptFullPath%"
 return
 lbl_ExitApp:
 	MsgBox,ExitApp %A_ScriptName%

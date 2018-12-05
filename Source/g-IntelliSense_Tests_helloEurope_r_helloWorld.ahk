@@ -933,6 +933,11 @@ setStatus_created_token:
     ToolTip,g_created_token = "%g_created_token%"
 return
 
+
+;/¯¯¯¯ restoreClosedAHK ¯¯ 181204162841 ¯¯ 04.12.2018 16:28:41 ¯¯\
+;/¯¯¯¯ restoreClosedAHK ¯¯ 181204162841 ¯¯ 04.12.2018 16:28:41 ¯¯\
+;/¯¯¯¯ restoreClosedAHK ¯¯ 181204162841 ¯¯ 04.12.2018 16:28:41 ¯¯\
+; global g_closedAHKlist := []
 restoreClosedAHK() {
   global g_closedAHKlist
   loop, % g_closedAHKlist.MaxIndex()  
@@ -940,6 +945,18 @@ restoreClosedAHK() {
     run,% g_closedAHKlist[A_Index] 
   }
 }
+;\____ restoreClosedAHK __ 181204162845 __ 04.12.2018 16:28:45 __/
+;\____ restoreClosedAHK __ 181204162845 __ 04.12.2018 16:28:45 __/
+;\____ restoreClosedAHK __ 181204162845 __ 04.12.2018 16:28:45 __/
+;\____ restoreClosedAHK __ 181204162845 __ 04.12.2018 16:28:45 __/
+
+
+
+
+;/¯¯¯¯ closeAllOtherAHK ¯¯ 181204162710 ¯¯ 04.12.2018 16:27:10 ¯¯\
+;/¯¯¯¯ closeAllOtherAHK ¯¯ 181204162710 ¯¯ 04.12.2018 16:27:10 ¯¯\
+;/¯¯¯¯ closeAllOtherAHK ¯¯ 181204162710 ¯¯ 04.12.2018 16:27:10 ¯¯\
+; global g_closedAHKlist := []
 closeAllOtherAHK(){
   global g_closedAHKlist
 text:="it's highly recommended to close all other autohotkey script before run this test. should we close oterher autohotkey script now?"
@@ -997,7 +1014,9 @@ if(WList>=3) {
 }
 DetectHiddenWindows,off
 }
-
+;\____ closeAllOtherAHK __ 181204162719 __ 04.12.2018 16:27:19 __/
+;\____ closeAllOtherAHK __ 181204162719 __ 04.12.2018 16:27:19 __/
+;\____ closeAllOtherAHK __ 181204162719 __ 04.12.2018 16:27:19 __/
 
 
 

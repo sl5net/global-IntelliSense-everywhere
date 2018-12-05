@@ -2751,7 +2751,7 @@ INSERT_INTO_ActionLists(ActionList, ActionListModified, ActionListSize ){
 	INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 	if(!ActionListModified){
 		msg := "Error`n !ActionListModified `n sql=" sql "`n" ActionList "`n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
-		tooltip,% msg,1,1
+		tooltip,% msg ,1,1
 		return false
 	}
 	sql := "INSERT INTO ActionLists "

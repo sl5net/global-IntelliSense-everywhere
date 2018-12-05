@@ -1799,7 +1799,7 @@ getAssertEqual_ErrorStr(ByRef in,ByRef expected,ALineNumber,myFuncName := "Loop_
 		i2 := "`n\____ in __ `n"
 		
 		strCompareBoth :=  ":( result<>expected" r1 result r2 "<>" e1 expected e2 "" i1 in i2
-		tooltip,% strCompareBoth "`n`n`n`n"  "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+		tooltip,% strCompareBoth "`n`n"  "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
 		result := regExReplace(result,"(``|`%)","``$1")
      ; s := regExReplace(s,"`%","``%")
 		result := regExReplace(result,"([\n\r][ ]*)\)","$1``)")

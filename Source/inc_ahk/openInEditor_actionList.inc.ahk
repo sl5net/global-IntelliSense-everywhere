@@ -7,6 +7,7 @@
 
 ;/¯¯¯¯ openInEditor ¯¯ 181028104913 ¯¯ 28.10.2018 10:49:13 ¯¯\
 ; isStartingUnderline deprecated 01.12.2018 19:20
+; edit: Opens the indicated file for editing. It might not work if the indicated file's type does not have an "edit" action associated with it.
 openInEditor(ActionListFolderOfThisActionList
             , isAHKcode
             , AHKcode
@@ -87,6 +88,8 @@ openInEditor(ActionListFolderOfThisActionList
 openInEditorFromIntern(m1CorrectedAhkFileAddress){
     editorName := "AHK-Studio"
     isEditorExist_AHKStudio := FileExist("..\" editorName "\" editorName ".ahk")
+
+; edit: Opens the indicated file for editing. It might not work if the indicated file's type does not have an "edit" action associated with it.
 
     editorName := "Notepad++"
     NotepadPPExe := "..\" editorName "\unicode\" editorName ".exe"

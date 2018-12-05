@@ -259,7 +259,7 @@ Class TTS { ; https://autohotkey.com/boards/viewtopic.php?p=247009#p247009
             ;throw Exception("Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line, -1)
             tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
             if(1 && InStr(A_ComputerName,"SL5"))
-                tooltip, % tip, 1,1
+                tooltip, % tip , 1,1
         }
 	}
 

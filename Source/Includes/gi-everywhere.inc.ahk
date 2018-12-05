@@ -457,11 +457,13 @@ RecomputeMatches( calledFromStr, is_Recursion := false ){
 			sqlLastError := SQLite_LastError()
 			tip .= "`n sqlLastError=" sqlLastError "`n sql=" SELECT " `n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
 			lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,tip)
-			tooltip, `% tip
+			tooltip, % tip
 			feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), tip )
 			Clipboard := tip
 			msgbox, % tip
 		}
+		;
+
 		for each, row in Matches.Rows
 		{
 ; tooltip msgb box box tooltip msgbox tooltip msg box line Line Too
@@ -553,7 +555,7 @@ LIMIT 9
                     sqlLastError := SQLite_LastError()
                     tip .= "`n sqlLastError=" sqlLastError "`n sql=" SELECT " `n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
                     lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,tip)
-                    tooltip, `% tip
+                    tooltip, % tip
                     feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), tip )
                     Clipboard := tip
                     msgbox, % tip

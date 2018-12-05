@@ -88,10 +88,11 @@ ToolTipSec(t,x=123,y=321,sec=1000)
    ; lll(A_LineNumber, "ToolTipSec.inc.ahk",Last_A_This)
 
     MouseGetPos,xMouse,yMouse
-
+    ; t := regexReplace(t,",",".") ;
+    ; t := regexReplace(t,"+","#") ;
   if( x=123 AND y=321 )
   {
-  	ToolTip, %t%,,% yMouse + 10
+  	ToolTip, %t% , 0, % yMouse + 10
    ; lll(A_LineNumber, "ToolTipSec.inc.ahk")
   }
   else
@@ -102,6 +103,7 @@ ToolTipSec(t,x=123,y=321,sec=1000)
       }
 	  ToolTip, %t%,%x%,%y%
       ;~ MsgBox,ToolTip %t% %x% %y%
+      ;
   }
 
 
