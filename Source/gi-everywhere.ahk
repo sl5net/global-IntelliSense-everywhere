@@ -502,11 +502,18 @@ MainLoop()
         InitializeListBox()
 
         ; g_min_searchWord_length := getMinLength_Needetthat_ListBecomesVisible(ParseWordsCount, maxLinesOfCode4length1)
-        ; g_min_searchWord_length := 0
+        backup_g_min_searchWord_length := g_min_searchWord_length
+        g_min_searchWord_length := 0
     RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, g_min_searchWord_length, %g_min_searchWord_length% ; RegWrite , RegSave
         ShowListBox() ; maybe sometimes neeedet 01.12.2018 11:32
         RecomputeMatches(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
         setTrayIcon()
+
+        if(g_min_searchWord_length <> backup_g_min_searchWord_length){
+            sleep,1000 ; short time user could see something was happend
+            g_min_searchWord_length := backup_g_min_searchWord_length
+        }
+        ;
     }
 ; to too
 ;       Gui, ListBoxGui:Font, s%g_ListBoxFontSize% %g_fontColor% Bold, %ListBoxFont% ; https://autohotkey.com/docs/commands/GuiControl.htm#Font
