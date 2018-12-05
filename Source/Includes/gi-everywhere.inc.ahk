@@ -99,7 +99,7 @@ ReadInTheActionList(calledFromStr){ ;Read in the ActionList
 	RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, % A_ThisFunc , % calledFromStr
 	Critical, On
 	ParseWordsCount := ReadActionList(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
-	Critical, Off
+	Critical, Off ; if i switch critical off it not ends reading , maybe it could not read from filesystem?
 	g_min_searchWord_length := getMinLength_Needetthat_ListBecomesVisible(ParseWordsCount, maxLinesOfCode4length1)
 	return ParseWordsCount
 }

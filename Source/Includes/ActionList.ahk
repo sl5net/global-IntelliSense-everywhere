@@ -472,7 +472,7 @@ from: ActionList.ahk~%A_LineNumber%
         CleanupEntriesOfThisActionList(g_ActionListID)
 
 		Loop_Parse_ParseWords(ParseWords)
-		Critical, Off
+		; Critical, Off
 
 		
 		

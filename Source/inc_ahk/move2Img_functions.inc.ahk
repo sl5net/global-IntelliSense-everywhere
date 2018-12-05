@@ -4,8 +4,11 @@
 isDevellopperMode:= true ; enthällt auch update script.
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 #Include *i init_global.init.inc.ahk
- 
 
+
+; https://autohotkey.com/boards/viewtopic.php?p=251486#p251486
+; by used LoadPicture() ; 05.12.2018 07:50
+; load picture to cache before loop lots of pictures, imageSearch can reduce 90% time!
 
 ;<<<<<<<< move2ImgORImg <<<< 170826132919 <<<< 26.08.2017 13:29:19 <<<<
 move2ImgORImg(i, i2 , textInfo, mm, variation := 85){
@@ -25,6 +28,9 @@ move2ImgORImg(i, i2 , textInfo, mm, variation := 85){
    ImageSearch, XPos, YPos1,  0, mm["left"] , mm["top"] , mm["left"] + mm["width"] , mm["top"] + mm["height"] , *%variation% %i%
    ImageSearch, XPos, YPos1, 0, mm["left"] , mm["top"] , mm["width"] , mm["height"] , *%variation% %i%
 
+; https://autohotkey.com/boards/viewtopic.php?p=251486#p251486
+; by used LoadPicture()
+; load picture to cache before loop lots of pictures, imageSearch can reduce 90% time!
    
    if( YPos1 < 1 )
       
