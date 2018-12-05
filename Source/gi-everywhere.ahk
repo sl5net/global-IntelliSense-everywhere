@@ -510,12 +510,11 @@ MainLoop()
         setTrayIcon()
 
         if(g_min_searchWord_length <> backup_g_min_searchWord_length){
-            sleep,1000 ; short time user could see something was happend
+            ; sleep,100 ; short time user could see something was happend 05.12.2018 12:37
             g_min_searchWord_length := backup_g_min_searchWord_length
         }
-        ;
     }
-; to too
+; to too  to   uiui to
 ;       Gui, ListBoxGui:Font, s%g_ListBoxFontSize% %g_fontColor% Bold, %ListBoxFont% ; https://autohotkey.com/docs/commands/GuiControl.htm#Font
     RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, g_isListBoxDisabled, %g_isListBoxDisabled% ; RegWrite , RegSave , Registry
     return
