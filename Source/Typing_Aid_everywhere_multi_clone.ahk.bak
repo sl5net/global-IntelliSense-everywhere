@@ -8,6 +8,10 @@ CoordMode, Caret, Screen
 CoordMode, ToolTip, Screen
 ; CoordMode, Mouse, Screen
 
+global g_doSound
+g_doSound := false
+#Include %A_ScriptDir%\inc_ahk\soundBeep.inc.ahk
+; msgbox,% "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
 
 ;<<<<<<<< g_ignReg <<<< 180224082501 <<<< 24.02.2018 08:25:01 <<<<
 if(InStr(A_ComputerName,"SL5")) ; do ignore nothing
@@ -74,7 +78,7 @@ if(False) {
 global g_lineNumberFeedback
  g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
    msg := getWelcomeMsg()
-   MsgBox,% msg
+   MsgBox,% msg " from getWelcomeMsg"
 } ;
 isInternMsgTransportIsClipboard := false ; false. then using fileSystem: readfile, include copyfile
 debugIt := true
@@ -461,11 +465,12 @@ ActionListNEW = %activeTitle%
         ; ahkSource .= "KeyWait Control  `; Wartet darauf, dass sowohl STRG als auch ALT losgelassen wird. `n"
 	ahkSource .= "if( !fileEx ) { `n"
 	ahkSource .= "message = :(  ``n '%ActionListFilterPath2%'  ``n '%ActionListFilterPath2Abs%'  ``n existiert nicht ( `%fileEx%` = fileEx ) . ``n ``n message with id (1704171514) was copied to the Clipboard. Sor you probably could find this source code little bit easier. ``n (from: %A_LineFile%~%A_LineNumber%) `n "
-	ahkSource .= "tooltip, `%message`% `n "
+	ahkSource .= "tooltip, `%message`% , 1,1 `n "
 	
-	ahkSource .= "Clipboard = `%message`%  `n "
-	ahkSource .= "Msgbox,4 , :( ActionListNameFilter.inc.ahk not found , `%message`% , 4  `n "
-	
+	; ahkSource .= "Clipboard = `%message`%  `n "
+	; ahkSource .= "Msgbox,4 , :( ActionListNameFilter.inc.ahk not found , `%message`% , 4  `n "
+	; ahkSource .= "tooltip,:( ActionListNameFilter.inc.ahk not found : `%message`% , 1,1  `n "
+
 	ahkSource .= "Sleep, 4000 `n"
 	ahkSource .= "ExitApp  `n"
 	ahkSource .= "} `n"
@@ -621,7 +626,7 @@ if(1){
 	
     ; lll("`n" . A_LineNumber, A_ScriptName, "FileDeleteAsyncDynaRun(temp.ahk , 4000)")
 	
-	g_tooltipText = WaitNotActive, %activeTitle%
+	g_tooltipText = WaitNotActive %activeTitle%
     ; WinWaitNotActive [, WinTitle, WinText, Seconds, ExcludeTitle, ExcludeText]
 	g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 	
@@ -632,6 +637,7 @@ if(1){
 	g_nextCriticalCommandString := "327:WinWaitNotActive, %activeTitle%" ; checkCriticalCommand()
 	
 	SetTimer, checkCriticalCommandLbl, On
+	;Speak(A_lineNumber " " A_ThisFunc,"PROD")
 	WinWaitNotActive, %activeTitle%
 	SetTimer, checkCriticalCommandLbl, Off
 	
@@ -640,11 +646,11 @@ if(1){
 	
     ; WinWaitNotActive, %activeTitle% ahk_class %activeClass% ; seems not work alway. be careful !! with that :( 29.04.2017 22:13
 ;    WinWaitNotActive, %activeTitle% %activeClass%
-	g_tooltipText = WinWaitNotActive, CopyQ
+	g_tooltipText = WinWaitNotActive CopyQ
 	g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 	
 	WinWaitNotActive,CopyQ , , 9
-	g_tooltipText = WinWaitNotActive,- Everything
+	g_tooltipText = WinWaitNotActive - Everything
 	g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 	
 	WinWaitNotActive,- Everything , , 9 ; ahk_class EVERYTHING
@@ -951,7 +957,7 @@ if(!do_g_tooltipText)
     if(!g_tooltipText)
       Return
     if(dog_lineNumberFeedback)
-        tooltip, % "X " . g_tooltipText . "`n" . g_lineNumberFeedback , 110 , 122
+        tooltip, % "X " g_tooltipText "`n" g_lineNumberFeedback , 110 , 122
     else
         tooltip, % "X " . g_tooltipText , 110 , 122
 

@@ -583,7 +583,6 @@ LIMIT 9
 	{
 
 
-        CoordMode, ToolTip,Screen
 		Tooltip, % g_Word " not found", % g_ListBoxX + 20 , % g_ListBoxY + 10
 		; MsgBox, % SELECT
 		; Clipboard := SELECT

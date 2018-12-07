@@ -3,6 +3,8 @@
 ; Indentation_style: https://de.wikipedia.org/wiki/EinrÃ¼ckungsstil#SL5small-Stil
 #SingleInstance force
 
+CoordMode, ToolTip,Screen
+
 Menu, Tray, Tip , % Chr(8203) ; i dont want text there. The tray icon's tooltip is displayed when the mouse hovers over it.
 
 

@@ -385,6 +385,7 @@ g_isListBoxDisabled := false
 RegRead, g_isListBoxDisabled    , HKEY_CURRENT_USER, SOFTWARE\sl5net, g_isListBoxDisabled
 ;/¯¯¯¯ g_min_searchWord_length ¯¯ 181202112524 ¯¯ 02.12.2018 11:25:24 ¯¯\
 RegRead, g_min_searchWord_length, HKEY_CURRENT_USER, SOFTWARE\sl5net, g_min_searchWord_length
+; regwrite/regread: data normalization of true and false ??? https://autohotkey.com/boards/viewtopic.php?f=76&t=59740
  ; RegWrite , RegSave
 if(!g_min_searchWord_length && InStr(A_ComputerName,"SL5"))
     feedbackMsgBox("g_min_searchWord_length:" g_min_searchWord_length, g_min_searchWord_length "`n`n`n" A_LineNumber . " " .  A_LineFile,1,1)
@@ -492,7 +493,7 @@ MainLoop()
 ~ctrl::
    If (A_TimeSincePriorHotkey < 500) and (A_TimeSincePriorHotkey > 80){ ; 50 was to shourt. i tested it with holding the ctrl key
      toolTip2sec( "Ctrl+Ctrl = toggle listbox`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
-
+    ;
     g_isListBoxDisabled := !g_isListBoxDisabled
     ; g_fontColor := (g_isListBoxDisabled) ? "cRed" : "cGreen"
     if(g_isListBoxDisabled){
@@ -504,7 +505,6 @@ MainLoop()
         ; g_min_searchWord_length := getMinLength_Needetthat_ListBecomesVisible(ParseWordsCount, maxLinesOfCode4length1)
         backup_g_min_searchWord_length := g_min_searchWord_length
         g_min_searchWord_length := 0  ; temporarily. list pops up short time user could see something was happend 05.12.2018 12:37
-    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, g_min_searchWord_length, %g_min_searchWord_length% ; RegWrite , RegSave
         ShowListBox() ; maybe sometimes neeedet 01.12.2018 11:32
         RecomputeMatches(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
         setTrayIcon()
@@ -513,8 +513,20 @@ MainLoop()
             ; sleep,100 ; short time user could see something was happend 05.12.2018 12:37
             g_min_searchWord_length := backup_g_min_searchWord_length
         }
+        RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, g_min_searchWord_length, %g_min_searchWord_length% ; RegWrite , RegSave
     }
-; to too  to   uiui to
+    setTitleMatchMode,2
+     if(1
+     && InStr(A_ComputerName,"SL5")
+     && WinActive( "ahk_class SunAwtFrame" )) ; idea use this shortcut also
+    {
+     Sleep,150 ; 50 works 100 works 150 works  200 works 300 works
+     ; works NOT always: 5 10 100
+     Send,{esc}
+    }
+    ; 
+; global-IntelliSense-everywhere-Nightly-Build [G:\fre\git\github\global-IntelliSense-everywhere-Nightly-Build] - ...\Source\gi-everywhere.ahk [global-IntelliSense-everywhere-Nightly-Build] - IntelliJ IDEA (Administrator) ahk_class SunAwtFrame ; mouseWindowTitle=0x7f12b2  ;
+;
 ;       Gui, ListBoxGui:Font, s%g_ListBoxFontSize% %g_fontColor% Bold, %ListBoxFont% ; https://autohotkey.com/docs/commands/GuiControl.htm#Font
     RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, g_isListBoxDisabled, %g_isListBoxDisabled% ; RegWrite , RegSave , Registry
     return
@@ -523,6 +535,7 @@ return
 ;\____ doubleCtrl __ 181201095649 __ 01.12.2018 09:56:49 __/
 
 ; 54625 toool        too___hallo Welt von global too msgbox lkjl451212
+;
 
 
 ;/¯¯¯¯ doubleCtrlC Ctrl+C double CtrlC ¯¯ 181108142340 ¯¯ 08.11.2018 14:23:40 ¯¯\
