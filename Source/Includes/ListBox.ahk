@@ -160,9 +160,31 @@ ListBoxClickItem(wParam, lParam, msg, ClickedHwnd){
    }
 ;\____ clickedScrollbar __ 181122141522 __ 22.11.2018 14:15:22 __/
 
-; to to to too to to to to to to to tto too too to to
+; to to to too to to to to to to to tto too too to to t to t
+; toto t too too too to tooltip
+
 
       ; global g_doListBoxFollowMouse  __
+
+       ; if( g_ListBoxX_old == g_ListBoxX && g_ListBoxY_old == g_ListBoxY ){
+       if( A_TickCount - g_TimeMilli_SincePriorMouseClick < 800 ){
+            tip := "Double-click detected in ListBox => ListBox follows caret"
+            ToolTip4sec( "tip`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+            ; MsgBox,262208,% tip "`n" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ,% ":)`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+            g_doListBoxFollowMouse := false
+            SetTimer,doListBoxFollowMouse,off
+            Hotkey, WheelUp, off
+            Hotkey, WheelDown, off
+            g_ListBoxX := 0 ; lets try box move with caret
+            g_ListBoxY := 0 ; lets try box move with caret
+            RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, g_ListBoxX, %g_ListBoxX%
+            RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, g_ListBoxY, %g_ListBoxY%
+            g_TimeMilli_SincePriorMouseClick := A_TickCount
+            return
+        }
+        g_TimeMilli_SincePriorMouseClick := A_TickCount
+
+
       if(g_doListBoxFollowMouse){
             tip=STOP follow listbox mouse `n (from: %A_LineFile%~%A_LineNumber%)
             ToolTip1sec(tip)
@@ -183,6 +205,8 @@ ListBoxClickItem(wParam, lParam, msg, ClickedHwnd){
             Hotkey, WheelDown, on
             ;SetTimer,doListBoxFollowMouse,on ; to
       }
+      g_ListBoxX_old := g_ListBoxX
+      g_ListBoxY_old := g_ListBoxY
       return
 
 ; t t t

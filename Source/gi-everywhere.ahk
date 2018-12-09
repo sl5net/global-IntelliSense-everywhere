@@ -118,6 +118,12 @@ g_config["Send"]["RealisticDelayDynamic"] := false
 countNotchangingActiveTitleOLD := 0
 global g_ListBoxX
 global g_ListBoxY
+global g_ListBoxX_old
+global g_ListBoxY_old
+global g_TimeMilli_SincePriorMouseClick := A_TickCount
+
+; too too too to too too
+
 g_ListBoxX := 0 ; if g_ListBoxX (not false > 0) it never usses CaretXorMouseXfallback . if you want go back to default, reload the
 g_ListBoxY := 0 ; if g_ListBoxX (not false > 0) it never usses CaretXorMouseXfallback . if you want go back to default, reload the
 
