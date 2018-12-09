@@ -462,13 +462,13 @@ RecomputeMatches( calledFromStr, is_Recursion := false ){
 			Clipboard := tip
 			msgbox, % tip
 		}
-		;
+		; t
 
 		for each, row in Matches.Rows
 		{
-; tooltip msgb box box tooltip msgbox tooltip msg box line Line Too
+		    ; tooltip msgb box box tooltip msgbox tooltip msg box line Line Too
 			g_SingleMatch[++g_MatchTotal] := trim(row[1]," `t`r`n") ; rTrim(clipboard," `t`r`n")
-			if(!g_SingleMatch[g_MatchTotal]){
+			if( !g_SingleMatch[g_MatchTotal] ){
 			    --g_MatchTotal
 				continue
             }
@@ -476,6 +476,27 @@ RecomputeMatches( calledFromStr, is_Recursion := false ){
 			g_SingleMatchReplacement[g_MatchTotal] := trim(row[3]," `t`r`n")
 			if(0 && InStr(A_ComputerName,"SL5"))
 				tooltip,% ":-) row[1]=" row[1] ", row[2]=" row[2] " , g_Word=" g_Word  " , g_MatchTotal=" g_MatchTotal " , Normalize=" Normalize "`n" SELECT  "`nRecomputeMatches(calledFromStr):(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),1,1
+
+            ;/¯¯¯¯ topseudoDistinct ¯¯ 181209155652 ¯¯ 09.12.2018 15:56:52 ¯¯\
+            ; pseudoDistinct experimental ? todo: without any effect ??? yes it works: 18-12-09_16-22
+            if( A_index == 1 ){ ; first result from this new select
+                ; do distinct proof
+                ; ceck if last result of last select has the same reult
+                if( g_SingleMatch[g_MatchTotal] == g_SingleMatch[g_MatchTotal-1]
+                    && g_SingleMatchDescription[g_MatchTotal] == g_SingleMatchDescription[g_MatchTotal-1]
+                    && g_SingleMatchReplacement[g_MatchTotal] == g_SingleMatchReplacement[g_MatchTotal-1] ){
+                    tip := "already collected: `n `nt=>" g_SingleMatch[g_MatchTotal] "< `nd=>" g_SingleMatchDescription[g_MatchTotal] "< `nr=>" g_SingleMatchReplacement[g_MatchTotal] "< "
+                    tip .= "`n `nt=>" strlen(g_SingleMatch[g_MatchTotal]) "< `nd=>" strlen(g_SingleMatchDescription[g_MatchTotal]) "< `nr=>" strlen(g_SingleMatchReplacement[g_MatchTotal]) "< "
+                    tip .= "`n" strSingleMatch ""
+                    ;ToolTip4sec( tip "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+                    ;Clipboard := tip
+                    --g_MatchTotal
+        			; feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), tip )
+                    continue
+                }
+            }
+; to seba test msgbox box tt
+            ;\____ pseudoDistinct __ 181209155658 __ 09.12.2018 15:56:58 __/
 
 
 			global g_min_searchWord_length

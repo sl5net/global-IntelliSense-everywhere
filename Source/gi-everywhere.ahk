@@ -515,16 +515,17 @@ MainLoop()
         }
         RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, g_min_searchWord_length, %g_min_searchWord_length% ; RegWrite , RegSave
     }
-    setTitleMatchMode,2
-     if(1
-     && InStr(A_ComputerName,"SL5")
-     && WinActive( "ahk_class SunAwtFrame" )) ; idea use this shortcut also
-    {
+     if(InStr(A_ComputerName,"SL5")){
+         setTitleMatchMode,2
+     if(WinActive( "ahk_class SunAwtFrame" )){ ; idea use this shortcut also
+     Sleep,30
+     Send,{esc}
      Sleep,150 ; 50 works 100 works 150 works  200 works 300 works
      ; works NOT always: 5 10 100
      Send,{esc}
-    }
-    ; 
+    }}
+
+;
 ; global-IntelliSense-everywhere-Nightly-Build [G:\fre\git\github\global-IntelliSense-everywhere-Nightly-Build] - ...\Source\gi-everywhere.ahk [global-IntelliSense-everywhere-Nightly-Build] - IntelliJ IDEA (Administrator) ahk_class SunAwtFrame ; mouseWindowTitle=0x7f12b2  ;
 ;
 ;       Gui, ListBoxGui:Font, s%g_ListBoxFontSize% %g_fontColor% Bold, %ListBoxFont% ; https://autohotkey.com/docs/commands/GuiControl.htm#Font
