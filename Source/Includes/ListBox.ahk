@@ -114,6 +114,14 @@ InitializeListBox(){
 
 
 
+;/¯¯¯¯ ListBoxRigthButtionClick ¯¯ 181209172003 ¯¯ 09.12.2018 17:20:03 ¯¯\
+; Rigth-Buttion-Click in ListBox opens active action list for edit it
+ListBoxRigthButtionClick(wParam, lParam, msg, ClickedHwnd){
+    global ActionList
+    openInEditorFromIntern( ActionList )
+    ;msgbox,`n(%A_LineFile%~%A_LineNumber%)
+}
+;\____ ListBoxRigthButtionClick __ 181209172006 __ 09.12.2018 17:20:06 __/
 
 ;/¯¯¯¯ ListBoxClickItem ¯¯ 181022211224 ¯¯ 22.10.2018 21:12:24 ¯¯\
 ; needet becouse listbox is moveable by click
@@ -122,6 +130,9 @@ ListBoxClickItem(wParam, lParam, msg, ClickedHwnd){
    Local NewClickedItem
    Local TempRows
    static LastClickedItem
+
+   ; tip = %wParam%, %lParam%, %msg%
+  ;ToolTip4sec( tip "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 
     INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 
@@ -1019,7 +1030,8 @@ try {
       }
       
       OnMessage(g_WM_LBUTTONUP, "ListBoxClickItem")
-      OnMessage(g_WM_LBUTTONDBLCLK, "ListBoxClickItem")
+      OnMessage(g_WM_RBUTTONUP, "ListBoxRigthButtionClick")
+      ; OnMessage(g_WM_LBUTTONDBLCLK, "ListBoxClickItem")
       
       IfNotEqual, prefs_ListBoxOpacity, 255
          WinSet, Transparent, %prefs_ListBoxOpacity%, ahk_id %g_ListBox_Id%
