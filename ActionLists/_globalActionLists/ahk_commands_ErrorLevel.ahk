@@ -59,6 +59,7 @@ RegExReplace
 RegRead
 RegWrite
 Run[Wait]
+RunWait
 SetWorkingDir
 Sort
 SoundGet
@@ -76,5 +77,6 @@ WinGetText
 WinMenuSelectItem
 WinSet
 WinWait
-WinWait[Not]Active
+WinWaitNotActive
+WinWaitActive
 WinWaitClose

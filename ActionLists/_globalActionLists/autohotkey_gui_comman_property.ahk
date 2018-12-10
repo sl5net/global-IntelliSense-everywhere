@@ -53,7 +53,7 @@ Gui, Font [, Options, FontName]
 bold
 italic
 strike
-underline
+underLine
 norm
 Gui, Color [, WindowColor, ControlColor]
 Gui, Margin [, X, Y]

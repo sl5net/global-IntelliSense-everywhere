@@ -50,6 +50,7 @@ s =
 Clipboard := s
 send, ^v
 
+
 quote|rr||ahk|
 ClipboardBackup := Clipboard
 timeoutSec := 9
@@ -116,7 +117,7 @@ send, ^v
 
 stop|r|stop
 
-url|rr|[url=]title[/url]|ahk|send,{left 12}{text}%clipboard% `n send,{CtrlDown}{ShiftDown}{Left}{ShiftUp}{CtrlUp}
+url|rr|[url=]title[/url]|ahk|send,{left 12}{text}%clipboard% ``n send,{CtrlDown}{ShiftDown}{Left}{ShiftUp}{CtrlUp}
 
 gi-everywhere Command line arg to Start with specific wordList
 gi-everywhere keyboard hotkey to quickly switch word lists = ^!+t|r|[url=https://github.com/ManiacDC/gi-everywhere/issues/32]gi-everywhere keyboard hotkey to quickly switch word lists = ^!+t[/url]

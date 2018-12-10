@@ -1,8 +1,21 @@
-___hallo Welt von global
 
 #Include _global.ahk
 ; #Include _globalActionListsGenerated\_global.ahk
 ____open ahk_global|rr||ahk|openInEditor,_ahk_global.ahk
+open ahk_global|rr||ahk|openInEditor,_ahk_global.ahk
+
+msgbox,% "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+Msgbox,% "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+MsgBox info on top|r|MsgBox,262208,% ":)`n" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ,% ":)`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+MsgBox error on top|r|MsgBox,262160,% ":(`n" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ,% ":(`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+Msgbox,`n(%A_LineFile%~%A_LineNumber%)
+Msgbox|rr|Msgbox,`n(%A_LineFile%~%A_LineNumber%)|ahk|Send,{shift down}{left 33}{shift up}
+
+Speak(,"PROD")
+Speak( A_ThisFunc,"PROD")
+Speak(" found","PROD")
+
+rTrim(clipboard," `t`r`n")
 
 RegExReplace(A_LineFile,".*\\")
 
@@ -40,16 +53,23 @@ ActionLists
 Source
 
 Msgbox,% "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
-MsgBox info on top|r|MsgBox,262208,% ":)`n" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ,% ":)`n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")" 
-MsgBox error on top|r|MsgBox,262160,% ":(`n" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ,% ":(`n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")" 
+MsgBox info on top|r|MsgBox,262208,% ":)`n" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ,% ":)`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+MsgBox error on top|r|MsgBox,262160,% ":(`n" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ,% ":(`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 Msgbox,`n(%A_LineFile%~%A_LineNumber%)
 Msgbox|rr|Msgbox,`n(%A_LineFile%~%A_LineNumber%)|ahk|Send,{shift down}{left 33}{shift up}
+
 
 ToolTip2sec lineFileName|rr|ToolTip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )|ahk|Send,{CtrlDown}{left 8}{CtrlUp}
 ToolTip2sec lineFileName|rr|ToolTip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )|ahk|Send,{CtrlDown}{left 8}{CtrlUp}
 ToolTip4sec lineFileName|rr|ToolTip4sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )|ahk|Send,{CtrlDown}{left 8}{CtrlUp}
 ToolTip5sec lineFileName|rr|ToolTip5sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )|ahk|Send,{CtrlDown}{left 8}{CtrlUp}
+Alert len ToolTip5sec lineFileName|rr|ToolTip5sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )|ahk|MsgBox, % sendingStrLen
+; ToolTip5sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+; Tooltip tToolTip5sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 
+helloCommment71 |rr|HelloWorld2.ahk ; HelloComment|ahk|Msgbox,% substr(Sending,Instr(Sending,"`;"))
+; HelloWorld2.ahk ; HelloComment He HelloWorld2.ahk ; HelloComment
+; HelloWorld2.ahk ; HelloComment
 
 Sleep, 000|rr|Sleep, 000|ahk|Send,{left 3}
 
@@ -459,7 +479,7 @@ regEx find AHK functios definitions|r|^[ ]*?\w[\w\d_]{5,}\s*\([^()+<>]+\)[\s\S]{
 				ClipboardAll
 				ClipWait 1, 1              ; restore clipboard if no data 
 				close gi-everywhere and
-				Color
+				Color 
 				ComboBox
 				Comobjactive
 				Comobjarray
@@ -550,7 +570,7 @@ regEx find AHK functios definitions|r|^[ ]*?\w[\w\d_]{5,}\s*\([^()+<>]+\)[\s\S]{
 						FileGetSize,fSize, % A_LoopFileFullPath ; in bytes 
 						FileGetTime, sourceModifiedTime, %f%  ; Retrieves the modification time by default. 
 						FileReadLine, line, %f%, %A_Index% 
-						SoundBeep,n ,200 ; high beep 
+						SoundBeep, 200 
 						while(!clipboard && loopCounter < 100) 
 							copyLineOrWord2clipBoard(doSelectLine) 
 						isInteger(var) 
@@ -569,8 +589,8 @@ regEx find AHK functios definitions|r|^[ ]*?\w[\w\d_]{5,}\s*\([^()+<>]+\)[\s\S]{
 						StringDifference(string1, string2, maxOffset=1) 
 						stringLower(s) 
 						isUrlAvailable(URL) 
-						lll(A_LineNumber, A_LineFile, text="")|rr|lll(A_LineNumber, A_LineFile, "")|ahk|Send,{left 2}
-; lll(A_LineNumber, A_LineFile, msg)
+						lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,text="")|rr|lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"")|ahk|Send,{left 2}
+; lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,msg)
 						lll(ln, sn, text="") 
 						file_put_contents(f, c, overwrite=true) 
 						SendStrgC(trycount) 
@@ -607,5 +627,28 @@ regEx find AHK functios definitions|r|^[ ]*?\w[\w\d_]{5,}\s*\([^()+<>]+\)[\s\S]{
 						move2Img(i , textInfo, mm) 
 						clickImg(i, textInfo, mm, offset = 20) 
 
-						|r|
-G:\fre\git\github\global-IntelliSense-everywhere-Nightly-Build\Source\gi-everywhere.ahk
+						
+						
+
+Schlaf, Schlafen, Meditation , Schöne Natur, Ber
+
+|r|
+Ein neuer
+Test
+
+|r|
+Ein neuer
+Test2
+
+testMe
+title
+
+|r|
+Moinsen ?? congratulations on your new job.
+I'll apply for your 20 hours administrator job.
+Aber ich glaube das passt nicht nur so zum Spaß. Grüßle aus Wannweil
+
+deprecated
+
+Speak(A_lineNumber " " A_lineFile,"PROD")
+test
