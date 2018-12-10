@@ -585,8 +585,8 @@ RecomputeMatches( calledFromStr, is_Recursion := false ){
                             g_SingleMatchDescription[g_MatchTotal] := trim(row[2]," `t`r`n")
                             g_SingleMatchReplacement[g_MatchTotal] := trim(row[3]," `t`r`n")
                         }
-                        IfEqual, g_MatchTotal, 0
-                            Clipboard := SELECT "-- from huihuihuihuihui"
+                        ; IfEqual, g_MatchTotal, 0
+                        ;     Clipboard := SELECT "-- from huihuihuihuihui"
                     }
          }
 
