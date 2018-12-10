@@ -1649,6 +1649,7 @@ BuildTrayMenu(){
 	Menu, Tray, add, use double Ctrl to togle Listbox ),lbl_noOp
 	Menu, Tray, add
 
+	Menu, Tray, add, Help Gi-Edit/Create ActionList online, lbl_HelpOnline_EditCreate_ActionList
 	Menu, Tray, add, Help Gi-Search Keywords online, lbl_HelpOnline_Search_Keywords
 	Menu, Tray, add, Help Gi-Features online, lbl_HelpOnline_features
 	Menu, Tray, add, Help Gi-Shortcuts online, lbl_HelpOnline_shortcut

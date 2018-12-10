@@ -960,6 +960,14 @@ lbl_Help_AutoHotkey_online:
        return
     run,https://autohotkey.com/docs/Tutorial.htm
 return
+lbl_HelpOnline_EditCreate_ActionList:
+    t := "open `n`n g-IntelliSense Edit/Create ActionList`n`n in myjetbrains.com ?"
+    if(!InStr(A_ComputerName,"SL5"))
+        msgbox, ,% t,% t "`n`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+    IfMsgBox, Cancel
+       return
+    run,https://g-intellisense.myjetbrains.com/youtrack/print/GIS?q=project`%3A+g-IntelliSense+`%23`%7Bedit+list`%7D
+return
 
 lbl_HelpOnline_Search_Keywords:
     t := "open `n`n g-IntelliSense Search Keywords`n`n in myjetbrains.com ?"
@@ -968,7 +976,6 @@ lbl_HelpOnline_Search_Keywords:
     IfMsgBox, Cancel
        return
     run,https://g-intellisense.myjetbrains.com/youtrack/print/GIS?q=project`%3A+g-IntelliSense+`%23`%7Bsearch+keywords`%7D
-
 return
 
 lbl_HelpOnline_features:
