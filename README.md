@@ -92,4 +92,6 @@ Credits:
 - Theclaw
 - rommmcek
 - jamesw77bp
+- jeeswg
+- fridemarDrPache
 - and many more
