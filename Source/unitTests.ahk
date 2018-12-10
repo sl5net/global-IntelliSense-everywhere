@@ -135,6 +135,7 @@ g_do_only_this_testCase  := "err_is_r_without_keywords"
 g_do_only_this_testCase  := "test_getAutoKeywords"
 g_do_only_this_testCase  := "err_is_without_keywords"
 g_do_only_this_testCase  := "" ; then all test will be run 24.11.2018 20:33
+g_do_only_this_testCase  := "test_synonym"
 ;\____ g_do_only_this_testCase __ 181118111650 __ 18.11.2018 11:16:50 __/
 ;\____ g_do_only_this_testCase __ 181118111650 __ 18.11.2018 11:16:50 __/
 ;\____ g_do_only_this_testCase __ 181118111650 __ 18.11.2018 11:16:50 __/
@@ -158,8 +159,7 @@ WinGetActiveTitle,activeTitle
 ;/¯¯¯¯ err_string_ahk_line ¯¯ 181204152914 ¯¯ 04.12.2018 15:29:14 ¯¯\
 err_string_ahk_line(){
     f=G:\fre\git\github\global-IntelliSense-everywhere-Nightly-Build\Source\log\ActionList.ahk.log.txt
-    fileDelete,G:\fre\git\github\global-IntelliSense-everywhere-Nightly-Build\Source\log\ActionList.ahk.log.txt
-    ; fileDelete,G:\fre\git\github\global-IntelliSense-everywhere-Nightly-Build\Source\log\ActionList.ahk.log.txt
+    fileDelete,% f
     while(0 && fileExist(f))
         sleep,150
     in := "searchkeys|rr|stringReplacement|ahk|ahkSource"
@@ -250,8 +250,6 @@ else if(1 && errStr:=test_short_keywords())
 	countErrors++ ; Msgbox,% A_LineNumber  ;
 else if(1 && test_do_indexFollowingLines4search())
     countErrors++ ; Msgbox,% A_LineNumber  ;
-else if(1 && errStr:=test_synonym())
-    countErrors++ ; Msgbox,% A_LineNumber  ;
 else if(false && errStr:=test_dontDeleteComments())
     countErrors++ ; Msgbox,% A_LineNumber  ;
 else if(1 && errStr:=test_synonym())
@@ -281,6 +279,8 @@ if(countErrors>0){
 	Speak( countErrors " Error found. " ALineNumber, "PROD" )
 	tooltip,% errStr,1,1
 	Msgbox,,% errStr ,,2
+    feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), errStr )
+    clipboard := errStr
 	sleep,2000
 }
 
@@ -550,19 +550,29 @@ if(1){ ; playground
 
 ;/¯¯¯¯ test_synonym
 test_synonym(){
-	in =
-(
-test1 baum testsynonym1|rr||ahk|q
-testsynonym2|rr||ahk|q
-)
-	expected =
-(
-test1 baum testsynonym1|rr||ahk|q
-testsynonym2|rr||ahk|q
-)
+    f=G:\fre\git\github\global-IntelliSense-everywhere-Nightly-Build\Source\log\ActionList.ahk.log.txt
+    fileDelete,% f
+    while(a_index < 5 && fileExist(f))
+        sleep,150
+
+	in :=       "test1 baum testsynonym1|rr||ahk|q"
+	expected := in
 	if(errStr := getAssertEqual_ErrorStr(in,expected,A_ThisFunc ":" A_LineNumber, "Loop_Parse_ParseWords")) ; line 727 = Loop_Parse_ParseWords
 		Return errStr " °" A_ThisFunc "° "
-	
+
+	    SELECT := "SELECT word FROM Words Where word like '" in "' "
+        SELECT .= " LIMIT 1 " ";"
+        Matches := g_ActionListDB.Query(SELECT)
+        isFound  := false
+        for each, row in Matches.Rows
+            if( row[1] )
+                isFound  := true
+        if(!isFound)
+            Return in " NOT in DB °" A_ThisFunc "° "
+
+
+
+
 	in := "A bit of a longer text"
 	expected := "A longer text"
 	if(errStr := getAssertEqual_ErrorStr(in,expected,A_ThisFunc ":" A_LineNumber,"getAutoKeywords"))
@@ -1964,6 +1974,9 @@ lbl_Help_AutoHotkey_online:
 lbl_HelpOnline_features:
 lbl_HelpOnline_shortcut:
 lbl_HelpOnline_issues_open:
+return
+RenoveToolTip:
+tooltip,
 return
 
 

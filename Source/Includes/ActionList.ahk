@@ -1354,6 +1354,7 @@ setCommandTypeS(rootLineObj
 				rootCmdTypeObj.codePrefixChar := m2
 				m2 := "`it =`n(`n"
                 ; MsgBox,% codePrefixChar "=codePrefixChar(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+                ; lll( A_LineNumber , A_LineFile , codePrefixChar "=codePrefixChar" )
 				rootDoObj.collectBlock := true ; may not  unnecessary action
 				rootCmdTypeObj.is_multiline_rr := true ; may not  unnecessary action
 			}
@@ -1376,8 +1377,12 @@ setCommandTypeS(rootLineObj
 	
 	rootCmdTypeObj.is_multiline_rr := false ; todo: thats a dirty bugfix . 10.11.2018 23:19
 	if(RegExMatch( rootLineObj.value , "i)^([^;\n ]*[^\n]+\|ahk\|)([^\s\n]?)[ ]*$",  m )){
-		rootCmdTypeObj.is_multiline_rr := true
-		rootDoObj.collectBlock := true
+	    if(m2 <> "q"){
+            ; MsgBox,% codePrefixChar "=codePrefixChar(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+            ; lll( A_LineNumber , A_LineFile , codePrefixChar "=codePrefixChar" )
+		    rootCmdTypeObj.is_multiline_rr := true
+		    rootDoObj.collectBlock := true
+        }
 	}
 	
     ;/¯¯¯¯ collectBlock ¯¯ 181111082347 ¯¯ 11.11.2018 08:23:47 ¯¯\
