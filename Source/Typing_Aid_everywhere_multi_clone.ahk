@@ -604,15 +604,22 @@ if(1){
         ; DynaRun(ahkSource) ; this line prducing erros. if u use FileWriteAndRun it works.
 	} else {
 		Tooltip, WinWaitClose   temp.ahk `n (from: %A_LineFile%~%A_LineNumber%)
-		WinWaitClose,temp.ahk,,5
+		WinWaitClose,temp.ahk,,1
 		Tooltip,
 		IfWinExist,temp.ahk
 		{
-			msg=:-O WinExist temp.ahk `n `n %A_LineFile%~%A_LineNumber% ==> continue
+ 			msg=:-O WinExist temp.ahk `n `n %A_LineFile%~%A_LineNumber% ==> continue
             SetTitleMatchMode,2
-            if !WinExist("Oops ", msg)
-			    feedbackMsgBox("Oops ",msg,1,1)
-			sleep,5000
+            ; if(!WinExist(":Oops", msg))
+            if(1 || !InStr(A_ComputerName,"SL5") ){
+                winclose,temp.ahk
+            }
+
+            if(1 && InStr(A_ComputerName,"SL5") ){
+                if(!WinExist(":Oops"))
+                    feedbackMsgBox("Oops ",msg,1,1)
+			}
+            sleep,2000
 			continue
 		}
 	}
