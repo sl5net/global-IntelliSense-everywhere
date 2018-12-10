@@ -526,6 +526,114 @@ RecomputeMatches( calledFromStr, is_Recursion := false ){
 		if(g_MatchTotal == 10)
 			break
 	}
+
+
+        ; STMM MB ess box mess
+        ; RM RM RM
+
+        ; Featue: tipe only the upper letters. search in indexes
+        ; todo: test it if it really works: 09.12.2018 18:48
+		IfEqual, g_MatchTotal, 0
+    	{
+                ; Featue: tipe only the upper letters. search in indexes
+                ; todo: test it if it really works: 09.12.2018 18:48
+                ; stmm STMM STM
+                ; example: STMM = setTitleMatchMode
+                    if(StrLen_g_Word >= 2){
+                        SELECT := "SELECT distinct word, worddescription, wordreplacement FROM Words w `n"
+                        loop, % StrLen_g_Word
+                        {
+                            s := substr(g_Word , A_index , 1)
+                            StringUpper, s1, s ; proor if its really uppercase
+                            ; Determines whether string comparisons are case sensitive (default is "not case sensitive").
+                            if(s1 <> s){
+                                ; msgbox,%s1% <> %s% `n(%A_LineFile%~%A_LineNumber%)
+                                break ; only active if all from the beginning is uppper case
+                                ; msb st stmm cmode
+                            }
+                            ; msgbox,%s1% == %s% `n(%A_LineFile%~%A_LineNumber%)
+                            if(a_index==1)
+                                SELECT .= " WHERE w.wordindexed GLOB '" s1 "*' `n"
+                            else
+                                SELECT .= " AND w.wordindexed GLOB '* " s1 "*' `n"
+                        }
+                        SELECT .= " AND ActionListID = " g_ActionListID " `n"
+                        SELECT .= " order by ROWID desc `n"
+                        SELECT .= " LIMIT 9 " "`;"
+                        ; tooltip,%SELECT% `n(%A_LineFile%~%A_LineNumber%)
+                        ; Clipboard := SELECT
+                        try{
+                            Matches := g_ActionListDB.Query(SELECT)
+                        } catch e{
+                            tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
+                            sqlLastError := SQLite_LastError()
+                            tip .= "`n sqlLastError=" sqlLastError "`n sql=" SELECT " `n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
+                            lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,tip)
+                            tooltip, % tip
+                            feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), tip )
+                            Clipboard := tip
+                            msgbox, % tip
+                        }
+                        for each, row in Matches.Rows
+                        {
+                    ; tooltip msgb box box tooltip msgbox tooltip msg box line Line Too
+                            g_SingleMatch[++g_MatchTotal] := trim(row[1]," `t`r`n") ; rTrim(clipboard," `t`r`n")
+                            if(!g_SingleMatch[g_MatchTotal]){
+                                --g_MatchTotal
+                                continue
+                            }
+                            g_SingleMatchDescription[g_MatchTotal] := trim(row[2]," `t`r`n")
+                            g_SingleMatchReplacement[g_MatchTotal] := trim(row[3]," `t`r`n")
+                        }
+                        IfEqual, g_MatchTotal, 0
+                            Clipboard := SELECT "-- from huihuihuihuihui"
+                    }
+         }
+
+; REM
+; REM
+; REM REM
+
+
+; stmm STMM ST
+; tmm tmm  tmm tmm
+; STMM STMM ST MM
+; stmm tmm tmm  tmm
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	; tooltip hallo msgbox tooltip tooltip
 
 	; msgbox,% g_MatchTotal "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
@@ -600,12 +708,12 @@ LIMIT 9
             }
         }
         ;\____ if StrLen_g_Word >
-
     }
+
+
+    ;/¯¯¯¯ nothingFound ¯¯ 181209180913 ¯¯ 09.12.2018 18:09:13 ¯¯\
 	IfEqual, g_MatchTotal, 0
 	{
-
-
 		Tooltip, % g_Word " not found", % g_ListBoxX + 20 , % g_ListBoxY + 10
 		; MsgBox, % SELECT
 		; Clipboard := SELECT
@@ -616,6 +724,8 @@ LIMIT 9
       ; clipboard := SELECT
 		Return
 	}
+	;\____ nothingFound __ 181209180921 __ 09.12.2018 18:09:21 __/
+
    ;SELECT word, worddescription, wordreplacement FROM Words WHERE wordindexed GLOB 'TOO*'  AND ActionListID = '1' ORDER BY CASE WHEN count IS NULL then ROWID else 'z' end, CASE WHEN count IS NOT NULL then ( (count - 0) * ( 1 - ( '0.75' / (LENGTH(word) - 3)))) end DESC, Word LIMIT 10;
 	
 	SetupMatchPosition()

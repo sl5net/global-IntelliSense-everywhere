@@ -125,17 +125,16 @@ if(sqlLastError := trim(SQLite_LastError()))
 ; the test in this list must also exist below in the if else statements
 global g_do_only_this_testCase 
 g_do_only_this_testCase  := "test_short_keywords"
-g_do_only_this_testCase  := "test_getAutoKeywords"
 g_do_only_this_testCase  := "err_problemNow"
 g_do_only_this_testCase  := "err_doAsimpleCopyOfLine"
 g_do_only_this_testCase  := "err_indexFollowingLines4search"
-g_do_only_this_testCase  := "err_is_without_keywords"
 g_do_only_this_testCase  := "err_problemNow"
 g_do_only_this_testCase  := "err_multi_rr_stop_by_is_r"
-g_do_only_this_testCase  := "err_is_r_without_keywords"
-g_do_only_this_testCase  := "" ; then all test will be run 24.11.2018 20:33
 g_do_only_this_testCase  := "err_string_ahk_line"
-
+g_do_only_this_testCase  := "err_is_r_without_keywords"
+g_do_only_this_testCase  := "test_getAutoKeywords"
+g_do_only_this_testCase  := "err_is_without_keywords"
+g_do_only_this_testCase  := "" ; then all test will be run 24.11.2018 20:33
 ;\____ g_do_only_this_testCase __ 181118111650 __ 18.11.2018 11:16:50 __/
 ;\____ g_do_only_this_testCase __ 181118111650 __ 18.11.2018 11:16:50 __/
 ;\____ g_do_only_this_testCase __ 181118111650 __ 18.11.2018 11:16:50 __/
@@ -424,9 +423,59 @@ err_CheckValid(){
 
 
 
+
+
 ;/¯¯¯¯ test_getAutoKeywords ¯¯ 181116202412 ¯¯ 16.11.2018 20:24:12 ¯¯\
 ; IMPORTEND becouse used by other functions !!!
 test_getAutoKeywords(){
+
+
+	in =
+(
+al color
+no colors
+)
+	expected := "al color colors"
+	expectedInFutureRelaise := "nothingSpecial nothing Special textlang"
+	if(errStr := getAssertEqual_ErrorStr(      in,      expected,A_ThisFunc ":" A_LineNumber,"getAutoKeywords"))
+		Return errStr " °" A_ThisFunc "° "
+
+
+	in =
+(
+weeks   and
+years   and   ears
+)
+	expected := "weeks years ears"
+	expectedInFutureRelaise := "nothingSpecial nothing Special textlang"
+	if(errStr := getAssertEqual_ErrorStr(      in,      expected,A_ThisFunc ":" A_LineNumber,"getAutoKeywords"))
+		Return errStr " °" A_ThisFunc "° "
+
+	in := "weeks weeks years"
+	expected := "weeks years"
+	expectedInFutureRelaise := "nothingSpecial nothing Special textlang"
+	if(errStr := getAssertEqual_ErrorStr(      in,      expected,A_ThisFunc ":" A_LineNumber,"getAutoKeywords"))
+		Return errStr " °" A_ThisFunc "° "
+
+
+if(1){ ;
+	in := "setTitleMatchMode"
+    e := getAutoKeywords(in)
+	expected := "setTitleMatchMode setTitleMatch Mode setTitle MatchMode TitleMatchMode"
+	expected := "setTitleMatchMode Mode setTitleMatch Match setTitle Title"
+	if(errStr := getAssertEqual_ErrorStr(      in,      expected,A_ThisFunc ":" A_LineNumber,"getAutoKeywords"))
+		Return errStr " °" A_ThisFunc "° "
+}
+
+if(1){ ;
+	in := "SetTitleMatchMode"
+    e := getAutoKeywords(in)
+	expected := "SetTitleMatchMode SetTitleMatch Mode SetTitle MatchMode TitleMatchMode"
+	expected := "SetTitleMatchMode Mode SetTitleMatch Match SetTitle Title"
+	if(errStr := getAssertEqual_ErrorStr(      in,      expected,A_ThisFunc ":" A_LineNumber,"getAutoKeywords"))
+		Return errStr " °" A_ThisFunc "° "
+}
+
 
 if(false){ ; playground
     in =
@@ -456,12 +505,6 @@ if(false){ ; playground
 		Return errStr " °" A_ThisFunc "° "
 
 
-	in := " weeks weeks years "
-	expected := "weeks years "
-	expectedInFutureRelaise := "nothingSpecial nothing Special textlang"
-	if(errStr := getAssertEqual_ErrorStr(      in,      expected,A_ThisFunc ":" A_LineNumber,"getAutoKeywords"))
-		Return errStr " °" A_ThisFunc "° "
-
 
 	in := "abcdef"
 	expected := "abcdef"
@@ -476,12 +519,6 @@ if(false){ ; playground
 	if(errStr := getAssertEqual_ErrorStr(      in,      expected,A_ThisFunc ":" A_LineNumber,"getAutoKeywords"))
 		Return errStr " °" A_ThisFunc "° "
 
-
-	in := "  weeks   and  years   and   ears"
-	expected := "weeks years ears"
-	expectedInFutureRelaise := "nothingSpecial nothing Special textlang"
-	if(errStr := getAssertEqual_ErrorStr(      in,      expected,A_ThisFunc ":" A_LineNumber,"getAutoKeywords"))
-		Return errStr " °" A_ThisFunc "° "
 
 	in := "A bit of a longer text"
 	expected := "A longer text"
@@ -730,7 +767,7 @@ msg =
 superduper
 `)
 send,`% msg
-ahkScripte PhpScripte|r|
+ahkScripte Scripte PhpScripte|r|
 ahkScripte
 PhpScripte
 )
@@ -902,10 +939,28 @@ if(errStr := getAssertEqual_ErrorStr(in,expected,A_ThisFunc ":" A_LineNumber))
 err_is_r_without_keywords(){
 ; automatically create keywords. by using: |r|value value value ...
     f=G:\fre\git\github\global-IntelliSense-everywhere-Nightly-Build\Source\log\ActionList.ahk.log.txt
-    fileDelete,G:\fre\git\github\global-IntelliSense-everywhere-Nightly-Build\Source\log\ActionList.ahk.log.txt
+    fileDelete, % f
     while(fileExist(f))
         sleep,100
+	in =
+(
+|r|setTitleMatchMode
+)
+	expected =
+(
+setTitleMatchMode setTitleMatch Mode setTitle MatchMode TitleMatchMode|r|setTitleMatchMode
+)
+	expected =
+(
+setTitleMatchMode Mode setTitleMatch Match setTitle Title|r|setTitleMatchMode
+)
+if(errStr := getAssertEqual_ErrorStr(in,expected,A_ThisFunc ":" A_LineNumber))
+    Return errStr " °" A_ThisFunc "° "
 
+    f=G:\fre\git\github\global-IntelliSense-everywhere-Nightly-Build\Source\log\ActionList.ahk.log.txt
+    fileDelete, % f
+    while(fileExist(f))
+        sleep,100
 	in =
 (
 |r|om is a color
@@ -916,6 +971,7 @@ om color|r|om is a color
 )
 if(errStr := getAssertEqual_ErrorStr(in,expected,A_ThisFunc ":" A_LineNumber))
     Return errStr " °" A_ThisFunc "° "
+
 }
 ;\____ err_is_r_without_keywords __ 181128135910 __ 28.11.2018 13:59:10 __/
 
@@ -930,6 +986,23 @@ fileDelete,G:\fre\git\github\global-IntelliSense-everywhere-Nightly-Build\Source
 while(fileExist(f))
     sleep,100
 
+	in =
+(
+java and javascript
+)
+	expected := "java javascript"
+	expectedInFutureRelaise := "nothingSpecial nothing Special textlang"
+	if(errStr := getAssertEqual_ErrorStr(      in,      expected,A_ThisFunc ":" A_LineNumber,"getAutoKeywords"))
+		Return errStr " °" A_ThisFunc "° "
+	in =
+(
+al color
+no colors
+)
+	expected := "al color colors"
+	expectedInFutureRelaise := "nothingSpecial nothing Special textlang"
+	if(errStr := getAssertEqual_ErrorStr(      in,      expected,A_ThisFunc ":" A_LineNumber,"getAutoKeywords"))
+		Return errStr " °" A_ThisFunc "° "
 	in =
 (
 |r|
@@ -981,7 +1054,7 @@ weeks and forest52
 	
 	if(errStr := getAssertEqual_ErrorStr(in,expected,A_ThisFunc ":" A_LineNumber))
 		Return errStr " °" A_ThisFunc "° "
-	
+
 	
 	
 	in =
@@ -1620,7 +1693,7 @@ almMountain
 )
 		expected =
 (
-almMountain|r|
+almMountain Mountain|r|
 almMountain
 )
 
@@ -1642,7 +1715,7 @@ beutiful Brain
 	if(errStr := getAssertEqual_ErrorStr(in,expected,A_ThisFunc ":" A_LineNumber))
 		Return errStr " °" A_ThisFunc "° "
 	
-	
+
 	
 } ; endOf test
 
