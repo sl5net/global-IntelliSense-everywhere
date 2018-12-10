@@ -714,7 +714,9 @@ LIMIT 9
     ;/¯¯¯¯ nothingFound ¯¯ 181209180913 ¯¯ 09.12.2018 18:09:13 ¯¯\
 	IfEqual, g_MatchTotal, 0
 	{
-		Tooltip, % g_Word " not found", % g_ListBoxX + 20 , % g_ListBoxY + 10
+		; Tooltip, % g_Word " not found", % g_ListBoxX + 20 , % g_ListBoxY + 10
+		; only show a small peace. may sombody typed passwort in? not want show it for everybody... 18-12-10_12-52
+		Tooltip, % ((StrLen_g_Word >=3 ) ? substr( g_Word,1,3 ) ".." : g_Word ) " not found", % g_ListBoxX + 20 , % g_ListBoxY + 10
 		; MsgBox, % SELECT
 		; Clipboard := SELECT
 		ClearAllVars(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),false)
@@ -1647,6 +1649,7 @@ BuildTrayMenu(){
 	Menu, Tray, add, use double Ctrl to togle Listbox ),lbl_noOp
 	Menu, Tray, add
 
+	Menu, Tray, add, Help Gi-Search Keywords online, lbl_HelpOnline_Search_Keywords
 	Menu, Tray, add, Help Gi-Features online, lbl_HelpOnline_features
 	Menu, Tray, add, Help Gi-Shortcuts online, lbl_HelpOnline_shortcut
 	Menu, Tray, add, open issues online, lbl_HelpOnline_issues_open
