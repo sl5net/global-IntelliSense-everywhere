@@ -6,6 +6,8 @@
 ; you could use it as a global filter/routing called from your special .../className/ActionListNameFilter.inc.ahk
 
 #SingleInstance, force
+CoordMode, ToolTip, Screen
+
 ; if you want you could use the follwong global variables for calculating you new ActionListNEW : ActionListDir, ActionListNEW, ActiveClass, activeTitle
 
 if (!ActionListNEW && 1){
@@ -20,8 +22,8 @@ if (!ActionListNEW && 1){
 }
 
 if (!ActionListNEW && 0){
-	m := "ERROR ActionListNEW is EMPTY.  (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ") `n (token293)"
-	ToolTip9sec(m "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"  )
+	m := "ERROR ActionListNEW is EMPTY.  (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ") `n (token293)"
+	ToolTip9sec(m "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"  )
 	msgbox, % m
     ; tooltip,%activeTitle%
 }
@@ -52,9 +54,9 @@ if(A_ScriptName == "ActionListNameFilter.inc.ahk" ) { ; thats developer mode. th
 } ; demo Mode ende. ( A_ScriptName == "ActionListNameFilter.inc.ahk" )
 
 if (!ActionListNEW && 1){
-	m := "ERROR ActionListNEW is EMPTY.  (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ") `n (token293)"
+	m := "ERROR ActionListNEW is EMPTY.  (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ") `n (token293)"
 	if(0 && InStr(A_ComputerName,"SL5")){
-		ToolTip9sec(m "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"  )
+		ToolTip9sec(m "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"  )
 		msgbox, % m
 	}
 }
@@ -69,9 +71,9 @@ if(!scriptDir)
 ;Sleep,2000
 
 if (!ActionListNEW && 1){
-	m := "ERROR ActionListNEW is EMPTY.  (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ") `n (token293)"
+	m := "ERROR ActionListNEW is EMPTY.  (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ") `n (token293)"
 	if(0 && InStr(A_ComputerName,"SL5")){
-		ToolTip9sec(m "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"  )
+		ToolTip9sec(m "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"  )
 		msgbox, % m
 	}
 }
@@ -79,9 +81,9 @@ if (!ActionListNEW && 1){
 #Include,.\..\ActionLists\activeClassManipulation.inc.ahk
 
 if (!ActionListNEW && 1){
-	m := "ERROR ActionListNEW is EMPTY.  (" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ") `n (token293)" 
+	m := "ERROR ActionListNEW is EMPTY.  (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ") `n (token293)"
 	if(0 && InStr(A_ComputerName,"SL5")){
-		ToolTip9sec(m "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"  )
+		ToolTip9sec(m "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"  )
 		msgbox, % m
 	}
 }
@@ -115,9 +117,11 @@ getActionListNEW173129( activeTitle, ActiveClass, ActionListNEW, ActionListDir )
 	if(1 && InStr(A_ComputerName,"SL5")){
         ; Sourcetree ahk_class HwndWrapper[SourceTree.exe;;2705bdea-7ac8-4b39-b851-91e598ce9055] ; mouseWindowTitle=0xd508d8
         tip=%activeTitle% = activeTitle`n %ActiveClass% = ActiveClass`n
-        tip .= "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
-        ToolTip,%tip%
-        ;
+        tip .= "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+        ToolTip,%tip% , 1,1
+        if(instr(activeTitle,"isNotAProject"))
+            sleep,1000
+        ; t
         ;Clipboard := tip
     }
 	if(!activeTitle && !ActiveClass){
@@ -223,8 +227,8 @@ getActionListNEW173129( activeTitle, ActiveClass, ActionListNEW, ActionListDir )
 		return "..\_globalActionLists\pfade"
 ;Speichern is used with ToDoList_c_AbstractSpoon
 	
-	AutoHotkey_Community1:
-	if ( RegExMatch( activeTitle , "(AutoHotkey Community)" ) ) 
+	AutoHotkey_Community: ; AHK_Community
+	if (1 && RegExMatch( activeTitle , "(AutoHotkey Community)" ) )
 		return "..\_globalActionLists\AutoHotkey_Community"
 ;Speichern is used with ToDoList_c_AbstractSpoon
 	
@@ -236,6 +240,7 @@ getActionListNEW173129( activeTitle, ActiveClass, ActionListNEW, ActionListDir )
 		if(false && activeClass == "ChromeWidgetWin1") {  ; want to know that. debugging 26.4.218 12:18}
         ; need to be discussed: https://g-intellisense.myjetbrains.com/youtrack/issue/GIS-22
 			tooltip,% activeTitle activeClass
+
 			clipboard := activeTitle activeClass
 			sleep,9000
 			log =
@@ -438,7 +443,7 @@ maybeSuperglobalActionList(ActionListNEW, ActionListNEW_time_between , ActiveCla
 
      if(0 && !FileExist("..\ActionLists\" . ActiveClass . "\_create_own_project.flag")){
            ; tooltip,ActionListNEWAddress = %ActionListNEWAddress% `n `n (%A_LineFile%~%A_LineNumber%) )
-           ; MsgBox,% "(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")" ; happend 07.10.2018 10:33 18-10-07_10-33 inside notepad. dont knoow whey
+           ; MsgBox,% "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")" ; happend 07.10.2018 10:33 18-10-07_10-33 inside notepad. dont knoow whey
           return, % "..\_globalActionListsGenerated\_global.ahk" ; ; i think it doesent makes since in some cases 13.05.2018 17:19
      }
           
@@ -446,7 +451,7 @@ maybeSuperglobalActionList(ActionListNEW, ActionListNEW_time_between , ActiveCla
           ; created token=17-08-10_16-17
 	if(1 && InStr(activeTitle, "token=17-08-10_16-17")){
 		msg= :( script was to slow with updating the `n action rejacted. reload `n 17-08-10_16-27
-		lll(A_LineNumber, A_LineFile, msg )
+		lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,msg )
 		ToolTip,%msg% 17-08-10_16-33
 		Msgbox,%msg%`n (%A_LineFile%~%A_LineNumber%) )
 		SetTitleMatchMode, 2
