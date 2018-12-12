@@ -17,6 +17,12 @@ This international company has a user base of 4+ million users across 140 countr
 
 - - -
 
+[img]https://github.com/sl5net/global-IntelliSense-everywhere/blob/master/docs/help/gif/show-changing-ListBox-while-typing-global-IntelliSense-everywhere.gif?raw=true[/img] or (without sound) https://youtu.be/wIBaZWKNscY
+
+HowTo create a new ActionList and first entry with global-IntelliSense-everywhere Version 0.99
+[img]https://github.com/sl5net/global-IntelliSense-everywhere/blob/master/docs/help/gif/HowTo-create-a-new-ActionList-and-first-entry-with-global-IntelliSense-everywhere-Version-0.99.gif?raw=true[/img]
+or slower with audio: https://youtu.be/Kgu0gimWCZo
+
 [![global IntelliSense everywhere examples windows autohotkey](https://img.youtube.com/vi/elLsl8lj0K8/0.jpg)](https://www.youtube.com/watch?v=elLsl8lj0K8)
   
 - please install AHK first (pls use version: v1.1.28.00 - February 11, 2018 or later).
