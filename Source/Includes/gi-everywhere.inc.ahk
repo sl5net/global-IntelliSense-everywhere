@@ -243,6 +243,9 @@ ProcessKey(InputChar,EndKey) {
          ; add the word if switching lines
          ;AddWordToList(ByRef rootCmdTypeObj,g_Word,0)
 			ClearAllVars(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),true)
+
+			if(1 && InStr(A_ComputerName,"SL5"))
+			    msgbox,`n(%A_LineFile%~%A_LineNumber%)
 			g_Word := InputChar
 			Return
 		}
@@ -273,6 +276,8 @@ ProcessKey(InputChar,EndKey) {
 		{
          ;AddWordToList(ByRef rootCmdTypeObj,g_Word,0)
 			ClearAllVars(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),true)
+			if(1 && InStr(A_ComputerName,"SL5"))
+			    msgbox,% "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
 			g_Word := InputChar
 			g_LastInput_Id := g_Active_Id
 			Return
@@ -286,6 +291,8 @@ ProcessKey(InputChar,EndKey) {
 				tooltip,% "str=" NewInput " , chr=" InputChar "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
          ;AddWordToList(ByRef rootCmdTypeObj,g_Word,0)
 			ClearAllVars(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),true)
+			 if(1 && InStr(A_ComputerName,"SL5"))
+			    msgbox,`n(%A_LineFile%~%A_LineNumber%)
 			g_Word := InputChar
 		} else if InputChar in %prefs_EndWordCharacters%
 		{
@@ -719,7 +726,7 @@ LIMIT 9
 		Tooltip, % ((StrLen_g_Word >=3 ) ? substr( g_Word,1,3 ) ".." : g_Word ) " not found", % g_ListBoxX + 20 , % g_ListBoxY + 10
 		; MsgBox, % SELECT
 		; Clipboard := SELECT
-		ClearAllVars(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),false)
+		; ClearAllVars(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),false)
 		setTrayIcon()
 		if(0 && InStr(A_ComputerName,"SL5"))
 			tooltip,% " row[1]=" row[1] ", row[2]=" row[2] " , g_Word=" g_Word  " , g_MatchTotal=" g_MatchTotal " , Normalize=" Normalize "`n" ActionList "`n" SELECT  "`nRecomputeMatches(calledFromStr):(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),1,1
@@ -1687,15 +1694,31 @@ BuildTrayMenu(){
 ClearAllVars( calledFromStr , ClearWord ){
 	
 	global
-	
-	RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, % A_ThisFunc , % calledFromStr
-	
-; too
+
+	; Msgbox,% calledFromStr "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+	if(!instr(calledFromStr,"1614"))
+    ;if( !RegExMatch( calledFromStr, "\b(1614|321|734)\b" )	)
+    if(1 && InStr(A_ComputerName,"SL5")
+        && !RegExMatch( calledFromStr, "\b(1614|321|734|2112|316)\b" )	){
+
+        clipboard .= "`n" calledFromStr
+        feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), calledFromStr ,1,1 )
+        tooltip, %calledFromStr% `n (from: %A_LineFile%~%A_LineNumber%) , 1,200
+	    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, % A_ThisFunc , % calledFromStr
+    }
+	; boxmsgbxo
+	; modesettitl  too
+	; modesettit boxmst moxmsg
+; too tooltip setmatcht ma
+; setmodtitle setm , modesettitlm
+; modematcht settot
+; setTitleMatchMode modematchtitleset settitlematchmode matchsetmode tit
+; titlematchsetmatchtestmatchsettitlesetmatch
 	
 	INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
        ; lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"CloseListBox(calledFromStr)")
        ; run,log\%A_LineFile%.log.txt ; this line woks :) but to often ;) may we dont need any more to check it ;) 04.08.2017 15:20
-	
+
 	CloseListBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
 	Ifequal,ClearWord,1
 	{

@@ -649,24 +649,6 @@ return
 ; to  too5 too msgbox too toolsipt  too
 
 
-;/¯¯¯¯ esc ¯¯ 181201095059 ¯¯ 01.12.2018 09:50:59 ¯¯\
-#IfWinActive,asöldkjfasöldkjfaölskjfdaösdlkjfsa ; 01.12.2018 19:04 deactivated. pls use double ctrl
-~esc::
-   toolTip2sec("esc::" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") )
-   ; InactivateAll_Suspend_ListBox_WinHook()
-   if(!g_min_searchWord_length){
-        g_isListBoxDisabled := true ; otherwise the listbox would open immediately again 01.12.2018 10:55
-        setTrayIcon()
-    }
-   CloseListBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),A_ThisLabel)
-   DisableWinHook()
-   DisableKeyboardHotKeys()
-   g_Word := ""
-   ; EnableKeyboardHotKeys() ; <== not usefull. disturbing 28.10.2018 09:59
-   ; InitializeHotKeys() ; <= if i use this ListBox never close 28.10.2018 09:56
-return
-;\____ esc __ 181201095103 __ 01.12.2018 09:51:03 __/
-
 
 ;/¯¯¯¯ underscores__ ¯¯ 181201095127 ¯¯ 01.12.2018 09:51:27 ¯¯\
 #IfWinActive,alsdkfjasödklfjasdöklfasödf
