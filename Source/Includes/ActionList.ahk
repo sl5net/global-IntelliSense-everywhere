@@ -641,6 +641,9 @@ from: ActionList.ahk~%A_LineNumber%
 ;\____ ReadActionList __ 181107175022 __ 07.11.2018 17:50:22 __/
 
 
+
+
+
 ;/¯¯¯¯ ObjToStrTrim ¯¯ 181111193648 ¯¯ 11.11.2018 19:36:48 ¯¯\
 ObjToStrTrim(o, showEmpty := false){
 	ret := ((s:=Trim(ObjToStr(o, showEmpty)," `t`r`n")) ? ">" s "<`n" : "")

@@ -29,10 +29,10 @@ getLineOfIndex(id) {
 	ActionListFileName := ActionList
 	if(!FileExist(ActionListFileName))
 		Msgbox,:( !FileExist(ActionListFileName) %ActionListFileName% `n (%A_LineFile%~%A_LineNumber%) )
-
+	
 ; ms too to
-
-   select =
+	
+	select =
     (
 	-- select w.word, w.lineNr, w.ROWID, w.wordindexed, w.wordreplacement
 	select w.lineNr
@@ -42,29 +42,29 @@ getLineOfIndex(id) {
 	-- and w.lineNr > 1
 	ORDER BY w.lineNr limit 1
 	)
-    try{
-        results := g_ActionListDB.Query(select)
-           for each, row in results.Rows
-           {
-                msgbox,% select "`n" row[1] "`n(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
-                return row[1]
-           }
+	try{
+		results := g_ActionListDB.Query(select)
+		for each, row in results.Rows
+		{
+			msgbox,% select "`n" row[1] "`n(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+			return row[1]
+		}
            ; msgbox,% select "`n" row[1] "`n(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
-    } catch e{
-        tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
-        sqlLastError := SQLite_LastError()
-        tip .= "`n sqlLastError=" sqlLastError "`n sql=" select " `n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
-        lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,tip)
-        tooltip, `% tip
-        feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), tip )
-        Clipboard := tip
-        msgbox, % tip
-    }
-    return false
-
-
-
-
+	} catch e{
+		tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
+		sqlLastError := SQLite_LastError()
+		tip .= "`n sqlLastError=" sqlLastError "`n sql=" select " `n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
+		lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,tip)
+		tooltip, `% tip
+		feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), tip )
+		Clipboard := tip
+		msgbox, % tip
+	}
+	return false
+	
+	
+	
+	
 	Loop, Read, %ActionListFileName%
 	{
 		if ErrorLevel
@@ -87,9 +87,9 @@ getLineOfIndex(id) {
 
 ;/¯¯¯¯ getNextWordFromDB ¯¯ 181106231548 ¯¯ 06.11.2018 23:15:48 ¯¯\
 getNextWordFromDB(word) {
-   global g_ActionListDB
-   global g_ActionListID
-    select =
+	global g_ActionListDB
+	global g_ActionListID
+	select =
     (
 select t.word
 FROM Words t
@@ -101,25 +101,25 @@ and t.ActionListID = %g_ActionListID%
 order by t.lineNr
 limit 1
 )
-    try{
-           Matches := g_ActionListDB.Query(select)
-           for each, row in Matches.Rows
-           {
+	try{
+		Matches := g_ActionListDB.Query(select)
+		for each, row in Matches.Rows
+		{
                 ; msgbox,% "TRUE: " select "`n" row[1] "`n(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
-                return row[1]
-           }
-    } catch e{
-        tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
-        sqlLastError := SQLite_LastError()
-        tip .= "`n sqlLastError=" sqlLastError "`n sql=" select " `n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
-        lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,tip)
-        tooltip, `% tip
-        feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), tip )
-        Clipboard := tip
-        msgbox, % tip
-    }
-    msgbox,% "FALSE: `n" select "`n" row[1] "`n(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
-    return false
+			return row[1]
+		}
+	} catch e{
+		tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
+		sqlLastError := SQLite_LastError()
+		tip .= "`n sqlLastError=" sqlLastError "`n sql=" select " `n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
+		lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,tip)
+		tooltip, `% tip
+		feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), tip )
+		Clipboard := tip
+		msgbox, % tip
+	}
+	msgbox,% "FALSE: `n" select "`n" row[1] "`n(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+	return false
 }
 ;\____ getNextWordFromDB __ 181106231542 __ 06.11.2018 23:15:42 __/
 
@@ -135,22 +135,22 @@ getWordIndex(word) {
     ;~ erste zeile mit eintrag im wörterbuch: g_SingleMatch[1] 10.07.2017 12:13
 	global ActionListFileName
 	global ActionList
-
-   global g_ActionListID
-
+	
+	global g_ActionListID
+	
 	INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
   ;ActionListFileName = ActionList.txt
 	ActionListFileName := ActionList
 	if(!FileExist(ActionListFileName))
 		Msgbox,:( `n (%A_LineFile%~%A_LineNumber%) )
-
+	
 ; msgbox,% "(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
 ;
-
-
-if(0 && "new method"){ ; todo: problem https://stackoverflow.com/questions/53180420/select-with-subselect-gives-no-result 06.11.2018 22:53
+	
+	
+	if(0 && "new method"){ ; todo: problem https://stackoverflow.com/questions/53180420/select-with-subselect-gives-no-result 06.11.2018 22:53
     ; problem: https://stackoverflow.com/questions/53180420/select-with-subselect-gives-no-result
-    select =
+		select =
     (
 select t.word
 FROM Words t
@@ -161,29 +161,29 @@ where t.lineNr > (
 and t.ActionListID = 3
 limit 1
 )
-    try{
-        g_ActionListDB.Query(select)
-           for each, row in NormalizeTable.Rows
-           {
-                msgbox,% select "`n" row[1] "`n(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
-                return row[1]
-           }
-    } catch e{
-        tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
-        sqlLastError := SQLite_LastError()
-        tip .= "`n sqlLastError=" sqlLastError "`n sql=" select " `n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
-        lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,tip)
-        tooltip, `% tip
-        feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), tip )
-        Clipboard := tip
-        msgbox, % tip
-    }
-    msgbox,% select "`n" row[1] "`n(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
-    return false
-}
-
-
-
+		try{
+			g_ActionListDB.Query(select)
+			for each, row in NormalizeTable.Rows
+			{
+				msgbox,% select "`n" row[1] "`n(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+				return row[1]
+			}
+		} catch e{
+			tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
+			sqlLastError := SQLite_LastError()
+			tip .= "`n sqlLastError=" sqlLastError "`n sql=" select " `n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
+			lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,tip)
+			tooltip, `% tip
+			feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), tip )
+			Clipboard := tip
+			msgbox, % tip
+		}
+		msgbox,% select "`n" row[1] "`n(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+		return false
+	}
+	
+	
+	
 	Loop, Read, %ActionListFileName%
 	{
 		if ErrorLevel
@@ -341,13 +341,13 @@ getLineOfWord(word) {
 UPDATE_ActionList_UsedByUser_since_midnight(){
 	global g_ActionListDB
 	global g_ActionListID
-    g_ActionList_UsedByUser_since_midnight[g_ActionListID] := JEE_millis_since_midnight(vOpt:="")
+	g_ActionList_UsedByUser_since_midnight[g_ActionListID] := JEE_millis_since_midnight(vOpt:="")
 	UPDATE := "UPDATE ActionLists SET lastUsedByUser_since_midnight =  "g_ActionList_UsedByUser_since_midnight[g_ActionListID] " WHERE id = " g_ActionListID ";"
     ; clipboard   := UPDATE
-    try{
-	    g_ActionListDB.Query(UPDATE)
+	try{
+		g_ActionListDB.Query(UPDATE)
 	    ;msgbox,% UPDATE
-		} catch e{
+	} catch e{
     		tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
     		lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,tip)
     		tooltip, `% tip
@@ -493,10 +493,10 @@ SendWord(WordIndex){
 		regIsXXXcode := "^([^\|\n]+?)\|(rr)\|(?:([^\n]*?)(?:\|(ahk|kts)\|)+([^\n]*?)$)*"
 		regIsXXXcode := "^([^\|\n]+?)\|(rr)\|(?:([^\n]*?)(?:\|(ahk|kts)\|)+(.*?)$)*" ; since today we using ahk blocks. newline could be posible
 		regIs_r_replacement := "^([^\|\n]+?)\|r\|(.*?)$"
-
+		
         ; rX := {key:m1, rr:m2, send:"", lang:"" ,code:""}
-        regIsSynonym := "^([^\|\n]+?)\|(rr)\|q$" ; ; synonymValue|rr|
-
+		regIsSynonym := "^([^\|\n]+?)\|(rr)\|q$" ; ; synonymValue|rr|
+		
 ; Camtasia mp4|r|G:\fre\private\video\mp4\Camtasia
 ; may remember this vor later implementation: ^([^\|\n]+?)(?:\|(rr)\|(?:([^\n]*?)(?:\|(ahk|kts)\|)+([^\n]*?)$)*)*$
 ; https://regex101.com/r/XvcvV4/3/      https://autohotkey.com/boards/viewtopic.php?f=6&t=45684&p=241492#p241492
@@ -525,7 +525,7 @@ SendWord(WordIndex){
 		
 ; msgBox,% "g_ActionList_UsedByUser_since_midnight[g_ActionListID]: " g_ActionList_UsedByUser_since_midnight[g_ActionListID]"(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 		
-
+		
 		
 		lineOfIndex := g_SingleMatch[WordIndex]
 ; lineOfIndex := "hoHi|rr|"
@@ -561,13 +561,13 @@ SendWord(WordIndex){
 			; dayTimeHello.ahk|rr|
 			RegExMatch( lineOfIndex , regIsXXXcode  ,  m )
 			rX := {key:m1, rr:m2, send:m3, lang:m4 ,code:m5}
-					
+			
 			if(!rX["rr"]){
 				tip=%lineOfIndex% `n
 				tip .= "`n regIsXXXcode= " rX["regIsXXXcode"] "`n key= " rX["key"] "`n rr= " rX["rr"] " `n send= " rX["send"] " `n lang= " rX["lang"] " `n code= " rX["code"]
                     ;Msgbox,% " `n" tip "`n no code tag inside `n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
                     ;ToolTip3sec(tip)
-						
+				
                     ;/¯¯¯¯ SysnonymR ¯¯ 181011160938 ¯¯ 11.10.2018 16:09:38 ¯¯\
                     ; https://g-intellisense.myjetbrains.com/youtrack/issue/GIS-36
 				if(foundPosr_replacement := RegExMatch( lineOfIndex , regIs_r_replacement ,  m )){
@@ -576,10 +576,10 @@ SendWord(WordIndex){
 				}else
 					sending := lineOfIndex
                     ;\____ SysnonymR __ 181011160954 __ 11.10.2018 16:09:54 __/
-						
+				
                      ; MsgBox,% rX["key"] "#" rX["rr"] "#" rX["send"]  "#" rX["code"] "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
                     ;pause
-						
+				
 				; break ; no code tag inside
 			}else if(rX["code"]){
 				tip=%lineOfIndex% `n (%A_LineFile%~%A_LineNumber%)
@@ -646,7 +646,7 @@ SendWord(WordIndex){
 				isKTScode := true
 				KTScode := rX["code"]
 			}
-
+			
 			"(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 			
 			
@@ -675,7 +675,7 @@ SendWord(WordIndex){
     ; Msgbox,% msg "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 				
 ;/¯¯¯¯ ClearAllVars(A_ThisFunc ¯¯ 181028154133 ¯¯ 28.10.2018 15:41:33 ¯¯\
-				if(1 && InStr(A_ComputerName,"SL5") && activeTitle == "isNotAProject")
+				if(0 && InStr(A_ComputerName,"SL5") && activeTitle == "isNotAProject")
 					ToolTip4sec("is this the right position? bakcspace is not ocrreclty deleing typed. may deleting to muhc??? (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") " " Last_A_This)
 				
     ; that fixed the problem, that if i usend ahk ocmmands, they was not triggered without hiting esc-key or so 28.10.2018 15:41
@@ -700,9 +700,9 @@ SendWord(WordIndex){
 				was_a_Editor_open_command := openInEditor(ActionListFolderOfThisActionList, isAHKcode, AHKcode, isStartingUnderline, is_OpenA_edit_open_lib, isDeprecated_OpenA_edit_open_lib)
 				if(was_a_Editor_open_command) {
 					RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, return , % g_Word "=key|" A_ThisFunc ":"  A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
-
-
-
+					
+					
+					
 					return ; endOf function: SendWord(WordIndex)
 					
 				}
@@ -805,8 +805,11 @@ SendWord(WordIndex){
 	
 	if( doSendSpacesInAHKslow == false ){
 		SendFull(sending, ForceBackspace)
-		while(A_IsSuspended || A_IsCritical || A_TimeIdleKeyboard < 555 || A_TimeIdle < 555) ; todo: this has probably no effect 14.10.2018 00:26 18-10-14_00-26
-			sleep,100
+		;while(A_IsSuspended || A_IsCritical || A_TimeIdleKeyboard < 555 || A_TimeIdle < 555) ; todo: this has probably no effect 14.10.2018 00:26 18-10-14_00-26
+		;	sleep,100
+
+
+
 		; msg msgBox,%":( ERROR: " msg A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 		;msgbox,%sending% uuuuuuuuuuuuuuuuuu  `n (line:%A_LineNumber%)
 		;pause
@@ -891,13 +894,13 @@ SendWord(WordIndex){
 		escaped_Sending := RegExReplace(Sending, """", """""")      ; "
 		AHKcode2 .= "Sending := """ escaped_Sending """ `n "
 		AHKcode2 .= "sendingStrLen := " StrLen(Sending) " `n "
-
+		
 		AHKcode2 .= "lineStrLen := " StrLen(g_Word) " `n "
 		AHKcode2 .= "AHKcodeLen := " StrLen(AHKcode) " `n "
 		AHKcode2 .= "ActionList := """ ActionList """ `n "
-
+		
 		; pause ; toCloseAll tToolTip5sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
-
+		
 ;>>>>>>>> DynaRun >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		if( RegExMatch( AHKcode , "mPi)\bDynaRun[ ]*\("  ) ) {
 			FileRead,dynaRunFunctionImplementationSource,dynaRunFunctionImplementationSource.inc.ahk
@@ -1007,10 +1010,10 @@ SendWord(WordIndex){
 			tooltip ,% "`nAHKcode=`n" AHKcode  "`nAHKcode2=`n" AHKcode2 "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 			clipboard := AHKcode2
 		}
-
-        if(0 && InStr(A_ComputerName,"SL5") )
-            msgbox,% AHKcode2 " `n`n gefunden `n`n (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
-
+		
+		if(0 && InStr(A_ComputerName,"SL5") )
+			msgbox,% AHKcode2 " `n`n gefunden `n`n (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+		
  		DynaRun(AHKcode2) ; inside of SendWord()
 		
         ; suspend,off
@@ -1131,6 +1134,11 @@ unpressAllPressedKeys(){
 
 
 
+
+;/¯¯¯¯ SendFull ¯¯ 181212222215 ¯¯ 12.12.2018 22:22:15 ¯¯\
+;/¯¯¯¯ SendFull ¯¯ 181212222215 ¯¯ 12.12.2018 22:22:15 ¯¯\
+;/¯¯¯¯ SendFull ¯¯ 181212222215 ¯¯ 12.12.2018 22:22:15 ¯¯\
+;/¯¯¯¯ SendFull ¯¯ 181212222215 ¯¯ 12.12.2018 22:22:15 ¯¯\
 SendFull(SendValue,ForceBackspace:= false){
 	
 	global g_Active_Id
@@ -1148,17 +1156,17 @@ SendFull(SendValue,ForceBackspace:= false){
 		AHKcodeSendValue := getRealisticDelayDynamicSendAHKcode(g_Word,SendValue)
 		DynaRun(AHKcodeSendValue)
 		if(0){ ; thats great for debuggin
-            tooltip,% "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") " " Last_A_This
-            clipboard := AHKcodeSendValue
-            pause
-            sleep,5000
+			tooltip,% "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") " " Last_A_This
+			clipboard := AHKcodeSendValue
+			pause
+			sleep,5000
 		}
 		return ; endof SendFull(
 		
 		;  lTiToolTip2sec(msg " (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") " " Last_A_This)p
 		
 	}	
-
+	
 	BackSpaceLen := StrLen(g_Word)
 	
 	if (ForceBackspace || prefs_NoBackspace = "Off") {
@@ -1194,11 +1202,11 @@ SendFull(SendValue,ForceBackspace:= false){
 		}
 		SendValue := FirstLetter . SendValue
 	}
-
-
+	
+	
 	; msgBox,% ":( ERROR: " SendValue "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 	; feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), SendValue  )
-
+	
 	
    ; if the user chose a word with accented characters, then we need to
    ; substitute those letters into the word
@@ -1245,13 +1253,13 @@ SendFull(SendValue,ForceBackspace:= false){
 		
 		NewSendValue .= SubStr(SendValue, SendIndex, StrLen(SendValue) - SendIndex + 1)
 	;feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), SendValue  )
-
+		
 		SendValue := NewSendValue
 	}
 	
 	StringCaseSense, %StringCaseSenseOld%
 	;feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), SendValue  )
-
+	
    ; If we are not backspacing, remove the typed characters from the string to send
 	if !(BackSpaceWord)
 	{
@@ -1262,7 +1270,7 @@ SendFull(SendValue,ForceBackspace:= false){
 	IfEqual, prefs_AutoSpace, On
 	SendValue .= A_Space
 	;feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), SendValue  )
-
+	
       ; thats great :) here we find the complete line :) inside sending 17.03.2017 18:30 17-03-17_18-30
 ;      Msgbox, '%SendValue%' = SendValue  (line:%A_LineNumber%)  (line:%A_LineNumber%)
 	
@@ -1305,8 +1313,9 @@ SendFull(SendValue,ForceBackspace:= false){
             ; Send {Text}baby ^v {Clipboard} ; interpretiert nicht `r, `n, `t and `b usw
 			
 		}
+		
 	;feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), SendValue  )
-
+		
 		if(!g_doUseSendPlay){
      ; just tested: words with ahk code goes here. but sending gets the value1 not the value2 with the script or ahk part 13.03.2018 14:43
     ; SendRaw, %sending% ; used till 13.03.2018 14:51
@@ -1318,40 +1327,56 @@ SendFull(SendValue,ForceBackspace:= false){
 				
     ;DisableKeyboardHotKeys()
 ;sendClipboard(sending) ; funny not work here ; 01.04.2018 09:46 18-04-01_09-46
-
+				
 ;
+				
+				if(1 && InStr(A_ComputerName,"SL5"))
+					ToolTip4sec("A_SendLevel = " A_SendLevel "`n`n" A_LineNumber   " "   RegExReplace(A_LineFile,".*\\")    " "   Last_A_This) ; The built-in variable A_SendLevel contains the current setting.
+				
+; tool too toolt tooltip, `n (from: %A_LineFile%~%A_LineNumber%)
+; too too too to too to too too too tooltip, `n (from: %A_LineFile%~%A_LineNumber%)ltip, `n (from: %A_LineFile%~%A_LineNumber%)
+				
+; RegRead, OutputVar, KeyName , ValueName
+				if(true){
+				;/¯¯¯¯ SendLevel9 ¯¯ 181212214527 ¯¯ 12.12.2018 21:45:27 ¯¯\
+				; may there is an alternative solution: https://www.autohotkey.com/boards/viewtopic.php?f=76&t=37209&p=252768#p252768
+				suspend,on
+					ClipboardBackup := Clipboard
+					SendLevel 9 ; with this additions lines it works also in globalIntelisense nearliy 99% of time 18-04-01_12-24
+					Clipboard := ""
+					Clipboard := sending ; " ln=" A_LineNumber "`n`n"
+				    ;AHKcode := "Critical, On`n"
+					AHKcode := "Send,^v"
+					DynaRun(AHKcode) ; <= uese old clipboard.or  simle give it more time
+				; sleep,2000 ; what for???? ; needet !!! becouse may some the wrong clipboard content is pasted !!!!
+				; sleep,1700 ; what for???? ; needet !!! becouse may some the wrong clipboard content is pasted !!!!
+				; sleep,100 ; <= script works not stable. to short ; needet !!! becouse may some the wrong clipboard content is pasted !!!!
+				;sleep,500 ; not stable <= script works not stable. to short ; needet !!! becouse may some the wrong clipboard content is pasted !!!!
+				; sleep,1500 ; 1500 maybe works .  becouse may some the wrong clipboard content is pasted !!!!
 
-        	if(1 && InStr(A_ComputerName,"SL5"))
-				ToolTip4sec("A_SendLevel = " A_SendLevel "`n`n" A_LineNumber   " "   RegExReplace(A_LineFile,".*\\")    " "   Last_A_This) ; The built-in variable A_SendLevel contains the current setting.
+					; wait sending stated
+					while(a_index < 50 && A_TimeIdleKeyboard > 50) ; https://www.autohotkey.com/boards/viewtopic.php?f=76&t=59913&p=252749#p252749
+						sleep,50
+
+					; check is sending finised
+					while(a_index < 50 && A_TimeIdleKeyboard < 50) ; https://www.autohotkey.com/boards/viewtopic.php?f=76&t=59913&p=252749#p252749
+						sleep,50
+
+					Clipboard := ClipboardBackup
+					sleep,100
+					SendLevel 0
+					suspend,off
+            ;\____ SendLevel9 __ 181212214540 __ 12.12.2018 21:45:40 __/
+				}
+             ; endOf SendLevel9
 				
-				ClipboardBackup := Clipboard
-;Sleep,10
-				Clipboard := ""
+             ; endOf if(g_method == "Clipboard" )
+				Return
 				
-; #; InputLevel 0
-				
-				SendLevel 9 ; with this additions lines it works also in globalIntelisense nearliy 99% of time 18-04-01_12-24
-				Clipboard := ""
-;sleep,2000
-;tooltip,% c
-				Clipboard := sending ; " ln=" A_LineNumber "`n`n"
-				AHKcode := "Send,^v"
-				DynaRun(AHKcode) ; <= uese old clipboard.or  simle give it more time
-				sleep,2000
-				SendLevel 0
-				Clipboard := ClipboardBackup
-				
-    ;
-    ;SendLevel 9
-    ;ClipboardBackup := Clipboard
-    ;Clipboard := sending
-    ;Send,^v
-    ;Clipboard := ClipboardBackup
-    ;SendLevel 0
 			} else
 				Send,{Text}%sending%
 	; feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), SendValue  )
-
+			
             ;lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"%sending% `n >" . sending . "<  `n token=18-03-13_14-44")
 			
         ; Msgbox,sending `n >%sending%< `n (%A_LineFile%~%A_LineNumber%)
@@ -1376,7 +1401,7 @@ SendFull(SendValue,ForceBackspace:= false){
 		}
 		
 		Return
-	}
+	} ; Endof prefs_SendMethod
 	
 	
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -1524,7 +1549,10 @@ SendFull(SendValue,ForceBackspace:= false){
 	Clipboard := ClipboardSave
 	Return
 }
-
+; Endof SendFull()
+;\____ SendFull __ 181212222201 __ 12.12.2018 22:22:01 __/
+;\____ SendFull __ 181212222201 __ 12.12.2018 22:22:01 __/
+;\____ SendFull __ 181212222201 __ 12.12.2018 22:22:01 __/
 
 
 
@@ -1536,21 +1564,21 @@ SendCompatible(SendValue,ForceSendForInput) {
 ; 19.10.2018 10:29
 ; msgBox,% "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 ;\____ used if triggered ...|ahk|... style __ 19.10.2018 10:28:34 __/
-
-
+	
+	
 	lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"SendCompatible(SendValue,ForceSendForInput) `n SendValue =" . SendValue . " `n 17-07-16_15-01")
 	
 	global g_IgnoreSend
 	global prefs_SendMethod
 	global g_ActionList_UsedByUser_since_midnight
 	global g_ActionListID
-
+	
    ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 	SetKeyDelay, 200, 20, Play ; PressDuration: Use -1 for no delay at all (default) and 0 for the smallest possible delay ; Play applies the above settings to the SendPlay mode
 	Send, %SendValue%
 	
 	global g_sending_is_buggy
-
+	
 	INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 	if( g_sending_is_buggy )
 		lll( A_ThisFunc ":" A_LineNumber , A_LineFile ," Send, %SendValue% `n Send, %" . SendValue . "% `n 17-07-29_12-10")
@@ -1558,9 +1586,9 @@ SendCompatible(SendValue,ForceSendForInput) {
 	Return
       ; GetKeyState, LshiftState, Lshift, P; 96+ lines in autocopy.ahk
    ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-
-
+	
+	
+	
 	IfEqual, ForceSendForInput, 1
 	{
 		g_IgnoreSend = 
@@ -1603,9 +1631,9 @@ SendCompatible(SendValue,ForceSendForInput) {
 	global g_sending_is_buggy
 	if( g_sending_is_buggy )
 		lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"SendInput, %SendValue% `n >" . SendValue . "<  `n 17-07-29_11-46")
-
-    UPDATE_ActionList_UsedByUser_since_midnight()
-
+	
+	UPDATE_ActionList_UsedByUser_since_midnight()
+	
 	Return
 }
 ;\____ SendCompatible __ 181019115833 __ 19.10.2018 11:58:33 __/
@@ -2103,16 +2131,16 @@ convertSendCode2SendPlayCode(AHKcode){
 ;/¯¯¯¯ getRealisticDelayDynamicSendAHKcode ¯¯ 181014005212 ¯¯ 14.10.2018 00:52:12 ¯¯\
 getRealisticDelayDynamicSendAHKcode( g_Word , AHKcode ){
 	INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
-
-
-
+	
+	
+	
  ; g_Word thats the already correct typied letters.
  ; AHKcode thats the letters we type next her in this function 30.04.2017 08:32
-
+	
 ;  msgbox,'%AHKcode%' = AHKcode ||| '%g_Word%' = g_Word `n (%A_LineFile%~%A_LineNumber%)
 ; msg ms
 ;    return
-
+	
  ; if(false){
     ; todo: works relly fine. do the rest please 10.04.2017 18:34
 	startPos := 1
@@ -2153,8 +2181,8 @@ getRealisticDelayDynamicSendAHKcode( g_Word , AHKcode ){
   ;      sleepMili := "`n Sleep," . getTypicalKeyLatency( key, factor ) . "`n SendInput,###"
   ;      m2 := "uio"
   ;      }
-
-
+		
+		
         ;/¯¯¯¯ jetbrainsPHPjava ¯¯ 181014004615 ¯¯ 14.10.2018 00:46:15 ¯¯\
         ; thats no problem if we using ahk files into jetbrains. is this problem exist into other filetypes???
 ; too too toolTip2sec(msg " (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") " " Last_A_This)
@@ -2164,7 +2192,7 @@ getRealisticDelayDynamicSendAHKcode( g_Word , AHKcode ){
 		}
         ;~ sleepMili := "`n Sleep," . getTypicalKeyLatency( key, factor ) . "`n SendInput,{Backspace}"
         ;\____ jetbrainsPHPjava __ 181014004633 __ 14.10.2018 00:46:33 __/
-
+		
 		else
 			sleepMili := "`n Sleep," . getTypicalKeyLatency( key, factor ) . "`n SendInput,"
 		
@@ -2204,11 +2232,11 @@ getRealisticDelayDynamicSendAHKcode( g_Word , AHKcode ){
 			if(m2 = " "){
 				m2 := "{space}"
 			}
-
+			
 			; ms msgBox,%":( ERROR: " msg "(" A_LineNumber " " e(A_LineFile,".*\\") ")"
 			if(m1 = ""){
-			    msgbox,never happens ?????????? 18-10-13_23-33
-			    return
+				msgbox,never happens ?????????? 18-10-13_23-33
+				return
 			}
 			if(m1 = "%"){
 				m1 := "``%" ; that seems importend. for e.g. hiere: climbers = CLIMBERS;
@@ -2225,10 +2253,10 @@ getRealisticDelayDynamicSendAHKcode( g_Word , AHKcode ){
 		startPos := mPos1 + strlen(m1) + strlen(sleepMili)
   ; tooltip, % strlen(AHKcode) . ": "  . AHKcode
 	}
-
+	
 	; if(isDoubleQuoteDeletedByBackspace) ; seems we need that not anymore 14.10.2018 00:42 18-10-14_00-42
 		 ; AHKcode .= "`n SendInput,{del}" ; delete the last double quote moved by jetbrains around 28.04.2017 17:29
-
+	
   ;; too toolTip2sec(msg" (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") " " Last_A_This)
 	
 	AHKcode := "`nSend," . AHKcode

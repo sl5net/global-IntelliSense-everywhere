@@ -309,7 +309,7 @@ ProcessKey(InputChar,EndKey) {
 			tooltip,% "str=" NewInput " , chr=" InputChar "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
       ;Don't do anything if we aren't in the original window and aren't starting a new word
 		Return
-	} else {
+	} else { ; for exampe space was typed
 		if(0 && InStr(A_ComputerName,"SL5"))
 			tooltip,% "str=" NewInput " , chr=" InputChar "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),1,1
       ;AddWordToList(ByRef rootCmdTypeObj,g_Word,0)
@@ -723,14 +723,18 @@ LIMIT 9
 	{
 		; Tooltip, % g_Word " not found", % g_ListBoxX + 20 , % g_ListBoxY + 10
 		; only show a small peace. may sombody typed passwort in? not want show it for everybody... 18-12-10_12-52
-		Tooltip, % ((StrLen_g_Word >=3 ) ? substr( g_Word,1,3 ) ".." : g_Word ) " not found", % g_ListBoxX + 20 , % g_ListBoxY + 10
 		; MsgBox, % SELECT
 		; Clipboard := SELECT
-		; ClearAllVars(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),false)
-		setTrayIcon()
+		if(0 && !is_Recursion){
+    		Tooltip, % ((StrLen_g_Word >=3 ) ? substr( g_Word,1,3 ) ".." : g_Word ) " not found", % g_ListBoxX + 20 , % g_ListBoxY + 10
+		    ClearAllVars(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),false)
+		    setTrayIcon()
+       }
 		if(0 && InStr(A_ComputerName,"SL5"))
 			tooltip,% " row[1]=" row[1] ", row[2]=" row[2] " , g_Word=" g_Word  " , g_MatchTotal=" g_MatchTotal " , Normalize=" Normalize "`n" ActionList "`n" SELECT  "`nRecomputeMatches(calledFromStr):(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),1,1
+
       ; clipboard := SELECT
+
 		Return
 	}
 	;\____ nothingFound __ 181209180921 __ 09.12.2018 18:09:21 __/
@@ -1698,14 +1702,13 @@ ClearAllVars( calledFromStr , ClearWord ){
 	; Msgbox,% calledFromStr "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
 	if(!instr(calledFromStr,"1614"))
     ;if( !RegExMatch( calledFromStr, "\b(1614|321|734)\b" )	)
-    if(1 && InStr(A_ComputerName,"SL5")
-        && !RegExMatch( calledFromStr, "\b(1614|321|734|2112|316)\b" )	){
-
-        clipboard .= "`n" calledFromStr
-        feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), calledFromStr ,1,1 )
+    if(false && InStr(A_ComputerName,"SL5")){
         tooltip, %calledFromStr% `n (from: %A_LineFile%~%A_LineNumber%) , 1,200
-	    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, % A_ThisFunc , % calledFromStr
-    }
+        clipboard .= "`n" calledFromStr
+        if( !RegExMatch( calledFromStr, "\b(1614|321|734|2112|316|687)\b" )	){
+            ; feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), calledFromStr ,1,1 )
+            RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, % A_ThisFunc , % calledFromStr
+    }}
 	; boxmsgbxo
 	; modesettitl  too
 	; modesettit boxmst moxmsg
