@@ -1,0 +1,2 @@
+It's a good idea if the community shares their actionList (old Type: word lists).
+proposals/suggestion: https://syncthing.net/
