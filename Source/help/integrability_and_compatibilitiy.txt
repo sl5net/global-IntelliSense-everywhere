@@ -1,4 +1,4 @@
-a) reinvent as little as possible
+﻿a) reinvent as little as possible
 , b) be backwards compatible
 , c) compatible with other scripts and programs
 , d) simple

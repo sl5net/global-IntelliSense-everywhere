@@ -1,4 +1,4 @@
-start typing,
+﻿start typing,
 choose list entry by 
 typing number or
 by mouseclick 
