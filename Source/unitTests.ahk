@@ -1954,7 +1954,7 @@ settitlematchmode,2
 #IfWinNotActive,ahk_class SunAwtFrame
 esc::
      exitapp
- return
+return
 #IfWinActive,asdjkfhaldjskhfsfhakdsjfasdkaösdjkfh
 	WheelUp::
 return

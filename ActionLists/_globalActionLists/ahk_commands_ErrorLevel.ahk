@@ -1,82 +1,85 @@
-﻿; https://autohotkey.com/boards/viewtopic.php?f=5&t=46581&p=213522#p213522
-ClipWait
-Control
-ControlClick
-ControlFocus
-ControlGet
-ControlGetFocus
-ControlGetText
-ControlMove
-ControlSend[Raw]
-ControlSetText
-DllCall
-Drive
-DriveGet
-EnvSet
-EnvUpdate
-FileAppend
-FileCopy
-FileCopyDir
-FileCreateDir
-FileCreateShortcut
-FileDelete
-FileGetAttrib
-FileGetShortcut
-FileGetSize
-FileGetTime
-FileGetVersion
-FileInstall
-FileMove
-FileMoveDir
-FileRead
-FileReadLine
-FileRecycle
-FileRecycleEmpty
-FileRemoveDir
-FileSelectFile
-FileSelectFolder
-FileSetAttrib
-FileSetTime
-GroupActivate
-GUI
-GuiControl
-GuiControlGet
-Hotkey
-ImageSearch
-IniDelete
-IniWrite
-Input
-InputBox
-KeyWait
-Menu
-PixelGetColor
-PixelSearch
-PostMessage / SendMessage
-Process
-RegDelete
-RegExMatch
-RegExReplace
-RegRead
-RegWrite
-Run[Wait]
-RunWait
-SetWorkingDir
-Sort
-SoundGet
-SoundGetWaveVolume
-SoundPlay
-SoundSet
-SoundSetWaveVolume
-StatusbarGetText
-StatusBarWait
-StringGetPos
-StringReplace 
-StrReplace() [note: StringReplace can affect ErrorLevel, but not StrReplace]
-UrlDownloadToFile
-WinGetText
-WinMenuSelectItem
-WinSet
-WinWait
-WinWaitNotActive
-WinWaitActive
-WinWaitClose
+﻿; https://autohotkey.com/boards/viewtopic.php?f=5&t=46581&p=213522#p21352
+
+ClipWait|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+Control|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+ControlClick|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+ControlFocus|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+ControlGet|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+ControlGetFocus|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+ControlGetText|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+ControlMove|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+ControlSend|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+ControlRaw|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+ControlSetText|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+DllCall|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+Drive|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+DriveGet|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+EnvSet|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+EnvUpdate|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+FileAppend|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+FileCopy|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+FileCopyDir|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+FileCreateDir|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+FileCreateShortcut|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+FileDelete|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+FileGetAttrib|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+FileGetShortcut|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+FileGetSize|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+FileGetTime|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+FileGetVersion|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+FileInstall|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+FileMove|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+FileMoveDir|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+FileRead|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+FileReadLine|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+FileRecycle|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+FileRecycleEmpty|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+FileRemoveDir|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+FileSelectFile|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+FileSelectFolder|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+FileSetAttrib|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+FileSetTime|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+GroupActivate|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+GUI|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+GuiControl|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+GuiControlGet|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+Hotkey|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+ImageSearch|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+IniDelete|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+IniWrite|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+Input|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+InputBox|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+KeyWait|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+Menu|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+PixelGetColor|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+PixelSearch|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+PostMessage / SendMessage|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+Process|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+RegDelete|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+RegExMatch|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+RegExReplace|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+RegRead|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+RegWrite|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+Run|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+RunWait|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+RunWait|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+SetWorkingDir|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+Sort|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+SoundGet|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+SoundGetWaveVolume|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+SoundPlay|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+SoundSet|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+SoundSetWaveVolume|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+StatusbarGetText|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+StatusBarWait|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+StringGetPos|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+StringReplace|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+StrReplace|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+UrlDownloadToFile|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+WinGetText|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+WinMenuSelectItem|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+WinSet|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+WinWait|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+WinWaitNotActive|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+WinWaitActive|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+WinWaitClose|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk

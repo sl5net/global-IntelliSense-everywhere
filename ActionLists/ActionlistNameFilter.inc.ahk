@@ -221,9 +221,11 @@ getActionListNEW173129( activeTitle, ActiveClass, ActionListNEW, ActionListDir )
 	
 	
 ; Select File - AHK-Studio.ahk ahk_class #32770 ; mouseWindowTitle=0x1604f6  ;
+; 	WinMerge Dateien oder_Ordner_ausw_hlen
+; WinMerge - [Dateien oder Ordner auswählen] ahk_class WinMergeWindowClassW
 	
 	pfade:
-	if ( RegExMatch( activeTitle , "(Double Commander|FreeCommander|Q-Dir \d|Bild öffnen|Anhang speichern|Datei speichern|Speichern|Speichern unter|ffnen|Dateien/Ordner suchen|Exportieren|Dokument speichern|Select Path|Open File or Project|Select File)" ) ) 
+	if ( RegExMatch( activeTitle , "(Ordner ausw|Double Commander|FreeCommander|Q-Dir \d|Bild öffnen|Anhang speichern|Datei speichern|Speichern|Speichern unter|ffnen|Dateien/Ordner suchen|Exportieren|Dokument speichern|Select Path|Open File or Project|Select File)" ) ) 
 		return "..\_globalActionLists\pfade"
 ;Speichern is used with ToDoList_c_AbstractSpoon
 	

@@ -651,3 +651,5 @@ deprecated
 
 Speak(A_lineNumber " " A_lineFile,"PROD")
 test
+
+RegRead, ActionList, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList

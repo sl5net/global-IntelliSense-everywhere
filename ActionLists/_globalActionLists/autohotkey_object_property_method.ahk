@@ -1,12 +1,12 @@
 ﻿; https://autohotkey.com/boards/viewtopic.php?f=37&t=44081
-Class is the name of a property.
-base is the name of a property.
-NewEnum is the name of a method.
-Next is the name of a method.
+Class|rr||ahk|clipboard:=key `n run,....SourcepluginsahkQuickSearch4Autohotkey.ahk
+base|rr||ahk|clipboard:=key `n run,....SourcepluginsahkQuickSearch4Autohotkey.ahk
+NewEnum|rr||ahk|clipboard:=key `n run,....SourcepluginsahkQuickSearch4Autohotkey.ahk
+Next|rr||ahk|clipboard:=key `n run,....SourcepluginsahkQuickSearch4Autohotkey.ahk
 
-Call
-Delete
-Get
-Init
-New
-Set
+Call|rr||ahk|clipboard:=key `n run,....SourcepluginsahkQuickSearch4Autohotkey.ahk
+Delete|rr||ahk|clipboard:=key `n run,....SourcepluginsahkQuickSearch4Autohotkey.ahk
+Get|rr||ahk|clipboard:=key `n run,....SourcepluginsahkQuickSearch4Autohotkey.ahk
+Init|rr||ahk|clipboard:=key `n run,....SourcepluginsahkQuickSearch4Autohotkey.ahk
+New|rr||ahk|clipboard:=key `n run,....SourcepluginsahkQuickSearch4Autohotkey.ahk
+Set|rr||ahk|clipboard:=key `n run,....SourcepluginsahkQuickSearch4Autohotkey.ahk
