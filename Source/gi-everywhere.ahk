@@ -2086,6 +2086,8 @@ return
 ;/¯¯¯¯ show_ListBox_Id
 show_ListBox_Id:
     SetTimer, show_ListBox_Id, Off ; setinterval
+    return
+
 
     global g_ListBox_Id
     global g_reloadIf_ListBox_Id_notExist
@@ -2114,8 +2116,9 @@ show_ListBox_Id:
         if(1 && g_show_ListBox_Id_EMTY_COUNT >= 2){ ; the only think that helps today 24.10.2018 15:11
             RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, Reload , % A_LineNumber " " RegExReplace(A_LineFile, ".*\\") " " A_now
             ; if(1 && InStr(A_ComputerName,"SL5"))
-                sleep,2000
-            reload ;  [^;\n]*[ ]*\breload\b\n <= cactive reloads 18-10-28_11-47
+            ;    sleep,2000
+            Msgbox,reload`n(%A_LineFile%~%A_LineNumber%)
+            ; reload ;  [^;\n]*[ ]*\breload\b\n <= cactive reloads 18-10-28_11-47
             ; run,% "..\start.ahk" ; deactivated. test 22.10.2018 05:54
         }
         if(1 && g_show_ListBox_Id_EMTY_COUNT >= 2){

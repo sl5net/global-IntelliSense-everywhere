@@ -313,7 +313,12 @@ ProcessKey(InputChar,EndKey) {
 		if(0 && InStr(A_ComputerName,"SL5"))
 			tooltip,% "str=" NewInput " , chr=" InputChar "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),1,1
       ;AddWordToList(ByRef rootCmdTypeObj,g_Word,0)
-		ClearAllVars(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),true)
+      if(false){
+        clipboard .= "`nKey = >" Key "<`n"
+        clipboard .= "`nInputChar = >" InputChar "<`n"
+        clipboard .= "`nEndKey = >" EndKey "<`n"
+      }
+ 		ClearAllVars(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),true)
 		Return
 	}
 	
@@ -410,9 +415,6 @@ RecomputeMatches( calledFromStr, is_Recursion := false ){
         g_SingleMatchDescription := Object()
         g_SingleMatchReplacement := Object()
 
-        ; to to to to to to to tooltip box
-        ; totoo to toot to ttto t to box win
-        ; bo box t m m ms to to box msg box
         ; ToolTip2sec(g_min_searchWord_length_2 "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
         StrLen_g_Word := StrLen(g_Word)
         loop,6
@@ -1695,7 +1697,7 @@ BuildTrayMenu(){
 
 ;/¯¯¯¯ ClearAllVars ¯¯ 181024140212 ¯¯ 24.10.2018 14:02:12 ¯¯\
 ; This is to blank all vars related to matches, ListBox and (optionally) word 
-ClearAllVars( calledFromStr , ClearWord ){
+ClearAllVars( ByRef calledFromStr , ClearWord ){
 	
 	global
 
