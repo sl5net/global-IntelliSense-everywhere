@@ -1,1717 +1,1717 @@
 ﻿; https://autohotkey.com/boards/viewtopic.php?f=76&t=59559
-break|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+break|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 break
-byref|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+byref|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 byref
-catch|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+catch|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 catch
-class|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+class|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 class
-continue|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+continue|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 continue
-else|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+else|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 else
-Exit|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+Exit|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 Exit
-Exitapp|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+Exitapp|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 Exitapp
-finAlly|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+finAlly|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 finAlly
-for|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+for|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 for
-global|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+global|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 global
-goSub|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+goSub|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 goSub
-goto|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+goto|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 goto
-if|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+if|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 if
-ifEqual|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+ifEqual|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 ifEqual
-ifExist|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+ifExist|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 ifExist
-ifGreater|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+ifGreater|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 ifGreater
-ifGreaterOrEqual|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+ifGreaterOrEqual|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 ifGreaterOrEqual
-ifinString|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+ifinString|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 ifinString
-ifLess|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+ifLess|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 ifLess
-ifLessOrEqual|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+ifLessOrEqual|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 ifLessOrEqual
-ifMsgBox|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+ifMsgBox|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 ifMsgBox
-ifNotEqual|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+ifNotEqual|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 ifNotEqual
-ifNotExist|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+ifNotExist|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 ifNotExist
-ifNotinString|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+ifNotinString|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 ifNotinString
-ifWinactive|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+ifWinactive|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 ifWinactive
-ifWinExist|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+ifWinExist|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 ifWinExist
-ifWinNotactive|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+ifWinNotactive|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 ifWinNotactive
-ifWinNotExist|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+ifWinNotExist|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 ifWinNotExist
-local|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+local|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 local
-loop|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+loop|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 loop
-onExit|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+onExit|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 onExit
-pause|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+pause|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 pause
-return|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+return|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 return
-setTimer|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+setTimer|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 setTimer
-sleep|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+sleep|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 sleep
-static|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+static|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 static
-suspend|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+suspend|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 suspend
-throw|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+throw|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 throw
-try|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+try|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 try
-until|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+until|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 until
-var|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+var|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 var
-while|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+while|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 while
-autoTrim|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+autoTrim|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 autoTrim
-blockInput|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+blockInput|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 blockInput
-clipWait|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+clipWait|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 clipWait
-control|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+control|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 control
-controlClick|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+controlClick|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 controlClick
-controlFocus|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+controlFocus|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 controlFocus
-controlGet|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+controlGet|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 controlGet
-controlGetFocus|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+controlGetFocus|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 controlGetFocus
-controlGetpos|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+controlGetpos|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 controlGetpos
-controlGetText|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+controlGetText|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 controlGetText
-controlMove|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+controlMove|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 controlMove
-controlSend|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+controlSend|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 controlSend
-controlSendRaw|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+controlSendRaw|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 controlSendRaw
-controlsetText|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+controlsetText|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 controlsetText
-coordMode|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+coordMode|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 coordMode
-critical|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+critical|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 critical
-detectHiddenText|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+detectHiddenText|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 detectHiddenText
-detectHiddenWindows|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+detectHiddenWindows|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 detectHiddenWindows
-drive|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+drive|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 drive
-driveGet|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+driveGet|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 driveGet
-driveSpaceFree|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+driveSpaceFree|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 driveSpaceFree
-edit|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+edit|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 edit
-envAdd|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+envAdd|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 envAdd
-envDiv|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+envDiv|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 envDiv
-envGet|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+envGet|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 envGet
-envmult|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+envmult|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 envmult
-envSet|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+envSet|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 envSet
-envSub|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+envSub|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 envSub
-envUpdate|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+envUpdate|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 envUpdate
-fileAppend|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+fileAppend|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 fileAppend
-fileCopy|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+fileCopy|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 fileCopy
-fileCopydir|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+fileCopydir|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 fileCopydir
-fileCreatedir|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+fileCreatedir|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 fileCreatedir
-fileCreateShortcut|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+fileCreateShortcut|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 fileCreateShortcut
-fileDelete|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+fileDelete|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 fileDelete
-fileEncoding|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+fileEncoding|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 fileEncoding
-fileGetattrib|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+fileGetattrib|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 fileGetattrib
-fileGetShortcut|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+fileGetShortcut|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 fileGetShortcut
-fileGetsize|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+fileGetsize|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 fileGetsize
-fileGettime|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+fileGettime|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 fileGettime
-fileGetversion|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+fileGetversion|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 fileGetversion
-fileinstAll|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+fileinstAll|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 fileinstAll
-fileMove|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+fileMove|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 fileMove
-fileMovedir|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+fileMovedir|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 fileMovedir
-fileread|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+fileread|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 fileread
-filereadline|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+filereadline|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 filereadline
-fileRecycle|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+fileRecycle|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 fileRecycle
-fileRecycleEmpty|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+fileRecycleEmpty|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 fileRecycleEmpty
-filereMovedir|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+filereMovedir|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 filereMovedir
-fileselectfile|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+fileselectfile|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 fileselectfile
-fileselectfolder|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+fileselectfolder|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 fileselectfolder
-filesetattrib|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+filesetattrib|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 filesetattrib
-filesettime|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+filesettime|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 filesettime
-formattime|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+formattime|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 formattime
-Getkeystate|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+Getkeystate|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 Getkeystate
-groupactivate|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+groupactivate|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 groupactivate
-groupadd|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+groupadd|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 groupadd
-groupclose|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+groupclose|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 groupclose
-groupdeactivate|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+groupdeactivate|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 groupdeactivate
-gui|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+gui|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 gui
-guicontrol|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+guicontrol|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 guicontrol
-guicontrolGet|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+guicontrolGet|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 guicontrolGet
-hotkey|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+hotkey|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 hotkey
-imageSearch|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+imageSearch|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 imageSearch
-iniDelete|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+iniDelete|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 iniDelete
-iniread|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+iniread|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 iniread
-iniwrite|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+iniwrite|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 iniwrite
-Input|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+Input|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 Input
-InputBox|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+InputBox|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 InputBox
-keyhistory|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+keyhistory|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 keyhistory
-keyWait|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+keyWait|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 keyWait
-listhotkeys|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+listhotkeys|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 listhotkeys
-listlines|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+listlines|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 listlines
-listvars|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+listvars|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 listvars
-menu|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+menu|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 menu
-mouseClick|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+mouseClick|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 mouseClick
-mouseClickdrag|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+mouseClickdrag|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 mouseClickdrag
-mouseGetpos|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+mouseGetpos|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 mouseGetpos
-mouseMove|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+mouseMove|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 mouseMove
-MsgBox|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+MsgBox|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 MsgBox
-outputdebug|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+outputdebug|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 outputdebug
-pixelGetcolor|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+pixelGetcolor|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 pixelGetcolor
-pixelSearch|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+pixelSearch|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 pixelSearch
-postmessage|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+postmessage|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 postmessage
-process|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+process|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 process
-progress|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+progress|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 progress
-random|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+random|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 random
-regDelete|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+regDelete|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 regDelete
-regread|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+regread|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 regread
-regwrite|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+regwrite|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 regwrite
-reload|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+reload|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 reload
-run|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+run|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 run
-runas|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+runas|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 runas
-runWait|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+runWait|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 runWait
-Send|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+Send|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 Send
-Sendevent|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+Sendevent|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 Sendevent
-SendInput|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+SendInput|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 SendInput
-Sendlevel|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+Sendlevel|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 Sendlevel
-Sendmessage|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+Sendmessage|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 Sendmessage
-SendMode|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+SendMode|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 SendMode
-Sendplay|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+Sendplay|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 Sendplay
-SendRaw|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+SendRaw|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 SendRaw
-setbatchlines|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+setbatchlines|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 setbatchlines
-setcapslockstate|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+setcapslockstate|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 setcapslockstate
-setcontroldelay|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+setcontroldelay|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 setcontroldelay
-setdefaultmousespeed|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+setdefaultmousespeed|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 setdefaultmousespeed
-setenv|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+setenv|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 setenv
-setformat|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+setformat|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 setformat
-setkeydelay|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+setkeydelay|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 setkeydelay
-setmousedelay|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+setmousedelay|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 setmousedelay
-setnumlockstate|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+setnumlockstate|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 setnumlockstate
-setregview|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+setregview|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 setregview
-setscrolllockstate|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+setscrolllockstate|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 setscrolllockstate
-setstorecapslockMode|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+setstorecapslockMode|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 setstorecapslockMode
 |r|
-setTitleMatchMode|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+setTitleMatchMode|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 setTitleMatchMode
 
 |r|setwindelay
-setworkingdir|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+setworkingdir|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 setworkingdir
-shutdown|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+shutdown|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 shutdown
-sort|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+sort|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 sort
-soundbeep|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+soundbeep|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 soundbeep
-soundGet|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+soundGet|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 soundGet
-soundGetwavevolume|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+soundGetwavevolume|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 soundGetwavevolume
-soundplay|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+soundplay|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 soundplay
-soundset|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+soundset|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 soundset
-soundsetwavevolume|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+soundsetwavevolume|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 soundsetwavevolume
-splashimage|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+splashimage|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 splashimage
-splashTextoff|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+splashTextoff|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 splashTextoff
-splashTexton|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+splashTexton|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 splashTexton
-splitpath|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+splitpath|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 splitpath
-statusbarGetText|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+statusbarGetText|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 statusbarGetText
-statusbarWait|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+statusbarWait|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 statusbarWait
-Stringcasesense|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+Stringcasesense|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 Stringcasesense
-StringGetpos|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+StringGetpos|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 StringGetpos
-Stringleft|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+Stringleft|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 Stringleft
-Stringlower|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+Stringlower|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 Stringlower
-Stringlen|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+Stringlen|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 Stringlen
-Stringmid|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+Stringmid|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 Stringmid
-StringReplace|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+StringReplace|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 StringReplace
-Stringright|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+Stringright|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 Stringright
-Stringsplit|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+Stringsplit|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 Stringsplit
-StringTrimleft|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+StringTrimleft|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 StringTrimleft
-StringTrimright|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+StringTrimright|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 StringTrimright
-Stringupper|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+Stringupper|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 Stringupper
-sysGet|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+sysGet|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 sysGet
-thread|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+thread|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 thread
-toolTip|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+toolTip|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 toolTip
-transform|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+transform|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 transform
-trayTip|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+trayTip|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 trayTip
-urldownloadtofile|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+urldownloadtofile|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 urldownloadtofile
-winactivate|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+winactivate|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 winactivate
-winactivatebottom|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+winactivatebottom|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 winactivatebottom
-winclose|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+winclose|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 winclose
-winGet|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+winGet|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 winGet
-winGetactivestats|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+winGetactivestats|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 winGetactivestats
-winGetactiveTitle|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+winGetactiveTitle|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 winGetactiveTitle
-winGetclass|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+winGetclass|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 winGetclass
-winGetpos|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+winGetpos|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 winGetpos
-winGetText|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+winGetText|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 winGetText
-winGetTitle|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+winGetTitle|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 winGetTitle
-winhide|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+winhide|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 winhide
-winkill|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+winkill|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 winkill
-winmaximize|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+winmaximize|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 winmaximize
-winmenuselectitem|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+winmenuselectitem|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 winmenuselectitem
-winMinimize|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+winMinimize|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 winMinimize
-winMinimizeAll|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+winMinimizeAll|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 winMinimizeAll
-winMinimizeAllundo|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+winMinimizeAllundo|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 winMinimizeAllundo
-winMove|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+winMove|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 winMove
-winrestore|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+winrestore|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 winrestore
-winset|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+winset|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 winset
-winsetTitle|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+winsetTitle|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 winsetTitle
-winshow|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+winshow|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 winshow
-winWait|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+winWait|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 winWait
-winWaitactive|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+winWaitactive|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 winWaitactive
-winWaitclose|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+winWaitclose|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 winWaitclose
-winWaitNotactive|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+winWaitNotactive|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 winWaitNotactive
-abs|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+abs|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 abs
-acos|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+acos|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 acos
-array|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+array|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 array
-asc|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+asc|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 asc
-asin|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+asin|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 asin
-atan|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+atan|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 atan
-ceil|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+ceil|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 ceil
-chr|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+chr|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 chr
-comobjactive|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+comobjactive|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 comobjactive
-comobjarray|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+comobjarray|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 comobjarray
-comobjconnect|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+comobjconnect|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 comobjconnect
-comobjCreate|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+comobjCreate|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 comobjCreate
-comobject|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+comobject|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 comobject
-comobjenwrap|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+comobjenwrap|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 comobjenwrap
-comobjerror|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+comobjerror|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 comobjerror
-comobjflags|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+comobjflags|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 comobjflags
-comobjGet|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+comobjGet|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 comobjGet
-comobjmissing|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+comobjmissing|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 comobjmissing
-comobjparameter|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+comobjparameter|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 comobjparameter
-comobjquery|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+comobjquery|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 comobjquery
-comobjtype|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+comobjtype|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 comobjtype
-comobjunwrap|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+comobjunwrap|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 comobjunwrap
-comobjvalue|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+comobjvalue|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 comobjvalue
-cos|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+cos|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 cos
-exception|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+exception|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 exception
-exp|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+exp|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 exp
-fileExist|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+fileExist|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 fileExist
-fileopen|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+fileopen|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 fileopen
-floor|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+floor|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 floor
-func|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+func|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 func
-Getkeyname|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+Getkeyname|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 Getkeyname
-Getkeysc|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+Getkeysc|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 Getkeysc
-Getkeystate|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+Getkeystate|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 Getkeystate
-Getkeyvk|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+Getkeyvk|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 Getkeyvk
-il_add|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+il_add|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 il_add
-il_Create|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+il_Create|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 il_Create
-il_destroy|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+il_destroy|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 il_destroy
-instr|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+instr|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 instr
-isbyref|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+isbyref|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 isbyref
-isfunc|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+isfunc|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 isfunc
-islabel|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+islabel|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 islabel
-isobject|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+isobject|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 isobject
-isoptional|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+isoptional|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 isoptional
-ln|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+ln|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 ln
-log|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+log|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 log
-lTrim|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+lTrim|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 lTrim
-lv_add|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+lv_add|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 lv_add
-lv_Delete|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+lv_Delete|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 lv_Delete
-lv_Deletecol|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+lv_Deletecol|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 lv_Deletecol
-lv_Getcount|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+lv_Getcount|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 lv_Getcount
-lv_Getnext|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+lv_Getnext|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 lv_Getnext
-lv_GetText|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+lv_GetText|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 lv_GetText
-lv_insert|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+lv_insert|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 lv_insert
-lv_insertcol|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+lv_insertcol|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 lv_insertcol
-lv_modify|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+lv_modify|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 lv_modify
-lv_modifycol|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+lv_modifycol|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 lv_modifycol
-lv_setimagelist|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+lv_setimagelist|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 lv_setimagelist
-mod|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+mod|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 mod
-numGet|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+numGet|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 numGet
-numput|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+numput|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 numput
-objaddref|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+objaddref|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 objaddref
-objclone|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+objclone|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 objclone
-object|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+object|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 object
-objGetaddress|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+objGetaddress|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 objGetaddress
-objGetcapacity|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+objGetcapacity|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 objGetcapacity
-objhaskey|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+objhaskey|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 objhaskey
-objinsert|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+objinsert|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 objinsert
-objinsertat|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+objinsertat|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 objinsertat
-objlength|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+objlength|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 objlength
-objmaxindex|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+objmaxindex|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 objmaxindex
-objminindex|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+objminindex|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 objminindex
-objnewenum|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+objnewenum|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 objnewenum
-objpop|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+objpop|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 objpop
-objpush|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+objpush|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 objpush
-objRawset|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+objRawset|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 objRawset
-objrelease|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+objrelease|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 objrelease
-objreMove|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+objreMove|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 objreMove
-objreMoveat|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+objreMoveat|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 objreMoveat
-objsetcapacity|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+objsetcapacity|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 objsetcapacity
-onmessage|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+onmessage|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 onmessage
-ord|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+ord|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 ord
-regExMatch|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+regExMatch|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 regExMatch
-regExReplace|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+regExReplace|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 regExReplace
-registercAllback|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+registercAllback|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 registercAllback
-round|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+round|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 round
-rTrim|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+rTrim|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 rTrim
-sb_seticon|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+sb_seticon|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 sb_seticon
-sb_setparts|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+sb_setparts|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 sb_setparts
-sb_setText|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+sb_setText|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 sb_setText
-sin|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+sin|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 sin
-sqrt|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+sqrt|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 sqrt
-strGet|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+strGet|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 strGet
-strlen|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+strlen|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 strlen
-strput|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+strput|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 strput
-strsplit|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+strsplit|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 strsplit
-Substr|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+Substr|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 Substr
-tan|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+tan|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 tan
-Trim|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+Trim|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 Trim
-tv_add|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+tv_add|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 tv_add
-tv_Delete|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+tv_Delete|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 tv_Delete
-tv_Get|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+tv_Get|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 tv_Get
-tv_Getchild|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+tv_Getchild|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 tv_Getchild
-tv_Getcount|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+tv_Getcount|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 tv_Getcount
-tv_Getnext|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+tv_Getnext|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 tv_Getnext
-tv_Getparent|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+tv_Getparent|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 tv_Getparent
-tv_Getprev|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+tv_Getprev|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 tv_Getprev
-tv_Getselection|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+tv_Getselection|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 tv_Getselection
-tv_GetText|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+tv_GetText|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 tv_GetText
-tv_modify|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+tv_modify|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 tv_modify
-tv_setimagelist|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+tv_setimagelist|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 tv_setimagelist
-varsetcapacity|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+varsetcapacity|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 varsetcapacity
-winactive|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+winactive|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 winactive
-winExist|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+winExist|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 winExist
-_addref|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+_addref|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 _addref
-_clone|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+_clone|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 _clone
-_Getaddress|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+_Getaddress|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 _Getaddress
-_Getcapacity|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+_Getcapacity|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 _Getcapacity
-_haskey|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+_haskey|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 _haskey
-_insert|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+_insert|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 _insert
-_maxindex|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+_maxindex|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 _maxindex
-_minindex|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+_minindex|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 _minindex
-_newenum|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+_newenum|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 _newenum
-_release|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+_release|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 _release
-_reMove|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+_reMove|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 _reMove
-_setcapacity|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+_setcapacity|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 _setcapacity
-alt|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+alt|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 alt
-altdown|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+altdown|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 altdown
-altup|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+altup|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 altup
-appskey|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+appskey|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 appskey
-backSpace|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+backSpace|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 backSpace
-blind|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+blind|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 blind
-browser_back|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+browser_back|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 browser_back
-browser_favorites|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+browser_favorites|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 browser_favorites
-browser_forward|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+browser_forward|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 browser_forward
-browser_home|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+browser_home|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 browser_home
-browser_refresh|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+browser_refresh|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 browser_refresh
-browser_Search|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+browser_Search|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 browser_Search
-browser_stop|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+browser_stop|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 browser_stop
-bs|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+bs|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 bs
-capslock|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+capslock|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 capslock
-Click|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+Click|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 Click
-control|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+control|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 control
-ctrl|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+ctrl|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 ctrl
-ctrlbreak|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+ctrlbreak|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 ctrlbreak
-ctrldown|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+ctrldown|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 ctrldown
-ctrlup|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+ctrlup|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 ctrlup
-del|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+del|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 del
-Delete|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+Delete|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 Delete
-down|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+down|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 down
-end|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+end|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 end
-enter|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+enter|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 enter
-esc|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+esc|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 esc
-escape|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+escape|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 escape
-f1|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+f1|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 f1
-f10|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+f10|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 f10
-f11|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+f11|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 f11
-f12|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+f12|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 f12
-f13|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+f13|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 f13
-f14|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+f14|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 f14
-f15|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+f15|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 f15
-f16|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+f16|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 f16
-f17|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+f17|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 f17
-f18|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+f18|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 f18
-f19|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+f19|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 f19
-f2|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+f2|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 f2
-f20|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+f20|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 f20
-f21|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+f21|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 f21
-f22|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+f22|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 f22
-f23|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+f23|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 f23
-f24|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+f24|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 f24
-f3|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+f3|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 f3
-f4|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+f4|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 f4
-f5|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+f5|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 f5
-f6|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+f6|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 f6
-f7|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+f7|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 f7
-f8|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+f8|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 f8
-f9|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+f9|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 f9
-home|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+home|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 home
-ins|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+ins|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 ins
-insert|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+insert|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 insert
-joy1|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+joy1|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 joy1
-joy10|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+joy10|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 joy10
-joy11|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+joy11|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 joy11
-joy12|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+joy12|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 joy12
-joy13|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+joy13|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 joy13
-joy14|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+joy14|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 joy14
-joy15|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+joy15|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 joy15
-joy16|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+joy16|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 joy16
-joy17|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+joy17|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 joy17
-joy18|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+joy18|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 joy18
-joy19|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+joy19|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 joy19
-joy2|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+joy2|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 joy2
-joy20|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+joy20|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 joy20
-joy21|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+joy21|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 joy21
-joy22|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+joy22|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 joy22
-joy23|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+joy23|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 joy23
-joy24|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+joy24|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 joy24
-joy25|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+joy25|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 joy25
-joy26|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+joy26|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 joy26
-joy27|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+joy27|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 joy27
-joy28|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+joy28|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 joy28
-joy29|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+joy29|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 joy29
-joy3|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+joy3|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 joy3
-joy30|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+joy30|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 joy30
-joy31|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+joy31|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 joy31
-joy32|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+joy32|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 joy32
-joy4|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+joy4|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 joy4
-joy5|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+joy5|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 joy5
-joy6|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+joy6|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 joy6
-joy7|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+joy7|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 joy7
-joy8|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+joy8|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 joy8
-joy9|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+joy9|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 joy9
-joyaxes|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+joyaxes|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 joyaxes
-joybuttons|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+joybuttons|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 joybuttons
-joyinfo|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+joyinfo|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 joyinfo
-joyname|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+joyname|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 joyname
-joypov|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+joypov|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 joypov
-joyr|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+joyr|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 joyr
-joyu|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+joyu|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 joyu
-joyv|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+joyv|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 joyv
-joyx|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+joyx|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 joyx
-joyy|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+joyy|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 joyy
-joyz|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+joyz|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 joyz
-lalt|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+lalt|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 lalt
-launch_app1|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+launch_app1|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 launch_app1
-launch_app2|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+launch_app2|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 launch_app2
-launch_mail|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+launch_mail|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 launch_mail
-launch_media|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+launch_media|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 launch_media
-lbutton|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+lbutton|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 lbutton
-lcontrol|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+lcontrol|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 lcontrol
-lctrl|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+lctrl|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 lctrl
-left|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+left|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 left
-lshift|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+lshift|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 lshift
-lwin|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+lwin|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 lwin
-lwindown|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+lwindown|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 lwindown
-lwinup|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+lwinup|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 lwinup
-mbutton|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+mbutton|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 mbutton
-media_next|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+media_next|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 media_next
-media_play_pause|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+media_play_pause|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 media_play_pause
-media_prev|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+media_prev|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 media_prev
-media_stop|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+media_stop|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 media_stop
-numlock|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+numlock|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 numlock
-numpad0|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+numpad0|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 numpad0
-numpad1|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+numpad1|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 numpad1
-numpad2|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+numpad2|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 numpad2
-numpad3|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+numpad3|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 numpad3
-numpad4|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+numpad4|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 numpad4
-numpad5|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+numpad5|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 numpad5
-numpad6|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+numpad6|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 numpad6
-numpad7|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+numpad7|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 numpad7
-numpad8|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+numpad8|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 numpad8
-numpad9|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+numpad9|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 numpad9
-numpadadd|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+numpadadd|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 numpadadd
-numpadclear|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+numpadclear|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 numpadclear
-numpaddel|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+numpaddel|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 numpaddel
-numpaddiv|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+numpaddiv|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 numpaddiv
-numpaddot|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+numpaddot|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 numpaddot
-numpaddown|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+numpaddown|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 numpaddown
-numpadend|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+numpadend|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 numpadend
-numpadenter|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+numpadenter|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 numpadenter
-numpadhome|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+numpadhome|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 numpadhome
-numpadins|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+numpadins|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 numpadins
-numpadleft|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+numpadleft|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 numpadleft
-numpadmult|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+numpadmult|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 numpadmult
-numpadpgdn|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+numpadpgdn|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 numpadpgdn
-numpadpgup|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+numpadpgup|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 numpadpgup
-numpadright|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+numpadright|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 numpadright
-numpadSub|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+numpadSub|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 numpadSub
-numpadup|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+numpadup|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 numpadup
-pause|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+pause|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 pause
-pgdn|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+pgdn|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 pgdn
-pgup|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+pgup|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 pgup
-printscreen|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+printscreen|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 printscreen
-ralt|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+ralt|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 ralt
-Raw|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+Raw|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 Raw
-rbutton|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+rbutton|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 rbutton
-rcontrol|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+rcontrol|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 rcontrol
-rctrl|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+rctrl|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 rctrl
-right|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+right|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 right
-rshift|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+rshift|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 rshift
-rwin|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+rwin|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 rwin
-rwindown|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+rwindown|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 rwindown
-rwinup|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+rwinup|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 rwinup
-scrolllock|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+scrolllock|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 scrolllock
-shift|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+shift|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 shift
-shiftdown|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+shiftdown|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 shiftdown
-shiftup|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+shiftup|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 shiftup
-Space|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+Space|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 Space
-tab|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+tab|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 tab
-up|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+up|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 up
-volume_down|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+volume_down|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 volume_down
-volume_mute|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+volume_mute|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 volume_mute
-volume_up|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+volume_up|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 volume_up
-wheeldown|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+wheeldown|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 wheeldown
-wheelleft|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+wheelleft|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 wheelleft
-wheelright|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+wheelright|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 wheelright
-wheelup|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+wheelup|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 wheelup
-xbutton1|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+xbutton1|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 xbutton1
-xbutton2|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+xbutton2|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 xbutton2
-base|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+base|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 base
-clipboard|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+clipboard|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 clipboard
-clipboardAll|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+clipboardAll|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 clipboardAll
-comspec|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+comspec|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 comspec
-errorlevel|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+errorlevel|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 errorlevel
-false|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+false|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 false
-programfiles|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+programfiles|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 programfiles
-true|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+true|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 true
-abort|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+abort|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 abort
-abovenormal|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+abovenormal|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 abovenormal
-activex|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+activex|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 activex
-add|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+add|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 add
-ahk_class|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+ahk_class|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 ahk_class
-ahk_exe|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+ahk_exe|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 ahk_exe
-ahk_group|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+ahk_group|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 ahk_group
-ahk_id|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+ahk_id|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 ahk_id
-ahk_pid|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+ahk_pid|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 ahk_pid
-All|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+All|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 All
-alnum|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+alnum|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 alnum
-alpha|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+alpha|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 alpha
-altSubmit|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+altSubmit|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 altSubmit
-alttab|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+alttab|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 alttab
-alttabandmenu|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+alttabandmenu|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 alttabandmenu
-alttabmenu|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+alttabmenu|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 alttabmenu
-alttabmenudismiss|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+alttabmenudismiss|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 alttabmenudismiss
-alwaysontop|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+alwaysontop|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 alwaysontop
-and|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+and|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 and
-autosize|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+autosize|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 autosize
-background|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+background|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 background
-backgroundtrans|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+backgroundtrans|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 backgroundtrans
-base|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+base|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 base
-belownormal|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+belownormal|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 belownormal
-between|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+between|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 between
-bitand|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+bitand|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 bitand
-bitNot|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+bitNot|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 bitNot
-bitor|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+bitor|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 bitor
-bitshiftleft|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+bitshiftleft|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 bitshiftleft
-bitshiftright|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+bitshiftright|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 bitshiftright
-bitxor|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+bitxor|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 bitxor
-bold|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+bold|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 bold
-border|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+border|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 border
-bottom|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+bottom|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 bottom
-button|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+button|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 button
-buttons|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+buttons|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 buttons
-cancel|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+cancel|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 cancel
-capacity|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+capacity|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 capacity
-caption|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+caption|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 caption
-center|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+center|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 center
-check|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+check|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 check
-check3|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+check3|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 check3
-checkBox|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+checkBox|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 checkBox
-checked|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+checked|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 checked
-checkedgray|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+checkedgray|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 checkedgray
-choose|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+choose|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 choose
-chooseString|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+chooseString|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 chooseString
-Click|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+Click|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 Click
-clone|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+clone|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 clone
-close|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+close|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 close
-color|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+color|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 color
-comboBox|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+comboBox|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 comboBox
-contains|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+contains|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 contains
-controllist|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+controllist|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 controllist
-controllisthwnd|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+controllisthwnd|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 controllisthwnd
-count|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+count|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 count
-custom|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+custom|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 custom
-date|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+date|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 date
-datetime|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+datetime|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 datetime
-days|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+days|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 days
-ddl|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+ddl|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 ddl
-default|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+default|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 default
-Delete|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+Delete|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 Delete
-DeleteAll|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+DeleteAll|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 DeleteAll
-delimiter|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+delimiter|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 delimiter
-deref|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+deref|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 deref
-destroy|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+destroy|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 destroy
-digit|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+digit|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 digit
-disable|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+disable|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 disable
-disabled|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+disabled|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 disabled
-dpiscale|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+dpiscale|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 dpiscale
-dropdownlist|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+dropdownlist|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 dropdownlist
-edit|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+edit|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 edit
-eject|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+eject|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 eject
-enable|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+enable|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 enable
-enabled|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+enabled|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 enabled
-error|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+error|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 error
-Exit|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+Exit|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 Exit
-expand|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+expand|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 expand
-exstyle|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+exstyle|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 exstyle
-extends|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+extends|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 extends
-filesystem|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+filesystem|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 filesystem
-first|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+first|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 first
-flash|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+flash|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 flash
-float|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+float|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 float
-floatfast|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+floatfast|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 floatfast
-Focus|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+Focus|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 Focus
-font|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+font|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 font
-force|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+force|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 force
-fromcodepage|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+fromcodepage|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 fromcodepage
-Getaddress|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+Getaddress|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 Getaddress
-Getcapacity|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+Getcapacity|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 Getcapacity
-grid|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+grid|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 grid
-group|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+group|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 group
-groupBox|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+groupBox|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 groupBox
-guiclose|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+guiclose|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 guiclose
-guiconTextmenu|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+guiconTextmenu|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 guiconTextmenu
-guidropfiles|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+guidropfiles|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 guidropfiles
-guiescape|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+guiescape|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 guiescape
-guisize|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+guisize|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 guisize
-haskey|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+haskey|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 haskey
-hdr|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+hdr|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 hdr
-Hidden|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+Hidden|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 Hidden
-hide|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+hide|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 hide
-high|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+high|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 high
-hkcc|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+hkcc|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 hkcc
-hkcr|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+hkcr|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 hkcr
-hkcu|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+hkcu|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 hkcu
-hkey_classes_root|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+hkey_classes_root|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 hkey_classes_root
-hkey_current_config|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+hkey_current_config|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 hkey_current_config
-hkey_current_user|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+hkey_current_user|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 hkey_current_user
-hkey_local_machine|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+hkey_local_machine|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 hkey_local_machine
-hkey_users|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+hkey_users|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 hkey_users
-hklm|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+hklm|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 hklm
-hku|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+hku|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 hku
-hotkey|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+hotkey|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 hotkey
-hours|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+hours|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 hours
-hscroll|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+hscroll|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 hscroll
-icon|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+icon|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 icon
-iconsmAll|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+iconsmAll|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 iconsmAll
-id|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+id|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 id
-idlast|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+idlast|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 idlast
-ignore|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+ignore|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 ignore
-imagelist|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+imagelist|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 imagelist
-in|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+in|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 in
-insert|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+insert|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 insert
-integer|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+integer|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 integer
-integerfast|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+integerfast|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 integerfast
-interrupt|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+interrupt|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 interrupt
-is|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+is|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 is
-italic|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+italic|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 italic
-join|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+join|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 join
-label|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+label|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 label
-lastfound|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+lastfound|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 lastfound
-lastfoundExist|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+lastfoundExist|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 lastfoundExist
-left|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+left|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 left
-limit|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+limit|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 limit
-lines|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+lines|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 lines
-link|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+link|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 link
-list|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+list|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 list
-listBox|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+listBox|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 listBox
-listview|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+listview|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 listview
-localsameasglobal|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+localsameasglobal|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 localsameasglobal
-lock|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+lock|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 lock
-logoff|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+logoff|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 logoff
-low|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+low|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 low
-lower|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+lower|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 lower
-lowercase|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+lowercase|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 lowercase
-lTrim|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+lTrim|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 lTrim
-mainwindow|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+mainwindow|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 mainwindow
-margin|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+margin|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 margin
-maximize|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+maximize|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 maximize
-maximizeBox|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+maximizeBox|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 maximizeBox
-maxindex|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+maxindex|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 maxindex
-menu|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+menu|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 menu
-Minimize|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+Minimize|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 Minimize
-MinimizeBox|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+MinimizeBox|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 MinimizeBox
-minmax|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+minmax|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 minmax
-minutes|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+minutes|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 minutes
-monitorcount|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+monitorcount|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 monitorcount
-monitorname|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+monitorname|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 monitorname
-monitorprimary|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+monitorprimary|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 monitorprimary
-monitorworkarea|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+monitorworkarea|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 monitorworkarea
-monthcal|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+monthcal|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 monthcal
-mouse|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+mouse|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 mouse
-mouseMove|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+mouseMove|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 mouseMove
-mouseMoveoff|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+mouseMoveoff|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 mouseMoveoff
-Move|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+Move|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 Move
-multi|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+multi|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 multi
-na|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+na|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 na
-new|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+new|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 new
-no|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+no|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 no
-noactivate|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+noactivate|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 noactivate
-nodefault|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+nodefault|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 nodefault
-nohide|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+nohide|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 nohide
-noicon|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+noicon|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 noicon
-nomainwindow|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+nomainwindow|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 nomainwindow
-norm|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+norm|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 norm
-normal|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+normal|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 normal
-nosort|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+nosort|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 nosort
-nosorthdr|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+nosorthdr|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 nosorthdr
-nostandard|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+nostandard|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 nostandard
-Not|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+Not|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 Not
-Notab|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+Notab|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 Notab
-NoTimers|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+NoTimers|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 NoTimers
-number|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+number|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 number
-off|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+off|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 off
-ok|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+ok|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 ok
-on|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+on|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 on
-or|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+or|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 or
-owndialogs|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+owndialogs|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 owndialogs
-owner|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+owner|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 owner
-parse|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+parse|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 parse
-password|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+password|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 password
-pic|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+pic|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 pic
-picture|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+picture|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 picture
-pid|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+pid|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 pid
-pixel|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+pixel|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 pixel
-pos|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+pos|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 pos
-pow|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+pow|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 pow
-priority|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+priority|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 priority
-processname|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+processname|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 processname
-processpath|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+processpath|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 processpath
-progress|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+progress|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 progress
-radio|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+radio|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 radio
-range|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+range|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 range
-Rawread|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+Rawread|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 Rawread
-Rawwrite|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+Rawwrite|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 Rawwrite
-read|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+read|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 read
-readchar|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+readchar|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 readchar
-readdouble|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+readdouble|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 readdouble
-readfloat|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+readfloat|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 readfloat
-readint|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+readint|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 readint
-readint64|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+readint64|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 readint64
-readline|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+readline|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 readline
-readnum|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+readnum|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 readnum
-readonly|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+readonly|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 readonly
-readshort|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+readshort|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 readshort
-readuchar|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+readuchar|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 readuchar
-readuint|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+readuint|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 readuint
-readushort|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+readushort|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 readushort
-realtime|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+realtime|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 realtime
-redRaw|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+redRaw|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 redRaw
-regEx|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+regEx|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 regEx
-region|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+region|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 region
-reg_binary|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+reg_binary|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 reg_binary
-reg_dword|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+reg_dword|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 reg_dword
-reg_dword_big_endian|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+reg_dword_big_endian|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 reg_dword_big_endian
-reg_expand_sz|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+reg_expand_sz|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 reg_expand_sz
-reg_full_resource_descriptor|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+reg_full_resource_descriptor|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 reg_full_resource_descriptor
-reg_link|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+reg_link|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 reg_link
-reg_multi_sz|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+reg_multi_sz|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 reg_multi_sz
-reg_qword|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+reg_qword|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 reg_qword
-reg_resource_list|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+reg_resource_list|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 reg_resource_list
-reg_resource_requirements_list|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+reg_resource_requirements_list|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 reg_resource_requirements_list
-reg_sz|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+reg_sz|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 reg_sz
-relative|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+relative|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 relative
-reload|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+reload|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 reload
-reMove|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+reMove|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 reMove
-rename|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+rename|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 rename
-report|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+report|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 report
-resize|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+resize|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 resize
-restore|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+restore|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 restore
-retry|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+retry|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 retry
-rgb|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+rgb|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 rgb
-right|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+right|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 right
-rTrim|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+rTrim|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 rTrim
-screen|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+screen|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 screen
-seconds|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+seconds|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 seconds
-section|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+section|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 section
-seek|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+seek|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 seek
-Send|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+Send|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 Send
-Sendandmouse|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+Sendandmouse|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 Sendandmouse
-serial|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+serial|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 serial
-setcapacity|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+setcapacity|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 setcapacity
-setlabel|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+setlabel|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 setlabel
-shiftalttab|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+shiftalttab|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 shiftalttab
-show|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+show|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 show
-shutdown|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+shutdown|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 shutdown
-single|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+single|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 single
-slider|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+slider|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 slider
-sortdesc|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+sortdesc|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 sortdesc
-standard|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+standard|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 standard
-status|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+status|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 status
-statusbar|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+statusbar|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 statusbar
-statuscd|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+statuscd|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 statuscd
-strike|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+strike|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 strike
-style|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+style|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 style
-Submit|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+Submit|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 Submit
-sysmenu|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+sysmenu|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 sysmenu
-tab|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+tab|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 tab
-tab2|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+tab2|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 tab2
-tabstop|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+tabstop|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 tabstop
-tell|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+tell|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 tell
-Text|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+Text|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 Text
-theme|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+theme|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 theme
-this|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+this|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 this
-tile|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+tile|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 tile
-time|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+time|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 time
-Tip|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+Tip|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 Tip
-tocodepage|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+tocodepage|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 tocodepage
-togglecheck|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+togglecheck|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 togglecheck
-toggleenable|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+toggleenable|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 toggleenable
-toolwindow|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+toolwindow|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 toolwindow
-top|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+top|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 top
-topmost|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+topmost|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 topmost
-transcolor|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+transcolor|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 transcolor
-transparent|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+transparent|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 transparent
-tray|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+tray|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 tray
-treeview|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+treeview|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 treeview
-type|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+type|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 type
-uncheck|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+uncheck|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 uncheck
-underline|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+underline|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 underline
-unicode|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+unicode|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 unicode
-unlock|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+unlock|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 unlock
-updown|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+updown|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 updown
-upper|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+upper|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 upper
-uppercase|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+uppercase|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 uppercase
-useenv|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+useenv|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 useenv
-useerrorlevel|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+useerrorlevel|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 useerrorlevel
-useunsetglobal|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+useunsetglobal|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 useunsetglobal
-useunsetlocal|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+useunsetlocal|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 useunsetlocal
-vis|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+vis|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 vis
-visfirst|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+visfirst|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 visfirst
-visible|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+visible|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 visible
-vscroll|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+vscroll|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 vscroll
-Waitclose|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+Waitclose|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 Waitclose
-wantctrla|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+wantctrla|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 wantctrla
-wantf2|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+wantf2|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 wantf2
-wantreturn|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+wantreturn|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 wantreturn
-wanttab|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+wanttab|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 wanttab
-wrap|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+wrap|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 wrap
-write|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+write|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 write
-writechar|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+writechar|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 writechar
-writedouble|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+writedouble|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 writedouble
-writefloat|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+writefloat|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 writefloat
-writeint|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+writeint|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 writeint
-writeint64|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+writeint64|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 writeint64
-writeline|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+writeline|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 writeline
-writenum|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+writenum|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 writenum
-writeshort|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+writeshort|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 writeshort
-writeuchar|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+writeuchar|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 writeuchar
-writeuint|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+writeuint|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 writeuint
-writeushort|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+writeushort|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 writeushort
-xdigit|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+xdigit|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 xdigit
-__cAll|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+__cAll|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 __cAll
-__Delete|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+__Delete|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 __Delete
-__Get|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+__Get|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 __Get
-__handle|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+__handle|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 __handle
-__new|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+__new|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 __new
-__set|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+__set|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 __set
-Sort|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+Sort|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 Sort
-Vars|rr||ahk|run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
+Vars|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
