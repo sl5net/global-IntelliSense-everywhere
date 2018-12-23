@@ -2818,10 +2818,10 @@ ActionList = '%ActionList%' ;
           ; feedbackMsgBox("clipboard:=sql", msg)
           ; msgbox,% msg
           ; 
-		if(  instr(sqlLastError, "no such table") ){
+		if( instr(sqlLastError, "no such table") ){
             ;if(A_TickCount < 1000){
-			tip := "`n sqlLastError=" sqlLastError "`n g_ActionListDB=" g_ActionListDB " `n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
-			tooltip, % tip
+			tip := "`n sqlLastError=" sqlLastError "`n g_ActionListDB=" g_ActionListDB
+			ToolTip5sec(tip "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 			RebuildDatabase() ; works ? 22.10.2018 05:23 todo:
 			sleep,10
 			return getActionListID(ActionList)
