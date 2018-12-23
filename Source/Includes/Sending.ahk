@@ -892,7 +892,14 @@ SendWord(WordIndex){
 		AHKcode2 .= "SetControlDelay, -1 `n "
 		AHKcode2 .= "Process, Priority,, H `n "
 		escaped_Sending := RegExReplace(Sending, """", """""")      ; "
-		AHKcode2 .= "Sending := """ escaped_Sending """ `n "
+
+        ; msgbox, %g_Word% `n(%A_LineFile%~%A_LineNumber%)
+        ; MsgBox,% rX["key"] "#" rX["rr"] "#" rX["send"]  "#" rX["code"] "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+
+        ; rX := {key:m1, rr:m2, send:"", lang:"" ,code:""}
+
+		AHKcode2 .= "key := """ rX["key"] """ `n "
+		AHKcode2 .= "Sending := """ escaped_Sending """ `n " ; or use Sending rX["send"]
 		AHKcode2 .= "sendingStrLen := " StrLen(Sending) " `n "
 		
 		AHKcode2 .= "lineStrLen := " StrLen(g_Word) " `n "
