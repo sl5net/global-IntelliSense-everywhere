@@ -157,7 +157,7 @@ global g_doSaveLogFiles := false
 global g_doRunLogFiles := false
 
 global ActionList_isNotAProject_withoutExt  := removesSymbolicLinksFromFileAdress( A_ScriptDir "\..\ActionLists\_globalActionListsGenerated\isNotAProject" )
-global ActionList_isNotAProject  := global ActionList_isNotAProject_withoutExt ".ahk"
+global ActionList_isNotAProject  := ActionList_isNotAProject_withoutExt ".ahk"
 global g_is_correct_list_found := false
 global ActionList
 global ActionListOLD
@@ -497,7 +497,7 @@ MainLoop()
 ;/¯¯¯¯ doubleCtrl double Ctrl ListBoxDisabled¯¯ 181201095644 ¯¯ 01.12.2018 09:56:44 ¯¯\
 #IfWinActive,
 ~ctrl::
-   If (A_TimeSincePriorHotkey < 500) and (A_TimeSincePriorHotkey > 80){ ; 50 was to shourt. i tested it with holding the ctrl key
+   If (A_TimeSincePriorHotkey < 300) and (A_TimeSincePriorHotkey > 80){ ; 50 was to short. i tested it with holding the ctrl key
      toolTip2sec( "Ctrl+Ctrl = toggle listbox`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
     ;
     g_isListBoxDisabled := !g_isListBoxDisabled
@@ -567,8 +567,10 @@ return
 
     ; MsgBox,262208,% diffMilli "=diffMilli :)`n" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ,% ":)`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
     RegExReplace(A_LineFile,".*\\")
+
     ; msgbox,% "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
     ActionListWithoutGenerated_witExt := StrReplace(ActionList_witExt, "._Generated.ahk", "")
+
     while(!clipboard && A_index < 100)
         Sleep, 10
      if(!clipboard){
@@ -842,7 +844,7 @@ SetTitleMatchMode,regEx
 RecomputeMatchesTimer:
    Thread, NoTimers
    if(1 && InStr(A_ComputerName,"SL5"))
-        tooltip,% "RecomputeMatchesTimer: " g_Word "(" StrLen(g_Word) ") (" A_ThisFunc "~" A_LineNumber "~" RegExReplace(A_LineFile,".*\") ")",1,-20
+        tooltip,% "RecomputeMatchesTimer: " g_Word "(" StrLen(g_Word) ") (" A_ThisFunc "~" A_LineNumber "~" RegExReplace(A_LineFile,".*\\") ")",1,-20
 
 ;
 
@@ -1123,7 +1125,7 @@ saveIamAllive:
    FormatTime, timestampyyMMddHHmmss, %A_now%,yyMMddHHmmss
    FormatTime, timestampyyMMddHHmmssPretty, %A_now%,yy:MM:dd HH:mm:ss
    FileDelete, gi-everywhere_programmCounter_LineAndTime.txt
-tooltip,% "FileAppend (" A_ThisFunc "~" A_LineNumber "~" RegExReplace(A_LineFile,".*\") ")"
+tooltip,% "FileAppend (" A_ThisFunc "~" A_LineNumber "~" RegExReplace(A_LineFile,".*\\") ")"
    FileAppend,117_%timestampyyMMddHHmmssPretty%_line_%timestampyyMMddHHmmss% , gi-everywhere_programmCounter_LineAndTime.txt
 return
 
@@ -1135,7 +1137,7 @@ return
 
 ;/¯¯¯¯ checkActionListAHKfile_sizeAndModiTime ¯¯ 181023101000 ¯¯ 23.10.2018 10:10:00 ¯¯\
 checkActionListAHKfile_sizeAndModiTime:
-    if(g_doListBoxFollowMouse)
+    if(!ActionList || g_doListBoxFollowMouse)
         return
 
     ;SetTimer,checkInRegistryChangedActionListAddress,Off
@@ -1144,9 +1146,22 @@ checkActionListAHKfile_sizeAndModiTime:
     if(0 && InStr(A_ComputerName,"SL5"))
         SoundbeepString2Sound("a")
 
+    if(instr(ActionList,".ahk._Generated.ahk._Generated.ahk")){
+        ActionList := StrReplace(ActionList, ".ahk._Generated.ahk._Generated.ahk", ".ahk._Generated.ahk") ; todo: dirty Bugfix 18-12-24_22-32
+    }
+    if(instr(ActionList,"isNotAProject._Generated.ahk")){
+        ActionList := RegExReplace(ActionList, "isNotAProject\._Generated\.ahk", "isNotAProject.ahk._Generated.ahk" ) ; todo: dirty Bugfix 18-12-24_22-16
+    }
     if(!FileExist(ActionList)){
-        if(0 && InStr(A_ComputerName,"SL5")) ; 23.10.2018 10:08 was used
-            msgBox,% " is this deadlink? never uses? (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+        if(1 && InStr(A_ComputerName,"SL5")){ ; 23.10.2018 10:08 was used
+            msg := ">" ActionList "<  `n `n is this deadlink? never used? (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+            ;feedbackMsgBox(msg,msg,1,1)
+            tooltip,% msg,1,1
+            clipboard := ActionList
+            ; ..\ActionLists\_globalActionListsGenerated\isNotAProject._Generated.ahk
+            ; pause
+            sleep,3000
+       }
         ; ActionList := removesSymbolicLinksFromFileAdress( A_ScriptDir "\..\ActionLists\_globalActionListsGenerated\_global.ahk" )
         ActionList := removesSymbolicLinksFromFileAdress( A_ScriptDir "\..\ActionLists\_globalActionListsGenerated\isNotAProject.ahk" )
     }
@@ -1409,13 +1424,17 @@ checkInRegistryChangedActionListAddress:
     if(!fileExist(ActionListNewTemp_withoutExt ".ahk")){ ; addet 01.11.2018 10:48
         m := "not exist."
         if(ActionListNewTemp_RAW){
-            Speak(m "Return in " A_LineNumber ". " ActionListNewTemp_RAW)
+            if(0 && InStr(A_ComputerName,"SL5"))
+                Speak(m "Return in " A_LineNumber ". " ActionListNewTemp_RAW, "PROD")
             ;toolTip2sec(ActionListNewTemp_RAW "`n`n" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") )
             ;clipboard := ActionListNewTemp_withoutExt
             ;Sleep,1000
         }else
-            Speak(m "Return in " A_LineNumber " Registry is empty")
+            Speak(m "Return in " A_LineNumber " Registry is empty", "PROD")
         ActionListNewTemp_withoutExt := ActionList_isNotAProject_withoutExt ; as long as nothing else would be found
+        ; msgbox,%ActionListNewTemp_withoutExt% `n(%A_LineFile%~%A_LineNumber%)
+        if(0 && InStr(A_ComputerName,"SL5"))
+            sleep,1000
     }
     if(!fileExist(ActionListNewTemp_withoutExt ".ahk")){ ; addet 26.4.2018 12:58 becouse of mistourios things
         m =
@@ -1601,23 +1620,32 @@ global-IntelliSense-everywhere-Nightly-Build [G:\fre\git\github\global-IntelliSe
 
     }
     ActionListOLD := ActionList
-    g_ActionListID := getActionListID(ActionList) ; 24.03.2018 23:02
+    ; g_ActionListID := getActionListID(ActionList) ; 24.03.2018 23:02
+    if(!g_ActionListID := getActionListID(ActionList)) ; 24.03.2018 23:02
+	{
+		if(1 && InStr(A_ComputerName,"SL5")) ; prob no error. whey not
+			Speak("ActionListID Not Exist!", "PROD" )  ;  (DEV, TEST, STAGING, PROD),
+}
 
     ;tip=%ActionList% (%ActionListSize%) `n%ActionListOLD% (%ActionListLastSize%) = old `n ( %A_LineFile%~%A_LineNumber% )
     ;ToolTip4sec(tip)
     ;msgbox,%ActionList%  (%A_LineFile%~%A_LineNumber%)
 
     ;/¯¯¯¯ very_happy ¯¯ 181024144052 ¯¯ 24.10.2018 14:40:52 ¯¯\
-    InactivateAll_Suspend_ListBox_WinHook() ; addet 24.10.2018 14:16
+InactivateAll_Suspend_ListBox_WinHook() ; addet 24.10.2018 14:16
 
     ; This is to blank all vars related to matches, ListBox and (optionally) word
-    ClearAllVars(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),True) ; 24.10.2018 14:16 may help listBoxGUI NEVER HANGS TODO:check it
+ClearAllVars(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),True) ; 24.10.2018 14:16 may help listBoxGUI NEVER HANGS TODO:check it
     ; I think it might be handy if the search word is already on the next list. Therefore I commented this line out today 24.10.2018 14:48
     ;\____ very_happy __ 181024144106 __ 24.10.2018 14:41:06 __/
 
+if(0 && InStr(A_ComputerName,"SL5")) ; prob no error. whey not
+	Speak("Now Read ActionList: " ActionList, "PROD" )  ;  (DEV, TEST, STAGING, PROD),
+ParseWordsCount := ReadActionList(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
+
 
         ;if(g_FLAGmsgbox == 0)
-    RecomputeMatches(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")) ; in checkInRegistryChangedActionListAddress
+RecomputeMatches(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")) ; in checkInRegistryChangedActionListAddress
 
     ; gosub onLink2ActionListChangedInRegistry ; ToolTip3sec(A_LineNumber . " " . RegExReplace(A_LineFile,".*\\")  . " " . Last_A_This)
 
@@ -1628,11 +1656,11 @@ global-IntelliSense-everywhere-Nightly-Build [G:\fre\git\github\global-IntelliSe
 
     ; Speak(ActionListFileName " updated for " milliSinceLastRegistryUpdate_sec " Sekunden.") ; <====== interesting for developwers
 
-    EnableKeyboardHotKeys() ; seems needet 01.11.2018 19:04
-    InitializeHotKeys()
-    RecomputeMatches(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
+EnableKeyboardHotKeys() ; seems needet 01.11.2018 19:04
+InitializeHotKeys()
+RecomputeMatches(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
 
-            m =
+m =
             (
 
             g_itsProbablyArecentUpdate = %g_itsProbablyArecentUpdate%
@@ -1669,7 +1697,7 @@ return
 
 
         ;/¯¯¯¯ ActionListNewTemp_withoutExt ¯¯ 181031091909 ¯¯ 31.10.2018 09:19:09 ¯¯\
-        get_Action_Lists_without_Extension_and_send_warning(ActionListNewTemp,log := ""){
+get_Action_Lists_without_Extension_and_send_warning(ActionListNewTemp,log := ""){
         if(1 && InStr(A_ComputerName,"SL5"))
             feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), ActionListNewTemp "`n" log )
             ;msgBox,% log " ==> RETURN `n (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
@@ -1688,6 +1716,10 @@ return
                         msg = :( list read by RegRead NOT exist: `n`n ActionListNewTemp_withoutExt = `n >>%ActionListNewTemp_withoutExt%<< `n = clilpboard = `n
                         msg .= " (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
                         ActionList := ActionList_isNotAProject
+                        if(0 && InStr(A_ComputerName,"SL5")) {
+                            Speak(A_LineNumber ":  isNotAProject","PROD")
+                            sleep,1000
+                        }
                         if(1 && InStr(A_ComputerName,"SL5")){
                             ; msgBox,% ":( ERROR: " msg "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
                             ; feedbackMsgBox(msg,msg,1,1)

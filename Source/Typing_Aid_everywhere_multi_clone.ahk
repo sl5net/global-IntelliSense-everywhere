@@ -15,7 +15,7 @@ g_doSound := false
 
 ;<<<<<<<< g_ignReg <<<< 180224082501 <<<< 24.02.2018 08:25:01 <<<<
 if(InStr(A_ComputerName,"SL5")) ; do ignore nothing
-global g_ignReg := { feedbackMsgBox:{tit:".^", text:".^"} ,          saveLogFiles: {ln:".^", scriptName:"token1803201013", text:"\b(FileCopy too|FileAppend too)\b"},                    sqlQuery: {ln:".^", scriptName:".^", text:".^"},                    hotKeyStuff: {ln:".^", scriptName:".^", text:".^"},                    runLogFile: {ln:".^", scriptName:".^", text:".^"} } ;;;; regEx ignoreConfigList ;;;;
+	global g_ignReg := { feedbackMsgBox:{tit:".^", text:".^"} ,          saveLogFiles: {ln:".^", scriptName:"token1803201013", text:"\b(FileCopy too|FileAppend too)\b"},                    sqlQuery: {ln:".^", scriptName:".^", text:".^"},                    hotKeyStuff: {ln:".^", scriptName:".^", text:".^"},                    runLogFile: {ln:".^", scriptName:".^", text:".^"} } ;;;; regEx ignoreConfigList ;;;;
 ; this "token1803201013" helps sometimes to debug this list byitself
 ; please use it like this:     if( 1<RegExMatch(0 . A_ScriptName, g_ignReg["saveLogFiles"]["scriptName"])	|| ......
         ; OR: the regEx .^ never match anything. if you use .^ i recomand using: if( RegExMatch(ln, g_ignReg["saveLogFiles"]["ln"])	|| ......
@@ -41,7 +41,7 @@ g_doRunLogFiles := false
 
 
 ; Menu, Tray, Icon, shell32.dll, 144
- Menu, Tray, Icon, shell32.dll, 107
+Menu, Tray, Icon, shell32.dll, 107
 ; Menu, Tray, Icon, shell32.dll, 164
 ; Menu, Tray, Icon, shell32.dll, 227
 
@@ -75,10 +75,10 @@ SetTimer, checkCriticalCommandLbl, Off
 SetTimer, tooltipABS, 4000
 ; SetTimer, tooltipABS, 100
 if(False) {
-global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
-   msg := getWelcomeMsg()
-   MsgBox,% msg " from getWelcomeMsg"
+	global g_lineNumberFeedback
+	g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
+	msg := getWelcomeMsg()
+	MsgBox,% msg " from getWelcomeMsg"
 } ;
 isInternMsgTransportIsClipboard := false ; false. then using fileSystem: readfile, include copyfile
 debugIt := true
@@ -89,8 +89,8 @@ baseDir := "." ; the same folder not any special folder
 sourceDir = %baseDir%
 if(!FileExist(sourceDir)){
 ; thats possible to start more inside.
-    baseDir := ""
-    sourceDir :=""
+	baseDir := ""
+	sourceDir :=""
 }
 
 ; too __ cr cre cre
@@ -99,8 +99,8 @@ gi_everywhereSourcePath := sourceDir "\Source"
 gi_everywhereSourcePath := ""
 ActionListDirBase := sourceDir "\..\ActionLists"
 if(0 && InStr(A_ComputerName,"SL5")){
-    ActionListDirBase := "E:\fre\private\HtmlDevelop\AutoHotKey\tools\TypingAid-master\ActionLists"
-    ActionListDirBase := "E:\fre\private\HtmlDevelop\AutoHotKey\global-IntelliSense-everywhere-Nightly-Build-NEU\ActionLists"
+	ActionListDirBase := "E:\fre\private\HtmlDevelop\AutoHotKey\tools\TypingAid-master\ActionLists"
+	ActionListDirBase := "E:\fre\private\HtmlDevelop\AutoHotKey\global-IntelliSense-everywhere-Nightly-Build-NEU\ActionLists"
     ; Oops. dieses is irgendiw leer: E:\fre\private\HtmlDevelop\AutoHotKey\global-IntelliSense-everywhere-Nightly-Build-works-18-10-26_16\ActionLists
 }
 
@@ -121,6 +121,9 @@ checkFilePathExistens1704291222(ActionListDirBase, destinDir, sourceDir, gi_ever
 activeTitle:=""
 ;/¯¯¯¯ while ¯¯ 181023091625 ¯¯ 23.10.2018 09:16:25 ¯¯\
 while(true) {
+	
+	; msgBox,% "" tip "(while(true)" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+	
 ; IfWinNotExist,gi-everywhere - Active
 	DetectHiddenWindows,On ; if this is off it does not find in tray 27.04.2017
 ;<<<<<<<< IfWinNotExist <<<< 180323140132 <<<< 23.03.2018 14:01:32 <<<<
@@ -177,16 +180,33 @@ while(true) {
 	activeClassOLD:=activeClass
 	DetectHiddenText,Off
 	WinGetActiveTitle, activeTitleREAL ; never manipulated name. 12.08.2017 00:10
+	
+	WinGetClass, activeClass, % activeTitleREAL
+	
+	;msgBox,% "" tip "(while(true)" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+	if(false && "simulateAlwaysTheSame Scenario"){
+		activeTitleREAL := "playground | Piratenpad - Google Chrome"
+		activeClass := "Chrome_WidgetWin_1"
+		if(InStr(A_ComputerName,"SL5")) {
+			tip =
+			(
+g_lineNumberFeedback = %g_lineNumberFeedback%
+activeTitleREAL := "playground | Piratenpad - Google Chrome"
+activeClass := "Chrome_WidgetWin_1"
+			)
+			ToolTip2sec(tip,-1,14)
+			; msgBox,% "" tip "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+		}	
+	}
+	
 	activeTitle := activeTitleREAL ; this will manipulated and reused in many other files and includes 12.08.2017 00:11
-
-	WinGetClass, activeClass, % activeTitle
 	activeTitle := RegExReplace(activeTitle, Chr(37) . ".*", "_") ; should be easy to include variable later. some websites have suche long title with the procent in it. dont like it. simplify it. 16.03.2017 18:39
-
+	
 	if(activeTitleREAL && !activeTitle ){
-        tooltip, % "ups???? activeTitle is EMPTY. But activeTitleREAL is valid.  (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+		tooltip, % "ups???? activeTitle is EMPTY. But activeTitleREAL is valid.  (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 		WinWaitNotActive, % activeTitleREAL
 		; WinWaitNotActive, % activeTitleREAL
-    }
+	}
 	activeClass := activeClassManipulation(activeClass, activeTitle)
 	g_tooltipText =
 	filterFileName := "ActionListNameFilter.inc.ahk"
@@ -197,18 +217,19 @@ while(true) {
 		ActiveClass := "_globalActionListsGenerated"
                 ; activeTitle := "_global" ; used till 07.10.2018 10:12 18-10-07_10-12
 		activeTitle := "isNotAProject" ; isNotAProject.ahk ; todo: not very pretty silly. 28.10.2018 11:33
-
+		
 		msg = !fileExist(ActionListFilterPathNEWdir === >%ActionListFilterPathNEWdir%<)  `n '%activeTitle%'=activeTitle , '%activeClass%' = activeClass
 		lineFileName := RegExReplace(A_LineFile, ".*\\([\w\s\.]+)$", "$1")
 		lineFileNameWithoutPATHandEXT := RegExReplace(A_LineFile, ".*\\([\w\s\._]+)\.\w+$", "$1")
-
+		
 		tip=%msg% (%lineFileNameWithoutPATHandEXT%~%A_LineNumber%)
 		
-		if(InStr(A_ComputerName,"SL5"))
+		if(InStr(A_ComputerName,"SL5")) {
 			ToolTip2sec(tip,-1,-40)
-                sleep,1500 ; if this is the case slow down ths script a little bit. temporaily
+			; feedbackMsgBox("Oops. so lets use global.`n ",msg,1,1)
+		}
+		sleep,1500 ; if this is the case slow down ths script a little bit. temporaily
             ; msg=:-O WinExist temp.ahk `n `n %A_LineFile%~%A_LineNumber% ==> continue
-            ;feedbackMsgBox("Oops. so lets use global.`n ",msg,1,1) ;
 		
 		
                 ;global g_doSaveLogFiles
@@ -326,25 +347,35 @@ while(true) {
     ;>>>>>>>>>>>>>> createIfFileNotExist_ActionListNameFilter_InNewDir >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 	
 	ActionListNEW := activeTitle
-
-    if(!ActionListNEW){
-        ;msgbox, % "ERROR activeTitle is EMPTY.  (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+	
+	if(!ActionListNEW){
+        ; msgbox, % "ERROR activeTitle is EMPTY.  (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 		ActiveClass := "_globalActionListsGenerated"
         ; activeTitle := "_global" ; used till 07.10.2018 10:12 18-10-07_10-12
 		ActionListNEW := "isNotAProject" ; isNotAProject.ahk ; todo: not very pretty silly. 28.10.2018 11:33
-    }
-
+		
+	}
+	
 	if(!ActionListNEW := simplifyNameOfActionListNEWstep1( ActionListNEW ))
-	    msgbox,% "ERROR !ActionListNEW (" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
-
-    if(!ActionListNEW)
-        msgbox, % "ERROR ActionListNEW is EMPTY.  (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
-    ActionListNEW = %ActionListNEW%
-    if(!ActionListNEW)
-        msgbox, % "ERROR ActionListNEW is EMPTY.  (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
-
-
-;    lll(A_LineNumber, A_LineFile,"ActionListDirBase= " . ActionListDirBase)
+		msgbox,% "ERROR !ActionListNEW (" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
+	
+	if(!ActionListNEW)
+		msgbox, % "ERROR ActionListNEW is EMPTY.  (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+	ActionListNEW = %ActionListNEW%
+	if(!ActionListNEW)
+		msgbox, % "ERROR ActionListNEW is EMPTY.  (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+	
+	
+	if(0 && InStr(A_ComputerName,"SL5") && inStr(ActionListNEW, "playground" )){
+		lll(A_LineNumber, A_LineFile,"ActionListNEW= " ActionListNEW) 
+		Speak(" ActionListNEW = " ActionListNEW "( from:" A_LineNumber  ")","PROD")
+	}
+	; Speak(" ActionListNEW = " ActionListNEW "( from:" A_LineNumber  ")","PROD")
+	if(0 && InStr(A_ComputerName,"SL5") && inStr(ActionListNEW, "playground" ))
+		tooltip,% ActionListNEW "`n" ActionList "`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+	;msgbox, % ActionListNEW "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+	
+	
 ;    MsgBox, '%ActionListFilterPath%' = ActionListFilterPath  `n '%ActionListDir%' = ActionListDir `n '%ActionListDirBase%' = ActionListDirBase `n '%A_ScriptDir%' = A_ScriptDir `n (line:%A_LineNumber%) `n      ; thats the global wordlost
 	ActionListFilterPath := ActionListDirBase . "\" . filterFileName
 	if(1){ ; absolute path
@@ -393,8 +424,8 @@ continue
 		lll( A_LineNumber, A_ScriptName, msg . "`n 17-07-29_14-18 ")
 		
 		Sleep,%sleepMili%
-if(activeTitleREAL)
-		WinWaitNotActive, % activeTitleREAL,,15
+		if(activeTitleREAL)
+			WinWaitNotActive, % activeTitleREAL,,15
 		continue
 	}
 	if(false && !activeTitle) {
@@ -403,7 +434,7 @@ if(activeTitleREAL)
 		msgbox,!activeTitle exitap (line:`%A_LineNumber`%) `n 17-03-19_14-19
 		exitapp
 	}
-
+	
 	if(!activeClass) {
 		global g_lineNumberFeedback
 		g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
@@ -412,9 +443,9 @@ if(activeTitleREAL)
 		sleep,1703
 		reload
 	}
-
+	
 	;
-
+	
 ;<<<<<<<<<<<<< demoData =  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 	activeTitle := RegExReplace(activeTitle, "m)\n.*", "") ; title should never is multioline. this proof is hoprefulle redundatnd. 15.02.2018
 	ActionListOLD := RegExReplace(ActionListOLD, "m)\n.*", "") ; never is multioline. this proof is hoprefulle redundatnd. 15.02.2018
@@ -431,7 +462,7 @@ ActionListNEW = %activeTitle%
 )
 ;>>>>>>>>>>>>>>>  demoData =  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 ;>>>>>>>>>>>>>>>  demoData =  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
+	
 	
 	
 	ahkSource := ";" . "this file was generated by " . A_ScriptName  . " `n"
@@ -453,7 +484,6 @@ ActionListNEW = %activeTitle%
 	ahkSource .= demoData  . " `n"
     ; ahkSource .= "#" . "Include, " . ActionListFilterPath . "  `; thats the subfolder  wordlost inside class `n"
 	
-	
 	ahkSource .= "ActionListFilterPath2 = " . ActionListFilterPath2 . " `n"
 	ahkSource .= "ActionListFilterPath2Abs = " . ActionListFilterPath2Abs . " `n"
 	ahkSource .= "fileEx := FileExist ( ActionListFilterPath2Abs ) `n"
@@ -465,25 +495,25 @@ ActionListNEW = %activeTitle%
 	; ahkSource .= "Clipboard = `%message`%  `n "
 	; ahkSource .= "Msgbox,4 , :( ActionListNameFilter.inc.ahk not found , `%message`% , 4  `n "
 	; ahkSource .= "tooltip,:( ActionListNameFilter.inc.ahk not found : `%message`% , 1,1  `n "
-
+	
 	ahkSource .= "Sleep, 4000 `n"
 	ahkSource .= "ExitApp  `n"
 	ahkSource .= "} `n"
 	ahkSource .= "#" . "Include *i " . ActionListFilterPath2Abs . "  `; thats the subfolder  wordlost inside class `n"
  ;   ahkSource .= "#" . "Include *i " . ActionListFilterPath2 . "  `; thats the subfolder  wordlost inside class `n" 
-
-
-    if(!ActionListNEW){
-        global g_lineNumberFeedback
-        g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
-
-        tooltip,exitapp !ActionListNEW exitap (%g_lineNumberFeedback%) `n
-        msgbox,exitapp !ActionListNEW exitap (%g_lineNumberFeedback%) `n 111222111
-        sleep,8888
-        exitapp
-    }
-
-
+	
+	
+	if(!ActionListNEW){
+		global g_lineNumberFeedback
+		g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
+		
+		tooltip,exitapp !ActionListNEW exitap (%g_lineNumberFeedback%) `n
+		msgbox,exitapp !ActionListNEW exitap (%g_lineNumberFeedback%) `n 111222111
+		sleep,8888
+		exitapp
+	}
+	
+	
 	ahkSource .= "varInjects1 := mvarInjects(ActionListDir, ActionListNEW, activeClass, activeTitle) `n"
     ; ahkSource .= "ActionListDir = " . ActionListDir  . " `n"
 	ahkSource .= "ActionListOLD = " ActionListOLD  " `n"
@@ -542,7 +572,8 @@ if(1 && l1 > l2){ ; proof it test it
     tooltip,`% ActionList " 12is saved (l1 > l2) (%A_LineFile%~%A_LineNumber%) (" RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ") ---- " fileContent
 }
 
-if(1){
+if(0){ ; diesabled 24.12.2018 13:36 ... so its not possible to update lists without icludes
+    ; inside of : while(true)
     ; dirty bug fix ._Generated.txt 04.03.2018 10:44
 
     postFixGenerated := "._Generated.ahk"
@@ -552,10 +583,12 @@ if(1){
     If(!itsAGeneratedList && !FileExist( ActionList "._Generated.ahk")) ; dirty bugFix TODO: prettyFy it
     {
       ActionList .= "._Generated.ahk" ; inside the while(true)
+      tooltip, token=1812241329 (from: `%A_LineFile`%~`%A_LineNumber`%)
+      sleep,3000
     }
   ; msgbox, `% ActionList
 }
-    if(!RegExMatch(ActionList,"created_token_17-08-10_16-17")) ; todo: whey control here? wrong place. quck dirty 25.03.2018 01:36
+    if(1 && !RegExMatch(ActionList,"created_token_17-08-10_16-17")) ; todo: whey control here? wrong place. quck dirty 25.03.2018 01:36
         setRegistry_ActionList( ActionList ) ; old scool. for compatibiliti thinks 02.03.2018 17:10)
 
     RegRead, CreatedDir, HKEY_CURRENT_USER, SOFTWARE\sl5net, CreatedDir
@@ -567,9 +600,7 @@ if(1){
 #Include,RegWrite181031.ahk
 }
 ) ; endOf temp
-
-;
-
+	
 	ahkSource .= "`n" temp
 	
     ; following lines are debrecated
@@ -600,7 +631,17 @@ if(1){
 	
 	IfWinNotExist,temp.ahk
 	{
+		
+		if(0 && InStr(A_ComputerName,"SL5") && inStr(ActionListNEW, "playground" ))
+			tooltip,% ActionListNEW "`n" ActionList "`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+		
 		FileWriteAndRun( ahkSource , "temp.ahk" ) ; TODO: wozu ? 13.08.2017 10:52
+		
+		if(0 && InStr(A_ComputerName,"SL5") && inStr(ActionListNEW, "playground" )){
+			tooltip,% ActionListNEW "`n" ActionList "`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")",1,10
+			Pause,On
+		}
+		
         ; DynaRun(ahkSource) ; this line prducing erros. if u use FileWriteAndRun it works.
 	} else {
 		Tooltip, WinWaitClose   temp.ahk `n (from: %A_LineFile%~%A_LineNumber%)
@@ -608,18 +649,18 @@ if(1){
 		Tooltip,
 		IfWinExist,temp.ahk
 		{
- 			msg=:-O WinExist temp.ahk `n `n %A_LineFile%~%A_LineNumber% ==> continue
-            SetTitleMatchMode,2
+			msg=:-O WinExist temp.ahk `n `n %A_LineFile%~%A_LineNumber% ==> continue
+			SetTitleMatchMode,2
             ; if(!WinExist(":Oops", msg))
-            if(1 || !InStr(A_ComputerName,"SL5") ){
-                winclose,temp.ahk
-            }
-
-            if(1 && InStr(A_ComputerName,"SL5") ){
-                if(!WinExist(":Oops"))
-                    feedbackMsgBox("Oops ",msg,1,1)
+			if(1 || !InStr(A_ComputerName,"SL5") ){
+				winclose,temp.ahk
 			}
-            sleep,2000
+			
+			if(1 && InStr(A_ComputerName,"SL5") ){
+				if(!WinExist(":Oops"))
+					feedbackMsgBox("Oops ",msg,1,1)
+			}
+			sleep,2000
 			continue
 		}
 	}
@@ -666,11 +707,21 @@ if(1){
 	
 	rungi_everywhereAHKifNotExist( gi_everywhereAHK )
 	
-	if(false){
+if(false){	
+	RegRead, ALinfoOnley, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList
+	RegRead, ALinfoOnleyNEW, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionListNEW
+	; ToolTip5sec( "RegRead=.........  " ALinfoOnley "`n" ALinfoOnleyNEW "`n`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")", 10,300 )
+	; Sleep, 1000
+	;lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,ALinfoOnley "`n end of while(true)`n '" . activeTitle . "' = activeTitle `n  time:" . timestampHHmmss)
+	}
+	if( false && InStr(ALinfoOnley,"Piratenpad")){
 		FormatTime, timestampHHmmss, %A_now%,HH:mm:ss
-		global g_doSaveLogFiles
 		
-		lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,regEx . " end of while(true)`n '" . activeTitle . "' = activeTitle `n  time:" . timestampHHmmss)
+		lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,ALinfoOnley "`n`n end of while(true)`n '" . activeTitle . "' = activeTitle `n  time:" . timestampHHmmss)
+		ToolTip,% A_ThisFunc ":" A_LineNumber " , " A_LineFile 
+		; 
+		Speak(A_lineNumber " " A_ThisFunc,"PROD")
+		Pause,on
 	}
 } ; end of while(true)
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -688,29 +739,29 @@ return  ; probably redundant. its more secure if we do that.
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 createGLOBALActionListNameFilterIfNotExist(ActionListDirBase ) {
-global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
-   isDebuggingOverWriteAlwayUserUpdatesWithThisScript := false
-   filterFileName := "ActionListNameFilter.inc.ahk"
- ActionListFilterPath := ActionListDirBase . "\" . filterFileName 
- if( isDebuggingOverWriteAlwayUserUpdatesWithThisScript ) {
-global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
-   FormatTime, timestamp, %A_now%,yy-MM-dd_HH-mm
-    ActionListFilterPathBackup := ActionListDirBase . "\" . timestamp . "_" . filterFileName 
-
-
-lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,ActionListFilterPath " FileCopy too " ActionListFilterPathBackup)
-   FileCopy, % ActionListFilterPath, % ActionListFilterPathBackup
-   FileDelete, % ActionListFilterPath
-   Sleep,100
-} 
- if(!fileExist(ActionListFilterPath)) {
-global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
+	global g_lineNumberFeedback
+	g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
+	isDebuggingOverWriteAlwayUserUpdatesWithThisScript := false
+	filterFileName := "ActionListNameFilter.inc.ahk"
+	ActionListFilterPath := ActionListDirBase . "\" . filterFileName 
+	if( isDebuggingOverWriteAlwayUserUpdatesWithThisScript ) {
+		global g_lineNumberFeedback
+		g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
+		FormatTime, timestamp, %A_now%,yy-MM-dd_HH-mm
+		ActionListFilterPathBackup := ActionListDirBase . "\" . timestamp . "_" . filterFileName 
+		
+		
+		lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,ActionListFilterPath " FileCopy too " ActionListFilterPathBackup)
+		FileCopy, % ActionListFilterPath, % ActionListFilterPathBackup
+		FileDelete, % ActionListFilterPath
+		Sleep,100
+	} 
+	if(!fileExist(ActionListFilterPath)) {
+		global g_lineNumberFeedback
+		g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 ; the following gives no errors
-
-ahkCodeInsideFile =
+		
+		ahkCodeInsideFile =
 (
 `; GLOBAL FILTER / ROUTING
 `; this file was generated %A_Now% by: `n`;  %A_ScriptFullPath% 
@@ -801,14 +852,14 @@ global g_lineNumberFeedback
 )
  ; MsgBox, % RegExReplace( " -- - -___ _ _ _ __", "[_\s]{2,}" , "_"`)  
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
- lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"FileAppend too " ActionListFilterPath)
+		lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"FileAppend too " ActionListFilterPath)
 ;msgbox, % ActionListFilterPath " asdf77778"
-tooltip,% "FileAppend (" A_ThisFunc "~" A_LineNumber "~" RegExReplace(A_LineFile,".*\") ")"
-if(1 && InStr(A_ComputerName,"SL5") )
- RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, FileAppend , % A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
-FileAppend,  % ahkCodeInsideFile , % ActionListFilterPath ; ActionListNameFilter.inc.ahk
-} 
-return 
+		tooltip,% "FileAppend (" A_ThisFunc "~" A_LineNumber "~" RegExReplace(A_LineFile,".*\") ")"
+		if(1 && InStr(A_ComputerName,"SL5") )
+			RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, FileAppend , % A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+		FileAppend,  % ahkCodeInsideFile , % ActionListFilterPath ; ActionListNameFilter.inc.ahk
+	} 
+	return 
 }
 
 
@@ -821,122 +872,122 @@ return
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 getActionListNEWfromPluginIfExist(ActionListDir, ActionListNEW, activeClass, activeTitle   ) {
-global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
-   m = '%ActionListNEW%' = ActionListNEW  `n '%ActionListDir%' = ActionListDir  `n  '%activeTitle%' = activeTitle  `n 
-global g_doSaveLogFiles
-
-lll(A_LineNumber, RegExReplace(A_LineFile,".*\\") ,m)
-
-   lineB := "<<<<<<<<<<<<<<<<<<<<<<`n"
-   lineE := ";>>>>>>>>>>>>>>>>>>>>>>`n"
-
- ActionListFilterPath := ActionListDir . "\ActionListNameFilter.inc.ahk"
- if(!fileExist(ActionListFilterPath)) {
-   ahkCodeInsideFile := getAhkCodeInsideFile(ActionListDir, ActionListFilterPath )
-tooltip,% "FileAppend (" A_ThisFunc "~" A_LineNumber "~" RegExReplace(A_LineFile,".*\") ")"
-		    if(1 && InStr(A_ComputerName,"SL5") )
-   RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, FileAppend , % A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
-FileAppend,  % ahkCodeInsideFile , % ActionListFilterPath ; ActionListNameFilter.inc.ahk
-
-lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"FileAppend too " ActionListFilterPath)
-   if(!FileExist(ActionListFilterPath))
-      MsgBox, :-( `n !FileExist(ActionListFilterPath)) `n  (line:%A_LineNumber%)  '%ActionListFilterPath%' = ActionListFilterPath  `n (line:%A_LineNumber%) `n 
-} else
-   FileRead, ahkCodeInsideFile, % ActionListFilterPath
+	global g_lineNumberFeedback
+	g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
+	m = '%ActionListNEW%' = ActionListNEW  `n '%ActionListDir%' = ActionListDir  `n  '%activeTitle%' = activeTitle  `n 
+	global g_doSaveLogFiles
+	
+	lll(A_LineNumber, RegExReplace(A_LineFile,".*\\") ,m)
+	
+	lineB := "<<<<<<<<<<<<<<<<<<<<<<`n"
+	lineE := ";>>>>>>>>>>>>>>>>>>>>>>`n"
+	
+	ActionListFilterPath := ActionListDir . "\ActionListNameFilter.inc.ahk"
+	if(!fileExist(ActionListFilterPath)) {
+		ahkCodeInsideFile := getAhkCodeInsideFile(ActionListDir, ActionListFilterPath )
+		tooltip,% "FileAppend (" A_ThisFunc "~" A_LineNumber "~" RegExReplace(A_LineFile,".*\") ")"
+		if(1 && InStr(A_ComputerName,"SL5") )
+			RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, FileAppend , % A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+		FileAppend,  % ahkCodeInsideFile , % ActionListFilterPath ; ActionListNameFilter.inc.ahk
+		
+		lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"FileAppend too " ActionListFilterPath)
+		if(!FileExist(ActionListFilterPath))
+			MsgBox, :-( `n !FileExist(ActionListFilterPath)) `n  (line:%A_LineNumber%)  '%ActionListFilterPath%' = ActionListFilterPath  `n (line:%A_LineNumber%) `n 
+	} else
+		FileRead, ahkCodeInsideFile, % ActionListFilterPath
 ; ahkCode := encodeAHKchars(ahkCode)
-varInjects := mvarInjects(ActionListDir, ActionListNEW, activeClass, activeTitle)
-ahkCode := RegExReplace( ahkCodeInsideFile , "`;\s*dontDeleteThisPlaceholder" , varInjects )  ; dontDeleteThisPlaceholder is definde since 17-03-06_10-25 inside the global filter
-
- ClipboardBackup = 17-03-05_17-17
+	varInjects := mvarInjects(ActionListDir, ActionListNEW, activeClass, activeTitle)
+	ahkCode := RegExReplace( ahkCodeInsideFile , "`;\s*dontDeleteThisPlaceholder" , varInjects )  ; dontDeleteThisPlaceholder is definde since 17-03-06_10-25 inside the global filter
+	
+	ClipboardBackup = 17-03-05_17-17
  ; ClipboardBackup = %Clipboard% ; old destrois eventually bin clipboards
- ClipboardBackup := ClipboardAll
- if(ClipboardBackup  == "17-03-05_17-17")
-   MsgBox, :(  (line:%A_LineNumber%)  17-04-02_14-52
-   
-   m = '%ActionListNEW%' = ActionListNEW  `n '%activeTitle%' = activeTitle  `n 
-global g_doSaveLogFiles
-
-lll(A_LineNumber, RegExReplace(A_LineFile,".*\\") , "`n" . m)
-if(!ActionListNEW := DynaRunGetClipboard(ahkCode))
-    msgbox,% "ERROR !ActionListNEW (" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
-
-   m = '%ActionListNEW%' = ActionListNEW  `n '%activeTitle%' = activeTitle  `n 
-global g_doSaveLogFiles
-
-lll(A_LineNumber, RegExReplace(A_LineFile,".*\\") , "`n" . m)
-
-worlistExtension := SubStr(ActionListNEW, -3)
-if( worlistExtension  <> ".ahk" ) {
-global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
-   m = '%ActionListNEW%' = ActionListNEW  `n 
-      ToolTip5sec(A_LineNumber . "THATS VERY QUICK AND DIRTY AND MAYBEEEE IT HALPS NOT!!!! " . RegExReplace(A_LineFile,".*\\")  . " " . m) ;
+	ClipboardBackup := ClipboardAll
+	if(ClipboardBackup  == "17-03-05_17-17")
+		MsgBox, :(  (line:%A_LineNumber%)  17-04-02_14-52
+	
+	m = '%ActionListNEW%' = ActionListNEW  `n '%activeTitle%' = activeTitle  `n 
+	global g_doSaveLogFiles
+	
+	lll(A_LineNumber, RegExReplace(A_LineFile,".*\\") , "`n" . m)
+	if(!ActionListNEW := DynaRunGetClipboard(ahkCode))
+		msgbox,% "ERROR !ActionListNEW (" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
+	
+	m = '%ActionListNEW%' = ActionListNEW  `n '%activeTitle%' = activeTitle  `n 
+	global g_doSaveLogFiles
+	
+	lll(A_LineNumber, RegExReplace(A_LineFile,".*\\") , "`n" . m)
+	
+	worlistExtension := SubStr(ActionListNEW, -3)
+	if( worlistExtension  <> ".ahk" ) {
+		global g_lineNumberFeedback
+		g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
+		m = '%ActionListNEW%' = ActionListNEW  `n 
+		ToolTip5sec(A_LineNumber . "THATS VERY QUICK AND DIRTY AND MAYBEEEE IT HALPS NOT!!!! " . RegExReplace(A_LineFile,".*\\")  . " " . m) ;
 ; return,  "superSimple.txt"
       ; ################################################
       ; ################################################
       ; ################################################
       ; ################################################
-
-   ClipboardBackup1703052115 = %Clipboard%
+		
+		ClipboardBackup1703052115 = %Clipboard%
    ;~ clipboard := ActionListFilterPath
-   disableCopyQ() ; enableCopyQ() ;
-   clipboard := varInjects
-   
-   msg = a bug in your  `n %ActionListFilterPath%  `n this path is now copied to your Clipboard (line:%A_LineNumber%) `n ? `n '%ClipboardBackup%' = ClipboardBackup  `n 
-   if( ClipboardBackup == ActionListNEW)
-      m2 = ClipboardBackup == ActionListNEW == '%ActionListNEW%'  <=== thats bad :-( `n 
-   m3 := " StrLen(ActionListNEW)=" . StrLen(ActionListNEW) . "`n"
-   MsgBox, :-( ERROR: (line:%A_LineNumber%)  `n%m2% %m3% worlistExtension != .ahk ='%worlistExtension%' `n ActionListNEW='%ActionListNEW%'   `n`ncode=`n %lineB%%ahkCode% `n%lineE%  `n  %msg% `n (line:%A_LineNumber%)
-   Clipboard = %ClipboardBackup1703052115%
-   enableCopyQ() ; enableCopyQ() ;
-}
-
-if(false)
-Loop,20
- {
-global g_lineNumberFeedback
- g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
-Clipboard = %ClipboardBackup%
-cExtension := SubStr(Clipboard, -3)
-if( worlistExtension  <> ".ahk" )
-   break
-if( Clipboard == ClipboardBackup )
-   break
-Sleep,50
-}
-
-
-
+		disableCopyQ() ; enableCopyQ() ;
+		clipboard := varInjects
+		
+		msg = a bug in your  `n %ActionListFilterPath%  `n this path is now copied to your Clipboard (line:%A_LineNumber%) `n ? `n '%ClipboardBackup%' = ClipboardBackup  `n 
+		if( ClipboardBackup == ActionListNEW)
+			m2 = ClipboardBackup == ActionListNEW == '%ActionListNEW%'  <=== thats bad :-( `n 
+		m3 := " StrLen(ActionListNEW)=" . StrLen(ActionListNEW) . "`n"
+		MsgBox, :-( ERROR: (line:%A_LineNumber%)  `n%m2% %m3% worlistExtension != .ahk ='%worlistExtension%' `n ActionListNEW='%ActionListNEW%'   `n`ncode=`n %lineB%%ahkCode% `n%lineE%  `n  %msg% `n (line:%A_LineNumber%)
+		Clipboard = %ClipboardBackup1703052115%
+		enableCopyQ() ; enableCopyQ() ;
+	}
+	
+	if(false)
+		Loop,20
+		{
+			global g_lineNumberFeedback
+			g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
+			Clipboard = %ClipboardBackup%
+			cExtension := SubStr(Clipboard, -3)
+			if( worlistExtension  <> ".ahk" )
+				break
+			if( Clipboard == ClipboardBackup )
+				break
+			Sleep,50
+		}
+	
+	
+	
 ; Clipboard := ActionListFilterPath
 ; MsgBox, '%ahkCode%' = ahkCode  `n  `n '%ahkCodeInsideFile%' = ahkCodeInsideFile  `n  `n  '%ActionListNEW%' = ActionListNEW  `n (line:%A_LineNumber%) `n 
 ; MsgBox, '%ahkCode%' = ahkCode  `n  `n '%ahkCodeInsideFile%' = ahkCodeInsideFile  `n  `n  '%ActionListNEW%' = ActionListNEW  `n (line:%A_LineNumber%) `n 
 ;~ ToolTip, %ahkCode% , 10,10
 ;~ Sleep,1000
-return ActionListNEW
+	return ActionListNEW
 }
 
 
 
 ;/¯¯¯¯ createIfFileNotExist_ActionListNameFilter_InNewDir ¯¯ 181023081846 ¯¯ 23.10.2018 08:18:46 ¯¯\
 createIfFileNotExist_ActionListNameFilter_InNewDir(ActionListDir, ActionListFilterPath,ahkCode, isInternMsgTransportIsClipboard){
-    global g_lineNumberFeedback
-    if(FileExist( ActionListFilterPath ) )
-        return true
-    g_lineNumberFeedback  := "(" A_ThisFunc "~" A_LineNumber "~" RegExReplace(A_LineFile,".*\\") ")"
-    if(!FileExist(ActionListDir)){
-        global g_lineNumberFeedback
-        g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
-        FileCreateDir, % ActionListDir
+	global g_lineNumberFeedback
+	if(FileExist( ActionListFilterPath ) )
+		return true
+	g_lineNumberFeedback  := "(" A_ThisFunc "~" A_LineNumber "~" RegExReplace(A_LineFile,".*\\") ")"
+	if(!FileExist(ActionListDir)){
+		global g_lineNumberFeedback
+		g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
+		FileCreateDir, % ActionListDir
         ;~ FileAppend, , % ActionListFilterPath
-    }
-    g_lineNumberFeedback  := "(" A_ThisFunc "~" A_LineNumber "~" RegExReplace(A_LineFile,".*\\") ")"
-    if(1 && InStr(A_ComputerName,"SL5"))
-        tooltip,% "FileAppend " g_lineNumberFeedback
-        		    if(1 && InStr(A_ComputerName,"SL5") )
-    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, FileAppend , % A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
-FileAppend, % ahkCode , % ActionListFilterPath
-return true
+	}
+	g_lineNumberFeedback  := "(" A_ThisFunc "~" A_LineNumber "~" RegExReplace(A_LineFile,".*\\") ")"
+	if(1 && InStr(A_ComputerName,"SL5"))
+		tooltip,% "FileAppend " g_lineNumberFeedback
+	if(1 && InStr(A_ComputerName,"SL5") )
+		RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, FileAppend , % A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+	FileAppend, % ahkCode , % ActionListFilterPath
+	return true
 }
 ;\____ createIfFileNotExist_ActionListNameFilter_InNewDir __ 181023081850 __ 23.10.2018 08:18:50 __/
 
@@ -955,31 +1006,31 @@ tooltipABS:
 ;    Reload ; todo: quick and dirty ... script sometimes hangs 22.03.2017 11:42 17-03-22_11-42
 ; IfGreater, A_TimeIdle, 600000, MsgBox, The last keyboard or mouse activity was at least 10 minutes ago.
 if(!do_g_tooltipText)
-    return
-    if(!g_tooltipText)
-      Return
-    if(dog_lineNumberFeedback)
-        tooltip, % "X " g_tooltipText "`n" g_lineNumberFeedback , 110 , 122
-    else
-        tooltip, % "X " . g_tooltipText , 110 , 122
+	return
+if(!g_tooltipText)
+	Return
+if(dog_lineNumberFeedback)
+	tooltip, % "X " g_tooltipText "`n" g_lineNumberFeedback , 110 , 122
+else
+	tooltip, % "X " . g_tooltipText , 110 , 122
 
-    if(!Xtooltip) {
-        SetTitleMatchMode, 2
+if(!Xtooltip) {
+	SetTitleMatchMode, 2
 ;~         IfWinActive, % A_ScriptName
-            WinGetPos, Xtooltip, Ytooltip, W, H, ahk_class tooltips_class32
-    }
-    else
-        WinMove, ahk_class tooltips_class32, , % abs(Xtooltip), % abs(Ytooltip) ; thats the only chance to move tooltip to absolute sceen position.
+	WinGetPos, Xtooltip, Ytooltip, W, H, ahk_class tooltips_class32
+}
+else
+	WinMove, ahk_class tooltips_class32, , % abs(Xtooltip), % abs(Ytooltip) ; thats the only chance to move tooltip to absolute sceen position.
 
 ~LButton::
  ; tooltip close by clicking
-    WinGetPos, X, Y, W, H, ahk_class tooltips_class32
-    MouseGetPos, mX, mY
-    if (mX >= X && mX <= (X+W)) && (mY >= Y && mY <= (Y+H)){
-        g_tooltipText:=
-		ToolTip,
-    }
-    return
+WinGetPos, X, Y, W, H, ahk_class tooltips_class32
+MouseGetPos, mX, mY
+if (mX >= X && mX <= (X+W)) && (mY >= Y && mY <= (Y+H)){
+	g_tooltipText:=
+	ToolTip,
+}
+return
 
 Return
 
@@ -990,131 +1041,131 @@ Return
 ^+p:: ; pause
     tooltip,pause `n (from: %A_LineFile%~%A_LineNumber%)
     ; msgbox,pause `n (from: %A_LineFile%~%A_LineNumber%)
-    pause
+    pause ; ^+p:: ; pause
 return
 
 
 AbsolutePath(AbsolutPath, RelativePath, s="\") {
     ; its actually not used inside of this script 24.03.2017 05:27 ,
-    return
-    len := InStr(AbsolutPath, s, "", InStr(AbsolutPath, s . s) + 2) - 1   ;get server or drive string length
-    pr := SubStr(AbsolutPath, 1, len)                                     ;get server or drive name
-    AbsolutPath := SubStr(AbsolutPath, len + 1)                           ;remove server or drive from AbsolutPath
-    If InStr(AbsolutPath, s, "", 0) = StrLen(AbsolutPath)                 ;remove last \ from AbsolutPath if any
-        StringTrimRight, AbsolutPath, AbsolutPath, 1
-    If InStr(RelativePath, s, "", 0) = StrLen(RelativePath)               ;remove last \ from RelativePath if any
-        StringTrimRight, RelativePath, RelativePath, 1
-    If InStr(RelativePath, s) = 1                                         ;when first char is \ go to AbsolutPath of server or drive
-        AbsolutPath := "", RelativePath := SubStr(RelativePath, 2)            ;set AbsolutPath to nothing and remove one char from RelativePath
-    Else If InStr(RelativePath,"." s) = 1                                 ;when first two chars are .\ add to current AbsolutPath directory
-        RelativePath := SubStr(RelativePath, 3)                               ;remove two chars from RelativePath
-    Else {                                                                ;otherwise
-        StringReplace, RelativePath, RelativePath, ..%s%, , UseErrorLevel     ;remove all ..\ from RelativePath
-        Loop, %ErrorLevel%                                                    ;for all ..\
-            AbsolutPath := SubStr(AbsolutPath, 1, InStr(AbsolutPath, s, "", 0) - 1)  ;remove one folder from AbsolutPath
-      }
-    Return, pr . AbsolutPath . s . RelativePath                             ;concatenate server + AbsolutPath + separator + RelativePath
-  }
+	return
+	len := InStr(AbsolutPath, s, "", InStr(AbsolutPath, s . s) + 2) - 1   ;get server or drive string length
+	pr := SubStr(AbsolutPath, 1, len)                                     ;get server or drive name
+	AbsolutPath := SubStr(AbsolutPath, len + 1)                           ;remove server or drive from AbsolutPath
+	If InStr(AbsolutPath, s, "", 0) = StrLen(AbsolutPath)                 ;remove last \ from AbsolutPath if any
+		StringTrimRight, AbsolutPath, AbsolutPath, 1
+	If InStr(RelativePath, s, "", 0) = StrLen(RelativePath)               ;remove last \ from RelativePath if any
+		StringTrimRight, RelativePath, RelativePath, 1
+	If InStr(RelativePath, s) = 1                                         ;when first char is \ go to AbsolutPath of server or drive
+		AbsolutPath := "", RelativePath := SubStr(RelativePath, 2)            ;set AbsolutPath to nothing and remove one char from RelativePath
+	Else If InStr(RelativePath,"." s) = 1                                 ;when first two chars are .\ add to current AbsolutPath directory
+		RelativePath := SubStr(RelativePath, 3)                               ;remove two chars from RelativePath
+	Else {                                                                ;otherwise
+		StringReplace, RelativePath, RelativePath, ..%s%, , UseErrorLevel     ;remove all ..\ from RelativePath
+		Loop, %ErrorLevel%                                                    ;for all ..\
+			AbsolutPath := SubStr(AbsolutPath, 1, InStr(AbsolutPath, s, "", 0) - 1)  ;remove one folder from AbsolutPath
+	}
+	Return, pr . AbsolutPath . s . RelativePath                             ;concatenate server + AbsolutPath + separator + RelativePath
+}
 
 
-  ListGlobalVars()  {
+ListGlobalVars()  {
         ; its actually not used inside of this script 24.03.2017 05:27 ,
-    return
-
-      static hwndEdit, pSFW, pSW, bkpSFW, bkpSW
+	return
+	
+	static hwndEdit, pSFW, pSW, bkpSFW, bkpSW
 ; https://autohotkey.com/board/topic/20925-listvars/#entry156570
-      if !hwndEdit
-      {
-          dhw := A_DetectHiddenWindows
-          DetectHiddenWindows, On
-          Process, Exist
-          ControlGet, hwndEdit, Hwnd,, Edit1, ahk_class AutoHotkey ahk_pid %ErrorLevel%
-          DetectHiddenWindows, %dhw%
-
-          astr := A_IsUnicode ? "astr":"str"
-          ptr := A_PtrSize=8 ? "ptr":"uint"
-          hmod := DllCall("GetModuleHandle", "str", "user32.dll", ptr)
-          pSFW := DllCall("GetProcAddress", ptr, hmod, astr, "SetForegroundWindow", ptr)
-          pSW := DllCall("GetProcAddress", ptr, hmod, astr, "ShowWindow", ptr)
-          DllCall("VirtualProtect", ptr, pSFW, ptr, 8, "uint", 0x40, "uint*", 0)
-          DllCall("VirtualProtect", ptr, pSW, ptr, 8, "uint", 0x40, "uint*", 0)
-          bkpSFW := NumGet(pSFW+0, 0, "int64")
-          bkpSW := NumGet(pSW+0, 0, "int64")
-      }
-
-      if (A_PtrSize=8) {
-          NumPut(0x0000C300000001B8, pSFW+0, 0, "int64")  ; return TRUE
-          NumPut(0x0000C300000001B8, pSW+0, 0, "int64")   ; return TRUE
-      } else {
-          NumPut(0x0004C200000001B8, pSFW+0, 0, "int64")  ; return TRUE
-          NumPut(0x0008C200000001B8, pSW+0, 0, "int64")   ; return TRUE
-      }
-
-      ListVars
-
-      NumPut(bkpSFW, pSFW+0, 0, "int64")
-      NumPut(bkpSW, pSW+0, 0, "int64")
-
-      ControlGetText, text,, ahk_id %hwndEdit%
-
-      RegExMatch(text, "sm)(?<=^Global Variables \(alphabetical\)`r`n-{50}`r`n).*", text)
-      return text
-  }
+	if !hwndEdit
+	{
+		dhw := A_DetectHiddenWindows
+		DetectHiddenWindows, On
+		Process, Exist
+		ControlGet, hwndEdit, Hwnd,, Edit1, ahk_class AutoHotkey ahk_pid %ErrorLevel%
+		DetectHiddenWindows, %dhw%
+		
+		astr := A_IsUnicode ? "astr":"str"
+		ptr := A_PtrSize=8 ? "ptr":"uint"
+		hmod := DllCall("GetModuleHandle", "str", "user32.dll", ptr)
+		pSFW := DllCall("GetProcAddress", ptr, hmod, astr, "SetForegroundWindow", ptr)
+		pSW := DllCall("GetProcAddress", ptr, hmod, astr, "ShowWindow", ptr)
+		DllCall("VirtualProtect", ptr, pSFW, ptr, 8, "uint", 0x40, "uint*", 0)
+		DllCall("VirtualProtect", ptr, pSW, ptr, 8, "uint", 0x40, "uint*", 0)
+		bkpSFW := NumGet(pSFW+0, 0, "int64")
+		bkpSW := NumGet(pSW+0, 0, "int64")
+	}
+	
+	if (A_PtrSize=8) {
+		NumPut(0x0000C300000001B8, pSFW+0, 0, "int64")  ; return TRUE
+		NumPut(0x0000C300000001B8, pSW+0, 0, "int64")   ; return TRUE
+	} else {
+		NumPut(0x0004C200000001B8, pSFW+0, 0, "int64")  ; return TRUE
+		NumPut(0x0008C200000001B8, pSW+0, 0, "int64")   ; return TRUE
+	}
+	
+	ListVars
+	
+	NumPut(bkpSFW, pSFW+0, 0, "int64")
+	NumPut(bkpSW, pSW+0, 0, "int64")
+	
+	ControlGetText, text,, ahk_id %hwndEdit%
+	
+	RegExMatch(text, "sm)(?<=^Global Variables \(alphabetical\)`r`n-{50}`r`n).*", text)
+	return text
+}
 
 checkCriticalCommandLbl:
-    checkCriticalCommand()
+checkCriticalCommand()
 Return
 
 checkCriticalCommand(sec := 2 ){
 ;return
-
-global g_nextCriticalCommandString
+	
+	global g_nextCriticalCommandString
 ;        g_nextCriticalCommandString :="327:WinWaitNotActive, %activeTitle%" ; checkCriticalCommand()
-        global g_nextCriticalCommandTimeIdle ; checkCriticalCommand() WinWaitNotActive, %activeTitle% %activeClass%
-
-if(0){ ; check if this is arrived 30.04.2017 09:43
-    Msgbox,n (%A_LineFile%~%A_LineNumber%) :-)
-    ExitApp
-}
+	global g_nextCriticalCommandTimeIdle ; checkCriticalCommand() WinWaitNotActive, %activeTitle% %activeClass%
+	
+	if(0){ ; check if this is arrived 30.04.2017 09:43
+		Msgbox,n (%A_LineFile%~%A_LineNumber%) :-)
+		ExitApp
+	}
     ; is this function triggerd evver onee time? i dont know if setinterval works if the script stucks. may we cant do anything then from inside the script. needs temp ahk. 30.04.2017 09:25
-    global g_nextCriticalCommandString ; checkCriticalCommand()
-    global g_nextCriticalCommandTimeIdle ; checkCriticalCommand()
+	global g_nextCriticalCommandString ; checkCriticalCommand()
+	global g_nextCriticalCommandTimeIdle ; checkCriticalCommand()
     ; g_nextCriticalCommandString := "104:SuspendOn()"
-
-    if(g_nextCriticalCommandString == "327:WinWaitNotActive, %activeTitle%"){
-        if(!g_nextCriticalCommandTimeIdle || g_nextCriticalCommandTimeIdle < 1)
-            g_nextCriticalCommandTimeIdle := A_TimeIdle
-        else if (g_nextCriticalCommandTimeIdle * 1000 > sec)
-        {
-             global activeTitleOLD
-             global activeTitle
-             global activeClassOLD
-             global activeClass
-
-
-             if( activeTitle == activeTitleOLD && activeClass <> activeClassOLD ){
+	
+	if(g_nextCriticalCommandString == "327:WinWaitNotActive, %activeTitle%"){
+		if(!g_nextCriticalCommandTimeIdle || g_nextCriticalCommandTimeIdle < 1)
+			g_nextCriticalCommandTimeIdle := A_TimeIdle
+		else if (g_nextCriticalCommandTimeIdle * 1000 > sec)
+		{
+			global activeTitleOLD
+			global activeTitle
+			global activeClassOLD
+			global activeClass
+			
+			
+			if( activeTitle == activeTitleOLD && activeClass <> activeClassOLD ){
                  ; if this ever happend ? of is this function ovsolete? 30.04.2017 09:59 :D i dont knew
                  ; Msgbox, title is the same but class differs. a new ActionList shod be used. (%A_LineFile%~%A_LineNumber%)
-
-                 if ( 0) {
+				
+				if ( 0) {
                  ; yeeeaaahhh now it happens first time 30.04.2017 10:54 :)
                  ; for testing i created this code:
-                     WinSetTitle,main.ts.txt - Editor,, main.ts
-                     WinSetTitle,main.ts.txt - WordPad,, main.ts
-
-lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"ExitApp")
-                     ExitApp
-
-                     happendLog =
+					WinSetTitle,main.ts.txt - Editor,, main.ts
+					WinSetTitle,main.ts.txt - WordPad,, main.ts
+					
+					lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"ExitApp")
+					ExitApp
+					
+					happendLog =
 (
 ActiveClass: 32770
 activeClassOLD: ChromeWidgetWin1
 activeTitle: H:\download
 activeTitleOLD: H:\download
 )
-                 }
-
-tip =
+				}
+				
+				tip =
 (
 activeClass: %activeClass%
 activeClassOLD: %activeClassOLD%
@@ -1122,21 +1173,21 @@ activeTitle: %activeTitle%
 activeTitleOLD: %activeTitleOLD%
  (%A_LineFile%~%A_LineNumber%)
 )
-
-lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,tip "reload 17-08-04_14-42")
-                tooltip, =>Reload  `n  `n (%A_LineFile%~%A_LineNumber%)
-CoordMode, Caret, Screen
-ToolTip1sec(tip A_LineNumber " " RegExReplace(A_LineFile,".*\\") , 1 , 1 )
-                 sleep,3500
-                 return
-             }
-             if( 0 ) ; fo debugging really useful.
-            tooltip,%activeTitle%`n ?= `n%activeTitleOLD% `n `n  %g_nextCriticalCommandTimeIdle% = g_nextCriticalCommandTimeIdle `n (%A_LineFile%~%A_LineNumber%)
-        }
-    } else
-        g_nextCriticalCommandTimeIdle := 0
-    return
-
+				
+				lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,tip "reload 17-08-04_14-42")
+				tooltip, =>Reload  `n  `n (%A_LineFile%~%A_LineNumber%)
+				CoordMode, Caret, Screen
+				ToolTip1sec(tip A_LineNumber " " RegExReplace(A_LineFile,".*\\") , 1 , 1 )
+				sleep,3500
+				return
+			}
+			if( 0 ) ; fo debugging really useful.
+				tooltip,%activeTitle%`n ?= `n%activeTitleOLD% `n `n  %g_nextCriticalCommandTimeIdle% = g_nextCriticalCommandTimeIdle `n (%A_LineFile%~%A_LineNumber%)
+		}
+	} else
+		g_nextCriticalCommandTimeIdle := 0
+	return
+	
 ; g_nextCriticalCommandString := "120:SuspendOn()"
 ; g_nextCriticalCommandTimeIdle := A_TimeIdle
 } ; checkCriticalCommand
@@ -1148,7 +1199,7 @@ ToolTip1sec(tip A_LineNumber " " RegExReplace(A_LineFile,".*\\") , 1 , 1 )
 
 
 
-  
+
 #Include %A_ScriptDir%\inc_ahk\functions_global.inc.ahk
 #Include *i %A_ScriptDir%\inc_ahk\UPDATEDSCRIPT_global.inc.ahk
 #Include %A_ScriptDir%\inc_ahk\functions_global_dateiende.inc.ahk ; A_ScriptDir
@@ -1160,21 +1211,21 @@ couldIfindMyself:
 DetectHiddenWindows,On
 IfWinNotExist,% A_ScriptName
 {
-   ToolTip, i cant find myself `n ( %A_LineFile% ) `n FOUNDmyselfCounter = %FOUNDmyselfCounter% `n `n (programmed at 11.07.2017 15:12)
+	ToolTip, i cant find myself `n ( %A_LineFile% ) `n FOUNDmyselfCounter = %FOUNDmyselfCounter% `n `n (programmed at 11.07.2017 15:12)
    ; thats a totally stupid situation, but it happen often.
    ; not always but often.
    ; then i think no autohotkey scrpt should start oter scripts. 
    ; its to dangerous that a stack overflow happens.
    ; may one good workaround could be, wait a lang time and then try it again or pause the script for ever..... and ever ...
-   suspend,On 
-   min := 60 * 1000
+	suspend,On 
+	min := 60 * 1000
    ; sleep, % 9 * min 
    ; reload 
-   Pause
+	Pause
 }
 FOUNDmyselfCounter += 1
 if(false){
-ToolTip, i FOUND :-) myself yeaah `n not a totally idiot :) `n ( %A_LineFile% )  `n FOUNDmyselfCounter = %FOUNDmyselfCounter% `n `n  (programmed at 11.07.2017 20:26)
+	ToolTip, i FOUND :-) myself yeaah `n not a totally idiot :) `n ( %A_LineFile% )  `n FOUNDmyselfCounter = %FOUNDmyselfCounter% `n `n  (programmed at 11.07.2017 20:26)
 }
 return
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

@@ -36,7 +36,9 @@ setRegistry_ActionList( ActionListNewTemp_withoutExt ){   ; RegWrite , RegSave ,
 
 
 
-
+; its called from:
+; Ctrl+Shift+F5
+; Ctrl+Shift+ESC
 setRegistry_toDefault(){
     globalActionListDir := "..\ActionLists"
     ; globalActionList := globalActionListDir "\_globalActionListsGenerated\_global.ahk"

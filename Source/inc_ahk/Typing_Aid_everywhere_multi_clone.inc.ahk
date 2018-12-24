@@ -6,23 +6,30 @@
 
 
 
+
+
 ;/¯¯¯¯ ActionListNEWactivate( ¯¯ 181012014107 ¯¯ 12.10.2018 01:41:07 ¯¯\
 ; hier wird das active ueberschrieben: 12.07.2017 21:33
 ; here the current list will be overwritten
-ActionListNEWactivate( ActionListDir , ActionListNEW, ActionListActive , gi_everywhereSourcePath, activeClass := "" , activeTitle := "" ) {
+ActionListNEWactivate( ByRef ActionListDir
+        , ByRef ActionListNEW
+        , ByRef ActionListActive
+        , ByRef gi_everywhereSourcePath
+        , activeClass := ""
+        , activeTitle := "" ) {
 ; return, 1 ; return spielt keine rolle, quasi void 30.07.2017 12:52 17-07-30_12-52
-	SetTitleMatchMode,2
-	global g_lineNumberFeedback
-	
-	
-	postFixGenerated := "._Generated.ahk"
-	thisPostFix := SubStr(rtrim(ActionListNEW), - StrLen(postFixGenerated) + 1 )
-	itsAGeneratedList := ( postFixGenerated == thisPostFix )
-	if(itsAGeneratedList){
-		ActionListNEW := SubStr(rtrim(ActionListNEW), 1, - StrLen(postFixGenerated)  ) 
-		; msgbox, % ActionListNEW "`n`n("A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"		
+		SetTitleMatchMode,2
+		global g_lineNumberFeedback
 		
-		tip =
+		
+		postFixGenerated := "._Generated.ahk"
+		thisPostFix := SubStr(rtrim(ActionListNEW), - StrLen(postFixGenerated) + 1 )
+		itsAGeneratedList := ( postFixGenerated == thisPostFix )
+		if(itsAGeneratedList){
+			ActionListNEW := SubStr(rtrim(ActionListNEW), 1, - StrLen(postFixGenerated)  ) 
+		; msgbox, % ActionListNEW "`n`n("A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"		
+			
+			tip =
 		(
 		statement:
 		why do I do this?
@@ -35,168 +42,40 @@ ActionListNEWactivate( ActionListDir , ActionListNEW, ActionListActive , gi_ever
 		The starting point, however, can not naturally be the generated list itself.
 		18-11-16_19-21 16.11.2018 19:21
 		)
+			
+		}
 		
-	}
-	
-	
-	
+		
+		
 ;Msgbox,n (%A_LineFile%~%A_LineNumber%)
-	
-	if(1)
-		lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,":) _______________ Hello inside " RegExReplace(A_LineFile,".*\\") )
+		
+		if(1)
+			lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,":) _______________ Hello inside " RegExReplace(A_LineFile,".*\\") )
     ; lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,":) _______________ Hello inside temp.ahk _____________"  )
-	
+		
     ; lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"START function: ActionListNEWactivate"  )
-	
-	
-	g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
-	
-	if( SubStr( ActionListNEW , -3 ) <> ".ahk" ) ; 08.11.2018 01:23 maybe its right pace. maybe useless.
-		ActionListNEW .= ".ahk"
-	
-	
-	if(FileExist(ActionListNEW)) ; feature update 08.04.2017 19:43
-		ActionListNEWarchivePath := ActionListNEW
-	else{
-		regExAbsolutePath := "i)^\w\:" ; addet 01.11.2018 11:36
-		foundPosAbsolutePath := RegexMatch( ActionListNEW, regExAbsolutePath, matchsPath)
-		if(foundPosAbsolutePath)
-			ActionListNEWarchivePath = % ActionListNEW
-		else
-			ActionListNEWarchivePath = % ActionListDir "\" ActionListNEW
-	}
-   ; From here we only use ActionListNEWarchivePath
-   ; Next time this variable is used here: simplifyNameOfActionListNEWstep1( ActionListNEW ) {  in line 256   12.07.2017 21:07
-	
-	if(0 && InStr(A_ComputerName,"SL5") && !WinExist("1:" )){
-		msg =
-(
-ActionListNEWarchivePath = '%ActionListNEWarchivePath%'
-ActionListDir = '%ActionListDir%'
-'%A_LineNumber%' = A_LineNumber
-'%A_ScriptDir%' = A_ScriptDir
-'%A_LineFile%' = A_ScriptName
-'%A_ThisFunc%' = A_ThisFunc
-)
-		feedbackMsgBox(msg,msg,1,1)
-	}
-	
-	
-	global g_doSaveLogFiles
-	if(Instr(ActionListNEWarchivePath,"\EVERYTHING\")){
-		g_doSaveLogFiles := false
-		lll(A_LineNumber, A_LineFile,A_ThisFunc ": "    "g_doSaveLogFiles := true" )
-	}else{
-		g_doRunLogFiles := false
-	}
-	
-	
-	if(!ActionListNEWarchivePath)
-		Msgbox,Oops !ActionListNEWarchivePath `n (Typing_Aid_everywhere_multi_clone.inc.ahk~%A_ThisFunc%~%LineNumber%) `
-	
-   ; ActionListActivePath := gi_everywhereSourcePath .  "\" . ActionListActive
-	ActionListActivePath := A_ScriptDir . "\" . ActionListActive
-	if(!FileExist(ActionListActivePath))
-		MsgBox, :( '%ActionListActivePath%' = ActionListActivePath  `n (line:%A_LineNumber%) `n 18-01-20_17-12
-; The active path, that the complete address of the file inc dir, has to be always present. if not then that is an error. 12.07.2017 21:10
-	
-	
-	
-	;/¯¯¯¯ !FileExist(ActionListNEWarchivePath) ¯¯ 181012011354 ¯¯ 12.10.2018 01:13:54 ¯¯\
-	
-	RegRead, CreatedDir, HKEY_CURRENT_USER, SOFTWARE\sl5net, CreatedDir
-	if(CreatedDir){
 		
-		Speak("CreatedDir found in " RegExReplace(A_LineFile,".*\\") )
-		RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, CreatedDir, % "" ; RegWrite , RegSave , Registry
 		
-		RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, lastImportant_ScriptName, % A_ScriptName ; RegWrite , RegSave , Registry
-		RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, lastImportant_LineFileShort, % RegExReplace(A_LineFile,".*\\") ; RegWrite ,
-		RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, lastImportant_LineFileShort, % RegExReplace(A_LineFile,".*\\") ; RegWrite ,
-		run,gi-everywhere.ahk ; 01.11.2018 23:50
-	}
-	
-	
-	
-	fileAddress_projectFlag := ActionListDir "\_create_own_project.flag"
-	isFileExist_create_own_projectFlag := (FileExist(fileAddress_projectFlag) && !InStr(FileExist(fileAddress), "D"))
-    ; isFileExist_create_own_projectFlag deprecated. probably to slow
-	if(!FileExist(ActionListNEWarchivePath) && (CreatedDir || isFileExist_create_own_projectFlag )) {
-		
-		FIleDelete,  % fileAddress_projectFlag ; then you need alway generae it explizit via generate project links 23.10.2018 11:29
-		
-		; So hear it's possibly a good idea to generate a new one by using a template. 12.07.2017 21:12
 		g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 		
-		WinGetActiveTitle,at
-		strLen_ActionListNEWar := StrLen(ActionListNEWarchivePath)
-		if(strLen_ActionListNEWar < 5)
-			MsgBox, :-( '%strLen_ActionListNEWar%' = strLen_ActionListNEWar  `n (line:%A_LineNumber%) `n
-		  ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-		  ; Let's generate a pretty short 80 signs long name. 12.07.2017 21:14
-		if(strLen_ActionListNEWar>70) {
-			global g_lineNumberFeedback
-			g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
-			
-			ActionListNEWarchivePath80 := "... " . SubStr(ActionListNEWarchivePath, -70 )
-      ; MsgBox, '%ActionListNEWarchivePath80%' = ActionListNEWarchivePath80  `n (line:%A_LineNumber%) `n
-		} else {
-			ActionListNEWarchivePath80 := ActionListNEWarchivePath
+		if( SubStr( ActionListNEW , -3 ) <> ".ahk" ) ; 08.11.2018 01:23 maybe its right pace. maybe useless.
+			ActionListNEW .= ".ahk"
+		
+		
+		if(FileExist(ActionListNEW)) ; feature update 08.04.2017 19:43
+			ActionListNEWarchivePath := ActionListNEW
+		else{
+			regExAbsolutePath := "i)^\w\:" ; addet 01.11.2018 11:36
+			foundPosAbsolutePath := RegexMatch( ActionListNEW, regExAbsolutePath, matchsPath)
+			if(foundPosAbsolutePath)
+				ActionListNEWarchivePath = % ActionListNEW
+			else
+				ActionListNEWarchivePath = % ActionListDir "\" ActionListNEW
 		}
-		;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-		initialActionList := ltrim(getInitialActionList(ActionListNEWarchivePath,ActionListNEW,at))
-		; _%ActionListNEWarchivePath%|r|Here you could find your library
+   ; From here we only use ActionListNEWarchivePath
+   ; Next time this variable is used here: simplifyNameOfActionListNEWstep1( ActionListNEW ) {  in line 256   12.07.2017 21:07
 		
-		StringReplace, lineFileRelative, A_LineFile , % A_ScriptDir,Source, All
-		;Msgbox,%LineFileRelative%`n (%A_LineFile%~%A_LineNumber%) )
-		
-		calledFromStr := A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
-		Include := "Include"
-		
-		if(1 && InStr(A_ComputerName,"SL5"))
-			RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, FileAppend , % A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
-		
-		FileAppend, % initialActionList , % ActionListNEWarchivePath
-; 		 Sleep,400
-		fileexist := false
-		while(!fileexist && A_index < 99){
-			Sleep,80 ; why sleeping ? todo sleeping?
-			fileexist := fileexist(ActionListNEWarchivePath) && !InStr(FileExist(ActionListNEWarchivePath), "D")
-		}
-		if(!fileexist){
-			msgbox,% "ERROR NOT exist: `n" ActionListNEWarchivePath "`n ("  A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
-		}
-		; End of: if(!FileExist(ActionListNEWarchivePath))
-		lll(A_LineNumber, A_LineFile,A_ThisFunc ": "    "saved first time: >" . ActionListNEWarchivePath . "< = Now the new examples-template should be saved" )
-		; Now the new examples-template is saved inside of this file: ActionListNEWarchivePath
-		
-		was_a_Editor_open_command1 := openInEditorFromIntern(ActionListNEW)
-		was_a_Editor_open_command2 := openInEditorFromIntern(ActionListNEWarchivePath)
-		if(!was_a_Editor_open_command1 && !was_a_Editor_open_command2)
-			msgbox,% "ERROR (" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
-		
-		
-		
-		;\____ !FileExist(ActionListNEWarchivePath) __ 181012011424 __ 12.10.2018 01:14:24 __/
-	} else {
-		; No example template was used. The content is already there. Inside on this file. And don't need to be generated. 12.07.2017 21:36
-		msg:=A_ThisFunc ": "    "startREADING: >" . ActionListNEWarchivePath . "< = ActionListNEWarchivePath"
-		lll(A_LineNumber, A_LineFile,msg)
-		;Msgbox,%msg%`n (%A_LineFile%~%A_LineNumber%)
-		
-;/¯¯¯¯ startREADING ¯¯ 181012011928 ¯¯ 12.10.2018 01:19:28 ¯¯\
-		; read #include commands
-		exist_includeFilePath := 0
-		includeFileSContent := ""
-		ActionListGeneratedPath := ""
-		isIncludeFileInside := false
-		includeFileSContentWillBeNeedsSaved := false
-		includeFilePathArray := Object()
-		lineInRegExArray := Object()
-		
-		; lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   "'" . ActionListGeneratedPath . "' = ActionListGeneratedPath `n'" . ActionListNEWarchivePath . " = ActionListNEWarchivePath " )
-		
-		if(1 && !WinExist("1:" )){
+		if(0 && InStr(A_ComputerName,"SL5") && !WinExist("1:" )){
 			msg =
 (
 ActionListNEWarchivePath = '%ActionListNEWarchivePath%'
@@ -206,196 +85,324 @@ ActionListDir = '%ActionListDir%'
 '%A_LineFile%' = A_ScriptName
 '%A_ThisFunc%' = A_ThisFunc
 )
-; feedbackMsgBox(msg,msg,1,1)
-			lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,msg )
+			feedbackMsgBox(msg,msg,1,1)
 		}
 		
+		
+		global g_doSaveLogFiles
+		if(Instr(ActionListNEWarchivePath,"\EVERYTHING\")){
+			g_doSaveLogFiles := false
+			lll(A_LineNumber, A_LineFile,A_ThisFunc ": "    "g_doSaveLogFiles := true" )
+		}else{
+			g_doRunLogFiles := false
+		}
+		
+		
+		if(!ActionListNEWarchivePath)
+			Msgbox,Oops !ActionListNEWarchivePath `n (Typing_Aid_everywhere_multi_clone.inc.ahk~%A_ThisFunc%~%LineNumber%) `
+		
+   ; ActionListActivePath := gi_everywhereSourcePath .  "\" . ActionListActive
+		ActionListActivePath := A_ScriptDir . "\" . ActionListActive
+		if(!FileExist(ActionListActivePath))
+			MsgBox, :( '%ActionListActivePath%' = ActionListActivePath  `n (line:%A_LineNumber%) `n 18-01-20_17-12
+; The active path, that the complete address of the file inc dir, has to be always present. if not then that is an error. 12.07.2017 21:10
+		
+		
+		
+	;/¯¯¯¯ !FileExist(ActionListNEWarchivePath) ¯¯ 181012011354 ¯¯ 12.10.2018 01:13:54 ¯¯\
+		
+		RegRead, CreatedDir, HKEY_CURRENT_USER, SOFTWARE\sl5net, CreatedDir
+		if(CreatedDir){
+			
+			Speak("CreatedDir found in " RegExReplace(A_LineFile,".*\\") )
+			RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, CreatedDir, % "" ; RegWrite , RegSave , Registry
+			
+			RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, lastImportant_ScriptName, % A_ScriptName ; RegWrite , RegSave , Registry
+			RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, lastImportant_LineFileShort, % RegExReplace(A_LineFile,".*\\") ; RegWrite ,
+			RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, lastImportant_LineFileShort, % RegExReplace(A_LineFile,".*\\") ; RegWrite ,
+			run,gi-everywhere.ahk ; 01.11.2018 23:50
+		}
+		
+		
+		
+		fileAddress_projectFlag := ActionListDir "\_create_own_project.flag"
+		isFileExist_create_own_projectFlag := (FileExist(fileAddress_projectFlag) && !InStr(FileExist(fileAddress), "D"))
+    ; isFileExist_create_own_projectFlag deprecated. probably to slow
+		if(!FileExist(ActionListNEWarchivePath) && (CreatedDir || isFileExist_create_own_projectFlag )) {
+			
+			FIleDelete,  % fileAddress_projectFlag ; then you need alway generae it explizit via generate project links 23.10.2018 11:29
+			
+		; So hear it's possibly a good idea to generate a new one by using a template. 12.07.2017 21:12
+			g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
+			
+			WinGetActiveTitle,at
+			strLen_ActionListNEWar := StrLen(ActionListNEWarchivePath)
+			if(strLen_ActionListNEWar < 5)
+				MsgBox, :-( '%strLen_ActionListNEWar%' = strLen_ActionListNEWar  `n (line:%A_LineNumber%) `n
+		  ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+		  ; Let's generate a pretty short 80 signs long name. 12.07.2017 21:14
+			if(strLen_ActionListNEWar>70) {
+				global g_lineNumberFeedback
+				g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
+				
+				ActionListNEWarchivePath80 := "... " . SubStr(ActionListNEWarchivePath, -70 )
+      ; MsgBox, '%ActionListNEWarchivePath80%' = ActionListNEWarchivePath80  `n (line:%A_LineNumber%) `n
+			} else {
+				ActionListNEWarchivePath80 := ActionListNEWarchivePath
+			}
+		;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+			initialActionList := ltrim(getInitialActionList(ActionListNEWarchivePath,ActionListNEW,at))
+		; _%ActionListNEWarchivePath%|r|Here you could find your library
+			
+			StringReplace, lineFileRelative, A_LineFile , % A_ScriptDir,Source, All
+		;Msgbox,%LineFileRelative%`n (%A_LineFile%~%A_LineNumber%) )
+			
+			calledFromStr := A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+			Include := "Include"
+			
+			if(1 && InStr(A_ComputerName,"SL5"))
+				RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, FileAppend , % A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+			
+			FileAppend, % initialActionList , % ActionListNEWarchivePath
+; 		 Sleep,400
+			fileexist := false
+			while(!fileexist && A_index < 99){
+				Sleep,80 ; why sleeping ? todo sleeping?
+				fileexist := fileexist(ActionListNEWarchivePath) && !InStr(FileExist(ActionListNEWarchivePath), "D")
+			}
+			if(!fileexist){
+				msgbox,% "ERROR NOT exist: `n" ActionListNEWarchivePath "`n ("  A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
+			}
+		; End of: if(!FileExist(ActionListNEWarchivePath))
+			lll(A_LineNumber, A_LineFile,A_ThisFunc ": "    "saved first time: >" . ActionListNEWarchivePath . "< = Now the new examples-template should be saved" )
+		; Now the new examples-template is saved inside of this file: ActionListNEWarchivePath
+			
+			was_a_Editor_open_command1 := openInEditorFromIntern(ActionListNEW)
+			was_a_Editor_open_command2 := openInEditorFromIntern(ActionListNEWarchivePath)
+			if(!was_a_Editor_open_command1 && !was_a_Editor_open_command2)
+				msgbox,% "ERROR (" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
+			
+			
+			
+		;\____ !FileExist(ActionListNEWarchivePath) __ 181012011424 __ 12.10.2018 01:14:24 __/
+		} else {
+		; No example template was used. The content is already there. Inside on this file. And don't need to be generated. 12.07.2017 21:36
+			msg:=A_ThisFunc ": "    "startREADING: >" . ActionListNEWarchivePath . "< = ActionListNEWarchivePath"
+			lll(A_LineNumber, A_LineFile,msg)
+		;Msgbox,%msg%`n (%A_LineFile%~%A_LineNumber%)
+			
+;/¯¯¯¯ startREADING ¯¯ 181012011928 ¯¯ 12.10.2018 01:19:28 ¯¯\
+		; read #include commands
+			exist_includeFilePath := 0
+			includeFileSContent := ""
+			ActionListGeneratedPath := ""
+			isIncludeFileInside := false
+			includeFileSContentWillBeNeedsSaved := false
+			includeFilePathArray := Object()
+			lineInRegExArray := Object()
+			
+		; lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   "'" . ActionListGeneratedPath . "' = ActionListGeneratedPath `n'" . ActionListNEWarchivePath . " = ActionListNEWarchivePath " )
+			
+			if(1 && !WinExist("1:" )){
+				msg =
+(
+ActionListNEWarchivePath = '%ActionListNEWarchivePath%'
+ActionListDir = '%ActionListDir%'
+'%A_LineNumber%' = A_LineNumber
+'%A_ScriptDir%' = A_ScriptDir
+'%A_LineFile%' = A_ScriptName
+'%A_ThisFunc%' = A_ThisFunc
+)
+; feedbackMsgBox(msg,msg,1,1)
+				lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,msg )
+			}
+			
 		;/¯¯¯¯ Loop,read,%ActionListNEWarchivePath ¯¯ 
-		Loop,read, % ActionListNEWarchivePath
-		{
+			Loop,read, % ActionListNEWarchivePath
+			{
            ; Beispiel:
 ; #Include .\..\ActionLists\Notepad\_global.ahk
 ; #Include ..\_globalActionLists\Bewerbung\Firmware_Entwicklung.txt
-			
+				
 ;           regEx := "i)^\s*#include\s*( |,)\s*([^|!]+)\s*(?:((\||\!))\s*(.+))?\s*"
 ; include[ ]*(?:,|\s)[ ]*([^|!\n]+)[ ]*(?:((\||\!))[ ]*([^\n]+))?[ ]*
             ; ?: is used to denote non capturing group.
-			regEx := "i)^[ ]*#include[ ]*(?:,| )[ ]*([^|!\n]+)[ ]*(?:((\||\!))[ ]*([^\n]+))?[ ]*"
-			foundPos := RegexMatch( A_LoopReadLine, regEx, matchs) ; later matchs1 is used 04.10.2018 09:04 18-10-04_09-04
-			examples =
+				regEx := "i)^[ ]*#include[ ]*(?:,| )[ ]*([^|!\n]+)[ ]*(?:((\||\!))[ ]*([^\n]+))?[ ]*"
+				foundPos := RegexMatch( A_LoopReadLine, regEx, matchs) ; later matchs1 is used 04.10.2018 09:04 18-10-04_09-04
+				examples =
 (
 #include dir\something.ahk
 )
-			
-			msg := "#include foundPos = >" foundPos "< in `n" ActionListNEWarchivePath "`n"
-			msg .= ">" matchs1 "< =  matchs1 `n"
-			msg .= ">" A_LoopReadLine "< =  A_LoopReadLine `n"
-			msg .= A_WorkingDir " = A_WorkingDir `n"
-			msg .= A_ScriptDir " = A_ScriptDir `n"
-			msg .= A_ScriptFullPath " = A_ScriptFullPath `n"
-			lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,msg )
+				
+				msg := "#include foundPos = >" foundPos "< in `n" ActionListNEWarchivePath "`n"
+				msg .= ">" matchs1 "< =  matchs1 `n"
+				msg .= ">" A_LoopReadLine "< =  A_LoopReadLine `n"
+				msg .= A_WorkingDir " = A_WorkingDir `n"
+				msg .= A_ScriptDir " = A_ScriptDir `n"
+				msg .= A_ScriptFullPath " = A_ScriptFullPath `n"
+				lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,msg )
             ;Msgbox,%msg%`n (%A_LineFile%~%A_LineNumber%)
-			
+				
 			;/¯¯¯¯ isIncludeFileInside ¯¯ 181012004940 ¯¯ 12.10.2018 00:49:40 ¯¯\
-			if(foundPos){
-				isIncludeFileInside := true ; is_IncludeFileInside
-
-				
-				regExAbsolutePath := "i)^\w\:" ; addet 01.11.2018 11:36
-				foundPosAbsolutePath := RegexMatch( matchs1, regExAbsolutePath, matchsPath)
-				if(foundPosAbsolutePath)
-					includeFilePath     := trim(matchs1)
-				else
-					includeFilePath     := ActionListDir "\" trim(matchs1)
-				
-				includeFilePath := RegExReplace(includeFilePath ,";[^\n\r]+$") ; removes comments
-				
+				if(foundPos){
+					isIncludeFileInside := true ; is_IncludeFileInside
+					
+					
+					regExAbsolutePath := "i)^\w\:" ; addet 01.11.2018 11:36
+					foundPosAbsolutePath := RegexMatch( matchs1, regExAbsolutePath, matchsPath)
+					if(foundPosAbsolutePath)
+						includeFilePath     := trim(matchs1)
+					else
+						includeFilePath     := ActionListDir "\" trim(matchs1)
+					
+					includeFilePath := RegExReplace(includeFilePath ,";[^\n\r]+$") ; removes comments
+					
 				; includeFilePath := RegExReplace(includeFilePath ,"(\\[^\\]+\\\.\.)+") ; works. removes all symbolic links 24.02.2018  cleanPath
-				includeFilePath := removesSymbolicLinksFromFileAdress(includeFilePath) ; same as above -^
-				
+					includeFilePath := removesSymbolicLinksFromFileAdress(includeFilePath) ; same as above -^
+					
                 ; Msgbox,%includeFilePath%`n (%A_LineFile%~%A_LineNumber%)
-				
-				
-				
-				exist_includeFilePath := (FileExist(includeFilePath)) ? 1 : 0
-				if(!exist_includeFilePath){ ; 11.03.201:23 new style/format of adress writing, but try stay compativle to old scripts. TODO deletie it.
-					includeFilePathAbs := removesSymbolicLinksFromFileAdress(A_ScriptDir "\" includeFilePath)
-					exist_includeFilePathAbs := (FileExist(includeFilePathAbs)) ? 1 : 0
-					msg .= ":( includeFile NOT exist here: `n"  includeFilePath "`n`n"
-					msg .= ">" includeFilePathAbs "<`n exist =" exist_includeFilePathAbs "`n`n"
-					msg .= ">" matchs1 "< =  matchs1 `n"
-					msg .= ">" A_LoopReadLine "< =  A_LoopReadLine `n"
-					msg .= ActionListDir " =  ActionListDir `n"
-					msg .= A_WorkingDir " = A_WorkingDir `n"
-					msg .= A_ScriptDir " = A_ScriptDir `n"
-					msg .= A_ScriptFullPath " = A_ScriptFullPath `n"
-					msg .= exist_includeFilePath " = exist_includeFilePath  `n`n"
-					lll(A_LineNumber, RegExReplace(A_LineFile,".*\\"), msg )
 					
 					
-					includeFilePath := RegExReplace(includeFilePath ,"^\.\." , "..\ActionLists")
-    ; includeFilePath := "ActionLists\" includeFilePath
+					
 					exist_includeFilePath := (FileExist(includeFilePath)) ? 1 : 0
-					if(!exist_includeFilePath){
-						msg .= "`n`n :( includeFile NOT exist here: "  includeFilePath " = includeFilePath  `n"
+					if(!exist_includeFilePath){ ; 11.03.201:23 new style/format of adress writing, but try stay compativle to old scripts. TODO deletie it.
+						includeFilePathAbs := removesSymbolicLinksFromFileAdress(A_ScriptDir "\" includeFilePath)
+						exist_includeFilePathAbs := (FileExist(includeFilePathAbs)) ? 1 : 0
+						msg .= ":( includeFile NOT exist here: `n"  includeFilePath "`n`n"
+						msg .= ">" includeFilePathAbs "<`n exist =" exist_includeFilePathAbs "`n`n"
+						msg .= ">" matchs1 "< =  matchs1 `n"
+						msg .= ">" A_LoopReadLine "< =  A_LoopReadLine `n"
+						msg .= ActionListDir " =  ActionListDir `n"
+						msg .= A_WorkingDir " = A_WorkingDir `n"
+						msg .= A_ScriptDir " = A_ScriptDir `n"
+						msg .= A_ScriptFullPath " = A_ScriptFullPath `n"
 						msg .= exist_includeFilePath " = exist_includeFilePath  `n`n"
-						msg .= A_ScriptDir
-						lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,msg )
-						feedbackMsgBox(RegExReplace(A_LineFile,".*\\(.*?)\.ahk","$1") ">" A_LineNumber, msg, 1,1 ) ; temp.ahk is often ignored by config 05.10.2018 08:46
-						MsgBox,% msg "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+						lll(A_LineNumber, RegExReplace(A_LineFile,".*\\"), msg )
+						
+						
+						includeFilePath := RegExReplace(includeFilePath ,"^\.\." , "..\ActionLists")
+    ; includeFilePath := "ActionLists\" includeFilePath
+						exist_includeFilePath := (FileExist(includeFilePath)) ? 1 : 0
+						if(!exist_includeFilePath){
+							msg .= "`n`n :( includeFile NOT exist here: "  includeFilePath " = includeFilePath  `n"
+							msg .= exist_includeFilePath " = exist_includeFilePath  `n`n"
+							msg .= A_ScriptDir
+							lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,msg )
+							feedbackMsgBox(RegExReplace(A_LineFile,".*\\(.*?)\.ahk","$1") ">" A_LineNumber, msg, 1,1 ) ; temp.ahk is often ignored by config 05.10.2018 08:46
+							MsgBox,% msg "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+						}
+						clipboard := includeFilePathAbs
+						msgbox,% msg "(" RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
 					}
-					clipboard := includeFilePathAbs
-					msgbox,% msg "(" RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
-				}
-				
-				;/¯¯¯¯ NOT exist_includeFilePath ¯¯ 181012005821 ¯¯ 12.10.2018 00:58:21 ¯¯\
-				if(!exist_includeFilePath){ ; Backwords compatibible 06.03.2018 11:35 allows old include path; TODO: clean that a day in future. Priority: low. really low TODO: change default. default is inside the if
-					msg := ":( " includeFilePath " = includeFilePath `n"
-					msg .= exist_includeFilePath " = exist_includeFilePath  `n`n"
-					includeFilePath := RegExReplace(includeFilePath, "^\.\.\\","") ; ..\ deleted 06.03.2018 11:34
-					includeFilePath := removesSymbolicLinksFromFileAdress( ActionListDir "\" includeFilePath) ; user should could includes direcly from his ahk ActionList, without editing the address 05.03.2018 08:15
-					exist_includeFilePath := (FileExist(includeFilePath)) ? 1 : 0
 					
-					msg .= includeFilePath " = includeFilePath  `n"
-					msg .= A_WorkingDir " = A_WorkingDir `n"
-					msg .= A_ScriptDir " = A_ScriptDir `n"
-					msg .= A_ScriptFullPath " = A_ScriptFullPath `n"
-					msg .= exist_includeFilePath " = exist_includeFilePath  `n`n"
+				;/¯¯¯¯ NOT exist_includeFilePath ¯¯ 181012005821 ¯¯ 12.10.2018 00:58:21 ¯¯\
+					if(!exist_includeFilePath){ ; Backwords compatibible 06.03.2018 11:35 allows old include path; TODO: clean that a day in future. Priority: low. really low TODO: change default. default is inside the if
+						msg := ":( " includeFilePath " = includeFilePath `n"
+						msg .= exist_includeFilePath " = exist_includeFilePath  `n`n"
+						includeFilePath := RegExReplace(includeFilePath, "^\.\.\\","") ; ..\ deleted 06.03.2018 11:34
+						includeFilePath := removesSymbolicLinksFromFileAdress( ActionListDir "\" includeFilePath) ; user should could includes direcly from his ahk ActionList, without editing the address 05.03.2018 08:15
+						exist_includeFilePath := (FileExist(includeFilePath)) ? 1 : 0
+						
+						msg .= includeFilePath " = includeFilePath  `n"
+						msg .= A_WorkingDir " = A_WorkingDir `n"
+						msg .= A_ScriptDir " = A_ScriptDir `n"
+						msg .= A_ScriptFullPath " = A_ScriptFullPath `n"
+						msg .= exist_includeFilePath " = exist_includeFilePath  `n`n"
                 ;msgbox,% msg "(" RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
-					lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,msg )
+						lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,msg )
                 ;exitapp
 				;\____ NOT exist_includeFilePath __ 181012005935 __ 12.10.2018 00:59:35 __/
-				}else{
+					}else{
 					;/¯¯¯¯ exist_includeFilePath ¯¯ 181012010005 ¯¯ 12.10.2018 01:00:05 ¯¯\
-					msg := ":) " includeFilePath " = includeFilePath  `n"
-					msg .= A_WorkingDir " = A_WorkingDir `n"
-					msg .= A_ScriptDir " = A_ScriptDir `n"
-					msg .= A_ScriptFullPath " = A_ScriptFullPath `n"
-					msg .= exist_includeFilePath " = exist_includeFilePath  `n`n"
+						msg := ":) " includeFilePath " = includeFilePath  `n"
+						msg .= A_WorkingDir " = A_WorkingDir `n"
+						msg .= A_ScriptDir " = A_ScriptDir `n"
+						msg .= A_ScriptFullPath " = A_ScriptFullPath `n"
+						msg .= exist_includeFilePath " = exist_includeFilePath  `n`n"
                 ;msgbox,% msg "(" RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
-					lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,msg )
+						lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,msg )
 					;\____ exist_includeFilePath __ 181012010010 __ 12.10.2018 01:00:10 __/
-				}
-				
-				
-				
-				if(0){
-					feedbackMsgBox("isIncludeFileInside = " isIncludeFileInside,A_LineNumber . " " .  A_LineFile,1,1)
-					global g_ignReg
-					g_ignReg["feedbackMsgBox"]["tit"]  =.^
-					g_ignReg["feedbackMsgBox"]["text"] =.^
-					feedbackMsgBox("isIncludeFileInside = " isIncludeFileInside,A_LineNumber . " " .  A_LineFile,1,1)
-					msg='%ActionListNEWarchivePath%' = ActionListNEWarchivePath `n '%foundPos%' = foundPos  `n '%includeFilePath%' = includeFilePath  `n '%exist_includeFilePath%' = exist_includeFilePath `n  ActionListDir = '%ActionListDir%' `n (line:%A_LineFile%~%A_LineNumber%)
-					ToolTip5sec(msg  . " `n " . A_LineNumber . " " .  RegExReplace(RegExReplace(A_LineFile,".*\\") , ".*\", "") " " Last_A_This)
-					msgbox,% msg
-				}
-				
-				
-				
-				lineInRegEx         := (matchs4) ? matchs3 . matchs4 : "|.*" ; | ist a positvie rule. alle matching lines goes inside the new file.
-				lll(A_LineNumber, A_LineFile,A_ThisFunc ": "  matchs1 "," matchs2 "," matchs3 "," matchs4 )
-				lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   "lineInRegEx=>" . lineInRegEx . "<" )
-				
-				
-				
-            ; Msgbox,'%lineInRegEx%' = lineInRegEx  n (line:%A_LineNumber%) n
-				lineInRegExArray.Insert(lineInRegEx)
-				if(!exist_includeFilePath){
-					msg =:-( ERROR %exist_includeFilePath% = exist_includeFilePath `n ActionListDir = %ActionListDir% `n includeFilePath = %includeFilePath% `n  >%ActionListNEWarchivePath%< = ActionListNEWarchivePath (from: %A_LineFile%~%A_LineNumber%)
-					Tooltip,%msg%
-					g_doSaveLogFiles := true
-					lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   msg)
-				}
-				; ___ __ open __ open __
-				lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   ":| exist_includeFilePath =" . exist_includeFilePath . "   '" . ActionListNEWarchivePath . "' = ActionListNEWarchivePath ")
-				
-				lll( A_ThisFunc ":" A_LineNumber , A_LineFile , ":| exist_includeFilePath =" . exist_includeFilePath . "   '" . ActionListNEWarchivePath . "' = ActionListNEWarchivePath ")
-				
-;<<<<<<<<<<<<<<  if(exist_includeFilePath)  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-				if(exist_includeFilePath){
-					ActionListNEWarchivePathBackup := ActionListNEWarchivePath
-					
-					postFixGenerated := "._Generated.ahk"
-					thisPostFix := SubStr(rtrim(ActionListGeneratedPath), - StrLen(postFixGenerated) + 1 )
-					itsAGeneratedList := ( postFixGenerated == thisPostFix )
-					if(!itsAGeneratedList){
-						ActionListGeneratedPath := ActionListNEWarchivePath postFixGenerated
-                        ;Msgbox,Oops already geraated list lklkjlkjlkjl 555444 (line:%A_LineNumber%) n
 					}
 					
-					lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"'" . ActionListGeneratedPath . "' = ActionListGeneratedPath `n'" . ActionListNEWarchivePath . " = ActionListNEWarchivePath ")
-					
-					lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   "'" . ActionListGeneratedPath . "' = ActionListGeneratedPath `n'" . ActionListNEWarchivePath . " = ActionListNEWarchivePath " )
-					lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   "'" . ActionListGeneratedPath . "' = ActionListGeneratedPath `n'" . ActionListNEWarchivePath . " = ActionListNEWarchivePath " )
 					
 					
-					exist_ActionListGeneratedPath := FileExist(ActionListGeneratedPath)
+					if(0){
+						feedbackMsgBox("isIncludeFileInside = " isIncludeFileInside,A_LineNumber . " " .  A_LineFile,1,1)
+						global g_ignReg
+						g_ignReg["feedbackMsgBox"]["tit"]  =.^
+						g_ignReg["feedbackMsgBox"]["text"] =.^
+						feedbackMsgBox("isIncludeFileInside = " isIncludeFileInside,A_LineNumber . " " .  A_LineFile,1,1)
+						msg='%ActionListNEWarchivePath%' = ActionListNEWarchivePath `n '%foundPos%' = foundPos  `n '%includeFilePath%' = includeFilePath  `n '%exist_includeFilePath%' = exist_includeFilePath `n  ActionListDir = '%ActionListDir%' `n (line:%A_LineFile%~%A_LineNumber%)
+						ToolTip5sec(msg  . " `n " . A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\") " " Last_A_This)
+						msgbox,% msg
+					}
 					
-					FileGetTime, ActionListNEWarchivePathBackupModifiedTime, %ActionListNEWarchivePathBackup%
-					FileGetTime, includeFileModifiedTime, %includeFilePath%
 					
+					
+					lineInRegEx         := (matchs4) ? matchs3 . matchs4 : "|.*" ; | ist a positvie rule. alle matching lines goes inside the new file.
+					lll(A_LineNumber, A_LineFile,A_ThisFunc ": "  matchs1 "," matchs2 "," matchs3 "," matchs4 )
+					lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   "lineInRegEx=>" . lineInRegEx . "<" )
+					
+					
+					
+            ; Msgbox,'%lineInRegEx%' = lineInRegEx  n (line:%A_LineNumber%) n
+					lineInRegExArray.Insert(lineInRegEx)
+					if(!exist_includeFilePath){
+						msg =:-( ERROR %exist_includeFilePath% = exist_includeFilePath `n ActionListDir = %ActionListDir% `n includeFilePath = %includeFilePath% `n  >%ActionListNEWarchivePath%< = ActionListNEWarchivePath (from: %A_LineFile%~%A_LineNumber%)
+						Tooltip,%msg%
+						g_doSaveLogFiles := true
+						lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   msg)
+					}
+				; ___ __ open __ open __
+					lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   ":| exist_includeFilePath =" . exist_includeFilePath . "   '" . ActionListNEWarchivePath . "' = ActionListNEWarchivePath ")
+					
+					lll( A_ThisFunc ":" A_LineNumber , A_LineFile , ":| exist_includeFilePath =" . exist_includeFilePath . "   '" . ActionListNEWarchivePath . "' = ActionListNEWarchivePath ")
+					
+;<<<<<<<<<<<<<<  if(exist_includeFilePath)  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+					if(exist_includeFilePath){
+						ActionListNEWarchivePathBackup := ActionListNEWarchivePath
+						
+						postFixGenerated := "._Generated.ahk"
+						thisPostFix := SubStr(rtrim(ActionListGeneratedPath), - StrLen(postFixGenerated) + 1 )
+						itsAGeneratedList := ( postFixGenerated == thisPostFix )
+						if(!itsAGeneratedList){
+							ActionListGeneratedPath := ActionListNEWarchivePath postFixGenerated
+                        ;Msgbox,Oops already geraated list lklkjlkjlkjl 555444 (line:%A_LineNumber%) n
+						}
+						
+						lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"'" . ActionListGeneratedPath . "' = ActionListGeneratedPath `n'" . ActionListNEWarchivePath . " = ActionListNEWarchivePath ")
+						
+						lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   "'" . ActionListGeneratedPath . "' = ActionListGeneratedPath `n'" . ActionListNEWarchivePath . " = ActionListNEWarchivePath " )
+						lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   "'" . ActionListGeneratedPath . "' = ActionListGeneratedPath `n'" . ActionListNEWarchivePath . " = ActionListNEWarchivePath " )
+						
+						
+						exist_ActionListGeneratedPath := FileExist(ActionListGeneratedPath)
+						
+						FileGetTime, ActionListNEWarchivePathBackupModifiedTime, %ActionListNEWarchivePathBackup%
+						FileGetTime, includeFileModifiedTime, %includeFilePath%
+						
 					; Pause,On
-					msg=%ActionListNEWarchivePathBackup%`n=ActionListNEWarchivePathBackup `n (%A_LineFile%~%A_LineNumber%)
+						msg=%ActionListNEWarchivePathBackup%`n=ActionListNEWarchivePathBackup `n (%A_LineFile%~%A_LineNumber%)
 					;feedbackMsgBox(msg)
-					
-					
-					ActionListGeneratedModifiedTime := 0
-					if(exist_ActionListGeneratedPath)
-						FileGetTime, ActionListGeneratedModifiedTime, %ActionListGeneratedPath%
-					
-					isActionListNewer_as_Generated := (ActionListNEWarchivePath > ActionListGeneratedModifiedTime)
-					isIncludeFileNewer_as_Generated := (includeFileModifiedTime > ActionListGeneratedModifiedTime)
-					
-					msg= '%ActionListNEWarchivePathBackupModifiedTime%' > '%ActionListGeneratedModifiedTime%' (ActionListNEWarchivePathBackupModifiedTime > ActionListGeneratedModifiedTime)  `n' isIncludeFileNewer_as_Generated=%isIncludeFileNewer_as_Generated%  `n' isActionListNewer_as_Generated=%isActionListNewer_as_Generated% `n '%includeFilePath%' = '%includeFilePath%' `n`n(A_LineNumber, A_LineFile)
-					lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   msg)
+						
+						
+						ActionListGeneratedModifiedTime := 0
+						if(exist_ActionListGeneratedPath)
+							FileGetTime, ActionListGeneratedModifiedTime, %ActionListGeneratedPath%
+						
+						isActionListNewer_as_Generated := (ActionListNEWarchivePath > ActionListGeneratedModifiedTime)
+						isIncludeFileNewer_as_Generated := (includeFileModifiedTime > ActionListGeneratedModifiedTime)
+						
+						msg= '%ActionListNEWarchivePathBackupModifiedTime%' > '%ActionListGeneratedModifiedTime%' (ActionListNEWarchivePathBackupModifiedTime > ActionListGeneratedModifiedTime)  `n' isIncludeFileNewer_as_Generated=%isIncludeFileNewer_as_Generated%  `n' isActionListNewer_as_Generated=%isActionListNewer_as_Generated% `n '%includeFilePath%' = '%includeFilePath%' `n`n(A_LineNumber, A_LineFile)
+						lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   msg)
  ; msgbox, % msg
-					
-					if( false 
+						
+						if( false 
                 || !exist_ActionListGeneratedPath
                 || ActionListNEWarchivePathBackupModifiedTime > ActionListGeneratedModifiedTime
                 || includeFileModifiedTime > ActionListGeneratedModifiedTime ){
-						includeFileSContentWillBeNeedsSaved := true
-						m =
+							includeFileSContentWillBeNeedsSaved := true
+							m =
 (
 includeFileSContentWillBeNeedsSaved := %includeFileSContentWillBeNeedsSaved%
 || !%exist_ActionListGeneratedPath%=exist_ActionListGeneratedPath
@@ -405,106 +412,155 @@ includeFileSContentWillBeNeedsSaved := %includeFileSContentWillBeNeedsSaved%
 ActionListGeneratedModifiedTime =
 %ActionListGeneratedModifiedTime%
 )
-						if(0 && InStr(A_ComputerName,"SL5"))
-							msgbox,% m "`n(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
-						
+							if(0 && InStr(A_ComputerName,"SL5"))
+								msgbox,% m "`n(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
+							
                      ; continue ; include is old. older.
-					}{
-						
-						
-						
+						}{
+							
+							
+							
                   ; lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"includeFilePathArray.Insert(" . includeFilePath . " `n 17-07-29_12-01" )
-						includeFilePathArray.Insert(includeFilePath)
-					}
-					
-				} ; endo of if(exist_includeFilePath)
+							includeFilePathArray.Insert(includeFilePath)
+						}
+						
+					} ; endo of if(exist_includeFilePath)
 				;\____ isIncludeFileInside __ 181012005024 __ 12.10.2018 00:50:24 __/
-				
-			} else
-				break
+					
+				} else
+					break
 ;>>>>>>>>>>>>>>>>> if(exist_includeFilePath)  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-			
-			lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   "'" . ActionListGeneratedPath . "' = ActionListGeneratedPath `n'" . ActionListNEWarchivePath . " = ActionListNEWarchivePath " )
-			
-		} 
+				
+				lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   "'" . ActionListGeneratedPath . "' = ActionListGeneratedPath `n'" . ActionListNEWarchivePath . " = ActionListNEWarchivePath " )
+				
+			} 
 		;\____ Loop,read,%ActionListNEWarchivePath __ 181012012859 __ 12.10.2018 01:28:59 __/
-		
-		
+			
+			
 ; lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   includeFileSContentWillBeNeedsSaved . " = includeFileSContentWillBeNeedsSaved `n" . ActionListNEWarchivePath . " = ActionListNEWarchivePath `n" . "17-07-16_17-07")
-		
-		
-		if(includeFileSContentWillBeNeedsSaved ) {
+			
+			
+			if(includeFileSContentWillBeNeedsSaved ) {
 ; loop throw alls include files
 ; Loop % Array.MaxIndex()   ; More traditional approach.
-			
-			if(InStr(A_ComputerName,"SL5"))
-				tooltip,% ActionList ": Message for SL5: includeFileSContentWillBeNeedsSaved(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
-			
-			for fileId, includeFilePath in includeFilePathArray ; Recommended approach in most cases.
-			{ ; for fileId, includeFilePath in includeFilePathArray
 				
-				lll(A_LineNumber, A_LineFile,A_ThisFunc ": "  includeFilePath)
+				if(InStr(A_ComputerName,"SL5"))
+					tooltip,% ActionList ": Message for SL5: includeFileSContentWillBeNeedsSaved(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
 				
-				lineInRegEx := lineInRegExArray[fileId]
-				regEx := SubStr( lineInRegEx , 2 )
-				regExPREFIX := SubStr( lineInRegEx  , 1 , 1 ) ; its a | ir a bit !
-				
-				lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   "lineInRegEx=" . lineInRegEx)
-				lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   "regEx=" . regEx)
-				
-				
-				includeFileContent := ""
-				if(lineInRegEx == "|.*"){
-					FileRead, includeFileContent, %includeFilePath%
-					includeFileContent .= "`n"
-				}else{
-					Loop, read, %includeFilePath%
-					{
-						foundPos := RegExMatch( A_LoopReadLine , regEx  )
-						
-						if( ( regExPREFIX =="|" && foundPos ) || ( regExPREFIX == "!" && !foundPos ) )
-							includeFileContent .= RTrim(A_LoopReadLine) . "`n"
-					} ; END loop
-				} ; END else
-				if(includeFileContent)
-					includeFileSContent .= includeFileContent
+				for fileId, includeFilePath in includeFilePathArray ; Recommended approach in most cases.
+				{ ; for fileId, includeFilePath in includeFilePathArray
+					
+					lll(A_LineNumber, A_LineFile,A_ThisFunc ": "  includeFilePath)
+					
+					lineInRegEx := lineInRegExArray[fileId]
+					regEx := SubStr( lineInRegEx , 2 )
+					regExPREFIX := SubStr( lineInRegEx  , 1 , 1 ) ; its a | ir a bit !
+					
+					lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   "lineInRegEx=" . lineInRegEx)
+					lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   "regEx=" . regEx)
+					
+					
+					includeFileContent := ""
+					if(lineInRegEx == "|.*"){
+						FileRead, includeFileContent, %includeFilePath%
+						includeFileContent .= "`n"
+					}else{
+						Loop, read, %includeFilePath%
+						{
+							foundPos := RegExMatch( A_LoopReadLine , regEx  )
+							
+							if( ( regExPREFIX =="|" && foundPos ) || ( regExPREFIX == "!" && !foundPos ) )
+								includeFileContent .= RTrim(A_LoopReadLine) . "`n"
+						} ; END loop
+					} ; END else
+					if(includeFileContent)
+						includeFileSContent .= includeFileContent
+				}
+			} ; END if(includeFileSContentWillBeNeedsSaved )
+			else{
+
 			}
-		} ; END if(includeFileSContentWillBeNeedsSaved )
-		
-		
-; lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   "'" . includeFileSContentWillBeNeedsSaved . "' = includeFileSContentWillBeNeedsSaved" )
-		
-; lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   "'" . ActionListGeneratedPath . "' = ActionListGeneratedPath `n'" . ActionListNEWarchivePath . " = ActionListNEWarchivePath " )
-		
-		if(includeFileSContentWillBeNeedsSaved ){
-			if(0 && InStr(A_ComputerName,"SL5"))
-				msgbox,% "(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
-			save_ActionListGeneratedPath(ActionListGeneratedPath,includeFileSContent,ActionListNEWarchivePath)
-		}
-		
-; lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   "'" . ActionListGeneratedPath . "' = ActionListGeneratedPath `n'" . ActionListNEWarchivePath . " = ActionListNEWarchivePath " )
-		
-		if(isIncludeFileInside && ActionListGeneratedPath){
-			ActionListNEWarchivePath := ActionListGeneratedPath ; that it will be used as your actionlist with all sugestions :) 12.07.2017 22:58
 			
-			ExitAPP_if_NOT_ActionListGeneratedPath (A_LineNumber, A_ThisFunc, ActionListNEWarchivePath, ActionListGeneratedPath , ActionListNEW)
-            ;ExitAPP_if_NOT_ActionListNEWarchivePath_and_NOT_ActionListNEW(A_LineNumber, A_ThisFunc, ActionListNEWarchivePath, ActionListGeneratedPath , ActionListNEW)
-		}
-;>>>>>>>>>>>>>>>>>> includeFileSContentWillBeNeedsSaved >>>>>>>>>>>>>>>>>>>>>>>>>>>
-	} ; EndOf: Loop, read, % ActionListNEWarchivePath
-	
+			
+; lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   "'" . includeFileSContentWillBeNeedsSaved . "' = includeFileSContentWillBeNeedsSaved" )
+			
 ; lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   "'" . ActionListGeneratedPath . "' = ActionListGeneratedPath `n'" . ActionListNEWarchivePath . " = ActionListNEWarchivePath " )
-	
+			
+			if(includeFileSContentWillBeNeedsSaved ){
+				if(0 && InStr(A_ComputerName,"SL5"))
+					msgbox,% "(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
+				save_ActionListGeneratedPath(ActionListGeneratedPath,includeFileSContent,ActionListNEWarchivePath)
+			}
+			
+; lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   "'" . ActionListGeneratedPath . "' = ActionListGeneratedPath `n'" . ActionListNEWarchivePath . " = ActionListNEWarchivePath " )
+			
+			if(isIncludeFileInside && ActionListGeneratedPath){
+				ActionListNEWarchivePath := ActionListGeneratedPath ; that it will be used as your actionlist with all sugestions :) 12.07.2017 22:58
+				
+				ExitAPP_if_NOT_ActionListGeneratedPath (A_LineNumber, A_ThisFunc, ActionListNEWarchivePath, ActionListGeneratedPath , ActionListNEW)
+            ;ExitAPP_if_NOT_ActionListNEWarchivePath_and_NOT_ActionListNEW(A_LineNumber, A_ThisFunc, ActionListNEWarchivePath, ActionListGeneratedPath , ActionListNEW)
+			}else if(!isIncludeFileInside){ ;  && ActionListGeneratedPath
+				if( FileExist(ActionListNEWarchivePath postFixGenerated) )
+					FileDelete,% ActionListNEWarchivePath postFixGenerated ; it is less confusing when unnecessary files disappear 18-12-24_01-34
+				tip := " is NOT Include File Inside "
+				tip =
+(
+ActionListGeneratedPath = %ActionListGeneratedPath%
+ActionListGeneratedPath = %ActionListNEWarchivePath% %postFixGenerated%
+ActionListNEWarchivePath = %ActionListNEWarchivePath%
+)
+		    ; speak(tip,"PROD")
+		    ; msgbox,%tip% `n(%A_LineFile%~%A_LineNumber%)
+		    ; feedbackMsgBox(A_ScriptName,tip ">" A_LineNumber,1,1)
+		    ; Sleep, 5000
+            if(false){ ; for some reasons ...
+		    			    msg =
+            			    (
+            for some reasons ist highly recommended for the moment to us your list with a include command.
+            may include a nearly empty file. thanks bb
+            			    )
+            				tip =
+            				(
+            includeFileSContentWillBeNeedsSaved = %includeFileSContentWillBeNeedsSaved%
+            ActionListNEW = %ActionListNEW%
+            ActionListActive = %ActionListActive%
+            				)
+                    WinGetActiveTitle,wintit ;  Retrieves the title of the active window.
+                    sleep,55
+            			    tooltip,% msg "`n" tip,1,1
+            			    ; feedbackMsgBox(msg,msg "`n" tip,1,1)
+            				lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   tip )
+                    sleep,700
+                    ;winactivateTry(wintit,19)
+                    sleep,5000
+            } ; for some reasons ...
+
+
+			}
+;>>>>>>>>>>>>>>>>>> includeFileSContentWillBeNeedsSaved >>>>>>>>>>>>>>>>>>>>>>>>>>>
+		} ; EndOf: Loop, read, % ActionListNEWarchivePath
+		
+; lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   "'" . ActionListGeneratedPath . "' = ActionListGeneratedPath `n'" . ActionListNEWarchivePath . " = ActionListNEWarchivePath " )
+		
   ; All we have to do know is to  use this file. therefore we only copying it to the active used file. it will be overwritten. 12.07.2017 21:31
-	
-	ExitAPP_if_NOT_ActionListNEWarchivePath_and_NOT_ActionListNEW(A_LineNumber, A_ThisFunc, ActionListNEWarchivePath, ActionListGeneratedPath , ActionListNEW)
-	if(0){ ; deprecated 21.03.2018 11:00
-		Msgbox,%ActionListNEWarchivePath% 2 %ActionListActivePath% `n (%A_LineFile%~%A_LineNumber%)
-		lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,ActionListNEWarchivePath " FileCopy too " ActionListActivePath)
-		FileCopy, % ActionListNEWarchivePath, % ActionListActivePath  , 1
-	}
-	return, 1
-} ; EndOf function ActionListNEWactivate( ActionListDir , ActionListNEW, ActionListActive , gi_everywhereSourcePath )
+		
+		ExitAPP_if_NOT_ActionListNEWarchivePath_and_NOT_ActionListNEW(A_LineNumber, A_ThisFunc, ActionListNEWarchivePath, ActionListGeneratedPath , ActionListNEW)
+		if(0){ ; deprecated 21.03.2018 11:00
+			Msgbox,%ActionListNEWarchivePath% 2 %ActionListActivePath% `n (%A_LineFile%~%A_LineNumber%)
+			lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,ActionListNEWarchivePath " FileCopy too " ActionListActivePath)
+			FileCopy, % ActionListNEWarchivePath, % ActionListActivePath  , 1
+		}
+		if(0){
+			tip =
+				(
+includeFileSContentWillBeNeedsSaved = %includeFileSContentWillBeNeedsSaved%
+ActionListNEW = %ActionListNEW%
+ActionListActive = %ActionListActive%
+				)
+			lll(A_LineNumber, A_LineFile,A_ThisFunc ": "   tip )	
+		}
+		return, 1
+		} ; EndOf function ActionListNEWactivate( ActionListDir , ActionListNEW, ActionListActive , gi_everywhereSourcePath )
 ;\____ ActionListNEWactivate( __ 181012023243 __ 
 	
 	
@@ -613,7 +669,7 @@ ActionListGeneratedModifiedTime =
 				
 				g_tooltipText = WinWait gi-everywhere.ahk
 				g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
-				tooltip, % "Wait 3 seconds before EXIT `n(" A_LineNumber " " RegExReplace(A_LineFile,".*\") ")"
+				tooltip, % "Wait 3 seconds before EXIT `n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ")"
 				WinWait,gi-everywhere.ahk,, 3
 				IfWinNotExist,gi-everywhere.ahk
 				{
@@ -656,7 +712,8 @@ ActionListGeneratedModifiedTime =
 				}
 				g_tooltipText = WinWait gi-everywhere.ahk
 				g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
-				tooltip, % "Wait" A_LineNumber " " RegExReplace(A_LineFile,".*\")
+				tooltip, % "Wait" A_LineNumber " " RegExReplace(A_LineFile,".*\\")
+				; msgbox, % "Wait" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " A_LineFile=" A_LineFile
 				WinWait,gi-everywhere,, 3
 				tooltip,
 				IfWinNotExist,gi-everywhere
@@ -668,7 +725,9 @@ ActionListGeneratedModifiedTime =
 				}
 			}
 		}
-		
+
+		; __ open msgb
+
 		
 		DetectHiddenWindows,On
 		SetTitleMatchMode,2
@@ -694,7 +753,7 @@ ActionListGeneratedModifiedTime =
 			g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 			
 			Last_A_This:=A_ThisFunc . A_ThisLabel 
-			ToolTip1sec(A_LineNumber . " " .  RegExReplace(RegExReplace(A_LineFile,".*\\") , ".*\", "") " " Last_A_This) ;
+			ToolTip1sec(A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\") " " Last_A_This) ;
 			msg = 
    (
    :-(
@@ -711,7 +770,7 @@ ActionListGeneratedModifiedTime =
 			g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 			
 			Last_A_This:=A_ThisFunc . A_ThisLabel 
-			ToolTip1sec(A_LineNumber . " " .  RegExReplace(RegExReplace(A_LineFile,".*\\") , ".*\", "") " " Last_A_This) ;
+			ToolTip1sec(A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\") " " Last_A_This) ;
 			msg_sourceDir = `n '%sourceDir%' = sourceDir  `n (line:%A_LineNumber%) `n
 			MsgBox, :(  `n  ! Exist(sourceDir) %msg_sourceDir%
 		}
@@ -970,7 +1029,7 @@ Clipboard = selfPerformanceTest2
 		if(winexist(winTC)){
 			ToolTip,DONT WANT RUN '%winTC%'. its already exist. `n (line:%A_LineNumber%) `n 18-02-15_13-00bbb
 			WinKill,% winTC
-			tooltip, % "Wait" A_LineNumber " " RegExReplace(A_LineFile,".*\")
+			tooltip, % "Wait" A_LineNumber " " RegExReplace(A_LineFile,".*\\")
 			WinWaitClose,% winTC,,2
 			tooltip,
 			return false

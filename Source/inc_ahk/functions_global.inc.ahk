@@ -69,11 +69,12 @@ varExist(ByRef v) {
 
 
 
-;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
- lll(ByRef ln, scriptName, text := "") {
-global g_ignReg
 
-debugIt := 0
+;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+lll(ByRef ln, scriptName, text := "") {
+    global g_ignReg
+
+    debugIt := 0
 
 	ln .= "`n"
 	n := "`n"

@@ -1023,7 +1023,7 @@ CheckWord(Key) {
 		
 ; if(A_UserName == "Administrator")
 ;    SendInput,%Key%
-;else }}}}} }}}}}}0000000000001230 ToolTip1sec(A_LineNumber   " "   RegExReplace(RegExReplace(A_LineFile,".*\\") , ".*\", "") " " Last_A_This); 75+ lines in Live Edit Live_Edit Pseudo Live Edit for Chrome Firefox PhpStorm.ahk
+;else }}}}} }}}}}}0000000000001230 ToolTip1sec(A_LineNumber   " "   RegExReplace(A_LineFile,".*\\") " " Last_A_This); 75+ lines in Live Edit Live_Edit Pseudo Live Edit for Chrome Firefox PhpStorm.ahk
 		if(lenKey>3){
     ;ToolTip3sec(Key "`n`n" A_LineNumber   " "   RegExReplace(A_LineFile,".*\\")    " "   Last_A_This)
 			send,{%keyBackup%}
@@ -1635,7 +1635,7 @@ BuildTrayMenu(){
 ;feedbackMsgBox("BuildTrayMenu test 17-11-22_13-52","test 17-11-22_13-52",1,1)
     if(1 || !InStr(A_ComputerName,"SL5") )
     	Menu, Tray, DeleteAll ; DeleteAll: Deletes all custom menu items from the menu.
-    ; if(0 || !InStr(A_ComputerName,"SL5") )
+    if(0 || !InStr(A_ComputerName,"SL5") )
     	Menu, Tray, NoStandard ; NoStandard: Removes all standard menu items from the menu. https://autohotkey.com/docs/commands/Menu.htm#NoDefault
     if(1 || !InStr(A_ComputerName,"SL5") )
     	Menu, Tray, NoDefault ; Reverses setting a user-defined default menu item.
@@ -1653,7 +1653,6 @@ BuildTrayMenu(){
 
 	Menu, Tray, add, set g_min_searchWord_length := 0 (it stays open`, experimental feature), lbl_g_min_searchWord_length_0
 	Menu, Tray, add, set g_min_searchWord_length := 1, lbl_g_min_searchWord_length_1
-
 
 
 	Menu, Tray, add
