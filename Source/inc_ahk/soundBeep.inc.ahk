@@ -229,6 +229,10 @@ Class TTS { ; https://autohotkey.com/boards/viewtopic.php?p=247009#p247009
 	VoiceName := ""
 
 	__New(){
+
+	    if(!A_Is64bitOS)
+	        return
+
 		this.oVoice := ComObjCreate("SAPI.SpVoice")
 		this._GetVoices()
 		this.SetVoice(this.VoiceList.1)

@@ -7,6 +7,9 @@ lll( A_ThisFunc ":" A_LineNumber , A_LineFile , "i am started" )
 
 ;/¯¯¯¯ setTrayIcon ¯¯ 181107175114 ¯¯ 07.11.2018 17:51:14 ¯¯\
 setTrayIcon(status := "loaded" ){
+    if(!A_Is64bitOS)
+        return
+
     global g_isListBoxDisabled
 	if(g_isListBoxDisabled){
 		Menu, Tray, Icon, %A_ScriptDir%\icon\abc123\GI-gray-gradient.ico
