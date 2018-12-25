@@ -16,10 +16,10 @@ This project is sponsored by JetBrains.  JetBrains is a software development com
 This international company has a user base of 4+ million users across 140 countries.  The company has won over 300+ awards.  Their customer base includes, The New York Times, CitiBank, Twitter, Pinterest, NASA, Salesforce and Samsung.
 
 - - -
-![](https://github.com/sl5net/global-IntelliSense-everywhere/blob/master/docs/help/gif/show-changing-ListBox-while-typing-global-IntelliSense-everywhere.gif?raw=true) or (without sound) https://youtu.be/wIBaZWKNscY
+![](https://github.com/sl5net/global-IntelliSense-everywhere-Nightly-Build/blob/master/docs/help/gif/show-changing-ListBox-while-typing-global-IntelliSense-everywhere.gif?raw=true) or (without sound) https://youtu.be/wIBaZWKNscY
 
 HowTo create a new ActionList and first entry with global-IntelliSense-everywhere Version 0.99
-![](https://github.com/sl5net/global-IntelliSense-everywhere/blob/master/docs/help/gif/HowTo-create-a-new-ActionList-and-first-entry-with-global-IntelliSense-everywhere-Version-0.99.gif?raw=true)
+![](https://github.com/sl5net/global-IntelliSense-everywhere-Nightly-Build/blob/master/docs/help/gif/HowTo-create-a-new-ActionList-and-first-entry-with-global-IntelliSense-everywhere-Version-0.99.gif?raw=true)
 or slower with audio: https://youtu.be/Kgu0gimWCZo
 
 [![global IntelliSense everywhere examples windows autohotkey](https://img.youtube.com/vi/elLsl8lj0K8/0.jpg)](https://www.youtube.com/watch?v=elLsl8lj0K8)

@@ -75,6 +75,7 @@ ReadActionList( calledFromStr ){
             Speak(A_LineNumber ": Not a Generated List" ,"PROD") ; bug entecekt ActionList 12.11.2018 11:02 todo:
 		fileEx := FileExist( ActionList postFixGenerated ) ; If no file is found, an empty string is returned.
 		; found a bug in Autohotkey version: v1.1.30.01 - November 11, 2018 https://www.autohotkey.com/boards/viewtopic.php?f=14&t=60288&p=254653#p254653
+		; already reported heere: https://autohotkey.com/board/topic/89401-ahk-syntax-for-function-call-drives-me-crazy/
 		if(fileEx){
 			ActionList .= postFixGenerated ; quick fix 14.11.2018 11:14
             if(1 && InStr(A_ComputerName,"SL5") && !InStr(ActionList,"isNotAProject")){
