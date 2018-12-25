@@ -7,20 +7,18 @@ lll( A_ThisFunc ":" A_LineNumber , A_LineFile , "i am started" )
 
 ;/¯¯¯¯ setTrayIcon ¯¯ 181107175114 ¯¯ 07.11.2018 17:51:14 ¯¯\
 setTrayIcon(status := "loaded" ){
-    if(!A_Is64bitOS)
-        return
 
     global g_isListBoxDisabled
 	if(g_isListBoxDisabled){
 		Menu, Tray, Icon, %A_ScriptDir%\icon\abc123\GI-gray-gradient.ico
 		return
 	}
-	if(status == "RecomputeMatches" ){
+	if(status == "RecomputeMatches" && A_Is64bitOS){
 		Menu, Tray, Icon, shell32.dll, 240 ; pretty green clock
 		return
 	}
 
-	if(status <> "loaded" ){
+	if(status <> "loaded" && A_Is64bitOS){
 		Menu, Tray, Icon, shell32.dll, 266 ; pretty black clock
     ;  Menu, Tray, Icon, shell32.dll, 44 ; star
 		return
