@@ -74,8 +74,17 @@ global g_isEnabledKeyboardHotKeys
 global Sql_Temp
 
 global g_config
-g_config := { list:{ change: { stopRexExTitle: false } } }
-g_config := { FuzzySearch:{ enable: true, MAXlines : 87654, keysMAXperEntry : 6, minKeysLen: 4, doValueCopy : false } } ; difficult to implement symlink copy for not rr lines doValueCopy. todo: issue . doValueCopy : false  is not fully implemented
+
+g_config := {}
+g_config.Send := { RealisticDelayDynamic: 1  }
+; Msgbox,% "RealisticDelayDynamic=`n" g_config["Send"]["RealisticDelayDynamic"] "`n`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+g_config.list := { change: { stopRexExTitle: false } }
+
+; g_config.Send := { RealisticDelayDynamic: 2  }
+
+; Msgbox,% "RealisticDelayDynamic=`n" g_config["Send"]["RealisticDelayDynamic"] "`n`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+
+g_config.FuzzySearch := { enable: true, MAXlines : 87654, keysMAXperEntry : 6, minKeysLen: 4, doValueCopy : false } ; difficult to implement symlink copy for not rr lines doValueCopy. todo: issue . doValueCopy : false  is not fully implemented
 
 global g_doSound
 g_doSound := false
@@ -99,7 +108,10 @@ if(1 && InStr(A_ComputerName,"SL5") )
 
 global g_config ; := { Send:{ RealisticDelayDynamic: true } }
 g_config["Send"]["RealisticDelayDynamic"] := false
-; msgBox,% g_config["FuzzySearch"]["keysMAXperEntry"] "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+; g_config["Send"]["RealisticDelayDynamic"] := 1
+; Msgbox,% "RealisticDelayDynamic=`n" g_config["Send"]["RealisticDelayDynamic"] "`n`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+
+ ; msgBox,% g_config["FuzzySearch"]["keysMAXperEntry"] "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 
 
 ; getRealisticDelayDynamicSendAHKcode
@@ -778,12 +790,15 @@ return
  toggle_RealisticDelayDynamic(){
      global g_config
      global test
-     Msgbox,% test "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
-     g_config["Send"]["RealisticDelayDynamic"] := !g_config["Send"]["RealisticDelayDynamic"]
+     g_config["Send"]["RealisticDelayDynamic"] := (g_config["Send"]["RealisticDelayDynamic"]) ? false : true ;
+     ; Msgbox,% "RealisticDelayDynamic=`n" g_config["Send"]["RealisticDelayDynamic"] "`n`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
      ToolTip5sec("RealisticDelayDynamic = `n`n`n >" g_config["Send"]["RealisticDelayDynamic"] "< `n`n`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") " " Last_A_This,1,1)
  }
 ;\____ toggle_RealisticDelayDynamic __ 181201095452 __ 01.12.2018 09:54:52 __/
 
+;  too  toolwindow
+; msgbox,% "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+; 
 
 
 ; SetTitleMatchMode,2
