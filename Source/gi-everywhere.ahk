@@ -660,7 +660,12 @@ return
 ;\____ doubleCtrlC __ 181108142352 __ 08.11.2018 14:23:52 __/
 
 
-; to  too5 too msgbox too toolsipt  too
+
+
+
+
+
+
 
 
 
@@ -792,13 +797,11 @@ return
      global test
      g_config["Send"]["RealisticDelayDynamic"] := (g_config["Send"]["RealisticDelayDynamic"]) ? false : true ;
      ; Msgbox,% "RealisticDelayDynamic=`n" g_config["Send"]["RealisticDelayDynamic"] "`n`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
-     ToolTip5sec("RealisticDelayDynamic = `n`n`n >" g_config["Send"]["RealisticDelayDynamic"] "< `n`n`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") " " Last_A_This,1,1)
+     ToolTip4sec("RealisticDelayDynamic = `n`n`n >" g_config["Send"]["RealisticDelayDynamic"] "< `n`n`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") " " Last_A_This,1,1)
  }
 ;\____ toggle_RealisticDelayDynamic __ 181201095452 __ 01.12.2018 09:54:52 __/
 
-;  too  toolwindow
-; msgbox,% "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
-; 
+
 
 
 ; SetTitleMatchMode,2
@@ -1309,7 +1312,11 @@ return
 
 ; ActiveTitleOLD2 := activeTitleOLD
 ;/¯¯¯¯ checkIncChangedActionListAddress ¯¯ 181025104242 ¯¯ 25.10.2018 10:42:42 ¯¯\
+; it reads: RegRead, ActionListNewTemp_RAW, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList
+; SetTimer,checkInRegistryChangedActionListAddress,2000 ; RegRead, ActionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList
 checkInRegistryChangedActionListAddress:
+    return ; it seems we need this function ????? 18-12-27_20-50
+
     ;toolTip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
     if(g_doListBoxFollowMouse){
         ; ToolTip9sec( "g_doListBoxFollowMouse`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
@@ -1636,11 +1643,10 @@ global-IntelliSense-everywhere-Nightly-Build [G:\fre\git\github\global-IntelliSe
     }
     ActionListOLD := ActionList
     ; g_ActionListID := getActionListID(ActionList) ; 24.03.2018 23:02
-    if(!g_ActionListID := getActionListID(ActionList)) ; 24.03.2018 23:02
-	{
+    if(!g_ActionListID := getActionListID(ActionList)){ ; 24.03.2018 23:02
 		if(1 && InStr(A_ComputerName,"SL5")) ; prob no error. whey not
 			Speak("ActionListID Not Exist!", "PROD" )  ;  (DEV, TEST, STAGING, PROD),
-}
+    }
 
     ;tip=%ActionList% (%ActionListSize%) `n%ActionListOLD% (%ActionListLastSize%) = old `n ( %A_LineFile%~%A_LineNumber% )
     ;ToolTip4sec(tip)
@@ -1650,7 +1656,7 @@ global-IntelliSense-everywhere-Nightly-Build [G:\fre\git\github\global-IntelliSe
 InactivateAll_Suspend_ListBox_WinHook() ; addet 24.10.2018 14:16
 
     ; This is to blank all vars related to matches, ListBox and (optionally) word
-ClearAllVars(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),True) ; 24.10.2018 14:16 may help listBoxGUI NEVER HANGS TODO:check it
+   ClearAllVars(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),True) ; 24.10.2018 14:16 may help listBoxGUI NEVER HANGS TODO:check it
     ; I think it might be handy if the search word is already on the next list. Therefore I commented this line out today 24.10.2018 14:48
     ;\____ very_happy __ 181024144106 __ 24.10.2018 14:41:06 __/
 

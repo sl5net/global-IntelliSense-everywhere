@@ -13,6 +13,15 @@ setRegistry_ActionList( ActionListNewTemp_withoutExt ){   ; RegWrite , RegSave ,
     if( SubStr( ActionListNewTemp_withoutExt , -3 ) == ".ahk" )
         ActionListNewTemp_withoutExt := SubStr( ActionListNewTemp_withoutExt, 1, -4 )
 
+    ; toolTip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+    ; tool
+
+    if(!ActionList){
+        if(1 && InStr(A_ComputerName,"SL5"))
+            ToolTip9sec( "UPS !ActionList`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+        return false
+    }
+
 	RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList, % ActionListNewTemp_withoutExt  ; RegWrite , RegSave , Registry
 
 	; millis_since_midnight := JEE_millis_since_midnight(vOpt:="") ; <=== more correct then  := A_Hour*3600000+A_Min*60000+A_Sec*1000+A_MSec

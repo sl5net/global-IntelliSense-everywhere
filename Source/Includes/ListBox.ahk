@@ -112,7 +112,6 @@ InitializeListBox(){
 ;\____ InitializeListBox __ 181107232111 __ 07.11.2018 23:21:11 __/
 
 
-; t tool msms
 
 
 ;/¯¯¯¯ ListBoxRigthButtionClick ¯¯ 181209172003 ¯¯ 09.12.2018 17:20:03 ¯¯\
@@ -127,6 +126,9 @@ ListBoxRigthButtionClick(wParam, lParam, msg, ClickedHwnd){
     ;msgbox,`n(%A_LineFile%~%A_LineNumber%)
 }
 ;\____ ListBoxRigthButtionClick __ 181209172006 __ 09.12.2018 17:20:06 __/
+
+
+
 
 ;/¯¯¯¯ ListBoxClickItem ¯¯ 181022211224 ¯¯ 22.10.2018 21:12:24 ¯¯\
 ; needet becouse listbox is moveable by click
@@ -176,8 +178,6 @@ ListBoxClickItem(wParam, lParam, msg, ClickedHwnd){
    }
 ;\____ clickedScrollbar __ 181122141522 __ 22.11.2018 14:15:22 __/
 
-; to to to too to to to to to to to tto too too to to t to t
-; toto t too too too to tooltip
 
 
       ; global g_doListBoxFollowMouse  __
@@ -376,7 +376,7 @@ ListBoxChooseItem(Row){
 ;/¯¯¯¯ CloseListBox ¯¯ 181107231921 ¯¯ 07.11.2018 23:19:21 ¯¯\
 ; SciTEWindow\_global.ahk __SunAwtFrame\.txt
 ; __SciTEWindow\_global.ahk
-CloseListBox(calledFromStr,calledFromName:=""){
+CloseListBox(ByRef calledFromStr, calledFromName := ""){
    global g_ListBox_Id
 
 if(0 && calledFromName)
@@ -384,7 +384,14 @@ if(0 && calledFromName)
 
     global g_min_searchWord_length
     if(calledFromName != "~esc" && !g_min_searchWord_length) ; does hav effect ???
+    {
+        if(0 && InStr(A_ComputerName,"SL5"))
+            ToolTip5sec( "! ~esc `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
         return
+    }
+    if(0 && InStr(A_ComputerName,"SL5"))
+        ToolTip9sec( calledFromStr "`n" calledFromName "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+
 ; to too  too too too too msg too tool i tool  tool cal t
    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, % A_ThisFunc , % calledFromStr
    IfNotEqual, g_ListBox_Id,

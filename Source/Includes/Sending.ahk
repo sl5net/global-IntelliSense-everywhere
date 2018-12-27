@@ -376,26 +376,54 @@ SendWord(WordIndex){
 ; msgBox,% "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 ;\____ used if triggered ...|ahk|... style __ 19.10.2018 10:24:32 __/
 	
-	
-	
 	global g_SingleMatch
 	global g_SingleMatchReplacement
 	
-	global ActionList
 	global g_ActionListID
+	global ActionList
 	
 	global g_ActionList_UsedByUser_since_midnight
-	global g_ActionListID
 	
 	
 	INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 	
+	if(!ActionList){
+	    if(1 && InStr(A_ComputerName,"SL5")){
+            msg =
+            (
+    >%ActionListFolderOfThisActionList%< NOT exist
+    ActionList = %ActionList%
+    g_ActionListID = %g_ActionListID%
+            )
+            msg .= "`n`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+            msg = ups:`n ! FileExist(%ActionListFolderOfThisActionList% %msg%
+
+            ; tooltip,% msg, 1 , 30, 20
+            lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,msg)
+
+		}
+		; reload
+		; return
+        RegRead, ActionList, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList ; todo: dirty bugFix. it happens, every second time??? whey??
+        ; toolt
+        ; tooltip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+        ; toolTip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+	}
+
 	ActionListFolderOfThisActionListRELATIVE := RegExReplace(ActionList,"\\[^\\]+$","")
 	ActionListFolderOfThisActionList := RegExReplace(ActionList,"\\[^\\]+$","") ; deleted A_ScriptDir "\"  23.10.2018 11:14
 	ActionListFolderOfThisActionList := removesSymbolicLinksFromFileAdress(ActionListFolderOfThisActionList) ; user should could includes direcly from his ahk ActionList, without editing the address 05.03.2018 08:15
+
+
 	if(!FileExist(ActionListFolderOfThisActionList)){ ; Checks for the existence of a file or folder
 		clipboard := ActionListFolderOfThisActionList
-		msg := "`n`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+		msg = 
+		(
+>%ActionListFolderOfThisActionList%< NOT exist 
+ActionList = %ActionList%
+g_ActionListID = %g_ActionListID%
+		)
+		msg .= "`n`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 		msg = ups:`n ! FileExist(%ActionListFolderOfThisActionList% %msg%
 		tooltip,% msg
 		msgBox,% ":( ERROR: " msg "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
@@ -403,6 +431,10 @@ SendWord(WordIndex){
 		
 		return false
 	}
+	
+	; msgbox,% "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+	; msgb
+	; 
 	
 	
 	disableCopyQ() ; enableCopyQ() ;
@@ -807,9 +839,9 @@ SendWord(WordIndex){
 		SendFull(sending, ForceBackspace)
 		;while(A_IsSuspended || A_IsCritical || A_TimeIdleKeyboard < 555 || A_TimeIdle < 555) ; todo: this has probably no effect 14.10.2018 00:26 18-10-14_00-26
 		;	sleep,100
-
-
-
+		
+		
+		
 		; msg msgBox,%":( ERROR: " msg A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 		;msgbox,%sending% uuuuuuuuuuuuuuuuuu  `n (line:%A_LineNumber%)
 		;pause
@@ -892,12 +924,12 @@ SendWord(WordIndex){
 		AHKcode2 .= "SetControlDelay, -1 `n "
 		AHKcode2 .= "Process, Priority,, H `n "
 		escaped_Sending := RegExReplace(Sending, """", """""")      ; "
-
+		
         ; msgbox, %g_Word% `n(%A_LineFile%~%A_LineNumber%)
         ; MsgBox,% rX["key"] "#" rX["rr"] "#" rX["send"]  "#" rX["code"] "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
-
+		
         ; rX := {key:m1, rr:m2, send:"", lang:"" ,code:""}
-
+		
 		AHKcode2 .= "key := """ rX["key"] """ `n "
 		AHKcode2 .= "Sending := """ escaped_Sending """ `n " ; or use Sending rX["send"]
 		AHKcode2 .= "sendingStrLen := " StrLen(Sending) " `n "
@@ -905,9 +937,12 @@ SendWord(WordIndex){
 		AHKcode2 .= "lineStrLen := " StrLen(g_Word) " `n "
 		AHKcode2 .= "AHKcodeLen := " StrLen(AHKcode) " `n "
 		AHKcode2 .= "ActionList := """ ActionList """ `n "
-		
 		; pause ; toCloseAll tToolTip5sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
-		
+
+		; toolTip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+		; tooltip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+		; toolt
+
 ;>>>>>>>> DynaRun >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		if( RegExMatch( AHKcode , "mPi)\bDynaRun[ ]*\("  ) ) {
 			FileRead,dynaRunFunctionImplementationSource,dynaRunFunctionImplementationSource.inc.ahk
@@ -1335,9 +1370,8 @@ SendFull(SendValue,ForceBackspace:= false){
     ;DisableKeyboardHotKeys()
 ;sendClipboard(sending) ; funny not work here ; 01.04.2018 09:46 18-04-01_09-46
 				
-;
-				
-				if(1 && InStr(A_ComputerName,"SL5"))
+
+				if(0 && InStr(A_ComputerName,"SL5"))
 					ToolTip4sec("A_SendLevel = " A_SendLevel "`n`n" A_LineNumber   " "   RegExReplace(A_LineFile,".*\\")    " "   Last_A_This) ; The built-in variable A_SendLevel contains the current setting.
 				
 ; tool too toolt tooltip, `n (from: %A_LineFile%~%A_LineNumber%)
@@ -1347,7 +1381,7 @@ SendFull(SendValue,ForceBackspace:= false){
 				if(true){
 				;/¯¯¯¯ SendLevel9 ¯¯ 181212214527 ¯¯ 12.12.2018 21:45:27 ¯¯\
 				; may there is an alternative solution: https://www.autohotkey.com/boards/viewtopic.php?f=76&t=37209&p=252768#p252768
-				suspend,on
+					suspend,on
 					ClipboardBackup := Clipboard
 					SendLevel 9 ; with this additions lines it works also in globalIntelisense nearliy 99% of time 18-04-01_12-24
 					Clipboard := ""
@@ -1360,15 +1394,15 @@ SendFull(SendValue,ForceBackspace:= false){
 				; sleep,100 ; <= script works not stable. to short ; needet !!! becouse may some the wrong clipboard content is pasted !!!!
 				;sleep,500 ; not stable <= script works not stable. to short ; needet !!! becouse may some the wrong clipboard content is pasted !!!!
 				; sleep,1500 ; 1500 maybe works .  becouse may some the wrong clipboard content is pasted !!!!
-
+					
 					; wait sending stated
 					while(a_index < 50 && A_TimeIdleKeyboard > 50) ; https://www.autohotkey.com/boards/viewtopic.php?f=76&t=59913&p=252749#p252749
 						sleep,50
-
+					
 					; check is sending finised
 					while(a_index < 50 && A_TimeIdleKeyboard < 50) ; https://www.autohotkey.com/boards/viewtopic.php?f=76&t=59913&p=252749#p252749
 						sleep,50
-
+					
 					Clipboard := ClipboardBackup
 					sleep,100
 					SendLevel 0

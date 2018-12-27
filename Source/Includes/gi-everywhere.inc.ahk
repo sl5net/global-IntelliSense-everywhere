@@ -81,9 +81,9 @@ Receive_ActionListAddress(CopyOfData){
 ;DisableKeyboardHotKeys()
 ;SetBatchLines, -1 ;Change the Running performance speed (Priority changed to High in GetIncludedActiveWindow)
 ;ReadInTheActionList(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
-
-
-
+	
+	
+	
 	MainLoop()
 	return true  ; Returning 1 (true) is the traditional way to acknowledge this message.
 }
@@ -95,7 +95,7 @@ ReadInTheActionList(calledFromStr){ ;Read in the ActionList
 	global ParseWordsCount
 	global g_min_searchWord_length
 	; Speak(A_lineNumber,"PROD")
-
+	
 	RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, % A_ThisFunc , % calledFromStr
 	Critical, On
 	ParseWordsCount := ReadActionList(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
@@ -123,15 +123,15 @@ MainLoop(){
 	; msgbox tool tooltip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 	; box msgbox,% "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
 	global g_TerminatingEndKeys
-    global g_isListBoxDisabled
+	global g_isListBoxDisabled
 	Loop
 	{
 		if(g_isListBoxDisabled){
-		    sleep,500
-		    continue
+			sleep,500
+			continue
 		}
 		; tooltip 5 tlkjk to to ttt t t to totolsotolsotlsolilkj
-
+		
       ;If the active window has changed, wait for a new one
       ;IF (false && !ReturnWinActive() ) { ; "false &&" addet 18-03-31_13-42 lets try
 		IF !( ReturnWinActive() )
@@ -221,11 +221,6 @@ ProcessKey(InputChar,EndKey) {
 		}
 	}
 	
-	IfEqual, g_Active_Id, %g_Helper_Id%
-	{
-		Return
-	}
-	
    ;If we haven't typed anywhere, set this as the last window typed in
 	IfEqual, g_LastInput_Id,
 	g_LastInput_Id = %g_Active_Id%
@@ -243,9 +238,9 @@ ProcessKey(InputChar,EndKey) {
          ; add the word if switching lines
          ;AddWordToList(ByRef rootCmdTypeObj,g_Word,0)
 			ClearAllVars(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),true)
-
+			
 			if(1 && InStr(A_ComputerName,"SL5"))
-			    msgbox,`n(%A_LineFile%~%A_LineNumber%)
+				msgbox,`n(%A_LineFile%~%A_LineNumber%)
 			g_Word := InputChar
 			Return
 		}
@@ -255,19 +250,20 @@ ProcessKey(InputChar,EndKey) {
 	g_OldCaretX := CaretXorMouseXfallback()
 	
    ;Backspace clears last letter
-	ifequal, EndKey, Endkey:BackSpace
-	{
+	;if(EndKey == "Endkey:BackSpace" ) { ; || EndKey == "BackSpace"){
+	if(instr(EndKey,"Endkey:BackSpace")){
       ;Don't do anything if we aren't in the original window and aren't starting a new word
-		IfNotEqual, g_LastInput_Id, %g_Active_Id%
-		Return
+		; IfNotEqual, g_LastInput_Id, %g_Active_Id%
+		; Return
+		; msgbox,% g_Word "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
 		
 		StringLen, len, g_Word
-		IfEqual, len, 1
-		{
+		If(len <= 1)
 			ClearAllVars(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),true)
-		} else IfNotEqual, len, 0
-		{
-			StringTrimRight, g_Word, g_Word, 1
+		else {
+			g_Word := SubStr(g_Word , 1 , len - 1)
+			RecomputeMatches(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
+			return
 		}
 	} else if ( ( EndKey == "Max" ) && !(InStr(g_TerminatingCharactersParsed, InputChar)) ){
       ; If active window has different window ID from the last input,
@@ -277,7 +273,7 @@ ProcessKey(InputChar,EndKey) {
          ;AddWordToList(ByRef rootCmdTypeObj,g_Word,0)
 			ClearAllVars(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),true)
 			if(1 && InStr(A_ComputerName,"SL5"))
-			    msgbox,% "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+				tooltip,% "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")",1
 			g_Word := InputChar
 			g_LastInput_Id := g_Active_Id
 			Return
@@ -291,8 +287,8 @@ ProcessKey(InputChar,EndKey) {
 				tooltip,% "str=" NewInput " , chr=" InputChar "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
          ;AddWordToList(ByRef rootCmdTypeObj,g_Word,0)
 			ClearAllVars(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),true)
-			 if(1 && InStr(A_ComputerName,"SL5"))
-			    msgbox,`n(%A_LineFile%~%A_LineNumber%)
+			if(1 && InStr(A_ComputerName,"SL5"))
+				msgbox,`n(%A_LineFile%~%A_LineNumber%)
 			g_Word := InputChar
 		} else if InputChar in %prefs_EndWordCharacters%
 		{
@@ -313,14 +309,18 @@ ProcessKey(InputChar,EndKey) {
 		if(0 && InStr(A_ComputerName,"SL5"))
 			tooltip,% "str=" NewInput " , chr=" InputChar "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),1,1
       ;AddWordToList(ByRef rootCmdTypeObj,g_Word,0)
-      if(false){
-        clipboard .= "`nKey = >" Key "<`n"
-        clipboard .= "`nInputChar = >" InputChar "<`n"
-        clipboard .= "`nEndKey = >" EndKey "<`n"
-      }
+		if(false){
+			clipboard .= "`nKey = >" Key "<`n"
+			clipboard .= "`nInputChar = >" InputChar "<`n"
+			clipboard .= "`nEndKey = >" EndKey "<`n"
+		}
  		ClearAllVars(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),true)
+		if(0 && InStr(A_ComputerName,"SL5"))
+			ToolTip9sec(InputChar "`n" EndKey "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 		Return
 	}
+	
+	; tooltip tooltip settitle setmatch too too too too tooltip tooltip
 	
 ; ___ ooo asfasfs ooo oo ooo
 ; tool toolTip2sec(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") " " Last_A_This)
@@ -357,35 +357,35 @@ RecomputeMatches( calledFromStr, is_Recursion := false ){
 	global prefs_NoBackSpace
 	global prefs_ShowLearnedFirst
 	global prefs_SuppressMatchingWord
-
+	
 	global g_min_searchWord_length
 	global g_min_searchWord_length_2
-
+	
 	global g_ListBoxPosX
 	global g_ListBoxPosY
-
+	
 ; box box msgb bo
     ; msgbox,% g_min_searchWord_length_2 "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
-
+	
     ; Menu, Tray, Icon, shell32.dll, 266 ; pretty black clock
-
+	
     ; toot too t
-
+	
 	setTrayIcon("RecomputeMatches")
 	RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, RecomputeMatches , % calledFromStr
-
+	
 	; g_min_searchWord_length := getMinLength_Needetthat_ListBecomesVisible(ParseWordsCount, maxLinesOfCode4length1)
-
+	
 	if(g_isListBoxDisabled
 	 || ( !g_Word && g_min_searchWord_length )) { ; if g_Word is empty and you run, it shows the complete list. you want it? maybe sometimes its helpful 25.03.2018 19:42 18-03-25_19-42
 		setTrayIcon()
 		Return
 	}
 	SavePriorMatchPosition()
-
+	
 	; tooo tooo tool t to  toolTip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 	; t kada  4 test  sdasdf tset
-
+	
    ;Match part-word with command
 	g_MatchTotal = 0
 	
@@ -404,60 +404,60 @@ RecomputeMatches( calledFromStr, is_Recursion := false ){
 ; msg sm msgbox test msgb msgbox MsgBox
 	
 	SetTimer, show_ListBox_Id, 600 ; setinterval ; 28.10.2018 02:39: fallback bugfix workaround help todo:
-        if(!Sql_Temp.valueObj)
-            tooltip,% " ERROR !Sql_Temp.valueObj `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" , 50,50
-        valueObj := Sql_Temp.valueObj ; Sql_Temp
-
+	if(!Sql_Temp.valueObj)
+		tooltip,% " ERROR !Sql_Temp.valueObj `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" , 50,50
+	valueObj := Sql_Temp.valueObj ; Sql_Temp
+	
     ; t
-
-        sql := Array()
-        g_SingleMatch := Object()
-        g_SingleMatchDescription := Object()
-        g_SingleMatchReplacement := Object()
-
+	
+	sql := Array()
+	g_SingleMatch := Object()
+	g_SingleMatchDescription := Object()
+	g_SingleMatchReplacement := Object()
+	
         ; ToolTip2sec(g_min_searchWord_length_2 "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
-        StrLen_g_Word := StrLen(g_Word)
-        loop,6
-        {
-
+	StrLen_g_Word := StrLen(g_Word)
+	loop,6
+	{
+		
             ; becouse of performance reasons. thats optional. dont need 02.12.2018 09:25
-            if(a_index >= 2
+		if(a_index >= 2
                 && StrLen_g_Word < g_min_searchWord_length_2 )
-                break
-
-            o := valueObj[A_Index]
-            if(!o){
+			break
+		
+		o := valueObj[A_Index]
+		if(!o){
         		; Msgbox,:( Oops >%A_Index%<(%A_LineFile%~%A_LineNumber%)
-			    toolTip, % "Oops no SQL-Template `nNr." A_Index "(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),1,1
-                continue
-            }
-            if(!o["word"]["pos"]){
-                tip := "Oops ERROR in SQL-Template `nNr.>" A_Index "<`n`n Could not be found: `n o[word][pos]`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
-                toolTip,% tip ,1 ,1
+			toolTip, % "Oops no SQL-Template `nNr." A_Index "(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),1,1
+			continue
+		}
+		if(!o["word"]["pos"]){
+			tip := "Oops ERROR in SQL-Template `nNr.>" A_Index "<`n`n Could not be found: `n o[word][pos]`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+			toolTip,% tip ,1 ,1
         		Msgbox,:( Oops `n %tip%(%A_LineFile%~%A_LineNumber%)
-                continue
-            }
-
-
+			continue
+		}
+		
+		
             ; o["listID"]["len"] := 0 ; dont to this ! it changes the data object! its referene !
-            sql["pre_Where"] := substr( o["sql"], 1 , o["word"]["pos"] - 1 )
-            sql["postWhere"] := substr( o["sql"] , o["word"]["pos"] + 1, - 1 + o["listID"]["pos"] - o["word"]["pos"] )
-            sql["rest"] := substr( o["sql"] , o["listID"]["pos"] + 1 + o["listID"]["len"] )
-
-            if(o["listID"]["len"])
-                SELECT := sql["pre_Where"] g_Word sql["postWhere"] " = " g_ActionListID " " sql["rest"] ; ; <== dirty bugfix
-            ELSE
-                SELECT := sql["pre_Where"] g_Word sql["postWhere"]
-
+		sql["pre_Where"] := substr( o["sql"], 1 , o["word"]["pos"] - 1 )
+		sql["postWhere"] := substr( o["sql"] , o["word"]["pos"] + 1, - 1 + o["listID"]["pos"] - o["word"]["pos"] )
+		sql["rest"] := substr( o["sql"] , o["listID"]["pos"] + 1 + o["listID"]["len"] )
+		
+		if(o["listID"]["len"])
+			SELECT := sql["pre_Where"] g_Word sql["postWhere"] " = " g_ActionListID " " sql["rest"] ; ; <== dirty bugfix
+		ELSE
+			SELECT := sql["pre_Where"] g_Word sql["postWhere"]
+		
             ; winpo
-
-            if(false && a_index == 1)
+		
+		if(false && a_index == 1)
                clipboard := SELECT "`n`n`n" o["listID"]["len"]
                 ; clipboard := SELECT
             ;  msgbox,% SELECT t $ t to
             ; to
             ; t b box
-
+		
 	;SELECT := regExReplace(SELECT,"(``|`%)","``$1")
 		try{
 			Matches := g_ActionListDB.Query(SELECT)
@@ -472,51 +472,51 @@ RecomputeMatches( calledFromStr, is_Recursion := false ){
 			msgbox, % tip
 		}
 		; t
-
+		
 		for each, row in Matches.Rows
 		{
 		    ; tooltip msgb box box tooltip msgbox tooltip msg box line Line Too
 			g_SingleMatch[++g_MatchTotal] := trim(row[1]," `t`r`n") ; rTrim(clipboard," `t`r`n")
 			if( !g_SingleMatch[g_MatchTotal] ){
-			    --g_MatchTotal
+				--g_MatchTotal
 				continue
-            }
+			}
 			g_SingleMatchDescription[g_MatchTotal] := trim(row[2]," `t`r`n")
 			g_SingleMatchReplacement[g_MatchTotal] := trim(row[3]," `t`r`n")
 			if(0 && InStr(A_ComputerName,"SL5"))
 				tooltip,% ":-) row[1]=" row[1] ", row[2]=" row[2] " , g_Word=" g_Word  " , g_MatchTotal=" g_MatchTotal " , Normalize=" Normalize "`n" SELECT  "`nRecomputeMatches(calledFromStr):(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),1,1
-
+			
             ;/¯¯¯¯ topseudoDistinct ¯¯ 181209155652 ¯¯ 09.12.2018 15:56:52 ¯¯\
             ; pseudoDistinct experimental ? todo: without any effect ??? yes it works: 18-12-09_16-22
-            if( A_index == 1 ){ ; first result from this new select
+			if( A_index == 1 ){ ; first result from this new select
                 ; do distinct proof
                 ; ceck if last result of last select has the same reult
-                if( g_SingleMatch[g_MatchTotal] == g_SingleMatch[g_MatchTotal-1]
+				if( g_SingleMatch[g_MatchTotal] == g_SingleMatch[g_MatchTotal-1]
                     && g_SingleMatchDescription[g_MatchTotal] == g_SingleMatchDescription[g_MatchTotal-1]
                     && g_SingleMatchReplacement[g_MatchTotal] == g_SingleMatchReplacement[g_MatchTotal-1] ){
-                    tip := "already collected: `n `nt=>" g_SingleMatch[g_MatchTotal] "< `nd=>" g_SingleMatchDescription[g_MatchTotal] "< `nr=>" g_SingleMatchReplacement[g_MatchTotal] "< "
-                    tip .= "`n `nt=>" strlen(g_SingleMatch[g_MatchTotal]) "< `nd=>" strlen(g_SingleMatchDescription[g_MatchTotal]) "< `nr=>" strlen(g_SingleMatchReplacement[g_MatchTotal]) "< "
-                    tip .= "`n" strSingleMatch ""
+					tip := "already collected: `n `nt=>" g_SingleMatch[g_MatchTotal] "< `nd=>" g_SingleMatchDescription[g_MatchTotal] "< `nr=>" g_SingleMatchReplacement[g_MatchTotal] "< "
+					tip .= "`n `nt=>" strlen(g_SingleMatch[g_MatchTotal]) "< `nd=>" strlen(g_SingleMatchDescription[g_MatchTotal]) "< `nr=>" strlen(g_SingleMatchReplacement[g_MatchTotal]) "< "
+					tip .= "`n" strSingleMatch ""
                     ;ToolTip4sec( tip "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
                     ;Clipboard := tip
-                    --g_MatchTotal
+					--g_MatchTotal
         			; feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), tip )
-                    continue
-                }
-            }
+					continue
+				}
+			}
 ; to seba test msgbox box tt
             ;\____ pseudoDistinct __ 181209155658 __ 09.12.2018 15:56:58 __/
-
+			
 ; tes
-
-
+			
+			
 			global g_min_searchWord_length
 			; if(!g_min_searchWord_length)
 			; 	msgbox,% SELECT "`n`n :( Oops !g_min_searchWord_length (" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
 			;
 		    ; it shows the complete list. you want it? maybe sometimes its helpful 25.03.2018 19:42 18-03-25_19-42
-
-
+			
+			
     ; check if gui is opening
     ; if(strlen(g_Word)>=3)
 			if(!g_reloadIf_ListBox_Id_notExist && StrLen(g_Word) == g_min_searchWord_length ){
@@ -527,129 +527,129 @@ RecomputeMatches( calledFromStr, is_Recursion := false ){
 				g_reloadIf_ListBox_Id_notExist := true
         ; msgbox,% "g_reloadIf_ListBox_Id_notExist:= true(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
 			}
-            if(g_MatchTotal == 10)
-                break
+			if(g_MatchTotal == 10)
+				break
 		} ; end or forech
 		; IfNotEqual, g_MatchTotal, 0
 		;    break
 		if(g_MatchTotal == 10)
 			break
 	}
-
-
+	
+	
         ; STMM MB ess box mess
         ; RM RM RM
-
+	
         ; Featue: tipe only the upper letters. search in indexes
         ; todo: test it if it really works: 09.12.2018 18:48
-		IfEqual, g_MatchTotal, 0
+	IfEqual, g_MatchTotal, 0
     	{
                 ; Featue: tipe only the upper letters. search in indexes
                 ; todo: test it if it really works: 09.12.2018 18:48
                 ; stmm STMM STM
                 ; example: STMM = setTitleMatchMode
-                    if(StrLen_g_Word >= 2){
-                        SELECT := "SELECT distinct word, worddescription, wordreplacement FROM Words w `n"
-                        loop, % StrLen_g_Word
-                        {
-                            s := substr(g_Word , A_index , 1)
-                            StringUpper, s1, s ; proor if its really uppercase
+		if(StrLen_g_Word >= 2){
+			SELECT := "SELECT distinct word, worddescription, wordreplacement FROM Words w `n"
+			loop, % StrLen_g_Word
+			{
+				s := substr(g_Word , A_index , 1)
+				StringUpper, s1, s ; proor if its really uppercase
                             ; Determines whether string comparisons are case sensitive (default is "not case sensitive").
-                            if(s1 <> s){
+				if(s1 <> s){
                                 ; msgbox,%s1% <> %s% `n(%A_LineFile%~%A_LineNumber%)
-                                break ; only active if all from the beginning is uppper case
+					break ; only active if all from the beginning is uppper case
                                 ; msb st stmm cmode
-                            }
+				}
                             ; msgbox,%s1% == %s% `n(%A_LineFile%~%A_LineNumber%)
-                            if(a_index==1)
-                                SELECT .= " WHERE w.wordindexed GLOB '" s1 "*' `n"
-                            else
-                                SELECT .= " AND w.wordindexed GLOB '* " s1 "*' `n"
-                        }
-                        SELECT .= " AND ActionListID = " g_ActionListID " `n"
-                        SELECT .= " order by ROWID desc `n"
-                        SELECT .= " LIMIT 9 " "`;"
+				if(a_index==1)
+					SELECT .= " WHERE w.wordindexed GLOB '" s1 "*' `n"
+				else
+					SELECT .= " AND w.wordindexed GLOB '* " s1 "*' `n"
+			}
+			SELECT .= " AND ActionListID = " g_ActionListID " `n"
+			SELECT .= " order by ROWID desc `n"
+			SELECT .= " LIMIT 9 " "`;"
                         ; tooltip,%SELECT% `n(%A_LineFile%~%A_LineNumber%)
                         ; Clipboard := SELECT
-                        try{
-                            Matches := g_ActionListDB.Query(SELECT)
-                        } catch e{
-                            tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
-                            sqlLastError := SQLite_LastError()
-                            tip .= "`n sqlLastError=" sqlLastError "`n sql=" SELECT " `n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
-                            lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,tip)
-                            tooltip, % tip
-                            feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), tip )
-                            Clipboard := tip
-                            msgbox, % tip
-                        }
-                        for each, row in Matches.Rows
-                        {
+			try{
+				Matches := g_ActionListDB.Query(SELECT)
+			} catch e{
+				tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
+				sqlLastError := SQLite_LastError()
+				tip .= "`n sqlLastError=" sqlLastError "`n sql=" SELECT " `n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
+				lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,tip)
+				tooltip, % tip
+				feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), tip )
+				Clipboard := tip
+				msgbox, % tip
+			}
+			for each, row in Matches.Rows
+			{
                     ; tooltip msgb box box tooltip msgbox tooltip msg box line Line Too
-                            g_SingleMatch[++g_MatchTotal] := trim(row[1]," `t`r`n") ; rTrim(clipboard," `t`r`n")
-                            if(!g_SingleMatch[g_MatchTotal]){
-                                --g_MatchTotal
-                                continue
-                            }
-                            g_SingleMatchDescription[g_MatchTotal] := trim(row[2]," `t`r`n")
-                            g_SingleMatchReplacement[g_MatchTotal] := trim(row[3]," `t`r`n")
-                        }
+				g_SingleMatch[++g_MatchTotal] := trim(row[1]," `t`r`n") ; rTrim(clipboard," `t`r`n")
+				if(!g_SingleMatch[g_MatchTotal]){
+					--g_MatchTotal
+					continue
+				}
+				g_SingleMatchDescription[g_MatchTotal] := trim(row[2]," `t`r`n")
+				g_SingleMatchReplacement[g_MatchTotal] := trim(row[3]," `t`r`n")
+			}
                         ; IfEqual, g_MatchTotal, 0
                         ;     Clipboard := SELECT "-- from huihuihuihuihui"
-                    }
-         }
-
+		}
+	}
+	
 ; REM
 ; REM
 ; REM REM
-
-
+	
+	
 ; stmm STMM ST
 ; tmm tmm  tmm tmm
 ; STMM STMM ST MM
 ; stmm tmm tmm  tmm
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	; tooltip hallo msgbox tooltip tooltip
-
+	
 	; msgbox,% g_MatchTotal "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
 	
 	; tooltip msg bxox reg tsk ekejskj kjk jjk binat bi bzui tooo bigf fsd asd nnn nnnn nnnvcxcfggdfgvfdfvxcvfdfvvdfdfggbbvms dscxxcdfvx sfvdfvdfss sfd
 	; dsfdsfdfdsafd adfsfd sdffadf dfafds
-
+	
 	; msgbox,% "1: "g_ListBoxPosX " 2:" g_ListBoxX asxsdcxsdsa
 	; r tol tolb tolb tp tp tp tp tp tp tp ool to olti tp tolp tolp ess msg esg box too
 	; tolp olb oltip ifu ifu win winpos
@@ -657,26 +657,26 @@ RecomputeMatches( calledFromStr, is_Recursion := false ){
 	; winpos winpos
 	; winpos
 	if(is_Recursion)
-	    return
+		return
 	IfEqual, g_MatchTotal, 0
 	{
         ;/¯¯¯¯ StrLen_g_Word > ¯¯ 181202164223 ¯¯ 02.12.2018 16:42:23 ¯¯\
-        if(!is_Recursion && StrLen_g_Word >= 3){
-            is_Recursion := true
-            count_Recursions := 0
-            g_Word_backup := g_Word
-            loop, % StrLen_g_Word
-            {
-                count_Recursions++
-                s1 := substr(g_Word_backup , 1 , count_Recursions  )
-                s2 := substr(g_Word_backup , count_Recursions + 1 )
+		if(!is_Recursion && StrLen_g_Word >= 3){
+			is_Recursion := true
+			count_Recursions := 0
+			g_Word_backup := g_Word
+			loop, % StrLen_g_Word
+			{
+				count_Recursions++
+				s1 := substr(g_Word_backup , 1 , count_Recursions  )
+				s2 := substr(g_Word_backup , count_Recursions + 1 )
                 ; Word2 := s1 "%" s2
                 ;RecomputeMatches( calledFromStr, is_Recursion )
                 ; winp winp
                 ; winp wi winpowinp winpos Winp ToTip totip winpos contrcl mbox msmul
-
-
-                SELECT =
+				
+				
+				SELECT =
                 (
 SELECT distinct word, worddescription, wordreplacement
 FROM Words w
@@ -688,38 +688,38 @@ LIMIT 9
                 ;tooltip,% SELECT
                 ; clipboard := SELECT
                 ; winp
-                try{
-                    Matches := g_ActionListDB.Query(SELECT)
-                } catch e{
-                    tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
-                    sqlLastError := SQLite_LastError()
-                    tip .= "`n sqlLastError=" sqlLastError "`n sql=" SELECT " `n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
-                    lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,tip)
-                    tooltip, % tip
-                    feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), tip )
-                    Clipboard := tip
-                    msgbox, % tip
-                }
-                for each, row in Matches.Rows
-                {
+				try{
+					Matches := g_ActionListDB.Query(SELECT)
+				} catch e{
+					tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
+					sqlLastError := SQLite_LastError()
+					tip .= "`n sqlLastError=" sqlLastError "`n sql=" SELECT " `n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
+					lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,tip)
+					tooltip, % tip
+					feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), tip )
+					Clipboard := tip
+					msgbox, % tip
+				}
+				for each, row in Matches.Rows
+				{
         ; tooltip msgb box box tooltip msgbox tooltip msg box line Line Too
-                    g_SingleMatch[++g_MatchTotal] := trim(row[1]," `t`r`n") ; rTrim(clipboard," `t`r`n")
-                    if(!g_SingleMatch[g_MatchTotal]){
-                        --g_MatchTotal
-                        continue
-                    }
-                    g_SingleMatchDescription[g_MatchTotal] := trim(row[2]," `t`r`n")
-                    g_SingleMatchReplacement[g_MatchTotal] := trim(row[3]," `t`r`n")
-                }
-
-                if(g_MatchTotal > 0)
-                    break
-            }
-        }
+					g_SingleMatch[++g_MatchTotal] := trim(row[1]," `t`r`n") ; rTrim(clipboard," `t`r`n")
+					if(!g_SingleMatch[g_MatchTotal]){
+						--g_MatchTotal
+						continue
+					}
+					g_SingleMatchDescription[g_MatchTotal] := trim(row[2]," `t`r`n")
+					g_SingleMatchReplacement[g_MatchTotal] := trim(row[3]," `t`r`n")
+				}
+				
+				if(g_MatchTotal > 0)
+					break
+			}
+		}
         ;\____ if StrLen_g_Word >
-    }
-
-
+	}
+	
+	
     ;/¯¯¯¯ nothingFound ¯¯ 181209180913 ¯¯ 09.12.2018 18:09:13 ¯¯\
 	IfEqual, g_MatchTotal, 0
 	{
@@ -728,19 +728,19 @@ LIMIT 9
 		; MsgBox, % SELECT
 		; Clipboard := SELECT
 		if(0 && !is_Recursion){
-    		Tooltip, % ((StrLen_g_Word >=3 ) ? substr( g_Word,1,3 ) ".." : g_Word ) " not found", % g_ListBoxX + 20 , % g_ListBoxY + 10
-		    ClearAllVars(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),false)
-		    setTrayIcon()
-       }
+			Tooltip, % ((StrLen_g_Word >=3 ) ? substr( g_Word,1,3 ) ".." : g_Word ) " not found", % g_ListBoxX + 20 , % g_ListBoxY + 10
+			ClearAllVars(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),false)
+			setTrayIcon()
+		}
 		if(0 && InStr(A_ComputerName,"SL5"))
 			tooltip,% " row[1]=" row[1] ", row[2]=" row[2] " , g_Word=" g_Word  " , g_MatchTotal=" g_MatchTotal " , Normalize=" Normalize "`n" ActionList "`n" SELECT  "`nRecomputeMatches(calledFromStr):(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),1,1
-
+		
       ; clipboard := SELECT
-
+		
 		Return
 	}
 	;\____ nothingFound __ 181209180921 __ 09.12.2018 18:09:21 __/
-
+	
    ;SELECT word, worddescription, wordreplacement FROM Words WHERE wordindexed GLOB 'TOO*'  AND ActionListID = '1' ORDER BY CASE WHEN count IS NULL then ROWID else 'z' end, CASE WHEN count IS NOT NULL then ( (count - 0) * ( 1 - ( '0.75' / (LENGTH(word) - 3)))) end DESC, Word LIMIT 10;
 	
 	SetupMatchPosition()
@@ -928,7 +928,7 @@ EnableKeyboardHotKeys(){
 DisableKeyboardHotKeys() {
 	global g_doSaveLogFiles
 	global g_isEnabledKeyboardHotKeys
-
+	
 	lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"DisableKeyboardHotKeys() { ... 17-07-16_13-31 ")
 	
 	global g_DelimiterChar
@@ -1631,36 +1631,36 @@ SuspendOff(){
 ;/¯¯¯¯ BuildTrayMenu ¯¯ 181024140140 ¯¯ 24.10.2018 14:01:40 ¯¯\
 BuildTrayMenu(){
     ; https://autohotkey.com/docs/commands/Menu.htm
-
+	
 ;feedbackMsgBox("BuildTrayMenu test 17-11-22_13-52","test 17-11-22_13-52",1,1)
-    if(1 || !InStr(A_ComputerName,"SL5") )
-    	Menu, Tray, DeleteAll ; DeleteAll: Deletes all custom menu items from the menu.
-    if(0 || !InStr(A_ComputerName,"SL5") )
-    	Menu, Tray, NoStandard ; NoStandard: Removes all standard menu items from the menu. https://autohotkey.com/docs/commands/Menu.htm#NoDefault
-    if(1 || !InStr(A_ComputerName,"SL5") )
-    	Menu, Tray, NoDefault ; Reverses setting a user-defined default menu item.
-
+	if(1 || !InStr(A_ComputerName,"SL5") )
+		Menu, Tray, DeleteAll ; DeleteAll: Deletes all custom menu items from the menu.
+	if(0 || !InStr(A_ComputerName,"SL5") )
+		Menu, Tray, NoStandard ; NoStandard: Removes all standard menu items from the menu. https://autohotkey.com/docs/commands/Menu.htm#NoDefault
+	if(1 || !InStr(A_ComputerName,"SL5") )
+		Menu, Tray, NoDefault ; Reverses setting a user-defined default menu item.
+	
    ; Menu, Tray, add, Settings, Configuration
 	; Menu, Tray, add, Pause, PauseResumeScript
-
-
+	
+	
 	Menu, Tray, add
-
+	
 	Menu, Tray, add, set g_doSound TRUE (experimental feature), lbl_g_doSoundTRUE
 	Menu, Tray, add, set g_doSound FALSE (experimental feature), lbl_g_doSoundFALSE
-
+	
 	Menu, Tray, add
-
+	
 	Menu, Tray, add, set g_min_searchWord_length := 0 (it stays open`, experimental feature), lbl_g_min_searchWord_length_0
 	Menu, Tray, add, set g_min_searchWord_length := 1, lbl_g_min_searchWord_length_1
-
-
+	
+	
 	Menu, Tray, add
 	Menu, Tray, add, tipps:,lbl_noOp
 	Menu, Tray, add, see \Source\shortcuts\listbox_shortcutStyle_... for trigger an action,lbl_noOp
 	Menu, Tray, add, use double Ctrl to togle Listbox ),lbl_noOp
 	Menu, Tray, add
-
+	
 	Menu, Tray, add, Help Gi-Edit/Create ActionList online, lbl_HelpOnline_EditCreate_ActionList
 	Menu, Tray, add, Help Gi-Search Keywords online, lbl_HelpOnline_Search_Keywords
 	Menu, Tray, add, Help Gi-Features online, lbl_HelpOnline_features
@@ -1668,8 +1668,8 @@ BuildTrayMenu(){
 	Menu, Tray, add, open issues online, lbl_HelpOnline_issues_open
 	; Menu, Tray, add
 	Menu, Tray, add, _______________________________,lbl_noOp
-    Menu, Tray, add, Help AutoHotkey online, lbl_Help_AutoHotkey_online
-
+	Menu, Tray, add, Help AutoHotkey online, lbl_Help_AutoHotkey_online
+	
 	IF (A_IsCompiled) ; A_IsCompiled	Contains 1 if the script is running as a compiled EXE and an empty string (which is considered false) if it is not.
 	{
 		; Menu, Tray, add, Exit, ExitScript
@@ -1677,15 +1677,15 @@ BuildTrayMenu(){
 	} else {
 		; Menu, Tray, Standard
 	}
-
-    Menu, Tray, add, Edit This Script, lblEditThisScript
-    Menu, Tray, add, Exit, ExitScript
-
+	
+	Menu, Tray, add, Edit This Script, lblEditThisScript
+	Menu, Tray, add, Exit, ExitScript
+	
    ; Menu, Tray, Default, Settings
    ;Initialize Tray Icon
    ; Menu, Tray, Tip , % Chr(8203) ; i dont want text there. The tray icon's tooltip is displayed when the mouse hovers over it.
    ; Menu, Tray, Tip , % Chr(8203) ; works but then i could not find it winSeach. i dont want text there. The tray icon's tooltip is displayed when the mouse hovers over it.
-   Menu, Tray, Tip , gi ; i dont want text there. The tray icon's tooltip is displayed when the mouse hovers over it.
+	Menu, Tray, Tip , gi ; i dont want text there. The tray icon's tooltip is displayed when the mouse hovers over it.
    ; Menu, Tray, Tip ,  ; works not . i dont want text there. The tray icon's tooltip is displayed when the mouse hovers over it.
 	; Menu, Tray, Delete, Open ; dont work: erro nonexistend menu item
 	; Menu, Tray, Rename, Help, AHK Help ; dont work: erro nonexistend menu item
@@ -1699,17 +1699,17 @@ BuildTrayMenu(){
 ClearAllVars( ByRef calledFromStr , ClearWord ){
 	
 	global
-
+	
 	; Msgbox,% calledFromStr "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
 	if(!instr(calledFromStr,"1614"))
     ;if( !RegExMatch( calledFromStr, "\b(1614|321|734)\b" )	)
-    if(false && InStr(A_ComputerName,"SL5")){
-        tooltip, %calledFromStr% `n (from: %A_LineFile%~%A_LineNumber%) , 1,200
-        clipboard .= "`n" calledFromStr
-        if( !RegExMatch( calledFromStr, "\b(1614|321|734|2112|316|687)\b" )	){
+		if(false && InStr(A_ComputerName,"SL5")){
+			tooltip, %calledFromStr% `n (from: %A_LineFile%~%A_LineNumber%) , 1,200
+			clipboard .= "`n" calledFromStr
+			if( !RegExMatch( calledFromStr, "\b(1614|321|734|2112|316|687)\b" )	){
             ; feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), calledFromStr ,1,1 )
-            RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, % A_ThisFunc , % calledFromStr
-    }}
+				RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, % A_ThisFunc , % calledFromStr
+		}}
 	; boxmsgbxo
 	; modesettitl  too
 	; modesettit boxmst moxmsg
@@ -1722,8 +1722,12 @@ ClearAllVars( ByRef calledFromStr , ClearWord ){
 	INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
        ; lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"CloseListBox(calledFromStr)")
        ; run,log\%A_LineFile%.log.txt ; this line woks :) but to often ;) may we dont need any more to check it ;) 04.08.2017 15:20
-
+	
 	CloseListBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
+	if(0 && InStr(A_ComputerName,"SL5"))
+		ToolTip9sec(calledFromStr "`nClearWord(1|0)=" ClearWord "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+	; too too too too too tooltip tooltip tooltip tooolipasdfasdf tooltip
+	; settitle settitlematch too
 	Ifequal,ClearWord,1
 	{
 		g_Word =
@@ -1907,7 +1911,7 @@ MaybeCoUninitialize(){
 getMinLength_Needetthat_ListBecomesVisible(ParseWordsCount, maxLinesOfCode4length1) {
 	global g_min_searchWord_length
 	if(g_min_searchWord_length == 0){ ; possibly wanted to show it always
-	    return g_min_searchWord_length
+		return g_min_searchWord_length
 	}
 	g_min_searchWord_length = 2 ; 27.03.2017 10:25 17-03-27_10-25 sl5.net
 	if( ParseWordsCount > 0 ){
