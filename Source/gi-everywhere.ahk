@@ -252,7 +252,7 @@ SetTimer,checkWinChangedTitle,1000 ; RegRead, ActionListActive, HKEY_CURRENT_USE
 ; activeTitleOLD := activeTitle
 
 ; tool tool tooltip too tooltip
-; tooltip 
+; tooltip
 
 SetTimer,doListBoxFollowMouse,off
 ;SetTimer,doListBoxFollowMouse,off
@@ -857,28 +857,30 @@ SetTitleMatchMode,regEx
     }
  return
 
-
+;test too tool tool
 
 #IfWinActive, ; thats probably needet. 27.09.2018 10:29 was problem that hitting 1 , 2 , 3 ... not triggered any. triggers notihng.. with this line it works again.
 RecomputeMatchesTimer:
    Thread, NoTimers
+   isNotInIn := (!instr(actionList,RegReadActionList_DebugInfo) && !instr(RegReadActionList_DebugInfo,actionList))
+   ;  1 is the first character; this is because 0 is synonymous with "false",
+    if(!actionList || isNotInIn){
+        ; actionList := RegReadActionList_DebugInfo ; todo: not pretty 18-12-28_08-27 quck and dirty
+        gosub,checkInRegistryChangedActionListAddress
+    }
    if(1 && InStr(A_ComputerName,"SL5")){
         RegRead, RegReadActionList_DebugInfo, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList
-        tooltip,% "RecomputeMatchesTimer: " g_Word "(" StrLen(g_Word) ") (" A_ThisFunc "~" A_LineNumber "~" RegExReplace(A_LineFile,".*\\") ")" ((!instr(actionList,RegReadActionList_DebugInfo)) ? "Oops: al=" RegExReplace(actionList,".*\\") "<> reg=" RegExReplace(RegReadActionList_DebugInfo,".*\\") : RegExReplace(actionList,".*\\") ) ,1,-20
+        tooltip,% "RecomputeMatchesTimer: " g_Word "(" StrLen(g_Word) ") (" A_ThisFunc "~" A_LineNumber "~" RegExReplace(A_LineFile,".*\\") ")" ((isNotInIn) ? "Oops: al=" RegExReplace(actionList,".*\\") "<> reg=" RegExReplace(RegReadActionList_DebugInfo,".*\\") : RegExReplace(actionList,".*\\") ) ,1,-20
         ; tes
         ; plausibilty-check (18-12-28_08-03):
-        if(!actionList){
-            ; actionList := RegReadActionList_DebugInfo ; todo: not pretty 18-12-28_08-27 quck and dirty
-            gosub,checkInRegistryChangedActionListAddress
-            ; test
-        }
-        WinGetActiveTitle,at
+        ; WinGetActiveTitle,at
         if( 0 && instr(at, ".ahk") && instr(actionList, "isNotAProject" ))
             tooltip,% "ERROR: wrong list: " actionList "(" A_ThisFunc "~" A_LineNumber "~" RegExReplace(A_LineFile,".*\\"),1,20,9
 }
 
 
-; tool
+; tool too to too  too too tool to
+; tool tool too tool to too 
 
     ;/¯¯¯¯ Temporary ¯¯ 181107201243 ¯¯ 07.11.2018 20:12:43 ¯¯\
     ; Temporary switched off
