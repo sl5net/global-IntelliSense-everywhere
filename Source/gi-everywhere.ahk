@@ -863,15 +863,21 @@ RecomputeMatchesTimer:
    Thread, NoTimers
    if(1 && InStr(A_ComputerName,"SL5")){
         RegRead, RegReadActionList_DebugInfo, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList
-        tooltip,% "RecomputeMatchesTimer: " g_Word "(" StrLen(g_Word) ") (" A_ThisFunc "~" A_LineNumber "~" RegExReplace(A_LineFile,".*\\") ")" ((actionList <> RegReadActionList_DebugInfo) ? "Oops: " actionList "<>" RegReadActionList_DebugInfo : RegExReplace(actionList,".*\\") ) ,1,-20
+        tooltip,% "RecomputeMatchesTimer: " g_Word "(" StrLen(g_Word) ") (" A_ThisFunc "~" A_LineNumber "~" RegExReplace(A_LineFile,".*\\") ")" ((!instr(actionList,RegReadActionList_DebugInfo)) ? "Oops: al=" RegExReplace(actionList,".*\\") "<> reg=" RegExReplace(RegReadActionList_DebugInfo,".*\\") : RegExReplace(actionList,".*\\") ) ,1,-20
+        ; tes
         ; plausibilty-check (18-12-28_08-03):
+        if(!actionList){
+            ; actionList := RegReadActionList_DebugInfo ; todo: not pretty 18-12-28_08-27 quck and dirty
+            gosub,checkInRegistryChangedActionListAddress
+            ; test
+        }
         WinGetActiveTitle,at
         if( 0 && instr(at, ".ahk") && instr(actionList, "isNotAProject" ))
             tooltip,% "ERROR: wrong list: " actionList "(" A_ThisFunc "~" A_LineNumber "~" RegExReplace(A_LineFile,".*\\"),1,20,9
 }
 
 
-; too 
+; tool 
 
     ;/¯¯¯¯ Temporary ¯¯ 181107201243 ¯¯ 07.11.2018 20:12:43 ¯¯\
     ; Temporary switched off
@@ -1315,6 +1321,7 @@ return
 
 ; msgb
 
+; tool tooltip
 
 
 
@@ -1326,7 +1333,7 @@ return
 ; called from \Window.ahk > WinChanged( :
 ; SetTimer,checkInRegistryChangedActionListAddress,on
 checkInRegistryChangedActionListAddress:
-    return ; it seems we need this function ????? 18-12-27_20-50
+    ; return ; it seems we need this function ????? 18-12-27_20-50
 
     ;toolTip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
     if(g_doListBoxFollowMouse){

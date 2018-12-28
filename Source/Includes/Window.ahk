@@ -125,13 +125,18 @@ WinChanged(hWinEventHook, event, wchwnd, idObject, idChild, dwEventThread, dwmsE
    global g_OldCaretY
    global prefs_DetectMouseClickMove
 
+    ; tooltip
+
     set0()
    EnableKeyboardHotKeys() ; seems needet 01.11.2018 19:04
 
    ; SoundbeepString2Sound(A_ThisFunc)
    speak(A_ThisFunc)
-   SetTimer,checkInRegistryChangedActionListAddress,on ; seems has no effect anymore 01.11.2018 19:14
+   ; SetTimer,checkInRegistryChangedActionListAddress,on ; seems has no effect anymore 01.11.2018 19:14
+   gosub,checkInRegistryChangedActionListAddress
    ; but it should work: https://autohotkey.com/boards/viewtopic.php?p=247296#p247296
+
+   ;  too too
 
    If (event <> 3){
       return
