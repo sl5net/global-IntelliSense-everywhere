@@ -14,9 +14,9 @@ setRegistry_ActionList( ActionListNewTemp_withoutExt ){   ; RegWrite , RegSave ,
         ActionListNewTemp_withoutExt := SubStr( ActionListNewTemp_withoutExt, 1, -4 )
 
     ; toolTip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
-    ; tool
+    ; msggb
 
-    if(!ActionList){
+    if(!ActionListNewTemp_withoutExt){
         if(1 && InStr(A_ComputerName,"SL5"))
             ToolTip9sec( "UPS !ActionList`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
         return false

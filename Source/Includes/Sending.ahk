@@ -439,7 +439,15 @@ g_ActionListID = %g_ActionListID%
 	
 	disableCopyQ() ; enableCopyQ() ;
    ; getWordIndex("__")
-	
+
+
+	    if(winactive("AHK Studio - ")){
+	        run,notepad
+	        WinWaitActive,ahk_class Notepad
+	        itsAHKStudioHelpWindow := true
+		}
+
+
    ;Send the word
 	if (g_SingleMatchReplacement[WordIndex]){
 		sending := g_SingleMatchReplacement[WordIndex]
@@ -1055,7 +1063,7 @@ g_ActionListID = %g_ActionListID%
 		
 		if(0 && InStr(A_ComputerName,"SL5") )
 			msgbox,% AHKcode2 " `n`n gefunden `n`n (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
-		
+
  		DynaRun(AHKcode2) ; inside of SendWord()
 		
         ; suspend,off
@@ -1134,9 +1142,23 @@ g_ActionListID = %g_ActionListID%
 	
 	
 	RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, return , % g_Word "=key|" A_ThisFunc ":"  A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+
+
+    if(itsAHKStudioHelpWindow){
+        WinWaitActive,ahk_class Notepad
+        WinActivateTry("ahk_class Notepad",9)
+        send,^a^c
+        winkill,ahk_class Notepad
+        WinWaitClose,ahk_class Notepad
+        Sleep, 100
+        send,^v
+    }
+
+
 	Return  ; endOf function: SendWord(WordIndex)
 }  
 ;\____ SendWord __ 181101130603 __ 01.11.2018 13:06:03 __/
+
 
 
 
