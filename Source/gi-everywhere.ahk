@@ -241,7 +241,7 @@ maxLinesOfCode4length1 := 900 ;
 ; SetTimer, saveIamAllive, 8000 ; setinterval
 ; SetTimer,checkInRegistryChangedActionListAddress,600 ; RegRead, ActionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList
 SetTimer,checkInRegistryChangedActionListAddress,2000 ; RegRead, ActionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList
-; SetTimer,checkInRegistryChangedActionListAddress,off ; RegRead, ActionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList
+SetTimer,checkInRegistryChangedActionListAddress,off ; RegRead, ActionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList
 lbl_default_checkActionListAHKfile_sizeAndModiTime := 8123456789
 lbl_default_checkActionListAHKfile_sizeAndModiTime := 500
 ; lbl_default_checkActionListAHKfile_sizeAndModiTime := 8000
@@ -252,6 +252,7 @@ SetTimer,checkWinChangedTitle,1000 ; RegRead, ActionListActive, HKEY_CURRENT_USE
 ; activeTitleOLD := activeTitle
 
 ; tool tool tooltip too tooltip
+; tooltip 
 
 SetTimer,doListBoxFollowMouse,off
 ;SetTimer,doListBoxFollowMouse,off
@@ -877,7 +878,7 @@ RecomputeMatchesTimer:
 }
 
 
-; tool 
+; tool
 
     ;/¯¯¯¯ Temporary ¯¯ 181107201243 ¯¯ 07.11.2018 20:12:43 ¯¯\
     ; Temporary switched off
@@ -1327,7 +1328,7 @@ return
 
 
 ; ActiveTitleOLD2 := activeTitleOLD
-;/¯¯¯¯ checkIncChangedActionListAddress ¯¯ 181025104242 ¯¯ 25.10.2018 10:42:42 ¯¯\
+;/¯¯¯¯ checkInRegistryChangedActionListAddress ¯¯ 181025104242 ¯¯ 25.10.2018 10:42:42 ¯¯\
 ; it reads: RegRead, ActionListNewTemp_RAW, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList
 ; SetTimer,checkInRegistryChangedActionListAddress,2000 ; RegRead, ActionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList
 ; called from \Window.ahk > WinChanged( :

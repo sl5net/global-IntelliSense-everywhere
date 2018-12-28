@@ -546,8 +546,8 @@ from: ActionList.ahk~%A_LineNumber%
 		
 		
 		; Critical, Off
-		
-		SetTimer,checkInRegistryChangedActionListAddress,On ; RegRead, ActionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList
+		; in: ReadActionList(
+		; SetTimer,checkInRegistryChangedActionListAddress,On ; RegRead, ActionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList
 ; SetTimer,checkInRegistryChangedActionListAddress,off ; RegRead, ActionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList
 		SetTimer,checkActionListAHKfile_sizeAndModiTime, On
 		SetTimer,checkWinChangedTitle,On
