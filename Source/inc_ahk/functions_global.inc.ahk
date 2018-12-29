@@ -1461,8 +1461,15 @@ DynaRun(TempScript, pipename=""){
     ; msgbox,18-11-16_13-19 ; to tool
     ; tool __ tool
 
+    if(1 && InStr(A_ComputerName,"SL5") )
+        ToolTip9sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+
     setTitleMatchMode, 2
-    if(winActive("ahk_class AutoHotkeyGUI")){
+    if(0 && winActive("ahk_class AutoHotkeyGUI")){
+        ; what was the motivation for this attitude? 18-12-29_11-40
+        ; which error should that fix?
+        ; which difficulty`?
+        ; ==> then some script i not usabal with gi. nearly all GUIs ant also AHK_Studio
         if(1 && InStr(A_ComputerName,"SL5") )
             feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), msg )
         return false
@@ -1490,6 +1497,9 @@ DynaRun(TempScript, pipename=""){
 
     TempScript := TempScriptPre TempScript "`n"
     ;msgbox,% TempScript
+
+		if(1 && InStr(A_ComputerName,"SL5") )
+            ToolTip9sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 
 	static _:="uint",@:="Ptr"
 	try  ; i dont want disturbing error messages

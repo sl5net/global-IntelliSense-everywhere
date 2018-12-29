@@ -11,7 +11,7 @@ SendKey(Key){
 	} else {
 		Key := "{" . SubStr(Key, 2) . "}"
 	}
-	
+
 	SendCompatible(Key,1)
 	Return
 }
@@ -441,11 +441,6 @@ g_ActionListID = %g_ActionListID%
    ; getWordIndex("__")
 
 
-	    if(winactive("AHK Studio - ")){
-	        run,notepad
-	        WinWaitActive,ahk_class Notepad
-	        itsAHKStudioHelpWindow := true
-		}
 
 
    ;Send the word
@@ -519,7 +514,10 @@ g_ActionListID = %g_ActionListID%
 	
 	isAHKcode := false
 	WinGetActiveTitle, activeTitle
-	
+
+
+
+
 	if (g_SingleMatch[WordIndex]) {
 		
 ; ToolTip2sec|rr|ToolTip2sec|ahk|strlen(m) `n ....
@@ -702,7 +700,7 @@ g_ActionListID = %g_ActionListID%
 ; indirect3 hello :-) 10.07.2017 14:27
 			
 			
-			
+
 			if(isAHKcode){
 				isStartingUnderline := ("___" == substr( lineOfIndex , 1, 3 ) )
 				is_OpenA_edit_open_lib := RegExMatch( " " lineOfIndex , "i)(edit|open|lib)" )
@@ -836,15 +834,28 @@ g_ActionListID = %g_ActionListID%
 			}
 	}
 	
-	
+
+		    if(0 && winactive("AHK Studio - ")){
+    	        ; run,plugins\ahk\helperInputGUI.ahk
+    	        run,plugins\ahk\helperInputGUI.exe
+    	        ToolTip5sec( "WinWaitActive `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+                WinWaitActive,helperInputGUI ; ahk_class AutoHotkeyGUI
+                tooltip,
+                Sleep, 500
+    	        itsAHKStudioHelpWindow := true
+    		}
+
 	
 	
    ; Update Typed Count
 	UpdateWordCount(sending,0)
    ;if( !isAHKcode )
-	
+
 	if( doSendSpacesInAHKslow == false ){
+		if(1 && InStr(A_ComputerName,"SL5") )
+            ToolTip9sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 		SendFull(sending, ForceBackspace)
+        
 		;while(A_IsSuspended || A_IsCritical || A_TimeIdleKeyboard < 555 || A_TimeIdle < 555) ; todo: this has probably no effect 14.10.2018 00:26 18-10-14_00-26
 		;	sleep,100
 		
@@ -875,7 +886,8 @@ g_ActionListID = %g_ActionListID%
 ; Msgbox, '%AHKcode%' = AHKcode `n (line:%A_LineNumber%)
 	
 	
-	
+	        
+
 	
 	;
 	
@@ -891,7 +903,10 @@ g_ActionListID = %g_ActionListID%
 	aScriptDir2ActionListFolder := removesSymbolicLinksFromFileAdress(A_ScriptDir "\..\ActionLists") ; user should could includes direcly from his ahk ActionList, without editing the address 05.03.2018 08:15
 ;msgbox, aScriptDir2ActionListFolder  = %aScriptDir2ActionListFolder%  `n (%A_LineFile%~%A_LineNumber%)
 ;exitapp\
-	
+
+	        
+
+
 	if( isKTScode ){
     ; "E:\fre\private\HtmlDevelop\AutoHotKey\global-IntelliSense-everywhere\ActionLists\_kts\kotlinc\bin\kotlinc"
     ;
@@ -918,7 +933,9 @@ g_ActionListID = %g_ActionListID%
     ; Msgbox,cmdResult = %cmdResult% `n sKTScode = %isKTScode% `n (%A_LineFile%~%A_LineNumber%)
 	}
 	
-	
+
+        
+
 ;<<<<<<<< isAHKcode <<<< 180315221709 <<<< 15.03.2018 22:17:09 <<<<
 	if( isAHKcode ){
 		AHKcode2 := ""
@@ -965,7 +982,9 @@ g_ActionListID = %g_ActionListID%
 	; msgBox,%":( ERROR: " msg "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 	; toolTip5sec(msg" (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") " " Last_A_This)
 		
-		
+        
+
+
 		if(0){
 			AHKcode2 .= "ActionList = , " . ActionListNEW . "`n" ; i cant do this :D becouse the script cant know this :D 12.08.2017 11:12
 			Msgbox,% AHKcode2 . "`n`n = AHKcode2 `n (%A_LineFile%~%A_LineNumber%)"
@@ -1005,7 +1024,9 @@ g_ActionListID = %g_ActionListID%
 			AHKcode := RegExReplace(AHKcode, "i)" regEx2, "$1$2$3" . ActionListFolderOfThisActionList . "\" ) ; dayTimeHello|rr||ahk|#include ..\xyz\sendDayTimeHello.ahk
 ;    AHKcode := RegExReplace(AHKcode, "i)(#include|run)[ ]*( |,)[ ]*(?!\w\:\\)", "$1$2" . ActionListFolderOfThisActionList . "\" ) ; dayTimeHello|rr||ahk|#include ..\xyz\sendDayTimeHello.ahk
 		
-		
+
+        
+
 		
 ;clipboard := AHKcode
 ;Msgbox,%AHKcode%`n = AHKcode (%A_LineFile%~%A_LineNumber%) 
@@ -1044,7 +1065,9 @@ g_ActionListID = %g_ActionListID%
 		SetWorkingDir,%A_WorkingDir%\..\ActionLists
          ; suspend,on ; if you do thi script sends nothing 13.03.2018 15:30
 		
-		
+
+        
+
 		
          ;/¯¯¯¯ ClearAllVars(A_ThisFunc ¯¯ 181028154133 ¯¯ 28.10.2018 15:41:33 ¯¯\
 		if(1 && InStr(A_ComputerName,"SL5") && activeTitle == "isNotAProject")
@@ -1063,6 +1086,9 @@ g_ActionListID = %g_ActionListID%
 		
 		if(0 && InStr(A_ComputerName,"SL5") )
 			msgbox,% AHKcode2 " `n`n gefunden `n`n (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+
+
+        
 
  		DynaRun(AHKcode2) ; inside of SendWord()
 		
@@ -1111,7 +1137,9 @@ g_ActionListID = %g_ActionListID%
 	
 	enableCopyQ() ;
 	
-	
+
+    
+
 	if(isAHKcode){
 		regExPattern = g_config\["list"\]\["change"\]\["stopRexExTitle"\]\s*:=\s*([^\n]*)\s*
 		foundPos := RegExMatch( AHKcode , regExPattern ,  matchs )
@@ -1130,26 +1158,35 @@ g_ActionListID = %g_ActionListID%
 		}
 	}
 	
-	
+
+    
+
     ; addet 01.11.2018 13:20. i have changed title by ahk. and WinChanged was not triggerd. this solves that problem:
     ; addet 01.11.2018 13:20. i have changed title by ahk. and WinChanged was not triggerd. this solves that problem:
     ; addet 01.11.2018 13:20. i have changed title by ahk. and WinChanged was not triggerd. this solves that problem:
     ; addet 01.11.2018 13:20. i have changed title by ahk. and WinChanged was not triggerd. this solves that problem:
     ; becouse the title may have been changed by another application 01.11.2018 13:43
     ; This typically happens with auto hotkey code (see lines above) but may also have been done with an external script.
+
+        
+
 	WinChanged(hWinEventHook, event, wchwnd, idObject, idChild, dwEventThread, dwmsEventTime)
 	
-	
+        
+
 	
 	RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, return , % g_Word "=key|" A_ThisFunc ":"  A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
 
-
-    if(itsAHKStudioHelpWindow){
-        WinWaitActive,ahk_class Notepad
-        WinActivateTry("ahk_class Notepad",9)
+    if(0 && itsAHKStudioHelpWindow){
+        ToolTip5sec( WinWaitActive "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+        WinWaitActive,helperInputGUI ; ahk_class AutoHotkeyGUI
+        ToolTip,
+        ;WinWaitActive,helperInputGUI ahk_class AutoHotkeyGUI
+        ;WinWaitActive,Edit Text ahk_class AutoHotkeyGUI
+        ;WinActivateTry("Edit Text ahk_class AutoHotkeyGUI",9)
         send,^a^c
-        winkill,ahk_class Notepad
-        WinWaitClose,ahk_class Notepad
+        winkill,Edit Text ahk_class AutoHotkeyGUI
+        WinWaitClose,Edit Text ahk_class AutoHotkeyGUI
         Sleep, 100
         send,^v
     }
@@ -1278,7 +1315,9 @@ SendFull(SendValue,ForceBackspace:= false){
 	StringCaseSense, Locale   
 	if (!BackSpaceWord && !(SubStr(SendValue, 1, BackSpaceLen) = g_Word)) {
 		BackSpaceWord := true
-		
+
+        
+
 		SendIndex := 1
 		WordIndex := 1
 		NewSendValue =
@@ -1345,6 +1384,7 @@ SendFull(SendValue,ForceBackspace:= false){
 ;~ if(g_useRAWsending)
 ;~     Raw:="{Raw}"
 	
+
 	IfEqual, prefs_SendMethod, 1
 	{
       ; Shift key hits are here to account for an occassional bug which misses the first keys in SendPlay
@@ -1384,6 +1424,8 @@ SendFull(SendValue,ForceBackspace:= false){
      ; just tested: words with ahk code goes here. but sending gets the value1 not the value2 with the script or ahk part 13.03.2018 14:43
     ; SendRaw, %sending% ; used till 13.03.2018 14:51
 			
+        
+
 			global g_method
 			if(g_method == "Clipboard" ){
 ; HotKey, $^+v, Off ; nonexistend hotkey
@@ -1400,6 +1442,9 @@ SendFull(SendValue,ForceBackspace:= false){
 ; too too too to too to too too too tooltip, `n (from: %A_LineFile%~%A_LineNumber%)ltip, `n (from: %A_LineFile%~%A_LineNumber%)
 				
 ; RegRead, OutputVar, KeyName , ValueName
+		if(1 && InStr(A_ComputerName,"SL5") )
+            ToolTip9sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+
 				if(true){
 				;/¯¯¯¯ SendLevel9 ¯¯ 181212214527 ¯¯ 12.12.2018 21:45:27 ¯¯\
 				; may there is an alternative solution: https://www.autohotkey.com/boards/viewtopic.php?f=76&t=37209&p=252768#p252768
@@ -1408,15 +1453,26 @@ SendFull(SendValue,ForceBackspace:= false){
 					SendLevel 9 ; with this additions lines it works also in globalIntelisense nearliy 99% of time 18-04-01_12-24
 					Clipboard := ""
 					Clipboard := sending ; " ln=" A_LineNumber "`n`n"
-				    ;AHKcode := "Critical, On`n"
+				    ; AHKcode := "Critical, On`n"
 					AHKcode := "Send,^v"
+
+        
+		if(0 && InStr(A_ComputerName,"SL5") )
+            ToolTip9sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+
 					DynaRun(AHKcode) ; <= uese old clipboard.or  simle give it more time
+
+		if(0 && InStr(A_ComputerName,"SL5") )
+            ToolTip9sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+
 				; sleep,2000 ; what for???? ; needet !!! becouse may some the wrong clipboard content is pasted !!!!
 				; sleep,1700 ; what for???? ; needet !!! becouse may some the wrong clipboard content is pasted !!!!
 				; sleep,100 ; <= script works not stable. to short ; needet !!! becouse may some the wrong clipboard content is pasted !!!!
 				;sleep,500 ; not stable <= script works not stable. to short ; needet !!! becouse may some the wrong clipboard content is pasted !!!!
 				; sleep,1500 ; 1500 maybe works .  becouse may some the wrong clipboard content is pasted !!!!
-					
+
+        
+
 					; wait sending stated
 					while(a_index < 50 && A_TimeIdleKeyboard > 50) ; https://www.autohotkey.com/boards/viewtopic.php?f=76&t=59913&p=252749#p252749
 						sleep,50
@@ -1438,14 +1494,20 @@ SendFull(SendValue,ForceBackspace:= false){
 				
 			} else
 				Send,{Text}%sending%
-	; feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), SendValue  )
+
+		if(1 && InStr(A_ComputerName,"SL5") )
+            ToolTip9sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 			
             ;lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"%sending% `n >" . sending . "<  `n token=18-03-13_14-44")
 			
         ; Msgbox,sending `n >%sending%< `n (%A_LineFile%~%A_LineNumber%)
 			
 		}else{
+    		if(1 && InStr(A_ComputerName,"SL5") )
+                ToolTip9sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 			SendPlay, %sending% ; First do the backspaces, Then send word (Raw because we want the string exactly as in ActionList . ahk)
+            if(1 && InStr(A_ComputerName,"SL5") )
+                ToolTip9sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
         ;lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"%sending% `n >" . sending . "<  `n token=18-03-13_14-44")
         ; Msgbox,sending `n >%sending%< `n (%A_LineFile%~%A_LineNumber%) 
 		}
@@ -1466,7 +1528,8 @@ SendFull(SendValue,ForceBackspace:= false){
 		Return
 	} ; Endof prefs_SendMethod
 	
-	
+        
+
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ;
 ; reg1SendEvenfoundPos := RegExMatch( "str" , "i)" )
@@ -1604,6 +1667,7 @@ SendFull(SendValue,ForceBackspace:= false){
 			lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"SendEvent, %sending% `n >" . sending . "<  `n 17-07-29_11-44")
 		
 	} else {
+        
 		ControlGetFocus, ActiveControl, ahk_id %g_Active_Id%
 		IfNotEqual, ActiveControl,
 		ControlSend, %ActiveControl%, %sending%, ahk_id %g_Active_Id%
@@ -1616,6 +1680,11 @@ SendFull(SendValue,ForceBackspace:= false){
 ;\____ SendFull __ 181212222201 __ 12.12.2018 22:22:01 __/
 ;\____ SendFull __ 181212222201 __ 12.12.2018 22:22:01 __/
 ;\____ SendFull __ 181212222201 __ 12.12.2018 22:22:01 __/
+
+
+
+
+
 
 
 
