@@ -22,6 +22,9 @@ setRegistry_ActionList( ActionListNewTemp_withoutExt ){   ; RegWrite , RegSave ,
         return false
     }
 
+    ; fallback if somebody gives addresses like ..\....\G:\\... then take the second absolut path 18-12-29_21-13
+    ActionListNewTemp_withoutExt := regexreplace(ActionListNewTemp_withoutExt , "i).*(\b[a-z]\:\\)", "$1" )
+
 	RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList, % ActionListNewTemp_withoutExt  ; RegWrite , RegSave , Registry
 
 	; millis_since_midnight := JEE_millis_since_midnight(vOpt:="") ; <=== more correct then  := A_Hour*3600000+A_Min*60000+A_Sec*1000+A_MSec
