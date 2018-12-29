@@ -509,7 +509,7 @@ MainLoop()
 ;/¯¯¯¯ doubleCtrl double Ctrl ListBoxDisabled¯¯ 181201095644 ¯¯ 01.12.2018 09:56:44 ¯¯\
 #IfWinActive,
 ~ctrl::
-   If (A_TimeSincePriorHotkey < 300) and (A_TimeSincePriorHotkey > 80){ ; 50 was to short. i tested it with holding the ctrl key
+   If (A_TimeSincePriorHotkey < 200) and (A_TimeSincePriorHotkey > 80){ ; 50 was to short. i tested it with holding the ctrl key
      toolTip2sec( "Ctrl+Ctrl = toggle listbox`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
     ;
 
@@ -866,14 +866,18 @@ SetTitleMatchMode,regEx
 RecomputeMatchesTimer:
    Thread, NoTimers
    RegRead, RegReadActionList_DebugInfo, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList
-   isNotInIn := (!instr(actionList,RegExReplace(RegReadActionList_DebugInfo,".*\\")) && !instr(RegReadActionList_DebugInfo,RegExReplace(actionList,".*\\")))
+   short_RegReadActionList_DebugInfo := RegExReplace(RegReadActionList_DebugInfo,".*\\")
+   short_actionList := RegExReplace(actionList,".*\\")
+   isInIn := (instr(actionList,short_RegReadActionList_DebugInfo) || instr(RegReadActionList_DebugInfo,short_actionList) )
    ;  1 is the first character; this is because 0 is synonymous with "false",
-    if(!actionList || isNotInIn){
+    if(!actionList || !isInIn){
         ; actionList := RegReadActionList_DebugInfo ; todo: not pretty 18-12-28_08-27 quck and dirty
         gosub,checkInRegistryChangedActionListAddress
     }
+
    if(1 && InStr(A_ComputerName,"SL5")){
-        tooltip,% "RecomputeMatchesTimer: " g_Word "(" StrLen(g_Word) ") (" A_ThisFunc "~" A_LineNumber "~" RegExReplace(A_LineFile,".*\\") ")" ((isNotInIn) ? "Oops: al=" RegExReplace(actionList,".*\\") "<> reg=" RegExReplace(RegReadActionList_DebugInfo,".*\\") : RegExReplace(actionList,".*\\") ) ,1,-20
+       isInIn := (instr(actionList,short_RegReadActionList_DebugInfo) || instr(RegReadActionList_DebugInfo,short_actionList) )
+        tooltip,% "RecomputeMatchesTimer: " g_Word "(" StrLen(g_Word) ") (" A_ThisFunc "~" A_LineNumber "~" RegExReplace(A_LineFile,".*\\") ")" ((!isInIn) ? "Oops: al=" RegExReplace(actionList,".*\\") "<> reg=" RegExReplace(RegReadActionList_DebugInfo,".*\\") : RegExReplace(actionList,".*\\") ) ,1,-20
         ; tes
         ; plausibilty-check (18-12-28_08-03):
         ; WinGetActiveTitle,at
