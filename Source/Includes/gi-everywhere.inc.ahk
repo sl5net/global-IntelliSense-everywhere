@@ -1658,7 +1658,7 @@ BuildTrayMenu(){
 	Menu, Tray, add
 	Menu, Tray, add, tipps:,lbl_noOp
 	Menu, Tray, add, see \Source\shortcuts\listbox_shortcutStyle_... for trigger an action,lbl_noOp
-	Menu, Tray, add, use double Ctrl to togle Listbox ),lbl_noOp
+	Menu, Tray, add, use double Ctrl to toggle Listbox ),lbl_noOp
 	Menu, Tray, add
 	
 	Menu, Tray, add, Help Gi-Edit/Create ActionList online, lbl_HelpOnline_EditCreate_ActionList

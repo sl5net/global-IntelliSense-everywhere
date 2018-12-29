@@ -191,7 +191,6 @@ if(1 && InStr(A_ComputerName,"SL5")){
     ; g_ActionListDBfileAdress := "E:\fre\private\HtmlDevelop\AutoHotKey\tools\TypingAid-master\Source\ActionListLearned.db"
     g_ActionListDBfileAdress := "G:\fre\private\sql\sqlite\ActionList.db"
 }
-; cre
 
 
 global g_ListBoxFontSize := 16 ; works
@@ -513,6 +512,10 @@ MainLoop()
    If (A_TimeSincePriorHotkey < 300) and (A_TimeSincePriorHotkey > 80){ ; 50 was to short. i tested it with holding the ctrl key
      toolTip2sec( "Ctrl+Ctrl = toggle listbox`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
     ;
+
+    if(1 && InStr(A_ComputerName,"SL5"))
+        msgbox,% "toggle Listbox `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+
     g_isListBoxDisabled := !g_isListBoxDisabled
     ; g_fontColor := (g_isListBoxDisabled) ? "cRed" : "cGreen"
     if(g_isListBoxDisabled){

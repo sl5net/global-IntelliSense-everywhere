@@ -204,7 +204,7 @@ ListBoxClickItem(wParam, lParam, msg, ClickedHwnd){
       if(g_doListBoxFollowMouse){
             tip=STOP follow listbox mouse `n (from: %A_LineFile%~%A_LineNumber%)
             ToolTip1sec(tip)
-            g_doListBoxFollowMouse := false ; togle it. _
+            g_doListBoxFollowMouse := false ; toggle it. _
             SetTimer,doListBoxFollowMouse,off
             Hotkey, WheelUp, off
             Hotkey, WheelDown, off
@@ -214,7 +214,7 @@ ListBoxClickItem(wParam, lParam, msg, ClickedHwnd){
       }else{
             tip=START follow listbox mouse `n (from: %A_LineFile%~%A_LineNumber%)
             ToolTip1sec(tip)
-            g_doListBoxFollowMouse := true ; togle it.
+            g_doListBoxFollowMouse := true ; toggle it.
             ; SetTimer,doListBoxFollowMouse,200
             SetTimer,doListBoxFollowMouse,50 ; 07.11.2018 20:33 update. absolute no problem for CPU
             Hotkey, WheelUp, on

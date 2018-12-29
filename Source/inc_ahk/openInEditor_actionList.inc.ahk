@@ -39,6 +39,14 @@ openInEditor(ActionListFolderOfThisActionList
     ; msgb tool ___ ___ ___
    ; ___global generated open|rr||ahk|run,..\_globalActionListsGenerated\_global.ahk
    ;
+
+    ; if(InStr(text,"cannot be opened"))
+
+    if( 0 && isAbsPath := RegExMatch( m1 , "i)^[a-z]:\\" ))
+        msgbox,% "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+    ;msgbox,% isAbsPath  "`n" m1 "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+
+
     m1CorrectedAhkFileAddress := ActionListFolderOfThisActionList "\" m1
     ;Msgbox,% m1CorrectedAhkFileAddress "=m1CorrectedAhkFileAddress `n (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
     m1ListFileName := RegExReplace(m1,"i)([\w\d_-\.]+\.ahk)\b\s*$","$1")
@@ -99,6 +107,20 @@ openInEditorFromIntern(m1CorrectedAhkFileAddress){
 
     editorName := "AutoGUI"
     isEditorExist_AutoGUI := FileExist("..\" editorName "\" editorName ".ahk")
+
+    ; fallback if somebody gives addresses like ..\....\G:\\... then take the second absolut path
+    m1CorrectedAhkFileAddress := regexreplace(m1CorrectedAhkFileAddress , "i).*(\b[a-z]\:\\)", "$1" )
+    c =
+    (
+    m1CorrectedAhkFileAddress = %m1CorrectedAhkFileAddress%
+    )
+    ; clipboard := c
+
+    if( 0 && isAbsPath := RegExMatch( m1CorrectedAhkFileAddress , "i)^[a-z]:\\" ))
+        msgbox,% isAbsPath  "`n" m1CorrectedAhkFileAddress "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+    ; msgbox,% isAbsPath  "`n" m1CorrectedAhkFileAddress "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+     ; feedbackMsgBox(A_ScriptName,":-( !FileExist" isAbsPath  "`n" m1CorrectedAhkFileAddress , A_LineNumber,1,1)
+     ; feedbackMsgBox(A_ScriptName,":-( !FileExist(" . fileName . ") `n runIfNotExist, line = " . doFeedbackMsgBox . ">" . A_LineNumber,1,1)
 
 temp =
 (
