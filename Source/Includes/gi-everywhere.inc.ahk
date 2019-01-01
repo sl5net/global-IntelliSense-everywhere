@@ -754,6 +754,7 @@ LIMIT 9
 
 
 ; tool too too too too tooo tool tool
+; tool too
 ;       msgbox,% g_MatchTotal "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
 
     ; thats the way how you could add last list entry, if something is found
@@ -763,16 +764,16 @@ LIMIT 9
        isInIn := (instr(actionList,short_RegReadActionList_DebugInfo) || instr(RegReadActionList_DebugInfo,short_actionList) )
         tooltip,% "RecomputeMatchesTimer: " g_Word "(" StrLen(g_Word) ") (" A_ThisFunc "~" A_LineNumber "~" RegExReplace(A_LineFile,".*\\") ")" ((!isInIn) ? "Oops: al=" RegExReplace(actionList,".*\\") "<> reg=" RegExReplace(RegReadActionList_DebugInfo,".*\\") : RegExReplace(actionList,".*\\") ) ,1,-20
         if(false && "showAsGUIBoxFooter"){
-        g_SingleMatch[++g_MatchTotal] := "  single left click to move, right click to open:"
+        g_SingleMatch[++g_MatchTotal] := "CTRL+Nr. single left click to move, right click to open:"
         g_SingleMatch[++g_MatchTotal] := substr(actionList,1,19) " .. " RegExReplace(   actionList,".*\\")
         }else{
             global g_ListBoxX
             global g_ListBoxY
             ; ToolTip9sec( substr(actionList,1,19) " .. " RegExReplace(   actionList,".*\\") "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")",g_ListBoxX, g_ListBoxY )
-            ToolTip9sec(" single left click to move, right click to open:`n" substr(actionList,1,19) " .. " RegExReplace(   actionList,".*\\") "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")",g_ListBoxX, g_ListBoxY-22 )
+            ToolTip9sec("CTRL+Nr., single click to move, right click to open:`n" substr(actionList,1,19) " .. " RegExReplace(   actionList,".*\\") "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")",g_ListBoxX, g_ListBoxY-22 )
         }
         ; too tool tool tool tool too tool tool t tool tool
-        ; too tool tool too to
+        ; too tool tool too to  tool tool
         ; tool msg tool tool msgb tool
         ; plausibilty-check (18-12-28_08-03):
         ; WinGetActiveTitle,at
