@@ -68,6 +68,10 @@ class Stuff{
     }
 }
 
+global g_paste_ActipList_in_ListBoxGui_as_Last_entry
+g_paste_ActipList_in_ListBoxGui_as_Last_entry := true
+
+; too too
 
 global g_isEnabledKeyboardHotKeys
 
@@ -273,6 +277,9 @@ if(1 && InStr(A_ComputerName,"SL5"))
     Hotkey, #s, on ; toggle_RealisticDelayDynamic()
 ; #IfWinActive,AHK Studio ahk_class #32770
 ; Hotkey, ^s, on
+
+
+; tool t tool  too too
 
 #IfWinActive,
 
@@ -513,7 +520,7 @@ MainLoop()
      toolTip2sec( "Ctrl+Ctrl = toggle listbox`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
     ;
 
-    if(1 && InStr(A_ComputerName,"SL5"))
+    if(0 && InStr(A_ComputerName,"SL5"))
         msgbox,% "toggle Listbox `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
 
     g_isListBoxDisabled := !g_isListBoxDisabled
@@ -875,7 +882,7 @@ RecomputeMatchesTimer:
         gosub,checkInRegistryChangedActionListAddress
     }
 
-   if(1 && InStr(A_ComputerName,"SL5")){
+   if(0 && InStr(A_ComputerName,"SL5")){
        isInIn := (instr(actionList,short_RegReadActionList_DebugInfo) || instr(RegReadActionList_DebugInfo,short_actionList) )
         tooltip,% "RecomputeMatchesTimer: " g_Word "(" StrLen(g_Word) ") (" A_ThisFunc "~" A_LineNumber "~" RegExReplace(A_LineFile,".*\\") ")" ((!isInIn) ? "Oops: al=" RegExReplace(actionList,".*\\") "<> reg=" RegExReplace(RegReadActionList_DebugInfo,".*\\") : RegExReplace(actionList,".*\\") ) ,1,-20
         ; tes

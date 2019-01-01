@@ -12,6 +12,8 @@ global activeClassOLD
 global activeClass
 global g_StartTime_TickCountMilli := A_TickCount
 
+
+;/¯¯¯¯ Receive_ActionListAddress ¯¯ 181231134228 ¯¯ 31.12.2018 13:42:28 ¯¯\
 Receive_ActionListAddress(CopyOfData){
 	INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 	
@@ -87,7 +89,10 @@ Receive_ActionListAddress(CopyOfData){
 	MainLoop()
 	return true  ; Returning 1 (true) is the traditional way to acknowledge this message.
 }
-;
+;\____ Receive_ActionListAddress __ 181231134235 __ 31.12.2018 13:42:35 __/
+
+
+
 
 
 ;/¯¯¯¯ ReadInTheActionList( ¯¯ 181028125821 ¯¯ 28.10.2018 12:58:21 ¯¯\
@@ -363,7 +368,12 @@ RecomputeMatches( calledFromStr, is_Recursion := false ){
 	
 	global g_ListBoxPosX
 	global g_ListBoxPosY
-	
+
+    global g_paste_ActipList_in_ListBoxGui_as_Last_entry ; addet 18-12-31_14-03
+
+
+; too tool tool
+
 ; box box msgb bo
     ; msgbox,% g_min_searchWord_length_2 "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
 	
@@ -384,12 +394,13 @@ RecomputeMatches( calledFromStr, is_Recursion := false ){
 	SavePriorMatchPosition()
 	
 	; tooo tooo tool t to  toolTip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
-	; t kada  4 test  sdasdf tset
+	; t kada  4 test  sdasdf tset tool tool too
 	
    ;Match part-word with command
 	g_MatchTotal = 0
-	
+
 	LimitTotalMatches := 10 ; 25.10.2018 11:08
+
 	StringUpper, WordMatchOriginal, g_Word
 	
 	WordMatch := StrUnmark(WordMatchOriginal)
@@ -649,7 +660,7 @@ RecomputeMatches( calledFromStr, is_Recursion := false ){
 	
 	; tooltip msg bxox reg tsk ekejskj kjk jjk binat bi bzui tooo bigf fsd asd nnn nnnn nnnvcxcfggdfgvfdfvxcvfdfvvdfdfggbbvms dscxxcdfvx sfvdfvdfss sfd
 	; dsfdsfdfdsafd adfsfd sdffadf dfafds
-	
+; tool too too
 	; msgbox,% "1: "g_ListBoxPosX " 2:" g_ListBoxX asxsdcxsdsa
 	; r tol tolb tolb tp tp tp tp tp tp tp ool to olti tp tolp tolp ess msg esg box too
 	; tolp olb oltip ifu ifu win winpos
@@ -740,7 +751,37 @@ LIMIT 9
 		Return
 	}
 	;\____ nothingFound __ 181209180921 __ 09.12.2018 18:09:21 __/
-	
+
+
+; tool too too too too tooo tool tool
+;       msgbox,% g_MatchTotal "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+
+    ; thats the way how you could add last list entry, if something is found
+    ; g_SingleMatch[++g_MatchTotal] := "TEESSTT "
+
+   if(g_paste_ActipList_in_ListBoxGui_as_Last_entry){
+       isInIn := (instr(actionList,short_RegReadActionList_DebugInfo) || instr(RegReadActionList_DebugInfo,short_actionList) )
+        tooltip,% "RecomputeMatchesTimer: " g_Word "(" StrLen(g_Word) ") (" A_ThisFunc "~" A_LineNumber "~" RegExReplace(A_LineFile,".*\\") ")" ((!isInIn) ? "Oops: al=" RegExReplace(actionList,".*\\") "<> reg=" RegExReplace(RegReadActionList_DebugInfo,".*\\") : RegExReplace(actionList,".*\\") ) ,1,-20
+        if(false && "showAsGUIBoxFooter"){
+        g_SingleMatch[++g_MatchTotal] := "  single left click to move, right click to open:"
+        g_SingleMatch[++g_MatchTotal] := substr(actionList,1,19) " .. " RegExReplace(   actionList,".*\\")
+        }else{
+            global g_ListBoxX
+            global g_ListBoxY
+            ; ToolTip9sec( substr(actionList,1,19) " .. " RegExReplace(   actionList,".*\\") "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")",g_ListBoxX, g_ListBoxY )
+            ToolTip9sec(" single left click to move, right click to open:`n" substr(actionList,1,19) " .. " RegExReplace(   actionList,".*\\") "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")",g_ListBoxX, g_ListBoxY-22 )
+        }
+        ; too tool tool tool tool too tool tool t tool tool
+        ; too tool tool too to
+        ; tool msg tool tool msgb tool
+        ; plausibilty-check (18-12-28_08-03):
+        ; WinGetActiveTitle,at
+        if( 0 && instr(at, ".ahk") && instr(actionList, "isNotAProject" ))
+            tooltip,% "ERROR: wrong list: " actionList "(" A_ThisFunc "~" A_LineNumber "~" RegExReplace(A_LineFile,".*\\"),1,20,9
+}
+
+
+;  tes too
    ;SELECT word, worddescription, wordreplacement FROM Words WHERE wordindexed GLOB 'TOO*'  AND ActionListID = '1' ORDER BY CASE WHEN count IS NULL then ROWID else 'z' end, CASE WHEN count IS NOT NULL then ( (count - 0) * ( 1 - ( '0.75' / (LENGTH(word) - 3)))) end DESC, Word LIMIT 10;
 	
 	SetupMatchPosition()
@@ -953,7 +994,7 @@ DisableKeyboardHotKeys() {
 
 
 
-
+;/¯¯¯¯ CheckWord ¯¯ 181231130818 ¯¯ 31.12.2018 13:08:18 ¯¯\
 ; If hotkey was pressed, check wether there's a match going on and send it, otherwise send the number(s) typed 
 CheckWord(Key) {
 	
@@ -1275,13 +1316,14 @@ CheckWord(Key) {
 	SuspendOff()
 	Return 
 }
-
+;\____ CheckWord __ 181231130827 __ 31.12.2018 13:08:27 __/
 
 
 
 
 
 ;If a hotkey related to the up/down arrows was pressed
+;/¯¯¯¯ EvaluateUpDown ¯¯ 181231130742 ¯¯ 31.12.2018 13:07:42 ¯¯\
 EvaluateUpDown(Key){
 	
 	global g_ListBox_Id
@@ -1462,11 +1504,15 @@ EvaluateUpDown(Key){
 			ListBoxChooseItem(Rows)
 		}
 	} else {
-		RebuildMatchList()
-		ShowListBox()
+		RebuildMatchList() ; EvaluateUpDown
+		ShowListBox() ; EvaluateUpDown
 	}
 	Return
 }
+;\____ EvaluateUpDown __ 181231130753 __ 31.12.2018 13:07:53 __/
+
+
+
 
 
 ;/¯¯¯¯ ReturnLineWrong ¯¯ 181028100039 ¯¯ 28.10.2018 10:00:39 ¯¯\

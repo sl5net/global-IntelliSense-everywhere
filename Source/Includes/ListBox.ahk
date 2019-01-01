@@ -67,9 +67,9 @@ InitializeListBox(){
    ; Gui, ListBoxGui:Font, s%g_ListBoxFontSize% cGreen Bold, %ListBoxFont% ; https://autohotkey.com/docs/commands/GuiControl.htm#Font
    Gui, ListBoxGui:Font, s%g_ListBoxFontSize% cWhite Bold, %ListBoxFont% ; https://autohotkey.com/docs/commands/GuiControl.htm#Font
 
-    ; Gui,ListBoxGui:Color, , Black, ; https://autohotkey.com/boards/viewtopic.php?f=76&t=59191&p=249369#p249369
-    ; Gui,ListBoxGui:Color, , Black, ; https://autohotkey.com/boards/viewtopic.php?f=76&t=59191&p=249369#p249369
-    ; Gui,ListBoxGui:Color, , BackgroundTrans , ; this sets background of the listbox ; https://autohotkey.com/boards/viewtopic.php?f=76&t=59191&p=249369#p249369
+    ; Gui, ListBoxGui: Color, , Black, ; https://autohotkey.com/boards/viewtopic.php?f=76&t=59191&p=249369#p249369
+    ; Gui, ListBoxGui: Color, , Black, ; https://autohotkey.com/boards/viewtopic.php?f=76&t=59191&p=249369#p249369
+    ; Gui, ListBoxGui: Color, , BackgroundTrans , ; this sets background of the listbox ; https://autohotkey.com/boards/viewtopic.php?f=76&t=59191&p=249369#p249369
 
     ; Gui , ListBoxGui:Color,cBlue ; works: https://autohotkey.com/boards/viewtopic.php?f=76&t=59191&p=249369#p249369
 ; to
@@ -96,7 +96,12 @@ InitializeListBox(){
       ;can't use a g-label here as windows sometimes passes the click message when spamming the scrollbar arrows
       ;Gui, ListBoxGui: Add, ListBox, vg_ListBox%A_Index% R%A_Index% X0 Y0 T%prefs_ListBoxFontSize% T32 hwndg_ListBoxHwnd%A_Index%
     try{
-      Gui, ListBoxGui: Add, ListBox, vg_ListBox%A_Index% R%A_Index% X0 Y0 T%g_ListBoxFontSize% T32 hwndg_ListBoxHwnd%A_Index%
+        ; inside InitializeListBox tool tool
+        ; msgbox tool
+        ; tach tool tool tool tool msgbox too tool tool tooo
+       ; Gui, ListBoxGui: Add, ListBox, vg_ListBox%A_Index% R%A_Index% X0 Y0 T%g_ListBoxFontSize% T32 hwndg_ListBoxHwnd%A_Index%
+       ; msgbox,% vg_ListBox%A_Index% "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" ; <== Oops . slwas empty ????? 18-12-31_12-53
+       Gui, ListBoxGui: Add, ListBox, vg_ListBox%A_Index% R%A_Index% X0 Y0 T%g_ListBoxFontSize% T32 hwndg_ListBoxHwnd%A_Index%
     } catch e{
         if(1 && InStr(A_ComputerName,"SL5"))
             toolTip9sec( "Error => ignore it 18-11-12_22-28 `n(" A_ThisLabel " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")",50,50 )
@@ -599,21 +604,26 @@ RebuildMatchList(){
    
    MaxLength := ComputeListBoxMaxLength()
    HalfLength := Round(MaxLength/2)
-   
+
    Loop, %g_MatchTotal%
    {
-      CurrentLength := AddToMatchList(A_Index, MaxLength, HalfLength, 0, true)
+      ;
+      ; msgbox,% "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+      CurrentLength := AddToMatchList(A_Index, MaxLength, HalfLength, 0, true) ; RebuildMatchList
       IfGreater, CurrentLength, %LongestBaseLength%
          LongestBaseLength := CurrentLength      
    }
-   
+
+    ; tool too tool too tool  tool too tool
+
    Loop, %g_MatchTotal%
    {
-      CurrentLength := AddToMatchList(A_Index, MaxLength, HalfLength, LongestBaseLength, false)
+      ; RebuildMatchList: A_Index is the number you later use for CTRL-Nr to choos the entry
+        CurrentLength := AddToMatchList(A_Index, MaxLength, HalfLength, LongestBaseLength, false) ; RebuildMatchList
       IfGreater, CurrentLength, %g_MatchLongestLength%
          g_MatchLongestLength := CurrentLength      
    }
-   StringTrimRight, g_Match, g_Match, 1        ; Get rid of the last linefeed 
+   StringTrimRight, g_Match, g_Match, 1        ; Get rid of the last linefeed
    Return
 }
 ;\____ RebuildMatchList __ 181107231641 __ 07.11.2018 23:16:41 __/
@@ -625,7 +635,7 @@ RebuildMatchList(){
 
 ;/¯¯¯¯ AddToMatchList ¯¯ 181107231604 ¯¯ 07.11.2018 23:16:04 ¯¯\
 AddToMatchList(position, MaxLength, HalfLength, LongestBaseLength, ComputeBaseLengthOnly){
-
+    ; position is the number you later use for CTRL-Nr to choos the entry
    global g_DelimiterChar
    global g_Match
    global g_MatchStart
@@ -635,9 +645,15 @@ AddToMatchList(position, MaxLength, HalfLength, LongestBaseLength, ComputeBaseLe
    global g_SingleMatchReplacement
    global prefs_ListBoxFontFixed
 
+   global g_MatchTotal ; addet 18-12-31_13-56
+
+   global g_paste_ActipList_in_ListBoxGui_as_Last_entry ; 18-12-31_14-00
+
+
     INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
    blankprefix = `t
    
+    ; prefix is the number you later use for CTRL-Nr to choos the entry
    IfEqual, g_NumKeyMethod, Off
    {
       prefix := blankprefix
@@ -650,7 +666,15 @@ AddToMatchList(position, MaxLength, HalfLength, LongestBaseLength, ComputeBaseLe
    } else {
       prefix := Mod(position - g_MatchStart +1,10) . "`t"
    }
-   
+
+
+    if(false && g_paste_ActipList_in_ListBoxGui_as_Last_entry
+        && (g_MatchTotal == position || g_MatchTotal-1 == position )) ; if we use last inty only for information. show the action list. dont use a profix
+        prefix := ""
+
+    ; too too tool too too tool tool box tool too
+    ; too too too too
+
    prefixlen := 2
    
    ; CurrentMatch := Trim( g_SingleMatch[position] )
@@ -706,6 +730,8 @@ AddToMatchList(position, MaxLength, HalfLength, LongestBaseLength, ComputeBaseLe
    
    if (AdditionalDataExists) {
       if (g_SingleMatchReplacement[position]){
+
+        ; Zeichen für Einträge mit replace
          CurrentMatch .= " " . chr(26) . " " . g_SingleMatchReplacement[position]
       }
       if (g_SingleMatchDescription[position]){
@@ -951,11 +977,24 @@ else if(0){
       }
       
       MatchEnd := g_MatchStart + (prefs_ListBoxRows - 1)
-      
+
+
+if(0 && InStr(A_ComputerName,"SL5")){
+        isInIn := (instr(actionList,short_RegReadActionList_DebugInfo) || instr(RegReadActionList_DebugInfo,short_actionList) )
+         tooltip,% "RecomputeMatchesTimer: " g_Word "(" StrLen(g_Word) ") (" A_ThisFunc "~" A_LineNumber "~" RegExReplace(A_LineFile,".*\\") ")" ((!isInIn) ? "Oops: al=" RegExReplace(actionList,".*\\") "<> reg=" RegExReplace(RegReadActionList_DebugInfo,".*\\") : RegExReplace(actionList,".*\\") ) ,1,-20
+         ; tes
+         ; plausibilty-check (18-12-28_08-03):
+         ; WinGetActiveTitle,at
+         if( 0 && instr(at, ".ahk") && instr(actionList, "isNotAProject" ))
+             tooltip,% "ERROR: wrong list: " actionList "(" A_ThisFunc "~" A_LineNumber "~" RegExReplace(A_LineFile,".*\\"),1,20,9
+ }
+; tool tooltip  too toool too
+
       Loop, %prefs_ListBoxRows%
       { 
          IfEqual, A_Index, %Rows%
          {
+            ; seems to by always the first entry. 18-12-31_12-38
             GuiControl, ListBoxGui: -Redraw, g_ListBox%A_Index%
             GuiControl, ListBoxGui: Move, g_ListBox%A_Index%, w%ListBoxSizeX%
             GuiControl, ListBoxGui: ,g_ListBox%A_Index%, %g_DelimiterChar%%g_Match%
@@ -972,9 +1011,9 @@ else if(0){
          GuiControl, ListBoxGui: Hide, g_ListBox%A_Index%
 
          GuiControl, ListBoxGui: -Redraw, g_ListBox%A_Index%
-         GuiControl, ListBoxGui: , g_ListBox%A_Index%, %g_DelimiterChar%
+         GuiControl, ListBoxGui: , g_ListBox%A_Index%, %g_DelimiterChar%  ; herr you could change the middle of the matchbox entries 18-12-31_12-41
       }
-
+; to tool tooltip msg tooltip test lkjl
       ; that box is not out of monitor, out of sceen:
       ForceWithinMonitorBounds(g_ListBoxPosX,ListBoxPosY,ListBoxActualSizeW,ListBoxActualSizeH)
       
@@ -1002,7 +1041,9 @@ else if(0){
          }
             
       }
+; tooo
 
+; ListBoxActualSizeH += 100 ; that adds a grey area bellow the listbox. useless 18-12-31_15-09
 
 try {
        g_ListBoxTitle := "ListBoxTitle (sec=" A_Sec ")"
@@ -1084,7 +1125,7 @@ ForceWithinMonitorBounds(ByRef ListBoxPosX, ByRef ListBoxPosY, ListBoxActualSize
       if (ListBoxActualSizeH > g_ListBoxMaxWordHeight) {
          g_ListBoxMaxWordHeight := ListBoxActualSizeH
       }
-      
+
       ; + g_ListBoxOffsetComputed Move ListBox down a little so as not to hide the caret. 
       ListBoxPosY := ListBoxPosY + g_ListBoxOffsetComputed
       if (g_ListBoxFlipped) {
@@ -1096,7 +1137,10 @@ ForceWithinMonitorBounds(ByRef ListBoxPosX, ByRef ListBoxPosY, ListBoxActualSize
            ListBoxPosY := CaretYorMouseYfallback() - ListBoxActualSizeH
          }
       }
-      
+
+        ; in ForceWithinMonitorBounds
+
+
       ; make sure we don't go below the screen.
       If ( (ListBoxPosY + g_ListBoxMaxWordHeight ) > MonBottom ){
          ListBoxPosY := CaretYorMouseYfallback() - ListBoxActualSizeH
