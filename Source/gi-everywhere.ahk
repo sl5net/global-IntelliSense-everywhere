@@ -69,7 +69,7 @@ class Stuff{
 }
 
 global g_paste_ActipList_in_ListBoxGui_as_Last_entry
-g_paste_ActipList_in_ListBoxGui_as_Last_entry := true
+g_paste_ActipList_in_ListBoxGui_as_Last_entry := 1
 
 ; too too
 
@@ -403,6 +403,7 @@ AutoTrim, Off
 ;    LastWord:=Found.1
 ; to tooltiip too
 
+RegRead, g_paste_ActipList_in_ListBoxGui_as_Last_entry , HKEY_CURRENT_USER, SOFTWARE\sl5net, g_paste_ActipList_in_ListBoxGui_as_Last_entry
 RegRead, g_doSound , HKEY_CURRENT_USER, SOFTWARE\sl5net, g_doSound
 
 global g_isListBoxDisabled
@@ -419,6 +420,7 @@ if(g_min_searchWord_length <= 2) ; becouse of performance reasons. thats optiona
     g_min_searchWord_length_2 := g_min_searchWord_length + 2
 ;\____ g_min_searchWord_length __ 181202112528 __ 02.12.2018 11:25:28 __/
 
+; test test test test
 
 if(g_isListBoxDisabled){
     DestroyListBox()
@@ -960,15 +962,22 @@ Return
 ; Return
 ; toolTip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 ; 4 44 4 4 4  test too
-; tootool too tools tip
+; tootool too tools tip tool too
+
+
+lbl_g_ListBoxGui_tippsTOGGLE:
+    g_paste_ActipList_in_ListBoxGui_as_Last_entry := (!g_paste_ActipList_in_ListBoxGui_as_Last_entry)
+    ToolTip4sec( ((g_paste_ActipList_in_ListBoxGui_as_Last_entry)?"ON":"OFF") "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, g_paste_ActipList_in_ListBoxGui_as_Last_entry, %g_paste_ActipList_in_ListBoxGui_as_Last_entry% ; RegWrite , RegSave
+return
 
 lbl_g_doSoundTRUE:
-g_doSound := TRUE
+    g_doSound := TRUE
     RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, g_doSound, %g_doSound% ; RegWrite , RegSave
 return
 
 lbl_g_doSoundFALSE:
-g_doSound := FALSE
+    g_doSound := FALSE
     RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, g_doSound, %g_doSound% ; RegWrite , RegSave
 return
 

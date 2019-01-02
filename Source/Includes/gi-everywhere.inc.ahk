@@ -770,9 +770,10 @@ LIMIT 9
             global g_ListBoxX
             global g_ListBoxY
             ; ToolTip9sec( substr(actionList,1,19) " .. " RegExReplace(   actionList,".*\\") "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")",g_ListBoxX, g_ListBoxY )
-            ToolTip9sec("CTRL+Nr., single click to move, right click to open:`n" substr(actionList,1,19) " .. " RegExReplace(   actionList,".*\\") "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")",g_ListBoxX, g_ListBoxY-22 )
+            behindTheGUIsometimesVisibleAfterGUIisclosed := "use double Ctrl to toggle Listbox`n"
+            ToolTip9sec("CTRL+Nr., single click to move, right click to open:`n" substr(actionList,1,19) " .. " RegExReplace(   actionList,".*\\") "`n" behindTheGUIsometimesVisibleAfterGUIisclosed "(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")",g_ListBoxX, g_ListBoxY-22 )
         }
-        ; too tool tool tool tool too tool tool t tool tool
+        ; too tool tool tool tool too tool tool t tool tool tool tool tool
         ; too tool tool too to  tool tool
         ; tool msg tool tool msgb tool
         ; plausibilty-check (18-12-28_08-03):
@@ -1693,6 +1694,7 @@ BuildTrayMenu(){
 	
 	Menu, Tray, add
 	
+	Menu, Tray, add, toggle tipps , lbl_g_ListBoxGui_tippsTOGGLE ; g_paste_ActipList_in_ListBoxGui_as_Last_entry
 	Menu, Tray, add, set g_doSound TRUE (experimental feature), lbl_g_doSoundTRUE
 	Menu, Tray, add, set g_doSound FALSE (experimental feature), lbl_g_doSoundFALSE
 	
