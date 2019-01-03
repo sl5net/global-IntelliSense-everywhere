@@ -819,9 +819,9 @@ else
    ListBoxPosX := CaretXorMouseXfallback()
 if(g_ListBoxY)  ; if g_ListBoxY (not false > 0) it never usses  CaretYorMouseYfallback
    ListBoxPosY := g_ListBoxY -  60
-else
+else{
    ListBoxPosY := CaretYorMouseYfallback()
-   
+}
    SysGet, NumMonitors, %g_SM_CMONITORS%
 
    IfLess, NumMonitors, 1
@@ -871,7 +871,7 @@ ShowListBox(paraX:="",paraY:=""){
 
    global
     INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
-    g_ListBoxTitle := "Word List Appears Here."
+    g_ListBoxTitle := "Action List Appears Here" ; search help: ListBox, Gui, Show,
     g_ListBoxTitle_firstTimeInMilli := A_TickCount ; milliseconds
 
 
@@ -912,6 +912,10 @@ ShowListBox(paraX:="",paraY:=""){
       
       g_ListBoxPosX := CaretXorMouseXfallback()
       ListBoxPosY := CaretYorMouseYfallback()
+      if(g_paste_ActipList_in_ListBoxGui_as_Last_entry){
+        ListBoxPosY += 39
+      }
+
       ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 SetTitleMatchMode,2
 IfWinActive,SciTE4AutoHotkey ahk_class SciTEWindow
@@ -1046,7 +1050,8 @@ if(0 && InStr(A_ComputerName,"SL5")){
 ; ListBoxActualSizeH += 100 ; that adds a grey area bellow the listbox. useless 18-12-31_15-09
 
 try {
-       g_ListBoxTitle := "ListBoxTitle (sec=" A_Sec ")"
+       ; g_ListBoxTitle := "ListBoxTitle (sec=" A_Sec ")"
+       g_ListBoxTitle := "Action List Appears Here"
       Gui, ListBoxGui: Show, NoActivate X%g_ListBoxPosX% Y%ListBoxPosY% H%ListBoxActualSizeH% W%ListBoxActualSizeW%,% g_ListBoxTitle
       Gui, ListBoxGui: +LastFound +AlwaysOnTop
       g_ListBoxTitle_firstTimeInMilli := A_TickCount ; milliseconds
@@ -1129,13 +1134,15 @@ ForceWithinMonitorBounds(ByRef ListBoxPosX, ByRef ListBoxPosY, ListBoxActualSize
       ; + g_ListBoxOffsetComputed Move ListBox down a little so as not to hide the caret. 
       ListBoxPosY := ListBoxPosY + g_ListBoxOffsetComputed
       if (g_ListBoxFlipped) {
-         ListBoxMaxPosY := CaretYorMouseYfallback() - g_ListBoxMaxWordHeight
-         
-         if (ListBoxMaxPosY < MonTop) {
-            g_ListBoxFlipped =
-         } else {
-           ListBoxPosY := CaretYorMouseYfallback() - ListBoxActualSizeH
-         }
+          If ( (ListBoxPosY + g_ListBoxMaxWordHeight ) <= MonBottom ){
+            ListBoxMaxPosY := CaretYorMouseYfallback() + g_ListBoxMaxWordHeight
+          }else{
+             if (ListBoxMaxPosY < MonTop) {
+                g_ListBoxFlipped =
+             } else {
+               ListBoxPosY := CaretYorMouseYfallback() - ListBoxActualSizeH
+             }
+          }
       }
 
         ; in ForceWithinMonitorBounds
@@ -1145,6 +1152,8 @@ ForceWithinMonitorBounds(ByRef ListBoxPosX, ByRef ListBoxPosY, ListBoxActualSize
       If ( (ListBoxPosY + g_ListBoxMaxWordHeight ) > MonBottom ){
          ListBoxPosY := CaretYorMouseYfallback() - ListBoxActualSizeH
          g_ListBoxFlipped := true
+         if(1 && InStr(A_ComputerName,"SL5"))
+            ToolTip2sec(g_ListBoxFlipped "`n=g_ListBoxFlipped`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
       }
       
       ; make sure we don't go above the top of the screen.
@@ -1191,7 +1200,7 @@ GetRows(){
 
 ;/¯¯¯¯ CaretXorMouseXfallback ¯¯ 181120003149 ¯¯ 20.11.2018 00:31:49 ¯¯\
 ; function to grab the X position of the caret for the ListBox
-CaretXorMouseXfallback() {
+CaretXorMouseXfallback(){
    global g_DpiAware
    global g_DpiScalingFactor
    global g_Helper_Id
@@ -1226,7 +1235,7 @@ CaretXorMouseXfallback() {
 
 ;/¯¯¯¯ CaretYorMouseYfallback ¯¯ 181120003206 ¯¯ 20.11.2018 00:32:06 ¯¯\
 ; function to grab the Y position of the caret for the ListBox
-CaretYorMouseYfallback() {
+CaretYorMouseYfallback(){
    global g_DpiAware
    global g_DpiScalingFactor
    global g_Helper_Id

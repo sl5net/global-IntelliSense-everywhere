@@ -1498,7 +1498,7 @@ DynaRun(TempScript, pipename=""){
     TempScript := TempScriptPre TempScript "`n"
     ;msgbox,% TempScript
 
-		if(1 && InStr(A_ComputerName,"SL5") )
+		if(0 && InStr(A_ComputerName,"SL5") )
             ToolTip9sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 
 	static _:="uint",@:="Ptr"

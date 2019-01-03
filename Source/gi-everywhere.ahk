@@ -704,13 +704,13 @@ reload_IfNotExist_ListBoxGui(){
 
 
 if(true){
-    winTitle := "Word List Appears Here."
+    winTitle := "Action List Appears Here"
     class := "ahk_class AutoHotkeyGUI"
 
     ; DetectHiddenText, on
     DetectHiddenWindows, on
     WinWait,%winTitle% %class%, , 5
-    WinGet, listBox_Id, ID, Word List Appears Here.
+    WinGet, listBox_Id, ID, Action List Appears Here
     msg := listBox_Id " - g_ListBox_Id : " g_ListBox_Id
     ;ToolTip4sec(msg " = msg (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") " " Last_A_This)
     tooltip,% msg "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
@@ -728,7 +728,7 @@ if(true){
     SetTitleMatchMode, 2
     ; DetectHiddenText, on
     DetectHiddenWindows, on
-    winTitle := "Word List Appears Here."
+    winTitle := "Action List Appears Here"
     WinWait,`%winTitle`% `%class`%, , 1
     WinGet, listBox_Id, ID, Action List Appears Here.
     IfWinNotExist, `%winTitle`% ; `%class`% __
@@ -2014,9 +2014,10 @@ recreateListBox_IfFontSizeChangedAndTimeIdle(g_ListBoxFontSize, newListBoxFontSi
 
 ;/¯¯¯¯ doListBoxFollowMouse ¯¯ 181107183540 ¯¯ 07.11.2018 18:35:40 ¯¯\
 doListBoxFollowMouse:
-      MouseGetPos, g_ListBoxX, g_ListBoxY
-      g_ListBoxX := g_ListBoxX - 77
-      g_ListBoxY := round(g_ListBoxY / 100) * 100  - 80
+      MouseGetPos, mouseX, mouseY
+      g_ListBoxX := mouseX - 77
+      ; g_ListBoxY := round(mouseY / 100) * 100  - 80
+      g_ListBoxY := mouseY - 80
 
 ;    class := "ahk_class AutoHotkeyGUI"
 ;    winTitle := "Action List Appears Here."

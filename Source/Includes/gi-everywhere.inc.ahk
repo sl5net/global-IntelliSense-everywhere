@@ -764,18 +764,35 @@ LIMIT 9
        isInIn := (instr(actionList,short_RegReadActionList_DebugInfo) || instr(RegReadActionList_DebugInfo,short_actionList) )
         tooltip,% "RecomputeMatchesTimer: " g_Word "(" StrLen(g_Word) ") (" A_ThisFunc "~" A_LineNumber "~" RegExReplace(A_LineFile,".*\\") ")" ((!isInIn) ? "Oops: al=" RegExReplace(actionList,".*\\") "<> reg=" RegExReplace(RegReadActionList_DebugInfo,".*\\") : RegExReplace(actionList,".*\\") ) ,1,-20
         if(false && "showAsGUIBoxFooter"){
-        g_SingleMatch[++g_MatchTotal] := "CTRL+Nr. single left click to move, right click to open:"
-        g_SingleMatch[++g_MatchTotal] := substr(actionList,1,19) " .. " RegExReplace(   actionList,".*\\")
+          g_SingleMatch[++g_MatchTotal] := "CTRL+Nr. single left click to move, right click to open:"
+            g_SingleMatch[++g_MatchTotal] := substr(actionList,1,19) " .. " RegExReplace(   actionList,".*\\")
         }else{
+
             global g_ListBoxX
             global g_ListBoxY
+            ListBoxPosX := (g_ListBoxX) ? g_ListBoxX : CaretXorMouseXfallback()
+            ListBoxPosY := (g_ListBoxY) ? g_ListBoxY : CaretYorMouseYfallback()
+
+            ; i got problems with CaretYorMouseYfallback(). workaround: 03.01.2019 20:13
+            title := "Action List Appears Here"
+            WinGetPos, x,ListBoxPosY,w,h,% title
+
+            if(g_ListBoY){
+                ; ListBoxPosY -= 39 ; then its not in caret mode 03.01.2019 20:16
+            }else
+                ListBoxPosY += 5
+
+
             ; ToolTip9sec( substr(actionList,1,19) " .. " RegExReplace(   actionList,".*\\") "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")",g_ListBoxX, g_ListBoxY )
             behindTheGUIsometimesVisibleAfterGUIisclosed := "use double Ctrl to toggle Listbox`n"
-            ToolTip9sec("CTRL+Nr., single click to move, right click to open:`n" substr(actionList,1,19) " .. " RegExReplace(   actionList,".*\\") "`n" behindTheGUIsometimesVisibleAfterGUIisclosed "(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")",g_ListBoxX, g_ListBoxY-22 )
+            doubleLeftClickInfo := "double-click: follows caret"
+            ToolTip9sec("CTRL+Nr., single click: move, " doubleLeftClickInfo ", right click to open:`n" substr(actionList,1,19) " .. " RegExReplace(   actionList,".*\\") "`n" behindTheGUIsometimesVisibleAfterGUIisclosed "(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")",ListBoxPosX, ListBoxPosY ) ; 13px pe line
+
+
         }
-        ; too tool tool tool tool too tool tool t tool tool tool tool tool
-        ; too tool tool too to  tool tool
-        ; tool msg tool tool msgb tool
+        ; too tool tool tool tool too tool tool t tool tool tool tool tool too too
+        ; too tool tool too to  tool tool tool too
+        ; tool msg tool tool msgb tool too tool too
         ; plausibilty-check (18-12-28_08-03):
         ; WinGetActiveTitle,at
         if( 0 && instr(at, ".ahk") && instr(actionList, "isNotAProject" ))
@@ -815,8 +832,7 @@ CheckForCaretMove(MouseButtonClick, UpdatePosition := false){
 	IfNotEqual, prefs_DetectMouseClickMove, On
 	Return
 	
-	if (UpdatePosition)
-	{
+	if (UpdatePosition){
       ; Update last click position in case Caret is not detectable
       ;  and update the Last Window Clicked in
 		MouseGetPos, MouseX, MouseY, g_MouseWin_Id
