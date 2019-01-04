@@ -754,7 +754,7 @@ LIMIT 9
 
 
 ; tool too too too too tooo tool tool
-; tool too
+; tool too toooltip
 ;       msgbox,% g_MatchTotal "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
 
     ; thats the way how you could add last list entry, if something is found
@@ -771,25 +771,44 @@ LIMIT 9
             global g_ListBoxX
             global g_ListBoxY
             ListBoxPosX := (g_ListBoxX) ? g_ListBoxX : CaretXorMouseXfallback()
-            ListBoxPosY := (g_ListBoxY) ? g_ListBoxY : CaretYorMouseYfallback()
+            tooltipPosY := (g_ListBoxY) ? g_ListBoxY : CaretYorMouseYfallback()
 
+if(false){
             ; i got problems with CaretYorMouseYfallback(). workaround: 03.01.2019 20:13
             title := "Action List Appears Here"
-            WinGetPos, x,ListBoxPosY,w,h,% title
-
+            WinGetPos, x ,tooltipPosY, w, h ,% title ; tooltipPosY := ListBoxPosY
             if(g_ListBoY){
                 ; ListBoxPosY -= 39 ; then its not in caret mode 03.01.2019 20:16
             }else
-                ListBoxPosY += 5
+                tooltipPosY += 5
 
+}
+global g_ListBoxActualSizeH_maxFound ; this variable is empty after a fres start of the scripet 04.01.2019 11:14, 19-01-04_11-14
+; clipboard := g_ListBoxActualSizeH_maxFound ;
 
-            ; ToolTip9sec( substr(actionList,1,19) " .. " RegExReplace(   actionList,".*\\") "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")",g_ListBoxX, g_ListBoxY )
-            behindTheGUIsometimesVisibleAfterGUIisclosed := "use double Ctrl to toggle Listbox`n"
-            doubleLeftClickInfo := "double-click: follows caret"
-            ToolTip9sec("CTRL+Nr., single click: move, " doubleLeftClickInfo ", right click to open:`n" substr(actionList,1,19) " .. " RegExReplace(   actionList,".*\\") "`n" behindTheGUIsometimesVisibleAfterGUIisclosed "(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")",ListBoxPosX, ListBoxPosY ) ; 13px pe line
+; msgbox,% g_ListBoxActualSizeH_maxFound "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+; remember: ListBoxPosY := CaretYorMouseYfallback() - ListBoxActualSizeH
+    tooltipPosY += (g_ListBoxActualSizeH_maxFound) ? g_ListBoxActualSizeH_maxFound : 164 ; found: 164. is maybe a good value. nearly correct 04.01.2019 11:16
+    tooltipPosY += 29 ; of some reasons seems to be necasary Oops ??? 04.01.2019 11:29
+    ; tool tool toool tool tool tool tool toolt toolt toolt toolt toolt toolt toolt toolt tool toolt toolt
+    ;  toolt toolt too tool
+            tip := ""
+            tip .= g_Word "(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")`n" ; planed to set this behind the box
+            tip .= "`n"
+            tip .= "CTRL+Nr., single click: move, "
+            tip .= "rightClick opens: " substr(actionList,1,19) " .. " RegExReplace(   actionList,".*\\") "`n"
+            tip .= "doubleCtrl toggles Listbox, double-click: follows caret"
+            ToolTip9sec(tip,ListBoxPosX, tooltipPosY ) ; 13px pe line
 
 
         }
+        ; toolt toolt toolt tootl toolt tool tool
+        ;  tool too tool tool
+        ; tool tool
+        ; tool toolt tool 164 tooltip 164
+        ;  tool tool tool tool tool
+        ; tool tool too
+        ; tool tool tool 164 too
         ; too tool tool tool tool too tool tool t tool tool tool tool tool too too
         ; too tool tool too to  tool tool tool too
         ; tool msg tool tool msgb tool too tool too

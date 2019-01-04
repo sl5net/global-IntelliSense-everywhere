@@ -1114,6 +1114,8 @@ ForceWithinMonitorBounds(ByRef ListBoxPosX, ByRef ListBoxPosY, ListBoxActualSize
    global g_ListBoxCharacterWidthComputed
    global g_ListBoxOffsetComputed
    global g_ListBoxMaxWordHeight
+
+   global g_ListBoxActualSizeH_maxFound ; addet 04.01.2019 11:11
     INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
    ;Grab the number of non-dummy monitors
    SysGet, NumMonitors, %g_SM_CMONITORS%
@@ -1173,7 +1175,9 @@ ForceWithinMonitorBounds(ByRef ListBoxPosX, ByRef ListBoxPosY, ListBoxActualSize
       Break
    }
 
-   Return      
+   if(g_ListBoxActualSizeH_maxFound < ListBoxActualSizeH) ; addet 04.01.2019 11:12 19-01-04_11-12
+    g_ListBoxActualSizeH_maxFound := ListBoxActualSizeH ; addet 04.01.2019 11:12 19-01-04_11-12
+   Return
 }
 ;\____ ForceWithinMonitorBounds __ 181120003127 __ 20.11.2018 00:31:27 __/
 
@@ -1195,7 +1199,7 @@ GetRows(){
 }
 ;\____ GetRows __ 181120003138 __ 20.11.2018 00:31:38 __/
 
-
+; tool tool boxm
 
 
 ;/¯¯¯¯ CaretXorMouseXfallback ¯¯ 181120003149 ¯¯ 20.11.2018 00:31:49 ¯¯\
