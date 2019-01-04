@@ -1115,6 +1115,8 @@ ForceWithinMonitorBounds(ByRef ListBoxPosX, ByRef ListBoxPosY, ListBoxActualSize
    global g_ListBoxOffsetComputed
    global g_ListBoxMaxWordHeight
 
+   global g_min_MonitorBound_right
+
    global g_ListBoxActualSizeH_maxFound ; addet 04.01.2019 11:11
     INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
    ;Grab the number of non-dummy monitors
@@ -1165,7 +1167,8 @@ ForceWithinMonitorBounds(ByRef ListBoxPosX, ByRef ListBoxPosY, ListBoxActualSize
          ListBoxPosX += g_ListBoxCharacterWidthComputed
       }
       
-      If ( (ListBoxPosX + ListBoxActualSizeW ) > MonRight ){
+      ; If ( (ListBoxPosX + ListBoxActualSizeW ) > MonRight ){ ; <== works great. version before 04.01.2019 12:40 19-01-04_12-40
+      If ( (ListBoxPosX + g_min_MonitorBound_right ) > MonRight ){
          ListBoxPosX := MonRight - ListBoxActualSizeW
          If ( ListBoxPosX < MonLeft )
             ListBoxPosX := MonLeft

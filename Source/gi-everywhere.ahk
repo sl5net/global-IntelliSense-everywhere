@@ -79,6 +79,8 @@ global Sql_Temp
 
 global g_config
 
+g_min_MonitorBound_right := 70 ; used in: ForceWithinMonitorBounds
+
 g_config := {}
 g_config.Send := { RealisticDelayDynamic: 1  }
 ; Msgbox,% "RealisticDelayDynamic=`n" g_config["Send"]["RealisticDelayDynamic"] "`n`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
@@ -2015,7 +2017,8 @@ recreateListBox_IfFontSizeChangedAndTimeIdle(g_ListBoxFontSize, newListBoxFontSi
 ;/¯¯¯¯ doListBoxFollowMouse ¯¯ 181107183540 ¯¯ 07.11.2018 18:35:40 ¯¯\
 doListBoxFollowMouse:
       MouseGetPos, mouseX, mouseY
-      g_ListBoxX := mouseX - 77
+      ; g_ListBoxX := mouseX - ( g_min_MonitorBound_right / 2 )
+      g_ListBoxX := mouseX - ( g_min_MonitorBound_right )
       ; g_ListBoxY := round(mouseY / 100) * 100  - 80
       g_ListBoxY := mouseY - 80
 
