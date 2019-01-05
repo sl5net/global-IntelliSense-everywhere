@@ -128,6 +128,8 @@ ListBoxRigthButtionClick(wParam, lParam, msg, ClickedHwnd){
         openInEditorFromIntern( fileAddress )
     else
         openInEditorFromIntern( ActionList )
+    if(1 && InStr(A_ComputerName,"SL5"))
+        ToolTip9sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
     ;msgbox,`n(%A_LineFile%~%A_LineNumber%)
 }
 ;\____ ListBoxRigthButtionClick __ 181209172006 __ 09.12.2018 17:20:06 __/
@@ -1087,8 +1089,15 @@ try {
          g_ScrollEventHookThread := ListBoxThread
       }
       
-      OnMessage(g_WM_LBUTTONUP, "ListBoxClickItem")
-      OnMessage(g_WM_RBUTTONUP, "ListBoxRigthButtionClick")
+      ; todo: little bug: if leftclick it always runs also ListBoxRigthButtionClick 19-01-05_08-23
+      ; https://docs.microsoft.com/en-us/windows/desktop/inputdev/wm-lbuttonup
+      ;OnMessage(g_WM_LBUTTONUP, "ListBoxClickItem") ; https://autohotkey.com/docs/commands/OnMessage.htm
+      OnMessage(0x0202, "ListBoxClickItem") ; https://autohotkey.com/docs/commands/OnMessage.htm
+
+      ; https://docs.microsoft.com/en-us/windows/desktop/inputdev/wm-rbuttonup
+      ; OnMessage(WM_RBUTTONUP, "ListBoxRigthButtionClick") ; https://autohotkey.com/docs/commands/OnMessage.htm
+      ; OnMessage(WM_RBUTTONUP, "ListBoxRigthButtionClick") ; https://autohotkey.com/docs/commands/OnMessage.htm
+      OnMessage(0x0205, "ListBoxRigthButtionClick") ; https://autohotkey.com/docs/commands/OnMessage.htm
       ; OnMessage(g_WM_LBUTTONDBLCLK, "ListBoxClickItem")
       
       IfNotEqual, prefs_ListBoxOpacity, 255
@@ -1097,6 +1106,9 @@ try {
 ; WinSet, TransColor, 0078D7 255
 
 ; ; too too tott  to to to t t t to to t to tr
+; tool tool tool tool toootii
+; too tool tool tool too tool ooo
+; too tool too too
 
    }
 }

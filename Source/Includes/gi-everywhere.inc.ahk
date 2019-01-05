@@ -764,7 +764,7 @@ LIMIT 9
        isInIn := (instr(actionList,short_RegReadActionList_DebugInfo) || instr(RegReadActionList_DebugInfo,short_actionList) )
         tooltip,% "RecomputeMatchesTimer: " g_Word "(" StrLen(g_Word) ") (" A_ThisFunc "~" A_LineNumber "~" RegExReplace(A_LineFile,".*\\") ")" ((!isInIn) ? "Oops: al=" RegExReplace(actionList,".*\\") "<> reg=" RegExReplace(RegReadActionList_DebugInfo,".*\\") : RegExReplace(actionList,".*\\") ) ,1,-20
         if(false && "showAsGUIBoxFooter"){
-          g_SingleMatch[++g_MatchTotal] := "CTRL+Nr. single left click to move, right click to open:"
+          g_SingleMatch[++g_MatchTotal] := "CTRL+Nr. single left click to move, right click to open:" ; rightclick
             g_SingleMatch[++g_MatchTotal] := substr(actionList,1,19) " .. " RegExReplace(   actionList,".*\\")
         }else{
 
