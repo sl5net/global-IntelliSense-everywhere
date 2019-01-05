@@ -803,8 +803,8 @@ global g_ListBoxActualSizeH_maxFound ; this variable is empty after a fres start
                 tip .= "doubleCtrl+C selection to actionsList, more see TrayMenu`n" ; doubleCtrlC
             else{
                 if(instr(actionList, "isNotAProject" )){
-                    tip .= "create a new ActionList with ___ `n"
-                    tip .= "or type create_own_project`n"
+                    tip .= "create a new ActionList by`n"
+                    tip .= "start typing: create_own_project`n"
                 }else
                     tip .= "doubleCtrl: On/Off Listbox, double-click: follows caret"
             }
