@@ -530,8 +530,13 @@ MainLoop()
     g_isListBoxDisabled := !g_isListBoxDisabled
     ; g_fontColor := (g_isListBoxDisabled) ? "cRed" : "cGreen"
     if(g_isListBoxDisabled){
-        DestroyListBox()
-        setTrayIcon("g_isListBoxDisabled")
+
+		MsgBox, 4,doubleCtrl detected: Hide ListBox ?
+		IfMsgBox yes
+		{
+            DestroyListBox()
+            setTrayIcon("g_isListBoxDisabled")
+        }
     }else{
         InitializeListBox()
 
