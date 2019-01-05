@@ -797,7 +797,12 @@ global g_ListBoxActualSizeH_maxFound ; this variable is empty after a fres start
             tip .= "`n"
             tip .= "CTRL+Nr., single click: move, "
             tip .= "rightClick opens: " substr(actionList,1,19) " .. " RegExReplace(   actionList,".*\\") "`n"
-            tip .= "doubleCtrl toggles Listbox, double-click: follows caret"
+
+            nr := ( Mod(round(A_Sec/20), 2) == 0)
+            if(nr && !instr(actionList, "isNotAProject" ))
+                tip .= "doubleCtrl+C adds entry to actionsList, more see TrayMenu" ; doubleCtrlC
+            else
+                tip .= "doubleCtrl: On/Off Listbox, double-click: follows caret"
             ToolTip9sec(tip,ListBoxPosX, tooltipPosY ) ; 13px pe line
             winmove,% tip, ,% ListBoxPosX, % tooltipPosY ; needet if tootop is beetween monitio or out of moinitor bouds 04.01.2019 13:07
 
