@@ -750,6 +750,8 @@ return
         DestroyListBox()
         setTrayIcon("g_isListBoxDisabled")
     }else{
+        g_doListBoxFollowMouse := false
+        SetTimer,doListBoxFollowMouse,off
         InitializeListBox()
 
 
@@ -2562,7 +2564,8 @@ doListBoxFollowMouse:
           ShowListBox(g_ListBoxX,g_ListBoxY)
 
             tip := ""
-            tip .= "use SINGLE click for stop moving"
+            tip .= "use SINGLE click for stop moving`n"
+            tip .= "use double Ctrl to toggle Listbox (OFF/ON)`n"
             tooltipPosY := (g_ListBoxY)
     tooltipPosY += (g_ListBoxActualSizeH_maxFound) ? g_ListBoxActualSizeH_maxFound : 164 ; found: 164. is maybe a good value. nearly correct 04.01.2019 11:16
     tooltipPosY += 29 ; of some reasons seems to be necasary Oops ??? 04.01.2019 11:29
