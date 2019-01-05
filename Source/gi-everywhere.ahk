@@ -2560,6 +2560,18 @@ doListBoxFollowMouse:
 
        }else
           ShowListBox(g_ListBoxX,g_ListBoxY)
+
+            tip := ""
+            tip .= "use SINGLE click for stop moving"
+            tooltipPosY := (g_ListBoxY)
+    tooltipPosY += (g_ListBoxActualSizeH_maxFound) ? g_ListBoxActualSizeH_maxFound : 164 ; found: 164. is maybe a good value. nearly correct 04.01.2019 11:16
+    tooltipPosY += 29 ; of some reasons seems to be necasary Oops ??? 04.01.2019 11:29
+
+            ToolTip9sec(tip,g_ListBoxX, tooltipPosY ) ; 13px pe line
+            winmove,% tip, ,% g_ListBoxX, % tooltipPosY ; needet if tootop is beetween monitio or out of moinitor bouds 04.01.2019 13:07
+
+; toool tool tool too too
+
 return
 ;\____ doListBoxFollowMouse __ 181107183544 __ 07.11.2018 18:35:44 __/
 
