@@ -8,6 +8,16 @@ Ist eine unaufdringliche IntelliSense für alle Programmen, alle Webseiten, alle
 
 - - -
 
+Was es nicht ist/what its not:
+
+- Its not Swiftkey for Windows
+DE: Die SwiftKey Tastatur erleichtert das Tippen und passt sich an Ihren Schreibstil an.
+https://support.swiftkey.com/hc/en-us
+
+- Its not ...
+
+
+
 Its Sponsored!
 This project is sponsored by JetBrains.  JetBrains is a software development company whose mission is to make the strongest, most effective developer tools on earth. Their tools speed up production, freeing developers to grow, discover and create. 
 
@@ -60,32 +70,11 @@ or https://github.com/sl5net/global-IntelliSense-everywhere/issues
 or https://autohotkey.com/boards/viewtopic.php?f=6&t=45684 
 or essential-freebies.de/board/viewtopic.php?f=33&t=18557 
 
-
-
-
 its using (many thanks for it):
-- regex (very often)
-- windows OS
+- regex (Regular expressions are extremely useful in read/change information from any text)
+- SQLite (fast, self-contained, high-reliability, full-featured, SQL database engine) 
+- windows OS (experimental: reactos)
 - autohotkey
-- TypingAid.ahk
-- ADO.ahk
-- ArchLogger.ahk
-- Base.ahk
-- clean.bat
-- Collection, ahk
-- DataBaseAbstract. ahk
-- DataBaseADO.ahk
-- DataBaseFactory.ahk
-- DataBaseMySQL.ahk
-- DataBaseSQLLite .ahk
-- DBA.ahk
-- MemoryBufFer.ahk
-- mySQL.ahk
-- RecordSetADO.ahk
-- RecordSetMySQL, ahk
-- RecordSetSqlLite .ahk
-- sizeof.ahk
-- SQLite_L.ahk
 
 Credits:
 - Maniac
