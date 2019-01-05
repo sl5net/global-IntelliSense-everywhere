@@ -709,6 +709,16 @@ MainLoop()
 
 
 
+setTitleMatchMode,1
+#IfWinActive,doubleCtrl detected: Hide ListBox
+Esc::
+; winclose,doubleCtrl detected
+; winkill,doubleCtrl detected
+ControlSend, , n, doubleCtrl detected
+ToolTip5sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+return
+
+
 ;/¯¯¯¯ doubleCtrl double Ctrl ListBoxDisabled¯¯ 181201095644 ¯¯ 01.12.2018 09:56:44 ¯¯\
 #IfWinActive,
 ~ctrl::
@@ -717,7 +727,7 @@ MainLoop()
      toolTip2sec( "Ctrl+Ctrl = toggle listbox`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
     ;
 
-;
+; may helpful: https://autohotkey.com/board/topic/56493-easiest-way-to-detect-double-clicks/
 
 
     if(0 && InStr(A_ComputerName,"SL5"))
