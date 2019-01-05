@@ -733,11 +733,12 @@ return
     if(0 && InStr(A_ComputerName,"SL5"))
         msgbox,% "toggle Listbox `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
 
-; 
+;
 
     ; g_fontColor := (g_isListBoxDisabled) ? "cRed" : "cGreen"
     if(!g_isListBoxDisabled){
-		MsgBox, 4,doubleCtrl detected: Hide ListBox ?
+
+        MsgBox, 4,doubleCtrl detected: Hide ListBox ? (%DoubleClickTime%ms = DoubleClickTime),  `nYES? or ESC/NO?
 		IfMsgBox yes
 		{
             g_isListBoxDisabled := !g_isListBoxDisabled
