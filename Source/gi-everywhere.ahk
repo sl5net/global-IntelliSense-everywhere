@@ -742,6 +742,9 @@ return
 		IfMsgBox yes
 		{
             g_isListBoxDisabled := !g_isListBoxDisabled
+
+            g_doListBoxFollowMouse := false
+            SetTimer,doListBoxFollowMouse,off
         }
     }else
         g_isListBoxDisabled := !g_isListBoxDisabled
