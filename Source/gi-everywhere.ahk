@@ -722,10 +722,19 @@ return
 ;/¯¯¯¯ doubleCtrl double Ctrl ListBoxDisabled¯¯ 181201095644 ¯¯ 01.12.2018 09:56:44 ¯¯\
 #IfWinActive,
 ~ctrl::
-   If (A_TimeSincePriorHotkey < 280 && A_TimeSincePriorHotkey > 90){ ; 50 was to short. i tested it with holding the ctrl key
-
+   ;If (A_TimeSincePriorHotkey < 280 && A_TimeSincePriorHotkey > 120){ ; 50 was to short. i tested it with holding the ctrl key
+   If (A_TimeSincePriorHotkey < 1100 && A_TimeSincePriorHotkey > 70 ){ ; 50 was to short. i tested it with holding the ctrl key
+    ; DoubleClickTime := DllCall("GetDoubleClickTime")   ; Get the doubleclicktime in milliseconds
     ; asking about good doubleCtrl quality 05.01.2019 12:33: https://www.autohotkey.com/boards/viewtopic.php?f=76&t=60699
+
+
+    if(A_PriorKey <> "LControl" && A_PriorKey <> "RControl")
+        return
      toolTip2sec( "Ctrl+Ctrl = toggle listbox`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+     ; toolTip2sec( A_PriorKey "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+     ; toolTip2sec( ":) `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+
+    ; msgbox,% A_PriorKey "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
     ;
 
 ; may helpful: https://autohotkey.com/board/topic/56493-easiest-way-to-detect-double-clicks/
@@ -737,7 +746,7 @@ return
 ;
 
     ; g_fontColor := (g_isListBoxDisabled) ? "cRed" : "cGreen"
-    if(!g_isListBoxDisabled){
+    if(false !g_isListBoxDisabled){ ; doent need this anymore
 
         MsgBox, 4,doubleCtrl detected: Hide ListBox ? (%DoubleClickTime%ms = DoubleClickTime),  `nYES? or ESC/NO?
 		IfMsgBox yes
