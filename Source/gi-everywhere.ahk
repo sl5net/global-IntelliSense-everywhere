@@ -722,7 +722,8 @@ return
 ;/¯¯¯¯ doubleCtrl double Ctrl ListBoxDisabled¯¯ 181201095644 ¯¯ 01.12.2018 09:56:44 ¯¯\
 #IfWinActive,
 ~ctrl::
-   If (A_TimeSincePriorHotkey < 200 && A_TimeSincePriorHotkey > 80){ ; 50 was to short. i tested it with holding the ctrl key
+   If (A_TimeSincePriorHotkey < 280 && A_TimeSincePriorHotkey > 90){ ; 50 was to short. i tested it with holding the ctrl key
+
     ; asking about good doubleCtrl quality 05.01.2019 12:33: https://www.autohotkey.com/boards/viewtopic.php?f=76&t=60699
      toolTip2sec( "Ctrl+Ctrl = toggle listbox`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
     ;

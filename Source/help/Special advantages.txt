@@ -51,3 +51,19 @@ kotlin example|rr||kts|KotlinLove.kts
 kotlin example|rr||kts|import java.io.File`n val folders = File("c:").listFiles { file -> file.isDirectory() }`n folders?.forEach { folder -> println(folder) }
 kotlin example|rr||kts|print("Hi world")
 kts example|rr||kts|print("Hi world")
+
+
+
+and added feature synonyms. examples
+
+search engine i like|rr||ahk|run,http://localhost:8090/index.html
+YaCy|rr|
+yasee|rr|
+engine|rr|
+websearch|rr|
+localsearch|rr|
+peer-to-peer search |rr|
+hello|rr||ahk|send,Hello world
+search engine peer-to-peer|rr||ahk|q=search engine
+
+some links: https://autohotkey.com/boards/viewtopic.php?f=6&t=3216&p=208257#p208257

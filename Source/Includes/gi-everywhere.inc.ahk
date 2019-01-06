@@ -409,7 +409,7 @@ RecomputeMatches( calledFromStr, is_Recursion := false ){
 	StringReplace, WordMatchEscaped, WordMatch, ', '', All
 	
 	SELECT := "SELECT word, worddescription, wordreplacement FROM Words"
-            . WhereQuery . OrderByQuery . " LIMIT " LimitTotalMatches ";"
+            . WhereQuery OrderByQuery " LIMIT " LimitTotalMatches ";"
 	
 ; ttoolTip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 ; msg sm msgbox test msgb msgbox MsgBox
@@ -428,22 +428,22 @@ RecomputeMatches( calledFromStr, is_Recursion := false ){
 	
         ; ToolTip2sec(g_min_searchWord_length_2 "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 	StrLen_g_Word := StrLen(g_Word)
-	loop,6
+	loop,7
 	{
-		
+		sqlFilePrefix := A_Index-1
             ; becouse of performance reasons. thats optional. dont need 02.12.2018 09:25
-		if(a_index >= 2
+		if(id >= 2
                 && StrLen_g_Word < g_min_searchWord_length_2 )
 			break
 		
 		o := valueObj[A_Index]
 		if(!o){
         		; Msgbox,:( Oops >%A_Index%<(%A_LineFile%~%A_LineNumber%)
-			toolTip, % "Oops no SQL-Template `nNr." A_Index "(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),1,1
+			toolTip, % "Oops no SQL-Template `nNr." id "(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),1,1
 			continue
 		}
 		if(!o["word"]["pos"]){
-			tip := "Oops ERROR in SQL-Template `nNr.>" A_Index "<`n`n Could not be found: `n o[word][pos]`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+			tip := "Oops ERROR in SQL-Template `nNr.>" sqlFilePrefix "<`n`n Could not be found: `n o[word][pos]`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
 			toolTip,% tip ,1 ,1
         		Msgbox,:( Oops `n %tip%(%A_LineFile%~%A_LineNumber%)
 			continue
@@ -454,18 +454,21 @@ RecomputeMatches( calledFromStr, is_Recursion := false ){
 		sql["pre_Where"] := substr( o["sql"], 1 , o["word"]["pos"] - 1 )
 		sql["postWhere"] := substr( o["sql"] , o["word"]["pos"] + 1, - 1 + o["listID"]["pos"] - o["word"]["pos"] )
 		sql["rest"] := substr( o["sql"] , o["listID"]["pos"] + 1 + o["listID"]["len"] )
-		
+
+		if(A_Index == 1 && substr(g_Word,1,1)=="_"){  ; An underscore ("_") in the LIKE pattern matches any single character in the string.
+		    g_WordSQL := StrReplace(g_Word, "_", "~_" ) ; like ... ESCAPE '\'
+        } else g_WordSQL := g_Word
 		if(o["listID"]["len"])
-			SELECT := sql["pre_Where"] g_Word sql["postWhere"] " = " g_ActionListID " " sql["rest"] ; ; <== dirty bugfix
+			SELECT := sql["pre_Where"] g_WordSQL sql["postWhere"] "= " g_ActionListID " " sql["rest"] ; ; <== dirty bugfix
 		ELSE
-			SELECT := sql["pre_Where"] g_Word sql["postWhere"]
+			SELECT := sql["pre_Where"] g_WordSQL sql["postWhere"]
 		
             ; winpo
 		
-		if(false && a_index == 1)
-               clipboard := SELECT "`n`n`n" o["listID"]["len"]
+		if(0 && A_Index == 1)
+               clipboard := SELECT "`n`n`n-- len=" o["listID"]["len"] "`n`n-- g_ActionListID=" g_ActionListID
                 ; clipboard := SELECT
-            ;  msgbox,% SELECT t $ t to
+           ; msgbox,% SELECT t $ t to
             ; to
             ; t b box
 		

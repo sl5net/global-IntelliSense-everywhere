@@ -15,9 +15,9 @@ class Sql_Temp {
 ; too tot too too toot toot t
 
         o := array()
-        loop,6
+        loop,7
         {
-            fileName := fileNamePrefix A_Index ".sql"
+            fileName := fileNamePrefix (A_Index-1) ".sql"
 
             fileAdress := A_ScriptDir "\sql\template\" fileName
             if(!FileExist(fileAdress)){
@@ -126,7 +126,7 @@ class Sql_Temp {
             msgbox,% " ERROR  `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
         valueObj := This.valueObj ; Sql_Temp
         sql := Array()
-        loop,6
+        loop,7
         {
             o := valueObj[A_Index]
             sql["pre_Where"] := substr( o["sql"], 1 , o["word"]["pos"] - 1 )

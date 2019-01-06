@@ -1,6 +1,8 @@
 ﻿; GUI for configuration
 ; by HugoV / Maniac
 
+
+
 LaunchSettings:
     if (g_InSettings == true)
     {
@@ -15,9 +17,13 @@ LaunchSettings:
                     Msgbox,%msg%`n
                 }
 
+
+
     msg=LaunchSettings ??? really ??? next is InactivateAll_Suspend_ListBox_WinHook() `n (%A_LineFile%~%A_LineNumber%)
      Msgbox,%msg%`n
     InactivateAll_Suspend_ListBox_WinHook()
+
+
 
     Menu, Tray, Disable, Settings
     g_InSettings := true
@@ -27,48 +33,68 @@ LaunchSettings:
     Menu_ChangedPrefs := Object()
     ConstructGui()
     ; Call "HandleMessage" when script receives WM_SETCURSOR message
-    OnMessage(g_WM_SETCURSOR, "HandleSettingsMessage")
+    OnMessage(WM_SETCURSOR, "HandleSettingsMessage")
     ; Call "HandleMessage" when script receives WM_MOUSEMOVE message
-    OnMessage(g_WM_MOUSEMOVE, "HandleSettingsMessage")
+    OnMessage(WM_MOUSEMOVE, "HandleSettingsMessage")
     ; clear and re-initialize variables after constructing the GUI as some controls call the edit flag immediately
     Menu_ChangedPrefs =
     Menu_ChangedPrefs := Object()
     Menu_ValueChanged := false
 Return
 
+;  test
+
 ConstructGui(){
 }
+
+
 
 SetNotDPIAwareProcess:
 GetList("prefs_ListBoxNotDPIAwareProgramExecutables",1)
 Return
 
+
+
 SetEnableTitles:
 GetList("prefs_IncludeProgramTitles",0)
 Return
+
+
 
 SetDisableTitles:
 GetList("prefs_ExcludeProgramTitles",0)
 Return
 
+
+
 SetEnableProcess:
 GetList("prefs_IncludeProgramExecutables",1)
 Return
+
+
 
 SetDisableProcess:
 GetList("prefs_ExcludeProgramExecutables",1)
 Return
 
+
+
 SetHelpTitles:
 GetList("prefs_HelperWindowProgramTitles",0)
 Return
+
+
 
 SetHelpProcess:
 GetList("prefs_HelperWindowProgramExecutables",1)
 Return
 
+
+
 GetList(TitleType,GetExe)
 {
+
+
 
    global Menu_GetExe
    global Menu_TitleType
@@ -82,7 +108,11 @@ GetList(TitleType,GetExe)
    global prefs_HelperWindowProgramTitles
    global prefs_HelperWindowProgramExecutables
 
+
+
     INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+
+
 
    Menu_InProcessList := true
    Menu_GetExe := GetExe
@@ -110,11 +140,17 @@ GetList(TitleType,GetExe)
             RunningList .= tmptitle "|"
       }
    }
-   
+
+
+
    GuiControlGet, MenuTitleList, MenuGui: , %Menu_TitleType%
-   
+
+
+
    MenuProcessHeight := 380
-	
+
+
+
    Sort,RunningList, D| U	
    Gui, ProcessList:+OwnerMenuGui
    Gui, MenuGui:+Disabled  ; disable main window
@@ -139,11 +175,15 @@ GetList(TitleType,GetExe)
    Return
 }
 
+
+
 VisitForum:
 MsgBox , 36 , Visit %g_ScriptTitle% forum (www.autohotkey.com), Do you want to visit the %g_ScriptTitle% forum on www.autohotkey.com?
 IfMsgBox, Yes
 	Run, http://www.autohotkey.com/board/topic/49517-ahk-11gi-everywhere-v2198-word-autocompletion-utility/
 Return
+
+
 
 Restore:
 MsgBox, 1, Restore Defaults, This will restore all settings to default. Continue?
@@ -153,6 +193,8 @@ RestoreDefaults()
 gosub, Cancel
 return
 
+
+
 RestoreDefaults()
 {
    global g_PrefsFile
@@ -160,7 +202,11 @@ RestoreDefaults()
    global Menu_OldLearnCount
    global prefs_LearnCount
 
+
+
    ReadPreferences("RestoreDefaults")
+
+
 
    IF ( Menu_OldLearnCount < prefs_LearnCount )
    {
@@ -170,13 +216,17 @@ RestoreDefaults()
          ReturnValue := "Cancel"
       }
    }
-   
+
+
+
    if (ReturnValue == "Cancel")
    {
       ReadPreferences(,"RestorePreferences")
       return
    } else {
-      
+
+
+
       IfExist, %g_PrefsFile%
       {
          try {
@@ -188,13 +238,19 @@ RestoreDefaults()
             return
          }
       }
-      
+
+
+
       ApplyChanges()
       MsgBox,,Restore Defaults, Defaults have been restored.
    }
-   
+
+
+
    return
 }
+
+
 
 MenuGuiGuiEscape:
 MenuGuiGuiClose:
@@ -211,6 +267,8 @@ if (Menu_ValueChanged == true)
 }
 return
 
+
+
 Cancel:
 Gui, MenuGui:Destroy
 ; Clear WM_SETCURSOR action
@@ -224,9 +282,13 @@ Menu, Tray, Enable, Settings
 GetIncludedActiveWindow()
 Return
 
+
+
 Save:
 Save()
 return
+
+
 
 Save()
 {
@@ -240,7 +302,9 @@ Save()
    Menu_ChangedPrefs["prefs_SendMethod"] := prefs_SendMethod
    Gui, MenuGui:Submit
    prefs_ListBoxOpacity := Menu_ListBoxOpacityUpDown
-   
+
+
+
    IF (Menu_OldLearnCount < prefs_LearnCount )
    {   
       MsgBox, 1, Save, Saving will increase the Learn Count value.`r`nWhen exiting %g_ScriptTitle%, this will permanently delete any words`r`nfrom the Learned Words which have been typed less times`r`nthan the new Learn Count. Continue?
@@ -249,7 +313,9 @@ Save()
          ReturnValue := "Cancel"
       }
    }
-   
+
+
+
    If ( ReturnValue == "Cancel" )
    {
       ReadPreferences(,"RestorePreferences")
@@ -261,26 +327,38 @@ Save()
    Return
 }
 
+
+
 SaveSettings()
 {
    Global
-   
+
+
+
    Local Menu_PrefsToSave
    Local Split
    Local Split0
    Local Split1
 
+
+
    Local key
    Local value
-   
+
+
+
    Menu_PrefsToSave := Object()
-  
+
+
+
    Loop, parse, Menu_SendMethodOptionsCode, | ; get sendmethod
    {
       If (Menu_SendMethodC = A_Index)
          prefs_SendMethod:=A_LoopField
    }
-   
+
+
+
    prefs_DisabledAutoCompleteKeys=
    If (Menu_CtrlEnter = 0)
       prefs_DisabledAutoCompleteKeys .= "E"
@@ -299,6 +377,8 @@ SaveSettings()
    If (Menu_NumpadEnter = 0)
       prefs_DisabledAutoCompleteKeys .= "M"
 
+
+
    Loop, parse, Menu_ArrowKeyMethodOptionsText, |
    {
       StringSplit, Split, A_LoopField, -
@@ -309,11 +389,15 @@ SaveSettings()
       }   
    }
 
+
+
    If (Menu_CaseCorrection = "on")
       prefs_NoBackSpace=Off
    Else If (Menu_CaseCorrection = "off")
       prefs_NoBackSpace=On
-   
+
+
+
    ; Determine list of preferences to save
    For key, value in Menu_ChangedPrefs
    {
@@ -323,8 +407,12 @@ SaveSettings()
       }
    }
 
+
+
    SavePreferences(Menu_PrefsToSave)
 }
+
+
 
 ApplyChanges(){
    ValidatePreferences()
@@ -332,10 +420,16 @@ ApplyChanges(){
    InitializeHotKeys()
    DestroyListBox()
    InitializeListBox()
-   
+
+
+
    Return
 
+
+
 }   
+
+
 
 EditValue:
 Menu_ValueChanged := true
@@ -345,9 +439,13 @@ IF (A_GuiControl && !(SubStr(A_GuiControl ,1 ,5) == "Menu_") )
 }
 Return
 
+
+
 HelpMe:
 HelpMe()
 return
+
+
 
 HelpMe()
 {
@@ -364,14 +462,18 @@ HelpMe()
    MsgBox , 32 , %g_ScriptTitle% Help, %Menu_Help%
    return
 }
-   
+
+
+
 ; derived from work by shimanov, 2005
 ; http://www.autohotkey.com/forum/viewtopic.php?p=37696#37696
 HandleSettingsMessage( p_w, p_l, p_m, p_hw )
 {
    Global g_IDC_HELP, g_IMAGE_CURSOR, g_LR_SHARED, g_NULL, g_WM_SETCURSOR, g_WM_MOUSEMOVE, g_cursor_hand
    Static Help_Hover, h_cursor_help, URL_Hover, h_old_cursor, Old_GuiControl
-   
+
+
+
    ; pass in all blanks to clear flags
    if ((!p_w) && (!p_l) && (!p_m) && (!p_hw)) {
       Help_Hover =
@@ -379,7 +481,9 @@ HandleSettingsMessage( p_w, p_l, p_m, p_hw )
       h_old_cursor =
       Old_GuiControl =
    }
-   
+
+
+
    if ( p_m = g_WM_SETCURSOR )
    {
       if ( Help_Hover || URL_Hover)
@@ -391,11 +495,15 @@ HandleSettingsMessage( p_w, p_l, p_m, p_hw )
 	{
       if (Help_Hover || URL_Hover)
       {
-         
+
+
+
 			Gui, MenuGui:Font, cGreen     ;;; xyz
 			GuiControl, MenuGui:Font, %Old_GuiControl% ;;; xyz
       }
-      
+
+
+
       if ( SubStr(A_GuiControl, 1, 9) == "helpinfo_" ){
 			if !(Help_Hover){
 				IF !(h_cursor_help)
@@ -417,7 +525,9 @@ HandleSettingsMessage( p_w, p_l, p_m, p_hw )
 				Gui, MenuGui:Font, cRed ; cBlue        ;;; xyz g
 				GuiControl, MenuGui:Font, %A_GuiControl% ;;; xyz
 			}
-				
+
+
+
 		} else if (Help_Hover || URL_Hover)
       {
 			DllCall( "SetCursor", "Uint", h_old_cursor )
@@ -429,14 +539,20 @@ HandleSettingsMessage( p_w, p_l, p_m, p_hw )
 		{
 			h_old_cursor := old_cursor
       }
-      
+
+
+
       Old_GuiControl := A_GuiControl
    }
 }
 
+
+
 SaveTitleList:
 SaveTitleList()
 return
+
+
 
 SaveTitleList()
 {
@@ -449,11 +565,17 @@ SaveTitleList()
    Gui, MenuGui:Show
    StringReplace, MenuTitleList, MenuTitleList, `n, |, All
 
+
+
    GuiControl, MenuGui:Text, %Menu_TitleType%, %MenuTitleList%
    Menu_ChangedPrefs[Menu_TitleType] := %Menu_TitleType%
-	
+
+
+
    return
 }
+
+
 
 ProcessListGuiEscape:
 ProcessListGuiClose:
@@ -464,9 +586,13 @@ Gui, MenuGui:-Disabled ; enable main window
 Gui, MenuGui:Show
 Return
 
+
+
 ToEdit:
 ToEdit()
 return
+
+
 
 ToEdit()
 {
@@ -477,9 +603,13 @@ ToEdit()
    return
 }
 
+
+
 AddNew1:
 AddNew1()
 return
+
+
 
 AddNew1()
 {
@@ -492,23 +622,33 @@ AddNew1()
    }
    GuiControlGet, MenuOutputVar, ProcessList:,Edit1
    ControlGet, MenuTitleList, List, , ListBox1
-   
+
+
+
    if (MenuExactMatch == 1)
    {
       MenuOutputVar := """" . MenuOutputVar . """"
    }
-   
+
+
+
    StringReplace, MenuTitleList, MenuTitleList, `n, |, All
    MenuTitleList := "|" . MenuTitleList . "|"
-   
+
+
+
    SearchString := "|" . MenuOutputVar . "|"
-   
+
+
+
    IfInString, MenuTitleList, |%MenuOutputVar%|
    {
       MsgBox, 16, , Duplicate entry.
       return
    }
-   
+
+
+
    GuiControl, ProcessList:, ListBox1, %MenuOutputVar%|
    GuiControl, ProcessList:, Edit1, 
    if (Menu_GetExe == 0)
@@ -519,9 +659,13 @@ AddNew1()
    return
 }
 
+
+
 RemoveNew1:
 RemoveNew1()
 return
+
+
 
 RemoveNew1()
 {
@@ -533,9 +677,13 @@ RemoveNew1()
    StringTrimRight, MenuTitleList, MenuTitleList, 1
    GuiControl, ProcessList:, ListBox1, |
    GuiControl, ProcessList:, ListBox1, %MenuTitleList%
-   
+
+
+
    return
 }
+
+
 
 ; copied from font explorer http://www.autohotkey.com/forum/viewtopic.php?t=57501&highlight=font
 Writer_enumFonts()
@@ -545,21 +693,31 @@ Writer_enumFonts()
    hDC := DllCall("GetDC", "Uint", g_NULL) 
    DllCall("EnumFonts", "Uint", hDC, "Uint", g_NULL, "Uint", RegisterCallback("Writer_enumFontsProc", "F"), "Uint", g_NULL) 
    DllCall("ReleaseDC", "Uint", g_NULL, "Uint", hDC)
-	
+
+
+
    return Writer_enumFontsProc(0, 0, 0, 0, "ReturnS")
 }
+
+
 
 Writer_enumFontsProc(lplf, lptm, dwType, lpData, Action = 0)
 {
    static s
-   
+
+
+
    ifEqual, Action, Clear
    {
       s=
       return
    }
-	
+
+
+
    ifEqual, Action, ReturnS, return s
+
+
 
    s .= DllCall("MulDiv", "Int", lplf+28, "Int",1, "Int", 1, "str") "|"
    return 1
