@@ -16,11 +16,11 @@ you can still use it for that, but that's just a subset of the features.
 
 - Its not Swiftkey for Windows
 The SwiftKey keyboard makes typing easier and adapts to your writing style.
-It's a good idea to use both at the same time. it wors very well in parallel with other intellisense or auto-completion lists ( https://support.swiftkey.com/hc/en-us )
+It's a good idea to use both at the same time. it wokrs very well in parallel with other intellisense or auto-completion lists ( https://support.swiftkey.com/hc/en-us )
 
 - - -
 
-is you use it, please share your ActionLists with the community.
+if you use it, please share your ActionLists with the community.
 
 - - -
 
