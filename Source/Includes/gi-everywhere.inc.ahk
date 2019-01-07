@@ -813,7 +813,7 @@ global g_ListBoxActualSizeH_maxFound ; this variable is empty after a fres start
             else{
                 if(instr(actionList, "isNotAProject" )){
                     tip .= "create a new ActionList by`n"
-                    tip .= "start typing: create_own_project`n"
+                    tip .= "typing: create_own_project OR __`n"
                 }else
                     tip .= "doubleCtrl: On/Off Listbox, double-click: follows caret"
             }
@@ -845,7 +845,6 @@ global g_ListBoxActualSizeH_maxFound ; this variable is empty after a fres start
 ;
 
 ; SELECT word, worddescription, wordreplacement FROM Words WHERE wordindexed GLOB 'TOO*'  AND ActionListID = '2' ORDER BY CASE WHEN count IS NULL then ROWID else 'z' end, CASE WHEN count IS NOT NULL then ( (count - 0) * ( 1 - ( '0.75' / (LENGTH(word) - 3)))) end DESC, Word LIMIT 10;
-
 
 
 
