@@ -760,7 +760,7 @@ return
 ;
 
     ; g_fontColor := (g_isListBoxDisabled) ? "cRed" : "cGreen"
-    if(0 && !g_isListBoxDisabled){ ; doent need this anymore
+    if(1 && !g_isListBoxDisabled){ ; doent need this anymore
 
         MsgBox, 4,doubleCtrl detected: Hide ListBox ? (%DoubleClickTime%ms = DoubleClickTime),  `nYES? or ESC/NO?
 		IfMsgBox yes
@@ -1234,8 +1234,8 @@ Return
 ; #include,%A_ScriptDir%\shortcuts\listbox_shortcutStyle_numpad09.inc.ahk ; <=== works 28.12.2018 00:31
 ; #include,%A_ScriptDir%\shortcuts\listbox_shortcutStyle_shiftNumpad09.inc.ahk ; <=== ;( seems not working 18-12-28_00-29
 #include,%A_ScriptDir%\shortcuts\listbox_shortcutStyle_ctrlNumpad09.inc.ahk ; <=== default 18-12-28_00-24
-#include,%A_ScriptDir%\shortcuts\listbox_shortcutStyle_numpad09_ifMouseInListBox.inc.ahk ; <===
-
+#include,%A_ScriptDir%\shortcuts\listbox_shortcutStyle_numpad09_ifMouseInListBox.inc.ahk ; <=== default 19-01-07_21-27
+; https://g-intellisense.myjetbrains.com/youtrack/newIssue?draftId=2-472
 
 
 ; tooltip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )

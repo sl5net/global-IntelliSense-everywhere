@@ -15,8 +15,9 @@
 ;tool ToolTip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 ; tool ToolTip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 ; tRemoveToolTip()
+; ToolTip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 
-#If MouseIsOver("Action List Appears Here ahk_class AutoHotkeyGUI") ; https://www.autohotkey.com/docs/commands/_If.htm#Examples
+#If MouseIsOver(g_ListBoxTitle " ahk_class AutoHotkeyGUI") ; https://www.autohotkey.com/docs/commands/_If.htm#Examples
 $1::
 ;~ $!::
 $Numpad1::

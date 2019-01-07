@@ -430,6 +430,10 @@ RecomputeMatches( calledFromStr, is_Recursion := false ){
 	StrLen_g_Word := StrLen(g_Word)
 	loop,7
 	{
+        if(A_Index == 2 && instr(actionList, "isNotAProject" ))
+            break ; if isNotAProject is used only use commands from ActionList isNotAProject. now hopefully the __ are sorted as first entry 19-01-07_22-09
+
+
 		sqlFilePrefix := A_Index-1
             ; becouse of performance reasons. thats optional. dont need 02.12.2018 09:25
 		if(id >= 2
@@ -465,8 +469,9 @@ RecomputeMatches( calledFromStr, is_Recursion := false ){
 			SELECT := sql["pre_Where"] g_WordSQL sql["postWhere"]
 		
             ; winpo
-		
-		if(0 && A_Index == 1)
+
+		 ; if(1 && InStr(A_ComputerName,"SL5") )
+		if(0 && A_Index == 1 && InStr(A_ComputerName,"SL5") )
                clipboard := SELECT "`n`n`n-- len=" o["listID"]["len"] "`n`n-- g_ActionListID=" g_ActionListID
                 ; clipboard := SELECT
            ; msgbox,% SELECT t $ t to
@@ -800,7 +805,7 @@ global g_ListBoxActualSizeH_maxFound ; this variable is empty after a fres start
             tip .= g_Word "(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")`n" ; planed to set this behind the box
             tip .= "`n"
             tip .= "CTRL+Nr., single click: move, "
-            tip .= "rightClick opens: " substr(actionList,1,19) " .. " RegExReplace(   actionList,".*\\") "`n"
+            tip .= "rightClick opens: " substr(actionList,1,19) " .. " RegExReplace(   actionList,".*\\") "(" g_ActionListID ")`n"
 
             nr := ( Mod(round(A_Sec/20), 2) == 0) ; toggles every 20 seconds beetween 0 1
             if(nr && !instr(actionList, "isNotAProject" ))
