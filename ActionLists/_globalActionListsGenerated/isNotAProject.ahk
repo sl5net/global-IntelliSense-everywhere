@@ -1,4 +1,4 @@
-﻿; #include _global.ahk
+﻿; #include _global.ahk ; that makes confusen here. keep it simple. 19-01-06_11-03
 ; !! importand: never delte this line or this file! with this line you are able to usa a special project configuaratioin 09.08.2017 20:07 17-08-09_20-07
 ; isNotAProject.ahk
 

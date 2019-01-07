@@ -1234,6 +1234,7 @@ Return
 ; #include,%A_ScriptDir%\shortcuts\listbox_shortcutStyle_numpad09.inc.ahk ; <=== works 28.12.2018 00:31
 ; #include,%A_ScriptDir%\shortcuts\listbox_shortcutStyle_shiftNumpad09.inc.ahk ; <=== ;( seems not working 18-12-28_00-29
 #include,%A_ScriptDir%\shortcuts\listbox_shortcutStyle_ctrlNumpad09.inc.ahk ; <=== default 18-12-28_00-24
+#include,%A_ScriptDir%\shortcuts\listbox_shortcutStyle_numpad09_ifMouseInListBox.inc.ahk ; <===
 
 
 

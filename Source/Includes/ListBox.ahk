@@ -223,7 +223,7 @@ ListBoxClickItem(wParam, lParam, msg, ClickedHwnd){
             ToolTip1sec(tip)
             g_doListBoxFollowMouse := true ; toggle it.
             ; SetTimer,doListBoxFollowMouse,200
-            SetTimer,doListBoxFollowMouse,50 ; 07.11.2018 20:33 update. absolute no problem for CPU
+            SetTimer,doListBoxFollowMouse,40 ; 40 seems a good balue 07.11.2018 20:33 update. absolute no problem for CPU
             Hotkey, WheelUp, on
             Hotkey, WheelDown, on
             ;SetTimer,doListBoxFollowMouse,on ; to

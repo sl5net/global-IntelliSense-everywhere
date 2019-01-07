@@ -1,0 +1,122 @@
+﻿; DetectHiddenWindows, On ;  Determines whether invisible windows are "seen" by the script.
+; SetTitleMatchMode,1 ;  Sets the matching behavior of the WinTitle parameter in commands such as WinWait.
+; #IfWinActive, Action List Appears Here
+
+
+
+$1::
+;~ $!::
+$Numpad1::
+MouseGetPos, , , mouseID, mouseControl
+WinGetTitle, mouseTitle, ahk_id %mouseID%
+; WinGetClass, mouseClass, ahk_id %mouseID%
+; if(mouseTitle == "Action List Appears Here")
+if(mouseTitle == g_ListBoxTitle ){
+    ;ToolTip, ahk_id %mouseID%`nahk_class %mouseClass%`n%mouseTitle%`nControl: %mouseControl%
+    ;msgbox,% mouseTitle
+    CheckWord("$1")
+}
+return
+
+; testringDifference(string1, string2, maxOffset=1)
+; FileAppend, tes te, Filename, Encoding
+
+$2:: ; ; some users dont have numpad ; 25.03.2018 15:35
+;~ $":: ; this is working
+; VK07:: ; this is not working 21.04.2017 12:12
+; maybe helful for you: http://www.kbdedit.com/manual/low_level_vk_list.html
+; VK_OEM_7::
+
+
+
+$Numpad2::
+MouseGetPos, , , mouseID, mouseControl
+WinGetTitle, mouseTitle, ahk_id %mouseID%
+if(mouseTitle == g_ListBoxTitle )
+    CheckWord("$2")
+return
+
+
+
+$3::  ; some users dont have numpad ; 25.03.2018 15:35
+; $ï¿½:: ; problem with the paragraph sign. probably becouse of the document format. i dont need it so much. lets deactivate it. 21.04.2017 12:02
+$Numpad3::
+MouseGetPos, , , mouseID, mouseControl
+WinGetTitle, mouseTitle, ahk_id %mouseID%
+if(mouseTitle == g_ListBoxTitle )
+CheckWord("$3")
+return
+$4::  ; some users dont have numpad ; 25.03.2018 15:35
+;~ $$::
+$Numpad4::
+MouseGetPos, , , mouseID, mouseControl
+WinGetTitle, mouseTitle, ahk_id %mouseID%
+if(mouseTitle == g_ListBoxTitle )
+CheckWord("$4")
+return
+$5::  ; some users dont have numpad ; 25.03.2018 15:35
+$Numpad5::
+MouseGetPos, , , mouseID, mouseControl
+WinGetTitle, mouseTitle, ahk_id %mouseID%
+if(mouseTitle == g_ListBoxTitle )
+CheckWord("$5")
+return
+$6::  ; some users dont have numpad ; 25.03.2018 15:35
+;~ $&::
+$Numpad6::
+MouseGetPos, , , mouseID, mouseControl
+WinGetTitle, mouseTitle, ahk_id %mouseID%
+if(mouseTitle == g_ListBoxTitle )
+CheckWord("$6")
+return
+$7:: ;  ; some users dont have numpad ; 25.03.2018 15:35
+;~ $/::
+;~ ${::
+$Numpad7::
+MouseGetPos, , , mouseID, mouseControl
+WinGetTitle, mouseTitle, ahk_id %mouseID%
+if(mouseTitle == g_ListBoxTitle )
+CheckWord("$7")
+return
+$8::  ; some users dont have numpad ; 25.03.2018 15:35
+;~ $(::
+;~ $[::
+$Numpad8::
+MouseGetPos, , , mouseID, mouseControl
+WinGetTitle, mouseTitle, ahk_id %mouseID%
+if(mouseTitle == g_ListBoxTitle )
+CheckWord("$8")
+return
+$9::  ; some users dont have numpad ; 25.03.2018 15:35
+;~ $)::
+;~ $]::
+$Numpad9::
+MouseGetPos, , , mouseID, mouseControl
+WinGetTitle, mouseTitle, ahk_id %mouseID%
+if(mouseTitle == g_ListBoxTitle )
+CheckWord("$9")
+return
+$0:: ; some users dont have numpad ; 25.03.2018 15:35
+;msgbox,0
+MouseGetPos, , , mouseID, mouseControl
+WinGetTitle, mouseTitle, ahk_id %mouseID%
+if(mouseTitle == g_ListBoxTitle )
+CheckWord("$0")
+;~ $=::0000
+;~ $}::
+return
+$Numpad0::
+;msgbox,Numpad0
+MouseGetPos, , , mouseID, mouseControl
+WinGetTitle, mouseTitle, ahk_id %mouseID%
+if(mouseTitle == g_ListBoxTitle )
+CheckWord("$Numpad0")
+; CheckWord(A_ThisHotkey)
+Return
+; to  tooltip green|r|Tooltip, is green
+
+#IfWinActive,
+
+
+; tTooltip, `n (from: %A_LineFile%~%A_LineNumber%)
+; boxm boxmsg1 bMsgBoxMM(mm) MsgBox,262160,% ":(`n" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ,% ":(`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"

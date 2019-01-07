@@ -457,6 +457,7 @@ RecomputeMatches( calledFromStr, is_Recursion := false ){
 
 		if(A_Index == 1 && substr(g_Word,1,1)=="_"){  ; An underscore ("_") in the LIKE pattern matches any single character in the string.
 		    g_WordSQL := StrReplace(g_Word, "_", "~_" ) ; like ... ESCAPE '\'
+		    ; https://stackoverflow.com/questions/7323162/sqlite-like-and
         } else g_WordSQL := g_Word
 		if(o["listID"]["len"])
 			SELECT := sql["pre_Where"] g_WordSQL sql["postWhere"] "= " g_ActionListID " " sql["rest"] ; ; <== dirty bugfix
