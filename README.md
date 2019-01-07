@@ -8,14 +8,15 @@ Ist eine unaufdringliche IntelliSense für alle Programmen, alle Webseiten, alle
 
 - - -
 
-Was es nicht ist/what its not:
+Audience/target group: Programmers, writers, Windows Power users, Autohotkey lovers
+
+what its not:
+- although that is originally was not anymore a simple auto-completion list.
+you can still use it for that, but that's just a subset of the features.
 
 - Its not Swiftkey for Windows
-DE: Die SwiftKey Tastatur erleichtert das Tippen und passt sich an Ihren Schreibstil an.
-https://support.swiftkey.com/hc/en-us
-
-- Its not ...
-
+The SwiftKey keyboard makes typing easier and adapts to your writing style.
+It's a good idea to use both at the same time. it wors very well in parallel with other intellisense or auto-completion lists ( https://support.swiftkey.com/hc/en-us )
 
 
 Its Sponsored!
