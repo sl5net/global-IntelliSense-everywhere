@@ -311,9 +311,9 @@ helloWelcomeMessage =
 Hello, welcome to gi. I tried my best with gi and I hope you have a great with it, if you have any trouble and anything, please reach out to me, message me, I will try my best to solve your issues. thanks again, enjoy.
 
 it would be great if you provide some review, it will give me a chance to create a better GI for you and everyone.
+thank you. :)
 
 now you should see a little GI icon into your taskBar.
-thank you. :)
 )
 feedbackMsgBox(substr(helloWelcomeMessage,1,100) "...", helloWelcomeMessage, 1, 1, 66 * 5 )
 }
@@ -736,7 +736,7 @@ return
 #IfWinActive,
 ~ctrl::
    ;If (A_TimeSincePriorHotkey < 280 && A_TimeSincePriorHotkey > 120){ ; 50 was to short. i tested it with holding the ctrl key
-   If (A_TimeSincePriorHotkey < 1100 && A_TimeSincePriorHotkey > 80 ){ ; 50 was to short. i tested it with holding the ctrl key
+   If (A_TimeSincePriorHotkey < 500 && A_TimeSincePriorHotkey > 80 ){ ; 50 was to short. i tested it with holding the ctrl key
     ; DoubleClickTime := DllCall("GetDoubleClickTime")   ; Get the doubleclicktime in milliseconds
     ; asking about good doubleCtrl quality 05.01.2019 12:33: https://www.autohotkey.com/boards/viewtopic.php?f=76&t=60699
 
@@ -760,7 +760,7 @@ return
 ;
 
     ; g_fontColor := (g_isListBoxDisabled) ? "cRed" : "cGreen"
-    if(false !g_isListBoxDisabled){ ; doent need this anymore
+    if(0 && !g_isListBoxDisabled){ ; doent need this anymore
 
         MsgBox, 4,doubleCtrl detected: Hide ListBox ? (%DoubleClickTime%ms = DoubleClickTime),  `nYES? or ESC/NO?
 		IfMsgBox yes
