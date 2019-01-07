@@ -18,6 +18,12 @@ you can still use it for that, but that's just a subset of the features.
 The SwiftKey keyboard makes typing easier and adapts to your writing style.
 It's a good idea to use both at the same time. it wors very well in parallel with other intellisense or auto-completion lists ( https://support.swiftkey.com/hc/en-us )
 
+- - -
+
+is you use it, please share your ActionLists with the community.
+
+- - -
+
 
 Its Sponsored!
 This project is sponsored by JetBrains.  JetBrains is a software development company whose mission is to make the strongest, most effective developer tools on earth. Their tools speed up production, freeing developers to grow, discover and create. 
