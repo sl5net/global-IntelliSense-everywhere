@@ -2825,7 +2825,7 @@ ActionList = '%ActionList%' ;
 		if( instr(sqlLastError, "no such column") || instr(sqlLastError, "no such table") ){
 			RebuildDatabase()
 			tooltip,% "  RebuildDatabase() ==> (" RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
-			sleep,5000
+			sleep,2000
 			reload
 		}
 		

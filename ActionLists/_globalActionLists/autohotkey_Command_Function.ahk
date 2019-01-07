@@ -313,11 +313,9 @@ setscrolllockstate|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickS
 setscrolllockstate
 setstorecapslockMode|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 setstorecapslockMode
-|r|
 setTitleMatchMode|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
-setTitleMatchMode
-
-|r|setwindelay
+|r|setTitleMatchMode
+|r|setWinDelay
 setworkingdir|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 setworkingdir
 shutdown|rr||ahk|clipboard:=key `n run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk

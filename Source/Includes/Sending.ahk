@@ -954,6 +954,9 @@ g_ActionListID = %g_ActionListID%
         ; MsgBox,% rX["key"] "#" rX["rr"] "#" rX["send"]  "#" rX["code"] "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 		
         ; rX := {key:m1, rr:m2, send:"", lang:"" ,code:""}
+
+        ;/¯¯¯¯ Environment ¯¯ 190107124606 ¯¯ 07.01.2019 12:46:06 ¯¯\
+        ; Environment variables (de: umgebungsvariablen)
 		
 		AHKcode2 .= "key := """ rX["key"] """ `n "
 		AHKcode2 .= "Sending := """ escaped_Sending """ `n " ; or use Sending rX["send"]
@@ -963,6 +966,7 @@ g_ActionListID = %g_ActionListID%
 		AHKcode2 .= "AHKcodeLen := " StrLen(AHKcode) " `n "
 		AHKcode2 .= "ActionList := """ ActionList """ `n "
 		; pause ; toCloseAll tToolTip5sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+		;\____ Environment __ 190107124616 __ 07.01.2019 12:46:16 __/
 
 		; toolTip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 		; tooltip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
