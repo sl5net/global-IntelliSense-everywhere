@@ -285,7 +285,6 @@ if(1 && InStr(A_ComputerName,"SL5")){
 }
 
 
-
 global g_ListBoxFontSize := 16 ; works
 global g_ListBoxFontSize := 2 ; work but its so small i could not read it too
 global g_ListBoxFontSize := 8 ; work but its so small i could not read it too too tool
@@ -305,6 +304,20 @@ listBoxFontSizeOLD := g_ListBoxFontSize
 
 
 feedbackMsgBoxCloseAllWindows()
+
+if(!FileExist(g_ActionListDBfileAdress) ){
+helloWelcomeMessage =
+(
+Hello, welcome to gi. I tried my best with gi and I hope you have a great with it, if you have any trouble and anything, please reach out to me, message me, I will try my best to solve your issues. thanks again, enjoy.
+
+it would be great if you provide some review, it will give me a chance to create a better GI for you and everyone.
+
+now you should see a little GI icon into your taskBar.
+thank you. :)
+)
+feedbackMsgBox(substr(helloWelcomeMessage,1,100) "...", helloWelcomeMessage, 1, 1, 66 * 5 )
+}
+
 
 
 
@@ -723,11 +736,12 @@ return
 #IfWinActive,
 ~ctrl::
    ;If (A_TimeSincePriorHotkey < 280 && A_TimeSincePriorHotkey > 120){ ; 50 was to short. i tested it with holding the ctrl key
-   If (A_TimeSincePriorHotkey < 1100 && A_TimeSincePriorHotkey > 70 ){ ; 50 was to short. i tested it with holding the ctrl key
+   If (A_TimeSincePriorHotkey < 1100 && A_TimeSincePriorHotkey > 80 ){ ; 50 was to short. i tested it with holding the ctrl key
     ; DoubleClickTime := DllCall("GetDoubleClickTime")   ; Get the doubleclicktime in milliseconds
     ; asking about good doubleCtrl quality 05.01.2019 12:33: https://www.autohotkey.com/boards/viewtopic.php?f=76&t=60699
 
 
+    ;if(A_PriorKey <> A_ThisHotkey && A_PriorKey <> A_ThisHotkey) ; works not 06.01.2019 15:05
     if(A_PriorKey <> "LControl" && A_PriorKey <> "RControl")
         return
      toolTip2sec( "Ctrl+Ctrl = toggle listbox`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
@@ -2542,8 +2556,15 @@ recreateListBox_IfFontSizeChangedAndTimeIdle(g_ListBoxFontSize, newListBoxFontSi
 
 
 
-; t t t
+; drag drop ? not importand
+if(false){
+      if(GetKeyState("LButton")
+        && g_ListBoxX && g_ListBoxY
+        && (abs(g_ListBoxX - mouseX)>200 || abs(g_ListBoxY - mouseY) > 200 )){
+            tooltip, % "probably drag drop detected `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")", %g_ListBoxX%, 1, 5
+      }
 
+}
 
 
 ;/¯¯¯¯ doListBoxFollowMouse ¯¯ 181107183540 ¯¯ 07.11.2018 18:35:40 ¯¯\

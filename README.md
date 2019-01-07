@@ -50,7 +50,7 @@ or: https://autohotkey.com/
  [github.com...master](https://codeload.github.com/sl5net/global-IntelliSense-everywhere/zip/master)
   or 
   [github.com...zipball/master/](https://github.com/sl5net/global-IntelliSense-everywhere/zipball/master/)
-  or 
+  or perhaps 
   [github.com...zipball Nightly-Build](https://github.com/sl5net/global-IntelliSense-everywhere-Nightly-Build/zipball/master/)
 - Start start.ahk
 
