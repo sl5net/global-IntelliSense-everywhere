@@ -11,7 +11,7 @@ Ist eine unaufdringliche IntelliSense für alle Programmen, alle Webseiten, alle
 Audience/target group: Programmers, writers, Windows Power users, Autohotkey lovers
 
 what its not:
-- although that is originally was not anymore a simple auto-completion list.
+- although that is originally was , its not anymore a simple auto-completion list.
 you can still use it for that, but that's just a subset of the features.
 
 - Its not Swiftkey for Windows
