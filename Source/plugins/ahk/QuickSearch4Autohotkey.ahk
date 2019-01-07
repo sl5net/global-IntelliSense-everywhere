@@ -17,6 +17,7 @@ Gui, Add, Edit, yp+20 wp vSearch,%Clipboard%
 Gui, Add, Button, yp+30 w77 h26 gfSearch, &Forum Search
 Gui, Add, Button, xp+85 wp hp ggSearch, &Google It!
 Gui, Show, AutoSize Center, Quick Search for Autohotkey
+Send,{tab} ; focus first button
 return
 
 fSearch:
@@ -38,3 +39,6 @@ ExitApp
 esc::
      exitapp
 return
+; enter:: ; deprecated
+     ; Send,!f
+; return
