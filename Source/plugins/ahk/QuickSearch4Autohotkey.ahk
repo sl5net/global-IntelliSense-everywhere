@@ -14,10 +14,17 @@ e :=	["+","%25", "%22", "%23", "%26"
 
 Gui, Add, Text, x10 y10 h20, Search Autohotkey's site documentation, or search from Google:
 Gui, Add, Edit, yp+20 wp vSearch,%Clipboard%
-Gui, Add, Button, yp+30 w77 h26 gfSearch, &Forum Search
+Gui, Add, Button, yp+30 w77 h26 gStrgV, &v paste it
+Gui, Add, Button, xp+85 wp hp gfSearch, &Forum Search
 Gui, Add, Button, xp+85 wp hp ggSearch, &Google It!
 Gui, Show, AutoSize Center, Quick Search for Autohotkey
 Send,{tab} ; focus first button
+return
+
+StrgV:
+Gui, Destroy
+Send,^v
+ExitApp
 return
 
 fSearch:
