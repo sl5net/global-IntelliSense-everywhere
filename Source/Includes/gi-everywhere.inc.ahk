@@ -373,6 +373,7 @@ RecomputeMatches( calledFromStr, is_Recursion := false ){
 
     global g_listSELECT_FROM_WinTitle ; addet 19-01-09_11-51
     global g_permanentSELECT ; addet 19-01-09_11-51
+    global g_permanentSELECT_type ; addet 19-01-09_11-51
 
     if(g_listSELECT_FROM_WinTitle && WinActive(g_listSELECT_FROM_WinTitle))
         do_SELECT_actionList_FROM_actionLists_NotLike_isNotAProject := true
@@ -460,7 +461,8 @@ SELECT actionList FROM actionLists WHERE actionList Like 'g_Word' AND actionList
             if(A_Index > 1)
                 break
                 ; Like '%g_Word%'
-                SELECT := StrReplace(g_permanentSELECT, "'%g_Word%'", "'%" g_Word "%'" )
+                SELECT := StrReplace(g_permanentSELECT, "%g_Word%", "%" g_Word "%" )
+
             ; clipboard  := g_listSELECT_FROM_WinTitle
             ; tooltip,%SELECT%`n(%A_LineFile%~%A_LineNumber%),550,201,4
             ; g_permanentSELECT
@@ -551,7 +553,9 @@ SELECT actionList FROM actionLists WHERE actionList Like 'g_Word' AND actionList
 		{
 		    ; tooltip msgb box box tooltip msgbox tooltip msg box line Line Too
 		    ; doSetSelectFirstValue2registry := false
-		    doSetSelectFirstValue2registry := true
+		    if(g_permanentSELECT_type == "SELECT actionList")
+		        doSetSelectFirstValue2registry := true
+
 			if(doSetSelectFirstValue2registry && do_SELECT_actionList_FROM_actionLists_NotLike_isNotAProject) ; !row[2] &&
 			{
                 actionListNewTemp_withoutExt := SubStr( row[1] ,1 , -4 )

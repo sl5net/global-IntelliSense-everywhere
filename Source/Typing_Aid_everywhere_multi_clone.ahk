@@ -274,25 +274,28 @@ activeClass := "Chrome_WidgetWin_1"
 		continue ;
 	}
     ;\____ missionCompleted __ 181024170947 __ 24.10.2018 17:09:47 __/
-	
+
 
 	flagTitle_giListSELECT := "giListSELECT" ; 09.01.2019 11:26 19-01-09_11-26
 	flagTitle_giListSELECT_running := " (" flagTitle_giListSELECT ")" ; 09.01.2019 11:26 19-01-09_11-26
-	if(RegExMatch(activeTitle,"\b" flagTitle_giListSELECT)){
-	    ; ToolTip9sec( "WinWaitClose `n`n" . A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\") ,1 , 200 )
+	if(!instr(activeTitle, "AHK Studio -" ) && RegExMatch(activeTitle,"i)\b" flagTitle_giListSELECT)){
 	    activeTitleOLD := activeTitle
 	    ; giListSELECT actionList FROM actionLists WHERE actionList Like 'g_Word' AND actionList NOT Like 'isNotAProject.ahk' order by actionList
 	    activeTitle := RegExReplace(activeTitle, "[\(\s]*\b[\(]*" flagTitle_giListSELECT "[\)\s]*") flagTitle_giListSELECT_running
 	    ; clipboard  := activeTitle
 	    ;  actionList FROM actionLists WHERE actionList Like 'g_Word' AND actionList NOT Like 'isNotAProject.ahk' order by actionList () (giListSELECT)
+
+	    activeTitle := RegExReplace(activeTitle, "i)(\bLike\b[^']+')([^']+)'" , "`n$1%$2%'") ; add wildcardd
 	    WinSetTitle,% activeTitleOLD,,% activeTitle
 	    ; msgbox,% activeTitle "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
-
-	    ; ToolTip9sec( "WinWait `n`n" . A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\") ,1 , 200 )
-	    WinWait, %activeTitle%, , 9000
-	    ; ToolTip, % "WinWaitClose `n`n" . A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\") ,1 , 200, 8
+        if(0 && InStr(A_ComputerName,"SL5"))
+	        ToolTip, % "WinWait:`n`nWinSetTitle:`n" activeTitleOLD "`n=>`n" activeTitle " `n`n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ,1 , 200, 20
+	    WinWait, %activeTitle%, , 9000,2
+	    if(0 && InStr(A_ComputerName,"SL5"))
+	        ToolTip, % "WinWaitClose `n`n" . A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\") ,1 , 200, 8
 	    WinWaitClose,% activeTitle
-	    ; ToolTip,  ,1 , 200, 8
+	    ToolTip,  ,1 , 200, 8
+	    ToolTip,  ,1 , 200, 20
 		continue
 	}
 

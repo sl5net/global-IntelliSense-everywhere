@@ -69,8 +69,12 @@ value: >%titClean%< ?= >%flagTitle_giListSELECT_running%<
 	if(titClean == flagTitle_giListSELECT_running){
         g_listSELECT_FROM_WinTitle := activeTitle
         s1 := substr(activeTitle,1, - (lenTemp-1) )
-        s2 := RegExReplace(s1, "(\bLike\b[^']+')([^']+)'" , "`n$1%$2%'") ; add wildcardd
-        g_permanentSELECT := "SELECT " s2
+        ;s2 := RegExReplace(s1, "i)(\bLike\b[^']+')([^']+)'" , "`n$1%$2%'") ; add wildcardd
+        if(regExMatch(activeTitle , "i)(SELECT\s+actionList\b|\bFROM\s+actionLists\b)"  ))
+            g_permanentSELECT_type := "SELECT actionList"
+        else
+            g_permanentSELECT_type := ""
+        g_permanentSELECT := "SELECT " s1
         tip =
         (
         found: %g_listSELECT_FROM_WinTitle%
@@ -179,6 +183,7 @@ global g_itsProbablyArecentUpdate
 
 global g_listSELECT_FROM_WinTitle ; addet 19-01-09_11-51
 global g_permanentSELECT ; addet 19-01-09_11-51
+global g_permanentSELECT_type ; addet 19-01-09_11-51
 
     activeTitleOLD := activeTitle
     WinGetActiveTitle, activeTitle
