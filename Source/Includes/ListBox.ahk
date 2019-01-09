@@ -122,12 +122,12 @@ InitializeListBox(){
 ;/¯¯¯¯ ListBoxRigthButtionClick ¯¯ 181209172003 ¯¯ 09.12.2018 17:20:03 ¯¯\
 ; Rigth-Buttion-Click in ListBox opens active action list for edit it
 ListBoxRigthButtionClick(wParam, lParam, msg, ClickedHwnd){
-    global ActionList
-    fileAddress := strReplace(ActionList,"._Generated.ahk") ; better not edit into the _generated 18-12-09_17-31
+    global actionList
+    fileAddress := strReplace(actionList,"._Generated.ahk") ; better not edit into the _generated 18-12-09_17-31
     if(fileexist(fileAddress) && !InStr(FileExist(fileAddress), "D"))
         openInEditorFromIntern( fileAddress )
     else
-        openInEditorFromIntern( ActionList )
+        openInEditorFromIntern( actionList )
     if(1 && InStr(A_ComputerName,"SL5"))
         ToolTip9sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
     ;msgbox,`n(%A_LineFile%~%A_LineNumber%)

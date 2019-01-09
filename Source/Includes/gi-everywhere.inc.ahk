@@ -1,9 +1,9 @@
 ﻿
 ; Indentation_style: https://de.wikipedia.org/wiki/EinrÃ¼ckungsstil#SL5small-Stil
 global g_lineNumberFeedback
-global ActionListDirBase
-global ActionListActive
-global ActionListOLD
+global actionListDirBase
+global actionListActive
+global actionListOLD
 global baseDir
 global sourceDir
 global activeTitleOLD
@@ -13,8 +13,8 @@ global activeClass
 global g_StartTime_TickCountMilli := A_TickCount
 
 
-;/¯¯¯¯ Receive_ActionListAddress ¯¯ 181231134228 ¯¯ 31.12.2018 13:42:28 ¯¯\
-Receive_ActionListAddress(CopyOfData){
+;/¯¯¯¯ Receive_actionListAddress ¯¯ 181231134228 ¯¯ 31.12.2018 13:42:28 ¯¯\
+Receive_actionListAddress(CopyOfData){
 	INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 	
 	msgbox, Received:`n%CopyOfData% `n ( %A_LineFile%(inc)~%A_LineNumber% ) `n
@@ -28,24 +28,24 @@ Receive_ActionListAddress(CopyOfData){
     ;CopyOfData := StrGet(StringAddress)  ; Copy the string out of the structure.
     ; Show it with ToolTip vs. MsgBox so we can return in a timely fashion:
 	msgbox, %A_LineFile%`nReceived:`n%CopyOfData%
-    ;RegRead, ActionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, CopyOfData
+    ;RegRead, actionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, CopyOfData
 	
-	global ActionListOLD
-	global ActionList
+	global actionListOLD
+	global actionList
 	
-;    ActionListNEWarchivePath := CopyOfData
-;    ActionListActivePath  := CopyOfData
-;    ActionListNEW := CopyOfData
+;    actionListNEWarchivePath := CopyOfData
+;    actionListActivePath  := CopyOfData
+;    actionListNEW := CopyOfData
 	
 ; AHKcode = #Include ..\..\Source\incDynAhk\sendDayTimeHello.ahk `n c := RegExReplace( substr(clipboard,1,99) , "^.*?(\w)(\w+).*", "$u1$l2") `n #Include incDynAhk\sendFreundBody.ahk
 	
 	
-	if( 1 && ActionListOLD <> ActionList){
+	if( 1 && actionListOLD <> actionList){
 		ToolTip, Received:`n%CopyOfData% `n ( %A_LineFile%(inc)~%A_LineNumber% ) `n
 		Sleep,2000
 		
-		ActionList := CopyOfData
-		tooltip,'%ActionListNEW%' = ActionListNEW `n ( %A_LineFile%(inc)~%A_LineNumber% ) `n
+		actionList := CopyOfData
+		tooltip,'%actionListNEW%' = actionListNEW `n ( %A_LineFile%(inc)~%A_LineNumber% ) `n
 		
 		CloseListBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
 		
@@ -54,23 +54,23 @@ Receive_ActionListAddress(CopyOfData){
 		SuspendOn()
 		
 		
-    ;feedbackMsgBox("ActionListOLD <> ActionList",ActionListOLD . " <> " . ActionList . "`n" . A_ScriptName . "(inc)~" . A_LineNumber)
-		tooltip,LOAD NEW '%ActionList%' = ActionList `n ( %A_LineFile%(inc)~%A_LineNumber% ) `n
-        ;setGlobalActionList(ActionListActive)
+    ;feedbackMsgBox("actionListOLD <> actionList",actionListOLD . " <> " . actionList . "`n" . A_ScriptName . "(inc)~" . A_LineNumber)
+		tooltip,LOAD NEW '%actionList%' = actionList `n ( %A_LineFile%(inc)~%A_LineNumber% ) `n
+        ;setGlobalActionList(actionListActive)
         ;InitializeListBox()
         ;BlockInput, Send ; Send:  The user's keyboard and mouse input is ignored while a Send or SendRaw is in progress
 		InitializeHotKeys()
 		DisableKeyboardHotKeys()
         ; SetBatchLines, -1 ;Change the Running performance speed (Priority changed to High in GetIncludedActiveWindow)
-        ;feedbackMsgBox("ReadInTheActionList(calledFromStr)",ActionList . "`n" . activeTitle . " = activeTitle  `n " .  A_ScriptName . "(inc)~" . A_LineNumber)
+        ;feedbackMsgBox("ReadInTheActionList(calledFromStr)",actionList . "`n" . activeTitle . " = activeTitle  `n " .  A_ScriptName . "(inc)~" . A_LineNumber)
 		ReadInTheActionList(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
         ;g_min_searchWord_length := getMinLength_Needetthat_ListBecomesVisible(ParseWordsCount, maxLinesOfCode4length1)
-		ActionListOLD := ActionList
+		actionListOLD := actionList
         ;MainLoop()
 		
          ;RebuildMatchList() ; line addet 19.03.2018 20:57
          ;InitializeListBox() ; line addet 19.03.2018 20:57^
-		RecomputeMatches(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")) ; line addet 19.03.2018 21 ... in Receive_ActionListAddress
+		RecomputeMatches(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")) ; line addet 19.03.2018 21 ... in Receive_actionListAddress
 		
 		SuspendOff()
 	}
@@ -89,14 +89,14 @@ Receive_ActionListAddress(CopyOfData){
 	MainLoop()
 	return true  ; Returning 1 (true) is the traditional way to acknowledge this message.
 }
-;\____ Receive_ActionListAddress __ 181231134235 __ 31.12.2018 13:42:35 __/
+;\____ Receive_actionListAddress __ 181231134235 __ 31.12.2018 13:42:35 __/
 
 
 
 
 
 ;/¯¯¯¯ ReadInTheActionList( ¯¯ 181028125821 ¯¯ 28.10.2018 12:58:21 ¯¯\
-ReadInTheActionList(calledFromStr){ ;Read in the ActionList
+ReadInTheActionList(calledFromStr){ ;Read in the actionList
 	global ParseWordsCount
 	global g_min_searchWord_length
 	; Speak(A_lineNumber,"PROD")
@@ -283,7 +283,7 @@ ProcessKey(InputChar,EndKey) {
 			g_LastInput_Id := g_Active_Id
 			Return
 		}
-		if(1 && InStr(A_ComputerName,"SL5"))
+		if(0 && InStr(A_ComputerName,"SL5"))
 			tooltip,% "str=" NewInput " , chr=" InputChar "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),90,-15
 		
 		if InputChar in %prefs_ForceNewWordCharacters%
@@ -347,15 +347,15 @@ ProcessKey(InputChar,EndKey) {
 
 ;/¯¯¯¯ RecomputeMatches ¯¯ 181025105946 ¯¯ 25.10.2018 10:59:46 ¯¯\
 RecomputeMatches( calledFromStr, is_Recursion := false ){
-   ; This function will take the given word, and will recompile the list of matches and redisplay the ActionList.
+   ; This function will take the given word, and will recompile the list of matches and redisplay the actionList.
 	global g_MatchTotal
 	global g_SingleMatch
 	global g_SingleMatchDescription
 	global g_SingleMatchReplacement
 	global g_Word
-	global g_ActionListDB
-	global ActionList
-	global g_ActionListID
+	global g_actionListDB
+	global actionList
+	global g_actionListID
 	global prefs_ArrowKeyMethod
 	global prefs_LearnMode
 	global prefs_ListBoxRows
@@ -371,8 +371,15 @@ RecomputeMatches( calledFromStr, is_Recursion := false ){
 
     global g_paste_ActipList_in_ListBoxGui_as_Last_entry ; addet 18-12-31_14-03
 
+    global g_listSELECT_FROM_WinTitle ; addet 19-01-09_11-51
+    global g_permanentSELECT ; addet 19-01-09_11-51
 
-; too tool tool
+    if(g_listSELECT_FROM_WinTitle && WinActive(g_listSELECT_FROM_WinTitle))
+        do_SELECT_actionList_FROM_actionLists_NotLike_isNotAProject := true
+
+; too tool tool tool ooll
+; test tes to
+; tool
 
 ; box box msgb bo
     ; msgbox,% g_min_searchWord_length_2 "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
@@ -382,8 +389,14 @@ RecomputeMatches( calledFromStr, is_Recursion := false ){
     ; toot too t
 	
 	setTrayIcon("RecomputeMatches")
-	RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, RecomputeMatches , % calledFromStr
-	
+	if(1 && InStr(A_ComputerName,"SL5"))
+	    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, RecomputeMatches , % calledFromStr
+
+
+; ..\actionLists\_globalActionListsGenerated\_ahk_global.ahk._Generated
+
+; selECT actionList FROM actionLists WHERE actionList not Like '%isNotAProject.ahk%' order by actionList;
+
 	; g_min_searchWord_length := getMinLength_Needetthat_ListBecomesVisible(ParseWordsCount, maxLinesOfCode4length1)
 	
 	if(g_isListBoxDisabled
@@ -425,14 +438,40 @@ RecomputeMatches( calledFromStr, is_Recursion := false ){
 	g_SingleMatch := Object()
 	g_SingleMatchDescription := Object()
 	g_SingleMatchReplacement := Object()
-	
+
+    ; gibtsnicht test mail
+    ; test mai
+    temp =
+    (
+SELECT actionList FROM actionLists WHERE actionList Like 'g_Word' AND actionList NOT Like 'isNotAProject.ahk' order by actionList.ahk ahk_class AutoHotkeyGUI ; mouseWindowTitle=0xc01d88  ;
+     WinMove,SELECT actionList FROM actionLists WHERE actionList Like 'g_Word' AND actionList NOT Like 'isNotAProject.ahk' order by actionList.ahk ahk_class AutoHotkeyGUI ,, 879,421, 412,152
+
+    )
+
+
+;mstest
         ; ToolTip2sec(g_min_searchWord_length_2 "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 	StrLen_g_Word := StrLen(g_Word)
 	loop,7
 	{
-        if(A_Index == 2 && instr(actionList, "isNotAProject" ))
-            break ; if isNotAProject is used only use commands from ActionList isNotAProject. now hopefully the __ are sorted as first entry 19-01-07_22-09
+	    ;/¯¯¯¯ special ¯¯ 190109101246 ¯¯ 09.01.2019 10:12:46 ¯¯\
+        ; special cases:
+        if(do_SELECT_actionList_FROM_actionLists_NotLike_isNotAProject){
+            if(A_Index > 1)
+                break
+                ; Like '%g_Word%'
+                SELECT := StrReplace(g_permanentSELECT, "'%g_Word%'", "'%" g_Word "%'" )
+            ; clipboard  := g_listSELECT_FROM_WinTitle
+            ; tooltip,%SELECT%`n(%A_LineFile%~%A_LineNumber%),550,201,4
+            ; g_permanentSELECT
+            ; "SELECT actionList FROM actionLists WHERE actionList Like '%" g_Word "%' AND actionList NOT Like '%isNotAProject.ahk%' order by actionList;"
+            ; test
+            ; SELECT  actionList FROM actionLists WHERE actionList  Like '%g_Word%' AND actionList NOT  Like '%isNotAProject.ahk%' order by actionList
+        }else{
 
+        if(A_Index == 2 && instr(actionList, "isNotAProject" ))
+            break ; if isNotAProject is used only use commands from actionList isNotAProject. now hopefully the __ are sorted as first entry 19-01-07_22-09
+        ;\____ special __ 190109101250 __ 09.01.2019 10:12:50 __/
 
 		sqlFilePrefix := A_Index-1
             ; becouse of performance reasons. thats optional. dont need 02.12.2018 09:25
@@ -464,15 +503,30 @@ RecomputeMatches( calledFromStr, is_Recursion := false ){
 		    ; https://stackoverflow.com/questions/7323162/sqlite-like-and
         } else g_WordSQL := g_Word
 		if(o["listID"]["len"])
-			SELECT := sql["pre_Where"] g_WordSQL sql["postWhere"] "= " g_ActionListID " " sql["rest"] ; ; <== dirty bugfix
+			SELECT := sql["pre_Where"] g_WordSQL sql["postWhere"] "= " g_actionListID " " sql["rest"] ; ; <== dirty bugfix
 		ELSE
 			SELECT := sql["pre_Where"] g_WordSQL sql["postWhere"]
 		
-            ; winpo
+        if(0 && InStr(A_ComputerName,"SL5")){
+
+            tip =
+            (
+            %SELECT%
+
+            '%actionListNEW%' = actionListNEW
+            '%actionListNEW%' = actionListNEW
+            '%actionList%' = actionList
+            )
+            tooltip,%tip%`n(%A_LineFile%~%A_LineNumber%),550,201,4
+
+        }
+        ; php
+
+        } ; end of else NOT special cases 19-01-09_10-14
 
 		 ; if(1 && InStr(A_ComputerName,"SL5") )
 		if(0 && A_Index == 1 && InStr(A_ComputerName,"SL5") )
-               clipboard := SELECT "`n`n`n-- len=" o["listID"]["len"] "`n`n-- g_ActionListID=" g_ActionListID
+               clipboard := SELECT "`n`n`n-- len=" o["listID"]["len"] "`n`n-- g_actionListID=" g_actionListID
                 ; clipboard := SELECT
            ; msgbox,% SELECT t $ t to
             ; to
@@ -480,7 +534,7 @@ RecomputeMatches( calledFromStr, is_Recursion := false ){
 		
 	;SELECT := regExReplace(SELECT,"(``|`%)","``$1")
 		try{
-			Matches := g_ActionListDB.Query(SELECT)
+			Matches := g_actionListDB.Query(SELECT)
 		} catch e{
 			tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
 			sqlLastError := SQLite_LastError()
@@ -491,17 +545,28 @@ RecomputeMatches( calledFromStr, is_Recursion := false ){
 			Clipboard := tip
 			msgbox, % tip
 		}
-		; t
+		;
 		
 		for each, row in Matches.Rows
 		{
 		    ; tooltip msgb box box tooltip msgbox tooltip msg box line Line Too
-			g_SingleMatch[++g_MatchTotal] := trim(row[1]," `t`r`n") ; rTrim(clipboard," `t`r`n")
+		    ; doSetSelectFirstValue2registry := false
+		    doSetSelectFirstValue2registry := true
+			if(doSetSelectFirstValue2registry && do_SELECT_actionList_FROM_actionLists_NotLike_isNotAProject) ; !row[2] &&
+			{
+                actionListNewTemp_withoutExt := SubStr( row[1] ,1 , -4 )
+                ; rep := "RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, actionList, " listAddress
+                rep := "RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, actionList, " actionListNewTemp_withoutExt "`n"
+                ; rep .= "RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, actionListNEW, " actionListNewTemp_withoutExt
+			    g_SingleMatch[++g_MatchTotal] := actionListNewTemp_withoutExt "|rr||ahk|" rep
+			}else
+			    g_SingleMatch[++g_MatchTotal] := trim(row[1]," `t`r`n") ; rTrim(clipboard," `t`r`n")
 			if( !g_SingleMatch[g_MatchTotal] ){
 				--g_MatchTotal
 				continue
 			}
-			g_SingleMatchDescription[g_MatchTotal] := trim(row[2]," `t`r`n")
+
+            g_SingleMatchDescription[g_MatchTotal] := trim(row[2]," `t`r`n")
 			g_SingleMatchReplacement[g_MatchTotal] := trim(row[3]," `t`r`n")
 			if(0 && InStr(A_ComputerName,"SL5"))
 				tooltip,% ":-) row[1]=" row[1] ", row[2]=" row[2] " , g_Word=" g_Word  " , g_MatchTotal=" g_MatchTotal " , Normalize=" Normalize "`n" SELECT  "`nRecomputeMatches(calledFromStr):(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),1,1
@@ -540,7 +605,7 @@ RecomputeMatches( calledFromStr, is_Recursion := false ){
     ; check if gui is opening
     ; if(strlen(g_Word)>=3)
 			if(!g_reloadIf_ListBox_Id_notExist && StrLen(g_Word) == g_min_searchWord_length ){
-				if(1 && InStr(A_ComputerName,"SL5") )
+				if(0 && InStr(A_ComputerName,"SL5") )
 					toolTip, % g_Word "(" StrLen(g_Word) ")," g_min_searchWord_length "=g_min_searchWord_length:" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),1,1
         ; reload_IfNotExist_ListBoxGui()
         ;Sleep,100
@@ -586,13 +651,13 @@ RecomputeMatches( calledFromStr, is_Recursion := false ){
 				else
 					SELECT .= " AND w.wordindexed GLOB '* " s1 "*' `n"
 			}
-			SELECT .= " AND ActionListID = " g_ActionListID " `n"
+			SELECT .= " AND actionListID = " g_actionListID " `n"
 			SELECT .= " order by ROWID desc `n"
 			SELECT .= " LIMIT 9 " "`;"
                         ; tooltip,%SELECT% `n(%A_LineFile%~%A_LineNumber%)
                         ; Clipboard := SELECT
 			try{
-				Matches := g_ActionListDB.Query(SELECT)
+				Matches := g_actionListDB.Query(SELECT)
 			} catch e{
 				tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
 				sqlLastError := SQLite_LastError()
@@ -619,54 +684,9 @@ RecomputeMatches( calledFromStr, is_Recursion := false ){
 		}
 	}
 	
-; REM
-; REM
-; REM REM
-	
-	
-; stmm STMM ST
-; tmm tmm  tmm tmm
-; STMM STMM ST MM
-; stmm tmm tmm  tmm
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	; tooltip hallo msgbox tooltip tooltip
-	
+
+
 	; msgbox,% g_MatchTotal "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
-	
 	; tooltip msg bxox reg tsk ekejskj kjk jjk binat bi bzui tooo bigf fsd asd nnn nnnn nnnvcxcfggdfgvfdfvxcvfdfvvdfdfggbbvms dscxxcdfvx sfvdfvdfss sfd
 	; dsfdsfdfdsafd adfsfd sdffadf dfafds
 ; tool too too
@@ -678,7 +698,7 @@ RecomputeMatches( calledFromStr, is_Recursion := false ){
 	; winpos
 	if(is_Recursion)
 		return
-	IfEqual, g_MatchTotal, 0
+    if(g_MatchTotal == 0 && !do_SELECT_actionList_FROM_actionLists_NotLike_isNotAProject ) ; 	IfEqual, g_MatchTotal, 0
 	{
         ;/¯¯¯¯ StrLen_g_Word > ¯¯ 181202164223 ¯¯ 02.12.2018 16:42:23 ¯¯\
 		if(!is_Recursion && StrLen_g_Word >= 3){
@@ -709,7 +729,7 @@ LIMIT 9
                 ; clipboard := SELECT
                 ; winp
 				try{
-					Matches := g_ActionListDB.Query(SELECT)
+					Matches := g_actionListDB.Query(SELECT)
 				} catch e{
 					tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
 					sqlLastError := SQLite_LastError()
@@ -741,7 +761,7 @@ LIMIT 9
 	
 	
     ;/¯¯¯¯ nothingFound ¯¯ 181209180913 ¯¯ 09.12.2018 18:09:13 ¯¯\
-	IfEqual, g_MatchTotal, 0
+    if(g_MatchTotal == 0 && !do_SELECT_actionList_FROM_actionLists_NotLike_isNotAProject ) ; 	IfEqual, g_MatchTotal, 0
 	{
 		; Tooltip, % g_Word " not found", % g_ListBoxX + 20 , % g_ListBoxY + 10
 		; only show a small peace. may sombody typed passwort in? not want show it for everybody... 18-12-10_12-52
@@ -753,7 +773,7 @@ LIMIT 9
 			setTrayIcon()
 		}
 		if(0 && InStr(A_ComputerName,"SL5"))
-			tooltip,% " row[1]=" row[1] ", row[2]=" row[2] " , g_Word=" g_Word  " , g_MatchTotal=" g_MatchTotal " , Normalize=" Normalize "`n" ActionList "`n" SELECT  "`nRecomputeMatches(calledFromStr):(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),1,1
+			tooltip,% " row[1]=" row[1] ", row[2]=" row[2] " , g_Word=" g_Word  " , g_MatchTotal=" g_MatchTotal " , Normalize=" Normalize "`n" actionList "`n" SELECT  "`nRecomputeMatches(calledFromStr):(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),1,1
 		
       ; clipboard := SELECT
 		
@@ -771,7 +791,8 @@ LIMIT 9
 
    if(g_paste_ActipList_in_ListBoxGui_as_Last_entry){
        isInIn := (instr(actionList,short_RegReadActionList_DebugInfo) || instr(RegReadActionList_DebugInfo,short_actionList) )
-        tooltip,% "RecomputeMatchesTimer: " g_Word "(" StrLen(g_Word) ") (" A_ThisFunc "~" A_LineNumber "~" RegExReplace(A_LineFile,".*\\") ")" ((!isInIn) ? "Oops: al=" RegExReplace(actionList,".*\\") "<> reg=" RegExReplace(RegReadActionList_DebugInfo,".*\\") : RegExReplace(actionList,".*\\") ) ,1,-20
+        ; tooltip,% "RecomputeMatchesTimer: " g_Word "(" StrLen(g_Word) ") (" A_ThisFunc "~" A_LineNumber "~" RegExReplace(A_LineFile,".*\\") ")" ((!isInIn) ? "Oops: al=" RegExReplace(actionList,".*\\") "<> reg=" RegExReplace(RegReadActionList_DebugInfo,".*\\") : RegExReplace(actionList,".*\\") ) ,1,-20
+        ; sleep,1000 ; time for reading tooltip
         if(false && "showAsGUIBoxFooter"){
           g_SingleMatch[++g_MatchTotal] := "CTRL+Nr. single left click to move, right click to open:" ; rightclick
             g_SingleMatch[++g_MatchTotal] := substr(actionList,1,19) " .. " RegExReplace(   actionList,".*\\")
@@ -805,14 +826,14 @@ global g_ListBoxActualSizeH_maxFound ; this variable is empty after a fres start
             tip .= g_Word "(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")`n" ; planed to set this behind the box
             tip .= "`n"
             tip .= "CTRL+Nr., single click: move, "
-            tip .= "rightClick opens: " substr(actionList,1,19) " .. " RegExReplace(   actionList,".*\\") "(" g_ActionListID ")`n"
+            tip .= "rightClick opens: " substr(actionList,1,19) " .. " RegExReplace(   actionList,".*\\") "(" g_actionListID ")`n"
 
             nr := ( Mod(round(A_Sec/20), 2) == 0) ; toggles every 20 seconds beetween 0 1
             if(nr && !instr(actionList, "isNotAProject" ))
                 tip .= "doubleCtrl+C selection to actionsList, more see TrayMenu`n" ; doubleCtrlC
             else{
                 if(instr(actionList, "isNotAProject" )){
-                    tip .= "create a new ActionList by`n"
+                    tip .= "create a new actionList by`n"
                     tip .= "typing: create_own_project OR __`n"
                 }else
                     tip .= "doubleCtrl: On/Off Listbox, double-click: follows caret"
@@ -833,7 +854,7 @@ global g_ListBoxActualSizeH_maxFound ; this variable is empty after a fres start
 
 
 ;  tes too
-   ;SELECT word, worddescription, wordreplacement FROM Words WHERE wordindexed GLOB 'TOO*'  AND ActionListID = '1' ORDER BY CASE WHEN count IS NULL then ROWID else 'z' end, CASE WHEN count IS NOT NULL then ( (count - 0) * ( 1 - ( '0.75' / (LENGTH(word) - 3)))) end DESC, Word LIMIT 10;
+   ;SELECT word, worddescription, wordreplacement FROM Words WHERE wordindexed GLOB 'TOO*'  AND actionListID = '1' ORDER BY CASE WHEN count IS NULL then ROWID else 'z' end, CASE WHEN count IS NOT NULL then ( (count - 0) * ( 1 - ( '0.75' / (LENGTH(word) - 3)))) end DESC, Word LIMIT 10;
 	
 	SetupMatchPosition()
 	RebuildMatchList()
@@ -844,7 +865,7 @@ global g_ListBoxActualSizeH_maxFound ; this variable is empty after a fres start
 
 ;
 
-; SELECT word, worddescription, wordreplacement FROM Words WHERE wordindexed GLOB 'TOO*'  AND ActionListID = '2' ORDER BY CASE WHEN count IS NULL then ROWID else 'z' end, CASE WHEN count IS NOT NULL then ( (count - 0) * ( 1 - ( '0.75' / (LENGTH(word) - 3)))) end DESC, Word LIMIT 10;
+; SELECT word, worddescription, wordreplacement FROM Words WHERE wordindexed GLOB 'TOO*'  AND actionListID = '2' ORDER BY CASE WHEN count IS NULL then ROWID else 'z' end, CASE WHEN count IS NOT NULL then ( (count - 0) * ( 1 - ( '0.75' / (LENGTH(word) - 3)))) end DESC, Word LIMIT 10;
 
 
 
@@ -1746,7 +1767,11 @@ BuildTrayMenu(){
 	Menu, Tray, add, set g_doSound FALSE (experimental feature), lbl_g_doSoundFALSE
 	
 	Menu, Tray, add
-	
+
+	Menu, Tray, add, set a permanent ActionList (experimental feature), lbl_set_permanent_ActionList
+
+	Menu, Tray, add
+
 	Menu, Tray, add, set g_min_searchWord_length := 0 (it stays open`, experimental feature), lbl_g_min_searchWord_length_0
 	Menu, Tray, add, set g_min_searchWord_length := 1, lbl_g_min_searchWord_length_1
 	
@@ -1757,7 +1782,7 @@ BuildTrayMenu(){
 	Menu, Tray, add, use double Ctrl to toggle Listbox ),lbl_noOp
 	Menu, Tray, add
 	
-	Menu, Tray, add, Help Gi-Edit/Create ActionList online, lbl_HelpOnline_EditCreate_ActionList
+	Menu, Tray, add, Help Gi-Edit/Create actionList online, lbl_HelpOnline_EditCreate_actionList
 	Menu, Tray, add, Help Gi-Search Keywords online, lbl_HelpOnline_Search_Keywords
 	Menu, Tray, add, Help Gi-Features online, lbl_HelpOnline_features
 	Menu, Tray, add, Help Gi-Shortcuts online, lbl_HelpOnline_shortcut
@@ -2081,6 +2106,6 @@ doReloadIfScriptDontMoveThisLine(sec := 5){
 #Include %A_ScriptDir%\Includes\Sending.ahk
 #Include %A_ScriptDir%\Includes\Settings.ahk
 #Include %A_ScriptDir%\Includes\Window.ahk
-#Include %A_ScriptDir%\Includes\ActionList.ahk
+#Include %A_ScriptDir%\Includes\actionList.ahk
 #Include <DBA>
 #Include <_Struct>

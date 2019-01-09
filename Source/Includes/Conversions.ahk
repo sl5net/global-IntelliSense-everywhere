@@ -4,9 +4,9 @@
 
 SetDbVersion(dBVersion = 7){
 
-	global g_ActionListDB
+	global g_actionListDB
     INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
-	g_ActionListDB.Query("INSERT OR REPLACE INTO LastState VALUES ('databaseVersion', '" . dBVersion . "', NULL);")
+	g_actionListDB.Query("INSERT OR REPLACE INTO LastState VALUES ('databaseVersion', '" . dBVersion . "', NULL);")
 }
 
 ;<<<<<<<< MaybeConvertDatabase <<<< 180223091829 <<<< 23.02.2018 09:18:29 <<<<
@@ -18,8 +18,8 @@ MaybeConvertDatabase(){
 CoordMode, ToolTip, Screen
 
 
-	global g_ActionListDB
-	databaseVersionRows := g_ActionListDB.Query("SELECT lastStateNumber FROM LastState WHERE lastStateItem = 'databaseVersion';")
+	global g_actionListDB
+	databaseVersionRows := g_actionListDB.Query("SELECT lastStateNumber FROM LastState WHERE lastStateItem = 'databaseVersion';")
 	if (databaseVersionRows){
 		for each, row in databaseVersionRows.Rows
 		{
@@ -28,19 +28,19 @@ CoordMode, ToolTip, Screen
 	}
 	
 	if (!databaseVersion){
-		   tableConverted := g_ActionListDB.Query("SELECT tableconverted FROM LastState;")
+		   tableConverted := g_actionListDB.Query("SELECT tableconverted FROM LastState;")
 	} else {
-		tableConverted := g_ActionListDB.Query("SELECT lastStateNumber FROM LastState WHERE lastStateItem = 'tableConverted';")
+		tableConverted := g_actionListDB.Query("SELECT lastStateNumber FROM LastState WHERE lastStateItem = 'tableConverted';")
 	}
    
 	if (tableConverted){
 		for each, row in tableConverted.Rows
 		{
-			ActionListConverted := row[1]
+			actionListConverted := row[1]
 		}
 	}
 	
-	IfNotEqual, ActionListConverted, 1
+	IfNotEqual, actionListConverted, 1
 	{
 		Msgbox,RebuildDatabase()`n RebuildDatabase= %RebuildDatabase%`n `n `n (%A_LineFile%~%A_LineNumber%)
 		RebuildDatabase()
@@ -49,7 +49,7 @@ CoordMode, ToolTip, Screen
 	
 	if (!databaseVersion)
 	{
-		RunConversionOne(ActionListConverted)
+		RunConversionOne(actionListConverted)
 	}
 	
 	if (databaseVersion < 2)
@@ -87,7 +87,7 @@ CoordMode, ToolTip, Screen
 
 
 ;/¯¯¯¯ RebuildDatabase ¯¯ 181027180644 ¯¯ 27.10.2018 18:06:44 ¯¯\
-; Rebuilds the Database from scratch as we have to redo the ActionList anyway.
+; Rebuilds the Database from scratch as we have to redo the actionList anyway.
 RebuildDatabase(){
 	if(0){
 		tip := "FALSE NOOO RebuildDatabase `n " A_LineNumber . " " . A_LineFile
@@ -96,17 +96,17 @@ RebuildDatabase(){
 		return false
 	}
 ;
-	global g_ActionListDB
-	g_ActionListDB.BeginTransaction()
+	global g_actionListDB
+	g_actionListDB.BeginTransaction()
 
     try{
-        g_ActionListDB.Query("DROP INDEX WordIndex;")
-        g_ActionListDB.Query("DROP TABLE IF EXISTS  ActionLists;")
-        g_ActionListDB.Query("DROP TABLE IF EXISTS  performance;")
-        g_ActionListDB.Query("DROP TABLE IF EXISTS  Words;")
-        g_ActionListDB.Query("DROP TABLE IF EXISTS  cache;")
-        g_ActionListDB.Query("DROP TABLE IF EXISTS  LastState;")
-        g_ActionListDB.EndTransaction()
+        g_actionListDB.Query("DROP INDEX WordIndex;")
+        g_actionListDB.Query("DROP TABLE IF EXISTS  actionLists;")
+        g_actionListDB.Query("DROP TABLE IF EXISTS  performance;")
+        g_actionListDB.Query("DROP TABLE IF EXISTS  Words;")
+        g_actionListDB.Query("DROP TABLE IF EXISTS  cache;")
+        g_actionListDB.Query("DROP TABLE IF EXISTS  LastState;")
+        g_actionListDB.EndTransaction()
 
 
 	    } catch e{
@@ -122,12 +122,12 @@ RebuildDatabase(){
 
 	;sleep,1000
 	;pause ; tool tool __ tool to toltip olt
-	g_ActionListDB.BeginTransaction()
+	g_actionListDB.BeginTransaction()
 
-	g_ActionListDB.Query("DROP INDEX WordIndex;")
-	g_ActionListDB.Query("DROP TABLE LastState;")
-	g_ActionListDB.Query("DROP TABLE ActionLists;")
-	g_ActionListDB.Query("DROP TABLE temp;")
+	g_actionListDB.Query("DROP INDEX WordIndex;")
+	g_actionListDB.Query("DROP TABLE LastState;")
+	g_actionListDB.Query("DROP TABLE actionLists;")
+	g_actionListDB.Query("DROP TABLE temp;")
 
 	CreateWordsTable()
 
@@ -135,7 +135,7 @@ RebuildDatabase(){
 
 	CreateLastStateTable()
 
-	CREATE_TABLE_ActionLists()
+	CREATE_TABLE_actionLists()
 
     CreateCacheTable()
 
@@ -148,7 +148,7 @@ RebuildDatabase(){
     if(!Sql_Temp.valueObj)
         msgbox,% " ERROR !Sql_Temp.valueObj `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
 
-	g_ActionListDB.EndTransaction()
+	g_actionListDB.EndTransaction()
 }
 ;\____ RebuildDatabase __ 181123064751 __ 23.11.2018 06:47:51 __/
 
@@ -158,67 +158,67 @@ RebuildDatabase(){
 
 
 ;Runs the first conversion
-RunConversionOne(ActionListConverted){
+RunConversionOne(actionListConverted){
 
-	global g_ActionListDB
+	global g_actionListDB
     INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
-	g_ActionListDB.BeginTransaction()
+	g_actionListDB.BeginTransaction()
 	
-	g_ActionListDB.Query("ALTER TABLE LastState RENAME TO OldLastState;")
+	g_actionListDB.Query("ALTER TABLE LastState RENAME TO OldLastState;")
 	
 	CreateLastStateTable()
 	
-	g_ActionListDB.Query("DROP TABLE OldLastState;")
-	g_ActionListDB.Query("INSERT OR REPLACE INTO LastState VALUES ('tableConverted', '" . ActionListConverted . "', NULL);")
+	g_actionListDB.Query("DROP TABLE OldLastState;")
+	g_actionListDB.Query("INSERT OR REPLACE INTO LastState VALUES ('tableConverted', '" . actionListConverted . "', NULL);")
 	
 	;superseded by conversion 3
-	;g_ActionListDB.Query("ALTER TABLE Words ADD COLUMN worddescription TEXT;")
-	;g_ActionListDB.Query("ALTER TABLE Words ADD COLUMN lineNr INTEGER;")
+	;g_actionListDB.Query("ALTER TABLE Words ADD COLUMN worddescription TEXT;")
+	;g_actionListDB.Query("ALTER TABLE Words ADD COLUMN lineNr INTEGER;")
 
 	SetDbVersion(1)
-	g_ActionListDB.EndTransaction()
+	g_actionListDB.EndTransaction()
 	
 }
 
 RunConversionTwo()
 {
-	global g_ActionListDB
+	global g_actionListDB
 	
 	;superseded by conversion 3
-	;g_ActionListDB.Query("ALTER TABLE Words ADD COLUMN wordreplacement TEXT;")
+	;g_actionListDB.Query("ALTER TABLE Words ADD COLUMN wordreplacement TEXT;")
 	
 	;SetDbVersion(2)
 }
 
 RunConversionThree()
 {
-	global g_ActionListDB
-	g_ActionListDB.BeginTransaction()
+	global g_actionListDB
+	g_actionListDB.BeginTransaction()
 	
 	CreateWordsTable("Words2")
 	
-	g_ActionListDB.Query("UPDATE Words SET wordreplacement = '' WHERE wordreplacement IS NULL;")
+	g_actionListDB.Query("UPDATE Words SET wordreplacement = '' WHERE wordreplacement IS NULL;")
 	
-	g_ActionListDB.Query("INSERT INTO Words2 SELECT * FROM Words;")
+	g_actionListDB.Query("INSERT INTO Words2 SELECT * FROM Words;")
 	
-	g_ActionListDB.Query("DROP TABLE Words;")
+	g_actionListDB.Query("DROP TABLE Words;")
 	
-	g_ActionListDB.Query("ALTER TABLE Words2 RENAME TO Words;")
+	g_actionListDB.Query("ALTER TABLE Words2 RENAME TO Words;")
 	
 	CreateWordIndex()
 	
 	SetDbVersion(3)
-	g_ActionListDB.EndTransaction()
+	g_actionListDB.EndTransaction()
 }
 
 ; normalize accented characters
 RunConversionFour()
 {
-	global g_ActionListDB
+	global g_actionListDB
 	;superseded by conversion 6
-	/*g_ActionListDB.BeginTransaction()
+	/*g_actionListDB.BeginTransaction()
 	
-	Words := g_ActionListDB.Query("SELECT word, wordindexed, wordreplacement FROM Words;")
+	Words := g_actionListDB.Query("SELECT word, wordindexed, wordreplacement FROM Words;")
    
 	for each, row in Words.Rows
 	{
@@ -233,22 +233,22 @@ RunConversionFour()
 		StringReplace, WordIndexEscaped, WordIndexed, ', '', All
 		StringReplace, WordReplacementEscaped, WordReplacement, ', '', All
 		
-		g_ActionListDB.Query("UPDATE Words SET wordindexed = '" . WordIndexedTransformedEscaped . "' WHERE word = '" . WordEscaped . "' AND wordindexed = '" . WordIndexEscaped . "' AND wordreplacement = '" . WordReplacementEscaped . "';")
+		g_actionListDB.Query("UPDATE Words SET wordindexed = '" . WordIndexedTransformedEscaped . "' WHERE word = '" . WordEscaped . "' AND wordindexed = '" . WordIndexEscaped . "' AND wordreplacement = '" . WordReplacementEscaped . "';")
 	}
 	; Yes, wordindexed is the transformed word that is actually searched upon.
 
 	SetDbVersion(4)
-	g_ActionListDB.EndTransaction()
+	g_actionListDB.EndTransaction()
 	*/
 }
 
-;Creates the ActionLists table
+;Creates the actionLists table
 RunConversionFive(){
-	global g_ActionListDB
-	g_ActionListDB.BeginTransaction()
-	CREATE_TABLE_ActionLists()
+	global g_actionListDB
+	g_actionListDB.BeginTransaction()
+	CREATE_TABLE_actionLists()
 	SetDbVersion(5)
-	g_ActionListDB.EndTransaction()
+	g_actionListDB.EndTransaction()
 }
 
 ; normalize accented characters
@@ -258,10 +258,10 @@ RunConversionSix(){
 
 ; normalize accented characters
 RunConversionSeven(){
-	global g_ActionListDB
-	g_ActionListDB.BeginTransaction()
+	global g_actionListDB
+	g_actionListDB.BeginTransaction()
 	
-	Words := g_ActionListDB.Query("SELECT word, wordindexed, wordreplacement FROM Words;")
+	Words := g_actionListDB.Query("SELECT word, wordindexed, wordreplacement FROM Words;")
 	WordDescription = 
    
 	for each, row in Words.Rows
@@ -274,20 +274,20 @@ RunConversionSeven(){
 		
 		StringReplace, OldWordIndexedTransformed, WordIndexed, ', '', All
 		
-		g_ActionListDB.Query("UPDATE Words SET wordindexed = '" . WordIndexedTransformed . "' WHERE word = '" . WordTransformed . "' AND wordindexed = '" . OldWordIndexedTransformed . "' AND wordreplacement = '" . WordReplacementTransformed . "';")
+		g_actionListDB.Query("UPDATE Words SET wordindexed = '" . WordIndexedTransformed . "' WHERE word = '" . WordTransformed . "' AND wordindexed = '" . OldWordIndexedTransformed . "' AND wordreplacement = '" . WordReplacementTransformed . "';")
 	}
 	
 	SetDbVersion(7)
-	g_ActionListDB.EndTransaction()
+	g_actionListDB.EndTransaction()
 }
 
 CreateLastStateTable(){
-	global g_ActionListDB
+	global g_actionListDB
 
-	IF not g_ActionListDB.Query("CREATE TABLE LastState (lastStateItem TEXT PRIMARY KEY, lastStateNumber INTEGER, otherInfo TEXT) WITHOUT ROWID;")
+	IF not g_actionListDB.Query("CREATE TABLE LastState (lastStateItem TEXT PRIMARY KEY, lastStateNumber INTEGER, otherInfo TEXT) WITHOUT ROWID;")
 	{
-		ErrMsg := g_ActionListDB.ErrMsg()
-		ErrCode := g_ActionListDB.ErrCode()
+		ErrMsg := g_actionListDB.ErrMsg()
+		ErrCode := g_actionListDB.ErrCode()
 		MsgBox Cannot Create LastState Table - fatal error: %ErrCode% - %ErrMsg%
 		ExitApp
 	}
@@ -298,28 +298,28 @@ CreateLastStateTable(){
 INSERT_function_call_time_millis_since_midnight( aLineFile , aThisFunc , aLineNumber){
     return
 
-    ; select ROWID,p.small_LineFile,p.A_ThisFunc,p.ActionList,p.ActionListsize,p.millisec_dif_to_next_function_call from performance p order by p.millisec_dif_to_next_function_call desc limit 3;
-	global g_ActionListDB
-	global ActionList
-	global ActionListsize
+    ; select ROWID,p.small_LineFile,p.A_ThisFunc,p.actionList,p.actionListsize,p.millisec_dif_to_next_function_call from performance p order by p.millisec_dif_to_next_function_call desc limit 3;
+	global g_actionListDB
+	global actionList
+	global actionListsize
 
-if( !ActionListSize && ActionList)
-    FileGetSize, ActionListSize, %ActionList%
+if( !actionListSize && actionList)
+    FileGetSize, actionListSize, %actionList%
 
 ; millis_since_midnight := JEE_millis_since_midnight(vOpt:="") ; <=== works great but for moment also its ok to use := A_Hour*3600000+A_Min*60000+A_Sec*1000+A_MSec
 millis_since_midnight := A_Hour*3600000+A_Min*60000+A_Sec*1000+A_MSec ; <== buggy sometimes but maybe faster ????? 18-10-07_09-49 ; todo make desicion
 small_LineFile := RegExReplace(aLineFile,".*\\")
-sizeHere := (ActionListsize)? ActionListsize: 0
+sizeHere := (actionListsize)? actionListsize: 0
 
         sql := "select * from performance"
         sql := "SELECT last_insert_rowid()"
         sql := "select seq from sqlite_sequence where name=""performance"""
         sql := "select ROWID from performance order by ROWID desc limit 1"
         sql := "select ROWID, millis_since_midnight from performance order by ROWID desc limit 1"
-		IF not g_ActionListDB.Query(sql)
+		IF not g_actionListDB.Query(sql)
 		{
-			ErrMsg := g_ActionListDB.ErrMsg() . "`n" . sql . "`n"
-			ErrCode := g_ActionListDB.ErrCode()
+			ErrMsg := g_actionListDB.ErrMsg() . "`n" . sql . "`n"
+			ErrCode := g_actionListDB.ErrCode()
 
             ;tool tip msgbox too too too mmgw() msg t MsgBox,% msg "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
             ; tooltip
@@ -337,7 +337,7 @@ sizeHere := (ActionListsize)? ActionListsize: 0
 			; msgbox Cannot select performance Table - fatal error: %ErrCode% - %ErrMsg%
 			, ExitApp
 		}
-        res := g_ActionListDB.Query(sql)
+        res := g_actionListDB.Query(sql)
         For each, id in res.Rows
         {
             last_insert_rowid := id[1]
@@ -358,7 +358,7 @@ if(last_millis_since_midnight && millis_since_midnight){
     millisec_dif_to_next_function_call := millis_since_midnight - last_millis_since_midnight
     millisec_dif_to_next_function_call := (millisec_dif_to_next_function_call)? millisec_dif_to_next_function_call: 0
     UPDATE := "Update performance SET millisec_dif_to_next_function_call = " millisec_dif_to_next_function_call " where ROWID = " last_insert_rowid ";"
-    g_ActionListDB.Query(UPDATE)
+    g_actionListDB.Query(UPDATE)
 }
 
 
@@ -369,8 +369,8 @@ if(last_millis_since_midnight && millis_since_midnight){
 
 small_LineFile
 , A_ThisFunc
-, ActionList
-, ActionListsize
+, actionList
+, actionListsize
 , A_LineNumber
 , A_TickCount
 , millis_since_midnight
@@ -381,17 +381,17 @@ temp =
 (
 '%small_LineFile%'
 , '%aThisFunc%'
-, '%ActionList%'
+, '%actionList%'
 , %sizeHere%
 , %aLineNumber%
 , %A_TickCount%
 , %millis_since_midnight%
 )
 sql .= temp ")"
-    IF not g_ActionListDB.Query(sql)
+    IF not g_actionListDB.Query(sql)
     {
-        ErrMsg := g_ActionListDB.ErrMsg() . "`n" . sql . "`n"
-        ErrCode := g_ActionListDB.ErrCode()
+        ErrMsg := g_actionListDB.ErrMsg() . "`n" . sql . "`n"
+        ErrCode := g_actionListDB.ErrCode()
         ; clipboard := sql
         msg := "Cannot insert performance Table - fatal error: " ErrCode " - " ErrMsg "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
         ; msgbox, % "Cannot insert performance Table - fatal error: " ErrCode " - " ErrMsg "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
@@ -413,15 +413,15 @@ sql .= temp ")"
 ; Performance_measurement_functions_Table
 Create_PerformanceMeasurementOf_Functions_Table(performanceTableName := "performance"){
 	lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"lin1 at CREATE_TABLE_performance")
-	global g_ActionListDB
-	global ActionList
+	global g_actionListDB
+	global actionList
 	sql =
 (
 CREATE TABLE IF NOT EXISTS %performanceTableName%  (
 small_LineFile TEXT NOT NULL
 , A_ThisFunc TEXT NOT NULL
-, ActionList TEXT NOT NULL
-, ActionListsize INTEGER
+, actionList TEXT NOT NULL
+, actionListsize INTEGER
 , A_LineNumber INTEGER
 , A_TickCount INTEGER
 , millis_since_midnight INTEGER
@@ -429,10 +429,10 @@ small_LineFile TEXT NOT NULL
 )
 ;clipboard := sql
 ; tooltip, % sql
-	IF not g_ActionListDB.Query(sql)
+	IF not g_actionListDB.Query(sql)
 	{
-		ErrMsg := g_ActionListDB.ErrMsg() . "`n" . sql . "`n"
-		ErrCode := g_ActionListDB.ErrCode()
+		ErrMsg := g_actionListDB.ErrMsg() . "`n" . sql . "`n"
+		ErrCode := g_actionListDB.ErrCode()
 		clipboard := sql
 		msg := "Cannot Create " performanceTableName " Table - fatal error: " ErrCode " - " ErrMsg
 		ToolTip4sec(msg " (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") " " Last_A_This)
@@ -447,32 +447,32 @@ small_LineFile TEXT NOT NULL
 ;/¯¯¯¯ CreateWordsTable ¯¯ 181122195232 ¯¯ 22.11.2018 19:52:32 ¯¯\
 CreateWordsTable(WordsTableName:="Words"){
 		lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"lin1 at CREATE_TABLE_wordS")
-		global g_ActionListDB
-		global g_ActionListDBfileAdress
-		if(!g_ActionListDB)
-			g_ActionListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", g_ActionListDBfileAdress ) ;
+		global g_actionListDB
+		global g_actionListDBfileAdress
+		if(!g_actionListDB)
+			g_actionListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", g_actionListDBfileAdress ) ;
 ;
 		sql =
 (
 CREATE TABLE IF NOT EXISTS %WordsTableName%  (
-ActionListID INTEGER NOT NULL
+actionListID INTEGER NOT NULL
 , wordindexed TEXT NOT NULL
 , word TEXT NOT NULL
 , lineNr INTEGER
 , count INTEGER
 , worddescription TEXT
 , wordreplacement TEXT NOT NULL
-, PRIMARY KEY `(ActionListID, word, wordreplacement) );
+, PRIMARY KEY `(actionListID, word, wordreplacement) );
 )
 
-; g_ActionListDB.Query("ALTER TABLE Words ADD COLUMN lineNr INTEGER;")
+; g_actionListDB.Query("ALTER TABLE Words ADD COLUMN lineNr INTEGER;")
 
-; ActionListID,
+; actionListID,
 ;clipboard := sql
-		IF not g_ActionListDB.Query(sql)
+		IF not g_actionListDB.Query(sql)
 		{
-			ErrMsg := g_ActionListDB.ErrMsg() . "`n" . sql . "`n"
-			ErrCode := g_ActionListDB.ErrCode()
+			ErrMsg := g_actionListDB.ErrMsg() . "`n" . sql . "`n"
+			ErrCode := g_actionListDB.ErrCode()
 			clipboard := sql
 			msgbox Cannot Create %WordsTableName% Table - fatal error: %ErrCode% - %ErrMsg%
 			ExitApp
@@ -480,13 +480,13 @@ ActionListID INTEGER NOT NULL
 	} ; endOfFunction
 	
 	CreateWordIndex(){
-		global g_ActionListDB
+		global g_actionListDB
 		
-		IF not g_ActionListDB.Query("CREATE INDEX WordIndex ON Words (ActionListID, wordindexed);")
+		IF not g_actionListDB.Query("CREATE INDEX WordIndex ON Words (actionListID, wordindexed);")
 		{
-			ErrMsg := g_ActionListDB.ErrMsg()
+			ErrMsg := g_actionListDB.ErrMsg()
 			if(!instr(ErrMsg," already exists" )){ ; todo: dirty bugfix 22.11.2018 22:15
-                ErrCode := g_ActionListDB.ErrCode()
+                ErrCode := g_actionListDB.ErrCode()
                 tip := "Cannot Create WordIndex Index - fatal error: `n`n" ErrCode " `n`n-`n`n " ErrMsg
                 msgbox, % tip "`n `n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
                 ExitApp
@@ -498,52 +498,52 @@ ActionListID INTEGER NOT NULL
 
 
 	
-;<<<<<<<< CREATE_TABLE_ActionLists <<<< 180218062159 <<<< 18.02.2018 06:21:59 <<<<
-	CREATE_TABLE_ActionLists(){
+;<<<<<<<< CREATE_TABLE_actionLists <<<< 180218062159 <<<< 18.02.2018 06:21:59 <<<<
+	CREATE_TABLE_actionLists(){
 
-		lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"lin1 at CREATE_TABLE_ActionLists")
-		global g_ActionListDB
-		global g_ActionListDBfileAdress
-		if(!g_ActionListDB)
-			g_ActionListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", g_ActionListDBfileAdress ) ;
+		lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"lin1 at CREATE_TABLE_actionLists")
+		global g_actionListDB
+		global g_actionListDBfileAdress
+		if(!g_actionListDB)
+			g_actionListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", g_actionListDBfileAdress ) ;
 		
-		sql := "CREATE TABLE IF NOT EXISTS ActionLists (id INTEGER PRIMARY KEY AUTOINCREMENT, ActionList TEXT, ActionListmodified DATETIME, ActionListsize INTEGER, lastusedByUser_since_midnight INTEGER)"
+		sql := "CREATE TABLE IF NOT EXISTS actionLists (id INTEGER PRIMARY KEY AUTOINCREMENT, actionList TEXT, actionListmodified DATETIME, actionListsize INTEGER, lastusedByUser_since_midnight INTEGER)"
 
-		IF not g_ActionListDB.Query(sql)
+		IF not g_actionListDB.Query(sql)
 		{
-			ErrMsg := g_ActionListDB.ErrMsg()
-			ErrCode := g_ActionListDB.ErrCode()
+			ErrMsg := g_actionListDB.ErrMsg()
+			ErrCode := g_actionListDB.ErrCode()
 			clipboard := sql
-			msgbox, Cannot Create ActionLists Table - fatal error: %ErrCode% - %ErrMsg%  `n sql= %sql% `n  (%A_LineFile%~%A_LineNumber%)
+			msgbox, Cannot Create actionLists Table - fatal error: %ErrCode% - %ErrMsg%  `n sql= %sql% `n  (%A_LineFile%~%A_LineNumber%)
 			ExitApp
 		}
 	}
-;>>>>>>>> CREATE_TABLE_ActionLists >>>> 180218062205 >>>> 18.02.2018 06:22:05 >>>>
+;>>>>>>>> CREATE_TABLE_actionLists >>>> 180218062205 >>>> 18.02.2018 06:22:05 >>>>
 
 ;/¯¯¯¯ CreateActionListsTable ¯¯ 181106182616 ¯¯ 06.11.2018 18:26:16 ¯¯\
 	CreateActionListsTable(){
 		Msgbox,deprecated ==> return `n (%A_LineFile%~%A_LineNumber%)
 		return
 		
-		global g_ActionListDB
+		global g_actionListDB
 		
 		sql =
 		(
-		CREATE TABLE ActionLists
-		(ActionList TEXT PRIMARY KEY
-		, ActionListmodified DATETIME
-		, ActionListsize INTEGER
+		CREATE TABLE actionLists
+		(actionList TEXT PRIMARY KEY
+		, actionListmodified DATETIME
+		, actionListsize INTEGER
 		, lastUsedByUser_since_midnight INTEGER)
 		WITHOUT ROWID;
 		)
 
-		CREATE_TABLE_ActionLists := "CREATE TABLE ActionLists (ActionList TEXT PRIMARY KEY, ActionListmodified DATETIME, ActionListsize INTEGER) WITHOUT ROWID;"
-		IF not g_ActionListDB.Query( CREATE_TABLE_ActionLists )
+		CREATE_TABLE_actionLists := "CREATE TABLE actionLists (actionList TEXT PRIMARY KEY, actionListmodified DATETIME, actionListsize INTEGER) WITHOUT ROWID;"
+		IF not g_actionListDB.Query( CREATE_TABLE_actionLists )
 		{
-			ErrMsg := g_ActionListDB.ErrMsg()
-			ErrCode := g_ActionListDB.ErrCode()
-			clipboard := CREATE_TABLE_ActionLists
-			msgbox Cannot Create ActionLists Table - fatal error: %ErrCode% - %ErrMsg% `n %CREATE_TABLE_ActionLists%
+			ErrMsg := g_actionListDB.ErrMsg()
+			ErrCode := g_actionListDB.ErrCode()
+			clipboard := CREATE_TABLE_actionLists
+			msgbox Cannot Create actionLists Table - fatal error: %ErrCode% - %ErrMsg% `n %CREATE_TABLE_actionLists%
 			ExitApp
 		}
 	}
@@ -554,7 +554,7 @@ ActionListID INTEGER NOT NULL
 
 ;/¯¯¯¯ CreateCacheTable ¯¯ 181122195404 ¯¯ 22.11.2018 19:54:04 ¯¯\
 CreateCacheTable(){
-    global g_ActionListDB
+    global g_actionListDB
 
     sql =
     (
@@ -566,12 +566,12 @@ CreateCacheTable(){
     WITHOUT ROWID  );
     )
 
-    IF not g_ActionListDB.Query( sql )
+    IF not g_actionListDB.Query( sql )
     {
-        ErrMsg := g_ActionListDB.ErrMsg()
-        ErrCode := g_ActionListDB.ErrCode()
+        ErrMsg := g_actionListDB.ErrMsg()
+        ErrCode := g_actionListDB.ErrCode()
         clipboard := sql
-        msgbox Cannot Create ActionLists Table - fatal error: %ErrCode% - %ErrMsg% `n %sql%
+        msgbox Cannot Create actionLists Table - fatal error: %ErrCode% - %ErrMsg% `n %sql%
         ExitApp
     }
 }

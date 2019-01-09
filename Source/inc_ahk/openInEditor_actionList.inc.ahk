@@ -1,5 +1,5 @@
 ﻿;<<<<<<<< openInEditor <<<< 1810111507 <<<< 01.10.2018 11:54:07 <<<<
-; called from 				was_a_Editor_open_command := openInEditor(ActionListFolderOfThisActionList, isAHKcode, AHKcode, isStartingUnderline, is_OpenA_edit_open_lib, isDeprecated_OpenA_edit_open_lib) if(was_a_Editor_open_command) return ; endOf function: SendWord(WordIndex)
+; called from 				was_a_Editor_open_command := openInEditor(actionListFolderOfThisActionList, isAHKcode, AHKcode, isStartingUnderline, is_OpenA_edit_open_lib, isDeprecated_OpenA_edit_open_lib) if(was_a_Editor_open_command) return ; endOf function: SendWord(WordIndex)
 
 ; tooltip tool ToolTip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 ; ToolTip5sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
@@ -8,7 +8,7 @@
 ;/¯¯¯¯ openInEditor ¯¯ 181028104913 ¯¯ 28.10.2018 10:49:13 ¯¯\
 ; isStartingUnderline deprecated 01.12.2018 19:20
 ; edit: Opens the indicated file for editing. It might not work if the indicated file's type does not have an "edit" action associated with it.
-openInEditor(ActionListFolderOfThisActionList
+openInEditor(actionListFolderOfThisActionList
             , isAHKcode
             , AHKcode
             , isStartingUnderline
@@ -47,16 +47,16 @@ openInEditor(ActionListFolderOfThisActionList
     ;msgbox,% isAbsPath  "`n" m1 "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
 
 
-    m1CorrectedAhkFileAddress := ActionListFolderOfThisActionList "\" m1
+    m1CorrectedAhkFileAddress := actionListFolderOfThisActionList "\" m1
     ;Msgbox,% m1CorrectedAhkFileAddress "=m1CorrectedAhkFileAddress `n (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
     m1ListFileName := RegExReplace(m1,"i)([\w\d_-\.]+\.ahk)\b\s*$","$1")
     ;Msgbox,% m1 "=m1 `n (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
     ;Msgbox,% m1ListFileName "=m1ListFileName `n (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
     ; ____
     if(!FileExist(m1CorrectedAhkFileAddress)){
-        m1CorrectedAhkFileAddress := RegExReplace(m1CorrectedAhkFileAddress,"WordList", "ActionList") ; my a old database 23.10.2018 12:01
+        m1CorrectedAhkFileAddress := RegExReplace(m1CorrectedAhkFileAddress,"WordList", "actionList") ; my a old database 23.10.2018 12:01
          ; ..\_globalActionListsGenerated\_ahk_global.ahk.Generated.ahk
-     m1CorrectedAhkFileAddress :=  StrReplace(m1CorrectedAhkFileAddress, "..\ActionLists\", "..\" ) ; qickk and dirty
+     m1CorrectedAhkFileAddress :=  StrReplace(m1CorrectedAhkFileAddress, "..\actionLists\", "..\" ) ; qickk and dirty
      m1CorrectedAhkFileAddress :=  StrReplace(m1CorrectedAhkFileAddress, "..\_globalActionListsGenerated\..\_globalActionListsGenerated", "..\_globalActionListsGenerated" ) ; qickk and dirty
       ; ..\_globalActionListsGenerated\..\_globalActionListsGenerated\_ahk_global.ahk.Generated.ahk
 
@@ -77,13 +77,13 @@ openInEditor(ActionListFolderOfThisActionList
 	if( SubStr( m1CorrectedAhkFileAddress , -3 ) <> ".ahk" ) ; https://g-intellisense.myjetbrains.com/youtrack/issue/GIS-66
 		m1CorrectedAhkFileAddress .= ".ahk"
 
-    ; SaveLast5_to_BackupSL5.ahk "..\ActionLists\_globalActionListsGenerated\_ahk_global.ahk" "..\..\gi-ActionLists-Bakcups"
-    ; ActionList := removesSymbolicLinksFromFileAdress(ActionList)
-; SaveLast5_to_BackupSL5.ahk "..\ActionLists\_globalActionListsGenerated\_ahk_global.ahk" "..\..\gi-ActionLists-Bakcups"
-; SaveLast5_to_BackupSL5.ahk "G:\fre\git\github\global-IntelliSense-everywhere-Nightly-Build\ActionLists\_globalActionListsGenerated\_ahk_global.ahk" "G:\fre\git\github\gi-ActionLists-Backups"
+    ; SaveLast5_to_BackupSL5.ahk "..\actionLists\_globalActionListsGenerated\_ahk_global.ahk" "..\..\gi-actionLists-Bakcups"
+    ; actionList := removesSymbolicLinksFromFileAdress(actionList)
+; SaveLast5_to_BackupSL5.ahk "..\actionLists\_globalActionListsGenerated\_ahk_global.ahk" "..\..\gi-actionLists-Bakcups"
+; SaveLast5_to_BackupSL5.ahk "G:\fre\git\github\global-IntelliSense-everywhere-Nightly-Build\actionLists\_globalActionListsGenerated\_ahk_global.ahk" "G:\fre\git\github\gi-actionLists-Backups"
 
     para1FileAddress := removesSymbolicLinksFromFileAdress( A_ScriptDir "\" m1CorrectedAhkFileAddress )
-    para2BackupFolder := removesSymbolicLinksFromFileAdress(A_ScriptDir "\..\..\gi-ActionLists-Backups")
+    para2BackupFolder := removesSymbolicLinksFromFileAdress(A_ScriptDir "\..\..\gi-actionLists-Backups")
        commandLine := "SaveLast5_to_BackupSL5.ahk """ para1FileAddress """ """ para2BackupFolder """"
     ; clipboard := commandLine
     ; msgbox,% commandLine "(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"

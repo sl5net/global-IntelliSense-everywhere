@@ -24,11 +24,66 @@ EnableWinHook(){
    global g_WINEVENT_SKIPOWNPROCESS
    global g_WinChangedEventHook
    global g_WinChangedCallback
-   ; Set a hook to check for a changed window
+
+    global activeTitle ; 19-01-09_17-26
+
+   ; Set a hook to check for a  window
+
+    ; activ at each window change 09.01.2019 19:50
+
+    ; ToolTip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+    if(g_listSELECT_FROM_WinTitle && WinExist(g_listSELECT_FROM_WinTitle)){
+
+        if(false){
+            tip =
+            (
+            g_listSELECT_FROM_WinTitle = %g_listSELECT_FROM_WinTitle%
+            titClean=%titClean% ?= %flagTitle_giListSELECT_running%=flagTitle_giListSELECT_running
+            )
+            ToolTip,% tip "`n`n`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" ,550,55,8
+        }
+    }else{
+    g_listSELECT_FROM_WinTitle := ""
+    ; g_permanentSELECT := ""
+
+; php ts test php. kkk lll lll
+
+	flagTitle_giListSELECT := "giListSELECT" ; 09.01.2019 11:26 19-01-09_11-26
+	flagTitle_giListSELECT_running := " (" flagTitle_giListSELECT ")" ; 09.01.2019 11:26 19-01-09_11-26
+	lenTemp := strlen(flagTitle_giListSELECT_running)
+    if(!activeTitle)
+        WinGetTitle, activeTitle, A
+	titClean := substr(activeTitle, - (lenTemp-1) )
+	tip =
+	(
+g_listSELECT_FROM_WinTitle = %g_listSELECT_FROM_WinTitle%
+
+; test too
+
+name: titClean ?= flagTitle_giListSELECT_running
+value: >%titClean%< ?= >%flagTitle_giListSELECT_running%<
+	)
+	; ToolTip,% tip "`n`n`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" ,550,55,8
+	; msgbox,% tip "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+	; msgbox tooltip
+	if(titClean == flagTitle_giListSELECT_running){
+        g_listSELECT_FROM_WinTitle := activeTitle
+        s1 := substr(activeTitle,1, - (lenTemp-1) )
+        s2 := RegExReplace(s1, "(\bLike\b[^']+')([^']+)'" , "`n$1%$2%'") ; add wildcardd
+        g_permanentSELECT := "SELECT " s2
+        tip =
+        (
+        found: %g_listSELECT_FROM_WinTitle%
+
+        %g_permanentSELECT%
+        )
+    	; ToolTip,% tip "`n`n`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" ,550,55,8
+    }else
+        g_listSELECT_FROM_WinTitle := ""
+}
 
 
-
-       ; SoundbeepString2Sound(A_ThisFunc)
+       ;SoundbeepString2Sound(A_ThisFunc)
 
 
 
@@ -89,59 +144,42 @@ DisableWinHook(){
 
 
 
-; SetTimer,checkWinChangedTitle,1000 ; RegRead, ActionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList
+; SetTimer,checkWinChangedTitle,1000 ; RegRead, actionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, actionList
 
 
-
+;/¯¯¯¯ set0() ¯¯ 190109172051 ¯¯ 09.01.2019 17:20:51 ¯¯\
 set0(){
     global activeTitle
     global activeTitleOLD
-
-
-
-    global ActionList
-    global ActionListOLD
-
-
-
+    global actionList
+    global actionListOLD
     global g_itsProbablyArecentUpdate
-
-
-
     global timeFirstTry_getNewListFromRegistry
     global milliesTried_getNewListFromRegistry
-
-
-
     activeTitleOLD := activeTitle
-
-
-
-    ActionList := ""
-   ActionListOLD := ""
-
-
-
+    actionList := ""
+   actionListOLD := ""
    g_itsProbablyArecentUpdate := false
-
-
-
    timeFirstTry_getNewListFromRegistry := 0
    milliesTried_getNewListFromRegistry := 0
-
-
-
    return
 }
+;\____ set0() __ 190109172055 __ 09.01.2019 17:20:55 __/
+
+;
 
 
 
 checkWinChangedTitle:
 global activeTitle
 global activeTitleOLD
-global ActionList
-global ActionListOLD
+global actionList
+global actionListOLD
 global g_itsProbablyArecentUpdate
+
+global g_listSELECT_FROM_WinTitle ; addet 19-01-09_11-51
+global g_permanentSELECT ; addet 19-01-09_11-51
+
     activeTitleOLD := activeTitle
     WinGetActiveTitle, activeTitle
     if(activeTitleOLD <> activeTitle){

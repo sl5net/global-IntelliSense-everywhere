@@ -23,12 +23,12 @@ SendKey(Key){
 getLineOfIndex(id) {
 	global g_SingleMatch
     ;~ erste zeile mit eintrag im wörterbuch: g_SingleMatch[1] 10.07.2017 12:13
-	global ActionListFileName
-	global ActionList
-  ;ActionListFileName = ActionList.txt
-	ActionListFileName := ActionList
-	if(!FileExist(ActionListFileName))
-		Msgbox,:( !FileExist(ActionListFileName) %ActionListFileName% `n (%A_LineFile%~%A_LineNumber%) )
+	global actionListFileName
+	global actionList
+  ;actionListFileName = actionList.txt
+	actionListFileName := actionList
+	if(!FileExist(actionListFileName))
+		Msgbox,:( !FileExist(actionListFileName) %actionListFileName% `n (%A_LineFile%~%A_LineNumber%) )
 	
 ; ms too to
 	
@@ -38,12 +38,12 @@ getLineOfIndex(id) {
 	select w.lineNr
 	FROM Words w
 	where w.word LIKE "word`%"
-	and w.ActionListID = %g_ActionListID%
+	and w.actionListID = %g_actionListID%
 	-- and w.lineNr > 1
 	ORDER BY w.lineNr limit 1
 	)
 	try{
-		results := g_ActionListDB.Query(select)
+		results := g_actionListDB.Query(select)
 		for each, row in results.Rows
 		{
 			msgbox,% select "`n" row[1] "`n(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
@@ -65,7 +65,7 @@ getLineOfIndex(id) {
 	
 	
 	
-	Loop, Read, %ActionListFileName%
+	Loop, Read, %actionListFileName%
 	{
 		if ErrorLevel
 			break
@@ -79,7 +79,7 @@ getLineOfIndex(id) {
 			return A_Index
 		}
 	}
-    ; MsgBox, '%ActionListFileName%' = ActionListFileName  n (line:%A_LineNumber%) n `n The end of the file has been reached or there was a problem.
+    ; MsgBox, '%actionListFileName%' = actionListFileName  n (line:%A_LineNumber%) n `n The end of the file has been reached or there was a problem.
 	return
 }
 ;\____ getLineOfIndex __ 181106201849 __ 06.11.2018 20:18:49 __/
@@ -87,8 +87,8 @@ getLineOfIndex(id) {
 
 ;/¯¯¯¯ getNextWordFromDB ¯¯ 181106231548 ¯¯ 06.11.2018 23:15:48 ¯¯\
 getNextWordFromDB(word) {
-	global g_ActionListDB
-	global g_ActionListID
+	global g_actionListDB
+	global g_actionListID
 	select =
     (
 select t.word
@@ -96,13 +96,13 @@ FROM Words t
 where t.lineNr > (
   select w.lineNr FROM Words w
   where w.word LIKE "%word%`%"
-  and w.ActionListID = %g_ActionListID% limit 1 )
-and t.ActionListID = %g_ActionListID%
+  and w.actionListID = %g_actionListID% limit 1 )
+and t.actionListID = %g_actionListID%
 order by t.lineNr
 limit 1
 )
 	try{
-		Matches := g_ActionListDB.Query(select)
+		Matches := g_actionListDB.Query(select)
 		for each, row in Matches.Rows
 		{
                 ; msgbox,% "TRUE: " select "`n" row[1] "`n(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
@@ -133,15 +133,15 @@ limit 1
 getWordIndex(word) {
 	global g_SingleMatch
     ;~ erste zeile mit eintrag im wörterbuch: g_SingleMatch[1] 10.07.2017 12:13
-	global ActionListFileName
-	global ActionList
+	global actionListFileName
+	global actionList
 	
-	global g_ActionListID
+	global g_actionListID
 	
 	INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
-  ;ActionListFileName = ActionList.txt
-	ActionListFileName := ActionList
-	if(!FileExist(ActionListFileName))
+  ;actionListFileName = actionList.txt
+	actionListFileName := actionList
+	if(!FileExist(actionListFileName))
 		Msgbox,:( `n (%A_LineFile%~%A_LineNumber%) )
 	
 ; msgbox,% "(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
@@ -157,12 +157,12 @@ FROM Words t
 where t.lineNr > (
   select w.lineNr FROM Words w
   where w.word LIKE "`%%word%"
-  and w.ActionListID = 3 limit 1 )
-and t.ActionListID = 3
+  and w.actionListID = 3 limit 1 )
+and t.actionListID = 3
 limit 1
 )
 		try{
-			g_ActionListDB.Query(select)
+			g_actionListDB.Query(select)
 			for each, row in NormalizeTable.Rows
 			{
 				msgbox,% select "`n" row[1] "`n(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
@@ -184,7 +184,7 @@ limit 1
 	
 	
 	
-	Loop, Read, %ActionListFileName%
+	Loop, Read, %actionListFileName%
 	{
 		if ErrorLevel
 			break
@@ -197,7 +197,7 @@ limit 1
 			return A_Index
 		}
 	}
-    ; MsgBox, '%ActionListFileName%' = ActionListFileName  n (line:%A_LineNumber%) n `n The end of the file has been reached or there was a problem.
+    ; MsgBox, '%actionListFileName%' = actionListFileName  n (line:%A_LineNumber%) n `n The end of the file has been reached or there was a problem.
 	return
 }
 ;\____ getWordIndex __ 181106212725 __ 06.11.2018 21:27:25 __/
@@ -214,15 +214,15 @@ getLineOfWord(word) {
 ;~ erste zeile mit eintrag im wörterbuch: g_SingleMatch[1] 10.07.2017 12:13
 ;~ letzte zeile mit eintrag im wörterbuch: g_SingleMatch[1] 10.07.2017 12:13
 	
-	global ActionListFileName
-	global ActionList
+	global actionListFileName
+	global actionList
 	INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
-  ;ActionListFileName = ActionList.txt
-	ActionListFileName := ActionList
-	if(!FileExist(ActionListFileName))
+  ;actionListFileName = actionList.txt
+	actionListFileName := actionList
+	if(!FileExist(actionListFileName))
 		Msgbox,:( `n (%A_LineFile%~%A_LineNumber%) )
 	
-	Loop, Read, %ActionListFileName%
+	Loop, Read, %actionListFileName%
 	{
 		if ErrorLevel
 			break
@@ -240,7 +240,7 @@ getLineOfWord(word) {
 	if(0)
 		Loop,9999
 		{
-			FileReadLine, thisLine , %ActionListFileName%, %A_Index%
+			FileReadLine, thisLine , %actionListFileName%, %A_Index%
 			if ErrorLevel
 				break
 			
@@ -253,7 +253,7 @@ getLineOfWord(word) {
 				return a_index
 			}
 		}
-    ; MsgBox, '%ActionListFileName%' = ActionListFileName  n (line:%A_LineNumber%) n `n The end of the file has been reached or there was a problem.
+    ; MsgBox, '%actionListFileName%' = actionListFileName  n (line:%A_LineNumber%) n `n The end of the file has been reached or there was a problem.
 	return
 	
 	
@@ -291,34 +291,34 @@ getLineOfWord(word) {
   ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 	if(false){ ; funktioniert nicht, noch nicht. egal 10.07.2017 13:15. keie Zeit
-		global g_ActionListDB
+		global g_actionListDB
 		loop,9999
 		{
-			if(!g_ActionListDB[a_index]){
+			if(!g_actionListDB[a_index]){
 				aindexBackup := a_index
 				break
 			}
 		}
-		lastWord := g_ActionListDB[A_Index-1] ; for e.g. 6 if you hit "___" 10.07.2017
+		lastWord := g_actionListDB[A_Index-1] ; for e.g. 6 if you hit "___" 10.07.2017
 		
 ;~   select = SELECT id FROM Words WHERE word ="%word%" ;
 		StringReplace, SearchValueEscaped, word, ', '', All
-		global g_ActionListID
-		where := " AND ActionListID = '" g_ActionListID "' "
+		global g_actionListID
+		where := " AND actionListID = '" g_actionListID "' "
 		select := "SELECT * FROM Words WHERE word LIKE '" . SearchValueEscaped . "%' " where
 		select := "SELECT * FROM Words WHERE word LIKE 'Trim%' " where
 		select := "SELECT * FROM Words WHERE word = 'Trim(String)' " where
 		msgbox, '%select%' = select  n (line:%A_LineNumber%) n
   ; ______________________' ' = SearchValue  n (line:69) n17-07-10_12-21 index= 1
-		table := g_ActionListDB.Query( select )
-		g_ActionListDB.BeginTransaction()
+		table := g_actionListDB.Query( select )
+		g_actionListDB.BeginTransaction()
 		For each, row in myTable.Rows
 		{
 			SearchValue0 := row[0]
 			SearchValue := row[1]
 			Msgbox,'%SearchValue%' = SearchValue  n (line:%A_LineNumber%) n
 		}
-		g_ActionListDB.EndTransaction()
+		g_actionListDB.EndTransaction()
 ; ____' ' = SearchValue  n (line:68) n17-07-10_12-21 index= 1
 ; ____ ____' ' = SearchValue  n (line:67) n17-07-10_12-21 index= 1
 ; send,'%SearchValue0% %SearchValue%' = SearchValue  n (line:%A_LineNumber%) n
@@ -337,15 +337,15 @@ getLineOfWord(word) {
 
 
 
-;/¯¯¯¯ UPDATE_ActionList_UsedByUser_since_midnight ¯¯ 181019124049 ¯¯ 19.10.2018 12:40:49 ¯¯\
-UPDATE_ActionList_UsedByUser_since_midnight(){
-	global g_ActionListDB
-	global g_ActionListID
-	g_ActionList_UsedByUser_since_midnight[g_ActionListID] := JEE_millis_since_midnight(vOpt:="")
-	UPDATE := "UPDATE ActionLists SET lastUsedByUser_since_midnight =  "g_ActionList_UsedByUser_since_midnight[g_ActionListID] " WHERE id = " g_ActionListID ";"
+;/¯¯¯¯ UPDATE_actionList_UsedByUser_since_midnight ¯¯ 181019124049 ¯¯ 19.10.2018 12:40:49 ¯¯\
+UPDATE_actionList_UsedByUser_since_midnight(){
+	global g_actionListDB
+	global g_actionListID
+	g_actionList_UsedByUser_since_midnight[g_actionListID] := JEE_millis_since_midnight(vOpt:="")
+	UPDATE := "UPDATE actionLists SET lastUsedByUser_since_midnight =  "g_actionList_UsedByUser_since_midnight[g_actionListID] " WHERE id = " g_actionListID ";"
     ; clipboard   := UPDATE
 	try{
-		g_ActionListDB.Query(UPDATE)
+		g_actionListDB.Query(UPDATE)
 	    ;msgbox,% UPDATE
 	} catch e{
     		tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
@@ -355,7 +355,7 @@ UPDATE_ActionList_UsedByUser_since_midnight(){
     		Clipboard := tip
     	}
 }
-;\____ UPDATE_ActionList_UsedByUser_since_midnight __ 181019124053 __ 19.10.2018 12:40:53 __/
+;\____ UPDATE_actionList_UsedByUser_since_midnight __ 181019124053 __ 19.10.2018 12:40:53 __/
 
 
 ; toolTip2sec(msg " (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") " " Last_A_This)
@@ -379,24 +379,24 @@ SendWord(WordIndex){
 	global g_SingleMatch
 	global g_SingleMatchReplacement
 	
-	global g_ActionListID
-	global ActionList
+	global g_actionListID
+	global actionList
 	
-	global g_ActionList_UsedByUser_since_midnight
+	global g_actionList_UsedByUser_since_midnight
 	
 	
 	INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 	
-	if(!ActionList){
+	if(!actionList){
 	    if(1 && InStr(A_ComputerName,"SL5")){
             msg =
             (
-    >%ActionListFolderOfThisActionList%< NOT exist
-    ActionList = %ActionList%
-    g_ActionListID = %g_ActionListID%
+    >%actionListFolderOfThisActionList%< NOT exist
+    actionList = %actionList%
+    g_actionListID = %g_actionListID%
             )
             msg .= "`n`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
-            msg = ups:`n ! FileExist(%ActionListFolderOfThisActionList% %msg%
+            msg = ups:`n ! FileExist(%actionListFolderOfThisActionList% %msg%
 
             ; tooltip,% msg, 1 , 30, 20
             lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,msg)
@@ -404,27 +404,27 @@ SendWord(WordIndex){
 		}
 		; reload
 		; return
-        RegRead, ActionList, HKEY_CURRENT_USER, SOFTWARE\sl5net, ActionList ; todo: dirty bugFix. it happens, every second time??? whey??
+        RegRead, actionList, HKEY_CURRENT_USER, SOFTWARE\sl5net, actionList ; todo: dirty bugFix. it happens, every second time??? whey??
         ; toolt
         ; tooltip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
         ; toolTip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 	}
 
-	ActionListFolderOfThisActionListRELATIVE := RegExReplace(ActionList,"\\[^\\]+$","")
-	ActionListFolderOfThisActionList := RegExReplace(ActionList,"\\[^\\]+$","") ; deleted A_ScriptDir "\"  23.10.2018 11:14
-	ActionListFolderOfThisActionList := removesSymbolicLinksFromFileAdress(ActionListFolderOfThisActionList) ; user should could includes direcly from his ahk ActionList, without editing the address 05.03.2018 08:15
+	actionListFolderOfThisActionListRELATIVE := RegExReplace(actionList,"\\[^\\]+$","")
+	actionListFolderOfThisActionList := RegExReplace(actionList,"\\[^\\]+$","") ; deleted A_ScriptDir "\"  23.10.2018 11:14
+	actionListFolderOfThisActionList := removesSymbolicLinksFromFileAdress(actionListFolderOfThisActionList) ; user should could includes direcly from his ahk actionList, without editing the address 05.03.2018 08:15
 
 
-	if(!FileExist(ActionListFolderOfThisActionList)){ ; Checks for the existence of a file or folder
-		clipboard := ActionListFolderOfThisActionList
+	if(!FileExist(actionListFolderOfThisActionList)){ ; Checks for the existence of a file or folder
+		clipboard := actionListFolderOfThisActionList
 		msg = 
 		(
->%ActionListFolderOfThisActionList%< NOT exist 
-ActionList = %ActionList%
-g_ActionListID = %g_ActionListID%
+>%actionListFolderOfThisActionList%< NOT exist
+actionList = %actionList%
+g_actionListID = %g_actionListID%
 		)
 		msg .= "`n`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
-		msg = ups:`n ! FileExist(%ActionListFolderOfThisActionList% %msg%
+		msg = ups:`n ! FileExist(%actionListFolderOfThisActionList% %msg%
 		tooltip,% msg
 		msgBox,% ":( ERROR: " msg "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 		RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, return , % A_ThisFunc ":"  A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
@@ -559,9 +559,9 @@ g_ActionListID = %g_ActionListID%
 		
 		
 		
-		UPDATE_ActionList_UsedByUser_since_midnight()
+		UPDATE_actionList_UsedByUser_since_midnight()
 		
-; msgBox,% "g_ActionList_UsedByUser_since_midnight[g_ActionListID]: " g_ActionList_UsedByUser_since_midnight[g_ActionListID]"(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+; msgBox,% "g_actionList_UsedByUser_since_midnight[g_actionListID]: " g_actionList_UsedByUser_since_midnight[g_actionListID]"(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 		
 		
 		
@@ -708,7 +708,7 @@ g_ActionListID = %g_ActionListID%
     ; msgbox, % isAHKcode "`=isAHKcode`n`n " lineOfIndex "`n=lineOfIndex`n`n is_OpenA_edit_open_lib=`n" is_OpenA_edit_open_lib " `n`n isDeprecated_OpenA_edit_open_lib=`n" isDeprecated_OpenA_edit_open_lib "`n`n" AHKcode
 				
     ; Msgbox,% AHKcode "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
-				msg := ActionListFolderOfThisActionList "`n"
+				msg := actionListFolderOfThisActionList "`n"
 				msg .= A_WorkingDir " = A_WorkingDir `n"
     ; Msgbox,% msg "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 				
@@ -735,7 +735,7 @@ g_ActionListID = %g_ActionListID%
 ;\____ ClearAllVars(A_ThisFunc __ 181028154146 __ 28.10.2018 15:41:46 __/
 				
 				
-				was_a_Editor_open_command := openInEditor(ActionListFolderOfThisActionList, isAHKcode, AHKcode, isStartingUnderline, is_OpenA_edit_open_lib, isDeprecated_OpenA_edit_open_lib)
+				was_a_Editor_open_command := openInEditor(actionListFolderOfThisActionList, isAHKcode, AHKcode, isStartingUnderline, is_OpenA_edit_open_lib, isDeprecated_OpenA_edit_open_lib)
 				if(was_a_Editor_open_command) {
 					RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, return , % g_Word "=key|" A_ThisFunc ":"  A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
 					
@@ -826,8 +826,8 @@ g_ActionListID = %g_ActionListID%
 				sending := "" ; thats very fast. may use it in other casese 10.04.2017 13:29
 				AHKcode := lineOfIndex
 				
-       ; lets open the ActionList inside notepad++ or so 19.04.2017 19:16
-;       Msgbox,'%ActionListActive%' = ActionListActive  n (line:%A_LineNumber%) n   n (from: %A_LineFile%~%A_LineNumber%)
+       ; lets open the actionList inside notepad++ or so 19.04.2017 19:16
+;       Msgbox,'%actionListActive%' = actionListActive  n (line:%A_LineNumber%) n   n (from: %A_LineFile%~%A_LineNumber%)
 ; Msgbox,n (from: %A_LineFile%~%A_LineNumber%)
 				
 				
@@ -900,32 +900,32 @@ g_ActionListID = %g_ActionListID%
 ;  too(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") " " Last_A_This) too(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") " " Last_A_This)   ;msgbox, isAHKcode = %isAHKcode%AHKdyn example super simple example
 	
 ; https://github.com/sl5net/global-IntelliSense-everywhere/blob/master/Source/help/CHANGELOG.txt#L1 05.03.2018 10:40
-	aScriptDir2ActionListFolder := removesSymbolicLinksFromFileAdress(A_ScriptDir "\..\ActionLists") ; user should could includes direcly from his ahk ActionList, without editing the address 05.03.2018 08:15
-;msgbox, aScriptDir2ActionListFolder  = %aScriptDir2ActionListFolder%  `n (%A_LineFile%~%A_LineNumber%)
+	aScriptDir2actionListFolder := removesSymbolicLinksFromFileAdress(A_ScriptDir "\..\actionLists") ; user should could includes direcly from his ahk actionList, without editing the address 05.03.2018 08:15
+;msgbox, aScriptDir2actionListFolder  = %aScriptDir2actionListFolder%  `n (%A_LineFile%~%A_LineNumber%)
 ;exitapp\
 
 	        
 
 
 	if( isKTScode ){
-    ; "E:\fre\private\HtmlDevelop\AutoHotKey\global-IntelliSense-everywhere\ActionLists\_kts\kotlinc\bin\kotlinc"
+    ; "E:\fre\private\HtmlDevelop\AutoHotKey\global-IntelliSense-everywhere\actionLists\_kts\kotlinc\bin\kotlinc"
     ;
 		
-		fExistCode := FileExist(ActionListFolderOfThisActionList "\" KTScode)
+		fExistCode := FileExist(actionListFolderOfThisActionList "\" KTScode)
 		if(fExistCode){
-			scriptAddress := ActionListFolderOfThisActionList "\" KTScode
+			scriptAddress := actionListFolderOfThisActionList "\" KTScode
 		}else{
-			scriptAddress := removesSymbolicLinksFromFileAdress( A_ScriptDir "\..\ActionLists\_kts\KotlinLove.kts" )
+			scriptAddress := removesSymbolicLinksFromFileAdress( A_ScriptDir "\..\actionLists\_kts\KotlinLove.kts" )
 			KTScode := RegExReplace(KTScode, "``n" , "`n")
 			FileSave(KTScode, scriptAddress )
 		}
-		resultAddress := removesSymbolicLinksFromFileAdress( A_ScriptDir "\..\ActionLists\_kts\cmdResult2.ahk" ) ; ; %A_Temp%\
-		kotlincExeAddress := removesSymbolicLinksFromFileAdress (A_ScriptDir "\..\ActionLists\_kts\kotlinc\bin\kotlinc")
+		resultAddress := removesSymbolicLinksFromFileAdress( A_ScriptDir "\..\actionLists\_kts\cmdResult2.ahk" ) ; ; %A_Temp%\
+		kotlincExeAddress := removesSymbolicLinksFromFileAdress (A_ScriptDir "\..\actionLists\_kts\kotlinc\bin\kotlinc")
     ; run,cmd.exe /c "%kotlincExeAddress%" -script KotlinLove.kts > cmdResult.txt,, Hide"
 		runString = cmd.exe /c "%kotlincExeAddress%" -script %scriptAddress% > %resultAddress%
 		run,% runString,, Hide
     ; Clipboard := runString
-        ;  ActionLists\_kts\kotlinc\bin\kotlinc""
+        ;  actionLists\_kts\kotlinc\bin\kotlinc""
     ; FileReadLine, thisLine , %A_Temp%\cmdResult.txt, 1
 		sleep,100
 		FileRead, cmdResult, % resultAddress
@@ -942,7 +942,7 @@ g_ActionListID = %g_ActionListID%
 ; AHKcode2 .= "#" . "NoTrayIcon `n "
 		AHKcode2 .= "#" "MaxHotkeysPerInterval 99000000 `n "
 		AHKcode2 .= "#" "HotkeyInterval 99000000 `n "
-		AHKcode2 .= "SetWorkingDir, " . aScriptDir2ActionListFolder . "`n" ; doesent work has no effect ScriptDir|rr||ahk|send, % A_ScriptDir ; \\.\pipe 03.04.2017 11:17 17-04-03_11-17
+		AHKcode2 .= "SetWorkingDir, " . aScriptDir2actionListFolder . "`n" ; doesent work has no effect ScriptDir|rr||ahk|send, % A_ScriptDir ; \\.\pipe 03.04.2017 11:17 17-04-03_11-17
 		AHKcode2 .= "SetBatchLines, -1 `n "
 		AHKcode2 .= "SetKeyDelay, -1, -1 `n "
 		AHKcode2 .= "SetWinDelay, -1 `n "
@@ -964,7 +964,7 @@ g_ActionListID = %g_ActionListID%
 		
 		AHKcode2 .= "lineStrLen := " StrLen(g_Word) " `n "
 		AHKcode2 .= "AHKcodeLen := " StrLen(AHKcode) " `n "
-		AHKcode2 .= "ActionList := """ ActionList """ `n "
+		AHKcode2 .= "actionList := """ actionList """ `n "
 		; pause ; toCloseAll tToolTip5sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 		;\____ Environment __ 190107124616 __ 07.01.2019 12:46:16 __/
 
@@ -990,7 +990,7 @@ g_ActionListID = %g_ActionListID%
 
 
 		if(0){
-			AHKcode2 .= "ActionList = , " . ActionListNEW . "`n" ; i cant do this :D becouse the script cant know this :D 12.08.2017 11:12
+			AHKcode2 .= "actionList = , " . actionListNEW . "`n" ; i cant do this :D becouse the script cant know this :D 12.08.2017 11:12
 			Msgbox,% AHKcode2 . "`n`n = AHKcode2 `n (%A_LineFile%~%A_LineNumber%)"
 		}
 ; doesent work has no effect ScriptDir|rr||ahk|send, % A_ScriptDir ; \\.\pipe 03.04.2017 11:17 17-04-03_11-17
@@ -1015,9 +1015,9 @@ g_ActionListID = %g_ActionListID%
 		}
 		
 ; https://github.com/sl5net/global-IntelliSense-everywhere/blob/master/Source/help/CHANGELOG.txt#L1
-;AHKcode := RegExReplace(AHKcode, "#include[ ]*,[ ]*(\w)"           , "#include " . aScriptDir2ActionListFolder . "\\$1" ) ; dayTimeHello|rr||ahk|#include,incDynAhk\sendDayTimeHello.ahk
-;AHKcode := RegExReplace(AHKcode, "#include[ ]*,[ ]*([\.]{1,2}\\\w)", "#include " . aScriptDir2ActionListFolder . "\\$1" ) ; dayTimeHello|rr||ahk|#include,..\xyz\sendDayTimeHello.ahk
-; AHKcode := RegExReplace(AHKcode, "#include[ ]+([\.]{1,2}\\\w)", "#include " . aScriptDir2ActionListFolder . "\\$1" ) ; dayTimeHello|rr||ahk|#include ..\xyz\sendDayTimeHello.ahk
+;AHKcode := RegExReplace(AHKcode, "#include[ ]*,[ ]*(\w)"           , "#include " . aScriptDir2actionListFolder . "\\$1" ) ; dayTimeHello|rr||ahk|#include,incDynAhk\sendDayTimeHello.ahk
+;AHKcode := RegExReplace(AHKcode, "#include[ ]*,[ ]*([\.]{1,2}\\\w)", "#include " . aScriptDir2actionListFolder . "\\$1" ) ; dayTimeHello|rr||ahk|#include,..\xyz\sendDayTimeHello.ahk
+; AHKcode := RegExReplace(AHKcode, "#include[ ]+([\.]{1,2}\\\w)", "#include " . aScriptDir2actionListFolder . "\\$1" ) ; dayTimeHello|rr||ahk|#include ..\xyz\sendDayTimeHello.ahk
 		
 ; ___create own project dir or this 1|rr||ahk|#Include,..\activeClassManipulation.inc.ahk `n activeClass := RegExReplace( activeClass, "[\W_]+", "") `n d1
 ; test
@@ -1025,8 +1025,8 @@ g_ActionListID = %g_ActionListID%
 		regEx2 := "(#include|run)[ ]*( |,)[ ]*\b(?!\w\:\\)" ; should not work with thinks like: ; run, C:\tata only relative paths 8.5.2018 14:27 , see: https://www.regextester.com/15
 		regEx2 := "(#include|run)[ ]*( |,)[ ]*(?!( |\w:\\))" ; should not work with thinks like: ; run, C:\tata only relative paths 8.5.2018 14:27 , see: https://www.regextester.com/15
 		if(!RegExMatch(AHKcode, regEx))
-			AHKcode := RegExReplace(AHKcode, "i)" regEx2, "$1$2$3" . ActionListFolderOfThisActionList . "\" ) ; dayTimeHello|rr||ahk|#include ..\xyz\sendDayTimeHello.ahk
-;    AHKcode := RegExReplace(AHKcode, "i)(#include|run)[ ]*( |,)[ ]*(?!\w\:\\)", "$1$2" . ActionListFolderOfThisActionList . "\" ) ; dayTimeHello|rr||ahk|#include ..\xyz\sendDayTimeHello.ahk
+			AHKcode := RegExReplace(AHKcode, "i)" regEx2, "$1$2$3" . actionListFolderOfThisActionList . "\" ) ; dayTimeHello|rr||ahk|#include ..\xyz\sendDayTimeHello.ahk
+;    AHKcode := RegExReplace(AHKcode, "i)(#include|run)[ ]*( |,)[ ]*(?!\w\:\\)", "$1$2" . actionListFolderOfThisActionList . "\" ) ; dayTimeHello|rr||ahk|#include ..\xyz\sendDayTimeHello.ahk
 		
 
         
@@ -1037,12 +1037,12 @@ g_ActionListID = %g_ActionListID%
 		
 ; AHKcode := RegExReplace(AHKcode, "#include[ ]*,[ ]*(\w)", "#include \\$1" ) ; dayTimeHello|rr||ahk|#include,incDynAhk\sendDayTimeHello.ahk
 ; AHKcode := RegExReplace(AHKcode, "#include[ ]*,[ ]*[\.]{0,2}\\(\w)", "#include \\$1" ) ; dayTimeHello|rr||ahk|#include,incDynAhk\sendDayTimeHello.ahk
-		StringReplace, AHKcode, AHKcode, `%A_ScriptDir`%, %aScriptDir2ActionListFolder%, All
+		StringReplace, AHKcode, AHKcode, `%A_ScriptDir`%, %aScriptDir2actionListFolder%, All
 		StringReplace, AHKcode, AHKcode, `%A_WorkingDir`%, %A_WorkingDir%, All ; in some context its not neccasarry becouse its set ... 12.08.2017 11:22
 ; A_ScriptDir == A_WorkingDir is proably the same !! should be in this case :) 12.08.2017 11:26
 		
 ; StringReplace, AHKcode, AHKcode, #incDynAhk, #include %A_ScriptDir%\incDynAhk, All ; dayTimeHello|rr||ahk|#incDynAhk\sendDayTimeHello.ahk ; before 09.03.2018 11:03
-		StringReplace, AHKcode, AHKcode,#incDynAhk,#include %ActionListFolderOfThisActionList%\incDynAhk, All ; dayTimeHello|rr||ahk|#incDynAhk\sendDayTimeHello.ahk
+		StringReplace, AHKcode, AHKcode,#incDynAhk,#include %actionListFolderOfThisActionList%\incDynAhk, All ; dayTimeHello|rr||ahk|#incDynAhk\sendDayTimeHello.ahk
 		
 		
 		
@@ -1066,7 +1066,7 @@ g_ActionListID = %g_ActionListID%
 		
         ;msgbox,(%A_LineFile%~%A_LineNumber%) `n %AHKcode2%
 		aWorkingDirBackUp := A_WorkingDir
-		SetWorkingDir,%A_WorkingDir%\..\ActionLists
+		SetWorkingDir,%A_WorkingDir%\..\actionLists
          ; suspend,on ; if you do thi script sends nothing 13.03.2018 15:30
 		
 
@@ -1107,7 +1107,7 @@ g_ActionListID = %g_ActionListID%
    ; the following code was addet by Http://SL5.net 11.03.2017 17:54 17-03-11_17-54 . have fin & enjoy
 	sending:=trim( sending )
 	if(RegExMatch( sending , "^[^\s]+(\\[^\\\s]+\\[^\\\s]+\.ahk)$", SubPat) ) ; stores in SubPat1. 30.04.2017 12:24 is that buggy ? correct? todo:
-		absActionListAddress = %aScriptDir2ActionListFolder%\..\%sending%
+		absActionListAddress = %aScriptDir2actionListFolder%\..\%sending%
         ; Msgbox,%absActionListAddress% = absActionListAddress `n (from: %A_LineFile%~%A_LineNumber%)
 	fExistWL := FileExist(absActionListAddress)
 	fExist := FileExist(sending)
@@ -1119,10 +1119,10 @@ g_ActionListID = %g_ActionListID%
 		IfMsgBox yes
 			if(fExist)
             ; run, %sending%
-				openInEditor("..\ActionLists\" ActiveClass, true, "run," sending, true, true, true)
+				openInEditor("..\actionLists\" ActiveClass, true, "run," sending, true, true, true)
 		else
              ; run, %absActionListAddress%
-			openInEditor("..\ActionLists\" ActiveClass, true, "run," absActionListAddress, true, true, true)
+			openInEditor("..\actionLists\" ActiveClass, true, "run," absActionListAddress, true, true, true)
                  ;Msgbox,%absActionListAddress% `n (from: %A_LineFile%~%A_LineNumber%)
 		
 	}
@@ -1464,7 +1464,7 @@ SendFull(SendValue,ForceBackspace:= false){
 		if(0 && InStr(A_ComputerName,"SL5") )
             ToolTip9sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 
-					DynaRun(AHKcode) ; <= uese old clipboard.or  simle give it more time
+					DynaRun(AHKcode) ; <= uese old clipboard. or simple give it more time
 
 		if(0 && InStr(A_ComputerName,"SL5") )
             ToolTip9sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
@@ -1509,7 +1509,7 @@ SendFull(SendValue,ForceBackspace:= false){
 		}else{
     		if(1 && InStr(A_ComputerName,"SL5") )
                 ToolTip9sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
-			SendPlay, %sending% ; First do the backspaces, Then send word (Raw because we want the string exactly as in ActionList . ahk)
+			SendPlay, %sending% ; First do the backspaces, Then send word (Raw because we want the string exactly as in actionList . ahk)
             if(1 && InStr(A_ComputerName,"SL5") )
                 ToolTip9sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
         ;lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"%sending% `n >" . sending . "<  `n token=18-03-13_14-44")
@@ -1614,7 +1614,7 @@ SendFull(SendValue,ForceBackspace:= false){
 		
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		
-		SendInput, %sending% ; First do the backspaces, Then send word (Raw because we want the string exactly as in ActionList . ahk)
+		SendInput, %sending% ; First do the backspaces, Then send word (Raw because we want the string exactly as in actionList . ahk)
  ;Msgbox, '%SendValue%' = SendValue  `n `n '%sending%' = sending `n (line:%A_LineNumber%) n
 		
 		global g_sending_is_buggy
@@ -1630,7 +1630,7 @@ SendFull(SendValue,ForceBackspace:= false){
 		if( g_sending_is_buggy )
 			lll( A_ThisFunc ":" A_LineNumber , A_LineFile ," SendEvent, %sending% ")
 		
-		SendEvent, %sending% ; First do the backspaces, Then send word (Raw because we want the string exactly as in ActionList . ahk)
+		SendEvent, %sending% ; First do the backspaces, Then send word (Raw because we want the string exactly as in actionList . ahk)
  ;Msgbox, '%SendValue%' = SendValue  `n `n '%sending%' = sending `n (line:%A_LineNumber%) n
 		Return
 	}
@@ -1706,8 +1706,8 @@ SendCompatible(SendValue,ForceSendForInput) {
 	
 	global g_IgnoreSend
 	global prefs_SendMethod
-	global g_ActionList_UsedByUser_since_midnight
-	global g_ActionListID
+	global g_actionList_UsedByUser_since_midnight
+	global g_actionListID
 	
    ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 	SetKeyDelay, 200, 20, Play ; PressDuration: Use -1 for no delay at all (default) and 0 for the smallest possible delay ; Play applies the above settings to the SendPlay mode
@@ -1768,7 +1768,7 @@ SendCompatible(SendValue,ForceSendForInput) {
 	if( g_sending_is_buggy )
 		lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"SendInput, %SendValue% `n >" . SendValue . "<  `n 17-07-29_11-46")
 	
-	UPDATE_ActionList_UsedByUser_since_midnight()
+	UPDATE_actionList_UsedByUser_since_midnight()
 	
 	Return
 }

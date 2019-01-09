@@ -1,22 +1,34 @@
 ﻿#Include *i %A_ScriptDir%\inc_ahk\init_global.init.inc.ahk
 #SingleInstance,force
 
+
+
 #Persistent
 DllCall("AllocConsole")
 conout := FileOpen("CONOUT$", 1|4)
 
+
+
 GUID := "{9359E8E4-3E3C-427F-81D8-5E1314B39E73}"
 obj := {Test:Func("Test"), Status:1}
+
+
 
 ; REFCOUNT == 1
 ObjAddRef(&obj)
 conout.WriteLine("RefCount: " . ObjRelease(&obj)), conout.Read(0)
 
+
+
 ObjRegisterActive(obj, GUID) ; register the object
+
+
 
 ; REFCOUNT == 3 ??
 ObjAddRef(&obj)
 conout.WriteLine("RefCount: " . ObjRelease(&obj)), conout.Read(0)
+
+
 
 code := Format("
 (
@@ -26,22 +38,32 @@ obj.Test()
 return
 )", Chr(34), GUID)
 
+
+
 cmd := Format("{1}{2}{1} *", Chr(34), A_AhkPath)
 exec := ComObjCreate("WScript.Shell").Exec(cmd)
 exec.StdIn.Write(code), exec.StdIn.Close()
 while obj.Status && (exec.Status == 0)
 	Sleep 10
 
+
+
 ; REFCOUNT == 6 ??
 ObjAddRef(&obj)
 conout.WriteLine("RefCount: " . ObjRelease(&obj)), conout.Read(0)
 
+
+
 ObjRegisterActive(obj, "") ; revoke
+
+
 
 conout.Write("`nPress 'Enter' to quit.`n>>> "), conout.Read(0)
 KeyWait Enter, D
 DllCall("FreeConsole")
 ExitApp
+
+
 
 Test(this){
 lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"lin1 at Test")
@@ -72,9 +94,13 @@ ObjRegisterActive(Object, CLSID, Flags:=0) {
     cookieJar[Object] := cookie
 }
 
+
+
 #Include %A_ScriptDir%\inc_ahk\copy2clipBoard.functions.inc.ahk
 #Include %A_ScriptDir%\inc_ahk\ToolTipSec_RemoveToolTip.inc.ahk
 #Include %A_ScriptDir%\inc_ahk\ToolTipSec.inc.ahk
 #Include %A_ScriptDir%\inc_ahk\functions_global.inc.ahk
+
+
 
 #Include %A_ScriptDir%\inc_ahk\functions_global_dateiende.inc.ahk

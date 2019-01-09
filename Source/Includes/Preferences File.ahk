@@ -563,7 +563,7 @@ helpinfo_LearnLength=
 
 helpinfo_LearnCount=
 (
-;"Add to ActionList after X times" defines the number of times you have to type a word within a single session for it to be learned permanently.
+;"Add to actionList after X times" defines the number of times you have to type a word within a single session for it to be learned permanently.
 )
 
 helpinfo_ListBoxRows=
@@ -573,7 +573,7 @@ helpinfo_ListBoxRows=
 
 helpinfo_Length=
 (
-;"Show ActionList after X characters" is the minimum number of characters that need to be typed before the program shows a List of words.
+;"Show actionList after X characters" is the minimum number of characters that need to be typed before the program shows a List of words.
 ;For example, if you need to autocomplete "assemble" in the word list, set this to 2, type 'as' and a list will appear.
 )
 
@@ -601,7 +601,7 @@ helpinfo_DisabledAutoCompleteKeys=
 
 helpinfo_ArrowKeyMethod=
 (
-;"ActionList row highlighting" is the way the arrow keys are handled when a list is shown.
+;"actionList row highlighting" is the way the arrow keys are handled when a list is shown.
 ;Options are:
 ;  Off - only use the number keys
 ;  First - resets the highlighted row to the beginning whenever you type a new character
@@ -653,7 +653,7 @@ helpinfo_NumPresses=
 
 helpinfo_ShowLearnedFirst=
 (
-;"Show learned words first" controls whether the learned words appear before or after the words from ActionList . txt.
+;"Show learned words first" controls whether the learned words appear before or after the words from actionList . txt.
 )
 
 helpinfo_ListBoxOffset=
@@ -674,13 +674,13 @@ helpinfo_ListBoxFontSize=
 
 helpinfo_ListBoxOpacity=
 (
-;"list opacity" is how transparent (see-through) the ActionList Box should be. Use a value of 255 to make it so the
-;ActionList Box is fully ypaque, or use a value of 0 to make it so the ActionList Box cannot be seen at all.
+;"list opacity" is how transparent (see-through) the actionList Box should be. Use a value of 255 to make it so the
+;actionList Box is fully ypaque, or use a value of 0 to make it so the actionList Box cannot be seen at all.
 )
 
 helpinfo_ListBoxCharacterWidth=
 (
-;"List character width override" is the width (in pixels) of one character in the ActionList Box.
+;"List character width override" is the width (in pixels) of one character in the actionList Box.
 ;This number should only need to be changed if the box containing the list is not the correct width.
 ;Some things which may cause this to need to be changed would include:
 ; 1. Changing the Font DPI in Windows
@@ -691,13 +691,13 @@ helpinfo_ListBoxCharacterWidth=
 
 helpinfo_ListBoxFontOverride=
 (
-;"List font" is used to specify a font for the ActionList Box to use. The default for Fixed is Courier,
+;"List font" is used to specify a font for the actionList Box to use. The default for Fixed is Courier,
 ;and the default for Variable is Tahoma.
 )
 
 helpinfo_ListBoxMaxWidth=
 (
-;"List max width in pixels" is used to specify the maximum width for the ActionList Box in pixels. By default, this will not expand beyond the width of the current monitor.
+;"List max width in pixels" is used to specify the maximum width for the actionList Box in pixels. By default, this will not expand beyond the width of the current monitor.
 )
 
 helpinfo_ListBoxNotDPIAwareProgramExecutables=

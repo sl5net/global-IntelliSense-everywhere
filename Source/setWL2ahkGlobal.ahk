@@ -14,31 +14,31 @@ lll( A_ThisFunc ":" A_LineNumber , A_LineFile ," hi :) just started. ")
 ; MsgBox,% RegExReplace(A_LineFile,".*\\") . "`n hi :) ??? feedbackMsgBox visible ???? "
 
 
-ActionList := "..\ActionLists\_globalActionLists\_global.ahk"
-ActionList := "..\ActionLists\_globalActionListsGenerated\_ahk_global.ahk"
-ActionList := "E:\fre\private\HtmlDevelop\AutoHotKey\tools\gi-everywhere-master\Source\..\ActionLists\_globalActionListsGenerated\_ahk_global.ahk"
+actionList := "..\actionLists\_globalActionLists\_global.ahk"
+actionList := "..\actionLists\_globalActionListsGenerated\_ahk_global.ahk"
+actionList := "E:\fre\private\HtmlDevelop\AutoHotKey\tools\gi-everywhere-master\Source\..\actionLists\_globalActionListsGenerated\_ahk_global.ahk"
 
 pLength := 0
-while(pLength <> StrLen(ActionList )){
+while(pLength <> StrLen(actionList )){
 ; tooltip,`% A_index . "# Line:" . A_LineNumber . " Name:" . A_ScriptName . " "
-pLength := StrLen(ActionList )
-ActionList := RegExReplace(ActionList ,"(\\[^\\]+\\\.\.)+") ; works. removes all symbolic links 24.02.2018  cleanPath
+pLength := StrLen(actionList )
+actionList := RegExReplace(actionList ,"(\\[^\\]+\\\.\.)+") ; works. removes all symbolic links 24.02.2018  cleanPath
 }
-ActionList := RegExReplace(ActionList,"\\\.\\")  ; works. removes all symbolic link 24.02.2018 cleanPath
-ActionList := RegExReplace(ActionList,"^\.\\")  ; works. removes all symbolic link 24.02.2018  cleanPath
+actionList := RegExReplace(actionList,"\\\.\\")  ; works. removes all symbolic link 24.02.2018 cleanPath
+actionList := RegExReplace(actionList,"^\.\\")  ; works. removes all symbolic link 24.02.2018  cleanPath
 
-setRegistry_ActionList(ActionList)
+setRegistry_actionList(actionList)
 #Include,RegWrite181031.ahk
 ExitApp 
 
-stringToSend := ActionList
+stringToSend := actionList
 
 try{
     ; feedbackMsgBox("%A_LineFile%>%A_LineNumber%", "ComObjActive" . " " . A_ScriptName . "~" . A_LineNumber)
     y := ComObjActive("{93C04B39-0465-4460-8CA0-7BFFF481FF98}")
-    feedbackMsgBox(A_ScriptName . ">" . A_LineNumber, "START y.callFunction( Receive_ActionListAddress, " . stringToSend )
-    y.callFunction( "Receive_ActionListAddress", stringToSend ) ;will call the function of the other script , ObjRegisterActive , shuttle
-    feedbackMsgBox(A_ScriptName . ">" . A_LineNumber, "END y.callFunction( Receive_ActionListAddress, " . stringToSend )
+    feedbackMsgBox(A_ScriptName . ">" . A_LineNumber, "START y.callFunction( Receive_actionListAddress, " . stringToSend )
+    y.callFunction( "Receive_actionListAddress", stringToSend ) ;will call the function of the other script , ObjRegisterActive , shuttle
+    feedbackMsgBox(A_ScriptName . ">" . A_LineNumber, "END y.callFunction( Receive_actionListAddress, " . stringToSend )
 
 } catch e{
     tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line

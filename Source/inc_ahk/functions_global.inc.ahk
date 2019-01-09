@@ -1568,16 +1568,16 @@ DynaRun(TempScript, pipename=""){
 ;>>>>>>>> DynaRun >>>> 180228151009 >>>>
 
 ;<<<<<<<< removesSymbolicLinksFromFileAdress <<<< 180305085209 <<<< 05.03.2018 08:52:09 <<<<
-removesSymbolicLinksFromFileAdress(ActionList){
+removesSymbolicLinksFromFileAdress(actionList){
 	pLength := 0
-	while(pLength <> StrLen(ActionList )){
+	while(pLength <> StrLen(actionList )){
 	; tooltip,`% A_index . "# Line:" . A_LineNumber . " Name:" . A_ScriptName . " "
-	pLength := StrLen(ActionList )
-	ActionList := RegExReplace(ActionList ,"(\\[^\\]+\\\.\.)+") ; works. removes all symbolic links 24.02.2018  cleanPath
+	pLength := StrLen(actionList )
+	actionList := RegExReplace(actionList ,"(\\[^\\]+\\\.\.)+") ; works. removes all symbolic links 24.02.2018  cleanPath
 	}
-	ActionList := RegExReplace(ActionList,"\\\.\\")  ; works. removes all symbolic link 24.02.2018 cleanPath
-	ActionList := RegExReplace(ActionList,"^\.\\")  ; works. removes all symbolic link 24.02.2018  cleanPath
-	 return ActionList
+	actionList := RegExReplace(actionList,"\\\.\\")  ; works. removes all symbolic link 24.02.2018 cleanPath
+	actionList := RegExReplace(actionList,"^\.\\")  ; works. removes all symbolic link 24.02.2018  cleanPath
+	 return actionList
 }
 ;>>>>>>>> removesSymbolicLinksFromFileAdress >>>> 180305085214 >>>> 05.03.2018 08:502:14 >>>>
 
