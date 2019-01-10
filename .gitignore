@@ -211,3 +211,4 @@ ActionLists/_globalActionListsGenerated/*
 # Allow
 !start.ahk
 !Source/sql/**/*
+!Source/plugins/**/*
