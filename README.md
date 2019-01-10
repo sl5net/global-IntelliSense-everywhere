@@ -28,7 +28,7 @@ if you use it, please share your ActionLists with the community.
 Its Sponsored!
 This project is sponsored by JetBrains.  JetBrains is a software development company whose mission is to make the strongest, most effective developer tools on earth. Their tools speed up production, freeing developers to grow, discover and create. 
 
-[![JetBrains Logo](https://www.isic.nl/media/1391607/jetbrains.jpg?width=448&height=277&mode=crop&scale=both) 
+![JetBrains Logo](https://www.isic.nl/media/1391607/jetbrains.jpg?width=448&height=277&mode=crop&scale=both) 
 
 This international company has a user base of 4+ million users across 140 countries.  The company has won over 300+ awards.  Their customer base includes, The New York Times, CitiBank, Twitter, Pinterest, NASA, Salesforce and Samsung.
 
@@ -83,7 +83,7 @@ its using (many thanks for it):
 - windows OS (experimental: reactos)
 - autohotkey
 
-[![Autohotkey Logo](https://www.autohotkey.com/assets/images/ahk-logo-no-text241x78-180.png) 
+![Autohotkey Logo](https://www.autohotkey.com/assets/images/ahk-logo-no-text241x78-180.png) 
 
 
 
