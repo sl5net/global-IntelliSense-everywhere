@@ -117,7 +117,8 @@ ToolTipSec(t,x=123,y=321,sec=1000,layer1to20:=1)
   ;~ commaBlank := ", "
   ;~ if(isFunc("RemoveToolTip") )
   ;~ RemoveToolTip%blank%( sec )
-  SetTimer,RemoveToolTip,%sec%
+  ; SetTimer,RemoveToolTip%layer1to20%,%sec%
+  SetTimer,RemoveToolTip_level%layer1to20%,%sec%
   ;~ kkk
   ;~ RemoveToolTip( sec )
   ;~ ; jj
