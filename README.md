@@ -29,7 +29,7 @@ Its Sponsored!
 This project is sponsored by JetBrains.  JetBrains is a software development company whose mission is to make the strongest, most effective developer tools on earth. Their tools speed up production, freeing developers to grow, discover and create. 
 
 [![JetBrains Logo](https://www.isic.nl/media/1391607/jetbrains.jpg?width=448&height=277&mode=crop&scale=both) 
- 
+
 This international company has a user base of 4+ million users across 140 countries.  The company has won over 300+ awards.  Their customer base includes, The New York Times, CitiBank, Twitter, Pinterest, NASA, Salesforce and Samsung.
 
 - - -
@@ -82,6 +82,8 @@ its using (many thanks for it):
 - SQLite (fast, self-contained, high-reliability, full-featured, SQL database engine) 
 - windows OS (experimental: reactos)
 - autohotkey
+[![Autohotkey](https://www.autohotkey.com/assets/images/ahk-logo-no-text241x78-180.png) 
+
 
 Credits:
 - Maniac
