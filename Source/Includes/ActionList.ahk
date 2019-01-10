@@ -64,7 +64,7 @@ ReadActionList( calledFromStr ){
 
 
 	if(!actionList){
-        if(1 && InStr(A_ComputerName,"SL5"))
+        if(0 && InStr(A_ComputerName,"SL5"))
             Speak(A_lineNumber,"PROD")
 		return false
 	}

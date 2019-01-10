@@ -846,12 +846,12 @@ global g_ListBoxActualSizeH_maxFound ; this variable is empty after a fres start
                     tip .= "doubleCtrl: On/Off Listbox, double-click: follows caret"
             }
 
-            ToolTip9sec(tip,ListBoxPosX, tooltipPosY ) ; 13px pe line
+            ToolTip9sec(tip,ListBoxPosX, tooltipPosY  ) ; 13px pe line
             winmove,% tip, ,% ListBoxPosX, % tooltipPosY ; needet if tootop is beetween monitio or out of moinitor bouds 04.01.2019 13:07
-
-
         }
 
+
+        ; tets
 
         ; plausibilty-check (18-12-28_08-03):
         ; WinGetActiveTitle,at

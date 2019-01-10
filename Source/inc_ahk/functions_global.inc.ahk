@@ -433,7 +433,7 @@ isDir(Path)
    Return !!InStr(FileExist(Path), "D") 
 }
 
-;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+;/¯¯¯¯ runIfNotExist ¯¯ 190110155137 ¯¯ 10.01.2019 15:51:37 ¯¯\
 runIfNotExist(m_r , m_WinTitle = "",m_category="", doFeedbackMsgBox:=258){
 
 DetectHiddenWindows,On
@@ -549,15 +549,17 @@ if(isHttp || fExist) {
 	return,runCount
 
 }
-;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+;\____ runIfNotExist __ 190110155142 __ 10.01.2019 15:51:42 __/
 
- winGetPos(){
+;/¯¯¯¯ winGetPos ¯¯ 190110155148 ¯¯ 10.01.2019 15:51:48 ¯¯\
+winGetPos(){
          WinGetPos , left, top, width, height, A   ;, %needle
 		    ;~ mm := {left:left, top:top, width:width, height:height}
 		    mm := {left:left, top:top, width:width, height:height,right:left + width, bottom:top + height}
 return mm
 		
 }
+;\____ winGetPos __ 190110155152 __ 10.01.2019 15:51:52 __/
 
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 WinActivateTry(wintit,tries){

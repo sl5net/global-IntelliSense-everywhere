@@ -856,7 +856,7 @@ return
 
 
     ; msgbox,% "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
-    actionListWithoutGenerated_witExt := StrReplace(actionList_witExt, "._Generated.ahk", "")
+    actionListWithoutGenerated_withExt := StrReplace(actionList_withExt, "._Generated.ahk", "")
 
 
 
@@ -891,18 +891,34 @@ s =
 ;
 
 
+    ; extension := SubStr( actionListWithoutGenerated_withExt , -3 )
+    ; actionListWithoutGenerated_withExt := StrReplace(actionList_withExt, "._Generated.ahk", "")
+    sActionListWithoutGenerated_withExt := RegExReplace(actionList,"\.[^\\]*$") ".ahk"
+    extension := SubStr( sActionListWithoutGenerated_withExt , -3 )
+    if(extension <> ".ahk"){
+        m =
+        (
+%actionListWithoutGenerated_withExt% = actionListWithoutGenerated_withExt
+%sActionListWithoutGenerated_withExt% = sActionListWithoutGenerated_withExt
+%extension% = extension
+%actionList% = actionList `n`n
+        )
+        MsgBox,262160,is wrong extension, % m "is wrong extension :(`n (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+
+    }
 
     sActionListFileName := actionListFileName ; needs to saved becouse it changing if input box inside
-    sActionListWithoutGenerated_witExt := actionListWithoutGenerated_witExt  ; needs to saved becouse it changing if input box inside
-    ;msgbox,%  actionListWithoutGenerated_witExt "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+    ; ; needs to saved becouse it changing if input box inside
+    ;msgbox,%  actionListWithoutGenerated_withExt "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
     ;return
     timeoutSec := 9
     AHKcode := "#" "NoTrayIcon `n"
     AHKcode2 =
     (
 SetWorkingDir,%A_ScriptDir%
-; actionList_witExt = %actionList_witExt%
-; actionListWithoutGenerated_witExt = %actionListWithoutGenerated_witExt%
+sActionListWithoutGenerated_withExt = %sActionListWithoutGenerated_withExt%
+; actionList_withExt = %actionList_withExt%
+; actionListWithoutGenerated_withExt = %actionListWithoutGenerated_withExt%
 ; actionList = %actionList%
 s =
 (
@@ -918,19 +934,16 @@ if(true){
     s =
 (
 
-
-
 `%s`%
 `)
 }
-
-
-
-FileAppend, `% s , %sActionListWithoutGenerated_witExt%
+if(!sActionListWithoutGenerated_withExt)
+    MsgBox,262160,sActionListWithoutGenerated_withExt is empty, `% ":( (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+FileAppend, `% s , %sActionListWithoutGenerated_withExt%
+; clipboard := sActionListWithoutGenerated_withExt
 exitApp
     )
     ; clipboard := AHKcode AHKcode2 " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
-
 
 
 ; if("%isMuliline%"){
@@ -939,11 +952,9 @@ result := Loop_Parse_ParseWords( s )
 ; isCommandType := setCommandTypeS(rootLineObj, rootCmdTypeObj, rootCollectObj, rootDoObj )
 ; AddWordToList(rootCmdTypeObj,strDebug4insert:="",strDebugByRef:="",1,1, s , 0,"ForceLearn",LearnedWordsCount, rootCmdTypeObj.is_IndexedAhkBlock)
 
-
-
     DynaRun(AHKcode AHKcode2)
     if(0 && InStr(A_ComputerName,"SL5"))
-        msgbox,% AHKcode2 "`n saved to " sActionListWithoutGenerated_witExt "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+        msgbox,% AHKcode2 "`n saved to " sActionListWithoutGenerated_withExt "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
     ; tooltip,% AHKcode2 "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
 
 
@@ -2169,9 +2180,9 @@ global-IntelliSense-everywhere-Nightly-Build [G:\fre\git\github\global-IntelliSe
 
 
     if( SubStr( actionList , -3 ) <> ".ahk" ) ; 06.03.2018 13:09
-        actionList_witExt := actionList ".ahk"
+        actionList_withExt := actionList ".ahk"
     else
-        actionList_witExt := actionList
+        actionList_withExt := actionList
 
 
 

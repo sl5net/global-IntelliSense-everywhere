@@ -7,10 +7,13 @@ RemoveToolTip(){
 ;~ l;~ ll
 RemoveToolTip:
   Last_A_This:=A_ThisFunc . A_ThisLabel
-  ToolTip,
+  ToolTip, , , , 1
   SetTimer, RemoveToolTip, Off
   ;lll(A_LineNumber, "ToolTipSec_RemoveToolTip.inc.ahk",Last_A_This)
 return
 ; lll(A_LineNumber, "ToolTipSec_RemoveToolTip.inc.ahk",Last_A_This)
 #Include *i %A_ScriptDir%\inc_ahk\UPDATEDSCRIPT_global.inc.ahk
 ; lll(A_LineNumber, "ToolTipSec_RemoveToolTip.inc.ahk",Last_A_This)
+
+
+; tootlsfdas dd fsd

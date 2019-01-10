@@ -1,6 +1,4 @@
-﻿#SingleInstance,Force
-
-bodyText =
+﻿bodyText =
 (
 Search Table Words saved in DB. SQL command is simply taken from the WindowTitle (needet token: giListSELECT )
 ESC closes the window
