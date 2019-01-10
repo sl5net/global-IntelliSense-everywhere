@@ -461,7 +461,7 @@ SELECT actionList FROM actionLists WHERE actionList Like 'g_Word' AND actionList
             if(A_Index > 1)
                 break
                 ; Like '%g_Word%'
-                SELECT := StrReplace(g_permanentSELECT, "%g_Word%", "%" g_Word "%" )
+                SELECT := StrReplace(g_permanentSELECT, "g_Word", "%" g_Word "%" )
 
             ; clipboard  := g_listSELECT_FROM_WinTitle
             ; tooltip,%SELECT%`n(%A_LineFile%~%A_LineNumber%),550,201,4
@@ -469,6 +469,12 @@ SELECT actionList FROM actionLists WHERE actionList Like 'g_Word' AND actionList
             ; "SELECT actionList FROM actionLists WHERE actionList Like '%" g_Word "%' AND actionList NOT Like '%isNotAProject.ahk%' order by actionList;"
             ; test
             ; SELECT  actionList FROM actionLists WHERE actionList  Like '%g_Word%' AND actionList NOT  Like '%isNotAProject.ahk%' order by actionList
+            ;\____ special __ 190110072759 __ 10.01.2019 07:27:59 __/
+        }else if(g_permanentSELECT ) {
+            if(A_Index == 1)
+                SELECT := StrReplace(g_permanentSELECT, "g_Word", "%" g_Word "%" )
+            ; else
+            ;    break
         }else{
 
         if(A_Index == 2 && instr(actionList, "isNotAProject" ))
@@ -520,10 +526,7 @@ SELECT actionList FROM actionLists WHERE actionList Like 'g_Word' AND actionList
             '%actionList%' = actionList
             )
             tooltip,%tip%`n(%A_LineFile%~%A_LineNumber%),550,201,4
-
         }
-        ; php
-
         } ; end of else NOT special cases 19-01-09_10-14
 
 		 ; if(1 && InStr(A_ComputerName,"SL5") )

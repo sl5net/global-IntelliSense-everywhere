@@ -1167,7 +1167,10 @@ SetTitleMatchMode,regEx
 
 
 #IfWinActive, ; thats probably needet. 27.09.2018 10:29 was problem that hitting 1 , 2 , 3 ... not triggered any. triggers notihng.. with this line it works again.
+
 RecomputeMatchesTimer:
+    ; was triggerd by strg+shift+backspace and in search jetbraisns windwo ... may always? 19-01-10_07-19
+   ; MsgBox,262208,% "used ?? :)`n" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ,% ":)`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
    Thread, NoTimers
    RegRead, RegReadActionList_DebugInfo, HKEY_CURRENT_USER, SOFTWARE\sl5net, actionList
    short_RegReadActionList_DebugInfo := RegExReplace(RegReadActionList_DebugInfo,".*\\")
@@ -1603,10 +1606,7 @@ checkActionListAHKfile_sizeAndModiTime:
             sleep,3000
        }
         ; actionList := removesSymbolicLinksFromFileAdress( A_ScriptDir "\..\actionLists\_globalActionListsGenerated\_global.ahk" )
-        if(1 && InStr(A_ComputerName,"SL5"))
-        tooltip,NOT FileExist(%actionList%) `n `n (from: %A_LineFile%~%A_LineNumber%), 1,300,5
         actionList := removesSymbolicLinksFromFileAdress( A_ScriptDir "\..\actionLists\_globalActionListsGenerated\isNotAProject.ahk" )
-;
     }
     if(!FileExist(actionList)){
         msg =
@@ -1872,6 +1872,7 @@ checkInRegistryChangedActionListAddress:
 
 
 
+    RegRead, g_permanentSELECT, HKEY_CURRENT_USER, SOFTWARE\sl5net, g_permanentSELECT
     RegRead, actionListNewTemp_RAW, HKEY_CURRENT_USER, SOFTWARE\sl5net, actionList
     actionListNewTemp_withoutExt := actionListNewTemp_RAW
     if( SubStr( actionListNewTemp_withoutExt , -3 ) == ".ahk" ){

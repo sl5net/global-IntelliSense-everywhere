@@ -82,8 +82,12 @@ value: >%titClean%< ?= >%flagTitle_giListSELECT_running%<
         %g_permanentSELECT%
         )
     	; ToolTip,% tip "`n`n`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" ,550,55,8
-    }else
+    }else {
+        if(g_listSELECT_FROM_WinTitle)
+            g_permanentSELECT := "" ; was set by winTitle
         g_listSELECT_FROM_WinTitle := ""
+        g_permanentSELECT_type := ""
+     }
 }
 
 
