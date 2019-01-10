@@ -1,4 +1,5 @@
-; Hallo: https://www.autohotkey.com/boards/viewtopic.php?f=6&t=45684&p=257223#p257223
+﻿; Hallo: https://www.autohotkey.com/boards/viewtopic.php?f=6&t=45684&p=257223#p257223  19-01-10_10-27
+; test 
 
 #SingleInstance,Force
 RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, g_permanentSELECT, % ""
@@ -47,4 +48,5 @@ return
 
 GuiClose:
 Gui, Destroy
-return  
+return
+
