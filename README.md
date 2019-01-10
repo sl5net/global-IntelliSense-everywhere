@@ -82,7 +82,9 @@ its using (many thanks for it):
 - SQLite (fast, self-contained, high-reliability, full-featured, SQL database engine) 
 - windows OS (experimental: reactos)
 - autohotkey
-[![Autohotkey](https://www.autohotkey.com/assets/images/ahk-logo-no-text241x78-180.png) 
+
+[![Autohotkey Logo](https://www.autohotkey.com/assets/images/ahk-logo-no-text241x78-180.png) 
+
 
 
 Credits:
