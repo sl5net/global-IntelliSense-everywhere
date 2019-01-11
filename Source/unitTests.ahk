@@ -51,8 +51,8 @@ lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"hey from ini ")
 ;\____ g_ignRegm __ 181124100939 __ 24.11.2018 10:09:39 __/
 
 setTitleMatchMode,2
-if(!winExist("ActionList.ahk.log.txt") && FileExist("log\ActionList.ahk.log.txt") )
-    run,log\ActionList.ahk.log.txt
+if(!winExist("actionList.ahk.log.txt") && FileExist("log\actionList.ahk.log.txt") )
+    run,log\actionList.ahk.log.txt
 
 ; to ms ms Spe to Ms mes mes too t mu 
 
@@ -62,11 +62,11 @@ global errStr_first := ""
 
 global g_LegacyLearnedWords
 global g_ScriptTitle
-global g_ActionListDone
-global g_ActionListDB
-global ActionList
-global g_ActionListID
-global g_ActionListDBfileAdress
+global g_actionListDone
+global g_actionListDB
+global actionList
+global g_actionListID
+global g_actionListDBfileAdress
 global g_config
 
 
@@ -105,15 +105,15 @@ ifwinexist,gi
 
 
 
-g_ActionListDB.BeginTransaction()
+g_actionListDB.BeginTransaction()
 
 fromLine := "`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
-g_ActionListDB.Query("delete from Words where ActionListID = " g_ActionListID ";")
+g_actionListDB.Query("delete from Words where actionListID = " g_actionListID ";")
 if(sqlLastError := trim(SQLite_LastError()))
-    msgbox,:( g_ActionListID = %g_ActionListID%,sqlLastError = %sqlLastError% %fromLine%
+    msgbox,:( g_actionListID = %g_actionListID%,sqlLastError = %sqlLastError% %fromLine%
 CreateWordsTable()
 if(sqlLastError := trim(SQLite_LastError()))
-    msgbox,:( g_ActionListID = %g_ActionListID%,sqlLastError = %sqlLastError% %fromLine%
+    msgbox,:( g_actionListID = %g_actionListID%,sqlLastError = %sqlLastError% %fromLine%
 
 
 
@@ -150,7 +150,7 @@ WinGetActiveTitle,activeTitle
 
 ;             SELECT := "SELECT wordreplacement FROM Words Where wordreplacement like '"
 ;              SELECT .= timeStampMini "' LIMIT 1 " ";"
-;              Matches := g_ActionListDB.Query(SELECT)
+;              Matches := g_actionListDB.Query(SELECT)
 ;              isFound  := false
 ;              for each, row in Matches.Rows
 ;                  if( row[1] )
@@ -161,8 +161,8 @@ WinGetActiveTitle,activeTitle
 err_without_includes_update(){
     ToolTip5sec( "thats only a stup :) ====> return `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
     return
-    ActionList := "..\ActionLists\ChromeWidgetWin1\playground_Piratenpad_Google_Chrome.ahk"
-    if(!FileExist(ActionList)){
+    actionList := "..\actionLists\ChromeWidgetWin1\playground_Piratenpad_Google_Chrome.ahk"
+    if(!FileExist(actionList)){
         msgbox,% "ERROR `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
     }
 content =
@@ -174,10 +174,10 @@ ___open window library |rr||ahk|openInEditor,playground_Piratenpad_Google_Chrome
 heyho12345
 )
 
-FileAppend, % content, % ActionList "_temp"
+FileAppend, % content, % actionList "_temp"
 sleep,20
-fileCopy, % ActionList "_temp", % ActionList,1
-filedelete, % ActionList "_temp"
+fileCopy, % actionList "_temp", % actionList,1
+filedelete, % actionList "_temp"
 
 }
 ;\____ err_without_includes_update __ 181224102748 __ 24.12.2018 10:27:48 __/
@@ -187,7 +187,7 @@ filedelete, % ActionList "_temp"
 
 ;/¯¯¯¯ err_string_ahk_line ¯¯ 181204152914 ¯¯ 04.12.2018 15:29:14 ¯¯\
 err_string_ahk_line(){
-    f=log\ActionList.ahk.log.txt
+    f=log\actionList.ahk.log.txt
     fileDelete,% f
     while(0 && fileExist(f))
         sleep,150
@@ -203,7 +203,7 @@ err_string_ahk_line(){
 
     SELECT := "SELECT word FROM Words Where word like '" in "' "
     SELECT .= " LIMIT 1 " ";"
-    Matches := g_ActionListDB.Query(SELECT)
+    Matches := g_actionListDB.Query(SELECT)
     isFound  := false
     for each, row in Matches.Rows
         if( row[1] )
@@ -220,12 +220,12 @@ err_string_ahk_line(){
 ; err_read_actionList_from_file_and_preParse()
 ;/¯¯¯¯ err_bewe ¯¯ 181119210955 ¯¯ 19.11.2018 21:09:55 ¯¯\
 err_read_actionList_from_file_and_preParse(){
-    ; maybe you need to set 	g_ActionListDone  to 0 19.11.2018 21:45
-    ; if( g_ActionListDone == "0"){ ;if this is read from the ActionList ; 1 ||
+    ; maybe you need to set 	g_actionListDone  to 0 19.11.2018 21:45
+    ; if( g_actionListDone == "0"){ ;if this is read from the actionList ; 1 ||
 
 
 
-    fileAddress := "..\ActionLists\_globalActionLists\.....................ahk"
+    fileAddress := "..\actionLists\_globalActionLists\.....................ahk"
     FileRead, in , % fileAddress
     result := Loop_Parse_ParseWords( in )
     clipboard  := result
@@ -323,7 +323,7 @@ if(countErrors>0){
 	sleep,2000
 }
 
-g_ActionListDB.EndTransaction()
+g_actionListDB.EndTransaction()
 restoreClosedAHK()
 
 
@@ -384,61 +384,61 @@ info =
 (
 	global g_LegacyLearnedWords
 	global g_ScriptTitle
-	global g_ActionListDone
-	global g_ActionListDB
-	global ActionList
-	global g_ActionListID
-	global g_ActionListDBfileAdress
+	global g_actionListDone
+	global g_actionListDB
+	global actionList
+	global g_actionListID
+	global g_actionListDBfileAdress
 	global g_config
 )
 
 
-global g_ActionListDB
-g_ActionListDBfileAdress := "G:\fre\private\sql\sqlite\ActionList.db"
-g_ActionListDBfileAdress  =  G:\fre\private\sql\sqlite\ActionList.db
-if(!fileexist(g_ActionListDBfileAdress))
-    g_ActionListDBfileAdress := A_ScriptDir "\ActionListLearned.db"
-g_ActionListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", g_ActionListDBfileAdress ) ;
+global g_actionListDB
+g_actionListDBfileAdress := "G:\fre\private\sql\sqlite\actionList.db"
+g_actionListDBfileAdress  =  G:\fre\private\sql\sqlite\actionList.db
+if(!fileexist(g_actionListDBfileAdress))
+    g_actionListDBfileAdress := A_ScriptDir "\actionListLearned.db"
+g_actionListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", g_actionListDBfileAdress ) ;
 
 global g_LegacyLearnedWords =
 global g_ScriptTitle = gi-everywhere
-global ActionList
-ActionList = ..\ActionLists\ChromeWidgetWin1\lubuntu18-11-19_16-05_Piratenpad_Google_Chrome.ahk._Generated.ahk
-global g_ActionListID
-global g_ActionListDBfileAdress
+global actionList
+actionList = ..\actionLists\ChromeWidgetWin1\lubuntu18-11-19_16-05_Piratenpad_Google_Chrome.ahk._Generated.ahk
+global g_actionListID
+global g_actionListDBfileAdress
 global g_config
 
 
-if(!g_ActionListDB)
-    g_ActionListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", g_ActionListDBfileAdress ) ;
+if(!g_actionListDB)
+    g_actionListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", g_actionListDBfileAdress ) ;
 
-if(!g_ActionListID := getActionListID(ActionList)){ ; 24.03.2018 23:02
-	sql := "INSERT INTO ActionLists "
-	sql .= " (id, ActionList, ActionListmodified, ActionListsize) VALUES "
-	sql .= " (null, '" ActionList "', '" ActionListModified "', '" ActionListSize "' );"
-    g_ActionListDB.Query(sql)
+if(!g_actionListID := getActionListID(actionList)){ ; 24.03.2018 23:02
+	sql := "INSERT INTO actionLists "
+	sql .= " (id, actionList, actionListmodified, actionListsize) VALUES "
+	sql .= " (null, '" actionList "', '" actionListModified "', '" actionListSize "' );"
+    g_actionListDB.Query(sql)
     fromLine := "`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
-    if(!g_ActionListID := getActionListID(ActionList))
+    if(!g_actionListID := getActionListID(actionList))
         if(sqlLastError := trim(SQLite_LastError()))
-            msgbox,:( g_ActionListID = %g_ActionListID%,sqlLastError = %sqlLastError% %fromLine%
+            msgbox,:( g_actionListID = %g_actionListID%,sqlLastError = %sqlLastError% %fromLine%
 }
 fromLine := "`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
 if(sqlLastError := trim(SQLite_LastError()))
-    msgbox,:( g_ActionListID = %g_ActionListID%,sqlLastError = %sqlLastError% %fromLine%
+    msgbox,:( g_actionListID = %g_actionListID%,sqlLastError = %sqlLastError% %fromLine%
 
 fromLine := "`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
 
-; VALUES ('" AddWordIndexTransformed "', '" AddWordTransformed "', " LearnedWordsCount++ ", " g_ActionListID ", " lineNr ");"
+; VALUES ('" AddWordIndexTransformed "', '" AddWordTransformed "', " LearnedWordsCount++ ", " g_actionListID ", " lineNr ");"
 
-VALUES = VALUES ('%fromLine% %A_TickCount%' , '%fromLine%', 0, '%fromLine% %A_TickCount%', %g_ActionListID% , 555);
-INSERT_INTO_words := "INSERT INTO words (wordindexed, word, count, wordreplacement, ActionListID, lineNr) "
+VALUES = VALUES ('%fromLine% %A_TickCount%' , '%fromLine%', 0, '%fromLine% %A_TickCount%', %g_actionListID% , 555);
+INSERT_INTO_words := "INSERT INTO words (wordindexed, word, count, wordreplacement, actionListID, lineNr) "
 INSERT_INTO_words .= VALUES
-g_ActionListDB.Query(INSERT_INTO_words)
+g_actionListDB.Query(INSERT_INTO_words)
 
 fromLine := "`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
 if(sqlLastError := trim(SQLite_LastError()))
-    msgbox,g_ActionListID = %g_ActionListID%,:(  sqlLastError = `n`n>%sqlLastError%< `n`n%fromLine%
-    ; msgbox,, :-) g_ActionListID = %g_ActionListID%,%sqlLastError% %fromLine%,2
+    msgbox,g_actionListID = %g_actionListID%,:(  sqlLastError = `n`n>%sqlLastError%< `n`n%fromLine%
+    ; msgbox,, :-) g_actionListID = %g_actionListID%,%sqlLastError% %fromLine%,2
 
 }
     ; ParseWordsCount := ReadActionList(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
@@ -592,7 +592,7 @@ if(1){ ; playground
 
 ;/¯¯¯¯ test_synonym
 test_synonym(){
-    f=log\ActionList.ahk.log.txt
+    f=log\actionList.ahk.log.txt
     fileDelete,% f
     while(a_index < 5 && fileExist(f))
         sleep,150
@@ -604,7 +604,7 @@ test_synonym(){
 
 	    SELECT := "SELECT word FROM Words Where word like '" in "' "
         SELECT .= " LIMIT 1 " ";"
-        Matches := g_ActionListDB.Query(SELECT)
+        Matches := g_actionListDB.Query(SELECT)
         isFound  := false
         for each, row in Matches.Rows
             if( row[1] )
@@ -824,8 +824,8 @@ ahkScripte
 PhpScripte
 )
 	
-f=log\ActionList.ahk.log.txt
-fileDelete,log\ActionList.ahk.log.txt
+f=log\actionList.ahk.log.txt
+fileDelete,log\actionList.ahk.log.txt
 while(fileExist(f))
     sleep,150
 
@@ -959,8 +959,8 @@ if(result <> expected){
 ;/¯¯¯¯ err_is_r ¯¯ 181128135906 ¯¯ 28.11.2018 13:59:06 ¯¯\
 err_is_r(){
 ; automatically create keywords. by using: |r|value value value ...
-    f=log\ActionList.ahk.log.txt
-    fileDelete,log\ActionList.ahk.log.txt
+    f=log\actionList.ahk.log.txt
+    fileDelete,log\actionList.ahk.log.txt
     while(fileExist(f))
         sleep,100
 
@@ -990,7 +990,7 @@ if(errStr := getAssertEqual_ErrorStr(in,expected,A_ThisFunc ":" A_LineNumber))
 ;/¯¯¯¯ err_is_r_without_keywords ¯¯ 181128135906 ¯¯ 28.11.2018 13:59:06 ¯¯\
 err_is_r_without_keywords(){
 ; automatically create keywords. by using: |r|value value value ...
-    f=log\ActionList.ahk.log.txt
+    f=log\actionList.ahk.log.txt
     fileDelete, % f
     while(fileExist(f))
         sleep,100
@@ -1009,7 +1009,7 @@ setTitleMatchMode Mode setTitleMatch Match setTitle Title|r|setTitleMatchMode
 if(errStr := getAssertEqual_ErrorStr(in,expected,A_ThisFunc ":" A_LineNumber))
     Return errStr " °" A_LineNumber ":" A_ThisFunc "°" 
 
-    f=log\ActionList.ahk.log.txt
+    f=log\actionList.ahk.log.txt
     fileDelete, % f
     while(fileExist(f))
         sleep,100
@@ -1033,8 +1033,8 @@ if(errStr := getAssertEqual_ErrorStr(in,expected,A_ThisFunc ":" A_LineNumber))
 err_is_without_keywords(){
 
 
-f=log\ActionList.ahk.log.txt
-fileDelete,log\ActionList.ahk.log.txt
+f=log\actionList.ahk.log.txt
+fileDelete,log\actionList.ahk.log.txt
 while(fileExist(f))
     sleep,100
 
@@ -1866,19 +1866,19 @@ getAssertEqual_ErrorStr(ByRef in,ByRef expected,ALineNumber,myFuncName := "Loop_
 		fromLine := ALineNumber ">`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
         sqlLastError := SQLite_LastError()
         if(trim(sqlLastError)){
-            tooltip,% ":( g_ActionListID = " g_ActionListID ",sqlLastError = " sqlLastError ", fromLine= " fromLine
+            tooltip,% ":( g_actionListID = " g_actionListID ",sqlLastError = " sqlLastError ", fromLine= " fromLine
             sleep,3000
         }
         if(1){
-            VALUES = VALUES ('%A_ScriptName%_%A_ThisFunc%' , '%fromLine%', 0, '%timeStampMini%', %g_ActionListID% , 555);
-            INSERT_INTO_words := "INSERT INTO words (wordindexed, word, count,     wordreplacement   , ActionListID, lineNr) "
+            VALUES = VALUES ('%A_ScriptName%_%A_ThisFunc%' , '%fromLine%', 0, '%timeStampMini%', %g_actionListID% , 555);
+            INSERT_INTO_words := "INSERT INTO words (wordindexed, word, count,     wordreplacement   , actionListID, lineNr) "
             INSERT_INTO_words .= VALUES
-            g_ActionListDB.Query(INSERT_INTO_words)
+            g_actionListDB.Query(INSERT_INTO_words)
 
             ; check if its really in db:
             SELECT := "SELECT wordreplacement FROM Words Where wordreplacement like '"
             SELECT .= timeStampMini "' LIMIT 1 " ";"
-            Matches := g_ActionListDB.Query(SELECT)
+            Matches := g_actionListDB.Query(SELECT)
             isFound  := false
             for each, row in Matches.Rows
                 if( row[1] )
@@ -1887,7 +1887,7 @@ getAssertEqual_ErrorStr(ByRef in,ByRef expected,ALineNumber,myFuncName := "Loop_
     		fromLine := ALineNumber ">`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
             sqlLastError := SQLite_LastError()
             if(!isFound)
-                msgbox,:( g_ActionListID = %g_ActionListID%,sqlLastError = %sqlLastError% %fromLine% `n`n %SELECT%
+                msgbox,:( g_actionListID = %g_actionListID%,sqlLastError = %sqlLastError% %fromLine% `n`n %SELECT%
 
 
         }
@@ -1955,7 +1955,7 @@ getAssertEqual_ErrorStr(ByRef in,ByRef expected,ALineNumber,myFuncName := "Loop_
 
 prepareGi(){
 	
-; fileDelete,log\ActionList.ahk.log.txt
+; fileDelete,log\actionList.ahk.log.txt
 	
 	CoordMode, ToolTip,Screen
 	

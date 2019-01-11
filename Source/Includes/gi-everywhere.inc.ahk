@@ -375,10 +375,13 @@ RecomputeMatches( calledFromStr, is_Recursion := false ){
     global g_permanentSELECT ; addet 19-01-09_11-51
     global g_permanentSELECT_type ; addet 19-01-09_11-51
 
+    global g_config ; addet 19-01-11_21-47
+
+
     if(g_listSELECT_FROM_WinTitle && WinActive(g_listSELECT_FROM_WinTitle))
         do_SELECT_actionList_FROM_actionLists_NotLike_isNotAProject := true
 
-; too tool tool tool ooll
+; too tool tool tool ooll tool too
 ; test tes to
 ; tool
 
@@ -387,7 +390,7 @@ RecomputeMatches( calledFromStr, is_Recursion := false ){
 	
     ; Menu, Tray, Icon, shell32.dll, 266 ; pretty black clock
 	
-    ; toot too t
+    ; toot too test test hallo
 	
 	setTrayIcon("RecomputeMatches")
 	if(1 && InStr(A_ComputerName,"SL5"))
@@ -488,6 +491,7 @@ SELECT actionList FROM actionLists WHERE actionList Like 'g_Word' AND actionList
 			break
 		
 		o := valueObj[A_Index]
+
 		if(!o){
         		; Msgbox,:( Oops >%A_Index%<(%A_LineFile%~%A_LineNumber%)
 			toolTip, % "Oops no SQL-Template `nNr." id "(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),1,1
@@ -499,9 +503,10 @@ SELECT actionList FROM actionLists WHERE actionList Like 'g_Word' AND actionList
         		Msgbox,:( Oops `n %tip%(%A_LineFile%~%A_LineNumber%)
 			continue
 		}
+		; test test k testesg zzzzzzzzzzzzzzzzzzääääqq qqqqqqqq q #####üüüüüüü üüüü
+		; test lkjlk komisch
 		
-		
-            ; o["listID"]["len"] := 0 ; dont to this ! it changes the data object! its referene !
+        ; o["listID"]["len"] := 0 ; dont to this ! it changes the data object! its referene !
 		sql["pre_Where"] := substr( o["sql"], 1 , o["word"]["pos"] - 1 )
 		sql["postWhere"] := substr( o["sql"] , o["word"]["pos"] + 1, - 1 + o["listID"]["pos"] - o["word"]["pos"] )
 		sql["rest"] := substr( o["sql"] , o["listID"]["pos"] + 1 + o["listID"]["len"] )
@@ -512,9 +517,24 @@ SELECT actionList FROM actionLists WHERE actionList Like 'g_Word' AND actionList
         } else g_WordSQL := g_Word
 		if(o["listID"]["len"])
 			SELECT := sql["pre_Where"] g_WordSQL sql["postWhere"] "= " g_actionListID " " sql["rest"] ; ; <== dirty bugfix
-		ELSE
+		ELSE{
+		    if(0 && InStr(A_ComputerName,"SL5")) ; was a bug no fixed. 11.01.2019 22:43
+		        Msgbox,never happens ??? `n 11.01.2019 22:28 (%A_LineFile%~%A_LineNumber%)
 			SELECT := sql["pre_Where"] g_WordSQL sql["postWhere"]
-		
+        }
+
+        ;     g_config["sql"]["select"]["ignIfWhereIsWithoutListID"] &&
+        if(0 && InStr(A_ComputerName,"SL5"))
+            msgbox,% g_config["sql"]["select"]["ignIfWhereIsWithoutListID"] "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+        toolTip, % o["listID"]["len"] "(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),1,1
+		if( !(o["listID"]["len"]) && g_config["sql"]["select"]["ignIfWhereIsWithoutListID"] ){
+			    ; toolTip, % "(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),1,1
+                ; Msgbox,% A_Index ": " SELECT "`n`n`nlistIDpos=" o["listID"]["pos"] "`nignIfWhereIsWithoutListID =" g_config["sql"]["select"]["ignIfWhereIsWithoutListID"]
+                break ; 11.01.2019 22:54
+		}
+; test test gibgs zif zifff zzzzzz uuui oiuoiu lkjjcasd we.,nqrkdlsnqwqwelkjjj ü üü üüü wwww sss nmnmnmn iiiooooooooo
+; zzzslk zzzz test zzz hallo welt boxlaut boxlaut gibts nicht nicht nich
+
         if(0 && InStr(A_ComputerName,"SL5")){
 
             tip =

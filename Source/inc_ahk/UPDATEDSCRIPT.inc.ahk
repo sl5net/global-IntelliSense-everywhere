@@ -2,6 +2,8 @@
 ;STARTOFSCRIPT
 ;~ 
 
+
+
 UPDATEDSCRIPT:
   FileGetAttrib,attribs,%A_ScriptFullPath%
   IfInString,attribs,A

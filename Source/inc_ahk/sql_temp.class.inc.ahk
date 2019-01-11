@@ -14,6 +14,7 @@ class Sql_Temp { ; search help: sqltemp tempsql
 
 ; too tot too too toot toot t
 
+
         o := array()
         loop,7
         {
@@ -40,14 +41,17 @@ class Sql_Temp { ; search help: sqltemp tempsql
             if(RegExMatch(SELECT,"Oim)" regex,Found)){
                 oWord := { pos : Found.Pos(3), len : Found.Len(3) }
                 ; msgbox,% ObjToStrTrim(oWord) "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
-            }
+            } else
+                oWord := "" ; importend add 19-01-11_22-41 ; if you dont set it back it always using the old before
             regex := "actionListID\s+(>\s*\d+)"
             if(RegExMatch(SELECT,"Oim)" regex,Found)){
                 oListID := { pos : Found.Pos(1), len : Found.Len(1) }
                 ; msgbox,% ObjToStrTrim(oListID) "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
-            }
+            } else
+                oListID := "" ; importend add 19-01-11_22-41 ; if you dont set it back it always using the old before
             o[fileIndex] := { sql: SELECT, word: oWord, listID : oListID }
-        }
+        } ; endOf loop,7
+
         jsonStr := json(o)
         ; g_actionListDB.BeginTransaction()
 

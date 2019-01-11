@@ -1,23 +1,14 @@
 ﻿; Indentation_style: https://de.wikipedia.org/wiki/Einrueckungsstil#SL5small-Stil
 ; # ErrorStdOut
 
-
-
 FileEncoding, UTF-8
 
-
-
 #Include %A_ScriptDir%\inc_ahk\init_global.init.inc.ahk
-
-
 
 #Include %A_ScriptDir%\inc_ahk\soundBeep.inc.ahk
 
 
-
 #Include %A_ScriptDir%\inc_ahk\sql_temp.class.inc.ahk
-
-
 
 ;global g_ignReg := { feedbackMsgBox:{tit:".^", text:".^"} ,          saveLogFiles: {ln:".^", scriptName:"\b(Window|ListBox)\.ahk", text:"
 ;global g_ignReg := { feedbackMsgBox:{tit:".^", text:".^"} ,          saveLogFiles: {ln:".^", scriptName:"\b(Window|ListBox)\.ahk", text:"
@@ -35,7 +26,6 @@ lll( A_ThisFunc ":" A_LineNumber , A_LineFile , "i am started 10" )
 #MaxHotkeysPerInterval 99000000
 #HotkeyInterval 99000000
 ; Process, Priority,, Normal
-SetBatchLines, -1 ; used till 03.11.2018 18:51. thats okay. Use SetBatchLines -1 to never sleep (i.e. have the script run at maximum speed). The default setting is 10m
 ; SetBatchLines, 20ms ; addet 03.11.2018 18:51
 ; SetBatchLines, 10
 SetKeyDelay, -1, -1
@@ -43,7 +33,6 @@ SetWinDelay, -1 ; Sets the delay that will occur after each windowing command, s
 ; SetWinDelay, 10
 SetControlDelay, -1 ; A short delay (sleep) is done automatically after every Control command that changes a control, namely Control, ControlMove, ControlClick, ControlFocus, and ControlSetText (ControlSend uses SetKeyDelay).
 ; SetControlDelay, 10
-
 
 
 lineFileName := RegExReplace(A_LineFile, ".*\\([\w\s\.]+)$", "$1")
@@ -64,8 +53,6 @@ SetBatchLines, -1 ; I can not do recognice any improvement with that right now
 ; L (or Low), B (or BelowNormal), N (or Normal), A (or AboveNormal), H (or High), R (or Realtime)
 Process, Priority,, H ; <=== only use this if its not in a critical development 05.11.2018 13:20
 ; Process, Priority,, R ; <=== it acts on me as if the script was working more UNstable
-
-
 
 ; Critical, On  ; I can not do recognice any improvement with that right now
 ; Thread, NoTimers ; https://autohotkey.com/docs/commands/Thread.htm
@@ -110,39 +97,31 @@ global g_isEnabledKeyboardHotKeys
 
 global Sql_Temp
 
-
-
 global g_config
 
 
 
 g_min_MonitorBound_right := 70 ; used in: ForceWithinMonitorBounds
 
-
-
 g_config := {}
-g_config.Send := { RealisticDelayDynamic: 1  }
-; Msgbox,% "RealisticDelayDynamic=`n" g_config["Send"]["RealisticDelayDynamic"] "`n`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
-g_config.list := { change: { stopRexExTitle: false } }
-
-
+configStr2minify_configFile(A_ScriptDir "\config\config.inc.ahk", "config.minify.inc.ahk")
+#Include *i %A_ScriptDir%\config.minify.inc.ahk
+if(!g_config["FuzzySearch"]["MAXlines"] || !g_config["FuzzySearch"]["keysMAXperEntry"]){
+    Msgbox,% "Oops :( enable=" g_config["FuzzySearch"]["enable"] "`n`n" "MAXlines=" g_config["FuzzySearch"]["MAXlines"] "`n`n" configContentminify "`n`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+    reload
+}
 
 ; g_config.Send := { RealisticDelayDynamic: 2  }
 
-
-
 ; Msgbox,% "RealisticDelayDynamic=`n" g_config["Send"]["RealisticDelayDynamic"] "`n`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
-
-
-
-g_config.FuzzySearch := { enable: true, MAXlines : 87654, keysMAXperEntry : 6, minKeysLen: 4, doValueCopy : false } ; difficult to implement symlink copy for not rr lines doValueCopy. todo: issue . doValueCopy : false  is not fully implemented
-
 
 
 global g_doSound
 g_doSound := false
 if(1 && InStr(A_ComputerName,"SL5") )
     g_doSound := 0
+
+SetBatchLines, -1 ; used till 03.11.2018 18:51. thats okay. Use SetBatchLines -1 to never sleep (i.e. have the script run at maximum speed). The default setting is 10m
 
 
 
@@ -169,8 +148,8 @@ if(1 && InStr(A_ComputerName,"SL5") )
 
 
 
-global g_config ; := { Send:{ RealisticDelayDynamic: true } }
-g_config["Send"]["RealisticDelayDynamic"] := false
+; global g_config ; := { Send:{ RealisticDelayDynamic: true } }
+; g_config["Send"]["RealisticDelayDynamic"] := false
 ; g_config["Send"]["RealisticDelayDynamic"] := 1
 ; Msgbox,% "RealisticDelayDynamic=`n" g_config["Send"]["RealisticDelayDynamic"] "`n`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
 
@@ -604,6 +583,7 @@ if(g_min_searchWord_length <= 2) ; becouse of performance reasons. thats optiona
 
 
 ; test test test test
+; test tool tooltip  tool tool
 
 
 
@@ -686,8 +666,11 @@ if(true){
 
 
 
+
+gosub, checkInRegistryChangedActionListAddress ; At the moment I have the problem that when restarting the wrong list was loaded. it was not ahk list. was repared by window switch alt-tab . may this helps 11.01.2019 23:08
 MainLoop()
 
+; 
 
 
 ; dirty bugfix, https://github.com/sl5net/global-IntelliSense-everywhere/issues/4

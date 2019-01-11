@@ -850,9 +850,9 @@ else{
 
 
    ret := Floor((Width-ListBoxBaseSizeX)/ g_ListBoxCharacterWidthComputed)
-   if(ret < 100){
-        ret := 100 ; dirty bug fix 07.11.2018 19:08
-        if(1 && InStr(A_ComputerName,"SL5"))
+   if(ret < 180){
+        ret := 180 ; dirty bug fix 07.11.2018 19:08
+        if(0 && InStr(A_ComputerName,"SL5"))
             tooltip,% "ret := 100 - dirty bug fix 07.11.2018 19:08 . works???(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")", 30, 70
             ; msgbox,% "ret := 100 - dirty bug fix 07.11.2018 19:08 . works???(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
     }
@@ -863,8 +863,8 @@ else{
 
    
 ; t too msg  to  too to t t t to tooo
-; to to
-
+; to to tooltip tooltip msgbox box testbox testbox oooo oo test testo hans oo test op omaa box
+; msgbox msb ms too l tool  tooltip b
 
 ;Show matched values
 ; Any changes to this function may need to be reflected in ComputeListBoxMaxLength()

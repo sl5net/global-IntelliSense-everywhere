@@ -16,6 +16,27 @@ isInteger(var) {
 }
  
 
+;/¯¯¯¯ onfigStr2minify_configFile ¯¯ 190111201847 ¯¯ 11.01.2019 20:18:47 ¯¯\
+configStr2minify_configFile(ByRef configIncAhkAddress, configMinifyIncAhkAddress := "config.minify.inc.ahk"){
+    ; call it like (11.01.2019 20:19):
+    ; configStr2minify_configFile(A_ScriptDir "\config\config.inc.ahk", "config.minify.inc.ahk")
+    ; # Include *i %A_ScriptDir%\config.minify.inc.ahk
+	; Changes always become active on the next next call. becouse include is a preparser command. 19-01-11_18-33
+	; discussion here: https://stackoverflow.com/questions/54149980/remove-all-unnecessary-whitespaces-from-json-string-with-regex-in-autohotkey
+	FileRead, configContent , % configIncAhkAddress
+	; configContentminify := "configContent =`n(`n" ; configContentminify .= "`n)`n"
+	; ((?!\bg_config\b).)*$
+	; configContentminify .= RegExReplace( configContent , "[\s\t ]*[\n\r]+([^\n\r])(?!\bg_config\b)[\s\t ]*", "`n$1" )
+	configContentminify .= RegExReplace( configContent , "m)[\n\r]+(?!g_config)", "" )
+	tempFileAddress := A_ScriptDir "\" A_TickCount ".temp.txt"
+	FileAppend, % configContentminify, % tempFileAddress
+	FileCopy,% tempFileAddress, %A_ScriptDir%\%configMinifyIncAhkAddress%, 1
+	Sleep,40
+	FileDelete,% tempFileAddress
+	Return configMinifyIncAhkAddress
+}
+;\____ onfigStr2minify_configFile __ 190111201850 __ 11.01.2019 20:18:50 __/
+
 
 JEE_millis_since_midnight(vOpt:=""){ ; renamed from JEE_TimeNowMSec
     VarSetCapacity(SYSTEMTIME, 16, 0)

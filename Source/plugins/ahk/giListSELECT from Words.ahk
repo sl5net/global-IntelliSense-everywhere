@@ -13,6 +13,7 @@ Gui, Add, Edit, yp+40 wp vSearch,
 ; Gui, Show, AutoSize Center, % substr(A_ScriptName , 1, -4)
 newTitle := "giListSELECT distinct ltrim(word), ltrim(worddescription), ltrim(wordreplacement) from Words WHERE word LIKE 'g_Word'  ESCAPE '~' LIMIT 10"
 Gui, Show, w900 Center, % newTitle
+WinGet, active_id, ID, % newTitle
 WinSetTitle,% A_ScriptName ,% newTitle
 ; Send,{tab} ; focus first button
 return
@@ -30,11 +31,22 @@ Gui, Destroy
 return
 
 SetTitleMatchMode,2
-#IfWinActive, giListSELECT
-esc::
+
+
+~esc::
+; ToolTip, % "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" 
+IfWinNotActive, ahk_id %active_id%
+{
+;	ToolTip, % active_id " - " hWnd "=active_id`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" 
+	return
+}
+; ToolTip, % "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" 
 Gui, Destroy
 exitapp
 return
+
+
+
 ; enter:: ; deprecated
      ; Send,!f
 ; return
