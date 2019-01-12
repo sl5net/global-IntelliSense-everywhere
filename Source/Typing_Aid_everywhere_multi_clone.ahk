@@ -1287,6 +1287,9 @@ stopIfWinTitleExist_giListSELECT(activeTitle,detectHidden := "", excludetTitle :
 	    if(1 && InStr(A_ComputerName,"SL5"))
 	        ToolTip, % "WinWaitClose `n`n" . A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\") ,1 , 200, 8
 	    WinWaitClose,% activeTitle
+
+        RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, g_permanentSELECT, % ""
+
 	    ToolTip,  ,1 , 200, 8
 	    ToolTip,  ,1 , 200, 20
 		return true
