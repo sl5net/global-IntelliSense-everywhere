@@ -16,8 +16,31 @@ isInteger(var) {
 }
  
 
-;/¯¯¯¯ onfigStr2minify_configFile ¯¯ 190111201847 ¯¯ 11.01.2019 20:18:47 ¯¯\
-configStr2minify_configFile(ByRef configIncAhkAddress, configMinifyIncAhkAddress := "config.minify.inc.ahk"){
+;/¯¯¯¯ configStr2minify_configFile ¯¯ 190111201847 ¯¯ 11.01.2019 20:18:47 ¯¯\
+configStr2minify_configFile(configIncAhkAddress := "\config\config.inc.ahk", configMinifyIncAhkAddress := "\config.minify.inc.ahk" ){
+    ; needs start with: g_config (12.01.2019 10:57, 19-01-12_10-57)
+    configIncAhkAddress         := A_ScriptDir configIncAhkAddress
+    configMinifyIncAhkAddress   := A_ScriptDir configMinifyIncAhkAddress
+
+    doUpdate := false
+    FileGetTime, modifiedTime_configMinify, % configMinifyIncAhkAddress
+    if(!modifiedTime_configMinify)
+        doUpdate := true
+    else{
+        FileGetTime, modifiedTime, % configIncAhkAddress
+        if(modifiedTime_configMinify < modifiedTime )
+            doUpdate := true
+    }
+
+    If(!doUpdate)
+        return
+
+    msg := doUpdate " = doUpdate (" A_ThisFunc ": " A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+    feedbackMsgBox( msg, msg )
+    ToolTip9sec( msg, 1, 200, 9 )
+    if(1 && InStr(A_ComputerName,"SL5"))
+        sleep,3000
+
     ; call it like (11.01.2019 20:19):
     ; configStr2minify_configFile(A_ScriptDir "\config\config.inc.ahk", "config.minify.inc.ahk")
     ; # Include *i %A_ScriptDir%\config.minify.inc.ahk
@@ -30,12 +53,13 @@ configStr2minify_configFile(ByRef configIncAhkAddress, configMinifyIncAhkAddress
 	configContentminify .= RegExReplace( configContent , "m)[\n\r]+(?!g_config)", "" )
 	tempFileAddress := A_ScriptDir "\" A_TickCount ".temp.txt"
 	FileAppend, % configContentminify, % tempFileAddress
-	FileCopy,% tempFileAddress, %A_ScriptDir%\%configMinifyIncAhkAddress%, 1
-	Sleep,40
+	FileCopy,% tempFileAddress, % configMinifyIncAhkAddress, 1
+	Sleep,20
 	FileDelete,% tempFileAddress
-	Return configMinifyIncAhkAddress
+	reload
+	; Return configMinifyIncAhkAddress
 }
-;\____ onfigStr2minify_configFile __ 190111201850 __ 11.01.2019 20:18:50 __/
+;\____ configStr2minify_configFile __ 190111201850 __ 11.01.2019 20:18:50 __/
 
 
 JEE_millis_since_midnight(vOpt:=""){ ; renamed from JEE_TimeNowMSec

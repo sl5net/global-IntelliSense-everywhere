@@ -13,7 +13,8 @@ g_config.sql := {
 	select: { 
 		ignReg: "m)^((?!\bActionListID\b\s*[><=]).)*$" ,
 		ignIfWhereIsWithoutListID : true
-	}
+	},
+	DB_Browser: "C:\Program Files (x86)\DB Browser for SQLite\DB Browser for SQLite.exe"
 }
 g_config.FuzzySearch := {
 	enable: true,
@@ -24,7 +25,6 @@ g_config.FuzzySearch := {
 }
 
   ; difficult to implement symlink copy for not rr lines doValueCopy. todo: issue . doValueCopy : false  is not fully implemented
-
  ; g_config["sql"["select"]["ignIfWhereIsWithoutListID"]
  ; is matching some at the end: at the moment SQL Nr 6,7 and the magic selects later are without ListID 11.01.2019 23:05
  ; g_config["sql"["select"]["ignReg"] not implemented yet 19-01-11_21-39

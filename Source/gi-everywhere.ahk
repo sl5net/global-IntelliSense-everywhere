@@ -104,8 +104,10 @@ global g_config
 g_min_MonitorBound_right := 70 ; used in: ForceWithinMonitorBounds
 
 g_config := {}
-configStr2minify_configFile(A_ScriptDir "\config\config.inc.ahk", "config.minify.inc.ahk")
+
+configStr2minify_configFile()
 #Include *i %A_ScriptDir%\config.minify.inc.ahk
+
 if(!g_config["FuzzySearch"]["MAXlines"] || !g_config["FuzzySearch"]["keysMAXperEntry"]){
     Msgbox,% "Oops :( enable=" g_config["FuzzySearch"]["enable"] "`n`n" "MAXlines=" g_config["FuzzySearch"]["MAXlines"] "`n`n" configContentminify "`n`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
     reload
@@ -348,7 +350,7 @@ SetTimer,checkActionListAHKfile_sizeAndModiTime, % lbl_default_checkActionListAH
 SetTimer,check_some_keys_hanging_or_freezed,1800 ; ; 30.08.2018 13:52 it sometimes happesn. and if it happens then its really ugly !!!! :( !!
 SetTimer,check_actionList_GUI_is_hanging_or_freezed,1800 ; ; 26.09.2018 16:38 it sometimes happesn.
 SetTimer,checkWinChangedTitle,1000 ; RegRead, actionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, actionList
-; activeTitleOLD := activeTitle
+SetTimer,check_configFile_Changed,2000
 
 
 
@@ -664,13 +666,9 @@ if(true){
         msgbox,% " ERROR !Sql_Temp.valueObj `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
 }
 
-
-
-
 gosub, checkInRegistryChangedActionListAddress ; At the moment I have the problem that when restarting the wrong list was loaded. it was not ahk list. was repared by window switch alt-tab . may this helps 11.01.2019 23:08
+setTrayIcon()
 MainLoop()
-
-; 
 
 
 ; dirty bugfix, https://github.com/sl5net/global-IntelliSense-everywhere/issues/4
@@ -2709,6 +2707,11 @@ fixBug_Alt_Shift_Ctrl_hanging_down(){
 } ; endOf: fixBug_Alt_Shift_Ctrl_hanging_down
 ;\____ fixBug_Alt_Shift_Ctrl_hanging_down __ 181107183142 __ 07.11.2018 18:31:42 __/
 
+;/¯¯¯¯ check_configFile_Changed ¯¯ 190112114734 ¯¯ 12.01.2019 11:47:34 ¯¯\
+check_configFile_Changed:
+    configStr2minify_configFile()
+return
+;\____ check_configFile_Changed __ 190112114737 __ 12.01.2019 11:47:37 __/
 
 
 ;/¯¯¯¯ check_actionList_GUI_is_hanging_or_freezed ¯¯ 181024140430 ¯¯ 24.10.2018 14:04:30 ¯¯\
