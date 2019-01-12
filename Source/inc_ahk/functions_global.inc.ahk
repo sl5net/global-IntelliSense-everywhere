@@ -17,16 +17,31 @@ isInteger(var) {
  
 
 ;/¯¯¯¯ configStr2minify_configFile ¯¯ 190111201847 ¯¯ 11.01.2019 20:18:47 ¯¯\
-configStr2minify_configFile(configIncAhkAddress := "\config\config.inc.ahk", configMinifyIncAhkAddress := "\config.minify.inc.ahk" ){
+configStr2minify_configFile(configIncAhkAddress := "\config\config.inc.ahk"
+        , configMinifyIncAhkAddress := "\config.minify.inc.ahk" ){
     ; needs start with: g_config (12.01.2019 10:57, 19-01-12_10-57)
     configIncAhkAddress         := A_ScriptDir configIncAhkAddress
-    configMinifyIncAhkAddress   := A_ScriptDir configMinifyIncAhkAddress
+    configMinifyDIR   := A_ScriptDir "\inc_ahk\minify\"
+    configMinifyIncAhkAddress   := configMinifyDIR configMinifyIncAhkAddress
+
+; call it like (11.01.2019 20:19):
+useItLike =
+(
+SetTimer,check_configFile_Changed,2000
+g_config := {} ; <= or every name you like
+configStr2minify_configFile()
+# Include *i %A_ScriptDir%\minify\config.minify.inc.ahk
+)
+; Changes always become active on the next next call. becouse include is a preparser command. 19-01-11_18-33
+; discussion here: https://stackoverflow.com/questions/54149980/remove-all-unnecessary-whitespaces-from-json-string-with-regex-in-autohotkey
+
 
     doUpdate := false
     FileGetTime, modifiedTime_configMinify, % configMinifyIncAhkAddress
-    if(!modifiedTime_configMinify)
+    if(!modifiedTime_configMinify){
         doUpdate := true
-    else{
+        FileCreateDir, % configMinifyDIR
+    }else{
         FileGetTime, modifiedTime, % configIncAhkAddress
         if(modifiedTime_configMinify < modifiedTime )
             doUpdate := true
@@ -41,24 +56,12 @@ configStr2minify_configFile(configIncAhkAddress := "\config\config.inc.ahk", con
     if(1 && InStr(A_ComputerName,"SL5"))
         sleep,1000
 
-; call it like (11.01.2019 20:19):
-useItLike =
-(
-SetTimer,check_configFile_Changed,2000
-g_config := {}
-configStr2minify_configFile()
-# Include *i %A_ScriptDir%\config.minify.inc.ahk
-)
-
-; Changes always become active on the next next call. becouse include is a preparser command. 19-01-11_18-33
-
-
-	; discussion here: https://stackoverflow.com/questions/54149980/remove-all-unnecessary-whitespaces-from-json-string-with-regex-in-autohotkey
 	FileRead, configContent , % configIncAhkAddress
 	; configContentminify := "configContent =`n(`n" ; configContentminify .= "`n)`n"
 	; ((?!\bg_config\b).)*$
-	; configContentminify .= RegExReplace( configContent , "[\s\t ]*[\n\r]+([^\n\r])(?!\bg_config\b)[\s\t ]*", "`n$1" )
-	configContentminify .= RegExReplace( configContent , "m)[\n\r]+(?!g_config)", "" )
+	; configContentminify .= RegExReplace( configContent , "i)[\s\t ]*[\n\r]+([^\n\r]+)(?!\[a-z][_\d]\b)[\s\t ]*", "`n$1" )
+
+	configContentminify .= RegExReplace( configContent , "m)[\n\r]+(?![a-z]+[_\d]*)", " " )
 	tempFileAddress := A_ScriptDir "\" A_TickCount ".temp.txt"
 	FileAppend, % configContentminify, % tempFileAddress
 	FileCopy,% tempFileAddress, % configMinifyIncAhkAddress, 1
