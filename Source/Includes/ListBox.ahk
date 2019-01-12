@@ -459,7 +459,7 @@ ListBoxEnd() {
       g_ScrollEventHookThread =
       MaybeCoUninitialize()
    }
-   lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"DisableKeyboardHotKeys()")
+   ; lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"DisableKeyboardHotKeys()")
    DisableKeyboardHotKeys()
    return
 }
@@ -1068,8 +1068,7 @@ try {
 
       IfEqual, g_ListBox_Id,
       {
-      ; lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"")
-         lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"EnableKeyboardHotKeys()")
+         ; lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"EnableKeyboardHotKeys()")
          EnableKeyboardHotKeys()
       }
       

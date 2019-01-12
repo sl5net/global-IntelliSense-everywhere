@@ -94,19 +94,27 @@ openInEditor(actionListFolderOfThisActionList
 
 ;/¯¯¯¯ openInEditor ¯¯ 181028104913 ¯¯ 28.10.2018 10:49:13 ¯¯\
 openInEditorFromIntern(m1CorrectedAhkFileAddress){
-    editorName := "AHK-Studio"
-    isEditorExist_AHKStudio := FileExist("..\" editorName "\" editorName ".ahk")
+    global g_config
+    isEditorExist_AHKStudio := FileExist(g_config["editor"]["AHKStudioAHK"])
+
+    ; editorName := "AHK-Studio"
+    ; isEditorExist_AHKStudio := FileExist("..\" editorName "\" editorName ".ahk")
+
 
 ; edit: Opens the indicated file for editing. It might not work if the indicated file's type does not have an "edit" action associated with it.
 
-    editorName := "Notepad++"
-    NotepadPPExe := "..\" editorName "\unicode\" editorName ".exe"
+    ; editorName := "Notepad++"
+    ; NotepadPPExe := "..\" editorName "\unicode\" editorName ".exe"
+
+    NotepadPPExe := FileExist(g_config["editor"]["NotepadPPExe"])
+
     if(1 && InStr(A_ComputerName,"SL5"))
         NotepadPPExe := "C:\Program Files\Notepad++\notepad++.exe"
     isEditorExist_NotepadPP := FileExist(NotepadPPExe)
 
-    editorName := "AutoGUI"
-    isEditorExist_AutoGUI := FileExist("..\" editorName "\" editorName ".ahk")
+    ; editorName := "AutoGUI"
+    ; isEditorExist_AutoGUI := FileExist("..\" editorName "\" editorName ".ahk")
+    isEditorExist_AutoGUI := g_config["editor"]["AutoAHK"]
 
     ; fallback if somebody gives addresses like ..\....\G:\\... then take the second absolut path
     m1CorrectedAhkFileAddress := regexreplace(m1CorrectedAhkFileAddress , "i).*(\b[a-z]\:\\)", "$1" )

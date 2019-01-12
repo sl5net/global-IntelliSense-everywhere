@@ -1,4 +1,9 @@
-﻿g_config.Send := { 
+﻿g_config.editor := { 
+	AHKStudioAHK : "..\AHK_Studio\AHK_Studio.ahk",
+	NotepadPPExe : "C:\Program Files\Notepad++\notepad++.exe",
+	AutoAHK : "..\AutoGUI\AutoGUI.ahk"
+}
+g_config.Send := { 
 	RealisticDelayDynamic: false
 }
 g_config.list := { 
@@ -28,3 +33,4 @@ g_config.FuzzySearch := {
  ; select: { ignReg: ".^" } 
  ; select: { ignReg: ".^" } 
  ; select: { ignReg: "m)^((?!\bActionListID\b\s*[><=]).)*$" ; <= try to ignore all selects without actioinList in where condition
+ 
