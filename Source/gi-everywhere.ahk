@@ -104,7 +104,6 @@ global g_config
 g_min_MonitorBound_right := 70 ; used in: ForceWithinMonitorBounds
 
 g_config := {}
-
 configStr2minify_configFile()
 #Include *i %A_ScriptDir%\config.minify.inc.ahk
 

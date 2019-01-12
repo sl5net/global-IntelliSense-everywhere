@@ -12,7 +12,7 @@ g_config.list := {
 g_config.sql := { 
 	select: { 
 		ignReg: "m)^((?!\bActionListID\b\s*[><=]).)*$" ,
-		ignIfWhereIsWithoutListID : true
+		ignIfWhereIsWithoutListID : false
 	},
 	DB_Browser: "C:\Program Files (x86)\DB Browser for SQLite\DB Browser for SQLite.exe"
 }

@@ -39,12 +39,20 @@ configStr2minify_configFile(configIncAhkAddress := "\config\config.inc.ahk", con
     feedbackMsgBox( msg, msg )
     ToolTip9sec( msg, 1, 200, 9 )
     if(1 && InStr(A_ComputerName,"SL5"))
-        sleep,3000
+        sleep,1000
 
-    ; call it like (11.01.2019 20:19):
-    ; configStr2minify_configFile(A_ScriptDir "\config\config.inc.ahk", "config.minify.inc.ahk")
-    ; # Include *i %A_ScriptDir%\config.minify.inc.ahk
-	; Changes always become active on the next next call. becouse include is a preparser command. 19-01-11_18-33
+; call it like (11.01.2019 20:19):
+useItLike =
+(
+SetTimer,check_configFile_Changed,2000
+g_config := {}
+configStr2minify_configFile()
+# Include *i %A_ScriptDir%\config.minify.inc.ahk
+)
+
+; Changes always become active on the next next call. becouse include is a preparser command. 19-01-11_18-33
+
+
 	; discussion here: https://stackoverflow.com/questions/54149980/remove-all-unnecessary-whitespaces-from-json-string-with-regex-in-autohotkey
 	FileRead, configContent , % configIncAhkAddress
 	; configContentminify := "configContent =`n(`n" ; configContentminify .= "`n)`n"

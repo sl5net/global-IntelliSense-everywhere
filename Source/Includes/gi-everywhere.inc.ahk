@@ -378,8 +378,8 @@ RecomputeMatches( calledFromStr, is_Recursion := false ){
     global g_config ; addet 19-01-11_21-47
 
 
-    if(g_listSELECT_FROM_WinTitle && WinActive(g_listSELECT_FROM_WinTitle))
-        do_SELECT_actionList_FROM_actionLists_NotLike_isNotAProject := true
+    ;if( g_listSELECT_FROM_WinTitle && WinActive(g_listSELECT_FROM_WinTitle))
+    ;    do_SELECT_actionList_FROM_actionLists_NotLike_isNotAProject := true
 
 ; too tool tool tool ooll tool too
 ; test tes to
@@ -460,7 +460,8 @@ SELECT actionList FROM actionLists WHERE actionList Like 'g_Word' AND actionList
 	{
 	    ;/¯¯¯¯ special ¯¯ 190109101246 ¯¯ 09.01.2019 10:12:46 ¯¯\
         ; special cases:
-        if(do_SELECT_actionList_FROM_actionLists_NotLike_isNotAProject){
+        ; if(do_SELECT_actionList_FROM_actionLists_NotLike_isNotAProject){
+        if(g_permanentSELECT){
             if(A_Index > 1)
                 break
                 ; Like '%g_Word%'
@@ -529,7 +530,8 @@ SELECT actionList FROM actionLists WHERE actionList Like 'g_Word' AND actionList
         toolTip, % o["listID"]["len"] "(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),1,1
 		if( !(o["listID"]["len"]) && g_config["sql"]["select"]["ignIfWhereIsWithoutListID"] ){
 			    ; toolTip, % "(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),1,1
-                ; Msgbox,% A_Index ": " SELECT "`n`n`nlistIDpos=" o["listID"]["pos"] "`nignIfWhereIsWithoutListID =" g_config["sql"]["select"]["ignIfWhereIsWithoutListID"]
+			    if(1 && InStr(A_ComputerName,"SL5"))
+                Msgbox,% A_Index ": " SELECT "`n`n`nlistIDpos=" o["listID"]["pos"] "`nignIfWhereIsWithoutListID =" g_config["sql"]["select"]["ignIfWhereIsWithoutListID"]
                 break ; 11.01.2019 22:54
 		}
 ; test test gibgs zif zifff zzzzzz uuui oiuoiu lkjjcasd we.,nqrkdlsnqwqwelkjjj ü üü üüü wwww sss nmnmnmn iiiooooooooo

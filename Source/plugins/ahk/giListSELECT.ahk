@@ -2,7 +2,7 @@
 ; test 
 
 #SingleInstance,Force
-RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, g_permanentSELECT, % ""
+RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, g_permanentSELECT, % "SELECT actionList FROM actionLists WHERE actionList Like '%g_Word%' AND actionList NOT Like 'isNotAProject.ahk' order by actionList"
 bodyText =
 (
 Search ActionLists saved in DB. Chance to set ony permanent as long this window exist. SQL command is simply taken from the WindowTitle (needet token: giListSELECT )
@@ -14,11 +14,11 @@ Gui, Add, Edit, yp+40 wp vSearch,
 ; Gui, Add, Button, xp+85 wp hp gfSearch, &Forum Search
 ; Gui, Add, Button, xp+85 wp hp ggSearch, &Google It!
 ; Gui, Show, AutoSize Center, % substr(A_ScriptName , 1, -4)
-newTitle = giListSELECT actionList FROM actionLists WHERE actionList Like 'g_Word' AND actionList NOT Like 'isNotAProject.ahk' order by actionList
+; newTitle = giListSELECT actionList FROM actionLists WHERE actionList Like 'g_Word' AND actionList NOT Like 'isNotAProject.ahk' order by actionList
 Gui, Show, w900 Center, % newTitle
 WinGet, active_id, ID, % newTitle
 ; hWnd := DllCall("GetParent",UInt,hWnd, UInt)
-WinSetTitle,% A_ScriptName ,% newTitle
+; WinSetTitle,% A_ScriptName ,% newTitle
 ; Send,{tab} ; focus first button
 return
 
