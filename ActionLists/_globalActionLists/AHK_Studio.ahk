@@ -115,7 +115,7 @@ SoundbeepString2Sound()
 
 ReplacedStr := StrReplace(Haystack, SearchText , ReplaceText, OutputVarCount, Limit := -1)
 
-RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, toDo, A_ScriptName " " A_LineNumber ": "  ; RegWrite , RegSave , Registry
+RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, toDo, A_ScriptName " " A_LineNumber ": "  ; RegWrite , RegSave , Registry
 
  
 chat:|r|https://autohotkey.com/boards/viewtopic.php?f=5&t=59
@@ -183,7 +183,7 @@ regEx find AHK functios definitions|r|^[ ]*?\w[\w\d_]{5,}\s*\([^()+<>]+\)[\s\S]{
 	RTrim(String)
 	
 	
-	RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, FileAppend , % A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+	RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, FileAppend , % A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
 	FileAppend, Text, Filename, Encoding|rr|FileAppend, |ahk|m=Text, Filename, Encoding`n ll:=strlen(m)+1 `n lr:=4 `n send, %m% {left %ll%}{shift down}{right %lr%}{shift up}
 	
 ; gi-everywhere-master\Source\gi-everywhere.ahk

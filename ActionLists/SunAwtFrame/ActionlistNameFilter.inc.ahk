@@ -13,6 +13,9 @@ ActionListNEW_time_between := ActionListNEW
 if(1 && RegExMatch(activeTitle,"\.ahk\b"))
 	ActionListNEW := "..\_globalActionListsGenerated\_ahk_global.ahk._Generated" 
 
+if(1 && RegExMatch(activeTitle,"\.db - "))
+	ActionListNEW := "Private_actionlist_db_intellij_idea_administrator" 
+
 
 
 ; if you want you could use the follwong global variables fot calculating you new ActionListNEW : ActionListDir, ActionListNEW, ActiveClass, activeTitle

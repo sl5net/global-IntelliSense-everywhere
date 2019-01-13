@@ -2,17 +2,19 @@
 #Include .\..\ActionLists\ChromeWidgetWin1\..\ActionListNameFilter.inc.ahk ; global ActionList . pleas dont delete this line! 17-03-06_10-59
 ActionListFilterPath = .\..\ChromeWidgetWin1\AutoHotkeyGUI\ActionListNameFilter.inc.ahk 
 
+if(!ActionListNEW)
+	msgbox, % "ERROR ActionListNEW is EMPTY.  (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 
-
-    if(!ActionListNEW)
-        msgbox, % "ERROR ActionListNEW is EMPTY.  (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+if(0 && InStr(A_ComputerName,"SL5"))
+    clipboard := A_scriptDir ; ...\Source
 
 
 ; ActionListNEW := "global.ahk" ; 26.09.2018 07:46 if you has to many files
 if(false){ ; needet becouse later we use else if very often 28.09.2018 09:12
 	noop:=0
 }
-#Include *i .\..\ActionLists\ChromeWidgetWin1\PRIVATE_ActionListNameFilter.inc.ahk
+#Include *i %A_ScriptDir%\..\ActionLists\ChromeWidgetWin1\PRIVATE_ActionListNameFilter.inc.ahk
+; #Include PRIVATE_ActionListNameFilter.inc.ahk
 else if ( instr( activeTitle , "Benachrichtigung:")  &&  RegExMatch( activeTitle , "Gmail")   )
 	ActionListNEW := "Benachrichtigung_Google_Chrome"
 	

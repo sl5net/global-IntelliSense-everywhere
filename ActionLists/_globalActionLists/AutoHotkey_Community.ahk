@@ -106,11 +106,14 @@ send, ^v
 
 
 code|rr||ahk|
+shortName := substr(clipboard,1,20) "..."
 ahkCode = 
 (
+[spoiler2=%shortName%]
 [code]
 %clipboard%
 [/code]
+[/spoiler2]
 )
 Clipboard := ahkCode
 send, ^v
@@ -163,3 +166,7 @@ Hotkey with ~ modifier has side effects in this case
 
 
 Autohotkey
+
+explanation
+
+explanation
