@@ -5,7 +5,7 @@ SendMode Input  ; Recommended for new scripts due to its superior speed and reli
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 CoordMode, ToolTip,Screen
 while(1){
-	configStr2minify_configFile()
+	update_configMinify_incAhkFile()
 	; Sleep,1000
 	configMinifyIncAhkAddress := "\config.minify.inc.ahk"
 	configMinifyDIR := A_ScriptDir "\inc_ahk\minify\"

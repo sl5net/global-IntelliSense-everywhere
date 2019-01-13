@@ -171,8 +171,8 @@ ListBoxClickItem(wParam, lParam, msg, ClickedHwnd){
 
     ; g_ListBoxX := ""
     ; g_ListBoxY := ""
-    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, g_ListBoxX,0
-    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, g_ListBoxY,0
+    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, g_ListBoxX,0
+    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, g_ListBoxY,0
     ; sleep,1500
     Msgbox,clickedScrollbar `n(%A_LineFile%~%A_LineNumber%)
     reload
@@ -200,8 +200,8 @@ ListBoxClickItem(wParam, lParam, msg, ClickedHwnd){
             Hotkey, WheelDown, off
             g_ListBoxX := 0 ; lets try box move with caret
             g_ListBoxY := 0 ; lets try box move with caret
-            RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, g_ListBoxX, %g_ListBoxX%
-            RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, g_ListBoxY, %g_ListBoxY%
+            RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, g_ListBoxX, %g_ListBoxX%
+            RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, g_ListBoxY, %g_ListBoxY%
             g_TimeMilli_SincePriorMouseClick := A_TickCount
             return
         }
@@ -216,8 +216,8 @@ ListBoxClickItem(wParam, lParam, msg, ClickedHwnd){
             Hotkey, WheelUp, off
             Hotkey, WheelDown, off
             ;
-            RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, g_ListBoxX, %g_ListBoxX%
-            RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, g_ListBoxY, %g_ListBoxY%
+            RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, g_ListBoxX, %g_ListBoxX%
+            RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, g_ListBoxY, %g_ListBoxY%
       }else{
             tip=START follow listbox mouse `n (from: %A_LineFile%~%A_LineNumber%)
             ToolTip1sec(tip)
@@ -400,7 +400,7 @@ if(0 && calledFromName)
         ToolTip9sec( calledFromStr "`n" calledFromName "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 
 ; to too  too too too too msg too tool i tool  tool cal t
-   RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, % A_ThisFunc , % calledFromStr
+   RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, % A_ThisFunc , % calledFromStr
    IfNotEqual, g_ListBox_Id,
    {
    ; thats the place were listbox will be closed  17-03-17_17-12 17.03.2017 17:12
@@ -649,7 +649,7 @@ AddToMatchList(position, MaxLength, HalfLength, LongestBaseLength, ComputeBaseLe
 
    global g_MatchTotal ; addet 18-12-31_13-56
 
-   global g_paste_ActipList_in_ListBoxGui_as_Last_entry ; 18-12-31_14-00
+   global g_ListBoxGui_show_tipps ; 18-12-31_14-00
 
 
     INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
@@ -670,7 +670,7 @@ AddToMatchList(position, MaxLength, HalfLength, LongestBaseLength, ComputeBaseLe
    }
 
 
-    if(false && g_paste_ActipList_in_ListBoxGui_as_Last_entry
+    if(false && g_ListBoxGui_show_tipps
         && (g_MatchTotal == position || g_MatchTotal-1 == position )) ; if we use last inty only for information. show the action list. dont use a profix
         prefix := ""
 
@@ -914,7 +914,7 @@ ShowListBox(paraX:="",paraY:=""){
       
       g_ListBoxPosX := CaretXorMouseXfallback()
       ListBoxPosY := CaretYorMouseYfallback()
-      if(g_paste_ActipList_in_ListBoxGui_as_Last_entry){
+      if(g_ListBoxGui_show_tipps){
         ListBoxPosY += 39
       }
 

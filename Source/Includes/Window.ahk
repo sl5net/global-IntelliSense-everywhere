@@ -33,7 +33,6 @@ EnableWinHook(){
 
     ; ToolTip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
     if(g_listSELECT_FROM_WinTitle && WinExist(g_listSELECT_FROM_WinTitle)){
-
         if(false){
             tip =
             (
@@ -152,7 +151,7 @@ DisableWinHook(){
 
 
 
-; SetTimer,checkWinChangedTitle,1000 ; RegRead, actionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, actionList
+; SetTimer,checkWinChangedTitle,1000 ; RegRead, actionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList
 
 
 ;/¯¯¯¯ set0() ¯¯ 190109172051 ¯¯ 09.01.2019 17:20:51 ¯¯\

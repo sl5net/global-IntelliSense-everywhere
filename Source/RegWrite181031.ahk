@@ -41,19 +41,19 @@ setRegistry_actionList( actionListNewTemp_withoutExt ){   ; RegWrite , RegSave ,
 
 
 
-	RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, actionList, % actionListNewTemp_withoutExt  ; RegWrite , RegSave , Registry
+	RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList, % actionListNewTemp_withoutExt  ; RegWrite , RegSave , Registry
 
 
 
 	; millis_since_midnight := JEE_millis_since_midnight(vOpt:="") ; <=== more correct then  := A_Hour*3600000+A_Min*60000+A_Sec*1000+A_MSec
 	millis_since_midnight := A_TickCount
-	RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, updatedTimeStamp_millisSinceMidnight, % millis_since_midnight  ; RegWrite , RegSave , Registry
+	RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, updatedTimeStamp_millisSinceMidnight, % millis_since_midnight  ; RegWrite , RegSave , Registry
 
 
 
     ; follwing we may dont need:
-    ; RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, actionListActive, % actionListNewTemp_withoutExt ; RegWrite , RegSave , Registry
-    ; RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, actionListNEW, % actionListNewTemp_withoutExt ; RegWrite , RegSave , Registry
+    ; RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionListActive, % actionListNewTemp_withoutExt ; RegWrite , RegSave , Registry
+    ; RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionListNEW, % actionListNewTemp_withoutExt ; RegWrite , RegSave , Registry
 
 
 
@@ -80,11 +80,11 @@ setRegistry_toDefault(){
 
 
 
-    ; RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, actionListDir, %globalActionListDir% ; RegWrite , RegSave , Registry
-    ; RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, actionListActive, %globalActionList% ; RegWrite , RegSave , Registry
-    ; RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, actionListNEW, %globalActionList% ; RegWrite , RegSave , Registry
+    ; RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionListDir, %globalActionListDir% ; RegWrite , RegSave , Registry
+    ; RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionListActive, %globalActionList% ; RegWrite , RegSave , Registry
+    ; RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionListNEW, %globalActionList% ; RegWrite , RegSave , Registry
     setRegistry_actionList( globalActionList )
-    ; RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, toDo, A_ScriptName " " A_LineNumber ": "  . " to many. 2 or 3 enough"  ; RegWrite , RegSave , Registry
+    ; RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, toDo, A_ScriptName " " A_LineNumber ": "  . " to many. 2 or 3 enough"  ; RegWrite , RegSave , Registry
 }
 
 

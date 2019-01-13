@@ -8,8 +8,7 @@ CoordMode, Caret, Screen
 CoordMode, ToolTip, Screen
 ; CoordMode, Mouse, Screen
 
-global g_doSound
-g_doSound := false
+#Include *i %A_ScriptDir%\inc_ahk\minify\config.minify.inc.ahk
 #Include %A_ScriptDir%\inc_ahk\soundBeep.inc.ahk
 ; msgbox,% "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
 
@@ -544,10 +543,10 @@ if(false){  ; temporaly deactivated . for compatibiliti thinks 02.03.2018 17:10
 }}
 if(true){  ; old scool. for compatibiliti thinks 02.03.2018 17:10
 
-    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, actionListDir, `%actionListDir`%
-    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, actionListActive, `%actionListActive`%
-    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, actionListNEW, `%actionListNEW`%
-    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, actionListNEWarchivePath, `%actionListNEWarchivePath`%
+    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionListDir, `%actionListDir`%
+    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionListActive, `%actionListActive`%
+    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionListNEW, `%actionListNEW`%
+    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionListNEWarchivePath, `%actionListNEWarchivePath`%
 
     actionList = `%actionListDir`%\`%actionListNEW`%
 
@@ -602,9 +601,9 @@ if(0){ ; diesabled 24.12.2018 13:36 ... so its not possible to update lists with
     if(1 && !RegExMatch(actionList,"created_token_17-08-10_16-17")) ; todo: whey control here? wrong place. quck dirty 25.03.2018 01:36
         setRegistry_actionList( actionList ) ; old scool. for compatibiliti thinks 02.03.2018 17:10)
 
-    RegRead, CreatedDir, HKEY_CURRENT_USER, SOFTWARE\sl5net, CreatedDir
+    RegRead, CreatedDir, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, CreatedDir
     if(CreatedDir){
-        RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, CreatedDir, `% "" ; RegWrite , RegSave , Registry
+        RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, CreatedDir, `% "" ; RegWrite , RegSave , Registry
         actionListOpen := StrReplace(actionList, "._Generated.ahk")
         openInEditorFromIntern( actionListOpen )
     }
@@ -719,8 +718,8 @@ if(0){ ; diesabled 24.12.2018 13:36 ... so its not possible to update lists with
 	rungi_everywhereAHKifNotExist( gi_everywhereAHK )
 	
 if(false){	
-	RegRead, ALinfoOnley, HKEY_CURRENT_USER, SOFTWARE\sl5net, actionList
-	RegRead, ALinfoOnleyNEW, HKEY_CURRENT_USER, SOFTWARE\sl5net, actionListNEW
+	RegRead, ALinfoOnley, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList
+	RegRead, ALinfoOnleyNEW, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionListNEW
 	; ToolTip5sec( "RegRead=.........  " ALinfoOnley "`n" ALinfoOnleyNEW "`n`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")", 10,300 )
 	; Sleep, 1000
 	;lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,ALinfoOnley "`n end of while(true)`n '" . activeTitle . "' = activeTitle `n  time:" . timestampHHmmss)
@@ -867,7 +866,7 @@ global g_lineNumberFeedback
 ;msgbox, % actionListFilterPath " asdf77778"
 		tooltip,% "FileAppend (" A_ThisFunc "~" A_LineNumber "~" RegExReplace(A_LineFile,".*\") ")"
 		if(1 && InStr(A_ComputerName,"SL5") )
-			RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, FileAppend , % A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+			RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, FileAppend , % A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
 		FileAppend,  % ahkCodeInsideFile , % actionListFilterPath ; actionListNameFilter.inc.ahk
 	} 
 	return 
@@ -898,7 +897,7 @@ getActionListNEWfromPluginIfExist(actionListDir, actionListNEW, activeClass, act
 		ahkCodeInsideFile := getAhkCodeInsideFile(actionListDir, actionListFilterPath )
 		tooltip,% "FileAppend (" A_ThisFunc "~" A_LineNumber "~" RegExReplace(A_LineFile,".*\") ")"
 		if(1 && InStr(A_ComputerName,"SL5") )
-			RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, FileAppend , % A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+			RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, FileAppend , % A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
 		FileAppend,  % ahkCodeInsideFile , % actionListFilterPath ; actionListNameFilter.inc.ahk
 		
 		lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"FileAppend too " actionListFilterPath)
@@ -996,7 +995,7 @@ createIfFileNotExist_actionListNameFilter_InNewDir(actionListDir, actionListFilt
 	if(1 && InStr(A_ComputerName,"SL5"))
 		tooltip,% "FileAppend " g_lineNumberFeedback
 	if(1 && InStr(A_ComputerName,"SL5") )
-		RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, FileAppend , % A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+		RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, FileAppend , % A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
 	FileAppend, % ahkCode , % actionListFilterPath
 	return true
 }
@@ -1288,7 +1287,7 @@ stopIfWinTitleExist_giListSELECT(activeTitle,detectHidden := "", excludetTitle :
 	        ToolTip, % "WinWaitClose `n`n" . A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\") ,1 , 200, 8
 	    WinWaitClose,% activeTitle
 
-        RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, g_permanentSELECT, % ""
+        RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, g_permanentSELECT, % ""
 
 	    ToolTip,  ,1 , 200, 8
 	    ToolTip,  ,1 , 200, 20

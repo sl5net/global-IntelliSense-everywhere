@@ -21,7 +21,7 @@ return
 Add2Reg:
 Gui, Submit
 actionListNewTemp_withoutExt := SubStr( Search ,1 , -4 )
-RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, actionList, % actionListNewTemp_withoutExt 
+RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList, % actionListNewTemp_withoutExt
 MsgBox,% Search
 return
 

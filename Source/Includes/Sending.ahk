@@ -405,7 +405,7 @@ SendWord(WordIndex){
 		; reload
 		; return
 		; if(!actionList)
-        RegRead, actionList, HKEY_CURRENT_USER, SOFTWARE\sl5net, actionList ; todo: dirty bugFix. it happens, every second time??? whey??
+        RegRead, actionList, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList ; todo: dirty bugFix. it happens, every second time??? whey??
         ; toolt
         ; tooltip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
         ; toolTip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
@@ -417,7 +417,7 @@ SendWord(WordIndex){
 
 
 	if(!FileExist(actionListFolderOfThisActionList)){ ; Checks for the existence of a file or folder
-		clipboard := actionListFolderOfThisActionList
+		clipboard := actionListFolderOfThisActionList  "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
 		msg = 
 		(
 >%actionListFolderOfThisActionList%< NOT exist
@@ -428,7 +428,7 @@ g_actionListID = %g_actionListID%
 		msg = ups:`n ! FileExist(%actionListFolderOfThisActionList% %msg%
 		tooltip,% msg
 		msgBox,% ":( ERROR: " msg "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
-		RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, return , % A_ThisFunc ":"  A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+		RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, return , % A_ThisFunc ":"  A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
 		
 		return false
 	}
@@ -737,7 +737,7 @@ g_actionListID = %g_actionListID%
 				
 				was_a_Editor_open_command := openInEditor(actionListFolderOfThisActionList, isAHKcode, AHKcode, isStartingUnderline, is_OpenA_edit_open_lib, isDeprecated_OpenA_edit_open_lib)
 				if(was_a_Editor_open_command) {
-					RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, return , % g_Word "=key|" A_ThisFunc ":"  A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+					RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, return , % g_Word "=key|" A_ThisFunc ":"  A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
 					
 					
 					
@@ -894,7 +894,7 @@ g_actionListID = %g_actionListID%
 	if(0){
 		Clipboard = %AHKcode%
 		msgbox, %AHKcode% 18-10-14_00-27 14.10.2018 00:27
-		RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, return , % A_ThisFunc ":"  A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+		RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, return , % A_ThisFunc ":"  A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
 		return
 	}
 ;  too(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") " " Last_A_This) too(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") " " Last_A_This)   ;msgbox, isAHKcode = %isAHKcode%AHKdyn example super simple example
@@ -1151,7 +1151,7 @@ g_actionListID = %g_actionListID%
 			tooltip,found `n change list automatically = `>%matchs1%< `n(" A_LineNumber ")"
         ; matchs1 := Trim(matchs1, """")
 			matchs1debuginfo := Trim(matchs1, """")
-        ; g_config["list"]["change"]["stopRexExTitle"]:=true
+        ; g_config["list"]["change"]["stopRexExTitle"] := true
         ;WinWaitNotActive,A,,9
 			WinWaitNotActive,A,,5
         ;sleep,7777 ; needs maybe time to read changed title or so. script is triggerd by title changes
@@ -1179,7 +1179,7 @@ g_actionListID = %g_actionListID%
         
 
 	
-	RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, return , % g_Word "=key|" A_ThisFunc ":"  A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+	RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, return , % g_Word "=key|" A_ThisFunc ":"  A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
 
     if(0 && itsAHKStudioHelpWindow){
         ToolTip5sec( WinWaitActive "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )

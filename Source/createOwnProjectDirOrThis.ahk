@@ -82,19 +82,19 @@ Speak("Start registry write")
 globalActionListDir := "..\actionLists"
 ; globalActionList := globalActionListDir "\_globalActionListsGenerated\_global.ahk"
 globalActionList := globalActionListDir   "\_globalActionListsGenerated\isNotAProject.ahk"
-RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, actionListNEW, %globalActionList% ; RegWrite , RegSave , Registry
+RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionListNEW, %globalActionList% ; RegWrite , RegSave , Registry
 setRegistry_actionList( globalActionList )
-RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, lastImportant_ScriptName, %globalActionList% ; RegWrite , RegSave , Registry
+RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, lastImportant_ScriptName, %globalActionList% ; RegWrite , RegSave , Registry
 
 
 
-RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, lastImportant_ScriptName, % A_ScriptName ; RegWrite , RegSave , Registry
-RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, lastImportant_LineFileShort, % RegExReplace(A_LineFile,".*\\") ; RegWrite , RegSave , Registry
-RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, lastImportant_LineFileShort, % RegExReplace(A_LineFile,".*\\") ; RegWrite , RegSave , Registry
+RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, lastImportant_ScriptName, % A_ScriptName ; RegWrite , RegSave , Registry
+RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, lastImportant_LineFileShort, % RegExReplace(A_LineFile,".*\\") ; RegWrite , RegSave , Registry
+RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, lastImportant_LineFileShort, % RegExReplace(A_LineFile,".*\\") ; RegWrite , RegSave , Registry
 
 
 
-RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, CreatedDir, % d1 ; RegWrite , RegSave , Registry
+RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, CreatedDir, % d1 ; RegWrite , RegSave , Registry
 ;\____ try_faster_reload_if_created __ 181025152609 __ 25.10.2018 15:26:09 __/
 
 

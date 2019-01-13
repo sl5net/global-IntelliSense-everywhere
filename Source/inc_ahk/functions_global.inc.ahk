@@ -16,8 +16,8 @@ isInteger(var) {
 }
  
 
-;/¯¯¯¯ configStr2minify_configFile ¯¯ 190111201847 ¯¯ 11.01.2019 20:18:47 ¯¯\
-configStr2minify_configFile(configIncAhkAddress := "\config\config.inc.ahk"
+;/¯¯¯¯ update_configMinify_incAhkFile ¯¯ 190111201847 ¯¯ 11.01.2019 20:18:47 ¯¯\
+update_configMinify_incAhkFile(configIncAhkAddress := "\config\config.inc.ahk"
         , configMinifyIncAhkAddress := "\config.minify.inc.ahk" ){
     ; needs start with: g_config (12.01.2019 10:57, 19-01-12_10-57)
     configIncAhkAddress         := A_ScriptDir configIncAhkAddress
@@ -29,7 +29,7 @@ useItLike =
 (
 SetTimer,check_configFile_Changed,2000
 g_config := {} ; <= or every name you like
-configStr2minify_configFile()
+update_configMinify_incAhkFile()
 # Include *i %A_ScriptDir%\inc_ahk\minify\config.minify.inc.ahk
 )
 ; Changes always become active on the next next call. becouse include is a preparser command. 19-01-11_18-33
@@ -59,12 +59,21 @@ configStr2minify_configFile()
         sleep,1000
 
 	FileRead, configContent , % configIncAhkAddress
-	configContentminify := ""
+	; configContentminify := ""
 	; configContentminify := "configContent =`n(`n" ; configContentminify .= "`n)`n"
 	; ((?!\bg_config\b).)*$
 	; configContentminify .= RegExReplace( configContent , "i)[\s\t ]*[\n\r]+([^\n\r]+)(?!\[a-z][_\d]\b)[\s\t ]*", "`n$1" )
 
-	configContentminify .= RegExReplace( configContent , "m)[\n\r]+(?![a-z]+[_\d]*)", " " )
+/*
+multiline comment1
+multiline comment2
+*/
+
+; too
+
+	; dont work 19-01-13_11-00: configContentminify := RegExReplace( configContent , "m)[\n\r]+(?!(/\*|\*/|[a-z]+[_\d]*))", " " )
+	configContentminify := RegExReplace( configContent , "m)[\n\r]+(?!(\*|/|`;|[a-z]+[_\d]*))", " " )
+	; configContentminify := RegExReplace( configContent , "m)[\n\r]+(?!([a-z]+[_\d]*))", " " )
 	tempFileAddress := A_ScriptDir "\" A_TickCount ".temp.txt"
 	FileAppend, % configContentminify, % tempFileAddress
 	FileCopy,% tempFileAddress, % configMinifyIncAhkAddress, 1
@@ -73,7 +82,7 @@ configStr2minify_configFile()
 	reload
 	; Return configMinifyIncAhkAddress
 }
-;\____ configStr2minify_configFile __ 190111201850 __ 11.01.2019 20:18:50 __/
+;\____ update_configMinify_incAhkFile __ 190111201850 __ 11.01.2019 20:18:50 __/
 
 
 JEE_millis_since_midnight(vOpt:=""){ ; renamed from JEE_TimeNowMSec
@@ -1714,6 +1723,16 @@ json(i){
 }
 ;\____ json __ 181122225031 __ 22.11.2018 22:50:31 __/
 
+
+
+
+;/¯¯¯¯ str_repeat ¯¯ 190113091852 ¯¯ 13.01.2019 09:18:52 ¯¯\
+str_repeat(vText, vNum){
+	if (vNum <= 0)
+		return false
+	return StrReplace(Format("{:" vNum "}","")," ",vText)
+}
+;\____ str_repeat __ 190113091855 __ 13.01.2019 09:18:55 __/
 
 ; lll(A_LineNumber, "inc_ahk\functions_global.inc.ahk")
 #Include *i %A_ScriptDir%\inc_ahk\ToolTipSec.inc.ahk

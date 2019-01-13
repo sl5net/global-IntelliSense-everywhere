@@ -49,7 +49,7 @@ ReadActionList( calledFromStr ){
 	global g_config
 
     if(0 && inStr(actionList, "playground" )){
-        RegRead, ALinfoOnley, HKEY_CURRENT_USER, SOFTWARE\sl5net, actionList
+        RegRead, ALinfoOnley, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList
         ToolTip5sec( "RegRead=.........  " ALinfoOnley "`n" actionList "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")", 10,300 )
         Sleep, 1000
 
@@ -81,7 +81,7 @@ ReadActionList( calledFromStr ){
 			actionList .= postFixGenerated ; quick fix 14.11.2018 11:14
             if(1 && InStr(A_ComputerName,"SL5") && !InStr(actionList,"isNotAProject")){
                 Speak(A_LineNumber ": Not a Generated List but Generated List exist" ,"PROD") ; bug entecekt actionList 12.11.2018 11:02 todo:
-			    clipboard := actionList " `n fileEx= " fileEx
+			    ; clipboard := actionList " `n fileEx= " fileEx "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 			    ToolTip8sec( actionList " `n fileEx= " fileEx "`n`n`n Sleep 3000`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
     			Sleep, 3000
 
@@ -132,7 +132,7 @@ ReadActionList( calledFromStr ){
     ;\____ \.ahk __ 181025172444 __ 25.10.2018 17:24:44 __/
 	
 	setTrayIcon(status := "isLoading" )
-	RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, % A_ThisFunc , % calledFromStr
+	RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, % A_ThisFunc , % calledFromStr
 	
 	
 	INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
@@ -257,7 +257,7 @@ OK
 		
  ;lll(A_LineNumber, A_LineFile,Last_A_This . " reload " )
 		global g_doRunLogFiles
-		if(g_doRunLogFiles)
+		if(g_doRunLogFiles) ; ReadActionList
 			run,log\%A_LineFile%.log.txt
 		lll(A_LineNumber, A_LineFile,Last_A_This . " reload ")
 		Reload
@@ -511,8 +511,8 @@ from: actionList.ahk~%A_LineNumber%
 		
 		
 		
-		SetTimer,checkInRegistryChangedActionListAddress,off ; RegRead, actionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, actionList
-; SetTimer,checkInRegistryChangedActionListAddress,off ; RegRead, actionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, actionList
+		SetTimer,checkInRegistryChangedActionListAddress,off ; RegRead, actionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList
+; SetTimer,checkInRegistryChangedActionListAddress,off ; RegRead, actionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList
 		SetTimer,checkActionListAHKfile_sizeAndModiTime, off
 		SetTimer,checkWinChangedTitle,off
 		
@@ -551,8 +551,8 @@ from: actionList.ahk~%A_LineNumber%
 		
 		; Critical, Off
 		; in: ReadActionList(
-		; SetTimer,checkInRegistryChangedActionListAddress,On ; RegRead, actionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, actionList
-; SetTimer,checkInRegistryChangedActionListAddress,off ; RegRead, actionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net, actionList
+		; SetTimer,checkInRegistryChangedActionListAddress,On ; RegRead, actionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList
+; SetTimer,checkInRegistryChangedActionListAddress,off ; RegRead, actionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList
 		SetTimer,checkActionListAHKfile_sizeAndModiTime, On
 		SetTimer,checkWinChangedTitle,On
 		

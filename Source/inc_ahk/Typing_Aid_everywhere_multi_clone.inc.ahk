@@ -111,15 +111,15 @@ actionListDir = '%actionListDir%'
 		
 	;/¯¯¯¯ !FileExist(actionListNEWarchivePath) ¯¯ 181012011354 ¯¯ 12.10.2018 01:13:54 ¯¯\
 		
-		RegRead, CreatedDir, HKEY_CURRENT_USER, SOFTWARE\sl5net, CreatedDir
+		RegRead, CreatedDir, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, CreatedDir
 		if(CreatedDir){
 			
 			Speak("CreatedDir found in " RegExReplace(A_LineFile,".*\\") )
-			RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, CreatedDir, % "" ; RegWrite , RegSave , Registry
+			RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, CreatedDir, % "" ; RegWrite , RegSave , Registry
 			
-			RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, lastImportant_ScriptName, % A_ScriptName ; RegWrite , RegSave , Registry
-			RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, lastImportant_LineFileShort, % RegExReplace(A_LineFile,".*\\") ; RegWrite ,
-			RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, lastImportant_LineFileShort, % RegExReplace(A_LineFile,".*\\") ; RegWrite ,
+			RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, lastImportant_ScriptName, % A_ScriptName ; RegWrite , RegSave , Registry
+			RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, lastImportant_LineFileShort, % RegExReplace(A_LineFile,".*\\") ; RegWrite ,
+			RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, lastImportant_LineFileShort, % RegExReplace(A_LineFile,".*\\") ; RegWrite ,
 			run,gi-everywhere.ahk ; 01.11.2018 23:50
 		}
 		
@@ -161,7 +161,7 @@ actionListDir = '%actionListDir%'
 			Include := "Include"
 			
 			if(1 && InStr(A_ComputerName,"SL5"))
-				RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, FileAppend , % A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+				RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, FileAppend , % A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
 			
 			FileAppend, % initialActionList , % actionListNEWarchivePath
 ; 		 Sleep,400
@@ -1070,7 +1070,7 @@ Clipboard = selfPerformanceTest2
 		lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"FileAppend too " sayHelloFunctionInc)
     ;msgbox,% sayHelloCode
 		if(0 && InStr(A_ComputerName,"SL5") )
-			RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, FileAppend , % A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+			RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, FileAppend , % A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
 		FileAppend, % sayHelloCode, % sayHelloFunctionInc
 		return 1
 	}
@@ -1452,14 +1452,14 @@ ___open actionList|rr||ahk|openInEditor,%actionListFileName%
 		Sleep,60
 		lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"FileAppend too " actionListGeneratedPath)
 		if(1 && InStr(A_ComputerName,"SL5") )
-			RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, FileAppend , % A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+			RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, FileAppend , % A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
 		FileAppend,% includeFileSContent, % actionListGeneratedPath
     ; Sleep,20
 		FileRead, fileContent, %actionListNEWarchivePath%
     ;Sleep,20
 		lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"FileAppend too " actionListGeneratedPath)
 		if(1 && InStr(A_ComputerName,"SL5") )
-			RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, FileAppend , % A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+			RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, FileAppend , % A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
 		FileAppend,% fileContent, % actionListGeneratedPath
 		if(false)lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"SAVED: " . actionListGeneratedPath)
 			Sleep,60
