@@ -30,7 +30,7 @@ useItLike =
 SetTimer,check_configFile_Changed,2000
 g_config := {} ; <= or every name you like
 configStr2minify_configFile()
-# Include *i %A_ScriptDir%\minify\config.minify.inc.ahk
+# Include *i %A_ScriptDir%\inc_ahk\minify\config.minify.inc.ahk
 )
 ; Changes always become active on the next next call. becouse include is a preparser command. 19-01-11_18-33
 ; discussion here: https://stackoverflow.com/questions/54149980/remove-all-unnecessary-whitespaces-from-json-string-with-regex-in-autohotkey
@@ -41,6 +41,8 @@ configStr2minify_configFile()
     if(!modifiedTime_configMinify){
         doUpdate := true
         FileCreateDir, % configMinifyDIR
+        if(!instr(FileExist(configMinifyDIR), "D")) ; would be true only if the file exists and is a directory.
+            MsgBox,262160,% "problem with :" configMinifyDIR " `n`n :(`n" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ,% ":(`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
     }else{
         FileGetTime, modifiedTime, % configIncAhkAddress
         if(modifiedTime_configMinify < modifiedTime )
@@ -57,6 +59,7 @@ configStr2minify_configFile()
         sleep,1000
 
 	FileRead, configContent , % configIncAhkAddress
+	configContentminify := ""
 	; configContentminify := "configContent =`n(`n" ; configContentminify .= "`n)`n"
 	; ((?!\bg_config\b).)*$
 	; configContentminify .= RegExReplace( configContent , "i)[\s\t ]*[\n\r]+([^\n\r]+)(?!\[a-z][_\d]\b)[\s\t ]*", "`n$1" )
