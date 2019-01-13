@@ -121,7 +121,7 @@ ToolTip1sec%blank%(msg)
 
 
 
-msg:=A_LineNumber . ", " . A_ScriptName . " (greetings from init script) "
+msg:=A_LineFile ":" A_ScriptName ">" RegExReplace(A_LineFile, ".*\")" (greetings from init script) "
 ToolTip,%msg%
 lll%blank%(msg)
 
@@ -140,7 +140,7 @@ SendMode Input  ; Recommended for new scripts due to its superior speed and reli
 
 
 
-msg:=A_LineNumber . ", " . A_ScriptName . " (greetings from init script) "
+msg:=A_LineFile ":" A_ScriptName ">" RegExReplace(A_LineFile, ".*\")" (greetings from init script) "
 ToolTip,%msg%
 lll%blank%(msg)
 
@@ -151,7 +151,7 @@ HardDriveLetter := SubStr(A_ScriptDir, 1 , 1)
 
 
 
-msg:=A_LineNumber . ", " . A_ScriptName . " (greetings from init script) "
+msg:=A_LineFile ":" A_ScriptName ">" RegExReplace(A_LineFile, ".*\")" (greetings from init script) "
 ToolTip,%msg%
 lll%blank%(msg)
 
@@ -168,7 +168,7 @@ lll%blank%(msg)
 
 
 
-msg:=A_LineNumber . ", " . A_ScriptName . " (greetings from init script) "
+msg:=A_LineFile ":" A_ScriptName ">" RegExReplace(A_LineFile, ".*\")" (greetings from init script) "
 ToolTip,%msg%
 lll%blank%(msg)
 ToolTip,

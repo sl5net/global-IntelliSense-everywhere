@@ -712,7 +712,7 @@ actionListActive = %actionListActive%
 				}
 				g_tooltipText = WinWait gi-everywhere.ahk
 				g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
-				tooltip, % "Wait" A_LineNumber " " RegExReplace(A_LineFile,".*\\")
+ 				tooltip, % "Wait" A_LineNumber " " RegExReplace(A_LineFile,".*\\")
 				; msgbox, % "Wait" A_LineNumber " " RegExReplace(A_LineFile,".*\\") " A_LineFile=" A_LineFile
 				WinWait,gi-everywhere,, 3
 				tooltip,
@@ -1379,7 +1379,7 @@ ___open actionList|rr||ahk|openInEditor,%actionListFileName%
 		if( !FileExist(actionListNEWarchivePath) ) {
 			global g_lineNumberFeedback
 			g_lineNumberFeedback=Typing_Aid_everywhere_multi_clone.inc.ahk / %A_LineFile% ~%AThisFunc%~%ALineNumber%
-			msg = :( !FileExist(%actionListNEWarchivePath%)) `n `n '%actionListNEWarchivePath%' = actionListNEWarchivePath  `n '%actionListGeneratedPath%' = actionListGeneratedPath  `n actionListNEW= %actionListNEW% `n ==> ExitAPP 17-08-11_01-01
+			msg = :( !FileExist(%actionListNEWarchivePath%)) `n token82 `n '%actionListNEWarchivePath%' = actionListNEWarchivePath  `n '%actionListGeneratedPath%' = actionListGeneratedPath  `n actionListNEW= %actionListNEW% `n ==> ExitAPP 17-08-11_01-01
 			tooltip,%msg% `n`n ( %g_lineNumberFeedback% )
 			
 			lll_if_g_doSaveLogFiles(ALineNumber, AThisFunc,  msg)
@@ -1402,7 +1402,7 @@ ___open actionList|rr||ahk|openInEditor,%actionListFileName%
 			global g_lineNumberFeedback
     ;g_lineNumberFeedback=%A_LineFile%~%AThisFunc%~%ALineNumber%
 			g_lineNumberFeedback=Typing_Aid_everywhere_multi_clone.inc.ahk / %A_LineFile% ~%AThisFunc%~%ALineNumber%
-			msg = :( !FileExist(%actionListNEWarchivePath%)) `n `n '%actionListNEWarchivePath%' = actionListNEWarchivePath  `n '%actionListGeneratedPath%' = actionListGeneratedPath  `n actionListNEW= %actionListNEW% `n ==> ExitAPP 17-08-11_00-00 `n %g_lineNumberFeedback%
+			msg = :( !FileExist(%actionListNEWarchivePath%)) `n token05 `n  `n '%actionListNEWarchivePath%' = actionListNEWarchivePath  `n '%actionListGeneratedPath%' = actionListGeneratedPath  `n actionListNEW= %actionListNEW% `n ==> ExitAPP 17-08-11_00-00 `n %g_lineNumberFeedback%
 			tooltip,% msg
 			
 			

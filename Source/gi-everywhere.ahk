@@ -59,58 +59,18 @@ class Stuff{
 ;/¯¯¯¯ global ¯¯ 190113082459 ¯¯ 13.01.2019 08:24:59 ¯¯\
 ;/¯¯¯¯ global ¯¯ 190113082459 ¯¯ 13.01.2019 08:24:59 ¯¯\
 ;/¯¯¯¯ global ¯¯ 190113082459 ¯¯ 13.01.2019 08:24:59 ¯¯\
+#Include %A_ScriptDir%\inc_ahk\global_variables_declaration_without_initialization.inc.ahk
 
-global g_config
-global g_ListBoxGui_show_tipps
-global g_isEnabledKeyboardHotKeys
-global Sql_Temp
-global g_doSound
-
-global g_method
-
-global g_FLAGmsgbox
-global g_actionListID
-global g_actionListDBfileAdress
-
-global g_fontColor
-
-global g_ListBoxFontSize
-
-; Display on the hotstring only, not the whole string
-global g_regExReplaceInVisibleLine ; https://g-intellisense.myjetbrains.com/youtrack/issue/GIS-24
-demoTestData =
-(
-___your library open|rr||ahk|openInEditor,SourceTree.ahk
-autoload.ahk
-b&w actionLists|r|E:\fre\actionLists\TscShellContainerClass
-Visual Basic|rr||ahk|q=b&w actionLists
-Recent|r|C:\Users\bla\AppData\Roaming\Microsoft\Windows\Recent
-last used Recent|rr||ahk|q=Recent
-)
-
-
-global actionList_isNotAProject_withoutExt
-global g_is_correct_list_found := false
-global actionList
-global actionListOLD
-global activeTitle:=""
-
-global g_doAskBevoreChangingActionList
-global g_minBytesNeedetToAskBevoreChangingActionList ; <== Minimum bytes. then will be asked before the change 20.03.2018 18:22
 if(0 && InStr(A_ComputerName,"SL5"))
     g_minBytesNeedetToAskBevoreChangingActionList := 812345 ; <== Minimum bytes. then will be asked before the change 20.03.2018 18:22
 
-global g_isListBoxDisabled
-
-global g_ListBoxX
-global g_ListBoxY
-global g_ListBoxX_old
-global g_ListBoxY_old
-
 global g_TimeMilli_SincePriorMouseClick := A_TickCount
+
+global g_actionList_UsedByUser_since_midnight := {} ; [g_actionListID]
 
 g_config := {}
 #Include *i %A_ScriptDir%\inc_ahk\minify\config.minify.inc.ahk ; update_configMinify_incAhkFile()
+
 
 g_ListBoxX := 0 ; if g_ListBoxX (not false > 0) it never usses CaretXorMouseXfallback . if you want go back to default, reload the
 g_ListBoxY := 0 ; if g_ListBoxX (not false > 0) it never usses CaretXorMouseXfallback . if you want go back to default, reload the
@@ -126,8 +86,6 @@ if(!g_config["FuzzySearch"]["MAXlines"] || !g_config["FuzzySearch"]["keysMAXperE
     reload
 }
 
-;
-
 if(1 && InStr(A_ComputerName,"SL5") )
     g_doSound := 0
 
@@ -135,8 +93,6 @@ if(1 && InStr(A_ComputerName,"SL5")){
     ; g_actionListDBfileAdress := "E:\fre\private\HtmlDevelop\AutoHotKey\tools\TypingAid-master\Source\actionListLearned.db"
     g_actionListDBfileAdress := "G:\fre\private\sql\sqlite\actionList.db"
 }
-
-global g_actionList_UsedByUser_since_midnight := {} ; [g_actionListID]
 
 ;\____ global __ 190113082444 __ 13.01.2019 08:24:44 __/
 ;\____ global __ 190113082444 __ 13.01.2019 08:24:44 __/
@@ -221,7 +177,7 @@ if(!fileExist(actionList)){
     ; addet 26.4.2018 12:58 becouse of mistourios things
     ; deactivated 10.06.2018 08:36 becouse messeage disturbing every new installed is first time started.
     ; and becouse dont know the use of this lines?
-    msg = :( !fileExist(%actionList%) `n (%A_LineFile%~%A_LineNumber%)
+    msg = :( !fileExist(%actionList%) `n token80 `n (%A_LineFile%~%A_LineNumber%)
     lll("`n" . A_LineNumber, A_ScriptName, msg)
     if(false){
         Msgbox,% msg

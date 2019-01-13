@@ -2,6 +2,15 @@
 */
 ; comments 
 
+g_config.editor := { 
+	tryThisEditorFirst: "Notepad",
+	AHKStudioAHK : "..\AHK-Studio\AHK-Studio.ahk",
+	NotepadPPExe : "C:\Program Files\Notepad++\notepad++.exe",
+	AutoGUIAHK : "..\AutoGUI\AutoGUI.ahk"
+} ; possible values: Notepad, AHKStudio, AutoGUI
+
+
+
 ;RegRead, g_min_searchWord_length, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, g_min_searchWord_length
 g_min_searchWord_length := 1
 
@@ -27,12 +36,9 @@ g_actionListDBfileAdress := A_ScriptDir "\actionListLearned.db"
 actionList_isNotAProject_withoutExt  := removesSymbolicLinksFromFileAdress( A_ScriptDir "\..\actionLists\_globalActionListsGenerated\isNotAProject" )
 actionList_isNotAProject  := actionList_isNotAProject_withoutExt ".ahk"
 ;	tryThisEditorFirst: "AHKStudio",
-g_config.editor := { 
-	tryThisEditorFirst: "Notepad",
-	AHKStudioAHK : "..\AHK-Studio\AHK-Studio.ahk",
-	NotepadPPExe : "C:\Program Files\Notepad++\notepad++.exe",
-	AutoGUIAHK : "..\AutoGUI\AutoGUI.ahk"
-} ; possible values: Notepad, AHKStudio, AutoGUI
+
+
+
 g_config.Send := { RealisticDelayDynamic: false } ; RealisticDelayDynamic: 2
 g_config.list := { 
 	change: { stopRexExTitle: false } 

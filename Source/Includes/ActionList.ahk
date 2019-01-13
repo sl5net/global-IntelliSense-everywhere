@@ -170,17 +170,19 @@ ReadActionList( calledFromStr ){
 		
 		g_actionListID := getActionListID(actionList) ; 24.03.2018 23:02
 		if(!g_actionListID){
-			
+            winWaitNotactive,at
 			m =
             (
             Modified := (%actionListModified% ?= %actionListLastModified%=Last)
             Size        = diffSize (%actionListSize% ?= %actionListLastSize%=LastSize)
 
             actionList = %actionList%
+            at = %at%
             %SELECT%
             )
-			if(1 && InStr(A_ComputerName,"SL5"))
+			if(1 && InStr(A_ComputerName,"SL5")){
 				Msgbox,% ":-( Oops `n " m " !g_actionListID ==> return false `n (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+            }
 			Sleep, 1000
 			return false
 		}

@@ -33,7 +33,7 @@ IfWinExist,hideAllAhkTray.ahk
   Sleep,1000
   WinClose,hideAllAhkTray.ahk
   ;~ WinKill,hideAllAhkTray.ahk
-            RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, Reload , % A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+            RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, Reload , % A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
   reload
 }
 

@@ -8,7 +8,9 @@ CoordMode, Caret, Screen
 CoordMode, ToolTip, Screen
 ; CoordMode, Mouse, Screen
 
-#Include *i %A_ScriptDir%\inc_ahk\minify\config.minify.inc.ahk
+g_config := {}
+#Include *i %A_ScriptDir%\inc_ahk\minify\config.minify.inc.ahk ; update_configMinify_incAhkFile()
+
 #Include %A_ScriptDir%\inc_ahk\soundBeep.inc.ahk
 ; msgbox,% "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
 
