@@ -631,8 +631,8 @@ return
 
     ; g_fontColor := (g_isListBoxDisabled) ? "cRed" : "cGreen"
     if(1 && !g_isListBoxDisabled){ ; doent need this anymore
-
-        MsgBox, 4,doubleCtrl detected: Hide ListBox ? (%DoubleClickTime%ms = DoubleClickTime),  `nYES? or ESC/NO?
+        ; MsgBox , Options, Title, Text, Timeout
+        MsgBox, 4,doubleCtrl detected: Hide ListBox ? (%A_TimeSincePriorHotkey%ms = TimeSincePriorHotkey),  `nYES? or ESC/NO?   (timeout 5sec), 5
 		IfMsgBox yes
 		{
             g_isListBoxDisabled := !g_isListBoxDisabled
