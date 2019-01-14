@@ -108,8 +108,9 @@ openInEditorFromIntern(m1CorrectedAhkFileAddress){
     ; clipboard := g_config["editor"]["AHKStudioAHK"]
     ; G:\fre\git\github\global-IntelliSense-everywhere-Nightly-Build\Source\..\AHK_Studio\AHK_Studio.ahk
     if(!isEditorExist_AHKStudio := FileExist(g_config["editor"]["AHKStudioAHK"])){
-        feedbackMsgBox(A_LineNumber ":" A_ScriptName ,":-( Editor NOT Exist: AHKStudioAHK: `n`n`n`n >>" g_config["editor"]["AHKStudioAHK"] "<<`n`n`n`n" , A_LineNumber,1,1)
-        sleep,1000
+        ; feedbackMsgBox(A_LineNumber ":" A_ScriptName ,":-( Editor NOT Exist: AHKStudioAHK: `n`n`n`n >>" g_config["editor"]["AHKStudioAHK"] "<<`n`n`n`n" , A_LineNumber,1,1)
+        if(1 && InStr(A_ComputerName,"SL5"))
+            sleep,1000
     }
     ; feedbackMsgBox(A_LineNumber ":" A_ScriptName ,g_config["editor"]["tryThisEditorFirst"] "`n" m1CorrectedAhkFileAddress , A_LineNumber,1,1)
 
@@ -128,27 +129,36 @@ openInEditorFromIntern(m1CorrectedAhkFileAddress){
         g_config["editor"]["NotepadPPExe"] := "C:\Program Files\Notepad++\notepad++.exe"
     isEditorExist_NotepadPP := FileExist(NotepadPPExe)
     if(!isEditorExist_NotepadPP := FileExist(g_config["editor"]["NotepadPPExe"])){
-        feedbackMsgBox(A_LineNumber ":" A_ScriptName ,":-( Editor NOT Exist: NotepadPPExe: `n`n`n`n >>" g_config["editor"]["NotepadPPExe"] "<<`n`n`n`n" , A_LineNumber,1,1)
-        sleep,1000
+        ; feedbackMsgBox(A_LineNumber ":" A_ScriptName ,":-( Editor NOT Exist: NotepadPPExe: `n`n`n`n >>" g_config["editor"]["NotepadPPExe"] "<<`n`n`n`n" , A_LineNumber,1,1)
+        if(1 && InStr(A_ComputerName,"SL5"))
+            sleep,1000
     }
 
     ; editorName := "AutoGUI"
     ; isEditorExist_AutoGUI := FileExist("..\" editorName "\" editorName ".ahk")
     if(!isEditorExist_AutoGUI := FileExist(g_config["editor"]["AutoGUIAHK"])){
         ; feedbackMsgBox(A_LineNumber ":" A_ScriptName ,":-( Editor NOT Exist: AutoGUIAHK: `n`n`n`n >>" g_config["editor"]["AutoGUIAHK"] "<<`n`n`n`n" , A_LineNumber,1,1)
-        sleep,1000
+        if(1 && InStr(A_ComputerName,"SL5"))
+            sleep,1000
     }
 
     ; fallback if somebody gives addresses like ..\....\G:\\... then take the second absolut path
     m1CorrectedAhkFileAddress := regexreplace(m1CorrectedAhkFileAddress , "i).*(\b[a-z]\:\\)", "$1" )
-    m1CorrectedAhkFileAddress := g_config.ScriptDir "\" m1CorrectedAhkFileAddress
-    if(!isFileExist := FileExist(m1CorrectedAhkFileAddress)){
+    if(g_config.ScriptDir)
+        m1CorrectedAhkFileAddress := g_config.ScriptDir "\" m1CorrectedAhkFileAddress
+    else{
         RegRead, aScriptDir, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, aScriptDir
         m1CorrectedAhkFileAddress := aScriptDir "\" m1CorrectedAhkFileAddress
-        feedbackMsgBox(A_LineNumber ":" A_ScriptName ,":-( File NOT Exist: File: `n`n`n`n >>" m1CorrectedAhkFileAddress "<<`n`n`n`n" , A_LineNumber,1,1)
+    }
+    ; m1CorrectedAhkFileAddress := regexreplace(m1CorrectedAhkFileAddress , "i).*(\b[a-z]\:\\)", "$1" )
+    if(0 && InStr(A_ComputerName,"SL5"))
+        clipboard := m1CorrectedAhkFileAddress
+    if(!isFileExist := FileExist(m1CorrectedAhkFileAddress)){
+        ;feedbackMsgBox(A_LineNumber ":" A_ScriptName ,":-( File NOT Exist: File: `n`n`n`n >>" m1CorrectedAhkFileAddress "<<`n`n`n`n" , A_LineNumber,1,1)
         if(!isFileExist := FileExist(m1CorrectedAhkFileAddress))
             feedbackMsgBox(A_LineNumber ":" A_ScriptName ,":-( File NOT Exist: File: `n`n`n`n >>" m1CorrectedAhkFileAddress "<<`n`n`n`n" , A_LineNumber,1,1)
-        sleep,5000
+        if(1 && InStr(A_ComputerName,"SL5"))
+            sleep,5000
         return false
     }
     c =
@@ -187,7 +197,7 @@ the emeditor.ahk is going to be the name of the program then the file extension.
         ; 28.09.2018 15:48 6,1 MB opens without error warnings
         editorAddress := g_config["editor"]["AutoGUIAHK"]
     }else{ ; fallback
-        runString = notepad.exe "%m1CorrectedAhkFileAddress%"
+        editorAddress = notepad.exe
         tip := "fallback: open with `n`n" runString "`n`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
         ToolTip5sec( tip )
         ; feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), tip )
@@ -195,7 +205,7 @@ the emeditor.ahk is going to be the name of the program then the file extension.
             sleep,2600
     }
     runString = "%editorAddress%" "%m1CorrectedAhkFileAddress%"
-    Msgbox,% runString " (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+    ; Msgbox,% runString " (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
     run,% runString
     return true
 
