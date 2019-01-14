@@ -3,7 +3,27 @@
 
 FileEncoding, UTF-8
 
-update_configMinify_incAhkFile()
+; feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), "test  6", 1, 1, 6 )
+if(configMinify := update_configMinify_incAhkFile()){
+feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), "test  6", 1, 1, 6 )
+    configMinifyIncAhkContent := configMinify["content"]
+    configMinifyIncAhkAddress := configMinify["Address"]
+    configMinifyIncAhkContentSTATIC := RegExReplace(configMinifyIncAhkContent, "A" "_ScriptDir", """" A_ScriptDir """" )
+    configMinifyIncAhkAddressSTATIC := configMinifyIncAhkAddress "STATIC.ahk"
+    ; A_ScriptDir
+
+	tempFileAddress := A_ScriptDir "\" A_TickCount ".temp.txt"
+	FileAppend, % configMinifyIncAhkContentSTATIC, % tempFileAddress
+	FileCopy,% tempFileAddress, % configMinifyIncAhkAddressSTATIC, 1
+	Sleep,20
+	FileDelete,% tempFileAddress
+feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), configMinifyIncAhkAddressSTATIC, 1, 1, 6 )
+    sleep,2000
+	; msgbox, % configMinifyIncAhkAddressSTATIC
+    reload
+}
+RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, aScriptDir, %A_ScriptDir% ; RegWrite , RegSave
+; RegRead, aScriptDir, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, aScriptDir
 
 #Include %A_ScriptDir%\inc_ahk\init_global.init.inc.ahk
 

@@ -97,7 +97,7 @@ RunWait, %scriptDir%\SaveLast5_to_BackupSL5.ahk "%ScriptFullPath%", %scriptDir%
 RunWait, %scriptDir%\SaveLast5_to_BackupSL5.ahk "%ScriptFullPath%" "c:/fre/private/Google_Drive/fax.sl5net/backup", %scriptDir%
 ;>>>>>>>> SaveLast5_to_BackupSL5 >>>> 171003084736 >>>> 03.10.2017 08.47:36 >>>>
   
-    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net, Reload , % A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, Reload , % A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
     Reload
   }
     Return ModiTime

@@ -6,7 +6,10 @@ isDevellopperMode:=true ; enthï¿½llt auch update script.
 #Include *i %A_ScriptDir%\inc_ahk\init_global.init.inc.ahk
 #Include *i %A_ScriptDir%\keysEveryWhere_PRIVATE.inc.ahk
 
-
+g_config := {}
+#Include %A_ScriptDir%\inc_ahk\minify\config.minify.inc.ahkSTATIC.ahk
+; #Include *i %A_ScriptDir%\inc_ahk\minify\config.minify.inc.ahkSTATIC.ahk
+; # Include *i %A_ScriptDir%\inc_ahk\minify\config.minify.inc.ahk ; update_configMinify_incAhkFile()
 
 if(1 && InStr(A_ComputerName,"SL5") )
     g_doSound := true

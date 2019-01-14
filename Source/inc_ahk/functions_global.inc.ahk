@@ -21,7 +21,7 @@ update_configMinify_incAhkFile(configIncAhkAddress := "\config\config.inc.ahk"
         , configMinifyIncAhkAddress := "\config.minify.inc.ahk" ){
     ; needs start with: g_config (12.01.2019 10:57, 19-01-12_10-57)
     configIncAhkAddress         := A_ScriptDir configIncAhkAddress
-    configMinifyDIR   := A_ScriptDir "\inc_ahk\minify\"
+    configMinifyDIR   := A_ScriptDir "\inc_ahk\minify"
     configMinifyIncAhkAddress   := configMinifyDIR configMinifyIncAhkAddress
 
 ; call it like (11.01.2019 20:19):
@@ -29,7 +29,9 @@ useItLike =
 (
 SetTimer,check_configFile_Changed,2000
 g_config := {} ; <= or every name you like
-update_configMinify_incAhkFile()
+if(... := update_configMinify_incAhkFile()){
+    reload ...
+}
 # Include *i %A_ScriptDir%\inc_ahk\minify\config.minify.inc.ahk
 )
 ; Changes always become active on the next next call. becouse include is a preparser command. 19-01-11_18-33
@@ -79,8 +81,14 @@ multiline comment2
 	FileCopy,% tempFileAddress, % configMinifyIncAhkAddress, 1
 	Sleep,20
 	FileDelete,% tempFileAddress
-	reload
-	; Return configMinifyIncAhkAddress
+	; reload
+
+	configMinify := { Address: configMinifyIncAhkAddress, content: configContentminify }
+    ; configMinifyIncAhkContent := configMinify["content"]
+    ; configMinifyIncAhkAddress := configMinify["Address"]
+    msg := configMinify["Address"] " = Address (" A_ThisFunc ": " A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), msg, 1, 1, 6 )
+  	Return configMinify
 }
 ;\____ update_configMinify_incAhkFile __ 190111201850 __ 11.01.2019 20:18:50 __/
 
