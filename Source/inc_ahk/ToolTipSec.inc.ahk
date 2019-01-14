@@ -86,8 +86,7 @@ ToolTip9sec(t,x=123,y=321, layer1to20:=1){
 
 
 ;/¯¯¯¯ ToolTipSec ¯¯ 190110154314 ¯¯ 10.01.2019 15:43:14 ¯¯\
-ToolTipSec(t,x=123,y=321,sec=1000,layer1to20:=1)
-{
+ToolTipSec(t,x=123,y=321,sec=1000,layer1to20:=1)  {
     Last_A_This:=A_ThisFunc . A_ThisLabel
    ; lll(A_LineNumber, "ToolTipSec.inc.ahk",Last_A_This)
 

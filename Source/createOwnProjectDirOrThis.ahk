@@ -8,6 +8,7 @@ isDevellopperMode:=true ; enthï¿½llt auch update script.
 
 g_config := {}
 #Include %A_ScriptDir%\inc_ahk\minify\config.minify.inc.ahkSTATIC.ahk
+
 ; #Include *i %A_ScriptDir%\inc_ahk\minify\config.minify.inc.ahkSTATIC.ahk
 ; # Include *i %A_ScriptDir%\inc_ahk\minify\config.minify.inc.ahk ; update_configMinify_incAhkFile()
 
@@ -231,6 +232,7 @@ reload
 #Include *i %A_ScriptDir%\inc_ahk\functions_global.inc.ahk
 #Include *i %A_ScriptDir%\inc_ahk\functions_global_dateiende.inc.ahk
 #Include *i %A_ScriptDir%\inc_ahk\UPDATEDSCRIPT_global.inc.ahk
+
 
 
 

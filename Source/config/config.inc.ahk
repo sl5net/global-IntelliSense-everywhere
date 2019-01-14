@@ -24,6 +24,16 @@ g_ListBoxFontSize := 2 ; work but its so small i could not read
 g_ListBoxFontSize := 8 
 g_FLAGmsgbox := false
 g_doSound := false
+; ToolTipSec(tip,ListBoxPosX, tooltipPosY
+; , g_config["listBoxGui"]["tipps"]["durationMilliseconds"] , 2 )
+g_config.listBoxGui := { 
+	tipps: { 
+		show: 1,
+		durationMilliseconds: 3500
+	}
+}
+
+
 g_ListBoxGui_show_tipps := 1
 g_min_MonitorBound_right := 70 ; used in: ForceWithinMonitorBounds
 g_method := "Clipboard"

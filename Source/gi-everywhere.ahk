@@ -433,8 +433,8 @@ AutoTrim, Off
 
 
 
-; RegRead, g_ListBoxGui_show_tipps , HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, g_ListBoxGui_show_tipps
-; RegRead, g_doSound , HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, g_doSound
+; RegRead, g_config["listBoxGui"]["tipps"]["show"] , HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, listBoxGui_tipps_show
+; RegRead, g_config[" ... , HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, g_doSound
 
 
 
@@ -879,8 +879,6 @@ if(true){
 )
     DynaRun(AHKcode)
 
-
-
     return
 }
 ;\____ reload_IfNotExist_ListBoxGui __ 181201095204 __ 01.12.2018 09:52:04 __/
@@ -1146,9 +1144,9 @@ Return
 
 
 lbl_g_ListBoxGui_tippsTOGGLE:
-    g_ListBoxGui_show_tipps := (!g_ListBoxGui_show_tipps)
-    ToolTip4sec( ((g_ListBoxGui_show_tipps)?"ON":"OFF") "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
-    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, g_ListBoxGui_show_tipps, %g_ListBoxGui_show_tipps% ; RegWrite , RegSave
+    g_config["listBoxGui"]["tipps"]["show"] := (!g_config["listBoxGui"]["tipps"]["show"])
+    ToolTip4sec( ((g_config["listBoxGui"]["tipps"]["show"])?"ON":"OFF") "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, listBoxGui_tipps_show, % g_config["listBoxGui"]["tipps"]["show"] ; RegWrite , RegSave
 return
 
 lbl_set_permanent_ActionList:

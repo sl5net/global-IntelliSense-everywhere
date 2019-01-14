@@ -649,9 +649,6 @@ AddToMatchList(position, MaxLength, HalfLength, LongestBaseLength, ComputeBaseLe
 
    global g_MatchTotal ; addet 18-12-31_13-56
 
-   global g_ListBoxGui_show_tipps ; 18-12-31_14-00
-
-
     INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
    blankprefix = `t
    
@@ -670,7 +667,7 @@ AddToMatchList(position, MaxLength, HalfLength, LongestBaseLength, ComputeBaseLe
    }
 
 
-    if(false && g_ListBoxGui_show_tipps
+    if(false && g_config["listBoxGui"]["tipps"]["show"]
         && (g_MatchTotal == position || g_MatchTotal-1 == position )) ; if we use last inty only for information. show the action list. dont use a profix
         prefix := ""
 
@@ -914,7 +911,7 @@ ShowListBox(paraX:="",paraY:=""){
       
       g_ListBoxPosX := CaretXorMouseXfallback()
       ListBoxPosY := CaretYorMouseYfallback()
-      if(g_ListBoxGui_show_tipps){
+      if(g_config["listBoxGui"]["tipps"]["show"]){
         ListBoxPosY += 39
       }
 

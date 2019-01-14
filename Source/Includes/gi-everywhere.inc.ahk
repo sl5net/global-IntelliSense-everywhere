@@ -369,8 +369,6 @@ RecomputeMatches( calledFromStr, is_Recursion := false ){
 	global g_ListBoxPosX
 	global g_ListBoxPosY
 
-    global g_ListBoxGui_show_tipps ; addet 18-12-31_14-03
-
     global g_listSELECT_FROM_WinTitle ; addet 19-01-09_11-51
     global g_permanentSELECT ; addet 19-01-09_11-51
     global g_permanentSELECT_type ; addet 19-01-09_11-51
@@ -834,7 +832,7 @@ LIMIT 9
     ; thats the way how you could add last list entry, if something is found
     ; g_SingleMatch[++g_MatchTotal] := "TEESSTT "
 
-   if(g_ListBoxGui_show_tipps){
+   if(g_config["listBoxGui"]["tipps"]["show"]){
        isInIn := (instr(actionList,short_RegReadActionList_DebugInfo) || instr(RegReadActionList_DebugInfo,short_actionList) )
         ; tooltip,% "RecomputeMatchesTimer: " g_Word "(" StrLen(g_Word) ") (" A_ThisFunc "~" A_LineNumber "~" RegExReplace(A_LineFile,".*\\") ")" ((!isInIn) ? "Oops: al=" RegExReplace(actionList,".*\\") "<> reg=" RegExReplace(RegReadActionList_DebugInfo,".*\\") : RegExReplace(actionList,".*\\") ) ,1,-20
         ; sleep,1000 ; time for reading tooltip
@@ -883,13 +881,14 @@ global g_ListBoxActualSizeH_maxFound ; this variable is empty after a fres start
                 }else
                     tip .= "doubleCtrl: On/Off Listbox, double-click: follows caret"
             }
-; t
-            ToolTip9sec(tip,ListBoxPosX, tooltipPosY, 2 ) ; 13px pe line
+            ; ToolTip9sec(tip,ListBoxPosX, tooltipPosY, 2 ) ; 13px pe line
+            ; ToolTipSec(t,x,y,9000, layer1to20)
+            ToolTipSec(tip,ListBoxPosX, tooltipPosY, g_config["listBoxGui"]["tipps"]["durationMilliseconds"] , 2 )
             winmove,% tip, ,% ListBoxPosX, % tooltipPosY ; needet if tootop is beetween monitio or out of moinitor bouds 04.01.2019 13:07
         }
 
 
-        ; tes
+        ; tes test test tes
 
         ; plausibilty-check (18-12-28_08-03):
         ; WinGetActiveTitle,at
@@ -1862,7 +1861,7 @@ BuildTrayMenu(){
 	
 	Menu, Tray, add
 	
-	; Menu, Tray, add, toggle tipps , lbl_g_ListBoxGui_tippsTOGGLE ; g_ListBoxGui_show_tipps
+	; Menu, Tray, add, toggle tipps , lbl_g_ListBoxGui_tippsTOGGLE ; g_config["listBoxGui"]["tipps"]["show"]
 	; Menu, Tray, add, set g_doSound TRUE (experimental feature), lbl_g_doSoundTRUE
 	; Menu, Tray, add, set g_doSound FALSE (experimental feature), lbl_g_doSoundFALSE
 

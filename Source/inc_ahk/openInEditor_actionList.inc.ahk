@@ -147,6 +147,7 @@ openInEditorFromIntern(m1CorrectedAhkFileAddress){
     if(g_config.ScriptDir)
         m1CorrectedAhkFileAddress := g_config.ScriptDir "\" m1CorrectedAhkFileAddress
     else{
+        ; is needet by very new list. becouse is includet from elsware. from actionNameFilter 19-01-14_01-52
         RegRead, aScriptDir, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, aScriptDir
         m1CorrectedAhkFileAddress := aScriptDir "\" m1CorrectedAhkFileAddress
     }
