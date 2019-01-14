@@ -105,8 +105,14 @@ lll( A_ThisFunc ":" A_LineNumber , A_LineFile)
 openInEditorFromIntern(m1CorrectedAhkFileAddress){
     global g_config
 
-    ; clipboard := g_config["editor"]["AHKStudioAHK"]
-    ; G:\fre\git\github\global-IntelliSense-everywhere-Nightly-Build\Source\..\AHK_Studio\AHK_Studio.ahk
+    exe := g_config["editor"]["VSCodeExe"]
+    if(!isEditorExist_VSCodeExe := FileExist(exe)){
+        ; feedbackMsgBox(A_LineNumber ":" A_ScriptName ,":-( Editor NOT Exist: `n`n`n`n >>" exe "<<`n`n`n`n" , A_LineNumber,1,1)
+        if(1 && InStr(A_ComputerName,"SL5"))
+            sleep,1000
+    }
+
+
     if(!isEditorExist_AHKStudio := FileExist(g_config["editor"]["AHKStudioAHK"])){
         ; feedbackMsgBox(A_LineNumber ":" A_ScriptName ,":-( Editor NOT Exist: AHKStudioAHK: `n`n`n`n >>" g_config["editor"]["AHKStudioAHK"] "<<`n`n`n`n" , A_LineNumber,1,1)
         if(1 && InStr(A_ComputerName,"SL5"))
@@ -186,8 +192,12 @@ the emeditor.ahk is going to be the name of the program then the file extension.
 )
 
 
+; test
+
     if(false){
         noOp := 1
+    }else if( g_config["editor"]["tryThisEditorFirst"] == "VSCode" && isEditorExist_VSCodeExe){
+        editorAddress := g_config["editor"]["VSCodeExe"]
     }else if( g_config["editor"]["tryThisEditorFirst"] == "Notepad" && isEditorExist_NotepadPP){
         editorAddress := g_config["editor"]["NotepadPPExe"]
     }else if(g_config["editor"]["tryThisEditorFirst"] == "AHKStudio" && isEditorExist_AHKStudio){
@@ -210,6 +220,8 @@ the emeditor.ahk is going to be the name of the program then the file extension.
     run,% runString
     return true
 
+
+; test test
 
     ToolTip,`n (%A_LineFile%~%A_LineNumber%)
     AHKcode =

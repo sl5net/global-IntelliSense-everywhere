@@ -52,6 +52,9 @@ if(... := update_configMinify_incAhkFile()){
         && modifiedTime_configMinify
         && toOldMilliSec > 0  ) ; + 900 becouse humans are not so fast 19-01-14_13-56
             doUpdate := true
+         else if(toOldMilliSec < -2000){
+            msgbox, % "ups error hacker attack? please dont edit the minify version. toOldMilliSec = " toOldMilliSec " (" A_ThisFunc ": " A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+         }
     }
 
     If(!doUpdate)

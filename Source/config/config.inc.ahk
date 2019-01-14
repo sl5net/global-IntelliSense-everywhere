@@ -2,14 +2,14 @@
 */
 ; comments 
 
-
 g_config.ScriptDir := A_ScriptDir
 g_config.editor := { 
-	tryThisEditorFirst: "Notepad",
-	AHKStudioAHK : A_ScriptDir "\..\AHK-Studio\AHK-Studio.ahk",
+	tryThisEditorFirst: "VSCode",
+	VSCodeExe : "C:\Program Files\Microsoft VS Code\Code.exe",
+	AHKStudioExe : A_ScriptDir "\..\AHK-Studio\AHK-Studio.ahk",
 	NotepadPPExe : "C:\Program Files\Notepad++\notepad++.exe",
 	AutoGUIAHK : A_ScriptDir "\..\AutoGUI\AutoGUI.ahk"
-} ; possible values: Notepad, AHKStudio, AutoGUI
+} ; possible values: VSCode, Notepad, AHKStudio, AutoGUI
 
 ;RegRead, g_min_searchWord_length, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, g_min_searchWord_length
 g_min_searchWord_length := 1
