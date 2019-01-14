@@ -30,7 +30,7 @@ useItLike =
 SetTimer,check_configFile_Changed,2000
 g_config := {} ; <= or every name you like
 if(... := update_configMinify_incAhkFile()){
-    reload ...
+    ; reload ...
 }
 # Include *i %A_ScriptDir%\inc_ahk\minify\config.minify.inc.ahk
 )
@@ -47,18 +47,21 @@ if(... := update_configMinify_incAhkFile()){
             MsgBox,262160,% "problem with :" configMinifyDIR " `n`n :(`n" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ,% ":(`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
     }else{
         FileGetTime, modifiedTime, % configIncAhkAddress
-        if(modifiedTime_configMinify < modifiedTime )
+        toOldMilliSec := modifiedTime - modifiedTime_configMinify
+        if(modifiedTime
+        && modifiedTime_configMinify
+        && toOldMilliSec > 0  ) ; + 900 becouse humans are not so fast 19-01-14_13-56
             doUpdate := true
     }
 
     If(!doUpdate)
         return
 
-    msg := doUpdate " = doUpdate (" A_ThisFunc ": " A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+        ; msgbox,% toOldMilliSec " = toOldMilliSec   "
+
+    msg := toOldMilliSec " = toOldMilliSec   " doUpdate " = doUpdate (" A_ThisFunc ": " A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
     feedbackMsgBox( msg, msg )
     ToolTip9sec( msg, 1, 200, 9 )
-    if(1 && InStr(A_ComputerName,"SL5"))
-        sleep,1000
 
 	FileRead, configContent , % configIncAhkAddress
 	; configContentminify := ""
@@ -66,20 +69,13 @@ if(... := update_configMinify_incAhkFile()){
 	; ((?!\bg_config\b).)*$
 	; configContentminify .= RegExReplace( configContent , "i)[\s\t ]*[\n\r]+([^\n\r]+)(?!\[a-z][_\d]\b)[\s\t ]*", "`n$1" )
 
-/*
-multiline comment1
-multiline comment2
-*/
-
-; too
-
 	; dont work 19-01-13_11-00: configContentminify := RegExReplace( configContent , "m)[\n\r]+(?!(/\*|\*/|[a-z]+[_\d]*))", " " )
 	configContentminify := RegExReplace( configContent , "m)[\n\r]+(?!(\*|/|`;|[a-z]+[_\d]*))", " " )
 	; configContentminify := RegExReplace( configContent , "m)[\n\r]+(?!([a-z]+[_\d]*))", " " )
 	tempFileAddress := A_ScriptDir "\" A_TickCount ".temp.txt"
 	FileAppend, % configContentminify, % tempFileAddress
 	FileCopy,% tempFileAddress, % configMinifyIncAhkAddress, 1
-	Sleep,30
+	Sleep,200
 	FileDelete,% tempFileAddress
 	; reload
 

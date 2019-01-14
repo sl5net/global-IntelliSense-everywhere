@@ -1,27 +1,9 @@
 ﻿; Indentation_style: https://de.wikipedia.org/wiki/Einrueckungsstil#SL5small-Stil
 ; # ErrorStdOut
 
-FileEncoding, UTF-8
+FileEncoding,UTF-8
 
 ; feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), "test  6", 1, 1, 6 )
-if(configMinify := update_configMinify_incAhkFile()){
-feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), "test  6", 1, 1, 6 )
-    configMinifyIncAhkContent := configMinify["content"]
-    configMinifyIncAhkAddress := configMinify["Address"]
-    configMinifyIncAhkContentSTATIC := RegExReplace(configMinifyIncAhkContent, "A" "_ScriptDir", """" A_ScriptDir """" )
-    configMinifyIncAhkAddressSTATIC := configMinifyIncAhkAddress "STATIC.ahk"
-    ; A_ScriptDir
-
-	tempFileAddress := A_ScriptDir "\" A_TickCount ".temp.txt"
-	FileAppend, % configMinifyIncAhkContentSTATIC, % tempFileAddress
-	FileCopy,% tempFileAddress, % configMinifyIncAhkAddressSTATIC, 1
-	Sleep,20
-	FileDelete,% tempFileAddress
-feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), configMinifyIncAhkAddressSTATIC, 1, 1, 6 )
-    sleep,2000
-	; msgbox, % configMinifyIncAhkAddressSTATIC
-    reload
-}
 RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, aScriptDir, %A_ScriptDir% ; RegWrite , RegSave
 ; RegRead, aScriptDir, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, aScriptDir
 
@@ -90,7 +72,7 @@ global g_actionList_UsedByUser_since_midnight := {} ; [g_actionListID]
 
 g_config := {}
 #Include *i %A_ScriptDir%\inc_ahk\minify\config.minify.inc.ahk ; update_configMinify_incAhkFile()
-
+SetTimer,check_configFile_Changed,2500
 
 g_ListBoxX := 0 ; if g_ListBoxX (not false > 0) it never usses CaretXorMouseXfallback . if you want go back to default, reload the
 g_ListBoxY := 0 ; if g_ListBoxX (not false > 0) it never usses CaretXorMouseXfallback . if you want go back to default, reload the
@@ -223,7 +205,6 @@ SetTimer,checkActionListAHKfile_sizeAndModiTime, % lbl_default_checkActionListAH
 SetTimer,check_some_keys_hanging_or_freezed,1800 ; ; 30.08.2018 13:52 it sometimes happesn. and if it happens then its really ugly !!!! :( !!
 SetTimer,check_actionList_GUI_is_hanging_or_freezed,1800 ; ; 26.09.2018 16:38 it sometimes happesn.
 SetTimer,checkWinChangedTitle,1000 ; RegRead, actionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList
-SetTimer,check_configFile_Changed,2000
 
 
 
@@ -2573,7 +2554,29 @@ fixBug_Alt_Shift_Ctrl_hanging_down(){
 
 ;/¯¯¯¯ check_configFile_Changed ¯¯ 190112114734 ¯¯ 12.01.2019 11:47:34 ¯¯\
 check_configFile_Changed:
-    update_configMinify_incAhkFile()
+temp := update_configMinify_incAhkFile()
+if(temp){
+    configMinify := temp
+    ; feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), "test  6", 1, 1, 6 )
+    configMinifyIncAhkContent := configMinify["content"]
+    configMinifyIncAhkAddress := configMinify["Address"]
+    configMinifyIncAhkContentSTATIC := RegExReplace(configMinifyIncAhkContent, "A" "_ScriptDir", """" A_ScriptDir """" )
+    configMinifyIncAhkAddressSTATIC := configMinifyIncAhkAddress "STATIC.ahk"
+    ; A_ScriptDir
+
+	tempFileAddress := A_ScriptDir "\" A_TickCount ".temp.txt"
+	FileAppend, % configMinifyIncAhkContentSTATIC, % tempFileAddress
+	FileCopy,% tempFileAddress, % configMinifyIncAhkAddressSTATIC, 1
+	Sleep,20
+	FileDelete,% tempFileAddress
+    ; feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), configMinifyIncAhkAddressSTATIC, 1, 1, 6 )
+    sleep,500
+	; msgbox, % configMinifyIncAhkAddressSTATIC
+
+	; reload could produced hundrets of windows up !! 19-01-14_14-27
+    run,% "..\start.ahk"
+    exitapp
+}
 return
 ;\____ check_configFile_Changed __ 190112114737 __ 12.01.2019 11:47:37 __/
 

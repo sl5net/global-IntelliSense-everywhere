@@ -14,7 +14,6 @@ g_config.editor := {
 ;RegRead, g_min_searchWord_length, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, g_min_searchWord_length
 g_min_searchWord_length := 1
 
-g_isListBoxDisabled := false
 g_doAskBevoreChangingActionList := false ; <== buggy dont know whey 19.03.2018 23:50
 g_doAskBevoreChangingActionList := true ; <== works preetty nice :) 19.03.2018 23:51
 g_minBytesNeedetToAskBevoreChangingActionList := 812345 ; <== Minimum bytes. then will be asked before the change 20.03.2018 18:22
@@ -24,17 +23,19 @@ g_ListBoxFontSize := 2 ; work but its so small i could not read
 g_ListBoxFontSize := 8 
 g_FLAGmsgbox := false
 g_doSound := false
+; 
+; g_isListBoxDisabled := false ; toggeled by: ~ctrl::
+ 
 ; ToolTipSec(tip,ListBoxPosX, tooltipPosY
 ; , g_config["listBoxGui"]["tipps"]["durationMilliseconds"] , 2 )
+; g_ListBoxGui_show_tipps := 1
 g_config.listBoxGui := { 
 	tipps: { 
-		show: 1,
+		show: true,
 		durationMilliseconds: 3000
 	}
 }
 
-
-g_ListBoxGui_show_tipps := 1
 g_min_MonitorBound_right := 70 ; used in: ForceWithinMonitorBounds
 g_method := "Clipboard"
 g_fontColor := "cGreen"
