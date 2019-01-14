@@ -1,4 +1,4 @@
-﻿/* multi line comments 
+﻿/* this file will be automatic precompiled before it is used by autohotkey 14.01.2019 12:09
 */
 ; comments 
 
@@ -29,7 +29,7 @@ g_doSound := false
 g_config.listBoxGui := { 
 	tipps: { 
 		show: 1,
-		durationMilliseconds: 3500
+		durationMilliseconds: 3000
 	}
 }
 

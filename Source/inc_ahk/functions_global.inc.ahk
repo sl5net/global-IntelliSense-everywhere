@@ -79,7 +79,7 @@ multiline comment2
 	tempFileAddress := A_ScriptDir "\" A_TickCount ".temp.txt"
 	FileAppend, % configContentminify, % tempFileAddress
 	FileCopy,% tempFileAddress, % configMinifyIncAhkAddress, 1
-	Sleep,20
+	Sleep,30
 	FileDelete,% tempFileAddress
 	; reload
 
@@ -90,6 +90,8 @@ multiline comment2
 feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), msg, 1, 1, 6 )
   	Return configMinify
 }
+;\____ update_configMinify_incAhkFile __ 190111201850 __ 11.01.2019 20:18:50 __/
+;\____ update_configMinify_incAhkFile __ 190111201850 __ 11.01.2019 20:18:50 __/
 ;\____ update_configMinify_incAhkFile __ 190111201850 __ 11.01.2019 20:18:50 __/
 
 

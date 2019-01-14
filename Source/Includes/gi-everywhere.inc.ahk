@@ -888,7 +888,6 @@ global g_ListBoxActualSizeH_maxFound ; this variable is empty after a fres start
         }
 
 
-        ; tes test test tes
 
         ; plausibilty-check (18-12-28_08-03):
         ; WinGetActiveTitle,at
