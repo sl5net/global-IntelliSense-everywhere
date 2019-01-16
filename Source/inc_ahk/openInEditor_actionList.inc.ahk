@@ -105,55 +105,6 @@ lll( A_ThisFunc ":" A_LineNumber , A_LineFile)
 openInEditorFromIntern(m1CorrectedAhkFileAddress){
     global g_config
 
-;/¯¯¯¯ oldBefore ¯¯ 190116163943 ¯¯ 16.01.2019 16:39:43 ¯¯\
-    if(false){ ; old style before 19-01-16_16-28
-    exe := g_config["editor"]["VSCodeExe"]
-    if(!isEditorExist_VSCodeExe := FileExist(exe)){
-        ; feedbackMsgBox(A_LineNumber ":" A_ScriptName ,":-( Editor NOT Exist: `n`n`n`n >>" exe "<<`n`n`n`n" , A_LineNumber,1,1)
-        if(1 && InStr(A_ComputerName,"SL5"))
-            sleep,1000
-    }
-
-
-    if(!isEditorExist_AHKStudio := FileExist(g_config["editor"]["AHKStudioAHK"])){
-        ; feedbackMsgBox(A_LineNumber ":" A_ScriptName ,":-( Editor NOT Exist: AHKStudioAHK: `n`n`n`n >>" g_config["editor"]["AHKStudioAHK"] "<<`n`n`n`n" , A_LineNumber,1,1)
-        if(1 && InStr(A_ComputerName,"SL5"))
-            sleep,1000
-    }
-    ; feedbackMsgBox(A_LineNumber ":" A_ScriptName ,g_config["editor"]["tryThisEditorFirst"] "`n" m1CorrectedAhkFileAddress , A_LineNumber,1,1)
-
-    ; editorName := "AHK-Studio"
-    ; isEditorExist_AHKStudio := FileExist("..\" editorName "\" editorName ".ahk")
-
-
-; edit: Opens the indicated file for editing. It might not work if the indicated file's type does not have an "edit" action associated with it.
-
-    ; editorName := "Notepad++"
-    ; NotepadPPExe := "..\" editorName "\unicode\" editorName ".exe"
-
-    NotepadPPExe := FileExist(g_config["editor"]["NotepadPPExe"])
-
-    if(1 && InStr(A_ComputerName,"SL5"))
-        g_config["editor"]["NotepadPPExe"] := "C:\Program Files\Notepad++\notepad++.exe"
-    isEditorExist_NotepadPP := FileExist(NotepadPPExe)
-    if(!isEditorExist_NotepadPP := FileExist(g_config["editor"]["NotepadPPExe"])){
-        ; feedbackMsgBox(A_LineNumber ":" A_ScriptName ,":-( Editor NOT Exist: NotepadPPExe: `n`n`n`n >>" g_config["editor"]["NotepadPPExe"] "<<`n`n`n`n" , A_LineNumber,1,1)
-        if(1 && InStr(A_ComputerName,"SL5"))
-            sleep,1000
-    }
-
-    ; editorName := "AutoGUI"
-    ; isEditorExist_AutoGUI := FileExist("..\" editorName "\" editorName ".ahk")
-    if(!isEditorExist_AutoGUI := FileExist(g_config["editor"]["AutoGUIAHK"])){
-        ; feedbackMsgBox(A_LineNumber ":" A_ScriptName ,":-( Editor NOT Exist: AutoGUIAHK: `n`n`n`n >>" g_config["editor"]["AutoGUIAHK"] "<<`n`n`n`n" , A_LineNumber,1,1)
-        if(1 && InStr(A_ComputerName,"SL5"))
-            sleep,1000
-    }
-    } ; before 19-01-16_16-29
-;\____ oldBefore __ 190116163932 __ 16.01.2019 16:39:32 __/
-
-
-
     ; fallback if somebody gives addresses like ..\....\G:\\... then take the second absolut path
     m1CorrectedAhkFileAddress := regexreplace(m1CorrectedAhkFileAddress , "i).*(\b[a-z]\:\\)", "$1" )
     if(g_config.ScriptDir)
@@ -170,8 +121,6 @@ openInEditorFromIntern(m1CorrectedAhkFileAddress){
     		    feedbackMsgBox(A_LineNumber ":" A_ScriptName ,":-( " msg , msg ,1,1)
                 Msgbox,% msg " (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
     		}
-
-; too tooo ttoo toooo oool lkjlk
 
     ; m1CorrectedAhkFileAddress := regexreplace(m1CorrectedAhkFileAddress , "i).*(\b[a-z]\:\\)", "$1" )
     if(0 && InStr(A_ComputerName,"SL5"))
@@ -208,8 +157,6 @@ the emeditor.ahk is going to be the name of the program then the file extension.
 )
 
 
-; test test test lkj test
-
 isEditorExist := false
 For editorName, editorAddress in g_config.editor
 	if(isEditorExist := FileExist(editorAddress))
@@ -224,41 +171,6 @@ runString = "%editorAddress%" "%m1CorrectedAhkFileAddress%"
 run,% runString
 return true
 
-
-; tool
-
-
-
-    if(false){
-        noOp := 1
-    }else if( g_config["editor"]["tryThisEditorFirst"] == "VSCode" && isEditorExist_VSCodeExe){
-        editorAddress := g_config["editor"]["VSCodeExe"]
-    }else if( g_config["editor"]["tryThisEditorFirst"] == "Notepad" && isEditorExist_NotepadPP){
-        editorAddress := g_config["editor"]["NotepadPPExe"]
-    }else if(g_config["editor"]["tryThisEditorFirst"] == "AHKStudio" && isEditorExist_AHKStudio){
-        ; 28.09.2018 15:48 2,6 MB opens with error warnings
-        ; i got problems relacing some with umlaute (ue) 29.09.2018 12:04
-        editorAddress := g_config["editor"]["AHKStudioAHK"]
-    }else if(g_config["editor"]["tryThisEditorFirst"] == "AutoGUI" && isEditorExist_AutoGUI){
-        ; 28.09.2018 15:48 6,1 MB opens without error warnings
-        editorAddress := g_config["editor"]["AutoGUIAHK"]
-    }else{ ; fallback
-        editorAddress = notepad.exe
-        tip := "fallback: open with `n`n" runString "`n`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
-        ToolTip5sec( tip )
-        ; feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), tip )
-        if(1 && InStr(A_ComputerName,"SL5"))
-            sleep,2600
-    }
-    runString = "%editorAddress%" "%m1CorrectedAhkFileAddress%"
-    clipboard := runString
-    feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), runString )
-    Msgbox,% runString " (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
-    run,% runString
-    return true
-
-
-; test test
 
     ToolTip,`n (%A_LineFile%~%A_LineNumber%)
     AHKcode =

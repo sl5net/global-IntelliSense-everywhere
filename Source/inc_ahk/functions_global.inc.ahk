@@ -1544,18 +1544,19 @@ DynaRun(TempScript, pipename=""){
         ToolTip9sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 
     setTitleMatchMode, 2
-    if(0 && winActive("ahk_class AutoHotkeyGUI")){
+    if(false && winActive("ahk_class AutoHotkeyGUI")){
         ; what was the motivation for this attitude? 18-12-29_11-40
         ; which error should that fix?
         ; which difficulty`?
         ; ==> then some script i not usabal with gi. nearly all GUIs ant also AHK_Studio
         if(1 && InStr(A_ComputerName,"SL5") )
-            feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), msg )
+            feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), "19-01-16_17-53" )
         return false
     }
     if(winExist("fn_functions_global_" A_ThisFunc)){
-        if(1 && InStr(A_ComputerName,"SL5") )
-            feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), msg )
+        if(false && InStr(A_ComputerName,"SL5") ) ; whats this ????
+            feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), "19-01-16_17-51" )
+        ; sleep,1000
         return false
     }
 
@@ -1665,6 +1666,8 @@ ProcessExist(Name){
 	return Errorlevel
 }
 
+
+; too too
 
 ;/¯¯¯¯ json ¯¯ 181122225021 ¯¯ 22.11.2018 22:50:21 ¯¯\
 ; from: https://stackoverflow.com/questions/33989042/json-parsing-generating-and-beautifiying-formatting-with-autohotkey
