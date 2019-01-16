@@ -1,15 +1,15 @@
 ﻿/* this file will be automatic precompiled before it is used by autohotkey 14.01.2019 12:09
 */
-; comments 
-
 g_config.ScriptDir := A_ScriptDir
 g_config.editor := { 
-	tryThisEditorFirst: "VSCode",
-	VSCodeExe : "C:\Program Files\Microsoft VS Code\Code.exe",
-	AHKStudioExe : A_ScriptDir "\..\AHK-Studio\AHK-Studio.ahk",
-	NotepadPPExe : "C:\Program Files\Notepad++\notepad++.exe",
-	AutoGUIAHK : A_ScriptDir "\..\AutoGUI\AutoGUI.ahk"
-} ; possible values: VSCode, Notepad, AHKStudio, AutoGUI
+	1 : A_ProgramFiles "\Microsoft VS Code\Code.exe",
+	2 : "C:\Program Files\Microsoft VS Code\Code.exe",
+	3 : "C:\Program Files\Microsoft VS Code\bin\code.cmd",
+	4 : "C:\Users\lauffer\AppData\Local\Programs\Microsoft VS Code\Code.exe",
+	5 : A_ScriptDir "\..\AHK-Studio\AHK-Studio.ahk",
+	6 : "C:\Program Files\Notepad++\notepad++.exe",
+	7 : A_ScriptDir "\..\AutoGUI\AutoGUI.ahk"
+} ; above the list of the editors, which is gone through alphabetically up to the first find (fileAdress exists).
 
 ;RegRead, g_min_searchWord_length, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, g_min_searchWord_length
 g_min_searchWord_length := 1

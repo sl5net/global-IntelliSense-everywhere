@@ -105,6 +105,8 @@ lll( A_ThisFunc ":" A_LineNumber , A_LineFile)
 openInEditorFromIntern(m1CorrectedAhkFileAddress){
     global g_config
 
+;/¯¯¯¯ oldBefore ¯¯ 190116163943 ¯¯ 16.01.2019 16:39:43 ¯¯\
+    if(false){ ; old style before 19-01-16_16-28
     exe := g_config["editor"]["VSCodeExe"]
     if(!isEditorExist_VSCodeExe := FileExist(exe)){
         ; feedbackMsgBox(A_LineNumber ":" A_ScriptName ,":-( Editor NOT Exist: `n`n`n`n >>" exe "<<`n`n`n`n" , A_LineNumber,1,1)
@@ -147,6 +149,10 @@ openInEditorFromIntern(m1CorrectedAhkFileAddress){
         if(1 && InStr(A_ComputerName,"SL5"))
             sleep,1000
     }
+    } ; before 19-01-16_16-29
+;\____ oldBefore __ 190116163932 __ 16.01.2019 16:39:32 __/
+
+
 
     ; fallback if somebody gives addresses like ..\....\G:\\... then take the second absolut path
     m1CorrectedAhkFileAddress := regexreplace(m1CorrectedAhkFileAddress , "i).*(\b[a-z]\:\\)", "$1" )
@@ -157,6 +163,16 @@ openInEditorFromIntern(m1CorrectedAhkFileAddress){
         RegRead, aScriptDir, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, aScriptDir
         m1CorrectedAhkFileAddress := aScriptDir "\" m1CorrectedAhkFileAddress
     }
+
+
+    		if(InStr(FileExist(m1CorrectedAhkFileAddress ), "D") ){
+    		    msg := "ops. Cant open a folder.?"
+    		    feedbackMsgBox(A_LineNumber ":" A_ScriptName ,":-( " msg , msg ,1,1)
+                Msgbox,% msg " (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+    		}
+
+; too tooo ttoo toooo oool lkjlk
+
     ; m1CorrectedAhkFileAddress := regexreplace(m1CorrectedAhkFileAddress , "i).*(\b[a-z]\:\\)", "$1" )
     if(0 && InStr(A_ComputerName,"SL5"))
         clipboard := m1CorrectedAhkFileAddress
@@ -192,7 +208,26 @@ the emeditor.ahk is going to be the name of the program then the file extension.
 )
 
 
-; test
+; test test test lkj test
+
+isEditorExist := false
+For editorName, editorAddress in g_config.editor
+	if(isEditorExist := FileExist(editorAddress))
+	    break
+if(!isEditorExist)
+    editorAddress = notepad.exe
+runString = "%editorAddress%" "%m1CorrectedAhkFileAddress%"
+    ; clipboard := runString
+    if(1 && InStr(A_ComputerName,"SL5"))
+        feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), editorName ": " runString )
+    ; Msgbox,% runString " (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+run,% runString
+return true
+
+
+; tool
+
+
 
     if(false){
         noOp := 1
@@ -216,7 +251,9 @@ the emeditor.ahk is going to be the name of the program then the file extension.
             sleep,2600
     }
     runString = "%editorAddress%" "%m1CorrectedAhkFileAddress%"
-    ; Msgbox,% runString " (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+    clipboard := runString
+    feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), runString )
+    Msgbox,% runString " (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
     run,% runString
     return true
 
