@@ -527,8 +527,10 @@ GetIncludedActiveWindowGuts() {
       ;Check Caret Position again
       CheckForCaretMove("LButton")
       ShowListBox()
-   } else
-      CloseListBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
+   } else{
+     ; CloseListBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
+     ; ^--- stays much mor stable without this !! seeems no need for this !  :-) 17.01.2019 13:42
+   }
    g_Active_Id :=  ActiveId
    g_Active_Pid := ActivePid
    g_Active_Process := ActiveProcess
