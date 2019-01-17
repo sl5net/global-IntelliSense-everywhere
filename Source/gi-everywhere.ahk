@@ -2010,7 +2010,7 @@ global-IntelliSense-everywhere-Nightly-Build [G:\fre\git\github\global-IntelliSe
 
 
 
-        ApplyChanges() ; It works also without this line. maybe the changes/first build is faster loadet 05.11.2018 13:37
+        ; ApplyChanges() ; It works also without this line. maybe the changes/first build is faster loadet 05.11.2018 13:37
 
 
 
@@ -2024,8 +2024,9 @@ global-IntelliSense-everywhere-Nightly-Build [G:\fre\git\github\global-IntelliSe
             ; ShowListBox(g_ListBoxX,g_ListBoxY)
             ; InitializeListBox() ; --> Error same variable I can use twice
             ; reload_IfNotExist_ListBoxGui()
-            ApplyChanges()
+            ; ApplyChanges()
 
+; tool toolTip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 
 
             Speak("ShowListBox", "PROD" )  ;  (DEV, TEST, STAGING, PROD),
@@ -2060,7 +2061,7 @@ InactivateAll_Suspend_ListBox_WinHook() ; addet 24.10.2018 14:16
 
 
     ; This is to blank all vars related to matches, ListBox and (optionally) word
-   ClearAllVars(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),True) ; 24.10.2018 14:16 may help listBoxGUI NEVER HANGS TODO:check it
+   ; ClearAllVars(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),True) ; 24.10.2018 14:16 may help listBoxGUI NEVER HANGS TODO:check it
     ; I think it might be handy if the search word is already on the next list. Therefore I commented this line out today 24.10.2018 14:48
     ;\____ very_happy __ 181024144106 __ 24.10.2018 14:41:06 __/
 
