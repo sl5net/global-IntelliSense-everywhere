@@ -150,7 +150,11 @@ so it should be recreated automatically by next start.
 see: \Source\config\config.inc.ahk
 (13.01.2019 11:34)
 )
-feedbackMsgBox(substr(msg,1,100) "...", msg, 1, 1, 66 * 5 )
+title := substr(msg,1,100) "..."
+if(!WinExist(title)){
+    ; feedbackMsgBox(title, msg, 1, 1, 66 * 5 )
+    MsgBox, , % title, % msg
+}
 }
 ;\____ showFilePrefix __ 190113113551 __ 13.01.2019 11:35:51 __/
 
@@ -542,12 +546,6 @@ MainLoop()
     ; SetTimer,checkActionListAHKfile_sizeAndModiTime,1200
 ; return
 
-
-
-;
-
-
-
 setTitleMatchMode,1
 #IfWinActive,doubleCtrl detected: Hide ListBox
 Esc::
@@ -563,7 +561,7 @@ return
 ~ctrl::
     ; not exist: A_TimeSinceKey ... if exist its helpful 19-01-13_10-05
    ;If (A_TimeSincePriorHotkey < 280 && A_TimeSincePriorHotkey > 120){ ; 50 was to short. i tested it with holding the ctrl key
-   If (A_TimeSincePriorHotkey < 500 && A_TimeSincePriorHotkey > 80 ){ ; 50 was to short. i tested it with holding the ctrl key
+If (A_TimeSincePriorHotkey < 500 && A_TimeSincePriorHotkey > 80 ){ ; 50 was to short. i tested it with holding the ctrl key
     ; DoubleClickTime := DllCall("GetDoubleClickTime")   ; Get the doubleclicktime in milliseconds
     ; asking about good doubleCtrl quality 05.01.2019 12:33: https://www.autohotkey.com/boards/viewtopic.php?f=76&t=60699
 

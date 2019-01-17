@@ -1,5 +1,5 @@
 ﻿g_config := {}
-#Include %A_ScriptDir%\inc_ahk\minify\config.minify.inc.ahkSTATIC.ahk
+#Include *i %A_ScriptDir%\inc_ahk\minify\config.minify.inc.ahkSTATIC.ahk
 
 
 ;<<<<<<<< openInEditor <<<< 1810111507 <<<< 01.10.2018 11:54:07 <<<<
