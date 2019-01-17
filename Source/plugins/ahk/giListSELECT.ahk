@@ -10,11 +10,12 @@ SELECT distinct replace(actionList, rtrim(actionList, replace(actionList, '\', '
 || '|rr|'
 || '|ahk|RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList, '
 || substr(actionList, 1, length(actionList)-4) FROM actionLists
- WHERE actionList Like '`%g_Word`%' 
+ WHERE actionList Like '`%g_Word`%' Limit 10
 )
 SELECT := RegExReplace(SELECT, "m)\n", " ")
 ; MsgBox, % SELECT
-Clipboard := SELECT
+if(1 && InStr(A_ComputerName,"SL5") )
+     Clipboard := SELECT
 #SingleInstance,Force
 RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, g_permanentSELECT, % SELECT
 bodyText =
