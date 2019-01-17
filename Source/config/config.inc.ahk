@@ -69,6 +69,23 @@ g_config.FuzzySearch := {
 	minKeysLen: 4,
 	doValueCopy : false
 }
+
+; follwing is not yet implemented:
+g_config.codeRunner.executorMap := {
+        javascript: "node",
+        php: "C:\php\php.exe",
+        python: "python",
+        perl: "perl",
+        ruby: "C:\Ruby23-x64\bin\ruby.exe",
+        go: "go run",
+        html: "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe",
+        java: "cd $dir && javac $fileName && java $fileNameWithoutExt",
+        c: "cd $dir && gcc $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+		kotlinc: A_ScriptDir "\..\ActionLists\_kts\kotlinc\bin\kotlinc"
+    }
+
+
+
 ; difficult to implement symlink copy for not rr lines doValueCopy. todo: issue . doValueCopy : false  is not fully implemented
 ; g_config["sql"["select"]["ignIfWhereIsWithoutListID"]
 ; is matching some at the end: at the moment SQL Nr 6,7 and the magic selects later are without ListID 11.01.2019 23:05
