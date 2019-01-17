@@ -9,7 +9,7 @@ setRegistry_actionList( actionListNewTemp_withoutExt ){   ; RegWrite , RegSave ,
 
     if(InStr(actionListNewTemp_withoutExt,"._Generated.ahk._Generated")){
          msg := "Oops. found : ._Generated.ahk._Generated.ahk => ._Generated.ahk `n`n" actionListNewTemp_withoutExt
-         ToolTip5sec(msg "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" , 1,1 )
+         ToolTip5sec(msg "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")12" , 1,1 )
 
 
 

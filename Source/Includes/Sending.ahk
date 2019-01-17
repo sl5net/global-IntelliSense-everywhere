@@ -416,13 +416,13 @@ SendWord(WordIndex){
 	actionListFolderOfThisActionList := removesSymbolicLinksFromFileAdress(actionListFolderOfThisActionList) ; user should could includes direcly from his ahk actionList, without editing the address 05.03.2018 08:15
 
 
-	if(!FileExist(actionListFolderOfThisActionList)){ ; Checks for the existence of a file or folder
+	if(false && !FileExist(actionListFolderOfThisActionList)){ ; Checks for the existence of a file or folder
 		clipboard := actionListFolderOfThisActionList  "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
 		msg = 
 		(
 >%actionListFolderOfThisActionList%< NOT exist
-actionList = %actionList%
-g_actionListID = %g_actionListID%
+>%actionList%< = actionList
+>%g_actionListID%< = g_actionListID
 		)
 		msg .= "`n`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 		msg = ups:`n ! FileExist(%actionListFolderOfThisActionList% %msg%
@@ -1084,7 +1084,7 @@ g_actionListID = %g_actionListID%
 		
 		
 		if(0 && InStr(A_ComputerName,"SL5") ){
-			tooltip ,% "`nAHKcode=`n" AHKcode  "`nAHKcode2=`n" AHKcode2 "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+			tooltip,% "`nAHKcode=`n" AHKcode  "`nAHKcode2=`n" AHKcode2 "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 			clipboard := AHKcode2
 		}
 		

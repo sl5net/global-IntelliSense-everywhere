@@ -1715,11 +1715,11 @@ checkInRegistryChangedActionListAddress:
         actionListNewTemp_withoutExt := SubStr( actionListNewTemp_withoutExt,1 , -4 )
         setRegistry_actionList( actionListNewTemp_withoutExt )
         if(1 && InStr(A_ComputerName,"SL5")){
-            m := "dirty bugfix "
+            m := "dirty bugfix. It is more common to specify the list without extension "
             Speak(m " in " A_LineNumber , "PROD")
             ToolTip9sec(m "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
             lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,m)
-            msgbox,% m " " actionListNewTemp_withoutExt
+            msgbox,% m " " actionListNewTemp_withoutExt "`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
         }
     }
 

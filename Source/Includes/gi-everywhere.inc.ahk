@@ -278,7 +278,8 @@ ProcessKey(InputChar,EndKey) {
          ;AddWordToList(ByRef rootCmdTypeObj,g_Word,0)
 			ClearAllVars(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),true)
 			if(1 && InStr(A_ComputerName,"SL5"))
-				tooltip,% "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")",1
+				tooltip,% "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber " 19-01-16_20-12)",1
+
 			g_Word := InputChar
 			g_LastInput_Id := g_Active_Id
 			Return
@@ -377,18 +378,10 @@ RecomputeMatches( calledFromStr, is_Recursion := false ){
 
 
     ;if( g_listSELECT_FROM_WinTitle && WinActive(g_listSELECT_FROM_WinTitle))
-    ;    do_SELECT_actionList_FROM_actionLists_NotLike_isNotAProject := true
+    ; do_SELECT_actionList_FROM_actionLists_NotLike_isNotAProject := true
 
-; too tool tool tool ooll tool too
-; test tes to
-; tool
-
-; box box msgb bo
     ; msgbox,% g_min_searchWord_length_2 "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
-	
     ; Menu, Tray, Icon, shell32.dll, 266 ; pretty black clock
-	
-    ; toot too test test hallo
 	
 	setTrayIcon("RecomputeMatches")
 	if(1 && InStr(A_ComputerName,"SL5"))
@@ -490,7 +483,7 @@ SELECT actionList FROM actionLists WHERE actionList Like 'g_Word' AND actionList
 		o := valueObj[A_Index]
 
 		if(!o){
-        		; Msgbox,:( Oops >%A_Index%<(%A_LineFile%~%A_LineNumber%)
+			; Msgbox,:( Oops >%A_Index%<(%A_LineFile%~%A_LineNumber%)
 			toolTip, % "Oops no SQL-Template `nNr." sqlFilePrefix "(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),1,1
 			continue
 		}
@@ -500,8 +493,6 @@ SELECT actionList FROM actionLists WHERE actionList Like 'g_Word' AND actionList
         		Msgbox,:( Oops `n %tip%(%A_LineFile%~%A_LineNumber%)
 			continue
 		}
-		; test test k testesg zzzzzzzzzzzzzzzzzzääääqq qqqqqqqq q #####üüüüüüü üüüü
-		; test lkjlk komisch
 		
         ; o["listID"]["len"] := 0 ; dont to this ! it changes the data object! its referene !
 		sql["pre_Where"] := substr( o["sql"], 1 , o["word"]["pos"] - 1 )
@@ -521,17 +512,16 @@ SELECT actionList FROM actionLists WHERE actionList Like 'g_Word' AND actionList
         }
 
         ;     g_config["sql"]["select"]["ignIfWhereIsWithoutListID"] &&
-        if(0 && InStr(A_ComputerName,"SL5"))
-            msgbox,% g_config["sql"]["select"]["ignIfWhereIsWithoutListID"] "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
-        toolTip, % o["listID"]["len"] "(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),1,1
+        if(false && InStr(A_ComputerName,"SL5")){
+            ; msgbox,% g_config["sql"]["select"]["ignIfWhereIsWithoutListID"] "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+            toolTip, % o["listID"]["len"] "(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),1,1
+        }
 		if( !(o["listID"]["len"]) && g_config["sql"]["select"]["ignIfWhereIsWithoutListID"] ){
 			    ; toolTip, % "(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),1,1
 			    if(1 && InStr(A_ComputerName,"SL5"))
                 Msgbox,% A_Index ": " SELECT "`n`n`nlistIDpos=" o["listID"]["pos"] "`nignIfWhereIsWithoutListID =" g_config["sql"]["select"]["ignIfWhereIsWithoutListID"]
                 break ; 11.01.2019 22:54
 		}
-; test test gibgs zif zifff zzzzzz uuui oiuoiu lkjjcasd we.,nqrkdlsnqwqwelkjjj ü üü üüü wwww sss nmnmnmn iiiooooooooo
-; zzzslk zzzz test zzz hallo welt boxlaut boxlaut gibts nicht nicht nich
 
         if(0 && InStr(A_ComputerName,"SL5")){
 
@@ -556,11 +546,7 @@ SELECT actionList FROM actionLists WHERE actionList Like 'g_Word' AND actionList
             ; t b box
         }
 
-
-                 ; -- g_actionListID=4
-
-		
-	;SELECT := regExReplace(SELECT,"(``|`%)","``$1")
+		;SELECT := regExReplace(SELECT,"(``|`%)","``$1")
 		try{
 			Matches := g_actionListDB.Query(SELECT)
 		} catch e{
@@ -573,7 +559,7 @@ SELECT actionList FROM actionLists WHERE actionList Like 'g_Word' AND actionList
 			Clipboard := tip
 			msgbox, % tip
 		}
-		;
+
 		
 		for each, row in Matches.Rows
 		{
@@ -584,6 +570,8 @@ SELECT actionList FROM actionLists WHERE actionList Like 'g_Word' AND actionList
 		    if(g_permanentSELECT_type == "SELECT actionList")
 		        doSetSelectFirstValue2registry := true
 
+			if(1 && InStr(A_ComputerName,"SL5"))
+				ToolTip, % doSetSelectFirstValue2registry "`n = doSetSelectFirstValue2registry `n`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")", 500,1,5
 
 			if(doSetSelectFirstValue2registry){ ; !row[2] &&
 			    msgbox,% "(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
@@ -869,10 +857,11 @@ global g_ListBoxActualSizeH_maxFound ; this variable is empty after a fres start
             tip .= g_Word "(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")`n" ; planed to set this behind the box
             tip .= "`n"
             tip .= "CTRL+Nr., single click: move, "
-            tip .= "rightClick opens: " substr(actionList,1,19) " .. " RegExReplace(   actionList,".*\\") "(" g_actionListID ")`n"
+            if( actionList && !instr(actionList, "isNotAProject" ))
+                tip .= "rightClick opens: " substr(actionList,1,19) " .. " RegExReplace(   actionList,".*\\") "(" g_actionListID ")`n"
 
             nr := ( Mod(round(A_Sec/20), 2) == 0) ; toggles every 20 seconds beetween 0 1
-            if(nr && !instr(actionList, "isNotAProject" ))
+            if(nr && actionList && !instr(actionList, "isNotAProject" ))
                 tip .= "doubleCtrl+C selection to actionsList, more see TrayMenu`n" ; doubleCtrlC
             else{
                 if(instr(actionList, "isNotAProject" )){
@@ -1919,16 +1908,17 @@ BuildTrayMenu(){
 ;/¯¯¯¯ ClearAllVars ¯¯ 181024140212 ¯¯ 24.10.2018 14:02:12 ¯¯\
 ; This is to blank all vars related to matches, ListBox and (optionally) word 
 ClearAllVars( ByRef calledFromStr , ClearWord ){
-	
+
+
 	global
 	
 	; Msgbox,% calledFromStr "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
-	if(!instr(calledFromStr,"1614"))
     ;if( !RegExMatch( calledFromStr, "\b(1614|321|734)\b" )	)
-		if(false && InStr(A_ComputerName,"SL5")){
+	if(false && !instr(calledFromStr,"1614"))
+		if(true && InStr(A_ComputerName,"SL5")){
 			tooltip, %calledFromStr% `n (from: %A_LineFile%~%A_LineNumber%) , 1,200
 			clipboard .= "`n" calledFromStr
-			if( !RegExMatch( calledFromStr, "\b(1614|321|734|2112|316|687)\b" )	){
+			if(true || !RegExMatch( calledFromStr, "\b(1614|321|734|2112|316|687)\b" )	){
             ; feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), calledFromStr ,1,1 )
 				RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, % A_ThisFunc , % calledFromStr
 		}}

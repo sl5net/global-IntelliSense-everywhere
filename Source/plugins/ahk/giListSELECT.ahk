@@ -3,7 +3,6 @@
 
 ; rep := "RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList, " actionListNewTemp_withoutExt "`n"
 
-
 SELECT =
 (
 SELECT distinct replace(actionList, rtrim(actionList, replace(actionList, '\', '')), '')
@@ -31,6 +30,9 @@ Gui, Add, Edit, yp+40 wp vSearch,
 ; Gui, Add, Button, xp+85 wp hp gfSearch, &Forum Search
 ; Gui, Add, Button, xp+85 wp hp ggSearch, &Google It!
 Gui, Show, AutoSize Center, % substr(A_ScriptName , 1, -4)
+Sleep, 150
+RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList, % ""
+
 ; newTitle = giListSELECT actionList FROM actionLists WHERE actionList Like 'g_Word' AND actionList NOT Like 'isNotAProject.ahk' order by actionList
 ; Gui, Show, w900 Center, % newTitle
 WinGet, active_id, ID, % substr(A_ScriptName , 1, -4)

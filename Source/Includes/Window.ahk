@@ -528,7 +528,7 @@ GetIncludedActiveWindowGuts() {
       CheckForCaretMove("LButton")
       ShowListBox()
    } else{
-     ; CloseListBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
+     CloseListBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
      ; ^--- stays much mor stable without this !! seeems no need for this !  :-) 17.01.2019 13:42
    }
    g_Active_Id :=  ActiveId
@@ -536,7 +536,7 @@ GetIncludedActiveWindowGuts() {
    g_Active_Process := ActiveProcess
    g_Active_Title := activeTitle
 
-
+; tool ToolTip5sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 
   ; ToolTip,% g_WinChangedEventHook " (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") " "
   ; soundbeep,800

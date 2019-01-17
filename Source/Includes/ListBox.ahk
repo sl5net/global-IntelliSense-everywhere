@@ -129,7 +129,7 @@ ListBoxRigthButtionClick(wParam, lParam, msg, ClickedHwnd){
     else
         openInEditorFromIntern( actionList )
     if(1 && InStr(A_ComputerName,"SL5"))
-        ToolTip9sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+        ToolTip9sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ") 19-01-16_18-42" )
     ;msgbox,`n(%A_LineFile%~%A_LineNumber%)
 }
 ;\____ ListBoxRigthButtionClick __ 181209172006 __ 09.12.2018 17:20:06 __/
@@ -1021,11 +1021,11 @@ if(0 && InStr(A_ComputerName,"SL5")){
       ForceWithinMonitorBounds(g_ListBoxPosX,ListBoxPosY,ListBoxActualSizeW,ListBoxActualSizeH)
       
       g_ListBoxContentWidth := ListBoxActualSizeW - ScrollBarWidth - BorderWidthX
-      if(0)
-        ToolTip, % g_ListBoxContentWidth "`n = g_ListBoxContentWidth `n`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+      if(0 && InStr(A_ComputerName,"SL5"))
+        ToolTip, % g_ListBoxContentWidth "`n = g_ListBoxContentWidth `n`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")", 500,1,5
 
-      if(g_ListBoxContentWidth<300)
-        g_ListBoxContentWidth := 300 ; <=== maybe thi has no effect.
+      if(g_ListBoxContentWidth < 450)
+        g_ListBoxContentWidth := 450 ; <=== maybe thi has no effect.
 
       IfEqual, g_ListBox_Id,
       {

@@ -611,7 +611,7 @@ if(0){ ; diesabled 24.12.2018 13:36 ... so its not possible to update lists with
     }
 #Include,RegWrite181031.ahk
 }
-) ; endOf temp
+) ; endOf temp ToolTip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 	
 	ahkSource .= "`n" temp
 	

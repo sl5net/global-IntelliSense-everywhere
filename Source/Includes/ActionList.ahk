@@ -124,9 +124,9 @@ ReadActionList( calledFromStr ){
         actionListOLD[33 of 63]: ..\actionLists\noName\Cortana.ahk
         )
 		log .= "`n (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+		log .= "`n 19-01-16_18-88"
 		if(1 && InStr(A_ComputerName,"SL5"))
-			
-		feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), log )
+    		feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), log )
             ;msgBox,% log " ==> RETURN `n (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 	}
     ;\____ \.ahk __ 181025172444 __ 25.10.2018 17:24:44 __/
