@@ -308,7 +308,7 @@ ProcessKey(InputChar,EndKey) {
 		
 	} else IfNotEqual, g_LastInput_Id, %g_Active_Id%
 	{
-		if(1 && InStr(A_ComputerName,"SL5"))
+		if(0 && InStr(A_ComputerName,"SL5"))
 			tooltip,% "str=" NewInput " , chr=" InputChar "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
       ;Don't do anything if we aren't in the original window and aren't starting a new word
 		Return

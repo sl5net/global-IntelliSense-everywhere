@@ -169,7 +169,7 @@ check_permanentSELECT_changedInRegistry(ByRef g_permanentSELECT
 
       ParseWordsCount := ReadActionList(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
 
-
+; to
 
       msg := " ReadActionList now `n"
     if(1 && InStr(A_ComputerName,"SL5"))

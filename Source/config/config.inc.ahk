@@ -1,9 +1,11 @@
 ﻿/* this file will be automatic precompiled before it is used by autohotkey 14.01.2019 12:09
 */
 
-; recomandet for g_min_searchWord_length is: 1 or 2 
-; if u use 0 it maybe not work at the moment (works if word match or if you have a fresh window change) (19-01-19_10-44)
+
+; recomandet for g_min_searchWord_length is: 1 or 2 maybe 0
+; if u use 0 it maybe not work always at the moment (works if word match or if you have a fresh window change) (19-01-19_10-44)
 ; therfore its not recomandet to use 0
+; please send your feedback to SL5net
 ; BTW its stored in regitry: RegRead, g_min_searchWord_length, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, g_min_searchWord_length
 g_min_searchWord_length := 0
 
