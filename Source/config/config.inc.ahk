@@ -28,7 +28,7 @@ g_doSound := true
 g_config.listBoxGui := { 
 	tipps: { 
 		show: true,
-		durationMilliseconds: 43000
+		durationMilliseconds: 3000
 	}
 }
 
