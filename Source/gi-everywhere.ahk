@@ -2144,8 +2144,8 @@ check_actionList_GUI_is_hanging_or_freezed:
     ; tip = %g_ListBoxTitle% = g_ListBoxTitle `n %elapsedSec% = elapsedSec `n (%A_LineFile%~%A_LineNumber%)
     ; ToolTip,%g_ListBoxTitle% = g_ListBoxTitle `n %elapsedSec% = elapsedSec `n (%A_LineFile%~%A_LineNumber%)
     ;MsgBox, % tip "`n`n" elapsedMilli  "millisec = " elapsedSec "sec have elapsed. (" RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
-    if( (   elapsedSec > 5 && InStr(A_ComputerName,"SL5")
-         || elapsedSec > 12 )
+    if( (   elapsedSec > 12 && InStr(A_ComputerName,"SL5")
+         || elapsedSec > 12 && !InStr(A_ComputerName,"SL5") )
         && A_TimeIdleKeyboard > 1500 ){ ; if BoxGui is long time opend and noct used. maybe user dont know what todo with it?
      ;winclose, % g_ListBoxTitle
      ; t
