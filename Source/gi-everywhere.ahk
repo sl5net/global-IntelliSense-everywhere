@@ -177,7 +177,8 @@ BTW: gi thinks you are a new user because
 has not been generated before.
 for the configuration please use:
 '%configIncAhkAddress%'
-its also accessible via the TrayMenu
+its also accessible via the TrayMenu.
+There gi have just made a few small changes.
 )
 ; TrayMenu ??? 09.01.2019 19:40
 feedbackMsgBox(substr(helloWelcomeMessage,1,100) "...", helloWelcomeMessage, 1, 1, 66 * 5 )
