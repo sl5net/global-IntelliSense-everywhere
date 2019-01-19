@@ -77,7 +77,7 @@ g_config.FuzzySearch := {
 
 ; the follwing helloWorldAhk is a working example:
 g_config.codeRunner := {
-        helloWorldAhk: A_ScriptDir "\plugins\ahk\helloWorld.ahk",
+        helloCommandLine: A_ScriptDir "\plugins\ahk\helloCommandLine.ahk",
         javascript: "node",
         php: "C:\php\php.exe",
         python: "python",
