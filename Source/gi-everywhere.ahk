@@ -1981,13 +1981,14 @@ doListBoxFollowMouse:
       ; g_ListBoxX := mouseX - ( g_min_MonitorBound_right / 2 )
       g_ListBoxX := mouseX - ( g_min_MonitorBound_right )
       ; g_ListBoxY := round(mouseY / 100) * 100  - 80
-      g_ListBoxY := mouseY - 80
+      g_ListBoxY := mouseY - 68 ; 19-01-19_18-30: 80
 
 
 
 ;    class := "ahk_class AutoHotkeyGUI"
 ;    winTitle := "Action List Appears Here."
 ;    WinGetPos, X, Y, W, H, %winTitle% %class%
+; too to too too tooo tool tool tool
 
 
 
