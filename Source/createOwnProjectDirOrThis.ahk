@@ -150,6 +150,20 @@ if(1){
 
 ;FileDelete, % "..\actionLists\" . ActiveClass . "\_create_own_project.flag"
 ExitApp
+ExitApp
+ExitApp
+ExitApp
+ExitApp
+ExitApp
+ExitApp
+ExitApp
+ExitApp
+ExitApp
+ExitApp
+ExitApp
+ExitApp
+ExitApp
+ExitApp
 
 
 

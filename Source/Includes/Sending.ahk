@@ -525,12 +525,13 @@ SendWord(WordIndex){
 ; eins|rr|zwei|ahk|autohotkey source code
 		
 ; regIsAHKcode := "^([^\|]+?)\|rr\|(.*?)\|ahk\|(.*?)$"
-		regIsAHKcode := "^([^\|\n]+?)\|rr\|([^\n]*?)\|ahk\|([^\n]*?)$"
-		regIsKTScode := "^([^\|\n]+?)\|rr\|([^\n]*?)\|kts\|([^\n]*?)$"
-		regIsXXXcode := "^([^\|\n]+?)\|(rr)\|([^\n]*?)\|(ahk|kts)\|([^\n]*?)$"
-		regIsXXXcode := "^([^\|\n]+?)\|(rr)\|([^\n]*?)(?:\|(ahk|kts)\|)*([^\n]*?)$"
-		regIsXXXcode := "^([^\|\n]+?)\|(rr)\|(?:([^\n]*?)(?:\|(ahk|kts)\|)+([^\n]*?)$)*"
-		regIsXXXcode := "^([^\|\n]+?)\|(rr)\|(?:([^\n]*?)(?:\|(ahk|kts)\|)+(.*?)$)*" ; since today we using ahk blocks. newline could be posible
+		;regIsAHKcode := "^([^\|\n]+?)\|rr\|([^\n]*?)\|ahk\|([^\n]*?)$"
+		;regIsKTScode := "^([^\|\n]+?)\|rr\|([^\n]*?)\|kts\|([^\n]*?)$"
+		;regIsXXXcode := "^([^\|\n]+?)\|(rr)\|([^\n]*?)\|(ahk|kts)\|([^\n]*?)$"
+		;regIsXXXcode := "^([^\|\n]+?)\|(rr)\|([^\n]*?)(?:\|(ahk|kts)\|)*([^\n]*?)$"
+		;regIsXXXcode := "^([^\|\n]+?)\|(rr)\|(?:([^\n]*?)(?:\|(ahk|kts)\|)+([^\n]*?)$)*"
+		;regIsXXXcode := "^([^\|\n]+?)\|(rr)\|(?:([^\n]*?)(?:\|(ahk|kts)\|)+(.*?)$)*" ; since today we using ahk blocks. newline could be posible
+		regIsXXXcode := "^([^\|\n]+?)\|(rr)\|(?:([^\n]*?)(?:\|([a-zA-Z]{3,15})\|)+(.*?)$)*" ; since today we using ahk blocks. newline could be posible
 		regIs_r_replacement := "^([^\|\n]+?)\|r\|(.*?)$"
 		
         ; rX := {key:m1, rr:m2, send:"", lang:"" ,code:""}
@@ -675,17 +676,36 @@ SendWord(WordIndex){
 				
 			}
 			StringLower, mlang, % rX["lang"]
-			rX["lang"] := mlang
-			if(rX["lang"] == "ahk"){
+			; rX["lang"] := mlang
+			if(mlang == "ahk"){
 				isAHKcode := true
 				AHKcode := rX["code"]
 			}
-			if(rX["lang"] == "kts"){
+			if(mlang == "kts"){
 				isKTScode := true
 				KTScode := rX["code"]
 			}
-			
-			"(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+
+			;clipboard := rX["lang"]
+			is_codeRunner_exist := false
+			lang := rX["lang"]
+			exe := g_config["codeRunner"][lang]
+			if(exe){
+
+				global g_Word
+				BackSpaceLen := StrLen(g_Word)
+				ClearAllVars(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),true)
+			; sending .= "{BS " . BackSpaceLen . "}"
+				Send,{Backspace %BackSpaceLen%} ; workaround :) 29.07.2017 12:51 17-07-29_12-51 by sl5net
+
+				;isKTScode := true
+				;KTScode := rX["code"]
+				is_codeRunner_exist := true
+				runString := """" exe """ """ rX["code"] """"
+				run,% runString
+				; msgbox,% runString "`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+			}
+
 			
 			
 ; tooToolTip2sec(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") " " Last_A_This)
@@ -699,7 +719,7 @@ SendWord(WordIndex){
 			
 ; indirect3 hello :-) 10.07.2017 14:27
 			
-			
+
 
 			if(isAHKcode){
 				isStartingUnderline := ("___" == substr( lineOfIndex , 1, 3 ) )
@@ -805,7 +825,7 @@ SendWord(WordIndex){
 			
 ; msgbox, '%line%' = line  n (line:%A_LineNumber%) n
 ; __asdkjfhsdf
-			if(isAHKcode || isKTScode)
+			if(isAHKcode || isKTScode || is_codeRunner_exist )
 				sending :=  rX["send"]
 			if(false){
 				tip:= "key= " rX["key"] " `n send= " rX["send"] " `n(" A_LineNumber ")"

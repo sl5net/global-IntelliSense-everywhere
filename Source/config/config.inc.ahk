@@ -75,8 +75,9 @@ g_config.FuzzySearch := {
 	doValueCopy : false
 }
 
-; follwing is not yet implemented:
-g_config.codeRunner.executorMap := {
+; the follwing helloWorldAhk is a working example:
+g_config.codeRunner := {
+        helloWorldAhk: A_ScriptDir "\plugins\ahk\helloWorld.ahk",
         javascript: "node",
         php: "C:\php\php.exe",
         python: "python",
@@ -87,7 +88,7 @@ g_config.codeRunner.executorMap := {
         java: "cd $dir && javac $fileName && java $fileNameWithoutExt",
         c: "cd $dir && gcc $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
 		kotlinc: A_ScriptDir "\..\ActionLists\_kts\kotlinc\bin\kotlinc"
-    }
+}
 
 
 
