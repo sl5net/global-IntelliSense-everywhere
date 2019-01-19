@@ -1,5 +1,14 @@
 ﻿/* this file will be automatic precompiled before it is used by autohotkey 14.01.2019 12:09
 */
+
+; recomandet for g_min_searchWord_length is: 1 or 2 
+; if u use 0 it maybe not work at the moment (works if word match or if you have a fresh window change) (19-01-19_10-44)
+; therfore its not recomandet to use 0
+; BTW its stored in regitry: RegRead, g_min_searchWord_length, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, g_min_searchWord_length
+g_min_searchWord_length := 0
+
+
+
 g_config.ScriptDir := A_ScriptDir
 g_config.editor := { 
 	1 : A_ProgramFiles "\Microsoft VS Code\Code.exe",
@@ -10,12 +19,6 @@ g_config.editor := {
 	6 : "C:\Program Files\Notepad++\notepad++.exe",
 	7 : A_ScriptDir "\..\AutoGUI\AutoGUI.ahk"
 } ; above the list of the editors, which is gone through alphabetically up to the first find (fileAdress exists).
-
-; recomandet for g_min_searchWord_length is: 1 or 2 
-; if u use 0 it maybe not work at the moment (works if word match or if you have a fresh window change) (19-01-19_10-44)
-; therfore its not recomandet to use 0
-; BTW its stored in regitry: RegRead, g_min_searchWord_length, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, g_min_searchWord_length
-g_min_searchWord_length := 1
 
 g_doAskBevoreChangingActionList := false ; <== buggy dont know whey 19.03.2018 23:50
 g_doAskBevoreChangingActionList := true ; <== works preetty nice :) 19.03.2018 23:51

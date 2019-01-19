@@ -64,7 +64,7 @@ RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, stop_list_change, 0
 
 RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, g_permanentSELECT, % ""
 
-; 
+;
 ;/¯¯¯¯ global ¯¯ 190113082459 ¯¯ 13.01.2019 08:24:59 ¯¯\
 ;/¯¯¯¯ global ¯¯ 190113082459 ¯¯ 13.01.2019 08:24:59 ¯¯\
 ;/¯¯¯¯ global ¯¯ 190113082459 ¯¯ 13.01.2019 08:24:59 ¯¯\

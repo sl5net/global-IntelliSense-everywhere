@@ -117,13 +117,21 @@ actionListDir = '%actionListDir%'
 		}
 
 		if(!FileExist(actionListActivePath)){
-			msg = :( '%actionListActivePath%' = actionListActivePath  `n (line:%A_LineNumber%) `n 1801-20_17-12
-		    ToolTip4sec( msg "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")",1,300,8 )
-			MsgBox, msg  `n (line:%A_LineNumber%) `n 1801-20_17-12
+			msg =
+			(
+			:(
+			'%actionListActivePath%' = actionListActivePath
+			token:1801-20_17-12 and copied to clipboard
+			)
+			msg .= "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+			clipboard := msg
+		    ToolTip4sec( msg ,1,300,8 )
+			MsgBox, % msg
         }
 ; The active path, that the complete address of the file inc dir, has to be always present. if not then that is an error. 12.07.2017 21:10
 		
-		
+
+
 		
 	;/¯¯¯¯ !FileExist(actionListNEWarchivePath) ¯¯ 181012011354 ¯¯ 12.10.2018 01:13:54 ¯¯\
 		

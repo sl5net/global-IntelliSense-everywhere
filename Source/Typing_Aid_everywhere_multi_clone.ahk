@@ -1373,7 +1373,7 @@ stopIfWinTitleExist_giListSELECT(activeTitle,detectHidden := "", excludetTitle :
         ; inside: stopIfWinTitleExist_giListSELECT
 	    while(1){ ; while loop becouse we have casese of false with WinWaitClose 19-01-17_17-25
 			; or? dont need it ?? 19-01-17_17-49
-    	    if(1 && InStr(A_ComputerName,"SL5"))
+    	    if(0 && InStr(A_ComputerName,"SL5"))
 	            ToolTip, % "WinWaitClose, " substr(activeTitle,1,4) "'" substr(activeTitle,4) "`n`n" . A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\") ,1 , 200, 8
     	    ; DetectHiddenWindows,On
     		WinWaitClose,% activeTitle

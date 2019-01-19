@@ -169,17 +169,23 @@ check_permanentSELECT_changedInRegistry(ByRef g_permanentSELECT
 
       ParseWordsCount := ReadActionList(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
 
+
+
       msg := " ReadActionList now `n"
     if(1 && InStr(A_ComputerName,"SL5"))
       ToolTip4sec( msg "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")",900,1,14 )
       ; msgbox, ,% msg "(" A_LineNumber ")", % msg "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")",2
 
       g_permanentSELECT_OLD := g_permanentSELECT
+
+    ; lets use the select soon as possible 19-01-19_11-45 :
+    RecomputeMatches(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
+
     return true
 }
 ;\____ check_permanentSELECT_changedInRegistry __ 190119091114 __ 19.01.2019 09:11:14 __/
 
-
+; too tool test tool tool
 
 ;/¯¯¯¯ DisableWinHook ¯¯ 181024141107 ¯¯ 24.10.2018 14:11:07 ¯¯\
 DisableWinHook(){

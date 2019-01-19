@@ -1,6 +1,5 @@
 ﻿#SingleInstance,Force
 
-RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, stop_list_change, 0
 
 
 ; Hallo: https://www.autohotkey.com/boards/viewtopic.php?f=6&t=45684&p=257223#p257223  19-01-10_10-27
@@ -32,6 +31,7 @@ WHERE actionList Like '`%g_Word`%' Limit 10  ;
 )
 
 SELECT := RegExReplace(SELECTpre, "m)\n", " ")
+RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, stop_list_change, 0
 RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, g_permanentSELECT, % SELECT
 ; MsgBox, % SELECT
 if(0 && InStr(A_ComputerName,"SL5") )
@@ -47,8 +47,11 @@ usually the ActionLists automatically are choosen dependent on the title and you
 wTitle := substr(A_ScriptName , 1, -4)
 MsgBox, , % wTitle, Welcome to Choose actionList, 4 ; take a liitle time for script to read in the new values 19-01-19_11-13
 
-Gui, Add, Text, x10 y1 h40, % bodyText
+; toool tooo tool
+
+Gui, Add, Text, x10 y1 h140, % bodyText
 Gui, Add, Edit, yp+40 wp vSearch, 
+Gui, Add, Button, yp+30 w277 h126 gStopPmanentSELECT, &stop permanentList and (re-)enable automatically change the lists and exit %wTitle%
 ; Gui, Add, Button, yp+30 w77 h26 gAdd2Reg, &set this list permanent
 ; Gui, Add, Button, xp+85 wp hp gfSearch, &Forum Search
 ; Gui, Add, Button, xp+85 wp hp ggSearch, &Google It!
@@ -109,6 +112,12 @@ RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList, % actionLis
 MsgBox,% Search
 return
 
+StopPmanentSELECT:
+RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, stop_list_change, 0
+RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, g_permanentSELECT, % ""
+Gui, Destroy
+ExitApp, 1
+return
 
 GuiClose:
 Gui, Destroy
