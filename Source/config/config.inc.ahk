@@ -2,16 +2,19 @@
 */
 g_config.ScriptDir := A_ScriptDir
 g_config.editor := { 
-	1 : "C:\Program Files\Notepad++\notepad++.exe",
 	1 : A_ProgramFiles "\Microsoft VS Code\Code.exe",
-	6 : "C:\Program Files\Microsoft VS Code\Code.exe",
+	2 : "C:\Program Files\Microsoft VS Code\Code.exe",
 	3 : "C:\Program Files\Microsoft VS Code\bin\code.cmd",
 	4 : "C:\Users\lauffer\AppData\Local\Programs\Microsoft VS Code\Code.exe",
 	5 : A_ScriptDir "\..\AHK-Studio\AHK-Studio.ahk",
+	6 : "C:\Program Files\Notepad++\notepad++.exe",
 	7 : A_ScriptDir "\..\AutoGUI\AutoGUI.ahk"
 } ; above the list of the editors, which is gone through alphabetically up to the first find (fileAdress exists).
 
-;RegRead, g_min_searchWord_length, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, g_min_searchWord_length
+; recomandet for g_min_searchWord_length is: 1 or 2 
+; if u use 0 it maybe not work at the moment (works if word match or if you have a fresh window change) (19-01-19_10-44)
+; therfore its not recomandet to use 0
+; BTW its stored in regitry: RegRead, g_min_searchWord_length, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, g_min_searchWord_length
 g_min_searchWord_length := 1
 
 g_doAskBevoreChangingActionList := false ; <== buggy dont know whey 19.03.2018 23:50
@@ -24,7 +27,9 @@ g_ListBoxFontSize := 8
 g_FLAGmsgbox := false
 g_doSound := true
 ; g_isListBoxDisabled := false ; toggeled by: ~ctrl::
- 
+
+; to#AllowSameLineComments#IfWinExist
+
 g_config.listBoxGui := { 
 	tipps: { 
 		show: true,
