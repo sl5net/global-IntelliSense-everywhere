@@ -32,6 +32,9 @@ global g_config
 
     ; activ at each window change 09.01.2019 19:50
 
+global g_permanentSELECT ; addet 19-01-09_11-51
+global g_permanentSELECT_OLD ; addet 19-01-09_11-51
+
     ; ToolTip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
     if(g_listSELECT_FROM_WinTitle && WinExist(g_listSELECT_FROM_WinTitle)){
         if(false){
@@ -76,6 +79,7 @@ value: >%titClean%< ?= >%flagTitle_giListSELECT_running%<
             g_permanentSELECT_type := "SELECT actionList"
         ; else
            ; g_permanentSELECT_type := ""
+
         if(!trim(s1))
          g_permanentSELECT := ""
         else 
@@ -147,9 +151,32 @@ if(0 && InStr(A_ComputerName,"SL5")){
       ;msgbox, ,% msg "(" A_LineNumber ")", % msg "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")",2
    }
 
+
    Return
 }
 ;\____ EnableWinHook __ 181024134530 __ 24.10.2018 13:45:30 __/
+
+
+;/¯¯¯¯ check_permanentSELECT_changedInRegistry ¯¯ 190119091109 ¯¯ 19.01.2019 09:11:09 ¯¯\
+check_permanentSELECT_changedInRegistry(ByRef g_permanentSELECT
+                                      , ByRef g_permanentSELECT_OLD
+                                      , ByRef ParseWordsCount){
+    RegRead, g_permanentSELECT, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, g_permanentSELECT
+    if(g_permanentSELECT_OLD == g_permanentSELECT)
+        return false
+
+      Speak(A_LineNumber ": permanent SELECT changed","PROD")
+
+      ParseWordsCount := ReadActionList(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
+
+      msg := " ReadActionList now `n"
+      ToolTip4sec( msg "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")",200,200,14 )
+      msgbox, ,% msg "(" A_LineNumber ")", % msg "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")",2
+
+      g_permanentSELECT_OLD := g_permanentSELECT
+    return true
+}
+;\____ check_permanentSELECT_changedInRegistry __ 190119091114 __ 19.01.2019 09:11:14 __/
 
 
 

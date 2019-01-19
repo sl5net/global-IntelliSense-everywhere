@@ -103,8 +103,24 @@ actionListDir = '%actionListDir%'
 		
    ; actionListActivePath := gi_everywhereSourcePath .  "\" . actionListActive
 		actionListActivePath := A_ScriptDir . "\" . actionListActive
-		if(!FileExist(actionListActivePath))
-			MsgBox, :( '%actionListActivePath%' = actionListActivePath  `n (line:%A_LineNumber%) `n 18-01-20_17-12
+
+		if(0 && InStr(A_ComputerName,"SL5")){
+            clipboard := A_ThisFunc ": actionListActivePath= " actionListActivePath
+            clipboard .= "`n actionListNEW= " actionListNEW
+            exampleLog =
+            (
+            G:\fre\git\github\global-IntelliSense-everywhere-Nightly-Build\Source\
+            actionListActivePath= G:\fre\git\github\global-IntelliSense-everywhere-Nightly-Build\Source\
+            actionListNEWactivate: actionListActivePath= G:\fre\git\github\global-IntelliSense-everywhere-Nightly-Build\Source\
+             actionListNEW= ..\_globalActionListsGenerated\_ahk_global.ahk
+            )
+		}
+
+		if(!FileExist(actionListActivePath)){
+			msg = :( '%actionListActivePath%' = actionListActivePath  `n (line:%A_LineNumber%) `n 1801-20_17-12
+		    ToolTip4sec( msg "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")",1,300,8 )
+			MsgBox, msg  `n (line:%A_LineNumber%) `n 1801-20_17-12
+        }
 ; The active path, that the complete address of the file inc dir, has to be always present. if not then that is an error. 12.07.2017 21:10
 		
 		

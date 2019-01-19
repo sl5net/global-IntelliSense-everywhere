@@ -18,7 +18,7 @@ if(1){
     ; g_ttSpeakObject.SetPitch(10)
     g_ttSpeakObject.SetPitch(1) ; tonhöhe high, deep. i like 1 and 10
 }
-if(1 && InStr(A_ComputerName,"SL5"))
+if(0 && InStr(A_ComputerName,"SL5"))
 	Speak("sound check sucessful","PROD")
 
 

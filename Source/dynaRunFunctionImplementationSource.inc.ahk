@@ -36,6 +36,8 @@ tooltip, % tip
      FileAppend, `% TempScript, `% name
    }
 
+
+
    If ErrorLevel
    {
       tooltip, % "Could not open file:`n" __AHK_EXE_ """\\.\pipe\" name """"
@@ -58,10 +60,15 @@ tooltip, % tip
 if(1 && WinExist(substr(name,1,-5))) ; helps debugging
    FileAppend, `% TempScript, `% name
 
+
+
 while(1 && name && WinExist(substr(name,1,-5)) && A_Index < 9)
    WinClose,
 
+
+
 Return PID
 }
+
 
 

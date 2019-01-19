@@ -208,10 +208,22 @@ maxLinesOfCode4length1 := 900 ;
 ; SetTimer,checkInRegistryChangedActionListAddress,600 ; RegRead, actionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList
 SetTimer,checkInRegistryChangedActionListAddress,2000 ; RegRead, actionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList
 SetTimer,checkInRegistryChangedActionListAddress,off ; RegRead, actionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList
+
+
+SetTimer,lbl_check_permanentSELECT_changedInRegistry,1000 ; RegRead, actionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList
+
+;/¯¯¯¯ config_checkActionListAHKfile_sizeAndModiTime ¯¯ 190119095143 ¯¯ 19.01.2019 09:51:43 ¯¯\
+;config_checkActionListAHKfile_sizeAndModiTime
 lbl_default_checkActionListAHKfile_sizeAndModiTime := 8123456789
 lbl_default_checkActionListAHKfile_sizeAndModiTime := 500
-; lbl_default_checkActionListAHKfile_sizeAndModiTime := 8000
-SetTimer,checkActionListAHKfile_sizeAndModiTime, % lbl_default_checkActionListAHKfile_sizeAndModiTime
+lbl_default_checkActionListAHKfile_sizeAndModiTime := 8000 ; used: 19-01-19_09-50
+; SetTimer,checkActionListAHKfile_sizeAndModiTime, % lbl_default_checkActionListAHKfile_sizeAndModiTime
+; ^--- It is much more enjoyable, smother without this timer 19-01-19_09-56
+;\____ config_checkActionListAHKfile_sizeAndModiTime __ 190119095149 __ 19.01.2019 09:51:49 __/
+
+; tooltip Tooltip Tooltip Msgbox Tooltip
+; To msgbox
+
 SetTimer,check_some_keys_hanging_or_freezed,1800 ; ; 30.08.2018 13:52 it sometimes happesn. and if it happens then its really ugly !!!! :( !!
 SetTimer,check_actionList_GUI_is_hanging_or_freezed,1800 ; ; 26.09.2018 16:38 it sometimes happesn.
 SetTimer,checkWinChangedTitle,1000 ; RegRead, actionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList
@@ -1129,21 +1141,29 @@ Return
 
 
 lbl_g_ListBoxGui_tippsTOGGLE:
+    Last_A_This:=A_ThisFunc . A_ThisLabel
+    ToolTip2sec( Last_A_This "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
     g_config["listBoxGui"]["tipps"]["show"] := (!g_config["listBoxGui"]["tipps"]["show"])
     ToolTip4sec( ((g_config["listBoxGui"]["tipps"]["show"])?"ON":"OFF") "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
     RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, listBoxGui_tipps_show, % g_config["listBoxGui"]["tipps"]["show"] ; RegWrite , RegSave
 return
 
 lbl_set_permanent_ActionList:
+    Last_A_This:=A_ThisFunc . A_ThisLabel
+    ToolTip2sec( Last_A_This "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
     run,plugins\ahk\giListSELECT.ahk
 return
 
 lbl_g_doSoundTRUE:
+    Last_A_This:=A_ThisFunc . A_ThisLabel
+    ToolTip2sec( Last_A_This "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
     g_doSound := TRUE
     RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, g_doSound, %g_doSound% ; RegWrite , RegSave
 return
 
 lbl_open_config_file:
+    Last_A_This:=A_ThisFunc . A_ThisLabel
+    ToolTip2sec( Last_A_This "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
     ; edit,%A_ScriptDir%\config\config.inc.ahk
     openInEditorFromIntern(A_ScriptDir "\config\config.inc.ahk")
 return
@@ -1151,6 +1171,8 @@ return
 
 
 lbl_g_doSoundFALSE:
+    Last_A_This:=A_ThisFunc . A_ThisLabel
+    ToolTip2sec( Last_A_This "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
     g_doSound := FALSE
     RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, g_doSound, %g_doSound% ; RegWrite , RegSave
 return
@@ -1158,15 +1180,16 @@ return
 
 
 lbl_g_min_searchWord_length_0:
+    Last_A_This:=A_ThisFunc . A_ThisLabel
+    ToolTip2sec( Last_A_This "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
     g_min_searchWord_length := 0
     RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, g_min_searchWord_length, %g_min_searchWord_length%
      ; RegWrite , RegSave
 return
-
-
-
 ; 18-12-01_10-50 too
 lbl_g_min_searchWord_length_1:
+    Last_A_This:=A_ThisFunc . A_ThisLabel
+    ToolTip2sec( Last_A_This "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
     g_min_searchWord_length := 1
     RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, g_min_searchWord_length, %g_min_searchWord_length%
     ; RegWrite , RegSave
@@ -1605,6 +1628,13 @@ return
 ; tool tooltip
 
 
+;/¯¯¯¯ lbl_check_permanentSELECT_changedInRegistry ¯¯ 190119092044 ¯¯ 19.01.2019 09:20:44 ¯¯\
+lbl_check_permanentSELECT_changedInRegistry:
+check_permanentSELECT_changedInRegistry(g_permanentSELECT
+                                      , g_permanentSELECT_OLD
+                                      , ParseWordsCount)
+return
+;\____ lbl_check_permanentSELECT_changedInRegistry __ 190119092050 __ 19.01.2019 09:20:50 __/
 
 ; ActiveTitleOLD2 := activeTitleOLD
 ;/¯¯¯¯ checkInRegistryChangedActionListAddress ¯¯ 181025104242 ¯¯ 25.10.2018 10:42:42 ¯¯\
@@ -1723,7 +1753,6 @@ checkInRegistryChangedActionListAddress:
 
 
 
-    RegRead, g_permanentSELECT, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, g_permanentSELECT
     RegRead, actionListNewTemp_RAW, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList
     actionListNewTemp_withoutExt := actionListNewTemp_RAW
     if( SubStr( actionListNewTemp_withoutExt , -3 ) == ".ahk" ){

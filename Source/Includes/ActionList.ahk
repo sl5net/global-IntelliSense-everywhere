@@ -116,7 +116,7 @@ ReadActionList( calledFromStr ){
 			! FileExist( %actionList%%postFixGenerated% )
 			)
 			Speak(A_LineNumber ": Prima. List is without includes, becouse not generated found" ,"PROD") ; bug entecekt actionList 12.11.2018 11:02 todo:
-			ToolTip8sec( actionList "`n`n`n Sleep 2000`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")", 1,1 )
+			ToolTip8sec( actionList "`n = actionList`n`n" calledFromStr "`n= calledFromStr`n`n Sleep 2000`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")", 1,1 )
 			Sleep, 2000
         	Speak(A_lineNumber,"PROD")
 			; MsgBox,262160,% ":(`n" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ,% actionList "=actionList `n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"

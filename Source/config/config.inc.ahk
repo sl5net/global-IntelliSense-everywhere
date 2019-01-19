@@ -2,12 +2,12 @@
 */
 g_config.ScriptDir := A_ScriptDir
 g_config.editor := { 
+	1 : "C:\Program Files\Notepad++\notepad++.exe",
 	1 : A_ProgramFiles "\Microsoft VS Code\Code.exe",
-	2 : "C:\Program Files\Microsoft VS Code\Code.exe",
+	6 : "C:\Program Files\Microsoft VS Code\Code.exe",
 	3 : "C:\Program Files\Microsoft VS Code\bin\code.cmd",
 	4 : "C:\Users\lauffer\AppData\Local\Programs\Microsoft VS Code\Code.exe",
 	5 : A_ScriptDir "\..\AHK-Studio\AHK-Studio.ahk",
-	6 : "C:\Program Files\Notepad++\notepad++.exe",
 	7 : A_ScriptDir "\..\AutoGUI\AutoGUI.ahk"
 } ; above the list of the editors, which is gone through alphabetically up to the first find (fileAdress exists).
 

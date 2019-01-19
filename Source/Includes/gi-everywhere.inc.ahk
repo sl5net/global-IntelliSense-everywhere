@@ -100,8 +100,9 @@ ReadInTheActionList(calledFromStr){ ;Read in the actionList
 	global ParseWordsCount
 	global g_min_searchWord_length
 	; Speak(A_lineNumber,"PROD")
-	
-	RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, % A_ThisFunc , % calledFromStr
+
+	if(1 && InStr(A_ComputerName,"SL5"))
+	    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, % A_ThisFunc , % calledFromStr
 	Critical, On
 	ParseWordsCount := ReadActionList(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
 	Critical, Off ; if i switch critical off it not ends reading , maybe it could not read from filesystem?
@@ -858,7 +859,7 @@ global g_ListBoxActualSizeH_maxFound ; this variable is empty after a fres start
             tip .= "`n"
             tip .= "CTRL+Nr., single click: move, "
             if( actionList && !instr(actionList, "isNotAProject" ))
-                tip .= "rightClick opens: " substr(actionList,1,19) " .. " RegExReplace(   actionList,".*\\") "(" g_actionListID ")`n"
+                tip .= "rightClick opens: " substr(actionList,1,19) "...\" RegExReplace(   actionList,".*\\") "(" g_actionListID ")`n"
 
             nr := ( Mod(round(A_Sec/20), 2) == 0) ; toggles every 20 seconds beetween 0 1
             if(nr && actionList && !instr(actionList, "isNotAProject" ))

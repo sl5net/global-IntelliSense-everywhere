@@ -351,13 +351,13 @@ actionListDir = %actionListDir%
 	
 	
 	if(activeTitleOLD == activeTitle && activeClassOLD == activeClass ){
-        Sleep,100 ; dont needet. but way not taka a break here a little? 19-01-19_01-52
+        Sleep,150 ; dont needet. but way not taka a break here a little? 19-01-19_01-52
 
         ; WinWaitNotActive, %activeTitle% ahk_class %activeClass%
 
         if(!stop_list_change) ; if list never changing it needs somtimes to look if list is updated or includes ar update. 19-01-19_01-50
         {
-            if(1 && InStr(A_ComputerName,"SL5"))
+            if(0 && InStr(A_ComputerName,"SL5"))
                 Speak("continue becouse of same actionList" A_LineNumber,"PROD")
 		    continue
         }
@@ -1374,7 +1374,7 @@ stopIfWinTitleExist_giListSELECT(activeTitle,detectHidden := "", excludetTitle :
 	    while(1){ ; while loop becouse we have casese of false with WinWaitClose 19-01-17_17-25
 			; or? dont need it ?? 19-01-17_17-49
     	    if(1 && InStr(A_ComputerName,"SL5"))
-	            ToolTip, % "WinWaitClose, " substr(activeTitle,1,4) "...`n`n" . A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\") ,1 , 200, 8
+	            ToolTip, % "WinWaitClose, " substr(activeTitle,1,4) "'" substr(activeTitle,4) "`n`n" . A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\") ,1 , 200, 8
     	    ; DetectHiddenWindows,On
     		WinWaitClose,% activeTitle
     		sleep,150
