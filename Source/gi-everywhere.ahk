@@ -62,6 +62,8 @@ class Stuff{
 ; RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, stop_list_change, % ""
 RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, stop_list_change, 0
 
+RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, g_permanentSELECT, % ""
+
 
 ;/¯¯¯¯ global ¯¯ 190113082459 ¯¯ 13.01.2019 08:24:59 ¯¯\
 ;/¯¯¯¯ global ¯¯ 190113082459 ¯¯ 13.01.2019 08:24:59 ¯¯\
@@ -210,7 +212,7 @@ SetTimer,checkInRegistryChangedActionListAddress,2000 ; RegRead, actionListActiv
 SetTimer,checkInRegistryChangedActionListAddress,off ; RegRead, actionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList
 
 
-SetTimer,lbl_check_permanentSELECT_changedInRegistry,1000 ; RegRead, actionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList
+SetTimer,lbl_check_permanentSELECT_changedInRegistry,100 ; RegRead, actionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList
 
 ;/¯¯¯¯ config_checkActionListAHKfile_sizeAndModiTime ¯¯ 190119095143 ¯¯ 19.01.2019 09:51:43 ¯¯\
 ;config_checkActionListAHKfile_sizeAndModiTime
@@ -446,10 +448,24 @@ AutoTrim, Off
 ; RegRead, g_min_searchWord_length, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, g_min_searchWord_length
 ; regwrite/regread: data normalization of true and false ??? https://autohotkey.com/boards/viewtopic.php?f=76&t=59740
  ; RegWrite , RegSave
-if(!g_min_searchWord_length && InStr(A_ComputerName,"SL5"))
+if(1 && !g_min_searchWord_length && InStr(A_ComputerName,"SL5")){
+    todo =
+    (
+    if g_min_searchWord_length == 0
+    moving wordlist is not working at the moment
+    if you typing not matching things you need to change a window for using it again
+    or try to use it twice (use shortcut twice)
+    )
     feedbackMsgBox("g_min_searchWord_length:" g_min_searchWord_length, g_min_searchWord_length "`n`n`n" A_LineNumber . " " .  A_LineFile,1,1)
+}
 
 
+; too too#ClipboardTimeout
+; #HotkeyInterval#CommentFlag
+
+
+
+; te
 
 if(g_min_searchWord_length <= 2) ; becouse of performance reasons. thats optional. dont need 02.12.2018 09:25
     g_min_searchWord_length_2 := g_min_searchWord_length + 2
