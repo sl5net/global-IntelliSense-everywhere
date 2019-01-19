@@ -10,6 +10,12 @@
 g_min_searchWord_length := 0
 
 
+g_config.listBoxGui := { 
+	tipps: { 
+		show: true,
+		durationMilliseconds: 13000
+	}
+}
 
 g_config.ScriptDir := A_ScriptDir
 g_config.editor := { 
@@ -30,17 +36,10 @@ g_ListBoxFontSize := 16 ; works
 g_ListBoxFontSize := 2 ; work but its so small i could not read 
 g_ListBoxFontSize := 8 
 g_FLAGmsgbox := false
-g_doSound := true
+g_doSound := false
 ; g_isListBoxDisabled := false ; toggeled by: ~ctrl::
 
 ; to#AllowSameLineComments#IfWinExist
-
-g_config.listBoxGui := { 
-	tipps: { 
-		show: true,
-		durationMilliseconds: 3000
-	}
-}
 
 g_min_MonitorBound_right := 70 ; used in: ForceWithinMonitorBounds
 g_method := "Clipboard"

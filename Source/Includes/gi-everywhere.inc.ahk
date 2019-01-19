@@ -95,24 +95,6 @@ Receive_actionListAddress(CopyOfData){
 
 
 
-;/¯¯¯¯ ReadInTheActionList( ¯¯ 181028125821 ¯¯ 28.10.2018 12:58:21 ¯¯\
-ReadInTheActionList(calledFromStr){ ;Read in the actionList
-	global ParseWordsCount
-	global g_min_searchWord_length
-	; Speak(A_lineNumber,"PROD")
-
-	if(1 && InStr(A_ComputerName,"SL5"))
-	    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, % A_ThisFunc , % calledFromStr
-	Critical, On
-	ParseWordsCount := ReadActionList(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
-	Critical, Off ; if i switch critical off it not ends reading , maybe it could not read from filesystem?
-	g_min_searchWord_length := getMinLength_Needetthat_ListBecomesVisible(ParseWordsCount, maxLinesOfCode4length1)
-	return ParseWordsCount
-}
-;\____ ReadInTheActionList( __ 181028125831 __ 28.10.2018 12:58:31 __/
-
-
-
 ; too tooltip 5 toolTip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 ; oooltip tip ToolTip4sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 ; MsgBox,262208,% ":)`n" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ,% ":)`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"

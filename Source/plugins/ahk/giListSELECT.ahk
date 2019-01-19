@@ -31,7 +31,7 @@ WHERE actionList Like '`%g_Word`%' Limit 10  ;
 )
 
 SELECT := RegExReplace(SELECTpre, "m)\n", " ")
-RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, stop_list_change, 0
+RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, stop_list_change, % ""
 RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, g_permanentSELECT, % SELECT
 ; MsgBox, % SELECT
 if(0 && InStr(A_ComputerName,"SL5") )
@@ -113,7 +113,7 @@ MsgBox,% Search
 return
 
 StopPmanentSELECT:
-RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, stop_list_change, 0
+RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, stop_list_change, % ""
 RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, g_permanentSELECT, % ""
 Gui, Destroy
 ExitApp, 1

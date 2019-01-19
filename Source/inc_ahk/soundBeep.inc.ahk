@@ -18,9 +18,6 @@ if(1){
     ; g_ttSpeakObject.SetPitch(10)
     g_ttSpeakObject.SetPitch(1) ; tonhöhe high, deep. i like 1 and 10
 }
-if(0 && InStr(A_ComputerName,"SL5"))
-	Speak("sound check sucessful","PROD")
-
 
 Sound(ByRef text ){
     Speak( text )
@@ -30,7 +27,7 @@ Speak(ByRef text, mode := "DEV" ){ ;   ;  (DEV, TEST, STAGING, PROD),
     global g_doSound
     ; if(!g_doSound && mode != "PROD")
     if(!g_doSound)
-        return
+       return
     if(mode != "PROD")
         return
     text := RegExReplace(text, "([a-z])([A-Z])", "$1 $2")
