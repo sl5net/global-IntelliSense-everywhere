@@ -170,8 +170,9 @@ check_permanentSELECT_changedInRegistry(ByRef g_permanentSELECT
       ParseWordsCount := ReadActionList(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
 
       msg := " ReadActionList now `n"
-      ToolTip4sec( msg "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")",200,200,14 )
-      msgbox, ,% msg "(" A_LineNumber ")", % msg "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")",2
+    if(1 && InStr(A_ComputerName,"SL5"))
+      ToolTip4sec( msg "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")",900,1,14 )
+      ; msgbox, ,% msg "(" A_LineNumber ")", % msg "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")",2
 
       g_permanentSELECT_OLD := g_permanentSELECT
     return true

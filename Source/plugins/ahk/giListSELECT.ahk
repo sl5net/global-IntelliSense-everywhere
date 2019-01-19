@@ -32,30 +32,36 @@ WHERE actionList Like '`%g_Word`%' Limit 10  ;
 )
 
 SELECT := RegExReplace(SELECTpre, "m)\n", " ")
+RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, g_permanentSELECT, % SELECT
 ; MsgBox, % SELECT
-if(1 && InStr(A_ComputerName,"SL5") )
+if(0 && InStr(A_ComputerName,"SL5") )
      Clipboard := SELECT
+
+
 bodyText =
 (
 Search ActionLists saved in DB. Chance to set ony permanent as long this window exist. SQL command is simply taken from the WindowTitle (needet token: giListSELECT )
 usually the ActionLists automatically are choosen dependent on the title and your configuration. ESC closes the window. F5 reloads the window. CTRL+SHIFT+c copy SELECT
 )
+
+wTitle := substr(A_ScriptName , 1, -4)
+MsgBox, , % wTitle, Welcome to Choose actionList, 4 ; take a liitle time for script to read in the new values 19-01-19_11-13
+
 Gui, Add, Text, x10 y1 h40, % bodyText
 Gui, Add, Edit, yp+40 wp vSearch, 
 ; Gui, Add, Button, yp+30 w77 h26 gAdd2Reg, &set this list permanent
 ; Gui, Add, Button, xp+85 wp hp gfSearch, &Forum Search
 ; Gui, Add, Button, xp+85 wp hp ggSearch, &Google It!
-Gui, Show, AutoSize Center, % substr(A_ScriptName , 1, -4)
-Sleep,500 ; becouse Typing... will overwrite it first. 19-01-17_17-52
+Gui, Show, AutoSize Center, % wTitle
+;Sleep,500 ; becouse Typing... will overwrite it first. 19-01-17_17-52
 ; RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList, % ""
-RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, g_permanentSELECT, % SELECT
-ToolTip, % SELECT "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" 
+;ToolTip, % SELECT "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" 
 ; Sleep, 250
 ; RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList, % ""
 
 ; newTitle = giListSELECT actionList FROM actionLists WHERE actionList Like 'g_Word' AND actionList NOT Like 'isNotAProject.ahk' order by actionList
 ; Gui, Show, w900 Center, % newTitle
-WinGet, active_id, ID, % substr(A_ScriptName , 1, -4)
+WinGet, active_id, ID, % wTitle
 ; hWnd := DllCall("GetParent",UInt,hWnd, UInt)
 ; WinSetTitle,% A_ScriptName ,% newTitle
 ; Send,{tab} ; focus first button

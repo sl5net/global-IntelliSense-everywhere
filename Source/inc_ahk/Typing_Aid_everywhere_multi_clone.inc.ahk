@@ -1373,7 +1373,7 @@ ___open actionList|rr||ahk|openInEditor,%actionListFileName%
 		return initialActionList
 	}
 ;>>>>>>>>>>>>>>>>>>>>> getInitialActionList >>>>>>>>>>>>>>>>>>>>>>>>>
-	
+; 1377
 	#include, inc_ahk\openInEditor_actionList.inc.ahk
 	
 	#Include %A_ScriptDir%\inc_ahk\soundBeep.inc.ahk
