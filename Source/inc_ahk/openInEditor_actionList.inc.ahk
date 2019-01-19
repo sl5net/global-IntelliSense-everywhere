@@ -174,6 +174,7 @@ the emeditor.ahk is going to be the name of the program then the file extension.
 )
 
 
+
 isEditorExist := false
 For editorName, editorAddress in g_config.editor
 	if(isEditorExist := FileExist(editorAddress))
@@ -182,7 +183,7 @@ if(!isEditorExist)
     editorAddress = notepad.exe
 runString = "%editorAddress%" "%m1CorrectedAhkFileAddress%"
     ; clipboard := runString
-    if(1 && InStr(A_ComputerName,"SL5")){
+    if(0 && InStr(A_ComputerName,"SL5")){
         feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), editorName ": " runString )
         Msgbox,% runString " (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
     }
