@@ -277,7 +277,7 @@ ProcessKey(InputChar,EndKey) {
 		{
          ;AddWordToList(ByRef rootCmdTypeObj,g_Word,0)
 			ClearAllVars(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),true)
-			if(1 && InStr(A_ComputerName,"SL5"))
+			if(0 && InStr(A_ComputerName,"SL5"))
 				tooltip,% "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber " 19-01-16_20-12)",1
 
 			g_Word := InputChar
@@ -570,7 +570,7 @@ SELECT actionList FROM actionLists WHERE actionList Like 'g_Word' AND actionList
 		    if(g_permanentSELECT_type == "SELECT actionList")
 		        doSetSelectFirstValue2registry := true
 
-			if(1 && InStr(A_ComputerName,"SL5"))
+			if( InStr(A_ComputerName,"SL5") && doSetSelectFirstValue2registry )
 				ToolTip, % doSetSelectFirstValue2registry "`n = doSetSelectFirstValue2registry `n`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")", 500,1,5
 
 			if(doSetSelectFirstValue2registry){ ; !row[2] &&

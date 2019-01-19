@@ -1,28 +1,44 @@
-﻿; Hallo: https://www.autohotkey.com/boards/viewtopic.php?f=6&t=45684&p=257223#p257223  19-01-10_10-27
+﻿#SingleInstance,Force
+
+RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, stop_list_change, 0
+
+
+; Hallo: https://www.autohotkey.com/boards/viewtopic.php?f=6&t=45684&p=257223#p257223  19-01-10_10-27
 ; test 
 
 ; rep := "RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList, " actionListNewTemp_withoutExt "`n"
 
-SELECT =
+; g_config["list"]["change"]["stopRexExTitle"]:="."
+; ``n RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, stop_list_change, 1
+
+; ahk_class AutoHotkeyGUI ahk_exe AutoHotkey.exe ahk_id 0xf31790
+; Cursor:  Arrow  ▪  Caret:  x19 y86  ▪  Client area:  x3 y32 w1051 h85
+
+SELECTpre =
 (
 SELECT distinct replace(actionList, rtrim(actionList, replace(actionList, '\', '')), '')
 || '|rr|'
 || '|ahk|RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList, '
-|| substr(actionList, 1, length(actionList)-4) FROM actionLists
- WHERE actionList Like '`%g_Word`%' Limit 10
+|| substr(actionList, 1, length(actionList)-4) || '
+``n SetTitleMatchMode,2
+``n WinClose, (giListSELECT) ahk_class AutoHotkeyGUI ahk_exe AutoHotkey.exe
+``n RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, g_permanentSELECT, 
+``n RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, stop_list_change, 1
+``n RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList, ' || actionList || '
+``n MsgBox, , OK  :-) actionList was set, to a permanent list. valid as long as this window exists , 2
+``n WinClose, giListSELECT ahk_class AutoHotkeyGUI ahk_exe AutoHotkey.exe'
+FROM actionLists
+WHERE actionList Like '`%g_Word`%' Limit 10  ; 
 )
-SELECT := RegExReplace(SELECT, "m)\n", " ")
+
+SELECT := RegExReplace(SELECTpre, "m)\n", " ")
 ; MsgBox, % SELECT
 if(1 && InStr(A_ComputerName,"SL5") )
      Clipboard := SELECT
-#SingleInstance,Force
-RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, g_permanentSELECT, % SELECT
 bodyText =
 (
 Search ActionLists saved in DB. Chance to set ony permanent as long this window exist. SQL command is simply taken from the WindowTitle (needet token: giListSELECT )
-usually the ActionLists automatically are choosen dependent on the title and your configuration. ESC closes the window
-
-%SELECT%
+usually the ActionLists automatically are choosen dependent on the title and your configuration. ESC closes the window. F5 reloads the window. CTRL+SHIFT+c copy SELECT
 )
 Gui, Add, Text, x10 y1 h40, % bodyText
 Gui, Add, Edit, yp+40 wp vSearch, 
@@ -30,8 +46,12 @@ Gui, Add, Edit, yp+40 wp vSearch,
 ; Gui, Add, Button, xp+85 wp hp gfSearch, &Forum Search
 ; Gui, Add, Button, xp+85 wp hp ggSearch, &Google It!
 Gui, Show, AutoSize Center, % substr(A_ScriptName , 1, -4)
-Sleep, 150
-RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList, % ""
+Sleep,500 ; becouse Typing... will overwrite it first. 19-01-17_17-52
+; RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList, % ""
+RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, g_permanentSELECT, % SELECT
+ToolTip, % SELECT "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" 
+; Sleep, 250
+; RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList, % ""
 
 ; newTitle = giListSELECT actionList FROM actionLists WHERE actionList Like 'g_Word' AND actionList NOT Like 'isNotAProject.ahk' order by actionList
 ; Gui, Show, w900 Center, % newTitle
@@ -57,10 +77,22 @@ return
      ; Send,!f
 ; return
 
+
+~^+c::
+IfWinNotActive, ahk_id %active_id%
+	return
+Clipboard := SELECTpre
+MsgBox, , ^+c detected, SELECT is copied to Clipboard , 2
+return
+
+
+~^+F5::
 ~F5::
 IfWinNotActive, ahk_id %active_id%
 	return
 ;MsgBox,reload
+Gui, Destroy
+; MsgBox, , F5 detected => reload, , 2
 Reload
 return
 
@@ -74,5 +106,6 @@ return
 
 GuiClose:
 Gui, Destroy
+ExitApp, 1
 return
 

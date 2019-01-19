@@ -1019,13 +1019,17 @@ if(0 && InStr(A_ComputerName,"SL5")){
 ; to tool tooltip msg tooltip test lkjl
       ; that box is not out of monitor, out of sceen:
       ForceWithinMonitorBounds(g_ListBoxPosX,ListBoxPosY,ListBoxActualSizeW,ListBoxActualSizeH)
-      
+
+      ; tool msg box bo box tooltip
+      ; tool tool box x ms
+
       g_ListBoxContentWidth := ListBoxActualSizeW - ScrollBarWidth - BorderWidthX
+      g_ListBoxContentWidth *= 4 ; seems has same effect then factor 2
       if(0 && InStr(A_ComputerName,"SL5"))
         ToolTip, % g_ListBoxContentWidth "`n = g_ListBoxContentWidth `n`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")", 500,1,5
 
-      if(g_ListBoxContentWidth < 450)
-        g_ListBoxContentWidth := 450 ; <=== maybe thi has no effect.
+      if(g_ListBoxContentWidth < 600)
+        g_ListBoxContentWidth := 600 ; <=== maybe thi has no effect.
 
       IfEqual, g_ListBox_Id,
       {
@@ -1100,11 +1104,6 @@ try {
          WinSet, Transparent, %prefs_ListBoxOpacity%, ahk_id %g_ListBox_Id%
 ; WinSet, TransColor, 096FBF 150
 ; WinSet, TransColor, 0078D7 255
-
-; ; too too tott  to to to t t t to to t to tr
-; tool tool tool tool toootii
-; too tool tool tool too tool ooo
-; too tool too too
 
    }
 }
@@ -1193,11 +1192,6 @@ ForceWithinMonitorBounds(ByRef ListBoxPosX, ByRef ListBoxPosY, ListBoxActualSize
 ;\____ ForceWithinMonitorBounds __ 181120003127 __ 20.11.2018 00:31:27 __/
 
 
-
-
-;------------------------------------------------------------------------
-
-
 ;/¯¯¯¯ GetRows ¯¯ 181120003132 ¯¯ 20.11.2018 00:31:32 ¯¯\
 GetRows(){
    global g_MatchTotal
@@ -1210,7 +1204,6 @@ GetRows(){
 }
 ;\____ GetRows __ 181120003138 __ 20.11.2018 00:31:38 __/
 
-; tool tool boxm
 
 
 ;/¯¯¯¯ CaretXorMouseXfallback ¯¯ 181120003149 ¯¯ 20.11.2018 00:31:49 ¯¯\

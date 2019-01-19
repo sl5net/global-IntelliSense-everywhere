@@ -18,14 +18,15 @@ if(1){
     ; g_ttSpeakObject.SetPitch(10)
     g_ttSpeakObject.SetPitch(1) ; tonhöhe high, deep. i like 1 and 10
 }
-Speak("gestartet")
+if(1 && InStr(A_ComputerName,"SL5"))
+	Speak("sound check sucessful","PROD")
 
 
-Sound( text ){
+Sound(ByRef text ){
     Speak( text )
 }
 ;/¯¯¯¯ speaking ¯¯ 181101030122 ¯¯ 01.11.2018 03:01:22 ¯¯\
-Speak( text, mode := "DEV" ){ ;   ;  (DEV, TEST, STAGING, PROD),
+Speak(ByRef text, mode := "DEV" ){ ;   ;  (DEV, TEST, STAGING, PROD),
     global g_doSound
     ; if(!g_doSound && mode != "PROD")
     if(!g_doSound)

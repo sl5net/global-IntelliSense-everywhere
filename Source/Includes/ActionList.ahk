@@ -48,6 +48,12 @@ ReadActionList( calledFromStr ){
 	
 	global g_config
 
+	if(1 && InStr(A_ComputerName,"SL5"))
+		Speak("ReadActionList sucessful started","PROD")
+    	; Speak( A_lineNumber ,"PROD")
+
+
+
     if(0 && inStr(actionList, "playground" )){
         RegRead, ALinfoOnley, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList
         ToolTip5sec( "RegRead=.........  " ALinfoOnley "`n" actionList "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")", 10,300 )
@@ -64,10 +70,22 @@ ReadActionList( calledFromStr ){
 
 
 	if(!actionList){
-        if(0 && InStr(A_ComputerName,"SL5"))
+        if(1 && InStr(A_ComputerName,"SL5")){
             Speak(A_lineNumber,"PROD")
+			; MsgBox,262160,% ":(`n" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ,% ":(`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+		}
 		return false
 	}
+
+    extension := SubStr( actionList , -3 )
+    if(extension <> ".ahk"){ ; dirty bugfix 19-01-17_19-54
+		actionList .= ".ahk"
+	}
+
+
+    ;/¯¯¯¯ itsAGeneratedList ¯¯ 190118203542 ¯¯ 18.01.2019 20:35:42 ¯¯\
+    ; G:\fre\git\github\global-IntelliSense-everywhere-Nightly-Build\ActionLists\ChromeWidgetWin1\Turek_Gmail.ahk._Generated.ahk
+    ; \ActionLists\ChromeWidgetWin1\Turek_Gmail.ahk._Generated.ahk
 	postFixGenerated := "._Generated.ahk"
 	actionListPostFix  := SubStr(rtrim(actionList), - StrLen(postFixGenerated) + 1 ) ; That works I've tested it 01.11.2018 14:59
 	itsAGeneratedList := ( postFixGenerated == actionListPostFix )
@@ -85,22 +103,31 @@ ReadActionList( calledFromStr ){
 			    ToolTip8sec( actionList " `n fileEx= " fileEx "`n`n`n Sleep 3000`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
     			Sleep, 3000
 
-
-
     			; ..\actionLists\ChromeWidgetWin1\playground_Piratenpad_Google_Chrome.ahk._Generated.ahk
     			; ..\actionLists\ChromeWidgetWin1\playground_Piratenpad_Google_Chrome.ahk._Generated.ahk
+
+
+    			; ..\actionLists\ChromeWidgetWin1\PRIVATE_Turek_Gmail.ahk._Generated
 			}
-        }else if(0 && InStr(A_ComputerName,"SL5")){
+        }else if(1 && InStr(A_ComputerName,"SL5")){
+			m =
+			(
+			! FileExist( actionList postFixGenerated )
+			! FileExist( %actionList%%postFixGenerated% )
+			)
 			Speak(A_LineNumber ": Prima. List is without includes, becouse not generated found" ,"PROD") ; bug entecekt actionList 12.11.2018 11:02 todo:
-			ToolTip8sec( actionList "`n`n`n Sleep 3000`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")", 1,1 )
-			Sleep, 3000
-        	; Speak(A_lineNumber,"PROD")
+			ToolTip8sec( actionList "`n`n`n Sleep 2000`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")", 1,1 )
+			Sleep, 2000
+        	Speak(A_lineNumber,"PROD")
+			; MsgBox,262160,% ":(`n" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ,% actionList "=actionList `n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 			return false
 		}
 	}
+	;\____ itsAGeneratedList __ 190118203552 __ 18.01.2019 20:35:52 __/
 
 
-    ; Speak( regExReplace(actionList,".*\\") ,"PROD")
+	if(1 && InStr(A_ComputerName,"SL5"))
+    	Speak( regExReplace(actionList,".*\\") ,"PROD")
     ; clipboard := actionList
 
 	
@@ -113,7 +140,7 @@ ReadActionList( calledFromStr ){
 		speak(A_ThisFunc)
 	
     ;/¯¯¯¯ \.ahk ¯¯ 181025172431 ¯¯ 25.10.2018 17:24:31 ¯¯\
-	if(	InStr( actionList, "\.ahk")){ ; without file name is bullshit 25.10.2018 17:18 ; Please check outside
+	if(false && !InStr( actionList, "\.ahk")){ ; without file name is bullshit 25.10.2018 17:18 ; Please check outside
 		log =
         (
         Oops: InStr( actionList, "\.ahk")
@@ -150,7 +177,7 @@ ReadActionList( calledFromStr ){
 	if(!FileGet_actionListModified){
 		if(1 && InStr(A_ComputerName,"SL5") && activeTitle == "isNotAProject")
 			ToolTip4sec(" Oops  !FileGet_actionListModified (" A_LineNumber . " " . RegExReplace(A_LineFile, ".*\\", "")  )
-		return
+; SELECT distinct replace(actionList, rtrim(actionList, replace(actionList, '\', '')), '') || '|rr|' || '|ahk|RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList, ' || substr(actionList, 1, length(actionList)-4) || ' `nRegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, g_permanentSELECT, `nMsgBox, , OK  :-) actionList was set, to a permanent list. valid as long as this window exists , 2' FROM actionLists WHERE actionList Like '%g_Word%' Limit 10  ; 		return
 	}
 	FileGetSize, FileGet_actionListSize, %actionList%
 	if(!FileGet_actionListSize){
@@ -311,10 +338,11 @@ from: actionList.ahk~%A_LineNumber%
     }
 
 
+
 	if (!isTblWordsEmpty && !DatabaseRebuilt) {
     ; thats inside ReadActionList(calledFromStr) ---------------------------------------------
 		
-
+; 
 
 		SELECT := "SELECT actionListmodified, actionListsize FROM actionLists WHERE actionList = '" actionList "';"
 		if(1 && InStr(A_ComputerName,"SL5") && activeTitle == "isNotAProject")
@@ -333,6 +361,18 @@ from: actionList.ahk~%A_LineNumber%
             ;diffModified := Abs(FileGet_actionListModified - actionListLastModified) ; <==== acnt diff timestams this way todo:
             ;diffModified := FileGet_actionListModified - actionListLastModified ; <==== acnt diff timestams this way todo:
 			isModified := (diffSize || FileGet_actionListModified && actionListLastModified && (FileGet_actionListModified <> actionListLastModified))
+
+if(0 && InStr(actionList, "Turek") && InStr(A_ComputerName,"SL5"))
+	MsgBox,262160,% isModified "= isModified`n" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ,% actionList "=actionList `n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+
+;/¯¯¯¯ plausibilty ¯¯ 190117203319 ¯¯ 17.01.2019 20:33:19 ¯¯\
+; extra plausibilty check
+; is generated much older then not generated? then its wrong...
+	; if(itsAGeneratedList){ ; stup / todo 19-01-17_20-42
+		;postFixGenerated := "._Generated.ahk"
+	; }
+;\____ plausibilty __ 190117203325 __ 17.01.2019 20:33:25 __/
+
 			if(0 && InStr(A_ComputerName,"SL5")){
 				tip =
                 (
@@ -514,6 +554,7 @@ from: actionList.ahk~%A_LineNumber%
 		
 		
 		SetTimer,checkInRegistryChangedActionListAddress,off ; RegRead, actionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList
+
 ; SetTimer,checkInRegistryChangedActionListAddress,off ; RegRead, actionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList
 		SetTimer,checkActionListAHKfile_sizeAndModiTime, off
 		SetTimer,checkWinChangedTitle,off

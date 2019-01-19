@@ -112,11 +112,15 @@ gi_everywhereAHK := gi_everywhereSourcePath  . "gi-everywhere.ahk"
 actionListActive := ""
 actionListOLD:=""
 
+
 checkFilePathExistens1704291222(actionListDirBase, destinDir, sourceDir, gi_everywhereAHK)
 
 ; selfTestLoop1000(1)
 ; selfPerformanceTest()
 ; selfPerformanceTest2()
+
+
+RegRead, stop_list_change, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, stop_list_change ; todo: 02.03.2018 12:55 18-03-02_12-55
 
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 activeTitle:=""
@@ -280,12 +284,47 @@ activeClass := "Chrome_WidgetWin_1"
 
 
 
+	;/¯¯¯¯ giListSELECT ¯¯ 190118192458 ¯¯ 18.01.2019 19:24:58 ¯¯\
 	; if(stopIfWinTitleExist_giListSELECT(activeTitle, detectHidden := true)) ; Problem: https://www.autohotkey.com/boards/viewtopic.php?f=76&t=60875
-	if(stopIfWinTitleExist_giListSELECT(activeTitle))
-	    continue ; was found and was closed. lets search for the new title (new loop) 19-01-10_05-19
+	if(stop_list_change || stopIfWinTitleExist_giListSELECT(activeTitle)){
 
+if(0 && InStr(A_ComputerName,"SL5"))
+        Speak(A_LineNumber,"PROD")
 
-; mai
+	    ; was found and was closed. lets search for the new title (new loop) 19-01-10_05-19
+	    ; but maybe the list has to be regenerated. include file or so 19-01-18_17-17
+	    RegRead, actionListNEW, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList
+		gi_everywhereSourcePath := A_ScriptDir
+		actionListDir := RegExReplace(actionListNEW,"\\[^\\]+$","") 
+		activeClass := RegExReplace(actionListDir,".*\\","") 
+		activeTitle := RegExReplace(actionListNEW, "^[^\n]*\\([^\.\n]*).*", "$1")
+		actionListNEW := actionListDir "\" activeTitle ".ahk"
+		actionListActive := actionListNEW
+		; lineFileName := RegExReplace(actionListNEW, ".*\\([\w\s\.]+)$", "$1")
+;activeClass := ""
+;activeTitle := "giListSELECT"
+        ; actionListDirBase, destinDir, sourceDir, gi_everywhereAHK)
+		info =
+		(
+nooo AutoHotkeyGUI = activeClass
+nooo giListSELECT = activeTitle (1901181747)
+
+actionListDir = %actionListDir% 
+%actionListNEW% = actionListNEW
+%actionListActive% = actionListActive
+%gi_everywhereSourcePath% = gi_everywhereSourcePath
+%activeClass% = activeClass
+%activeTitle% = activeTitle
+		)
+		info .= "`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+		; Msgbox,% info " (1901181747)"
+	    ; gosub, lbl_actionListNEWactivate
+	    ; continue
+
+		stop_list_change := true
+    }
+	;\____ giListSELECT __ 190118192504 __ 18.01.2019 19:25:04 __/
+
 
 	if(RegExMatch(activeTitle,"^\d:.+")){
       ;Clipboard:=activeClass
@@ -312,15 +351,16 @@ activeClass := "Chrome_WidgetWin_1"
 	
 	
 	if(activeTitleOLD == activeTitle && activeClassOLD == activeClass ){
+        Sleep,100 ; dont needet. but way not taka a break here a little? 19-01-19_01-52
+
         ; WinWaitNotActive, %activeTitle% ahk_class %activeClass%
-		continue
-		FormatTime, timestampHHmmss, %A_now%,HH:mm:ss
-		global g_doSaveLogFiles
-		
-		lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,regEx . " end of while(true)`n '" . activeTitle . "' = activeTitle `n  time:" . timestampHHmmss)
-		Msgbox,%activeTitle% `n`n %activeClass% `n`n  (%A_LineFile%~%A_LineNumber%)
-		
-;ExitApp
+
+        if(!stop_list_change) ; if list never changing it needs somtimes to look if list is updated or includes ar update. 19-01-19_01-50
+        {
+            if(1 && InStr(A_ComputerName,"SL5"))
+                Speak("continue becouse of same actionList" A_LineNumber,"PROD")
+		    continue
+        }
 	}
 	
 	
@@ -523,7 +563,9 @@ actionListNEW = %activeTitle%
 		sleep,8888
 		exitapp
 	}
-	
+
+; lbl_actionListNEWactivate:
+
 	
 	ahkSource .= "varInjects1 := mvarInjects(actionListDir, actionListNEW, activeClass, activeTitle) `n"
     ; ahkSource .= "actionListDir = " . actionListDir  . " `n"
@@ -564,7 +606,7 @@ if(0){
     ; msgbox,`%actionListNEWarchivePath`%
     pLength := 0
     while(pLength <> StrLen(actionList )){
-        ; tooltip,`% A_index . "# Line:" . A_LineNumber . " Name:" . A_ScriptName . " "
+        ; tooltip,`% A_index "# Line:" A_LineNumber " Name:" A_ScriptName " "
         pLength := StrLen(actionList )
         actionList := RegExReplace(actionList ,"(\\[^\\]+\\\.\.)+") ; works. removes all symbolic links 24.02.2018  cleanPath
     }
@@ -612,9 +654,12 @@ if(0){ ; diesabled 24.12.2018 13:36 ... so its not possible to update lists with
 #Include,RegWrite181031.ahk
 }
 ) ; endOf temp ToolTip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
-	
+
+
+
+
+
 	ahkSource .= "`n" temp
-	
     ; following lines are debrecated
     ; ahkSource .= "actionListOLDbackup( actionListDir , actionListOLD)" . " `n"
     ; ahkSource .= "actionListOLDdisable( gi_everywhereSourcePath, actionListActive )" . " `n"
@@ -643,10 +688,11 @@ if(0){ ; diesabled 24.12.2018 13:36 ... so its not possible to update lists with
 	
 	IfWinNotExist,temp.ahk
 	{
-		
 		if(0 && InStr(A_ComputerName,"SL5") && inStr(actionListNEW, "playground" ))
 			tooltip,% actionListNEW "`n" actionList "`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 		
+		if(activeTitle == "giListSELECT" && InStr(A_ComputerName,"SL5") )
+			MsgBox,% ahkSource "`n" actionList "`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 		FileWriteAndRun( ahkSource , "temp.ahk" ) ; TODO: wozu ? 13.08.2017 10:52
 		
 		if(0 && InStr(A_ComputerName,"SL5") && inStr(actionListNEW, "playground" )){
@@ -693,11 +739,47 @@ if(0){ ; diesabled 24.12.2018 13:36 ... so its not possible to update lists with
 	
 	SetTimer, checkCriticalCommandLbl, On
 	;Speak(A_lineNumber " " A_ThisFunc,"PROD")
+
+
+
+
+
+
+
 	WinWaitNotActive, %activeTitle%
+	while(stop_list_change){
+		if(0 && InStr(A_ComputerName,"SL5")){
+		    m =
+		    (
+		    stop_list_change is ON
+		    actionList will not be changed.
+		    wait stop_list_change is set Off/false/0 again
+
+            Problem then: only changes in ... _generated will be update
+            ==> stop only every 5 seconds
+		    )
+			ToolTip, % A_index ": while RegRead`n" . A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\") ,1 , 100,8
+		}
+        if( A_index >= 5 ) ; time for take a short look fur updates
+        {
+            if(0 && InStr(A_ComputerName,"SL5")){
+                ToolTip, % "BREAK while RegRead`n" . A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\") ,1 , 100,8
+                Speak(A_LineNumber "BREAK ","PROD")
+            }
+            break
+
+        }
+		sleep,1000
+		RegRead, stop_list_change, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, stop_list_change ; todo: 02.03.2018 12:55 18-03-02_12-55
+	}
+
+;
+
+
+
 	SetTimer, checkCriticalCommandLbl, Off
 	
 	g_nextCriticalCommandString := ""
-	
 	
     ; WinWaitNotActive, %activeTitle% ahk_class %activeClass% ; seems not work alway. be careful !! with that :( 29.04.2017 22:13
 ;    WinWaitNotActive, %activeTitle% %activeClass%
@@ -1242,6 +1324,8 @@ if(false){
 return
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+
+;/¯¯¯¯ stopIfWinTitleExist_giListSELECT ¯¯ 190118021718 ¯¯ 18.01.2019 02:17:18 ¯¯\
 stopIfWinTitleExist_giListSELECT(activeTitle,detectHidden := "", excludetTitle := "AHK Studio -"){
 	flagTitle_giListSELECT := "giListSELECT" ; 09.01.2019 11:26 19-01-09_11-26
 	flagTitle_giListSELECT_running := " (" flagTitle_giListSELECT ")" ; 09.01.2019 11:26 19-01-09_11-26
@@ -1285,14 +1369,30 @@ stopIfWinTitleExist_giListSELECT(activeTitle,detectHidden := "", excludetTitle :
         if(0 && InStr(A_ComputerName,"SL5"))
 	        ToolTip, % "WinWait:`n`nWinSetTitle:`n" activeTitleOLD "`n=>`n" activeTitle " `n`n(" A_LineNumber " " RegExReplace(A_LineFile,".*\\") ,1 , 200, 20
 	    WinWait, %activeTitle%, , 9000,2
-	    if(1 && InStr(A_ComputerName,"SL5"))
-	        ToolTip, % "WinWaitClose `n`n" . A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\") ,1 , 200, 8
-	    WinWaitClose,% activeTitle
 
+        ; inside: stopIfWinTitleExist_giListSELECT
+	    while(1){ ; while loop becouse we have casese of false with WinWaitClose 19-01-17_17-25
+			; or? dont need it ?? 19-01-17_17-49
+    	    if(1 && InStr(A_ComputerName,"SL5"))
+	            ToolTip, % "WinWaitClose, " substr(activeTitle,1,4) "...`n`n" . A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\") ,1 , 200, 8
+    	    ; DetectHiddenWindows,On
+    		WinWaitClose,% activeTitle
+    		sleep,150
+    		ifwinNotExist,% activeTitle
+    		    break
+        }
+		ToolTip, , , , 8
+        ; MsgBox,262208,% ":) really closed???`n" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ,% ":)`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
         RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, g_permanentSELECT, % ""
 
-	    ToolTip,  ,1 , 200, 8
 	    ToolTip,  ,1 , 200, 20
+	    ToolTip,  ,1 , 200, 8
+
+        stop_list_change := ""
 		return true
 	}
 }
+;\____ stopIfWinTitleExist_giListSELECT __ 190118021743 __ 18.01.2019 02:17:43 __/
+
+
+

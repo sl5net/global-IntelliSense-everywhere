@@ -57,6 +57,12 @@ class Stuff{
     }
 }
 
+; tool tool 
+
+; RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, stop_list_change, % ""
+RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, stop_list_change, 0
+
+
 ;/¯¯¯¯ global ¯¯ 190113082459 ¯¯ 13.01.2019 08:24:59 ¯¯\
 ;/¯¯¯¯ global ¯¯ 190113082459 ¯¯ 13.01.2019 08:24:59 ¯¯\
 ;/¯¯¯¯ global ¯¯ 190113082459 ¯¯ 13.01.2019 08:24:59 ¯¯\
@@ -1611,8 +1617,6 @@ checkInRegistryChangedActionListAddress:
         Speak(A_ThisLabel, "PROD" )  ;  (DEV, TEST, STAGING, PROD),
     ; return ; it seems we need this function ????? 18-12-27_20-50
 
-
-
     ;toolTip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
     if(g_doListBoxFollowMouse){
         ; ToolTip9sec( "g_doListBoxFollowMouse`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
@@ -1640,11 +1644,12 @@ checkInRegistryChangedActionListAddress:
         SoundbeepString2Sound("a")
 
 
-
-    if(g_config["list"]["change"]["stopRexExTitle"]=="."){
+    ; todo: simplify: g_stop_list_change || g_config["list"]["change"]["stopRexExTitle"]=="." 
+    ; ^- delete one of them 19-01-17_21-16
+    ; RegRead, g_stop_list_change, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, stop_list_change ; todo: 02.03.2018 12:55 18-03-02_12-55
+    ; if(g_stop_list_change == 2 ){ ; || g_config["list"]["change"]["stopRexExTitle"]=="."){ ; inside checkInRegistryChangedActionListAddress:
+    if(g_config["list"]["change"]["stopRexExTitle"]=="."){ ; inside checkInRegistryChangedActionListAddress:
         g_is_correct_list_found := true
-
-
 
         temp := g_config["list"]["change"]["stopRexExTitle"]
         tip = stopRexExTitle is >%temp%< %actionList%
@@ -1653,8 +1658,19 @@ checkInRegistryChangedActionListAddress:
             Speak("Return in " A_LineNumber, "PROD" )
         else
             Speak("Return in " A_LineNumber)
+
+        ; postFixGenerated := "._Generated.ahk"
+        ; actionListPostFix  := SubStr(rtrim(actionList), - StrLen(postFixGenerated) + 1 ) ; That works I've tested it 01.11.2018 14:59
+        ; itsAGeneratedList := ( postFixGenerated == actionListPostFix )
+        ; if(itsAGeneratedList){ ; todo: becouse we dont know if there was an update
+        ;     ParseWordsCount := ReadActionList(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
+        ; }
+
+
         return
     }
+    ; else if(g_stop_list_change == 1)
+    ;    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, stop_list_change, 2
 
 
 
@@ -1719,7 +1735,7 @@ checkInRegistryChangedActionListAddress:
             Speak(m " in " A_LineNumber , "PROD")
             ToolTip9sec(m "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
             lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,m)
-            msgbox,% m " " actionListNewTemp_withoutExt "`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+            ; msgbox,% m " " actionListNewTemp_withoutExt "`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
         }
     }
 
@@ -1845,6 +1861,14 @@ global-IntelliSense-everywhere-Nightly-Build [G:\fre\git\github\global-IntelliSe
         return
         ; ToolTip2sec(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") " " Last_A_This)
     }
+
+    RegRead, stop_list_change, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, stop_list_change ; todo: 02.03.2018 12:55 18-03-02_12-55
+    if(stop_list_change){
+        msg = action list wurde gesetzt und soll nicht geändert werden.
+        ; aber eventuell neu geladen.
+        ToolTip3sec(msg "`n" A_LineNumber . " " . RegExReplace(A_LineFile,".*\\")  . " " . Last_A_This,400,100,9)
+    }
+; ; SetTimer,checkInRegistryChangedActionListAddress,off ; RegRead, actionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList
 
 
 
@@ -2609,15 +2633,18 @@ check_actionList_GUI_is_hanging_or_freezed:
     ; tip = %g_ListBoxTitle% = g_ListBoxTitle `n %elapsedSec% = elapsedSec `n (%A_LineFile%~%A_LineNumber%)
     ; ToolTip,%g_ListBoxTitle% = g_ListBoxTitle `n %elapsedSec% = elapsedSec `n (%A_LineFile%~%A_LineNumber%)
     ;MsgBox, % tip "`n`n" elapsedMilli  "millisec = " elapsedSec "sec have elapsed. (" RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
-    if(elapsedSec > 11){
+    if(elapsedSec > 15){ ; if BoxGui is long time opend and noct used. maybe user dont know what todo with it?
      ;winclose, % g_ListBoxTitle
      ; t
      ;/¯¯¯¯ return ¯¯ 181107181830 ¯¯ 07.11.2018 18:18:30 ¯¯\
      m =
      (
-Reload ==> Ctrl+Shift+F5, Move ==> Click it, Resize Font by MouseWheel.
+Reload => Ctrl+Shift+F5,
+Move => Click it,
+Resize Font by MouseWheel,
+Choose item by CTRL + Nr.
      )
-     ToolTip9sec(m "`n`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ") ",140,-5)
+     ToolTip9sec(m "`n`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ") ",1, 400) ; -5
      return
      ;\____ return __ 181107181826 __ 07.11.2018 18:18:26 __/
 

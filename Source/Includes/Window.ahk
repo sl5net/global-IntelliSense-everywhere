@@ -27,6 +27,7 @@ EnableWinHook(){
 
     global activeTitle ; 19-01-09_17-26
 
+global g_config
    ; Set a hook to check for a  window
 
     ; activ at each window change 09.01.2019 19:50
@@ -66,14 +67,19 @@ value: >%titClean%< ?= >%flagTitle_giListSELECT_running%<
 	; msgbox,% tip "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
 	; msgbox tooltip
 	if(titClean == flagTitle_giListSELECT_running){
+
         g_listSELECT_FROM_WinTitle := activeTitle
+
         s1 := substr(activeTitle,1, - (lenTemp-1) )
         ;s2 := RegExReplace(s1, "i)(\bLike\b[^']+')([^']+)'" , "`n$1%$2%'") ; add wildcardd
         if(regExMatch(activeTitle , "i)(SELECT\s+actionList\b|\bFROM\s+actionLists\b)"  ))
             g_permanentSELECT_type := "SELECT actionList"
-        else
-            g_permanentSELECT_type := ""
-        g_permanentSELECT := "SELECT " s1
+        ; else
+           ; g_permanentSELECT_type := ""
+        if(!trim(s1))
+         g_permanentSELECT := ""
+        else 
+         g_permanentSELECT := "SELECT " s1
         tip =
         (
         found: %g_listSELECT_FROM_WinTitle%
@@ -81,33 +87,46 @@ value: >%titClean%< ?= >%flagTitle_giListSELECT_running%<
         %g_permanentSELECT%
         )
     	; ToolTip,% tip "`n`n`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" ,550,55,8
+
+
     }else {
-        if(g_listSELECT_FROM_WinTitle)
-            g_permanentSELECT := "" ; was set by winTitle
+        if(g_listSELECT_FROM_WinTitle){
+            ; g_config["list"]["change"]["stopRexExTitle"]:="."
+            g_permanentSELECT := "" ; was set by winTitle or so
+        }
         g_listSELECT_FROM_WinTitle := ""
         g_permanentSELECT_type := ""
      }
 }
+; test test 
+if(0 && InStr(A_ComputerName,"SL5")){
+   tip = 
+   (
+      titClean == flagTitle_giListSELECT_running ????
+      titClean = %titClean%
+      flagTitle_giListSELECT_running = %flagTitle_giListSELECT_running%
 
+      g_listSELECT_FROM_WinTitle = %g_listSELECT_FROM_WinTitle%
+      flagTitle_giListSELECT = %flagTitle_giListSELECT%
+      g_permanentSELECT_type = %g_permanentSELECT_type%
+      g_permanentSELECT = %g_permanentSELECT%
+      actionList = %actionList%
+      g_actionListID = %g_actionListID%
+      ( %A_ThisFunc% %A_LineNumber% %A_LineFile% )
+   )
+   tooltip, % tip,500,1,4
+}
 
-       ;SoundbeepString2Sound(A_ThisFunc)
-
-
+   ;SoundbeepString2Sound(A_ThisFunc)
 
    If !(g_WinChangedEventHook)
    {
       MaybeCoInitializeEx()
       g_WinChangedEventHook := DllCall("SetWinEventHook", "Uint", g_EVENT_SYSTEM_FOREGROUND, "Uint", g_EVENT_SYSTEM_FOREGROUND, "Ptr", g_NULL, "Uint", g_WinChangedCallback, "Uint", g_NULL, "Uint", g_NULL, "Uint", g_WINEVENT_SKIPOWNPROCESS)
 
-
-
       ;msgbox,% g_WinChangedEventHook " (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") " "
 
-
-
       if !(g_WinChangedEventHook){
-
-
 
         Speak("Failed to register Event Hook")
         msg := "Failed to register Event Hook! `n  g_WinChangedEventHook=" . g_WinChangedEventHook . "`n 17-07-16_16-21"
@@ -118,6 +137,16 @@ value: >%titClean%< ?= >%flagTitle_giListSELECT_running%<
          ;ExitApp
       }
    }
+
+   if(false && !g_listSELECT_FROM_WinTitle){
+      global ParseWordsCount
+      ParseWordsCount := ReadActionList(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
+      msg := " ReadActionList now `n"
+      ToolTip4sec( msg "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")",200,200,14 )
+
+      ;msgbox, ,% msg "(" A_LineNumber ")", % msg "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")",2
+   }
+
    Return
 }
 ;\____ EnableWinHook __ 181024134530 __ 24.10.2018 13:45:30 __/

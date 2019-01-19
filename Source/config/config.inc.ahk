@@ -22,17 +22,13 @@ g_ListBoxFontSize := 16 ; works
 g_ListBoxFontSize := 2 ; work but its so small i could not read 
 g_ListBoxFontSize := 8 
 g_FLAGmsgbox := false
-g_doSound := false
-; 
+g_doSound := true
 ; g_isListBoxDisabled := false ; toggeled by: ~ctrl::
  
-; ToolTipSec(tip,ListBoxPosX, tooltipPosY
-; , g_config["listBoxGui"]["tipps"]["durationMilliseconds"] , 2 )
-; g_ListBoxGui_show_tipps := 1
 g_config.listBoxGui := { 
 	tipps: { 
 		show: true,
-		durationMilliseconds: 3000
+		durationMilliseconds: 43000
 	}
 }
 
