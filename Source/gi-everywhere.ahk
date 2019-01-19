@@ -64,6 +64,40 @@ RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, stop_list_change, % ""
 
 RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, g_permanentSELECT, % ""
 
+configMinifyIncAhkAddress := A_ScriptDir "\inc_ahk\minify\config.minify.inc.ahk" ; update_configMinify_incAhkFile()
+simulateAfirstUserContact := 0
+itsProbablyNewInstallation := (simulateAfirstUserContact || !FileExist(configMinifyIncAhkAddress))
+;/¯¯¯¯ itsProbablyNewInstallation ¯¯ 190119180241 ¯¯ 19.01.2019 18:02:41 ¯¯\
+;itsProbablyNewInstallation := !(FileExist(g_actionListDBfileAdress))
+configIncAhkAddress := A_ScriptDir "\config\config.inc.ahk"
+if(itsProbablyNewInstallation){
+    msg := "add some defaults to config"
+    ToolTip2sec( msg "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+
+    FileRead, configContent , % configIncAhkAddress
+    configContentNew := RegExReplace( configContent , "m)^([ \t]*g_min_searchWord_length[ ]*\:=[ ]*)\d+", "$1" "0" )
+    configContentNew := RegExReplace( configContentNew , "m)^([ \t]*durationMilliseconds[ ]*\:[ ]*)\d+", "$1" "3500" )
+    if( StrLen(configContent) <> StrLen(configContentNew) ){
+        tempFileAddress := A_ScriptDir "\" A_TickCount ".temp.txt"
+        FileAppend, % configContentNew, % tempFileAddress
+        FileCopy,% tempFileAddress, % configIncAhkAddress, 1
+        Sleep,200
+        ; FileDelete,% tempFileAddress
+        Sleep,150
+    msgBox,tatOO
+    }
+    FileExist1 := FileExist(configMinifyIncAhkAddress)
+    FileExist2 := FileExist(configIncAhkAddress)
+    msg =
+     (
+     existMinify = %FileExist1%
+     existConfig = %FileExist2%
+     )
+    if(0 && InStr(A_ComputerName,"SL5"))
+        msgBox,% msg "`n`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+}
+;\____ itsProbablyNewInstallation __ 190119180246 __ 19.01.2019 18:02:46 __/
+
 ;
 ;/¯¯¯¯ global ¯¯ 190113082459 ¯¯ 13.01.2019 08:24:59 ¯¯\
 ;/¯¯¯¯ global ¯¯ 190113082459 ¯¯ 13.01.2019 08:24:59 ¯¯\
@@ -82,6 +116,12 @@ g_config := {}
 #Include *i %A_ScriptDir%\inc_ahk\minify\config.minify.inc.ahk ; update_configMinify_incAhkFile()
 SetTimer,check_configFile_Changed,2500
 
+if(!g_config["FuzzySearch"]["MAXlines"] || !g_config["FuzzySearch"]["keysMAXperEntry"]){
+    Msgbox,% "Oops :( enable=" g_config["FuzzySearch"]["enable"] "`n`n" "MAXlines=" g_config["FuzzySearch"]["MAXlines"] "`n`n" configContentminify "`n`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+    reload
+}
+
+
 g_ListBoxX := 0 ; if g_ListBoxX (not false > 0) it never usses CaretXorMouseXfallback . if you want go back to default, reload the
 g_ListBoxY := 0 ; if g_ListBoxX (not false > 0) it never usses CaretXorMouseXfallback . if you want go back to default, reload the
 
@@ -91,15 +131,7 @@ global g_sending_is_buggy := false ; Solved: SendPlay. 29.07.2017 11:21
 global g_doSaveLogFiles := false
 global g_doRunLogFiles := false
 
-if(!g_config["FuzzySearch"]["MAXlines"] || !g_config["FuzzySearch"]["keysMAXperEntry"]){
-    Msgbox,% "Oops :( enable=" g_config["FuzzySearch"]["enable"] "`n`n" "MAXlines=" g_config["FuzzySearch"]["MAXlines"] "`n`n" configContentminify "`n`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
-    reload
-}
 
-if(1 && InStr(A_ComputerName,"SL5")){
-    ; g_actionListDBfileAdress := "E:\fre\private\HtmlDevelop\AutoHotKey\tools\TypingAid-master\Source\actionListLearned.db"
-    g_actionListDBfileAdress := "G:\fre\private\sql\sqlite\actionList.db"
-}
 
 ;\____ global __ 190113082444 __ 13.01.2019 08:24:44 __/
 ;\____ global __ 190113082444 __ 13.01.2019 08:24:44 __/
@@ -128,7 +160,8 @@ listBoxFontSizeOLD := g_ListBoxFontSize
 feedbackMsgBoxCloseAllWindows()
 
 ;/¯¯¯¯ helloWelcomeMessage ¯¯ 190113113557 ¯¯ 13.01.2019 11:35:57 ¯¯\
-if(!FileExist(g_actionListDBfileAdress) ){
+
+if(itsProbablyNewInstallation){
 helloWelcomeMessage =
 (
 Hello, welcome to gi. I tried my best with gi and I hope you have a great with it, if you have any trouble and anything, please reach out to me, message me, I will try my best to solve your issues. thanks again, enjoy.
@@ -137,6 +170,14 @@ it would be great if you provide some review, it will give me a chance to create
 thank you. :)
 
 now you should see a little GI icon into your taskBar.
+
+
+BTW: gi thinks you are a new user because
+'%configMinifyIncAhkAddress%'
+has not been generated before.
+for the configuration please use:
+'%configIncAhkAddress%'
+its also accessible via the TrayMenu
 )
 ; TrayMenu ??? 09.01.2019 19:40
 feedbackMsgBox(substr(helloWelcomeMessage,1,100) "...", helloWelcomeMessage, 1, 1, 66 * 5 )

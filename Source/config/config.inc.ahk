@@ -1,7 +1,5 @@
 ﻿/* this file will be automatic precompiled before it is used by autohotkey 14.01.2019 12:09
 */
-
-
 ; recomandet for g_min_searchWord_length is: 1 or 2 maybe 0
 ; if u use 0 it maybe not work always at the moment (works if word match or if you have a fresh window change) (19-01-19_10-44)
 ; therfore its not recomandet to use 0
@@ -9,14 +7,12 @@
 ; BTW its stored in regitry: RegRead, g_min_searchWord_length, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, g_min_searchWord_length
 g_min_searchWord_length := 0
 
-
 g_config.listBoxGui := { 
 	tipps: { 
 		show: true,
-		durationMilliseconds: 13000
+		durationMilliseconds: 3500
 	}
 }
-
 g_config.ScriptDir := A_ScriptDir
 g_config.editor := { 
 	1 : A_ProgramFiles "\Microsoft VS Code\Code.exe",
@@ -49,11 +45,15 @@ g_regExReplaceInVisibleLine := "^([^|]+).*" ; the string only before the first "
 g_regExReplaceInVisibleLine := "^[_]*([^|\n]+)[^\.\n]*?([^|\n]{3,})$" ; https://autohotkey.com/boards/viewtopic.php?p=215425#p215425 https://regex101.com/r/GQjPg0/1
 g_regExReplaceInVisibleLine := "^[_]*([^|\n]+)[^\.\n]*?([^|\n]{3,})?$" ; 18-06-10_09-34 https://autohotkey.com/boards/viewtopic.php?p=215425#p215425 https://regex101.com/r/GQjPg0/1 ; the string only before the first "|"
 g_actionListDBfileAdress := A_ScriptDir "\actionListLearned.db"
+
+; g_actionListDBfileAdress := "E:\fre\private\HtmlDevelop\AutoHotKey\tools\TypingAid-master\Source\actionListLearned.db" 
+g_actionListDBfileAdress := (InStr(A_ComputerName,"SL5")) 
+	? "G:\fre\private\sql\sqlite\actionList.db" 
+	: A_ScriptDir "\actionListLearned.db" 
+
 actionList_isNotAProject_withoutExt  := removesSymbolicLinksFromFileAdress( A_ScriptDir "\..\actionLists\_globalActionListsGenerated\isNotAProject" )
 actionList_isNotAProject  := actionList_isNotAProject_withoutExt ".ahk"
 ;	tryThisEditorFirst: "AHKStudio",
-
-
 
 g_config.Send := { RealisticDelayDynamic: false } ; RealisticDelayDynamic: 2
 g_config.list := { 
