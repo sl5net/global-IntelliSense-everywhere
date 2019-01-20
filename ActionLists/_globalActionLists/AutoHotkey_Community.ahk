@@ -12,8 +12,21 @@ ___your library open|rr||ahk|openInEditor,AutoHotkey_Community.ahk
 ; C:\...\actionLists
 SendWorkingDir|rr||ahk|send,% A_WorkingDir
 
+; should work:
 
+; tries to run from virtuel directory (this is not woring)
+; codeSpoilerScriptDir|rr||ahk|run,% A_ScriptDir "\..\_globalActionListsGenerated\AutoHotkey_Community_globalActionListsGenerated\AutoHotkey_Community\in_commandLine_send_modified_clipboard.ahk"
+
+; is not working at the moment 19-01-20_20-48:
+; codeSpoiler|rr||ahk|run,_globalActionLists\incDynAhk\AutoHotkey_Community\in_commandLine_send_modified_clipboard.ahk"
+
+; folowing works
+codeSpoilerWorkingDir|rr||ahk|run,% A_WorkingDir "\_globalActionLists\incDynAhk\AutoHotkey_Community\in_commandLine_send_modified_clipboard.ahk"
+
+; folowing works
 codeSpoilerIncDynAhk|rr||ahk|#incDynAhk\AutoHotkey_Community\in_commandLine_send_modified_clipboard.ahk
+
+; run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 newposts autohotkey.com|rr||ahk|run,https://www.autohotkey.com/boards/search.php?search_id=newposts
 
 Please more details, e.g. your previous source code
@@ -101,21 +114,6 @@ docs|rr||ahk|
 ahkCode = 
 (
 [docs] %clipboard%[/docs]
-)
-Clipboard := ahkCode
-send, ^v
-
-
-
-code|rr||ahk|
-shortName := substr(clipboard,1,20) "..."
-ahkCode = 
-(
-[spoiler2=%shortName%]
-[code]
-%clipboard%
-[/code]
-[/spoiler2]
 )
 Clipboard := ahkCode
 send, ^v
