@@ -6,12 +6,14 @@
 #Include,..\_globalActionLists\autohotkey_INSTALLATION_FOLDERS_FILES_REGISTRY_KEYS.ahk
 #Include,..\_globalActionLists\autohotkey_Command_Function.ahk
 
-
 ___your library open|rr||ahk|openInEditor,AutoHotkey_Community.ahk
 ; if this german au is readable your UTF8 is probalby correct: ä
 
+; C:\...\actionLists
+SendWorkingDir|rr||ahk|send,% A_WorkingDir
 
 
+codeSpoilerIncDynAhk|rr||ahk|#incDynAhk\AutoHotkey_Community\in_commandLine_send_modified_clipboard.ahk
 newposts autohotkey.com|rr||ahk|run,https://www.autohotkey.com/boards/search.php?search_id=newposts
 
 Please more details, e.g. your previous source code

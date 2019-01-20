@@ -1043,12 +1043,15 @@ SendWord(WordIndex){
 ; test
 		regEx := "i)(http|https):"
 		regEx2 := "(#include|run)[ ]*( |,)[ ]*\b(?!\w\:\\)" ; should not work with thinks like: ; run, C:\tata only relative paths 8.5.2018 14:27 , see: https://www.regextester.com/15
-		regEx2 := "(#include|run)[ ]*( |,)[ ]*(?!( |\w:\\))" ; should not work with thinks like: ; run, C:\tata only relative paths 8.5.2018 14:27 , see: https://www.regextester.com/15
+		regEx2 := "(#include|run)[ ]*( |,)[ ]*(?!( |%|\w:\\))" ; should not work with thinks like: ; run, C:\tata only relative paths 8.5.2018 14:27 , see: https://www.regextester.com/15
+		; (?!.*Thumb)
+		; %A_WorkingDir%
+
 		if(!RegExMatch(AHKcode, regEx))
 			AHKcode := RegExReplace(AHKcode, "i)" regEx2, "$1$2$3" . actionListFolderOfThisActionList . "\" ) ; dayTimeHello|rr||ahk|#include ..\xyz\sendDayTimeHello.ahk
 ;    AHKcode := RegExReplace(AHKcode, "i)(#include|run)[ ]*( |,)[ ]*(?!\w\:\\)", "$1$2" . actionListFolderOfThisActionList . "\" ) ; dayTimeHello|rr||ahk|#include ..\xyz\sendDayTimeHello.ahk
 		
-
+;clipboard := AHKcode
         
 
 		
@@ -1062,8 +1065,11 @@ SendWord(WordIndex){
 ; A_ScriptDir == A_WorkingDir is proably the same !! should be in this case :) 12.08.2017 11:26
 		
 ; StringReplace, AHKcode, AHKcode, #incDynAhk, #include %A_ScriptDir%\incDynAhk, All ; dayTimeHello|rr||ahk|#incDynAhk\sendDayTimeHello.ahk ; before 09.03.2018 11:03
+
+;clipboard .= "`n" AHKcode
 		StringReplace, AHKcode, AHKcode,#incDynAhk,#include %actionListFolderOfThisActionList%\incDynAhk, All ; dayTimeHello|rr||ahk|#incDynAhk\sendDayTimeHello.ahk
-		
+;clipboard .= "`n" AHKcode
+
 		
 		
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
