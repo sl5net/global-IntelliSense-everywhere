@@ -531,7 +531,7 @@ SendWord(WordIndex){
 		;regIsXXXcode := "^([^\|\n]+?)\|(rr)\|([^\n]*?)(?:\|(ahk|kts)\|)*([^\n]*?)$"
 		;regIsXXXcode := "^([^\|\n]+?)\|(rr)\|(?:([^\n]*?)(?:\|(ahk|kts)\|)+([^\n]*?)$)*"
 		;regIsXXXcode := "^([^\|\n]+?)\|(rr)\|(?:([^\n]*?)(?:\|(ahk|kts)\|)+(.*?)$)*" ; since today we using ahk blocks. newline could be posible
-		regIsXXXcode := "^([^\|\n]+?)\|(rr)\|(?:([^\n]*?)(?:\|([a-zA-Z]{3,15})\|)+(.*?)$)*" ; since today we using ahk blocks. newline could be posible
+		regIsXXXcode := "^([^\|\n]+?)\|(rr)\|(?:([^\n]*?)(?:\|([a-zA-Z_]{3,45})\|)+(.*?)$)*" ; since today we using ahk blocks. newline could be posible
 		regIs_r_replacement := "^([^\|\n]+?)\|r\|(.*?)$"
 		
         ; rX := {key:m1, rr:m2, send:"", lang:"" ,code:""}
@@ -701,7 +701,9 @@ SendWord(WordIndex){
 				;isKTScode := true
 				;KTScode := rX["code"]
 				is_codeRunner_exist := true
-				runString := """" exe """ """ rX["code"] """"
+				; "G:\clipboard.ahk" "" "codeSpoilerIncDyn_externExe" "#incDynAhk\AutoHotkey_Community\in_commandLine_send_modified_clipboard.ahk"
+				runString := """" exe """ ""1=" rX["send"] """ ""2=" rX["key"] """ ""3=" rX["code"] """"
+				;clipboard := runString
 				run,% runString
 				; msgbox,% runString "`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 			}
@@ -985,6 +987,7 @@ SendWord(WordIndex){
 		AHKcode2 .= "lineStrLen := " StrLen(g_Word) " `n "
 		AHKcode2 .= "AHKcodeLen := " StrLen(AHKcode) " `n "
 		AHKcode2 .= "actionList := """ actionList """ `n "
+		AHKcode2 .= "SetWorkingDir, " . aScriptDir2actionListFolder . "`n" ; doesent work has no effect ScriptDir|rr||ahk|send, % A_ScriptDir ; \\.\pipe 03.04.2017 11:17 17-04-03_11-17
 		; pause ; toCloseAll tToolTip5sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 		;\____ Environment __ 190107124616 __ 07.01.2019 12:46:16 __/
 
@@ -1047,7 +1050,7 @@ SendWord(WordIndex){
 		; (?!.*Thumb)
 		; %A_WorkingDir%
 
-		if(!RegExMatch(AHKcode, regEx))
+		if(true && !RegExMatch(AHKcode, regEx))
 			AHKcode := RegExReplace(AHKcode, "i)" regEx2, "$1$2$3" . actionListFolderOfThisActionList . "\" ) ; dayTimeHello|rr||ahk|#include ..\xyz\sendDayTimeHello.ahk
 ;    AHKcode := RegExReplace(AHKcode, "i)(#include|run)[ ]*( |,)[ ]*(?!\w\:\\)", "$1$2" . actionListFolderOfThisActionList . "\" ) ; dayTimeHello|rr||ahk|#include ..\xyz\sendDayTimeHello.ahk
 		

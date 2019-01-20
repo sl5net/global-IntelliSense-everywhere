@@ -26,6 +26,13 @@ codeSpoilerWorkingDir|rr||ahk|run,% A_WorkingDir "\_globalActionLists\incDynAhk\
 ; folowing works
 codeSpoilerIncDynAhk|rr||ahk|#incDynAhk\AutoHotkey_Community\in_commandLine_send_modified_clipboard.ahk
 
+; folowing works
+codeSpoilerIncDyn_externExe|rr||code_AutoHotkey_Community|#incDynAhk\AutoHotkey_Community\in_commandLine_send_modified_clipboard.ahk
+
+; folowing works
+externExeCode|rr||code_AutoHotkey_Community|#incDynAhk\AutoHotkey_Community\in_commandLine_send_modified_clipboard.ahk
+
+
 ; run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 newposts autohotkey.com|rr||ahk|run,https://www.autohotkey.com/boards/search.php?search_id=newposts
 
