@@ -1,6 +1,11 @@
 ﻿#SingleInstance,Force
 
-
+links =
+(
+Doku:
+run or include external scripts incDynAhk
+https://g-intellisense.myjetbrains.com/youtrack/issue/GIS-135
+)
 
 SetTitleMatchMode,2
 ; wt := "- AutoHotkey Community - Google Chrome"
