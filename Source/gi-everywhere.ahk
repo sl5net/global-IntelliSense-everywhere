@@ -2183,7 +2183,7 @@ for each, match in g_SingleMatch
     if(inStr(actionList, "isNotAProject" ) 
         && inStr(match, "___create" ))
             is_create_found := true ;    m .= "`n" " ERROR 19-01-19_13-31!! ___create NOT EXIST !"
-    SingleMatchAllStr .= A_index " " SubStr(match, 1 , 65) "..`n"
+    SingleMatchAllStr .= A_index " " SubStr(match, 1 , 50) "..`n"
 }
 
         ; wordIndex = %wordIndex% from '%word%'
@@ -2191,14 +2191,14 @@ for each, match in g_SingleMatch
         ; global ParseWordsCount
         mNew =
         (
-       additional info for gi develper:
-        SingleMatchCount = %SingleMatchCount%
+    additional info for gi develper:
+SingleMatchCount = %SingleMatchCount%
 
-        stop_list_change = %stop_list_change%
-        actionList = %actionListSHORT% (%fileExist% =fileExist)
-        ALinfoOnley = %ALinfoOnley%
-        ALinfoOnleyNEW = %ALinfoOnleyNEW%
-        actionListNEW = %actionListNEW% <= deprecated ?? 19-01-19_12-52
+stop_list_change = %stop_list_change%
+actionList = %actionListSHORT% (%fileExist%)
+ALinfoOnley = %ALinfoOnley%
+ALinfoOnleyNEW= %ALinfoOnleyNEW%
+actionListNEW = %actionListNEW% <= deprecated ?? 
         )
         m .= "`n`n" mNew
         if(inStr(actionList, "isNotAProject" ) && !is_create_found){

@@ -14,15 +14,15 @@ g_config.listBoxGui := {
 	}
 }
 g_config.ScriptDir := A_ScriptDir
-g_config.editor := { 
-	1 : A_ProgramFiles "\Microsoft VS Code\Code.exe",
-	2 : "C:\Program Files\Microsoft VS Code\Code.exe",
-	3 : "C:\Program Files\Microsoft VS Code\bin\code.cmd",
-	4 : "C:\Users\lauffer\AppData\Local\Programs\Microsoft VS Code\Code.exe",
-	5 : A_ScriptDir "\..\AHK-Studio\AHK-Studio.ahk",
-	6 : "C:\Program Files\Notepad++\notepad++.exe",
-	7 : A_ScriptDir "\..\AutoGUI\AutoGUI.ahk"
-} ; above the list of the editors, which is gone through alphabetically up to the first find (fileAdress exists).
+g_config.editor := [ 
+	A_ProgramFiles "\Microsoft VS Code\Code.exe",
+	 "C:\Program Files\Microsoft VS Code\Code.exe",
+	 "C:\Program Files\Microsoft VS Code\bin\code.cmd",
+	 "C:\Users\lauffer\AppData\Local\Programs\Microsoft VS Code\Code.exe",
+	 A_ScriptDir "\..\AHK-Studio\AHK-Studio.ahk",
+	 "C:\Program Files\Notepad++\notepad++.exe",
+	 A_ScriptDir "\..\AutoGUI\AutoGUI.ahk"
+]  ; above the list of the editors, which is gone through alphabetically up to the first find (fileAdress exists).
 
 g_doAskBevoreChangingActionList := false ; <== buggy dont know whey 19.03.2018 23:50
 g_doAskBevoreChangingActionList := true ; <== works preetty nice :) 19.03.2018 23:51
@@ -75,7 +75,8 @@ g_config.FuzzySearch := {
 	doValueCopy : false
 }
 
-; the follwing helloWorldAhk is a working example:
+; hint: ahk code also read multline and much more, the other runner, do only read singleLine at the moment.
+; the follwing helloWorldAhk is a working singleLine example:
 g_config.codeRunner := {
         helloCommandLine: A_ScriptDir "\plugins\ahk\helloCommandLine.ahk",
         javascript: "node",

@@ -176,7 +176,10 @@ the emeditor.ahk is going to be the name of the program then the file extension.
 
 
 isEditorExist := false
-For editorName, editorAddress in g_config.editor
+; For editorName, editorAddress in g_config.editor
+
+;	MsgBox,% n "=" g_config["editor"][n]
+for editorName, editorAddress in g_config["editor"]
 	if(isEditorExist := FileExist(editorAddress))
 	    break
 if(!isEditorExist)
