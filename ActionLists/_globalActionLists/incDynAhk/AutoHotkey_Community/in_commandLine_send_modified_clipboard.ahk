@@ -9,7 +9,7 @@ https://g-intellisense.myjetbrains.com/youtrack/issue/GIS-135
 
 SetTitleMatchMode,2
 ; wt := "- AutoHotkey Community - Google Chrome"
-wt := "AutoHotkey Community -"
+wt := "AutoHotkey Community"
 WinActivate, % wt
 ToolTip,% " WinActivate `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" 
 WinWaitActive, % wt,,9
