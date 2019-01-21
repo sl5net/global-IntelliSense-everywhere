@@ -61,7 +61,7 @@ ahkCode =
 [code]
 %c%
 [/code]
-[size=50]^- produced with [url=https://github.com/sl5net/global-IntelliSense-everywhere/blob/master/ActionLists/_globalActionLists/AutoHotkey_Community.ahk#L18
+[size=50]^- preparser: [url=https://github.com/sl5net/global-IntelliSense-everywhere/blob/master/ActionLists/_globalActionLists/AutoHotkey_Community.ahk#L18
 ]ActionLists...AutoHotkey_Community[/url][/size]
 [/spoiler2]
 )
