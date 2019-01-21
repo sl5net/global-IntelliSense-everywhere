@@ -75,8 +75,6 @@ g_config.FuzzySearch := {
 	doValueCopy : false
 }
 
-; hint: ahk code also read multline and much more, the other runner, do only read singleLine at the moment.
-; the follwing helloWorldAhk is a working singleLine example:
 g_config.codeRunner := {
 	code_AutoHotkey_Community: 
 	A_ScriptDir "\..\actionLists\_globalActionLists\incDynAhk\AutoHotkey_Community\in_commandLine_send_modified_clipboard.ahk",
