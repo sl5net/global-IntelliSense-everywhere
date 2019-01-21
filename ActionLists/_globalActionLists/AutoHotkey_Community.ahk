@@ -30,11 +30,21 @@ codeSpoilerIncDynAhk|rr||ahk|#incDynAhk\AutoHotkey_Community\in_commandLine_send
 codeSpoilerIncDyn_externExe|rr||code_AutoHotkey_Community|#incDynAhk\AutoHotkey_Community\in_commandLine_send_modified_clipboard.ahk
 
 ; folowing works
-externExeCode|rr||code_AutoHotkey_Community|#incDynAhk\AutoHotkey_Community\in_commandLine_send_modified_clipboard.ahk
+externExeCode|rr||code_AutoHotkey_Community|MsgBox,Hi key :-)
 
+; folowing works
+code_externExe_Hi_all|rr||code_AutoHotkey_Community|MsgBox,Hi key :-D
+; folowing works (fastest version! much faster then the clipboard versions!)
+codeExternMultiline|rr||code_AutoHotkey_Community|
+msg = 
+(
+Hi key :-D
+and have a great day  :-)
+)
+MsgBox,% msg
 
-; run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 newposts autohotkey.com|rr||ahk|run,https://www.autohotkey.com/boards/search.php?search_id=newposts
+; run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
 
 Please more details, e.g. your previous source code
 

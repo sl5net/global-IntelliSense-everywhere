@@ -78,18 +78,19 @@ g_config.FuzzySearch := {
 ; hint: ahk code also read multline and much more, the other runner, do only read singleLine at the moment.
 ; the follwing helloWorldAhk is a working singleLine example:
 g_config.codeRunner := {
-        code_AutoHotkey_Community: A_ScriptDir "\..\actionLists\_globalActionLists\incDynAhk\AutoHotkey_Community\in_commandLine_send_modified_clipboard.ahk",
-        helloCommandLine: A_ScriptDir "\plugins\ahk\helloCommandLine.ahk",
-        javascript: "node",
-        php: "C:\php\php.exe",
-        python: "python",
-        perl: "perl",
-        ruby: "C:\Ruby23-x64\bin\ruby.exe",
-        go: "go run",
-        html: "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe",
-        java: "cd $dir && javac $fileName && java $fileNameWithoutExt",
-        c: "cd $dir && gcc $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
-		kotlinc: A_ScriptDir "\..\ActionLists\_kts\kotlinc\bin\kotlinc"
+	code_AutoHotkey_Community: 
+	A_ScriptDir "\..\actionLists\_globalActionLists\incDynAhk\AutoHotkey_Community\in_commandLine_send_modified_clipboard.ahk",
+	helloCommandLine: A_ScriptDir "\plugins\ahk\helloCommandLine.ahk",
+	javascript: "node",
+	php: "C:\php\php.exe",
+	python: "python",
+	perl: "perl",
+	ruby: "C:\Ruby23-x64\bin\ruby.exe",
+	go: "go run",
+	html: "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe",
+	java: "cd $dir && javac $fileName && java $fileNameWithoutExt",
+	c: "cd $dir && gcc $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+	kotlinc: A_ScriptDir "\..\ActionLists\_kts\kotlinc\bin\kotlinc"
 }
 
 

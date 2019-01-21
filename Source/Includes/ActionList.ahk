@@ -722,7 +722,10 @@ setCommandTypeS(rootLineObj
                                 ; msgBox,% ALoopField "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 		}
 	}
-	
+
+; regIsXXXcode := "^([^\|\n]+?)\|(rr)\|(?:([^\n]*?)(?:\|([a-zA-Z_]{3,45})\|)+(.*?)$)*" ; since today we using ahk blocks. newline could be posible
+    regExRunner := "[a-zA-Z_]{3,45}"
+
 	if(RegExMatch( rootLineObj.value , "i)^([^; ]*[^\n]+\|rr\|[ ]*$",  m )){
 		rootCmdTypeObj.is_rr := true
 		rootCmdTypeObj.is_synonym := true
@@ -733,8 +736,9 @@ setCommandTypeS(rootLineObj
 		}
 	}else
 		rootCmdTypeObj.is_rr := false
-	
-	if(RegExMatch( rootLineObj.value , "i)^([^; ]*[^\n]+\|ahk\|)[^\s]{2,}+",  m )){
+
+	; if(RegExMatch( rootLineObj.value , "i)^([^; ]*[^\n]+\|ahk\|)[^\s]{2,}+",  m )){
+	if(RegExMatch( rootLineObj.value , "i)^([^; ]*[^\n]+\|" regExRunner "\|)[^\s]{2,}+",  m )){
 		rootCmdTypeObj.is_rr := true
 		rootCmdTypeObj.is_IndexedAhkBlock := false ; maybe its set in next line
 	}
@@ -761,8 +765,10 @@ setCommandTypeS(rootLineObj
         ; msgbox,% rootCollectObj.value
 	}
 	
-	
-	if(RegExMatch( rootLineObj.value , "i)^([^; ]*[^\n]+\|rr\|)(ahk\|)[ ]*$",  m )){
+
+
+	; if(RegExMatch( rootLineObj.value , "i)^([^; ]*[^\n]+\|rr\|)(ahk\|)[ ]*$",  m )){
+	if(RegExMatch( rootLineObj.value , "i)^([^; ]*[^\n]+\|rr\|)(" regExRunner "\|)[ ]*$",  m )){
 		speak("Maybe an ERROR?","PROD")
 		sleep,2000
 		probablyTried := (m2) ? m1 "|ahk|" : m1 "|ahk|"
@@ -772,7 +778,8 @@ setCommandTypeS(rootLineObj
 	}
 	
 	rootCmdTypeObj.is_multiline_rr := false ; todo: thats a dirty bugfix . 10.11.2018 23:19
-	if(RegExMatch( rootLineObj.value , "i)^([^;\n ]*[^\n]+\|ahk\|)([^\s\n]?)[ ]*$",  m )){
+	; if(RegExMatch( rootLineObj.value , "i)^([^;\n ]*[^\n]+\|ahk\|)([^\s\n]?)[ ]*$",  m )){
+	if(RegExMatch( rootLineObj.value , "i)^([^;\n ]*[^\n]+\|" regExRunner "\|)([^\s\n]?)[ ]*$",  m )){
 	    if(m2 <> "q"){
             ; MsgBox,% codePrefixChar "=codePrefixChar(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
             ; lll( A_LineNumber , A_LineFile , codePrefixChar "=codePrefixChar" )

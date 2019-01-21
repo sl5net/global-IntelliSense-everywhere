@@ -645,7 +645,8 @@ SendWord(WordIndex){
 			if(!rX["code"]){
 				ToolTip3sec("found synonym `n ("   RegExReplace(A_LineFile,".*\\")  " ," A_LineNumber  ") "   )
 				id := getWordIndex(m1)
-				msgbox,% lineOfIndex "found synonym `n ("   RegExReplace(A_LineFile,".*\\")  " ," A_LineNumber  ") "
+				msgbox,% lineOfIndex "`n `n found synonym `n becouse: `n`n regIsXXXcode=`n" regIsXXXcode "  `n`n code=`n" rX["code"] " `n`n("   RegExReplace(A_LineFile,".*\\")  " ," A_LineNumber  ") "
+				; msgbox,% lineOfIndex "`n `n found synonym `n becouse: `n`n" regIsXXXcode "  `n`n" regIsSynonym " `n`n("   RegExReplace(A_LineFile,".*\\")  " ," A_LineNumber  ") "
 				while(!rX["code"] && id>1){
                     ;/¯¯¯¯ Synonym ¯¯ 181021060216 ¯¯ 21.10.2018 06:02:16 ¯¯\
                     ; deprecated: https://g-intellisense.myjetbrains.com/youtrack/issue/GIS-46
@@ -702,7 +703,9 @@ SendWord(WordIndex){
 				;KTScode := rX["code"]
 				is_codeRunner_exist := true
 				; "G:\clipboard.ahk" "" "codeSpoilerIncDyn_externExe" "#incDynAhk\AutoHotkey_Community\in_commandLine_send_modified_clipboard.ahk"
-				runString := """" exe """ ""1=" rX["send"] """ ""2=" rX["key"] """ ""3=" rX["code"] """"
+				; code_AutoHotkey_Community
+				codeUrlEncode := UrlEncode( rX["code"] )
+				runString := """" exe """ ""1=" rX["send"] """ ""2=" rX["key"] """ ""3=" codeUrlEncode """"
 				;clipboard := runString
 				run,% runString
 				; msgbox,% runString "`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
