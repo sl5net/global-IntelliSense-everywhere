@@ -5,9 +5,9 @@ reloadActionList:
 
 
 
-; Critical, On
+Critical, On
 ParseWordsCount := ReadActionList(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
-; Critical, Off
+Critical, Off
 g_min_searchWord_length := getMinLength_Needetthat_ListBecomesVisible(ParseWordsCount, maxLinesOfCode4length1)
  ;feedbackMsgBox("reloadActionList:",A_LineNumber . " " .  A_LineFile,1,1)
 
@@ -48,7 +48,7 @@ ReadInTheActionList(calledFromStr){ ;Read in the actionList
 
 	if(1 && InStr(A_ComputerName,"SL5"))
 	    RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, % A_ThisFunc , % calledFromStr
-	;Critical, On
+	Critical, On
 	ParseWordsCount := ReadActionList(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
 	Critical, Off ; if i switch critical off it not ends reading , maybe it could not read from filesystem?
 	g_min_searchWord_length := getMinLength_Needetthat_ListBecomesVisible(ParseWordsCount, maxLinesOfCode4length1)
