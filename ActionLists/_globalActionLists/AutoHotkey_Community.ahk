@@ -9,8 +9,10 @@
 ___your library open|rr||ahk|openInEditor,AutoHotkey_Community.ahk
 ; if this german au is readable your UTF8 is probalby correct: ä
 
+AhkSpy from serzh82saratov|r|https://github.com/serzh82saratov/AhkSpy
+
 ; C:\...\actionLists
-SendWorkingDir|rr||ahk|send,% A_WorkingDir
+; SendWorkingDir|rr||ahk|send,% A_WorkingDir
 
 ; should work:
 
@@ -21,27 +23,20 @@ SendWorkingDir|rr||ahk|send,% A_WorkingDir
 ; codeSpoiler|rr||ahk|run,_globalActionLists\incDynAhk\AutoHotkey_Community\in_commandLine_send_modified_clipboard.ahk"
 
 ; folowing works
-codeSpoilerWorkingDir|rr||ahk|run,% A_WorkingDir "\_globalActionLists\incDynAhk\AutoHotkey_Community\in_commandLine_send_modified_clipboard.ahk"
+; codeSpoilerWorkingDir|rr||ahk|run,% A_WorkingDir "\_globalActionLists\incDynAhk\AutoHotkey_Community\in_commandLine_send_modified_clipboard.ahk"
 
 ; folowing works
-codeSpoilerIncDynAhk|rr||ahk|#incDynAhk\AutoHotkey_Community\in_commandLine_send_modified_clipboard.ahk
+; codeSpoilerIncDynAhk|rr||ahk|#incDynAhk\AutoHotkey_Community\in_commandLine_send_modified_clipboard.ahk
 
 ; folowing works
 codeSpoilerIncDyn_externExe|rr||code_AutoHotkey_Community|#incDynAhk\AutoHotkey_Community\in_commandLine_send_modified_clipboard.ahk
 
 ; folowing works
-externExeCode|rr||code_AutoHotkey_Community|MsgBox,Hi key :-)
+; externExeCode|rr||code_AutoHotkey_Community|MsgBox,Hi key :-)
 
 ; folowing works
-code_externExe_Hi_all|rr||code_AutoHotkey_Community|MsgBox,Hi key :-D
+; code_externExe_Hi_all|rr||code_AutoHotkey_Community|MsgBox,Hi key :-D
 ; folowing works (fastest version! much faster then the clipboard versions!)
-codeExternMultiline|rr||code_AutoHotkey_Community|
-msg = 
-(
-Hi key :-D
-and have a great day  :-)
-)
-MsgBox,% msg
 
 newposts autohotkey.com|rr||ahk|run,https://www.autohotkey.com/boards/search.php?search_id=newposts
 ; run,..\..\Source\plugins\ahk\QuickSearch4Autohotkey.ahk
