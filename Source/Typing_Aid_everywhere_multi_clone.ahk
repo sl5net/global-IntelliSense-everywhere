@@ -1,5 +1,12 @@
 ﻿; Indentation_style: https://de.wikipedia.org/wiki/EinrÃ¼ckungsstil#SL5small-Stil
 ; #ErrorStdOut
+
+#NoEnv
+SetBatchLines -1
+ListLines Off
+
+; toolTipSec(t,x=123,y=321,sec=1000)
+
 #NoTrayIcon
 
 FileEncoding, UTF-8
