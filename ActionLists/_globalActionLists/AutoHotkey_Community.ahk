@@ -34,7 +34,7 @@ AhkSpy from serzh82saratov|r|https://github.com/serzh82saratov/AhkSpy
 ; codeSpoilerIncDynAhk|rr||ahk|#incDynAhk\AutoHotkey_Community\in_commandLine_send_modified_clipboard.ahk
 
 ; folowing works
-codeSpoilerIncDyn_externExe|rr||code_AutoHotkey_Community|#incDynAhk\AutoHotkey_Community\r5to0o0
+codeSpoilerIncDyn_externExe|rr||code_AutoHotkey_Community|#incDynAhk\AutoHotkey_Community\in_commandLine_send_modified_clipboard.ahk
 
 ; folowing works
 ; externExeCode|rr||code_AutoHotkey_Community|MsgBox,Hi key :-)
