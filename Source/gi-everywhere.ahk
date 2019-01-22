@@ -1,11 +1,18 @@
 ﻿; Indentation_style: https://de.wikipedia.org/wiki/Einrueckungsstil#SL5small-Stil
 ; # ErrorStdOut
 
-FileEncoding,UTF-8
 
 ; feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), "test  6", 1, 1, 6 )
 RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, aScriptDir, %A_ScriptDir% ; RegWrite , RegSave
 ; RegRead, aScriptDir, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, aScriptDir
+
+#NoEnv
+SetBatchLines, -1 ; I can not do recognice any improvement with that right now
+; SetBatchLines, -1 ; used till 03.11.2018 18:51. thats okay. Use SetBatchLines -1 to never sleep (i.e. have the script run at maximum speed). The default setting is 10m
+ListLines Off ; history of lines most recently executed is shown
+; see: https://www.autohotkey.com/docs/misc/Performance.htm
+
+FileEncoding,UTF-8
 
 #Include %A_ScriptDir%\inc_ahk\init_global.init.inc.ahk
 
@@ -27,8 +34,6 @@ lineFileName := RegExReplace(A_LineFile, ".*\\([\w\s\.]+)$", "$1")
 ; G:\fre\git\github\global-IntelliSense-everywhere-Nightly-Build\Source\inc_ahk\soundBeep.inc.ahk
 
 ;Change the Running performance speed (Priority changed to High in GetIncludedActiveWindow)
-SetBatchLines, -1 ; I can not do recognice any improvement with that right now
-; SetBatchLines, -1 ; used till 03.11.2018 18:51. thats okay. Use SetBatchLines -1 to never sleep (i.e. have the script run at maximum speed). The default setting is 10m
 
 ; https://autohotkey.com/docs/commands/Process.htm#Priority
 ; L (or Low), B (or BelowNormal), N (or Normal), A (or AboveNormal), H (or High), R (or Realtime)
@@ -373,7 +378,6 @@ Gosub, saveIamAllive
 
 
 
-; ListLines Off ; history of lines most recently executed is shown
 
 
 
