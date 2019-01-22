@@ -84,6 +84,7 @@ g_config.codeRunner := {
 	A_ScriptDir "\..\actionLists\_globalActionLists\incDynAhk\AutoHotkey_Community\in_commandLine_send_modified_clipboard.ahk",
 	helloCommandLine: A_ScriptDir "\plugins\ahk\helloCommandLine.ahk",
 	everything: A_ProgramFiles "\_\Everything\Everything.exe",
+	everythingEs: A_ProgramFiles "\_\Everything\ES\es.exe",
 	javascript: "node",
 	php: "C:\php\php.exe",
 	python: "python",

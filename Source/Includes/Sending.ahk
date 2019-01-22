@@ -705,13 +705,26 @@ SendWord(WordIndex){
 				; "G:\clipboard.ahk" "" "codeSpoilerIncDyn_externExe" "#incDynAhk\AutoHotkey_Community\in_commandLine_send_modified_clipboard.ahk"
 				; code_AutoHotkey_Community
 				codeUrlEncode := UrlEncode( rX["code"] )
+
+				if(lang == "everything"){
+				    ; runString := """" exe """ """ rX["key"] """" ; works only inside commad line, and result is command line
+				    runString := """" exe """ -search """ rX["key"] """" ; thats for the GUI version
+				    /*
+				    s <text>	Set the search.
+                    -search <text>	Set the search.
+                    -search-file-list <filename>	Search the specified text file for a list of file names.
+                    -select <filename>	Focus and select the specified result.
+
+                    everything.exe search keyword|rr||everything|text here is just comment, has no effect if you using everything serch 19-01-22_18-33
+                    */
+
+				    ; "C:\Program Files\_\Everything\Everything.exe" -s"everything.exe search keyword"
+				}else
 				runString := """" exe """ ""1=" rX["send"] """ ""2=" rX["key"] """ ""3=" codeUrlEncode """"
-				;clipboard := runString
+				clipboard := runString
 				run,% runString
 				; msgbox,% runString "`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 			}
-
-			
 			
 ; tooToolTip2sec(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") " " Last_A_This)
 			
@@ -892,13 +905,6 @@ SendWord(WordIndex){
 		; m ms":( ERROR: " msg "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 		
 		; msgBox,%":( ERROR: " msg "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
-		
-		
-		
-		; toolTip2sec(msg" (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") " " Last_A_This)
-		; toolTip5sec(msg" (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") " " Last_A_This)
-		; tooltip4sec(msg" (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") " " Last_A_This)
-		; __
 		
 				; msg msg __msg ms:( ERROR: " msg "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 				; ms to too (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") " " Last_A_This)		; Send,{CtrlDown}{left 8}{CtrlUp}
@@ -1250,7 +1256,7 @@ SendWord(WordIndex){
 
 
 
-
+;/¯¯¯¯ unpressAllPressedKeys ¯¯ 190122182114 ¯¯ 22.01.2019 18:21:14 ¯¯\
 unpressAllPressedKeys(){
 	
 	SetCapsLockState,Off
@@ -1265,7 +1271,7 @@ unpressAllPressedKeys(){
 	}
 	return
 }
-
+;\____ unpressAllPressedKeys __ 190122182117 __ 22.01.2019 18:21:17 __/
 
 
 
