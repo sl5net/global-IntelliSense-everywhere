@@ -124,9 +124,18 @@ openInEditorFromIntern(m1CorrectedAhkFileAddress){
 
 
     		if(InStr(FileExist(m1CorrectedAhkFileAddress ), "D") ){
-    		    msg := "ops. Cant open a folder.?"
+msg =
+(
+ops. Cant open a folder?
+you try opening:
+'%m1CorrectedAhkFileAddress%'
+file not folder ecpected.
+
+somme additional info:
+%aScriptDir% = aScriptDir
+)
     		    feedbackMsgBox(A_LineNumber ":" A_ScriptName ,":-( " msg , msg ,1,1)
-                Msgbox,% msg " (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+                Msgbox,% msg "`n`n (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
     		}
 
     ; m1CorrectedAhkFileAddress := regexreplace(m1CorrectedAhkFileAddress , "i).*(\b[a-z]\:\\)", "$1" )

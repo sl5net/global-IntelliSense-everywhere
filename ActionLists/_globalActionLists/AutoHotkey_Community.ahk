@@ -5,6 +5,11 @@
 #Include,..\_globalActionLists\autohotkey_object_property_method.ahk
 #Include,..\_globalActionLists\autohotkey_INSTALLATION_FOLDERS_FILES_REGISTRY_KEYS.ahk
 #Include,..\_globalActionLists\autohotkey_Command_Function.ahk
+#Include,..\_globalActionLists\PRIVATE_AutoHotkey_Community.inc.ahk
+
+; PRIVATE_AutoHotkey_Community.inc.ahk
+; AHK-Studio|r|[url=https://github.com/maestrith/AHK-Studio]AHK-Studio[/url]
+
 
 ___your library open|rr||ahk|openInEditor,AutoHotkey_Community.ahk
 ; if this german au is readable your UTF8 is probalby correct: ä
@@ -29,7 +34,7 @@ AhkSpy from serzh82saratov|r|https://github.com/serzh82saratov/AhkSpy
 ; codeSpoilerIncDynAhk|rr||ahk|#incDynAhk\AutoHotkey_Community\in_commandLine_send_modified_clipboard.ahk
 
 ; folowing works
-codeSpoilerIncDyn_externExe|rr||code_AutoHotkey_Community|#incDynAhk\AutoHotkey_Community\in_commandLine_send_modified_clipboard.ahk
+codeSpoilerIncDyn_externExe|rr||code_AutoHotkey_Community|#incDynAhk\AutoHotkey_Community\r5to0o0
 
 ; folowing works
 ; externExeCode|rr||code_AutoHotkey_Community|MsgBox,Hi key :-)

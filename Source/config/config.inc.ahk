@@ -13,7 +13,11 @@ g_config.listBoxGui := {
 		durationMilliseconds: 3500
 	}
 }
+
 g_config.ScriptDir := A_ScriptDir
+
+; it takes the first existing editor, from the follwoing list.
+; very first time it uses the smallest, most simpliest editor (notepad.exe not to be confused with notepad++.exe)
 g_config.editor := [ 
 	A_ProgramFiles "\Microsoft VS Code\Code.exe",
 	 "C:\Program Files\Microsoft VS Code\Code.exe",
@@ -79,6 +83,7 @@ g_config.codeRunner := {
 	code_AutoHotkey_Community: 
 	A_ScriptDir "\..\actionLists\_globalActionLists\incDynAhk\AutoHotkey_Community\in_commandLine_send_modified_clipboard.ahk",
 	helloCommandLine: A_ScriptDir "\plugins\ahk\helloCommandLine.ahk",
+	everything: A_ProgramFiles "\_\Everything\Everything.exe",
 	javascript: "node",
 	php: "C:\php\php.exe",
 	python: "python",
