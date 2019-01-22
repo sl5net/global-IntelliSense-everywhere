@@ -1,4 +1,4 @@
-﻿#Include,..\_globalActionLists\docs_commands_index.ahk
+﻿; #Include,..\_globalActionLists\docs_commands_index.ahk
 #Include,..\_globalActionLists\autohotkey_docs_variables_builtIn.ahk
 #Include,..\_globalActionLists\autohotkey_gui_comman_property.ahk
 #Include,..\_globalActionLists\ahk_commands_ErrorLevel.ahk
@@ -34,8 +34,11 @@ AhkSpy from serzh82saratov|r|https://github.com/serzh82saratov/AhkSpy
 ; codeSpoilerIncDynAhk|rr||ahk|#incDynAhk\AutoHotkey_Community\in_commandLine_send_modified_clipboard.ahk
 
 ; folowing works
-codeSpoilerIncDyn_externExe|rr||code_AutoHotkey_Community|#incDynAhk\AutoHotkey_Community\in_commandLine_send_modified_clipboard.ahk
+;codeSpoilerIncDyn_externExe|rr||code_AutoHotkey_Community|#incDynAhk\AutoHotkey_Community\in_commandLine_send_modified_clipboard.ahk
 
+; folowing works
+externExeCode clipboard2Community|rr||code_AutoHotkey_Community|
+ 
 ; folowing works
 ; externExeCode|rr||code_AutoHotkey_Community|MsgBox,Hi key :-)
 
@@ -187,3 +190,7 @@ Autohotkey
 explanation
 
 explanation 
+
+
+
+externExeCode clipboard2Community|rr||code_AutoHotkey_Community|

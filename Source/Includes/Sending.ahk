@@ -642,8 +642,18 @@ SendWord(WordIndex){
 				tooltip,% tip
 				msgbox,% tip
 			}
-			if(!rX["code"]){
+
+
+
+			; if(!rX["code"]){ ; drecated: 19-01-22_19-34
+			if(false && !rX["code"]){
+
+
+
 				ToolTip3sec("found synonym `n ("   RegExReplace(A_LineFile,".*\\")  " ," A_LineNumber  ") "   )
+
+
+
 				id := getWordIndex(m1)
 				msgbox,% lineOfIndex "`n `n found synonym `n becouse: `n`n regIsXXXcode=`n" regIsXXXcode "  `n`n code=`n" rX["code"] " `n`n("   RegExReplace(A_LineFile,".*\\")  " ," A_LineNumber  ") "
 				; msgbox,% lineOfIndex "`n `n found synonym `n becouse: `n`n" regIsXXXcode "  `n`n" regIsSynonym " `n`n("   RegExReplace(A_LineFile,".*\\")  " ," A_LineNumber  ") "
@@ -721,7 +731,7 @@ SendWord(WordIndex){
 				    ; "C:\Program Files\_\Everything\Everything.exe" -s"everything.exe search keyword"
 				}else
 				runString := """" exe """ ""1=" rX["send"] """ ""2=" rX["key"] """ ""3=" codeUrlEncode """"
-				clipboard := runString
+				; clipboard := runString
 				run,% runString
 				; msgbox,% runString "`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 			}

@@ -79,6 +79,7 @@ g_config.FuzzySearch := {
 	doValueCopy : false
 }
 
+; C:\php731NTS>php.exe helloWorld.php
 g_config.codeRunner := {
 	code_AutoHotkey_Community: 
 	A_ScriptDir "\..\actionLists\_globalActionLists\incDynAhk\AutoHotkey_Community\in_commandLine_send_modified_clipboard.ahk",
@@ -86,6 +87,7 @@ g_config.codeRunner := {
 	everything: A_ProgramFiles "\_\Everything\Everything.exe",
 	everythingEs: A_ProgramFiles "\_\Everything\ES\es.exe",
 	javascript: "node",
+	php731NTS: "C:\php731NTS\php.exe", 
 	php: "C:\php\php.exe",
 	python: "python",
 	perl: "perl",

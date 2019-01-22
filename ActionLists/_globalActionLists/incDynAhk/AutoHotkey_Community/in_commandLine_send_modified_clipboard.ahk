@@ -1,7 +1,5 @@
 ﻿#SingleInstance,Force
 
-
-
 example =
 (
 config.inc.ahk:
@@ -50,7 +48,14 @@ IfWinNotActive, % wt
 	ExitApp
 }
 thisFileName := RegExReplace(A_LineFile,".*\\")
-c := (code) ? code : trim(clipboard)
+if(!code)
+	while(A_index < 150){
+		c:= clipboard
+		if(c)
+			Break
+		Sleep,5
+	}
+c := (code) ? code : clipboard
 c := RegExReplace(c,"im)\[code\]","[CODE]") 
 c := RegExReplace(c,"im)\[/code\]","[/C0DE]") 
 shortName := SubStr(c,1,20)
@@ -90,7 +95,7 @@ UrlDecode(encURL){
 	}
 	else out .= A_LoopField
 		;tooltip % out ; http://foo bar/
-	Return, out
+		Return, out
 }
 ;\____ UrlDecode __ 190121070314 __ 21.01.2019 07:03:14 __/
 
