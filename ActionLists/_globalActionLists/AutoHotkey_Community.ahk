@@ -1,4 +1,4 @@
-﻿; #Include,..\_globalActionLists\docs_commands_index.ahk
+﻿#Include,..\_globalActionLists\docs_commands_index.ahk
 #Include,..\_globalActionLists\autohotkey_docs_variables_builtIn.ahk
 #Include,..\_globalActionLists\autohotkey_gui_comman_property.ahk
 #Include,..\_globalActionLists\ahk_commands_ErrorLevel.ahk
