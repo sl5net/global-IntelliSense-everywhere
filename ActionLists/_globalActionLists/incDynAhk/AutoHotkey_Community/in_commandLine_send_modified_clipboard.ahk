@@ -49,7 +49,7 @@ IfWinNotActive, % wt
 	MsgBox,262160,% ":(`n" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ,% ":(`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 	ExitApp
 }
-
+thisFileName := RegExReplace(A_LineFile,".*\\")
 c := (code) ? code : trim(clipboard)
 c := RegExReplace(c,"im)\[code\]","[CODE]") 
 c := RegExReplace(c,"im)\[/code\]","[/C0DE]") 
@@ -62,11 +62,13 @@ ahkCode =
 %c%
 [/code]
 [size=50]^- preparser: [url=https://github.com/sl5net/global-IntelliSense-everywhere/blob/master/ActionLists/_globalActionLists/AutoHotkey_Community.ahk#L18
-]ActionLists...AutoHotkey_Community[/url][/size]
+]%thisFileName%[/url][/size]
 [/spoiler2]
 )
 Clipboard := ahkCode
 send, ^v
+
+
 
 Sleep,6000
 ToolTip,
