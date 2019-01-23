@@ -1182,11 +1182,11 @@ CheckWord(Key) {
 		ListBoxEnd() ; addet by sl5net. hopefully a bugfix 16.07.2017 20:54
 		DisableKeyboardHotKeys() ; addet by sl5net. hopefully a bugfix 16.07.2017 20:54
 		g_SingleMatchReplacement[WordIndex] := true ; so it hopefully sends a backspace later
-		SendWord(WordIndex)
+		SendWord(WordIndex, g_Word)
 	}
 	
 	if(!g_ListBox_Id){ ; lines addet to reenable numbers without special functions. normal numers. 17.07.2017 02:42 from sl5net
-    ;SendWord(Key)
+    ;SendWord(Key, g_Word)
 		SetKeyDelay, 0, -1
 		
 		foundPos := RegExMatch( Key , "\d" )
@@ -1236,7 +1236,7 @@ CheckWord(Key) {
 	
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 	if(true){
-		SendWord(WordIndex) ; if it put this at the biginning of tnis function its working. i found it at the end of this function. this is a ugly bugFix. 16.07.2017 15:34
+		SendWord(WordIndex, g_Word) ; if it put this at the biginning of tnis function its working. i found it at the end of this function. this is a ugly bugFix. 16.07.2017 15:34
 		return
 	}
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -1451,7 +1451,7 @@ CheckWord(Key) {
 	
 	lll(A_LineNumber, A_LineFile,"SuspendOn()`n" . Key " = Key `n" . WordIndex " = WordIndex `n"  . "  `n " . "`n 17-07-16_15-26" )
 	
-	SendWord(WordIndex)
+	SendWord(WordIndex, g_Word)
 	IfEqual, prefs_NumPresses, 2
 	SuspendOff()
 	Return 
@@ -1566,7 +1566,7 @@ EvaluateUpDown(Key){
 		
       ; thats the place youu will walk trou, wenn word is selected 17.03.2017 18:20 17-03-17_18-20
       ; Msgbox, '%g_MatchPos%' = g_MatchPos  n (line:%A_LineNumber%) n  (line:%A_LineNumber%)
-		SendWord(g_MatchPos)
+		SendWord(g_MatchPos, g_Word)
 		Return
 		
 	}

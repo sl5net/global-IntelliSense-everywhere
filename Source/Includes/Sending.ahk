@@ -368,9 +368,11 @@ UPDATE_actionList_UsedByUser_since_midnight(){
 
 
 
+; ToolTip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+; ToolTip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 
 ;/¯¯¯¯ SendWord ¯¯ 181101130606 ¯¯ 01.11.2018 13:06:06 ¯¯\
-SendWord(WordIndex){
+SendWord(WordIndex, ByRef g_Word){
 ;/¯¯¯¯ used if triggered ...|ahk|... style 19.10.2018 10:24:29 ¯¯\
 ; 19.10.2018 10:24
 ; msgBox,% "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
@@ -383,8 +385,8 @@ SendWord(WordIndex){
 	global actionList
 	
 	global g_actionList_UsedByUser_since_midnight
-	
-	
+
+
 	INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 	
 	if(!actionList){
@@ -697,43 +699,23 @@ SendWord(WordIndex){
 				KTScode := rX["code"]
 			}
 
-			;clipboard := rX["lang"]
-			lang := rX["lang"]
-			exe := g_config["codeRunner"][lang]
-            is_codeRunner_exist := FileExist(exe)
-			if(is_codeRunner_exist){
-				global g_Word
 				BackSpaceLen := StrLen(g_Word)
 				ClearAllVars(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),true)
 			; sending .= "{BS " . BackSpaceLen . "}"
 				Send,{Backspace %BackSpaceLen%} ; workaround :) 29.07.2017 12:51 17-07-29_12-51 by sl5net
 
-				;isKTScode := true
-				;KTScode := rX["code"]
-				; is_codeRunner_exist := true
-				; "G:\clipboard.ahk" "" "codeSpoilerIncDyn_externExe" "#incDynAhk\AutoHotkey_Community\in_commandLine_send_modified_clipboard.ahk"
-				; code_AutoHotkey_Community
-				codeUrlEncode := UrlEncode( rX["code"] )
+			;clipboard := rX["lang"]
+			lang := rX["lang"]
+			exe := g_config["codeRunner"][lang]
+            is_codeRunner_exist := FileExist(exe)
+            ; global g_Word
+            ; ToolTip4sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 
-				if(lang == "everything"){
-				    ; runString := """" exe """ """ rX["key"] """" ; works only inside commad line, and result is command line
-				    runString := """" exe """ -search """ rX["key"] """" ; thats for the GUI version
-				    /*
-				    s <text>	Set the search.
-                    -search <text>	Set the search.
-                    -search-file-list <filename>	Search the specified text file for a list of file names.
-                    -select <filename>	Focus and select the specified result.
-
-                    everything.exe search keyword|rr||everything|text here is just comment, has no effect if you using everything serch 19-01-22_18-33
-                    */
-
-				    ; "C:\Program Files\_\Everything\Everything.exe" -s"everything.exe search keyword"
-				}else
-				runString := """" exe """ ""1=" rX["send"] """ ""2=" rX["key"] """ ""3=" codeUrlEncode """"
-				; clipboard := runString
-				run,% runString
-				; msgbox,% runString "`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+            ;/¯¯¯¯ is_codeRunner_exist ¯¯ 190123202446 ¯¯ 23.01.2019 20:24:46 ¯¯\
+			if(is_codeRunner_exist){
+			 #Include %A_ScriptDir%\config\commandLine4runnerFilter.inc.ahk
 			}
+			;\____ is_codeRunner_exist __ 190123202502 __ 23.01.2019 20:25:02 __/
 			
 ; tooToolTip2sec(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") " " Last_A_This)
 			
@@ -767,7 +749,8 @@ SendWord(WordIndex){
     ; dont move the lie to beigning of fungion beocuse g_Word is deleted.
 				CloseListBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
 				
-				global g_Word
+				; global g_Word
+				; too too tool toToolTip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 				BackSpaceLen := StrLen(g_Word)
 				ClearAllVars(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),true)
      ; sending .= "{BS " . BackSpaceLen . "}"
@@ -788,7 +771,7 @@ SendWord(WordIndex){
 					
 					
 					
-					return ; endOf function: SendWord(WordIndex)
+					return ; endOf function: SendWord(WordIndex, g_Word)
 					
 				}
 			} ; Endof if(isAHKcode)
@@ -1243,7 +1226,7 @@ SendWord(WordIndex){
     }
 
 
-	Return  ; endOf function: SendWord(WordIndex)
+	Return  ; endOf function: SendWord(WordIndex, g_Word)
 }  
 ;\____ SendWord __ 181101130603 __ 01.11.2018 13:06:03 __/
 
