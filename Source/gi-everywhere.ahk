@@ -512,6 +512,7 @@ if(0 && !g_min_searchWord_length && InStr(A_ComputerName,"SL5")){
 
 
 ; te
+; 
 
 if(g_min_searchWord_length <= 2) ; becouse of performance reasons. thats optional. dont need 02.12.2018 09:25
     g_min_searchWord_length_2 := g_min_searchWord_length + 2
