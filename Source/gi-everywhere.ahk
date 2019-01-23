@@ -494,7 +494,7 @@ AutoTrim, Off
 ; RegRead, g_min_searchWord_length, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, g_min_searchWord_length
 ; regwrite/regread: data normalization of true and false ??? https://autohotkey.com/boards/viewtopic.php?f=76&t=59740
  ; RegWrite , RegSave
-if(1 && !g_min_searchWord_length && InStr(A_ComputerName,"SL5")){
+if(0 && !g_min_searchWord_length && InStr(A_ComputerName,"SL5")){
     todo =
     (
     if g_min_searchWord_length == 0
@@ -2148,8 +2148,10 @@ check_actionList_GUI_is_hanging_or_freezed:
     ; tip = %g_ListBoxTitle% = g_ListBoxTitle `n %elapsedSec% = elapsedSec `n (%A_LineFile%~%A_LineNumber%)
     ; ToolTip,%g_ListBoxTitle% = g_ListBoxTitle `n %elapsedSec% = elapsedSec `n (%A_LineFile%~%A_LineNumber%)
     ;MsgBox, % tip "`n`n" elapsedMilli  "millisec = " elapsedSec "sec have elapsed. (" RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
-    if( (   elapsedSec > 25 && InStr(A_ComputerName,"SL5")
-         || elapsedSec > 25 && !InStr(A_ComputerName,"SL5") )
+
+    if( (   elapsedSec == 25 && InStr(A_ComputerName,"SL5")
+         || elapsedSec == 25 && !InStr(A_ComputerName,"SL5") )
+        && itsProbablyNewInstallation
         && A_TimeIdleKeyboard > 1500 ){ ; if BoxGui is long time opend and noct used. maybe user dont know what todo with it?
      ;winclose, % g_ListBoxTitle
      ; t
@@ -2204,21 +2206,24 @@ ALinfoOnley = %ALinfoOnley%
 ALinfoOnleyNEW= %ALinfoOnleyNEW%
 actionListNEW = %actionListNEW% <= deprecated ?? 
         )
-        m .= "`n`n" mNew
+        m .= "`n`n" ; mNew
         if(inStr(actionList, "isNotAProject" ) && !is_create_found){
             m .= "`n`n" " ERROR ___create NOT EXIST !!!"
+            mNew .= "`n`n" " ERROR ___create NOT EXIST !!!"
             ; feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), "ERROR ___create NOT EXIST !!!", 1, 1 )
         }
         m .= "`n`n" SingleMatchAllStr
+        mNew .= "`n`n" SingleMatchAllStr
      }
-     ToolTip9sec(m "`n`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ") ",1, 1) ; -5
-     return
+    ToolTip9sec(m mNew "`n`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ") ",1, 1) ; -5
+    ; feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), m, 1, 1, 99 )     return
      ;\____ return __ 181107181826 __ 07.11.2018 18:18:26 __/
 
-; __
+    ;/¯¯¯¯ g_min_searchWord_length_NOT_0 ¯¯ 190123010348 ¯¯ 23.01.2019 01:03:48 ¯¯\
+     if(g_min_searchWord_length>0){
+         ToolTip4sec("check_actionList_GUI_is_hanging_or_freezed: elapsedSec > 11: DestroyListBox()`n`n" A_LineNumber " " A_ScriptName )
+         DestroyListBox()
 
-     ToolTip4sec("check_actionList_GUI_is_hanging_or_freezed: elapsedSec > 11: DestroyListBox()`n`n" A_LineNumber " " A_ScriptName )
-     DestroyListBox()
 
 
 
@@ -2245,8 +2250,11 @@ actionListNEW = %actionListNEW% <= deprecated ??
      MsgBox , ,menu closed? , is it closed??? `n (%A_LineFile%~%A_LineNumber%) , 1 ; <== helps closing the listbox probalby 19.10.2018 11:28
     }
     return
-  clipboard := tip
-  ; too too too
+      ; clipboard := tip
+     }
+
+     ;\____ g_min_searchWord_length_NOT_0 __ 190123010400 __ 23.01.2019 01:04:00 __/
+
 return
 ;\____ check_actionList_GUI_is_hanging_or_freezed __ 181024140439 __ 24.10.2018 14:04:39 __/
 

@@ -1,9 +1,12 @@
 ﻿; Indentation_style: https://de.wikipedia.org/wiki/EinrÃ¼ckungsstil#SL5small-Stil
 ; #ErrorStdOut
 
+;/¯¯¯¯ Performance ¯¯ 190123004757 ¯¯ 23.01.2019 00:47:57 ¯¯\
+;https://www.autohotkey.com/docs/misc/Performance.htm
 #NoEnv
 SetBatchLines -1
 ListLines Off
+;\____ Performance __ 190123004802 __ 23.01.2019 00:48:02 __/
 
 ; toolTipSec(t,x=123,y=321,sec=1000)
 
