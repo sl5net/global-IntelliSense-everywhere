@@ -698,11 +698,10 @@ SendWord(WordIndex){
 			}
 
 			;clipboard := rX["lang"]
-			is_codeRunner_exist := false
 			lang := rX["lang"]
 			exe := g_config["codeRunner"][lang]
-			if(exe){
-
+            is_codeRunner_exist := FileExist(exe)
+			if(is_codeRunner_exist){
 				global g_Word
 				BackSpaceLen := StrLen(g_Word)
 				ClearAllVars(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),true)
@@ -711,7 +710,7 @@ SendWord(WordIndex){
 
 				;isKTScode := true
 				;KTScode := rX["code"]
-				is_codeRunner_exist := true
+				; is_codeRunner_exist := true
 				; "G:\clipboard.ahk" "" "codeSpoilerIncDyn_externExe" "#incDynAhk\AutoHotkey_Community\in_commandLine_send_modified_clipboard.ahk"
 				; code_AutoHotkey_Community
 				codeUrlEncode := UrlEncode( rX["code"] )

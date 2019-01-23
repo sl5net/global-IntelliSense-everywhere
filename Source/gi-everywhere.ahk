@@ -509,11 +509,6 @@ if(0 && !g_min_searchWord_length && InStr(A_ComputerName,"SL5")){
 ; too too#ClipboardTimeout
 ; #HotkeyInterval#CommentFlag
 
-
-
-; te
-; 
-
 if(g_min_searchWord_length <= 2) ; becouse of performance reasons. thats optional. dont need 02.12.2018 09:25
     g_min_searchWord_length_2 := g_min_searchWord_length + 2
 ;\____ g_min_searchWord_length __ 181202112528 __ 02.12.2018 11:25:28 __/
