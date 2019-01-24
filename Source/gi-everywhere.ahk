@@ -144,7 +144,10 @@ for lang,is_codeRunner_exist in g_config.codeRunner_fileExist
         infoText .= "not exist:    " lang "`n"
     }
 if(infoText){
-    ToolTip3sec( "Information: `n`nNot all of your CodeRunner exist: `n`n`n" infoText "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")",1,100,14 )
+
+    infoText .= "`n #see clipboard#"
+    ToolTip3sec( "Information (not a Error): `n`nNot all of your CodeRunner exist: `n`n`n" infoText "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")",1,100,14 )
+    clipboard := infoText
 }
 ; MsgBox,262208,% A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ,% s "`n`n`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 ; MsgBox,% "code_AutoHotkey_Community= " g_config.codeRunner_fileExist["code_AutoHotkey_Community"]

@@ -1,4 +1,7 @@
-commandLine4runnerFilter(ByRef rX, ByRef g_config, ByRef g_Word){
+
+
+;/¯¯¯¯ commandLine4runnerFilter ¯¯ 190124172734 ¯¯ 24.01.2019 17:27:34 ¯¯\
+; commandLine4runnerFilter(ByRef rX, ByRef g_config, ByRef g_Word){
             exe := g_config["codeRunner"][rX["lang"]]
       ; msgbox,% exe "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
 ; available vars: .. lang := rX["lang"], exe := g_config["codeRunner"][lang]
@@ -30,6 +33,8 @@ if(rX["lang"] == "everything"){
 ; clipboard := runString
 run,% runString
 ; msgbox,% runString "`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
-}
+
+; }
+;\____ commandLine4runnerFilter __ 190124172737 __ 24.01.2019 17:27:37 __/
 
 
