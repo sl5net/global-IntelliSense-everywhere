@@ -706,17 +706,27 @@ SendWord(WordIndex, ByRef g_Word){
 
 			;clipboard := rX["lang"]
 			lang := rX["lang"]
-			exe := g_config["codeRunner"][lang]
-            is_codeRunner_exist := FileExist(exe)
+            ; is_codeRunner_exist := FileExist(exe)
             ; global g_Word
             ; ToolTip4sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 
             ;/¯¯¯¯ is_codeRunner_exist ¯¯ 190123202446 ¯¯ 23.01.2019 20:24:46 ¯¯\
-			if(is_codeRunner_exist){
-			 #Include %A_ScriptDir%\config\commandLine4runnerFilter.inc.ahk
+            ; example:
+            e := g_config.codeRunner_fileExist["code_AutoHotkey_Community"]
+            msg =
+            (
+                %lang%
+                %e%
+            )
+            ; MsgBox,% msg
+            ;MsgBox,% "code_AutoHotkey_Community= " g_config.codeRunner_fileExist["code_AutoHotkey_Community"]
+			if(g_config.codeRunner_fileExist[rX["lang"]]){
+    			commandLine4runnerFilter(rX, g_config, g_Word)
 			}
 			;\____ is_codeRunner_exist __ 190123202502 __ 23.01.2019 20:25:02 __/
-			
+
+
+; ToolTip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 ; tooToolTip2sec(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") " " Last_A_This)
 			
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -2596,3 +2606,4 @@ JEE_StrTextToUtf8Bytes(ByRef vText)
 }
 
 ;==================================================
+#Include %A_ScriptDir%\config\commandLine4runnerFilter.inc.ahk

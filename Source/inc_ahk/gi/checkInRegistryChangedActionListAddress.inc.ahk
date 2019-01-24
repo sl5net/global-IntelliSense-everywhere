@@ -336,7 +336,7 @@ global-IntelliSense-everywhere-Nightly-Build [G:\fre\git\github\global-IntelliSe
 
 
 
-        ; feedbackMsgBox(msg,msg,1,1)
+        ; feedbackMsgBox(msg,msg,1,1,6)
         ; actionList := globalActionListDir   "\_globalActionListsGenerated\isNotAProject.ahk"
         actionListNewTemp_withoutExt := actionList_isNotAProject_withoutExt ; as long as nothing else would be found
         ;actionListNewTemp := actionList_isNotAProject ; as long as nothing else would be found

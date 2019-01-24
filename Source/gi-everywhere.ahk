@@ -121,10 +121,38 @@ g_config := {}
 #Include *i %A_ScriptDir%\inc_ahk\minify\config.minify.inc.ahk ; update_configMinify_incAhkFile()
 SetTimer,check_configFile_Changed,2500
 
+;/¯¯¯¯ check_configFile_values ¯¯ 190124152939 ¯¯ 24.01.2019 15:29:39 ¯¯\
 if(!g_config["FuzzySearch"]["MAXlines"] || !g_config["FuzzySearch"]["keysMAXperEntry"]){
     Msgbox,% "Oops :( enable=" g_config["FuzzySearch"]["enable"] "`n`n" "MAXlines=" g_config["FuzzySearch"]["MAXlines"] "`n`n" configContentminify "`n`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
     reload
 }
+
+g_config.codeRunner_fileExist := {}
+for lang,runnerAddress in g_config.codeRunner
+{
+    exe := g_config["codeRunner"][lang]
+    is_codeRunner_exist := FileExist(exe)
+    ; g_config.codeRunner_fileExist := { (lang): is_codeRunner_exist }
+    g_config.codeRunner_fileExist[lang] := is_codeRunner_exist
+    msg := lang ": >" is_codeRunner_exist "<"
+    ; if(is_codeRunner_exist)
+    ;    MsgBox,% msg
+}
+infoText := ""
+for lang,is_codeRunner_exist in g_config.codeRunner_fileExist
+    if(!is_codeRunner_exist){
+        infoText .= "not exist:    " lang "`n"
+    }
+if(infoText){
+    ToolTip3sec( "Information: `n`nNot all of your CodeRunner exist: `n`n`n" infoText "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")",1,100,14 )
+}
+; MsgBox,262208,% A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ,% s "`n`n`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+; MsgBox,% "code_AutoHotkey_Community= " g_config.codeRunner_fileExist["code_AutoHotkey_Community"]
+; exitapp
+;\____ check_configFile_values __ 190124152941 __ 24.01.2019 15:29:41 __/
+
+
+
 
 
 g_ListBoxX := 0 ; if g_ListBoxX (not false > 0) it never usses CaretXorMouseXfallback . if you want go back to default, reload the
@@ -2088,12 +2116,11 @@ fixBug_Alt_Shift_Ctrl_hanging_down(){
 
 ;/¯¯¯¯ check_configFile_Changed ¯¯ 190112114734 ¯¯ 12.01.2019 11:47:34 ¯¯\
 check_configFile_Changed:
-temp := update_configMinify_incAhkFile()
-if(temp){
-    configMinify := temp
+configMinifyObj := update_configMinify_incAhkFile()
+if(configMinifyObj){
     ; feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), "test  6", 1, 1, 6 )
-    configMinifyIncAhkContent := configMinify["content"]
-    configMinifyIncAhkAddress := configMinify["Address"]
+    configMinifyIncAhkContent := configMinifyObj["content"]
+    configMinifyIncAhkAddress := configMinifyObj["Address"]
     configMinifyIncAhkContentSTATIC := RegExReplace(configMinifyIncAhkContent, "A" "_ScriptDir", """" A_ScriptDir """" )
     configMinifyIncAhkAddressSTATIC := configMinifyIncAhkAddress "STATIC.ahk"
     ; A_ScriptDir
@@ -2113,6 +2140,10 @@ if(temp){
 }
 return
 ;\____ check_configFile_Changed __ 190112114737 __ 12.01.2019 11:47:37 __/
+
+
+
+
 
 
 ;/¯¯¯¯ check_actionList_GUI_is_hanging_or_freezed ¯¯ 181024140430 ¯¯ 24.10.2018 14:04:30 ¯¯\

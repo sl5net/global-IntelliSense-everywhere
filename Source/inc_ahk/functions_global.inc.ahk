@@ -9,6 +9,23 @@ global g_CaretY_Old
 global feedbackMsgBox1PosBackup_x
 global feedbackMsgBox1PosBackup_y
 
+;/¯¯¯¯ getRunPHP_link ¯¯ 190124154512 ¯¯ 24.01.2019 15:45:12 ¯¯\
+getRunPHP_link(phpFileAddress , argv, phpCgiExe ){
+   ;~ argv = --source1="%oSciTE_CurrentFile%"
+   ; path= %A_ScriptDir%\phpdesktop-msie-1.14-php-5.4.33
+   ; if(!FileExist( path   ))
+   ;    MsgBox,:(  !FileExist  `n  %path% = path (line:%A_LineNumber%) `n
+   ; phpCgiExe = %path%\php\php-cgi.exe
+   if(!FileExist( phpCgiExe ))
+       MsgBox,:( %phpCgiExe% = phpCgiExe (line:%A_LineNumber%) `n
+   ; E:\fre\private\HtmlDevelop\AutoHotKey\SL5_AHK_Refactor_engine_gitHub\phpdesktop-msie-1.14-php-5.4.33\www\SL5_preg_contentFinder\examples\AutoHotKey\Reformatting_Autohotkey_Source.php
+   ;script = %path%\www\SL5_preg_contentFinder\examples\AutoHotKey\%phpFile%
+   target := phpCgiExe " " phpFileAddress " " argv
+   Clipboard:=target
+   ;~ MsgBox,%target% = target (line:%A_LineNumber%) `n
+   return target
+}
+;\____ getRunPHP_link __ 190124154515 __ 24.01.2019 15:45:15 __/
 
 
 isInteger(var) {
@@ -60,7 +77,7 @@ if(... := update_configMinify_incAhkFile()){
     If(!doUpdate)
         return
 
-        ; msgbox,% toOldMilliSec " = toOldMilliSec   "
+       ; msgbox,% toOldMilliSec " = toOldMilliSec   "
 
     msg := toOldMilliSec " = toOldMilliSec   " doUpdate " = doUpdate (" A_ThisFunc ": " A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
     feedbackMsgBox( msg, msg )
