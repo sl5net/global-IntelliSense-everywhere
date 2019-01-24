@@ -723,8 +723,8 @@ SendWord(WordIndex, ByRef g_Word){
 			if(g_config.codeRunner_fileExist[rX["lang"]]){
 
 			; two possible styles: https://www.autohotkey.com/boards/viewtopic.php?f=76&t=61352&p=259861#p259861
-#Include %A_ScriptDir%\config\commandLine4runnerFilter.inc.ahk
-;     			commandLine4runnerFilter(rX, g_config, g_Word)
+; #Include %A_ScriptDir%\config\commandLine4runnerFilter.inc.ahk
+     			commandLine4runnerFilter(rX, g_config, g_Word)
 
 			}
 			;\____ is_codeRunner_exist __ 190123202502 __ 23.01.2019 20:25:02 __/
