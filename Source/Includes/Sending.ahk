@@ -720,11 +720,12 @@ SendWord(WordIndex, ByRef g_Word){
             )
             ; MsgBox,% msg
             ;MsgBox,% "code_AutoHotkey_Community= " g_config.codeRunner_fileExist["code_AutoHotkey_Community"]
-			if(g_config.codeRunner_fileExist[rX["lang"]]){
+            is_codeRunner_exist := g_config.codeRunner_fileExist[rX["lang"]]
+			if(is_codeRunner_exist){
 
 			; two possible styles: https://www.autohotkey.com/boards/viewtopic.php?f=76&t=61352&p=259861#p259861
-; #Include %A_ScriptDir%\config\commandLine4runnerFilter.inc.ahk
-     			commandLine4runnerFilter(rX, g_config, g_Word)
+#Include %A_ScriptDir%\config\commandLine4runnerFilter.inc.ahk ; <=== seems maybe not working correct
+; commandLine4runnerFilter(rX, g_config, g_Word)
 
 			}
 			;\____ is_codeRunner_exist __ 190123202502 __ 23.01.2019 20:25:02 __/
