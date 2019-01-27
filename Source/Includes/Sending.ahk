@@ -720,6 +720,8 @@ SendWord(WordIndex, ByRef g_Word){
             )
             ; MsgBox,% msg
             ;MsgBox,% "code_AutoHotkey_Community= " g_config.codeRunner_fileExist["code_AutoHotkey_Community"]
+
+            ; this variable is used later in this script: is_codeRunner_exist
             is_codeRunner_exist := g_config.codeRunner_fileExist[rX["lang"]]
 			if(is_codeRunner_exist){
 

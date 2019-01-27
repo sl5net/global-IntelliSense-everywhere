@@ -69,8 +69,20 @@ if(... := update_configMinify_incAhkFile()){
         && modifiedTime_configMinify
         && toOldMilliSec > 0  ) ; + 900 becouse humans are not so fast 19-01-14_13-56
             doUpdate := true
-         else if(toOldMilliSec < -2000){
-            msgbox, % "ups error hacker attack? please dont edit the minify version. toOldMilliSec = " toOldMilliSec " (" A_ThisFunc ": " A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+         else{
+            FileGetTime, creationTime_configMinify, %modifiedTime_configMinify%, C  ; Retrieves the creation time.
+            if( true
+                && toOldMilliSec < -2000
+                && modifiedTime_configMinify < creationTime_configMinify ){
+            msg =
+             (
+             ups error hacker attack? please dont edit the minify version.
+             toOldMilliSec := modifiedTime - modifiedTime_configMinify
+             %toOldMilliSec% := %modifiedTime% - %modifiedTime_configMinify%
+             )
+             msg .= "`n (" A_ThisFunc ": " A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+            msgbox, % msg
+         }
          }
     }
 

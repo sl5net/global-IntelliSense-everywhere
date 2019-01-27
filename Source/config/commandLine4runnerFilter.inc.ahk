@@ -1,7 +1,9 @@
 ;/¯¯¯¯ commandLine4runnerFilter ¯¯ 190124172734 ¯¯ 24.01.2019 17:27:34 ¯¯\
+; talking about performance: https://www.autohotkey.com/boards/viewtopic.php?p=259861#p259861
+; 24.01.2019 23:29
 ; commandLine4runnerFilter(ByRef rX, ByRef g_config, ByRef g_Word){
-            exe := g_config["codeRunner"][rX["lang"]]
-      ; msgbox,% exe "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+exe := g_config["codeRunner"][rX["lang"]]
+; msgbox,% exe "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
 ; available vars: .. lang := rX["lang"], exe := g_config["codeRunner"][lang]
 
 if(rX["lang"] == "everything"){
@@ -26,6 +28,10 @@ if(rX["lang"] == "everything"){
        feedbackMsgBox(msg,msg,1,1,6)
        ;\____ Reformatting_Autohotkey_Source.php
 }else{
+
+    ; search for your language? maybe look her: ;
+    ; https://www.rosettacode.org/wiki/URL_decoding#AutoHotkey
+
     codeUrlEncode := UrlEncode( rX["code"] )
 	runString := """" exe """ ""1=" rX["send"] """ ""2=" rX["key"] """ ""3=" codeUrlEncode """"
 }
