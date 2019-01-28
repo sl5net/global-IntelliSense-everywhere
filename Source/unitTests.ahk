@@ -101,8 +101,13 @@ winwaitclose,% name
 ifwinexist,gi
     msgbox,Oops `n(%A_LineFile%~%A_LineNumber%)
 
+g_config := {}
+#Include *i %A_ScriptDir%\inc_ahk\minify\config.minify.inc.ahk ; update_configMinify_incAhkFile()
 
-
+if(!g_config["sql"]["template"]["dir"]){
+    msgbox,% "ERROR !g_config[sql][template][dir] `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+    exitapp
+}
 
 
 g_actionListDB.BeginTransaction()
@@ -1998,13 +2003,13 @@ return
 settitlematchmode,2
 #IfWinNotActive,ahk_class SunAwtFrame
 esc::
-     exitapp
+exitapp
 return
 #IfWinActive,asdjkfhaldjskhfsfhakdsjfasdkaösdjkfh
-	WheelUp::
+WheelUp::
 return
 #IfWinActive,asdjkfhaldjskhfsfhakdsjfasdkaösdjkfh
-	WheelDown::
+WheelDown::
 return
 
 
@@ -2025,7 +2030,7 @@ tooltip,
 return
 
 
-
+#Include %A_ScriptDir%\inc_ahk\gi\ReadActionList.inc.ahk
 #Include %A_ScriptDir%\Includes\gi-everywhere.inc.ahk
 #Include,RegWrite181031.ahk
 #Include %A_ScriptDir%\inc_ahk\closeAllAHK_restoreClosedAHK.inc.ahk
