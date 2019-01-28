@@ -115,8 +115,11 @@ ToolTipSlowMotion(ActionListNEW, A_LineNumber)
 ; #Include,.\..\ActionLists\activeClassManipulation.inc.ahk
 
 
-getActionListNEW173129( activeTitle, ActiveClass, ActionListNEW, ActionListDir ) {
+;/¯¯¯¯ getActionListNEW173129 ¯¯ 190126041338 ¯¯ 26.01.2019 04:13:38 ¯¯\
+getActionListNEW173129(activeTitle, ActiveClass, ActionListNEW, ActionListDir ) {
 	
+	;tempPlaygournd := "tempPlaygournd2"
+	;return tempPlaygournd
 	
  ; 'Q-Dir 6.49.7 [3]' = at  
  ; Bild Ã¶ffnen ahk_class #32770 
@@ -379,7 +382,7 @@ if(A_ScriptName == "ActionListNameFilter.inc.ahk" ) {  ; thats developer mode. t
 	MsgBox,4, %ActionListNEW%, '%ActionListNEW%' = ActionListNEW  `n '%ActionListDir%' = ActionListDir `n  `n %ActiveClass% = ActiveClass `n  17-03-06_18-48 `n `n ( line: %A_LineNumber%), 50
  ;MsgBox,4 ,Titel, 5Sek (from: %A_LineFile%~%A_LineNumber%), 5
 }
-
+;\____ getActionListNEW173129 __ 190126041357 __ 26.01.2019 04:13:57 __/
 
 
 
