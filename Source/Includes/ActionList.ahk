@@ -2143,7 +2143,7 @@ StrUnmark(string) {
 
 
 ;/¯¯¯¯ getActionListID ¯¯ 181106194141 ¯¯ 06.11.2018 19:41:41 ¯¯\
-getActionListID(actionList){
+getActionListID(sql_template_dir, actionList){
 	
 	global g_actionListDB
 	global g_actionListDBfileAdress
@@ -2151,6 +2151,9 @@ getActionListID(actionList){
 	INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 	if(!g_actionListDB)
 		g_actionListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", g_actionListDBfileAdress ) ;
+	if(!sql_template_dir){
+		msgbox,% "!sql_template_dir`n `n (" . A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\") ")"
+	}
 	if(!g_actionListDB){
 		msgbox,% "!g_actionListDB`n `n (" . A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\") ")"
 	}
@@ -2177,8 +2180,8 @@ actionList = '%actionList%' ;
 		
 		sqlLastError := SQLite_LastError()
 		if( instr(sqlLastError, "no such column") || instr(sqlLastError, "no such table") ){
-			RebuildDatabase()
-			tooltip,% "  RebuildDatabase() ==> (" RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
+RebuildDatabase(sql_template_dir)
+			tooltip,% "  RebuildDatabase(sql_template_dir) ==> (" RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
 			sleep,2000
 			reload
 		}
@@ -2220,19 +2223,19 @@ actionList = '%actionList%' ;
           ; 
 		if( instr(sqlLastError, "no such table") ){
             ;if(A_TickCount < 1000){
-			tip := "`n Now do RebuildDatabase() because of " sqlLastError "`n g_actionListDB=" g_actionListDB
+			tip := "`n Now do RebuildDatabase(sql_template_dir) because of " sqlLastError "`n g_actionListDB=" g_actionListDB
 			ToolTip5sec(tip "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
-			RebuildDatabase() ; works ? 22.10.2018 05:23 todo:
+			RebuildDatabase(sql_template_dir) ; works ? 22.10.2018 05:23 todo:
 			; Reported by Terka 18-11-05: https://www.autohotkey.com/boards/viewtopic.php?f=6&t=45684&p=254473#p254473
 			sleep,10
-			return getActionListID(actionList)
+			return getActionListID(g_config["sql"]["template"]["dir"], actionList)
                 ; return ; probalby enough only to wait 22.10.2018 04:56
             ;}
 		}
 		else if( instr(sqlLastError, "no such column") ){
-			RebuildDatabase()
-			msgbox,% "done: RebuildDatabase()`n `n " msg " (" . A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\") ")"
-			tooltip,% "  RebuildDatabase() ==> (" RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
+			RebuildDatabase(sql_template_dir)
+			msgbox,% "done: RebuildDatabase(sql_template_dir)`n `n " msg " (" . A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\") ")"
+			tooltip,% "  RebuildDatabase(sql_template_dir) ==> (" RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
 			sleep,5000
 			reload
 		}else{
@@ -2269,13 +2272,13 @@ actionList = '%actionList%' ;
 
 
 ;/¯¯¯¯ INSERT_INTO_actionLists_ifNotExist ¯¯ 181106194154 ¯¯ 06.11.2018 19:41:54 ¯¯\
-INSERT_INTO_actionLists_ifNotExist(actionList, actionListModified, actionListSize ){
+INSERT_INTO_actionLists_ifNotExist(sql_template_dir,actionList, actionListModified, actionListSize ){
 	
 	global g_actionListDB
 	global g_actionListDBfileAdress
 	if(!g_actionListDB)
 		g_actionListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", g_actionListDBfileAdress ) ;
-	actionListID := getActionListID(actionList) ; 24.03.2018 23:02
+	actionListID := getActionListID(sql_template_dir, actionList) ; 24.03.2018 23:02
 	if(actionListID){
 		tip=Oops actionListID already exist `n actionListID = %actionListID% `n actionList=%actionList% `n  27.03.2018 22:37
 		lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,tip)

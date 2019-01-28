@@ -502,7 +502,7 @@ AutoTrim, Off
 
 
 
-; RebuildDatabase()
+; RebuildDatabase(g_config["sql"]["template"]["dir"])
 
 
 
@@ -581,8 +581,8 @@ InitializeHotKeys()
 lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"DisableKeyboardHotKeys()")
 DisableKeyboardHotKeys()
 
-g_actionListID := getActionListID(actionList) ; 24.03.2018 23:02
-ReadInTheActionList(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
+g_actionListID := getActionListID(g_config["sql"]["template"]["dir"], actionList) ; 24.03.2018 23:02
+ReadInTheActionList(g_config["sql"]["template"]["dir"], A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
 
 g_WinChangedCallback := RegisterCallback("WinChanged")
 g_ListBoxScrollCallback := RegisterCallback("ListBoxScroll")
@@ -606,7 +606,7 @@ if(true){
     ; This allows someone to change the files and does not have to delete the table first ; 28.11.2018 12:15
     ; Sql_Temp.sqLite2obj()
     ; if(!Sql_Temp.valueObj)
-    Sql_Temp.file2sqLite()
+    Sql_Temp.file2sqLite(g_config["sql"]["template"]["dir"])
     Sql_Temp.sqLite2obj()
     if(!Sql_Temp.valueObj)
         msgbox,% " ERROR !Sql_Temp.valueObj `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
@@ -1444,7 +1444,7 @@ global g_doSaveLogFiles
 
 lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"`n Sleep,100 `n" . msg . "`n ==> Goto, doReload")
            ;feedbackMsgBox("ReadInTheActionList",A_LineNumber . " , " . A_ScriptName,1,1)
-            ReadInTheActionList(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")) ; 07.02.2018 17:28
+            ReadInTheActionList(g_config["sql"]["template"]["dir"], A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")) ; 07.02.2018 17:28
          }
     }
     ;Msgbox, actionList was changed (%A_LineFile%~%A_LineNumber%)
@@ -1630,10 +1630,10 @@ checkActionListAHKfile_sizeAndModiTime:
         ; compu hall Rüb
         if(1 && InStr(A_ComputerName,"SL5"))
             Speak(A_LineNumber ": ReadInTheActionList")
-        ReadInTheActionList("checkActionListAHKfile_sizeAndModiTime:" doReadActionListTXTfileSTR " " A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
+        ReadInTheActionList(g_config["sql"]["template"]["dir"], "checkActionListAHKfile_sizeAndModiTime:" doReadActionListTXTfileSTR " " A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
         ;ParseWordsCount := ReadActionList(calledFromStr) ; there is also update and select of time of the actionList
         ;g_min_searchWord_length := getMinLength_Needetthat_ListBecomesVisible(ParseWordsCount, maxLinesOfCode4length1)
-        ; RebuildDatabase()
+        ; RebuildDatabase(g_config["sql"]["template"]["dir"])
         ; msgbox, have fun with :) `n %actionList% 18-03-02_18-37  (%A_LineFile%~%A_LineNumber%)
 
 
@@ -1649,13 +1649,13 @@ checkActionListAHKfile_sizeAndModiTime:
             tooltip, % tip
             SuspendOn()
             ;msgbox,% tip
-            RebuildDatabase()
+            RebuildDatabase(g_config["sql"]["template"]["dir"])
             SuspendOff()
             sleep,3000
             ; msgbox,% tip
             ; reload ; hardcore. anyway. thats a way it works
         }
-        ;pause ; RebuildDatabase()
+        ;pause ; RebuildDatabase(g_config["sql"]["template"]["dir"])
         sleep,100
         ;reload ; hardcore. anyway. thats a way it works
     }
@@ -1772,10 +1772,10 @@ if(g_doListBoxFollowMouse)
 
 
 
-        g_actionListID := getActionListID(actionList) ; 24.03.2018 23:02
-        ReadInTheActionList(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
+        g_actionListID := getActionListID(sql_template_dir, actionList) ; 24.03.2018 23:02
+        ReadInTheActionList(g_config["sql"]["template"]["dir"], A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
         g_min_searchWord_length := getMinLength_Needetthat_ListBecomesVisible(ParseWordsCount, maxLinesOfCode4length1)
-        ; RebuildDatabase()
+        ; RebuildDatabase(g_config["sql"]["template"]["dir"])
 
 
 

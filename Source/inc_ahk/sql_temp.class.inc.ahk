@@ -7,7 +7,7 @@ class Sql_Temp { ; search help: sqltemp tempsql
 ; https://autohotkey.com/boards/viewtopic.php?f=76&t=59215&p=249470#p249470
 
     ;/Â¯Â¯Â¯Â¯ file2sqLite Â¯Â¯ 181123030022 Â¯Â¯ 23.11.2018 03:00:22 Â¯Â¯\
-    file2sqLite(fileNamePrefix := "select0"){ ;  Sql_Temp.file2sqLite()
+    file2sqLite(sql_template_dir, fileNamePrefix := "select0"){ ;  Sql_Temp.file2sqLite()
         if(!fileNamePrefix)
             msgbox,% " ERROR !This.fileNamePrefix `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
         This.fileNamePrefix := fileNamePrefix
@@ -20,7 +20,11 @@ class Sql_Temp { ; search help: sqltemp tempsql
         {
             fileName := fileNamePrefix (A_Index-1) ".sql"
 
-            fileAdress := A_ScriptDir "\sql\template\" fileName
+            ;fileAdress := A_ScriptDir "\sql\template\" fileName
+            ;fileAdress := g_config["sql"]["template"]["dir"] "\" fileName
+            fileAdress := sql_template_dir "\" fileName
+            ;feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), fileAdress, 1, 1, 6 )
+
             if(!FileExist(fileAdress)){
                 tip := fileAdress " not exist `n`n("A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
                 toolTip2sec( tip )

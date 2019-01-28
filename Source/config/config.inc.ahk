@@ -79,6 +79,10 @@ g_config.FuzzySearch := {
 	doValueCopy : false
 }
 
+g_config.sql.template := {
+	dir: A_ScriptDir "\sql\template"
+}
+
 ; C:\php731NTS>php.exe helloWorld.php
 g_config.codeRunner := {
 	code_AutoHotkey_Community: 

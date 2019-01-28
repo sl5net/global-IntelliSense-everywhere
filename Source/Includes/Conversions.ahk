@@ -42,8 +42,8 @@ CoordMode, ToolTip, Screen
 	
 	IfNotEqual, actionListConverted, 1
 	{
-		Msgbox,RebuildDatabase()`n RebuildDatabase= %RebuildDatabase%`n `n `n (%A_LineFile%~%A_LineNumber%)
-		RebuildDatabase()
+		Msgbox,RebuildDatabase(sql_template_dir)`n RebuildDatabase= %RebuildDatabase%`n `n `n (%A_LineFile%~%A_LineNumber%)
+		RebuildDatabase(sql_template_dir)
 		return, true
 	}
 	
@@ -88,7 +88,7 @@ CoordMode, ToolTip, Screen
 
 ;/¯¯¯¯ RebuildDatabase ¯¯ 181027180644 ¯¯ 27.10.2018 18:06:44 ¯¯\
 ; Rebuilds the Database from scratch as we have to redo the actionList anyway.
-RebuildDatabase(){
+RebuildDatabase(sql_template_dir){
 	if(0){
 		tip := "FALSE NOOO RebuildDatabase `n " A_LineNumber . " " . A_LineFile
 		ToolTip5sec(tip)
@@ -142,8 +142,11 @@ RebuildDatabase(){
 	Create_PerformanceMeasurementOf_Functions_Table()
 	
 	SetDbVersion()
+	if(!sql_template_dir){
+		msgbox,% "!sql_template_dir`n `n (" . A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\") ")"
+	}
 
-    Sql_Temp.file2sqLite()
+    Sql_Temp.file2sqLite(sql_template_dir)
     Sql_Temp.sqLite2obj()
     if(!Sql_Temp.valueObj)
         msgbox,% " ERROR !Sql_Temp.valueObj `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
@@ -296,6 +299,7 @@ CreateLastStateTable(){
 
 
 INSERT_function_call_time_millis_since_midnight( aLineFile , aThisFunc , aLineNumber){
+
     return
 
     ; select ROWID,p.small_LineFile,p.A_ThisFunc,p.actionList,p.actionListsize,p.millisec_dif_to_next_function_call from performance p order by p.millisec_dif_to_next_function_call desc limit 3;

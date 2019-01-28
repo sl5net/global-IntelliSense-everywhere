@@ -14,7 +14,7 @@ global g_StartTime_TickCountMilli := A_TickCount
 
 
 ;/¯¯¯¯ Receive_actionListAddress ¯¯ 181231134228 ¯¯ 31.12.2018 13:42:28 ¯¯\
-Receive_actionListAddress(CopyOfData){
+Receive_actionListAddress(sql_template_dir, CopyOfData){
 	INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 	
 	msgbox, Received:`n%CopyOfData% `n ( %A_LineFile%(inc)~%A_LineNumber% ) `n
@@ -62,8 +62,9 @@ Receive_actionListAddress(CopyOfData){
 		InitializeHotKeys()
 		DisableKeyboardHotKeys()
         ; SetBatchLines, -1 ;Change the Running performance speed (Priority changed to High in GetIncludedActiveWindow)
-        ;feedbackMsgBox("ReadInTheActionList(calledFromStr)",actionList . "`n" . activeTitle . " = activeTitle  `n " .  A_ScriptName . "(inc)~" . A_LineNumber)
-		ReadInTheActionList(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
+        ;feedbackMsgBox("ReadInTheActionList(sql_template_dir, calledFromStr)",actionList . "`n" . activeTitle . " = activeTitle  `n " .  A_ScriptName . "(inc)~" . A_LineNumber)
+
+		ReadInTheActionList(sql_template_dir, A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
         ;g_min_searchWord_length := getMinLength_Needetthat_ListBecomesVisible(ParseWordsCount, maxLinesOfCode4length1)
 		actionListOLD := actionList
         ;MainLoop()
@@ -82,7 +83,7 @@ Receive_actionListAddress(CopyOfData){
 ;InitializeHotKeys()
 ;DisableKeyboardHotKeys()
 ;SetBatchLines, -1 ;Change the Running performance speed (Priority changed to High in GetIncludedActiveWindow)
-;ReadInTheActionList(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
+;ReadInTheActionList(sql_template_dir, A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
 	
 	
 	
@@ -467,7 +468,7 @@ SELECT actionList FROM actionLists WHERE actionList Like 'g_Word' AND actionList
 
 		if(!o){
 			; Msgbox,:( Oops >%A_Index%<(%A_LineFile%~%A_LineNumber%)
-			toolTip, % "Oops no SQL-Template `nNr." sqlFilePrefix "(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),1,1
+ 			toolTip, % "Oops no SQL-Template `nNr." sqlFilePrefix "(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),1,1
 			continue
 		}
 		if(!o["word"]["pos"]){

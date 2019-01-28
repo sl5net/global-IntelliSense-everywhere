@@ -1565,10 +1565,6 @@ DynaRunFROMAhkSudio(Script,Wait:=true,name:="Untitled"){
 
 ;/¯¯¯¯ DynaRun ¯¯ 181029190515 ¯¯ 29.10.2018 19:05:15 ¯¯\
 DynaRun(TempScript, pipename=""){
-
-    ; msgbox,18-11-16_13-19 ; to tool
-    ; tool __ tool
-
     if(false && InStr(A_ComputerName,"SL5") )
         ToolTip9sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ") tokden:19-01-16_18-40" ) ; token becouse somtimes lineNumber is wrong
 

@@ -462,8 +462,9 @@ global-IntelliSense-everywhere-Nightly-Build [G:\fre\git\github\global-IntelliSe
 
     }
     actionListOLD := actionList
-    ; g_actionListID := getActionListID(actionList) ; 24.03.2018 23:02
-    if(!g_actionListID := getActionListID(actionList)){ ; 24.03.2018 23:02
+    ; g_actionListID := getActionListID(sql_template_dir, actionList) ; 24.03.2018 23:02
+
+    if(!g_actionListID := getActionListID(g_config["sql"]["template"]["dir"], actionList)){ ; 24.03.2018 23:02
 		if(0 && InStr(A_ComputerName,"SL5")) ; prob no error. whey not
 			Speak("actionListID Not Exist!", "PROD" )  ;  (DEV, TEST, STAGING, PROD),
         ; happen for eg if i calling the autohotkey webseite. 19-01-09_19-31

@@ -40,8 +40,8 @@ if(activeTitleOLD && activeTitleOLD <> activeTitle ){
 return
 ;>>>>>>>> reloadActionList >>>> 180208163153 >>>> 08.02.2018 16:31:53 >>>>
 
-;/¯¯¯¯ ReadInTheActionList( ¯¯ 181028125821 ¯¯ 28.10.2018 12:58:21 ¯¯\
-ReadInTheActionList(calledFromStr){ ;Read in the actionList
+;/¯¯¯¯ ReadInTheActionList(sql_template_dir,  ¯¯ 181028125821 ¯¯ 28.10.2018 12:58:21 ¯¯\
+ReadInTheActionList(sql_template_dir, calledFromStr){ ;Read in the actionList
 	global ParseWordsCount
 	global g_min_searchWord_length
 	; Speak(A_lineNumber,"PROD")
@@ -54,7 +54,7 @@ ReadInTheActionList(calledFromStr){ ;Read in the actionList
 	g_min_searchWord_length := getMinLength_Needetthat_ListBecomesVisible(ParseWordsCount, maxLinesOfCode4length1)
 	return ParseWordsCount
 }
-;\____ ReadInTheActionList( __ 181028125831 __ 28.10.2018 12:58:31 __/
+;\____ ReadInTheActionList(sql_template_dir,  __ 181028125831 __ 28.10.2018 12:58:31 __/
 
 ;/¯¯¯¯ ReadActionList ¯¯ 181028133202 ¯¯ 28.10.2018 13:32:02 ¯¯\
 ReadActionList( calledFromStr ){
@@ -210,15 +210,20 @@ ReadActionList( calledFromStr ){
 	}
 
 
-	g_actionListID := getActionListID(actionList) ; 24.03.2018 23:02
+	g_actionListID := getActionListID(g_config["sql"]["template"]["dir"], actionList) ; 24.03.2018 23:02
 	if(!g_actionListID){ ; fallBack
 
 		INSERT_INTO_actionLists(actionList, FileGet_actionListModified, FileGet_actionListSize )
         ;Msgbox,Oops `n %insert%`n (%A_LineFile%~%A_LineNumber%)
         ;tooltip,g_actionListID = %g_actionListID% `n actionList = %actionList% `n %insert%`n (%A_LineFile%~%A_LineNumber%)
         ;sleep,2000
+	if(!g_config["sql"]["template"]["dir"]){
+		msgbox,% "!sql_template_dir`n `n (" . A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\") ")"
+	}
 
-		g_actionListID := getActionListID(actionList) ; 24.03.2018 23:02
+		g_actionListID := getActionListID(g_config["sql"]["template"]["dir"], actionList) ; 24.03.2018 23:02
+		; ^- insidee ReadInTheActionList(sql_template_dir, calledFromStr){ ;Read in the actionList ...
+
 		if(!g_actionListID){
             winWaitNotactive,at
 			m =
@@ -651,8 +656,9 @@ if(0 && InStr(actionList, "Turek") && InStr(A_ComputerName,"SL5"))
 		} else if (actionList && FileGet_actionListModified && FileGet_actionListSize ) {
          ;g_actionListDB.Query("INSERT INTO actionLists (actionList, actionListmodified, actionListsize) VALUES ('"  actionList "','" FileGet_actionListModified "','" FileGet_actionListSize "');")
 
-			INSERT_INTO_actionLists_ifNotExist(actionList, FileGet_actionListModified, FileGet_actionListSize )
-			g_actionListID := getActionListID(actionList) ; 24.03.2018 23:02
+ 			INSERT_INTO_actionLists_ifNotExist(g_config["sql"]["template"]["dir"], actionList, FileGet_actionListModified, FileGet_actionListSize )
+			g_actionListID := getActionListID(g_config["sql"]["template"]["dir"], actionList) ; 24.03.2018 23:02
+			; ^in ReadActionList(
 		}else{
 			len := strlen( actionList )
 			m =
