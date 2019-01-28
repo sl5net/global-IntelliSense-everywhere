@@ -317,8 +317,8 @@ actionListDir = '%actionListDir%'
 							    MsgBox,% "ups !exist_includeFilePath  (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 							}
 						}
-						clipboard := includeFilePathAbs
-						msgbox,% msg "(" RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
+						; clipboard := includeFilePathAbs
+						; msgbox,% msg "(" RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
 					}
 					
 				;/¯¯¯¯ NOT exist_includeFilePath ¯¯ 181012005821 ¯¯ 12.10.2018 00:58:21 ¯¯\
