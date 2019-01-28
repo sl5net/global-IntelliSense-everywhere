@@ -312,8 +312,10 @@ actionListDir = '%actionListDir%'
 							msg .= exist_includeFilePath " = exist_includeFilePath  `n`n"
 							msg .= A_ScriptDir
 							lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,msg )
-							feedbackMsgBox(RegExReplace(A_LineFile,".*\\(.*?)\.ahk","$1") ">" A_LineNumber, msg, 1,1 ) ; temp.ahk is often ignored by config 05.10.2018 08:46
-							MsgBox,% msg "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+							if(!RegExMatch(includeFilePath , "i)private\b"  )){
+							    feedbackMsgBox(RegExReplace(A_LineFile,".*\\(.*?)\.ahk","$1") ">" A_LineNumber, msg, 1,1 ) ; temp.ahk is often ignored by config 05.10.2018 08:46
+							    MsgBox,% "ups !exist_includeFilePath  (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+							}
 						}
 						clipboard := includeFilePathAbs
 						msgbox,% msg "(" RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
