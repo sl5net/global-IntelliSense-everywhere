@@ -799,11 +799,11 @@ return
      ; s := regExReplace(s,"`%","``%")
      s := regExReplace(s,"^([ ]*)\)","$1`)")
      ; msgbox,% s "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
-    isMuliline := (regExMatch(trim(s), "m)\n"))
+    isMultiline := (regExMatch(trim(s), "m)\n"))
 
 
 
-if(isMuliline){
+if(isMultiline){
 s =
 (
 |r|
@@ -813,7 +813,7 @@ s =
 
 
 
-    ;if(isMuliline)
+    ;if(isMultiline)
      ;   msgbox,% clipboard "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
     ;msgbox,% clipboard "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
 ;
@@ -874,7 +874,7 @@ exitApp
     ; clipboard := AHKcode AHKcode2 " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
 
 
-; if("%isMuliline%"){
+; if("%isMultiline%"){
 result := Loop_Parse_ParseWords( s )
 ; rootLineObj := { value:s, Aindex: 1 }
 ; isCommandType := setCommandTypeS(rootLineObj, rootCmdTypeObj, rootCollectObj, rootDoObj )

@@ -21,6 +21,9 @@ setTrayIcon(status := "loaded" ){
 	if(status <> "loaded" && A_Is64bitOS){
 		Menu, Tray, Icon, shell32.dll, 266 ; pretty black clock
     ;  Menu, Tray, Icon, shell32.dll, 44 ; star
+
+
+
 		return
 	}
 	ScriptNameLetter2 := SubStr(A_ScriptName, 1 , 2)
@@ -758,9 +761,16 @@ setCommandTypeS(rootLineObj
 				rootDoObj.collectBlock := true ; may not  unnecessary action
 				rootCmdTypeObj.is_multiline_rr := true ; may not  unnecessary action
 			}
+			if(m2 == "q"){
+                rootCmdTypeObj.is_rr := true
+                rootCmdTypeObj.is_synonym := true
+                if(1 && InStr(A_ComputerName,"SL5"))
+			        speak("Synonym found","PROD")
+			}else
+			    rootCollectObj.value := m2 ; A_LineNumber "ö"
+
 			; rootCollectObj.value := m1 m2
-			rootCollectObj.value := m2 ; A_LineNumber "ö"
-			
+
 		}
         ; msgbox,% rootCollectObj.value
 	}
@@ -769,8 +779,12 @@ setCommandTypeS(rootLineObj
 
 	; if(RegExMatch( rootLineObj.value , "i)^([^; ]*[^\n]+\|rr\|)(ahk\|)[ ]*$",  m )){
 	if(RegExMatch( rootLineObj.value , "i)^([^; ]*[^\n]+\|rr\|)(" regExRunner "\|)[ ]*$",  m )){
-		speak("Maybe an ERROR?","PROD")
-		sleep,2000
+		msg := "Maybe an ERROR?"
+		if(1 && InStr(A_ComputerName,"SL5")){
+		    speak("Maybe an ERROR?","PROD")
+		    MsgBox,262160,% msg ":(`n" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ,% ":(`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+		    sleep,2000
+		}
 		probablyTried := (m2) ? m1 "|ahk|" : m1 "|ahk|"
 		rootCmdTypeObj.is_rr := true
 		rootLineObj.value := ""
