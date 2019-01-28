@@ -302,7 +302,8 @@ OK
 	else
 		msgbox,Oops i am triggered :D 17-04-02_13-47 !g_actionListDB
 
-	DatabaseRebuilt := getActionListID(g_config["sql"]["template"]["dir"], actionList)
+	DatabaseRebuilt := MaybeConvertDatabase()
+
 
 	if(!FileGet_actionListSize)
 		FileGetSize, FileGet_actionListSize, %actionList%
