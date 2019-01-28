@@ -144,7 +144,7 @@ ListBoxClickItem(wParam, lParam, msg, ClickedHwnd){
    ; tip = %wParam%, %lParam%, %msg%
   ;ToolTip4sec( tip "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 
-    ; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 
    TempRows := GetRows()
    
@@ -306,7 +306,7 @@ ListBoxScroll(Hook, Event, EventHwnd){
    Local TempRows
    Local Position
 
-    ;INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
    if (g_ListBox_Id)
    {
    
@@ -868,7 +868,7 @@ ShowListBox(paraX:="",paraY:=""){
 
    global
 
-    ; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
     g_ListBoxTitle := "Action List Appears Here" ; search help: ListBox, Gui, Show,
     g_ListBoxTitle_firstTimeInMilli := A_TickCount ; milliseconds
 
