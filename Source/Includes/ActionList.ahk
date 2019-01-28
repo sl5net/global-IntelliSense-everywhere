@@ -870,7 +870,7 @@ setCommandTypeS(rootLineObj
 	}
 	return true
 }
-;\____ ReadActionList __ 181107175022 __ 07.11.2018 17:50:22 __/
+;\____ setCommandTypeS
 
 
 
@@ -880,7 +880,7 @@ setCommandTypeS(rootLineObj
 
 ;/¯¯¯¯ addListOpenAction_ifNotAlreadyInTheList ¯¯ 181107004221 ¯¯ 07.11.2018 00:42:21 ¯¯\
 addListOpenAction_ifNotAlreadyInTheList(ByRef contentActionList,ByRef actionList){
-	INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 	
 	return
 ; thats a way how you could add actionList lines vocabularies inside onlive 12.08.2017 23:24
@@ -937,7 +937,7 @@ addListOpenAction_ifNotAlreadyInTheList(ByRef contentActionList,ByRef actionList
 ; addFuzzySearch_in_generatedList(ALoopField)
 addFuzzySearch_in_generatedList(ActionStr, actionList, lineNr, ByRef LearnedWordsCount, addKeysMAX := 7, minKeysLen := 4, doValueCopy := true){
 	
-	INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 	
     ; || !instr(actionList,"Generated.ahk")
 	if( !lineNr ){
@@ -1081,7 +1081,7 @@ ReverseWordNums(LearnedWordsCount){
 	global actionList
 	global g_actionListID
 	
-	INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 	LearnedWordsCount+= (prefs_LearnCount - 1)
 	
 	sql := "SELECT word FROM Words WHERE count IS NOT NULL actionList = '" actionList "';"
@@ -1371,7 +1371,7 @@ global g_actionListDone
 global g_actionListDB
 global actionList
 ;  foundPos := RegExMatch( "str" , "i)" )
-INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 
 ;prefs_LearnMode := "On"
 
@@ -1832,7 +1832,7 @@ if( g_actionListDone == "0"){ ;if this is read from the actionList ; 1 ||
 ;/¯¯¯¯ CheckValid ¯¯ 181106193909 ¯¯ 06.11.2018 19:39:09 ¯¯\
 CheckValid(Word,ForceLearn:= false, is_IndexedAhkBlock := false){
 	
-	INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 	
 	Ifequal, Word,  ;If we have no word to add, skip out.
 	{
@@ -1910,7 +1910,7 @@ TransformWord(AddWord
 	
     ; TransformWord normalizes the word, converting it to uppercase and removing certain accented characters.
 
-	INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 
 	;/¯¯¯¯ AddWordIndex ¯¯ 181125203603 ¯¯ 25.11.2018 20:36:03 ¯¯\
 	AddWordIndex := AddWord
@@ -1945,7 +1945,7 @@ DeleteWordFromList(DeleteWord){
 	global g_actionListDB
 	global actionList
 	
-	INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 	Ifequal, DeleteWord,  ;If we have no word to delete, skip out.
 	Return
 	
@@ -1969,7 +1969,7 @@ DeleteWordFromList(DeleteWord){
 UpdateWordCount(word,SortOnly){
 	global prefs_LearnMode
 	global g_actionListDB
-	INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
    ;Word = Word to increment count for
    ;SortOnly = Only sort the words, don't increment the count
 	
@@ -1992,7 +1992,7 @@ UpdateWordCount(word,SortOnly){
 ;/¯¯¯¯ CleanupEntriesOfThisActionList ¯¯ 181106194013 ¯¯ 06.11.2018 19:40:13 ¯¯\
 CleanupEntriesOfThisActionList(g_actionListID){
 	global g_actionListDB
-	INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
    ;Function cleans up all words from given actionList
 	; Msgbox,not yet implemented `n (%A_LineFile%~%A_LineNumber%)
 	sql := "DELETE FROM Words WHERE actionListID = " g_actionListID ";"
@@ -2026,7 +2026,7 @@ CleanupActionListAll_ofLittleWordCount(LearnedWordsOnly := false){
 	global actionList
 	global prefs_LearnCount
 ;   Progress, M, Please wait..., Cleaning actionList, %g_ScriptTitle%
-	INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 	if (LearnedWordsOnly) {
 		g_actionListDB.Query("DELETE FROM Words WHERE count < " . prefs_LearnCount . " AND count IS NOT NULL AND actionListID = '" . g_actionListID . "';")
 	} else {
@@ -2104,7 +2104,7 @@ StrUnmark(string) {
 	
 	global g_OSVersion
 	global g_NormalizationKD
-	INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 	if (g_OSVersion < 6.0)
 	{
 		return string
@@ -2148,7 +2148,7 @@ getActionListID(sql_template_dir, actionList){
 	global g_actionListDB
 	global g_actionListDBfileAdress
 	global g_actionList_UsedByUser_since_midnight
-	INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 	if(!g_actionListDB)
 		g_actionListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", g_actionListDBfileAdress ) ;
 	if(!sql_template_dir){
@@ -2290,7 +2290,7 @@ INSERT_INTO_actionLists(actionList, actionListModified, actionListSize ){
 	
 	global g_actionListDB
 	global g_actionListDBfileAdress
-	INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 	if(!actionListModified){
 		msg := "Error`n !actionListModified `n sql=" sql "`n" actionList "`n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
 		tooltip,% msg ,1,1

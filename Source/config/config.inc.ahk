@@ -69,8 +69,10 @@ g_config.sql := {
 		ignIfWhereIsWithoutListID : false,
 		showFilePrefix : false 
 	},
-	DB_Browser: "C:\Program Files (x86)\DB Browser for SQLite\DB Browser for SQLite.exe"
-} ; showFilePrefix useful if you want find out which select data supplies
+	DB_Browser: A_ProgramFiles " (x86)\DB Browser for SQLite\DB Browser for SQLite.exe"
+} 
+; showFilePrefix useful if you want find out which select data supplies
+
 g_config.FuzzySearch := {
 	enable: true,
 	MAXlines : 87654, 
@@ -78,11 +80,11 @@ g_config.FuzzySearch := {
 	minKeysLen: 4,
 	doValueCopy : false
 }
-
 g_config.sql.template := {
 	dir: A_ScriptDir "\sql\template"
 }
 
+; you do not need these runners. these are just examples:
 ; C:\php731NTS>php.exe helloWorld.php
 g_config.codeRunner := {
 	code_AutoHotkey_Community: 

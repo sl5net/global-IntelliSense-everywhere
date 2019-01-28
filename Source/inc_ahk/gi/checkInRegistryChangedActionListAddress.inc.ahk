@@ -1,5 +1,5 @@
-; ActiveTitleOLD2 := activeTitleOLD
-;/¯¯¯¯ checkInRegistryChangedActionListAddress ¯¯ 181025104242 ¯¯ 25.10.2018 10:42:42 ¯¯\
+﻿; ActiveTitleOLD2 := activeTitleOLD
+;/Â¯Â¯Â¯Â¯ checkInRegistryChangedActionListAddress Â¯Â¯ 181025104242 Â¯Â¯ 25.10.2018 10:42:42 Â¯Â¯\
 ; it reads: RegRead, actionListNewTemp_RAW, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList
 ; SetTimer,checkInRegistryChangedActionListAddress,2000 ; RegRead, actionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList
 ; called from \Window.ahk > WinChanged( :
@@ -261,7 +261,7 @@ global-IntelliSense-everywhere-Nightly-Build [G:\fre\git\github\global-IntelliSe
 
     RegRead, stop_list_change, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, stop_list_change ; todo: 02.03.2018 12:55 18-03-02_12-55
     if(stop_list_change){
-        msg = action list wurde gesetzt und soll nicht geändert werden.
+        msg = action list wurde gesetzt und soll nicht geÃ¤ndert werden.
         ; aber eventuell neu geladen.
         ToolTip3sec(msg "`n" A_LineNumber . " " . RegExReplace(A_LineFile,".*\\")  . " " . Last_A_This,400,100,9)
     }
@@ -368,7 +368,7 @@ global-IntelliSense-everywhere-Nightly-Build [G:\fre\git\github\global-IntelliSe
 
 
 
-    ; tool too tool07.11.2018 23:07.11.2018 23:07.11.2018 ddddöö07.11.2018 23:l LLL 07.11.2018 23:02lll07.11.2018 23:0207.11.2018 23:03
+    ; tool too tool07.11.2018 23:07.11.2018 23:07.11.2018 ddddÃ¶Ã¶07.11.2018 23:l LLL 07.11.2018 23:02lll07.11.2018 23:0207.11.2018 23:03
 
 
 
@@ -478,7 +478,7 @@ global-IntelliSense-everywhere-Nightly-Build [G:\fre\git\github\global-IntelliSe
 
 
 
-    ;/¯¯¯¯ very_happy ¯¯ 181024144052 ¯¯ 24.10.2018 14:40:52 ¯¯\
+    ;/Â¯Â¯Â¯Â¯ very_happy Â¯Â¯ 181024144052 Â¯Â¯ 24.10.2018 14:40:52 Â¯Â¯\
 InactivateAll_Suspend_ListBox_WinHook() ; addet 24.10.2018 14:16
 
 

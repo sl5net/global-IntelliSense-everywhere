@@ -85,7 +85,6 @@ InitializeListBox(){
    ; Gui, ListBoxGui: Font, s18 cRed Bold, g_ListBox%A_Index%
    ; to to to t to too t t
 
-  INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 
    Loop, % prefs_ListBoxRows
    {
@@ -108,9 +107,6 @@ InitializeListBox(){
     }
 
    }
-
-  INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
-
 
    Return
 }
@@ -148,7 +144,7 @@ ListBoxClickItem(wParam, lParam, msg, ClickedHwnd){
    ; tip = %wParam%, %lParam%, %msg%
   ;ToolTip4sec( tip "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 
-    INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+    ; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 
    TempRows := GetRows()
    
@@ -310,7 +306,7 @@ ListBoxScroll(Hook, Event, EventHwnd){
    Local TempRows
    Local Position
 
-    INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+    ;INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
    if (g_ListBox_Id)
    {
    
@@ -355,7 +351,7 @@ GetScrollInfo(ctrlhwnd) {
 
   global g_SB_VERT
   global g_SIF_POS
-    INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
   SI:=new _Struct("cbSize,fMask,nMin,nMax,nPage,nPos,nTrackPos")
   SI.cbSize:=sizeof(SI)
   SI.fMask := g_SIF_POS
@@ -371,7 +367,7 @@ GetScrollInfo(ctrlhwnd) {
 ;/¯¯¯¯ ListBoxChooseItem ¯¯ 181107231953 ¯¯ 07.11.2018 23:19:53 ¯¯\
 ListBoxChooseItem(Row){
    global
-    INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
    GuiControl, ListBoxGui: Choose, g_ListBox%Row%, %g_MatchPos%
 }
 ;\____ ListBoxChooseItem __ 181107231956 __ 07.11.2018 23:19:56 __/
@@ -649,7 +645,9 @@ AddToMatchList(position, MaxLength, HalfLength, LongestBaseLength, ComputeBaseLe
 
    global g_MatchTotal ; addet 18-12-31_13-56
 
-    INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+
+; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+
    blankprefix = `t
    
     ; prefix is the number you later use for CTRL-Nr to choos the entry
@@ -869,7 +867,8 @@ else{
 ShowListBox(paraX:="",paraY:=""){
 
    global
-    INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+
+    ; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
     g_ListBoxTitle := "Action List Appears Here" ; search help: ListBox, Gui, Show,
     g_ListBoxTitle_firstTimeInMilli := A_TickCount ; milliseconds
 
@@ -1125,7 +1124,9 @@ ForceWithinMonitorBounds(ByRef ListBoxPosX, ByRef ListBoxPosY, ListBoxActualSize
    global g_min_MonitorBound_right
 
    global g_ListBoxActualSizeH_maxFound ; addet 04.01.2019 11:11
-    INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+
+; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+
    ;Grab the number of non-dummy monitors
    SysGet, NumMonitors, %g_SM_CMONITORS%
    

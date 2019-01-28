@@ -1,4 +1,4 @@
-;<<<<<<<< reloadActionList <<<< 180208163147 <<<< 08.02.2018 16:31:47 <<<<
+﻿;<<<<<<<< reloadActionList <<<< 180208163147 <<<< 08.02.2018 16:31:47 <<<<
 reloadActionList:
 ; Speak("reload actionList","PROD")
 ; SoundbeepString2Sound(A_ThisFunc)
@@ -40,7 +40,7 @@ if(activeTitleOLD && activeTitleOLD <> activeTitle ){
 return
 ;>>>>>>>> reloadActionList >>>> 180208163153 >>>> 08.02.2018 16:31:53 >>>>
 
-;/¯¯¯¯ ReadInTheActionList(sql_template_dir,  ¯¯ 181028125821 ¯¯ 28.10.2018 12:58:21 ¯¯\
+;/Â¯Â¯Â¯Â¯ ReadInTheActionList(sql_template_dir,  Â¯Â¯ 181028125821 Â¯Â¯ 28.10.2018 12:58:21 Â¯Â¯\
 ReadInTheActionList(sql_template_dir, calledFromStr){ ;Read in the actionList
 	global ParseWordsCount
 	global g_min_searchWord_length
@@ -56,7 +56,7 @@ ReadInTheActionList(sql_template_dir, calledFromStr){ ;Read in the actionList
 }
 ;\____ ReadInTheActionList(sql_template_dir,  __ 181028125831 __ 28.10.2018 12:58:31 __/
 
-;/¯¯¯¯ ReadActionList ¯¯ 181028133202 ¯¯ 28.10.2018 13:32:02 ¯¯\
+;/Â¯Â¯Â¯Â¯ ReadActionList Â¯Â¯ 181028133202 Â¯Â¯ 28.10.2018 13:32:02 Â¯Â¯\
 ReadActionList( calledFromStr ){
 	global g_LegacyLearnedWords
 	global g_ScriptTitle
@@ -103,7 +103,7 @@ ReadActionList( calledFromStr ){
 	}
 
 
-    ;/¯¯¯¯ itsAGeneratedList ¯¯ 190118203542 ¯¯ 18.01.2019 20:35:42 ¯¯\
+    ;/Â¯Â¯Â¯Â¯ itsAGeneratedList Â¯Â¯ 190118203542 Â¯Â¯ 18.01.2019 20:35:42 Â¯Â¯\
     ; G:\fre\git\github\global-IntelliSense-everywhere-Nightly-Build\ActionLists\ChromeWidgetWin1\Turek_Gmail.ahk._Generated.ahk
     ; \ActionLists\ChromeWidgetWin1\Turek_Gmail.ahk._Generated.ahk
 	postFixGenerated := "._Generated.ahk"
@@ -158,7 +158,7 @@ ReadActionList( calledFromStr ){
 	if(1 && InStr(A_ComputerName,"SL5"))
 		speak(A_ThisFunc)
 
-    ;/¯¯¯¯ \.ahk ¯¯ 181025172431 ¯¯ 25.10.2018 17:24:31 ¯¯\
+    ;/Â¯Â¯Â¯Â¯ \.ahk Â¯Â¯ 181025172431 Â¯Â¯ 25.10.2018 17:24:31 Â¯Â¯\
 	if(false && !InStr( actionList, "\.ahk")){ ; without file name is bullshit 25.10.2018 17:18 ; Please check outside
 		log =
         (
@@ -181,7 +181,7 @@ ReadActionList( calledFromStr ){
 	RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, % A_ThisFunc , % calledFromStr
 
 
-	INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 
 	ParseWordsCount :=0
    ;mark the actionList as not done
@@ -302,7 +302,7 @@ OK
 	else
 		msgbox,Oops i am triggered :D 17-04-02_13-47 !g_actionListDB
 
-	DatabaseRebuilt := MaybeConvertDatabase()
+	DatabaseRebuilt := getActionListID(g_config["sql"]["template"]["dir"], actionList)
 
 	if(!FileGet_actionListSize)
 		FileGetSize, FileGet_actionListSize, %actionList%
@@ -393,7 +393,7 @@ from: actionList.ahk~%A_LineNumber%
 if(0 && InStr(actionList, "Turek") && InStr(A_ComputerName,"SL5"))
 	MsgBox,262160,% isModified "= isModified`n" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ,% actionList "=actionList `n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 
-;/¯¯¯¯ plausibilty ¯¯ 190117203319 ¯¯ 17.01.2019 20:33:19 ¯¯\
+;/Â¯Â¯Â¯Â¯ plausibilty Â¯Â¯ 190117203319 Â¯Â¯ 17.01.2019 20:33:19 Â¯Â¯\
 ; extra plausibilty check
 ; is generated much older then not generated? then its wrong...
 	; if(itsAGeneratedList){ ; stup / todo 19-01-17_20-42
@@ -526,18 +526,18 @@ if(0 && InStr(actionList, "Turek") && InStr(A_ComputerName,"SL5"))
       ; Progress, M, Please wait..., Loading actionList, %g_ScriptTitle%
 
 
-		INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 
 		g_actionListDB.BeginTransaction()
       ;reads list of words from file
 		FileRead, ParseWords, %actionList%
-      ; ParseWords := JEE_StrUtf8BytesToText( ParseWords ) ; 26.09.2018 18:40 this function was the reason while ä ü ö was not woring
-      ; JEE_StrUtf8BytesToText 26.09.2018 18:40 was the reason why german äüö not was workig :) Now all sources are in UTF8.
+      ; ParseWords := JEE_StrUtf8BytesToText( ParseWords ) ; 26.09.2018 18:40 this function was the reason while Ã¤ Ã¼ Ã¶ was not woring
+      ; JEE_StrUtf8BytesToText 26.09.2018 18:40 was the reason why german Ã¤Ã¼Ã¶ not was workig :) Now all sources are in UTF8.
 
 		if(0 && InStr(A_ComputerName,"SL5"))
 			msgbox, % A_ThisFunc ":" A_LineNumber  "does this happens`?? 18-11-17_09-41 ==> yes it does: 18-11-17"
 		if(addListOpenAction_ifNotAlreadyInTheList(ParseWords,actionList)){
-			;/¯¯¯¯ beginnings ¯¯ 181117101035 ¯¯ 17.11.2018 10:10:35 ¯¯\
+			;/Â¯Â¯Â¯Â¯ beginnings Â¯Â¯ 181117101035 Â¯Â¯ 17.11.2018 10:10:35 Â¯Â¯\
 ; only in first lines is searched !!!
 ; so please put open dialog at beginnings
 			contentActionList_first432lines := SubSTr( contentActionList , 1 , 123 ) ; we dont wann search the complete file.
@@ -547,7 +547,7 @@ if(0 && InStr(actionList, "Turek") && InStr(A_ComputerName,"SL5"))
 			; lll( A_ThisFunc ":" A_LineNumber , A_LineFile , temp )
 		}
 
-		INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 
 		if(false && !foundOpenLibLine){
 			temp := "___open library|rr||ahk|FileReadLine,actionListFileAdress, actionList.txt.status.txt, 1 `n actionListFileAdress := RegExReplace(actionListFileAdress, ""\._Generated\.ahk\s*$"", """") `n run,% actionListFileAdress"
@@ -572,7 +572,7 @@ if(0 && InStr(actionList, "Turek") && InStr(A_ComputerName,"SL5"))
 		if(false && ParseWordsCount>0)
 			Msgbox, %ParseWordsCount%  (line:%A_LineNumber%)
 
-		INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 
 
 
@@ -607,7 +607,7 @@ if(0 && InStr(actionList, "Turek") && InStr(A_ComputerName,"SL5"))
 
 
 
-		INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 
 		; autoh blum beu auto
 
@@ -693,7 +693,7 @@ if(0 && InStr(actionList, "Turek") && InStr(A_ComputerName,"SL5"))
       ;reads list of words from file
 		if(InStr(actionListLearnedTXTaddress,"actionListLearned.ahk")){
 			tip=thats deprecated `n ordlistLearnedTXTaddress = `n %actionListLearnedTXTaddress% `n (%A_LineFile%~%A_LineNumber%)
-			ToolTip3sec(tip "`n" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "")  " " Last_A_This)
+			ToolTip1sec(tip "`n" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "")  " " Last_A_This, 1, 1)
 
 			setTrayIcon()
 
@@ -715,7 +715,7 @@ if(0 && InStr(actionList, "Turek") && InStr(A_ComputerName,"SL5"))
 ; ___open library|rr||ahk|FileReadLine,actionListFileAdress, actionList.txt.status.txt, 1 `n actionListFileAdress := RegExReplace(actionListFileAdress, "\._Generated\.txt\s*$", "") `n run,% actionListFileAdress
 ;
         ; inside function ReadActionList
-		INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 
 		Loop, Parse, ParseWords, `n, `r
 		{
@@ -724,7 +724,7 @@ if(0 && InStr(actionList, "Turek") && InStr(A_ComputerName,"SL5"))
 			if(1 && InStr(A_ComputerName,"SL5"))
 				Msgbox,% "never triggerd. so we could delte it ????(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 		    ; ^-- this mesage box never triggerd. so we could delte it.
-		    ; käsewurst
+		    ; kÃ¤sewurst
 			ToolTip4sec(A_LoopField "`n" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") " " Last_A_This)
 			AddWordToList(rootCmdTypeObj,strDebug4insert,strDebugByRef,A_LineNumber,Aindex, A_LoopField,0,"ForceLearn",LearnedWordsCount)
  			; thats strang   ;  ms msb too
@@ -733,7 +733,7 @@ if(0 && InStr(actionList, "Turek") && InStr(A_ComputerName,"SL5"))
 		ParseWords =
 		g_actionListDB.EndTransaction()
 
-		INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 
 ;      Progress, 50, Please wait..., Converting learned words, %g_ScriptTitle%
 

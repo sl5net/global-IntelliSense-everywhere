@@ -15,7 +15,7 @@ global g_StartTime_TickCountMilli := A_TickCount
 
 ;/¯¯¯¯ Receive_actionListAddress ¯¯ 181231134228 ¯¯ 31.12.2018 13:42:28 ¯¯\
 Receive_actionListAddress(sql_template_dir, CopyOfData){
-	INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 	
 	msgbox, Received:`n%CopyOfData% `n ( %A_LineFile%(inc)~%A_LineNumber% ) `n
 	msgbox, Received:`n%CopyOfData% `n ( %A_LineFile%(inc)~%A_LineNumber% ) `n
@@ -173,7 +173,9 @@ ProcessKey(InputChar,EndKey) {
 	global prefs_EndWordCharacters
 	global prefs_ForceNewWordCharacters
 	global g_min_searchWord_length
-	
+
+; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\") , A_ThisFunc , A_LineNumber)
+
 	IfEqual, g_IgnoreSend, 1
 	{
 		g_IgnoreSend =
@@ -360,6 +362,7 @@ RecomputeMatches( calledFromStr, is_Recursion := false ){
 
     global g_config ; addet 19-01-11_21-47
 
+; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\") , A_ThisFunc , A_LineNumber)
 
     ;if( g_listSELECT_FROM_WinTitle && WinActive(g_listSELECT_FROM_WinTitle))
     ; do_SELECT_actionList_FROM_actionLists_NotLike_isNotAProject := true
@@ -813,8 +816,8 @@ LIMIT 9
             g_SingleMatch[++g_MatchTotal] := substr(actionList,1,19) " .. " RegExReplace(   actionList,".*\\")
         }else{
 
-            global g_ListBoxX
-            global g_ListBoxY
+            ; global g_ListBoxX
+            ; global g_ListBoxY
             ListBoxPosX := (g_ListBoxX) ? g_ListBoxX : CaretXorMouseXfallback()
             tooltipPosY := (g_ListBoxY) ? g_ListBoxY : CaretYorMouseYfallback()
 
@@ -890,6 +893,9 @@ global g_ListBoxActualSizeH_maxFound ; this variable is empty after a fres start
 
 ;/¯¯¯¯ manipulate_Matches ¯¯ 190113094014 ¯¯ 13.01.2019 09:40:14 ¯¯\
 manipulate_Matches_ByRef(ByRef row, filePrefix){
+
+; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\") , A_ThisFunc , A_LineNumber)
+
     if(!g_config["sql"]["select"]["showFilePrefix"])
         return
 
@@ -950,7 +956,7 @@ CheckForCaretMove(MouseButtonClick, UpdatePosition := false){
 	global g_Word
 	global prefs_DetectMouseClickMove
 	
-	INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
    ;If we aren't using the DetectMouseClickMoveScheme, skip out
 	IfNotEqual, prefs_DetectMouseClickMove, On
 	Return
@@ -1147,7 +1153,7 @@ CheckWord(Key) {
 	global g_Word
 	global prefs_ListBoxRows
 	global prefs_NumPresses
-	INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
    ; 0000123
    ; StringRight, Key, Key, 1 ;Grab just the number pushed, trim off the "$"
 	Key := SubStr(Key, 2)
@@ -1478,7 +1484,7 @@ EvaluateUpDown(Key){
 	global prefs_ArrowKeyMethod
 	global prefs_DisabledAutoCompleteKeys
 	global prefs_ListBoxRows
-	INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 	
 	IfEqual, prefs_ArrowKeyMethod, Off
 	{
@@ -1893,9 +1899,8 @@ BuildTrayMenu(){
 ; This is to blank all vars related to matches, ListBox and (optionally) word 
 ClearAllVars( ByRef calledFromStr , ClearWord ){
 
-
 	global
-	
+
 	; Msgbox,% calledFromStr "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
     ;if( !RegExMatch( calledFromStr, "\b(1614|321|734)\b" )	)
 	if(false && !instr(calledFromStr,"1614"))
@@ -1915,10 +1920,10 @@ ClearAllVars( ByRef calledFromStr , ClearWord ){
 ; setTitleMatchMode modematchtitleset settitlematchmode matchsetmode tit
 ; titlematchsetmatchtestmatchsettitlesetmatch
 	
-	INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
        ; lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"CloseListBox(calledFromStr)")
        ; run,log\%A_LineFile%.log.txt ; this line woks :) but to often ;) may we dont need any more to check it ;) 04.08.2017 15:20
-	
+
 	CloseListBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
 	if(0 && InStr(A_ComputerName,"SL5"))
 		ToolTip9sec(calledFromStr "`nClearWord(1|0)=" ClearWord "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
@@ -1947,7 +1952,7 @@ ClearAllVars( ByRef calledFromStr , ClearWord ){
 
 
 FileAppendDispatch(Text,FileName,ForceEncoding=0){
-	INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 	
 	IfEqual, A_IsUnicode, 1
 	{

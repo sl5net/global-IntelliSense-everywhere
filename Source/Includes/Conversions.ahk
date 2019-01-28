@@ -5,7 +5,7 @@
 SetDbVersion(dBVersion = 7){
 
 	global g_actionListDB
-    INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 	g_actionListDB.Query("INSERT OR REPLACE INTO LastState VALUES ('databaseVersion', '" . dBVersion . "', NULL);")
 }
 
@@ -13,8 +13,13 @@ SetDbVersion(dBVersion = 7){
 ; returns true if we need to rebuild the whole database
 MaybeConvertDatabase(){
 
+    global g_config
+
 	; ToolTip5sec("MaybeConvertDatabase() return false " A_LineNumber . " " . RegExReplace(A_LineFile,".*\\") ,1,1)
 	return false
+
+
+
 CoordMode, ToolTip, Screen
 
 
@@ -42,8 +47,9 @@ CoordMode, ToolTip, Screen
 	
 	IfNotEqual, actionListConverted, 1
 	{
-		Msgbox,RebuildDatabase(sql_template_dir)`n RebuildDatabase= %RebuildDatabase%`n `n `n (%A_LineFile%~%A_LineNumber%)
-		RebuildDatabase(sql_template_dir)
+		Msgbox,RebuildDatabase()`n RebuildDatabase= %RebuildDatabase%`n `n `n (%A_LineFile%~%A_LineNumber%)
+		; RebuildDatabase()
+		RebuildDatabase(g_config["sql"]["template"]["dir"])
 		return, true
 	}
 	
@@ -164,7 +170,7 @@ RebuildDatabase(sql_template_dir){
 RunConversionOne(actionListConverted){
 
 	global g_actionListDB
-    INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 	g_actionListDB.BeginTransaction()
 	
 	g_actionListDB.Query("ALTER TABLE LastState RENAME TO OldLastState;")

@@ -1,4 +1,4 @@
-;/¯¯¯¯ commandLine4runnerFilter ¯¯ 190124172734 ¯¯ 24.01.2019 17:27:34 ¯¯\
+ï»¿;/Â¯Â¯Â¯Â¯ commandLine4runnerFilter Â¯Â¯ 190124172734 Â¯Â¯ 24.01.2019 17:27:34 Â¯Â¯\
 ; talking about performance: https://www.autohotkey.com/boards/viewtopic.php?p=259861#p259861
 ; 24.01.2019 23:29
 ; commandLine4runnerFilter(ByRef rX, ByRef g_config, ByRef g_Word){
@@ -9,7 +9,7 @@ exe := g_config["codeRunner"][rX["lang"]]
 if(rX["lang"] == "everything"){
 	runString := """" exe """ -search """ rX["key"] """" ; thats for the GUI version
 }else if(false){
-      ;/¯¯¯¯ Reformatting_Autohotkey_Source.php
+      ;/Â¯Â¯Â¯Â¯ Reformatting_Autohotkey_Source.php
       ; doSaveFirst := isFileOpendInSciteUnsaved(filename)
        ;~ MsgBox,%filename% = filename (line:%A_LineNumber%) `n %doSaveFirst% = doSaveFirst (line:%A_LineNumber%) `n
        phpFile = %A_ScriptDir%\plugins\php\Reformatting_Autohotkey_Source.php
