@@ -284,9 +284,14 @@ maxLinesOfCode4length1 := 900 ;
 ; SetTimer, saveIamAllive, 8000 ; setinterval
 ; SetTimer,checkInRegistryChangedActionListAddress,600 ; RegRead, actionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList
 ; SetTimer,checkInRegistryChangedActionListAddress,2000 ; RegRead, actionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList
-SetTimer,checkInRegistryChangedActionListAddress,200 ; RegRead, actionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList
+; SetTimer,checkInRegistryChangedActionListAddress,100 ; RegRead, actionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList
+; SetTimer,checkInRegistryChangedActionListAddress,200 ; RegRead, actionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList
+SetTimer,checkInRegistryChangedActionListAddress,150 ; RegRead, actionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList
 /*
-30.01.2019 09:48 : changed from 2000 to 200
+30.01.2019 09:48 : changed from 2000 to 200 ==> 0,27 CPU maybe
+30.01.2019 09:48 : changed from 2000 to 150 ==> 0,54 CPU maybe
+30.01.2019 09:48 : changed from 2000 to 100 ==> 1,15 CPU maybe
+30.01.2019 09:48 : changed from 2000 to 50 ==> 1,69 CPU maybe
 a disadvantage is that when you accidentally make a window change then the maybe a new big list is loaded long time.
 */
 SetTimer,checkInRegistryChangedActionListAddress,off ; RegRead, actionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList
