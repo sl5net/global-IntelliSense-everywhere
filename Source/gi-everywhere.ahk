@@ -4,6 +4,7 @@
 
 ; feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), "test  6", 1, 1, 6 )
 RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, aScriptDir, %A_ScriptDir% ; RegWrite , RegSave
+RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, CreatedDir, % "" ; RegWrite , RegSave
 ; RegRead, aScriptDir, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, aScriptDir
 
 #NoEnv
@@ -287,13 +288,32 @@ maxLinesOfCode4length1 := 900 ;
 ; SetTimer,checkInRegistryChangedActionListAddress,100 ; RegRead, actionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList
 ; SetTimer,checkInRegistryChangedActionListAddress,200 ; RegRead, actionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList
 ; SetTimer,checkInRegistryChangedActionListAddress,150 ; RegRead, actionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList
-SetTimer,checkInRegistryChangedActionListAddress,1000 ; RegRead, actionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList
+; SetTimer,checkInRegistryChangedActionListAddress,1000 ; RegRead, actionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList
+SetTimer,checkInRegistryChangedActionListAddress,50 ; RegRead, actionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList
 /*
 30.01.2019 09:48 : changed from 2000 to 200 ==> 0,27 CPU maybe
 30.01.2019 09:48 : changed from 2000 to 150 ==> 0,54 CPU maybe
 30.01.2019 09:48 : changed from 2000 to 100 ==> 1,15 CPU maybe
 30.01.2019 09:48 : changed from 2000 to 50 ==> 1,69 CPU maybe
 a disadvantage is that when you accidentally make a window change then the maybe a new big list is loaded long time.
+; problem actually 19-01-30_11-05 if you reload to fast maybe open the action list by right click gives wrong result
+; reproduce: everything, type, open list by right click produces error:
+---------------------------
+gi-everywhere.ahk
+---------------------------
+ops. Cant open a folder?
+you try opening:
+'G:\fre\git\github\global-IntelliSense-everywhere-Nightly-Build\Source\'
+file not folder ecpected.
+
+somme additional info:
+ = aScriptDir
+
+ (openInEditorFromIntern:138 openInEditor_actionList.inc.ahk)
+---------------------------
+OK
+---------------------------
+
 */
 SetTimer,checkInRegistryChangedActionListAddress,off ; RegRead, actionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList
 

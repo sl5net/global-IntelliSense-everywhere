@@ -119,6 +119,11 @@ InitializeListBox(){
 ; Rigth-Buttion-Click in ListBox opens active action list for edit it
 ListBoxRigthButtionClick(wParam, lParam, msg, ClickedHwnd){
     global actionList
+    if(!actionList){ ; 19-01-30_15-00
+        RegRead, actionList, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList
+        if( SubStr( actionList , -3 ) <> ".ahk" ) ;
+            actionList .= ".ahk"
+    }
     fileAddress := strReplace(actionList,"._Generated.ahk") ; better not edit into the _generated 18-12-09_17-31
     if(fileexist(fileAddress) && !InStr(FileExist(fileAddress), "D"))
         openInEditorFromIntern( fileAddress )

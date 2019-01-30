@@ -105,6 +105,18 @@ lll( A_ThisFunc ":" A_LineNumber , A_LineFile)
 openInEditorFromIntern(m1CorrectedAhkFileAddress){
     global g_config
 
+    if(!m1CorrectedAhkFileAddress){
+        msg =
+        (
+        >%m1CorrectedAhkFileAddress%< = ...Backup
+        )
+        if(1 && InStr(A_ComputerName,"SL5")){
+            feedbackMsgBox(A_LineNumber ":" A_ScriptName ,":-( " msg , msg ,1,1)
+            ; Msgbox,% msg "`n`n (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+        }
+        return false
+    }
+
     ; fallback if somebody gives addresses like ..\....\G:\\... then take the second absolut path
     m1CorrectedAhkFileAddress_Backup := m1CorrectedAhkFileAddress
     m1CorrectedAhkFileAddress := regexreplace(m1CorrectedAhkFileAddress , "i).*(\b[a-z]\:\\)", "$1" )
@@ -133,6 +145,7 @@ file not folder ecpected.
 
 somme additional info:
 %aScriptDir% = aScriptDir
+%m1CorrectedAhkFileAddress_Backup% = ...Backup
 )
     		    feedbackMsgBox(A_LineNumber ":" A_ScriptName ,":-( " msg , msg ,1,1)
                 Msgbox,% msg "`n`n (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
