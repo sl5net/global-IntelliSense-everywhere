@@ -589,12 +589,18 @@ if(0 && InStr(actionList, "Turek") && InStr(A_ComputerName,"SL5"))
 		SetTimer,checkWinChangedTitle,off
 
 		Critical, On
+
+		if(!g_isListBoxDisabled)
+            DestroyListBox()
+        if(1 && InStr(A_ComputerName,"SL5"))
+            ToolTip9sec( "DestroyListBox() `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+            ; ToolTip9sec( "CloseListBox `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 		; ParseWords := addListOpenAction_ifNotAlreadyInTheList(ParseWords,actionList)
-
         CleanupEntriesOfThisActionList(g_actionListID)
-
 		Loop_Parse_ParseWords(ParseWords)
 		; Critical, Off
+		if(!g_isListBoxDisabled)
+            InitializeListBox()
 
 
 
