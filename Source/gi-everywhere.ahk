@@ -283,7 +283,12 @@ maxLinesOfCode4length1 := 900 ;
 
 ; SetTimer, saveIamAllive, 8000 ; setinterval
 ; SetTimer,checkInRegistryChangedActionListAddress,600 ; RegRead, actionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList
-SetTimer,checkInRegistryChangedActionListAddress,2000 ; RegRead, actionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList
+; SetTimer,checkInRegistryChangedActionListAddress,2000 ; RegRead, actionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList
+SetTimer,checkInRegistryChangedActionListAddress,200 ; RegRead, actionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList
+/*
+30.01.2019 09:48 : changed from 2000 to 200
+a disadvantage is that when you accidentally make a window change then the maybe a new big list is loaded long time.
+*/
 SetTimer,checkInRegistryChangedActionListAddress,off ; RegRead, actionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList
 
 
@@ -1299,9 +1304,6 @@ lbl_HelpOnline_EditCreate_actionList:
        return
     run,https://g-intellisense.myjetbrains.com/youtrack/print/GIS?q=project`%3A+g-IntelliSense+`%23`%7Bedit+list`%7D
 return
-
-
-
 lbl_HelpOnline_Search_Keywords:
     t := "open `n`n g-IntelliSense Search Keywords`n`n in myjetbrains.com ?"
     if(!InStr(A_ComputerName,"SL5"))
@@ -1310,9 +1312,6 @@ lbl_HelpOnline_Search_Keywords:
        return
     run,https://g-intellisense.myjetbrains.com/youtrack/print/GIS?q=project`%3A+g-IntelliSense+`%23`%7Bsearch+keywords`%7D
 return
-
-
-
 lbl_HelpOnline_features:
     t := "open `n`n g-IntelliSense Features`n`n in myjetbrains.com ?"
     if(!InStr(A_ComputerName,"SL5"))
@@ -1321,11 +1320,6 @@ lbl_HelpOnline_features:
        return
     ; run,https://g-intellisense.myjetbrains.com/youtrack/issues/GIS?q=project:`%20g-IntelliSense`%20`%23Feature`%20order`%20by:`%20updated`%20asc`%20
     run,https://g-intellisense.myjetbrains.com/youtrack/print/GIS?q=project:`%20g-IntelliSense`%20`%23Feature`%20order`%20by:`%20updated`%20asc`%20
-return
-
-
-
-lbl_noOp:
 return
 lbl_HelpOnline_shortcut:
     t := "open `n`n g-IntelliSense about Shortcuts`n`n in myjetbrains.com ?"
@@ -1336,9 +1330,6 @@ lbl_HelpOnline_shortcut:
     ;run,https://g-intellisense.myjetbrains.com/youtrack/issues/GIS?q=project:`%20g-IntelliSense`%20`%23shortcut`%20order`%20by:`%20updated`%20asc`%20
     run,https://g-intellisense.myjetbrains.com/youtrack/print/GIS?q=project:`%20g-IntelliSense`%20`%23shortcut`%20order`%20by:`%20updated`%20asc`%20
 return
-
-
-
 lbl_HelpOnline_issues_open:
     t := "open `n`n g-IntelliSense open issues `n`n in myjetbrains.com ?"
     if(!InStr(A_ComputerName,"SL5"))
@@ -1349,6 +1340,8 @@ lbl_HelpOnline_issues_open:
     run,https://g-intellisense.myjetbrains.com/youtrack/print/GIS?q=project:`%20g-IntelliSense`%20`%23Unresolved`%20order`%20by:`%20Priority
 return
 
+lbl_noOp:
+return
 
 
 PauseResumeScript:
