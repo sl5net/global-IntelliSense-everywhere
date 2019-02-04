@@ -74,11 +74,7 @@ while(!isFolderExist && A_Index < 31){
     ExitApp
   }
 
-
-
 Speak("Start registry write")
-
-
 
 ;/¯¯¯¯ try_faster_reload_if_created ¯¯ 181025152605 ¯¯ 25.10.2018 15:26:05 ¯¯\
 ; I hope the with this method is reloaded after creating a new list (much faster). 25.10.2018 15:25
@@ -90,26 +86,16 @@ RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionListNEW, %globalA
 setRegistry_actionList( globalActionList )
 RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, lastImportant_ScriptName, %globalActionList% ; RegWrite , RegSave , Registry
 
-
-
 RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, lastImportant_ScriptName, % A_ScriptName ; RegWrite , RegSave , Registry
 RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, lastImportant_LineFileShort, % RegExReplace(A_LineFile,".*\\") ; RegWrite , RegSave , Registry
 RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, lastImportant_LineFileShort, % RegExReplace(A_LineFile,".*\\") ; RegWrite , RegSave , Registry
 
-
-
 RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, CreatedDir, % d1 ; RegWrite , RegSave , Registry
 ;\____ try_faster_reload_if_created __ 181025152609 __ 25.10.2018 15:26:09 __/
 
-
-
 ; msgbox,,% " Created  (" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")",1
 
-
-
 Speak("CreatedDir with d1")
-
-
 
 run,Typing_Aid_everywhere_multi_clone.ahk
 ; run,gi-everywhere.ahk
@@ -128,6 +114,7 @@ if(1){
     ahkCode := "MsgBox,262208,created token=17-08-10_16-17,Maybe you want to make your first entries now,1"
     DynaRun(AHKcode)
 }
+
 
 
 

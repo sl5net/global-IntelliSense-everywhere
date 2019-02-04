@@ -4,8 +4,13 @@
 
 ; feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), "test  6", 1, 1, 6 )
 RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, aScriptDir, %A_ScriptDir% ; RegWrite , RegSave
+;/¯¯¯¯ CreatedDir ¯¯ 190131114631 ¯¯ 31.01.2019 11:46:31 ¯¯\
+; DONT DO THE following line now (19-01-31_11-46)
+; its for communication beetween the two scripts !!!
+; if you do so, new lists will never created !!!
 ; RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, CreatedDir, % "" ; RegWrite , RegSave
 ; RegRead, aScriptDir, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, aScriptDir
+;\____ CreatedDir __ 190131114634 __ 31.01.2019 11:46:34 __/
 
 #NoEnv
 SetBatchLines, -1 ; I can not do recognice any improvement with that right now
@@ -289,6 +294,7 @@ maxLinesOfCode4length1 := 900 ;
 ; SetTimer,checkInRegistryChangedActionListAddress,200 ; RegRead, actionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList
 ; SetTimer,checkInRegistryChangedActionListAddress,150 ; RegRead, actionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList
 ; SetTimer,checkInRegistryChangedActionListAddress,1000 ; RegRead, actionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList
+
 SetTimer,checkInRegistryChangedActionListAddress,80 ; RegRead, actionListActive, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList
 /*
 30.01.2019 09:48 : changed from 2000 to 200 ==> 0,27 CPU maybe

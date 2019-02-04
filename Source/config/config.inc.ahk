@@ -51,7 +51,7 @@ g_regExReplaceInVisibleLine := "^[_]*([^|\n]+)[^\.\n]*?([^|\n]{3,})?$" ; 18-06-1
 g_actionListDBfileAdress := A_ScriptDir "\actionListLearned.db"
 
 ; g_actionListDBfileAdress := "E:\fre\private\HtmlDevelop\AutoHotKey\tools\TypingAid-master\Source\actionListLearned.db" 
-g_actionListDBfileAdress := (InStr(A_ComputerName,"SL5")) 
+g_actionListDBfileAdress := (InStr(A_ComputerName,"540P-SL5NET"))
 	? "G:\fre\private\sql\sqlite\actionList.db" 
 	: A_ScriptDir "\actionListLearned.db" 
 
