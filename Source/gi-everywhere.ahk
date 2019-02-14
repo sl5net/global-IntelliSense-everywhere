@@ -2035,7 +2035,9 @@ doListBoxFollowMouse:
       ; g_ListBoxX := mouseX - ( g_min_MonitorBound_right / 2 )
       g_ListBoxX := mouseX - ( g_min_MonitorBound_right )
       ; g_ListBoxY := round(mouseY / 100) * 100  - 80
-      g_ListBoxY := mouseY - 68 ; 19-01-19_18-30: 80
+      ; g_ListBoxY := mouseY - 68 ; 19-01-19_18-30: 80
+      ; ==> Problem mouse was out of the box... so it was not possible to stop 19-02-14_09-01
+      g_ListBoxY := mouseY - 60 ; 19-01-19_18-30: 80
 
 
 
