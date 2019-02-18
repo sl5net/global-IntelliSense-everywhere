@@ -130,10 +130,13 @@ MainLoop(){
 		} else {
 			; Critical, Off
 		}
-		
+
+        Critical, Off ; <==== !!!! importand: this is very importand! 19-02-18_06-00: observed effect: if that stays on: ListBox is only updated when you press Backspace.
+
+
       ;Get one key at a time ; Waits for the user to type a string.
 		Input, InputChar, L1 V I, {BS}%g_TerminatingEndKeys%
-		
+
        ;/¯¯¯¯ Critical, ¯¯ 181021220521 ¯¯ 21.10.2018 22:05:21 ¯¯\
        ; toolTip2sec(msg " (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") " " Last_A_This)
        ; eventually this was the point of this longlifing bug: https://g-intellisense.myjetbrains.com/youtrack/issue/GIS-1

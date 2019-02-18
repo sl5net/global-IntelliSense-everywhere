@@ -155,6 +155,9 @@ somme additional info:
     if(0 && InStr(A_ComputerName,"SL5"))
         clipboard := m1CorrectedAhkFileAddress
     if(!isFileExist := FileExist(m1CorrectedAhkFileAddress)){
+        m1CorrectedAhkFileAddress .= ".ahk" ; try something. why not 19-02-17_18-20
+    }
+    if(!isFileExist := FileExist(m1CorrectedAhkFileAddress)){
         ; if(!isFileExist := FileExist(m1CorrectedAhkFileAddress))
         feedbackMsgBox(A_LineNumber ":" A_ScriptName ,":-( File NOT Exist: File: `n`n`n`n >>" m1CorrectedAhkFileAddress "<<`n`n`n`n" , A_LineNumber,1,1)
         if(1 && InStr(A_ComputerName,"SL5")){

@@ -5,6 +5,13 @@
 ; therfore its not recomandet to use 0
 ; please send your feedback to SL5net
 ; BTW its stored in regitry: RegRead, g_min_searchWord_length, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, g_min_searchWord_length
+
+g_actionListDBfileAdress := A_ScriptDir "\actionListLearned.db"
+g_actionListDBfileAdress := (InStr(A_ComputerName,"540P-SL5NET"))
+	? "G:\fre\private\sql\sqlite\actionList.db" 
+	: A_ScriptDir "\actionListLearned.db" 
+
+
 g_min_searchWord_length := 0
 
 g_config.listBoxGui := { 
@@ -48,12 +55,7 @@ g_regExReplaceInVisibleLine := "^([\w\d_-]+).*" ; show only first text , numers 
 g_regExReplaceInVisibleLine := "^([^|]+).*" ; the string only before the first "|"  ; https://g-intellisense.myjetbrains.com/youtrack/issue/GIS-24
 g_regExReplaceInVisibleLine := "^[_]*([^|\n]+)[^\.\n]*?([^|\n]{3,})$" ; https://autohotkey.com/boards/viewtopic.php?p=215425#p215425 https://regex101.com/r/GQjPg0/1
 g_regExReplaceInVisibleLine := "^[_]*([^|\n]+)[^\.\n]*?([^|\n]{3,})?$" ; 18-06-10_09-34 https://autohotkey.com/boards/viewtopic.php?p=215425#p215425 https://regex101.com/r/GQjPg0/1 ; the string only before the first "|"
-g_actionListDBfileAdress := A_ScriptDir "\actionListLearned.db"
 
-; g_actionListDBfileAdress := "E:\fre\private\HtmlDevelop\AutoHotKey\tools\TypingAid-master\Source\actionListLearned.db" 
-g_actionListDBfileAdress := (InStr(A_ComputerName,"540P-SL5NET"))
-	? "G:\fre\private\sql\sqlite\actionList.db" 
-	: A_ScriptDir "\actionListLearned.db" 
 
 actionList_isNotAProject_withoutExt  := removesSymbolicLinksFromFileAdress( A_ScriptDir "\..\actionLists\_globalActionListsGenerated\isNotAProject" )
 actionList_isNotAProject  := actionList_isNotAProject_withoutExt ".ahk"

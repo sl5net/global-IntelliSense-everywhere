@@ -18,6 +18,11 @@ setTrayIcon(status := "loaded" ){
 		return
 	}
 
+	if(status == "createActionListAddress" && A_Is64bitOS){
+		Menu, Tray, Icon, shell32.dll, 250 ; pretty green stick
+		return
+	}
+
 	if(status <> "loaded" && A_Is64bitOS){
 		Menu, Tray, Icon, shell32.dll, 266 ; pretty black clock
     ;  Menu, Tray, Icon, shell32.dll, 44 ; star

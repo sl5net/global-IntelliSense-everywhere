@@ -104,7 +104,7 @@ if(... := update_configMinify_incAhkFile()){
 	; dont work 19-01-13_11-00: configContentminify := RegExReplace( configContent , "m)[\n\r]+(?!(/\*|\*/|[a-z]+[_\d]*))", " " )
 	configContentminify := RegExReplace( configContent , "m)[\n\r]+(?!(\*|/|`;|[a-z]+[_\d]*))", " " )
 	; configContentminify := RegExReplace( configContent , "m)[\n\r]+(?!([a-z]+[_\d]*))", " " )
-	tempFileAddress := A_ScriptDir "\" A_TickCount ".temp.txt"
+	tempFileAddress := A_ScriptDir "\" A_TickCount ".temp." A_ThisFunc ".txt"
 	FileAppend, % configContentminify, % tempFileAddress
 	FileCopy,% tempFileAddress, % configMinifyIncAhkAddress, 1
 	Sleep,200

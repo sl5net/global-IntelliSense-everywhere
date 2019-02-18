@@ -13,10 +13,18 @@ RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, aScriptDir, %A_ScriptDi
 ;\____ CreatedDir __ 190131114634 __ 31.01.2019 11:46:34 __/
 
 #NoEnv
+
+;/¯¯¯¯ Performance ¯¯ 190217075111 ¯¯ 17.02.2019 07:51:11 ¯¯\
 SetBatchLines, -1 ; I can not do recognice any improvement with that right now
 ; SetBatchLines, -1 ; used till 03.11.2018 18:51. thats okay. Use SetBatchLines -1 to never sleep (i.e. have the script run at maximum speed). The default setting is 10m
 ListLines Off ; history of lines most recently executed is shown
 ; see: https://www.autohotkey.com/docs/misc/Performance.htm
+; https://www.thesycon.de/eng/latency_check.shtml
+; https://www.autohotkey.com/boards/viewtopic.php?p=263928&sid=897c0e6c67e541a9dcbe3cbf0f661825#p263928
+;\____ Performance __ 190217075115 __ 17.02.2019 07:51:15 __/
+
+
+
 
 FileEncoding,UTF-8
 
@@ -46,7 +54,7 @@ lineFileName := RegExReplace(A_LineFile, ".*\\([\w\s\.]+)$", "$1")
 Process, Priority,, H ; <=== only use this if its not in a critical development 05.11.2018 13:20
 ; Process, Priority,, R ; <=== it acts on me as if the script was working more UNstable
 
-; Critical, On  ; I can not do recognice any improvement with that right now
+; ;19-02-12_20-00;;;Critical, On  ; I can not do recognice any improvement with that right now
 ; Thread, NoTimers ; https://autohotkey.com/docs/commands/Thread.htm
 
 
