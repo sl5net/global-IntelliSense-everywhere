@@ -1,7 +1,6 @@
 ﻿
 ; Indentation_style: https://de.wikipedia.org/wiki/EinrÃ¼ckungsstil#SL5small-Stil
 global g_lineNumberFeedback
-global actionListDirBase
 global actionListActive
 global actionListOLD
 global baseDir
@@ -13,9 +12,10 @@ global activeClass
 global g_StartTime_TickCountMilli := A_TickCount
 
 
+
 ;/¯¯¯¯ Receive_actionListAddress ¯¯ 181231134228 ¯¯ 31.12.2018 13:42:28 ¯¯\
 Receive_actionListAddress(sql_template_dir, CopyOfData){
-; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 	
 	msgbox, Received:`n%CopyOfData% `n ( %A_LineFile%(inc)~%A_LineNumber% ) `n
 	msgbox, Received:`n%CopyOfData% `n ( %A_LineFile%(inc)~%A_LineNumber% ) `n
@@ -101,12 +101,14 @@ Receive_actionListAddress(sql_template_dir, CopyOfData){
 ; MsgBox,262208,% ":)`n" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ,% ":)`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 
 
+;<<<<<<<< MainLoop <<<< 180208192114 <<<< 08.02.2018 19:21:14 <<<<
+;<<<<<<<< MainLoop <<<< 180208192114 <<<< 08.02.2018 19:21:14 <<<<
+;<<<<<<<< MainLoop <<<< 180208192114 <<<< 08.02.2018 19:21:14 <<<<
+;<<<<<<<< MainLoop <<<< 180208192114 <<<< 08.02.2018 19:21:14 <<<<
+;<<<<<<<< MainLoop <<<< 180208192114 <<<< 08.02.2018 19:21:14 <<<<
 
-;<<<<<<<< MainLoop <<<< 180208192114 <<<< 08.02.2018 19:21:14 <<<<
-;<<<<<<<< MainLoop <<<< 180208192114 <<<< 08.02.2018 19:21:14 <<<<
-;<<<<<<<< MainLoop <<<< 180208192114 <<<< 08.02.2018 19:21:14 <<<<
-;<<<<<<<< MainLoop <<<< 180208192114 <<<< 08.02.2018 19:21:14 <<<<
-;<<<<<<<< MainLoop <<<< 180208192114 <<<< 08.02.2018 19:21:14 <<<<
+test := toolTipGui("test",x:=1,1,"-",A_LineNumber,"Blue")  ; x will be offset if y is symbolic
+
 MainLoop(){
 	; tooltip E:\fre\private\HtmlDevelop\Human-Connection\WebApp\
 	; msgbox tool tooltip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
@@ -136,6 +138,7 @@ MainLoop(){
 
       ;Get one key at a time ; Waits for the user to type a string.
 		Input, InputChar, L1 V I, {BS}%g_TerminatingEndKeys%
+		clipipboard := A_ComputerName " token=19-03-17_20-14"
 
        ;/¯¯¯¯ Critical, ¯¯ 181021220521 ¯¯ 21.10.2018 22:05:21 ¯¯\
        ; toolTip2sec(msg " (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") " " Last_A_This)
@@ -159,7 +162,7 @@ MainLoop(){
 
 
 
-
+; Too Tool Too Tool Tool
 
 
 ;/¯¯¯¯ ProcessKey ¯¯ 181027194941 ¯¯ 27.10.2018 19:49:41 ¯¯\
@@ -177,7 +180,7 @@ ProcessKey(InputChar,EndKey) {
 	global prefs_ForceNewWordCharacters
 	global g_min_searchWord_length
 
-; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\") , A_ThisFunc , A_LineNumber)
+INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\") , A_ThisFunc , A_LineNumber)
 
 	IfEqual, g_IgnoreSend, 1
 	{
@@ -365,7 +368,7 @@ RecomputeMatches( calledFromStr, is_Recursion := false ){
 
     global g_config ; addet 19-01-11_21-47
 
-; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\") , A_ThisFunc , A_LineNumber)
+INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\") , A_ThisFunc , A_LineNumber)
 
     ;if( g_listSELECT_FROM_WinTitle && WinActive(g_listSELECT_FROM_WinTitle))
     ; do_SELECT_actionList_FROM_actionLists_NotLike_isNotAProject := true
@@ -897,7 +900,7 @@ global g_ListBoxActualSizeH_maxFound ; this variable is empty after a fres start
 ;/¯¯¯¯ manipulate_Matches ¯¯ 190113094014 ¯¯ 13.01.2019 09:40:14 ¯¯\
 manipulate_Matches_ByRef(ByRef row, filePrefix){
 
-; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\") , A_ThisFunc , A_LineNumber)
+INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\") , A_ThisFunc , A_LineNumber)
 
     if(!g_config["sql"]["select"]["showFilePrefix"])
         return
@@ -959,7 +962,7 @@ CheckForCaretMove(MouseButtonClick, UpdatePosition := false){
 	global g_Word
 	global prefs_DetectMouseClickMove
 	
-; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
    ;If we aren't using the DetectMouseClickMoveScheme, skip out
 	IfNotEqual, prefs_DetectMouseClickMove, On
 	Return
@@ -1156,7 +1159,7 @@ CheckWord(Key) {
 	global g_Word
 	global prefs_ListBoxRows
 	global prefs_NumPresses
-; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
    ; 0000123
    ; StringRight, Key, Key, 1 ;Grab just the number pushed, trim off the "$"
 	Key := SubStr(Key, 2)
@@ -1487,7 +1490,7 @@ EvaluateUpDown(Key){
 	global prefs_ArrowKeyMethod
 	global prefs_DisabledAutoCompleteKeys
 	global prefs_ListBoxRows
-; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 	
 	IfEqual, prefs_ArrowKeyMethod, Off
 	{
@@ -1923,7 +1926,7 @@ ClearAllVars( ByRef calledFromStr , ClearWord ){
 ; setTitleMatchMode modematchtitleset settitlematchmode matchsetmode tit
 ; titlematchsetmatchtestmatchsettitlesetmatch
 	
-; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
        ; lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"CloseListBox(calledFromStr)")
        ; run,log\%A_LineFile%.log.txt ; this line woks :) but to often ;) may we dont need any more to check it ;) 04.08.2017 15:20
 
@@ -1955,7 +1958,7 @@ ClearAllVars( ByRef calledFromStr , ClearWord ){
 
 
 FileAppendDispatch(Text,FileName,ForceEncoding=0){
-; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 	
 	IfEqual, A_IsUnicode, 1
 	{
@@ -2174,9 +2177,14 @@ doReloadIfScriptDontMoveThisLine(sec := 5){
 }
 
 #Include %A_ScriptDir%\inc_ahk\copy2clipBoard.functions.inc.ahk
+#Include %A_ScriptDir%\inc_ahk\UrlEncode_UrlDecode.ahk
+
 #Include %A_ScriptDir%\inc_ahk\functions_global.inc.ahk
 #Include %A_ScriptDir%\inc_ahk\ToolTipSec_RemoveToolTip.inc.ahk
 #Include %A_ScriptDir%\inc_ahk\ToolTipSec.inc.ahk
+
+#Include %A_ScriptDir%\inc_ahk\toolTipGui.inc.ahk ; https://www.autohotkey.com/boards/viewtopic.php?f=6&t=62078&p=263824#p263824
+
 #Include %A_ScriptDir%\inc_ahk\functions_global_dateiende.inc.ahk
 #Include %A_ScriptDir%\inc_ahk\openInEditor_actionList.inc.ahk
 

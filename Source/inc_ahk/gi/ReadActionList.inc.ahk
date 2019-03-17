@@ -57,6 +57,11 @@ ReadInTheActionList(sql_template_dir, calledFromStr){ ;Read in the actionList
 }
 ;\____ ReadInTheActionList(sql_template_dir,  __ 181028125831 __ 28.10.2018 12:58:31 __/
 
+
+
+
+
+
 ;/Â¯Â¯Â¯Â¯ ReadActionList Â¯Â¯ 181028133202 Â¯Â¯ 28.10.2018 13:32:02 Â¯Â¯\
 ReadActionList( calledFromStr ){
 	global g_LegacyLearnedWords
@@ -105,11 +110,13 @@ ReadActionList( calledFromStr ){
 
 
     ;/Â¯Â¯Â¯Â¯ itsAGeneratedList Â¯Â¯ 190118203542 Â¯Â¯ 18.01.2019 20:35:42 Â¯Â¯\
-    ; G:\fre\git\github\global-IntelliSense-everywhere-Nightly-Build\ActionLists\ChromeWidgetWin1\Turek_Gmail.ahk._Generated.ahk
-    ; \ActionLists\ChromeWidgetWin1\Turek_Gmail.ahk._Generated.ahk
+    ; G:\fre\git\github\global-IntelliSense-everywhere-Nightly-Build\actionLists\ChromeWidgetWin1\Turek_Gmail.ahk._Generated.ahk
+    ; \actionLists\ChromeWidgetWin1\Turek_Gmail.ahk._Generated.ahk
 	postFixGenerated := "._Generated.ahk"
 	actionListPostFix  := SubStr(rtrim(actionList), - StrLen(postFixGenerated) + 1 ) ; That works I've tested it 01.11.2018 14:59
 	itsAGeneratedList := ( postFixGenerated == actionListPostFix )
+
+
 	if(!itsAGeneratedList){
         if(0 && InStr(A_ComputerName,"SL5"))
             Speak(A_LineNumber ": Not a Generated List" ,"PROD") ; bug entecekt actionList 12.11.2018 11:02 todo:
@@ -121,7 +128,13 @@ ReadActionList( calledFromStr ){
             if(1 && InStr(A_ComputerName,"SL5") && !InStr(actionList,"isNotAProject")){
                 Speak(A_LineNumber ": Not a Generated List but Generated List exist" ,"PROD") ; bug entecekt actionList 12.11.2018 11:02 todo:
 			    ; clipboard := actionList " `n fileEx= " fileEx "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
-			    ToolTip8sec( actionList " `n fileEx= " fileEx "`n`n`n Sleep 3000`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+			    msg =
+			    (
+			    g_activeClassOLD = %g_activeClassOLD%
+			    actionList = %actionList%
+			    fileEx = %fileEx%
+			    )
+			    ToolTip8sec( msg "`n`n`n Sleep 3000`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
     			Sleep, 3000
 
     			; ..\actionLists\ChromeWidgetWin1\playground_Piratenpad_Google_Chrome.ahk._Generated.ahk
@@ -137,8 +150,10 @@ ReadActionList( calledFromStr ){
 			! FileExist( %actionList%%postFixGenerated% )
 			)
 			Speak(A_LineNumber ":" RegExReplace(actionList,".*\\")  ": is without includes, becouse not generated found" ,"PROD") ; bug entecekt actionList 12.11.2018 11:02 todo:
-			Sleep, 5000
+
 			; ToolTip8sec( actionList "`n = actionList`n`n" calledFromStr "`n= calledFromStr`n`n Sleep 2000`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")", 1,1 )
+			Sleep, 5000
+			ToolTip,
 			; MsgBox,262160,% ":(`n" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ,% actionList "=actionList `n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 			; return false ; <==== if enabled the isNotA .. project file not works !! dankor!! some files dont need includes!!! 19-01-19_14-51
 		}
@@ -182,7 +197,7 @@ ReadActionList( calledFromStr ){
 	RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, % A_ThisFunc , % calledFromStr
 
 
-; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 
 	ParseWordsCount :=0
    ;mark the actionList as not done
@@ -528,7 +543,7 @@ if(0 && InStr(actionList, "Turek") && InStr(A_ComputerName,"SL5"))
       ; Progress, M, Please wait..., Loading actionList, %g_ScriptTitle%
 
 
-; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 
 		g_actionListDB.BeginTransaction()
       ;reads list of words from file
@@ -549,7 +564,7 @@ if(0 && InStr(actionList, "Turek") && InStr(A_ComputerName,"SL5"))
 			; lll( A_ThisFunc ":" A_LineNumber , A_LineFile , temp )
 		}
 
-; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 
 		if(false && !foundOpenLibLine){
 			temp := "___open library|rr||ahk|FileReadLine,actionListFileAdress, actionList.txt.status.txt, 1 `n actionListFileAdress := RegExReplace(actionListFileAdress, ""\._Generated\.ahk\s*$"", """") `n run,% actionListFileAdress"
@@ -574,7 +589,7 @@ if(0 && InStr(actionList, "Turek") && InStr(A_ComputerName,"SL5"))
 		if(false && ParseWordsCount>0)
 			Msgbox, %ParseWordsCount%  (line:%A_LineNumber%)
 
-; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 
 
 
@@ -593,7 +608,7 @@ if(0 && InStr(actionList, "Turek") && InStr(A_ComputerName,"SL5"))
 
 		if(!g_isListBoxDisabled)
             DestroyListBox()
-        if(1 && InStr(A_ComputerName,"SL5"))
+        if(0 && InStr(A_ComputerName,"SL5"))
             ToolTip9sec( "DestroyListBox() `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
             ; ToolTip9sec( "CloseListBox `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 		; ParseWords := addListOpenAction_ifNotAlreadyInTheList(ParseWords,actionList)
@@ -615,7 +630,7 @@ if(0 && InStr(actionList, "Turek") && InStr(A_ComputerName,"SL5"))
 
 
 
-; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 
 		; autoh blum beu auto
 
@@ -723,7 +738,7 @@ if(0 && InStr(actionList, "Turek") && InStr(A_ComputerName,"SL5"))
 ; ___open library|rr||ahk|FileReadLine,actionListFileAdress, actionList.txt.status.txt, 1 `n actionListFileAdress := RegExReplace(actionListFileAdress, "\._Generated\.txt\s*$", "") `n run,% actionListFileAdress
 ;
         ; inside function ReadActionList
-; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 
 		Loop, Parse, ParseWords, `n, `r
 		{
@@ -741,7 +756,7 @@ if(0 && InStr(actionList, "Turek") && InStr(A_ComputerName,"SL5"))
 		ParseWords =
 		g_actionListDB.EndTransaction()
 
-; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 
 ;      Progress, 50, Please wait..., Converting learned words, %g_ScriptTitle%
 

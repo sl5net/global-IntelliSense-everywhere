@@ -12,7 +12,7 @@ g_config := {}
 ; #Include *i %A_ScriptDir%\inc_ahk\minify\config.minify.inc.ahkSTATIC.ahk
 ; # Include *i %A_ScriptDir%\inc_ahk\minify\config.minify.inc.ahk ; update_configMinify_incAhkFile()
 
-if(1 && InStr(A_ComputerName,"SL5") )
+if(0 && InStr(A_ComputerName,"SL5") )
     g_doSound := true
 
 
@@ -39,7 +39,7 @@ if(g_doSound){
 
 actionListsDir := "..\actionLists"
 #Include,..\actionLists\activeClassManipulation.inc.ahk
-; #Include," . d1 . "\actionListNameFilter.inc.ahk `;```n Send,yes2 ``n " `n DynaRun(AHKcode)
+; #Include," . d1 . "\al-route.inc.ahk `;```n Send,yes2 ``n " `n DynaRun(AHKcode)
 activeClass := RegExReplace( activeClass, "[\W_]+", "") 
 d1 = %actionListsDir%\%activeClass%
 fileExist := FileExist(d1)
@@ -135,7 +135,7 @@ if(1){
 
 
 
-;FileDelete, % "..\actionLists\" . ActiveClass . "\_create_own_project.flag"
+;FileDelete, % "..\actionLists\" . activeClass . "\_create_own_project.flag"
 ExitApp
 ExitApp
 ExitApp
@@ -164,7 +164,7 @@ if(!actionListNEW){
 contend =
 (
 #Include ..\_globalActionLists\_global.ahk
-#Include ..\%ActiveClass%\_global.ahk
+#Include ..\%activeClass%\_global.ahk
 
 
 
@@ -175,10 +175,10 @@ ___open actionList|rr||ahk|openInEditor,%actionListNEW%
 ; if you could read this germen special character (umlaute) your file format is correct (please use UTF8)
 ; ä = thats a au
 )
-globalClassTxtAddress := "..\actionLists\" . ActiveClass . "\_global.ahk"
+globalClassTxtAddress := "..\actionLists\" . activeClass . "\_global.ahk"
 if(!FileExist(globalClassTxtAddress))
   FileAppend,% "", % globalClassTxtAddress
-actionListNEWAddress := "..\actionLists\" . ActiveClass . "\" . actionListNEW
+actionListNEWAddress := "..\actionLists\" . activeClass . "\" . actionListNEW
 
 
 
@@ -189,7 +189,7 @@ if( SubStr( actionListNEWAddress , -3 ) <> ".ahk" ) ; 06.03.2018 13:09
 
 if( FileExist( actionListNEWAddress ) ){
     ; run, % actionListNEWAddress ; this works for .txt extension. that we dont use anymore 01.10.2018 11:12
-    openInEditor("..\actionLists\" . ActiveClass, true, "run," actionListNEW, true, true, true)
+    openInEditor("..\actionLists\" . activeClass, true, "run," actionListNEW, true, true, true)
 
 
 
@@ -218,10 +218,10 @@ Sleep,100
 
 
  ; run, % actionListNEWAddress ; this works for .txt extension. that we dont use anymore 01.10.2018 11:12
-; actionListNEWAddress := "..\actionLists\" . ActiveClass . "\" . actionListNEW
+; actionListNEWAddress := "..\actionLists\" . activeClass . "\" . actionListNEW
 ; openInEditor(isAHKcode, AHKcode, isStartingUnderline, is_OpenA_edit_open_lib, isDeprecated_OpenA_edit_open_lib)
 ; openInEditor(actionListFolderOfThisActionList, isAHKcode, AHKcode, isStartingUnderline, is_OpenA_edit_open_lib, isDeprecated_OpenA_edit_open_lib){
-  openInEditor("..\actionLists\" . ActiveClass, true, "run," actionListNEW, true, true, true)
+  openInEditor("..\actionLists\" . activeClass, true, "run," actionListNEW, true, true, true)
 
 
 

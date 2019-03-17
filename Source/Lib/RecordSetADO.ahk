@@ -62,10 +62,10 @@ class RecordSetADO extends DBA.RecordSet
 		}
 	}
 	
-	Update(){
+	Update(g_config := ""){
 		if(this.IsValid() && !this.getEOF())
 		{
-			this._adoRS.Update()
+			this._adoRS.Update(g_config)
 		}
 	}
 

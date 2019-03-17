@@ -5,7 +5,7 @@
 SetDbVersion(dBVersion = 7){
 
 	global g_actionListDB
-; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 	g_actionListDB.Query("INSERT OR REPLACE INTO LastState VALUES ('databaseVersion', '" . dBVersion . "', NULL);")
 }
 
@@ -95,8 +95,9 @@ CoordMode, ToolTip, Screen
 ;/¯¯¯¯ RebuildDatabase ¯¯ 181027180644 ¯¯ 27.10.2018 18:06:44 ¯¯\
 ; Rebuilds the Database from scratch as we have to redo the actionList anyway.
 RebuildDatabase(sql_template_dir){
+	tip := "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+	toolTipGui(tip ,,-50,"\_",A_LineNumber,"Red")  ; x will be offset if y is symbolic
 	if(0){
-		tip := "FALSE NOOO RebuildDatabase `n " A_LineNumber . " " . A_LineFile
 		ToolTip5sec(tip)
 		MsgBox,4 ,% tip,% tip, 5
 		return false
@@ -170,7 +171,7 @@ RebuildDatabase(sql_template_dir){
 RunConversionOne(actionListConverted){
 
 	global g_actionListDB
-; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 	g_actionListDB.BeginTransaction()
 	
 	g_actionListDB.Query("ALTER TABLE LastState RENAME TO OldLastState;")
@@ -306,8 +307,6 @@ CreateLastStateTable(){
 
 INSERT_function_call_time_millis_since_midnight( aLineFile , aThisFunc , aLineNumber){
 
-    return
-
     ; select ROWID,p.small_LineFile,p.A_ThisFunc,p.actionList,p.actionListsize,p.millisec_dif_to_next_function_call from performance p order by p.millisec_dif_to_next_function_call desc limit 3;
 	global g_actionListDB
 	global actionList
@@ -360,9 +359,18 @@ sizeHere := (actionListsize)? actionListsize: 0
 
 ;
 millis_since_midnight := JEE_millis_since_midnight(vOpt:="")
-if(last_millis_since_midnight && millis_since_midnight){
+if(false && last_millis_since_midnight && millis_since_midnight){
     if(millis_since_midnight < last_millis_since_midnight){
-        msgbox,":( that could not happen (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+        msg =
+    (
+    :( that could not happen
+    millis_since_midnight < last_millis_since_midnight
+    %millis_since_midnight% < %last_millis_since_midnight%
+    )
+        msg .= "(" RegExReplace(A_LineFile, ".*\\") ":" A_ThisFunc ":" A_LineNumber
+        toolTipGui(msg ,x:=1,,"|¯",A_LineNumber,"Red")  ; x will be offset if y is symbolic
+        msgbox, % msg
+
         return
     }
     millisec_dif_to_next_function_call := millis_since_midnight - last_millis_since_midnight

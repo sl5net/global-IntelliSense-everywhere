@@ -164,14 +164,20 @@ somme additional info:
             g_configScriptDir := g_config.ScriptDir
             msg =
             (
+   Problem: File Not Exist: %m1CorrectedAhkFileAddress%
+
 %itsAbsolutePath% = itsAbsolutePath
+
 %g_configScriptDir% = g_config.ScriptDir
+
 %aScriptDir% = aScriptDir
+
 %m1CorrectedAhkFileAddress_Backup% = m1CorrectedAhkFileAddress_Backup
+
 %m1CorrectedAhkFileAddress% = m1CorrectedAhkFileAddress
             )
             clipboard := msg
-            Msgbox,% msg " (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+            Msgbox,% msg "`n`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
         }
         return false
     }

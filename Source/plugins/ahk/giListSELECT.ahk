@@ -40,8 +40,8 @@ if(0 && InStr(A_ComputerName,"SL5") )
 
 bodyText =
 (
-Search ActionLists saved in DB. Chance to set ony permanent as long this window exist. SQL command is simply taken from the WindowTitle (needet token: giListSELECT )
-usually the ActionLists automatically are choosen dependent on the title and your configuration. ESC closes the window. F5 reloads the window. CTRL+SHIFT+c copy SELECT
+Search actionLists saved in DB. Chance to set ony permanent as long this window exist. SQL command is simply taken from the WindowTitle (needet token: giListSELECT )
+usually the actionLists automatically are choosen dependent on the title and your configuration. ESC closes the window. F5 reloads the window. CTRL+SHIFT+c copy SELECT
 )
 
 wTitle := substr(A_ScriptName , 1, -4)

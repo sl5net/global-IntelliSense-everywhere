@@ -5,7 +5,7 @@ Critical , On
 
 SetWorkingDir %A_ScriptDir%\Source
 
-SetTitleMatchMode,1
+SetTitleMatchMode,2
 name=temp.ahk ahk_class #32770
 while(WinExist(name) && A_Index < 9)
 	WinClose,% name
@@ -70,9 +70,12 @@ FileDelete, ActionListLearned.db
 Sleep,100
 
 run,gi-everywhere.ahk,%A_ScriptDir%\Source
+
+; run,start.ahk
+; run,start.ahk,G:\downloads\gi-190214_0906\gi
 winwait,gi-everywhere.ahk,,9
 Sleep,1000
-run,Typing_Aid_everywhere_multi_clone.ahk,%A_ScriptDir%\Source
+; run,Typing_Aid_everywhere_multi_clone.ahk,%A_ScriptDir%\Source
 
 
 exitApp

@@ -103,12 +103,12 @@ ifwinexist,gi
 
 g_config := {}
 #Include *i %A_ScriptDir%\inc_ahk\minify\config.minify.inc.ahk ; update_configMinify_incAhkFile()
+; msgbox,% g_config.sql.template["dir"] g_config.sql.template.dir ; <= both is possible
 
 if(!g_config["sql"]["template"]["dir"]){
     msgbox,% "ERROR !g_config[sql][template][dir] `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
     exitapp
 }
-
 
 g_actionListDB.BeginTransaction()
 
@@ -422,8 +422,10 @@ if(!g_actionListID := getActionListID(g_config["sql"]["template"]["dir"], action
 	sql .= " (id, actionList, actionListmodified, actionListsize) VALUES "
 	sql .= " (null, '" actionList "', '" actionListModified "', '" actionListSize "' );"
     g_actionListDB.Query(sql)
+    sql_template_dir := g_config.sql.template.dir
+    ; msgbox,% sql_template_dir "= sql_template_dir`n `n (" . A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\") ")"
     fromLine := "`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
-    	if(!sql_template_dir){
+    	if(!sql_template_dir ){
     		msgbox,% "!sql_template_dir`n `n (" . A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\") ")"
     	}
 if(!g_actionListID := getActionListID(g_config["sql"]["template"]["dir"], actionList))

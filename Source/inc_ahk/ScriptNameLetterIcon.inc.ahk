@@ -54,7 +54,7 @@ isNearBorder(){
 
 ;/¯¯¯¯ showTempTrayIf_isNearTrayMenue ¯¯ 181204193517 ¯¯ 04.12.2018 19:35:17 ¯¯\
 
-;/���� isNearTrayMenue �� 181204185532 �� 04.12.2018 18:55:32 ��\
+;/¯¯¯¯ isNearTrayMenue ¯¯ 181204185532 ¯¯ 04.12.2018 18:55:32 ¯¯\
 isNearTrayMenue(){
 	MouseGetPos,mousex,mousey
 	SysGet, VirtualWidth, 78 ; https://autohotkey.com/docs/Variables.htm
@@ -72,7 +72,7 @@ isNearTrayMenue(){
 
 
 
-;/���� showTempTrayIf_isNearTrayMenue �� 181204193517 �� 04.12.2018 19:35:17 ��\
+;/¯¯¯¯ showTempTrayIf_isNearTrayMenue ¯¯ 181204193517 ¯¯ 04.12.2018 19:35:17 ¯¯\
 showTempTrayIf_isNearTrayMenue(iconAdress){
 	; trayName :=  := RegExReplace(A_ScriptName, "\..*","") "_icon"
 	trayName := RegExReplace(A_ScriptName , ".*\\([\w\s\._]+)\.\w+$", "$1") "_icon"

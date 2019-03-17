@@ -361,6 +361,8 @@ if(!Instr(logFileName,scriptName)){ ; plausibillity check . hopefully never happ
 }
 ;>>>>>>>>>lll >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+
+; ToolTip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 ; varExist(ByRef v) 
 
 FileSave(ByRef content, fileName ){
@@ -656,6 +658,7 @@ if(isHttp || fExist) {
 }
 ;\____ runIfNotExist __ 190110155142 __ 10.01.2019 15:51:42 __/
 
+
 ;/¯¯¯¯ winGetPos ¯¯ 190110155148 ¯¯ 10.01.2019 15:51:48 ¯¯\
 winGetPos(){
          WinGetPos , left, top, width, height, A   ;, %needle
@@ -697,17 +700,17 @@ contextHelp(HardDriveLetter){
 	wText2:=wText
 	;WinGetText, wText, %activeTitle%
 
-	WinGetClass, ActiveClass, A
-	ActiveClass2:=ActiveClass
+	WinGetClass, activeClass, A
+	ActiveClass2:=activeClass
 
 	WinGetActiveStats, ActiveTitle3, w, h, x, y 
 
 	;SendPlay,{f1}
 
 	; F1 hatte keine auswirkung, wir machen unser eigenes Hilfe
-	;WinGetClass, ActiveClass, %activeTitle%, %wText%
+	;WinGetClass, activeClass, %activeTitle%, %wText%
 ;###############################
-	temp := RegExReplace(ActiveClass, "\W+", "", ReplacementCount)  ;
+	temp := RegExReplace(activeClass, "\W+", "", ReplacementCount)  ;
 
   ; nur anfangsbuchstaben des titells, maximal begrentzt stï¿½ck
   ; nur anfangsbuchstaben des titells, maximal begrentzt stï¿½ck
@@ -732,11 +735,11 @@ contextHelp(HardDriveLetter){
 	wTitleContextHelp2=%fNameContextHelp2% ahk_class Notepad
 
 
-	visible1:=runContextHelpFile(fNameContextHelp, HardDriveLetter, ActiveClass, activeTitle)
+	visible1:=runContextHelpFile(fNameContextHelp, HardDriveLetter, activeClass, activeTitle)
 
 
 	if(fNameContextHelp <> fNameContextHelp2)
-  	visible2:=runContextHelpFile(fNameContextHelp2, HardDriveLetter, ActiveClass, activeTitle)
+  	visible2:=runContextHelpFile(fNameContextHelp2, HardDriveLetter, activeClass, activeTitle)
   else
     	visible2:=visible1
 
@@ -897,7 +900,7 @@ file_put_contents(f, c, doOverwrite=1)
 }
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ;~ hilft bei der Adress-Suche vom Icon
-runContextHelpFile(fNameContextHelp, HardDriveLetter, ActiveClass, activeTitle)
+runContextHelpFile(fNameContextHelp, HardDriveLetter, activeClass, activeTitle)
 {	
   SetTitleMatchMode, 2
 	IfWinExist, %fNameContextHelp%
@@ -916,7 +919,7 @@ runContextHelpFile(fNameContextHelp, HardDriveLetter, ActiveClass, activeTitle)
     FileCreateDir, %HardDriveLetter%:\fre\private
   IfNotExist, %path%
     FileCreateDir, %path%
-		FileAppend, `n`n`n%ActiveClass%-%activeTitle% - ShortCut-Notizen und ï¿½hnliches:`n`;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<`n%path%, %fAdressContextHelp%
+		FileAppend, `n`n`n%activeClass%-%activeTitle% - ShortCut-Notizen und ï¿½hnliches:`n`;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<`n%path%, %fAdressContextHelp%
   }
 	Run,%fAdressContextHelp%
 	Sleep,100
@@ -1674,12 +1677,13 @@ DynaRun(TempScript, pipename=""){
 
 ;<<<<<<<< removesSymbolicLinksFromFileAdress <<<< 180305085209 <<<< 05.03.2018 08:52:09 <<<<
 removesSymbolicLinksFromFileAdress(actionList){
+;	 return actionList
 	pLength := 0
-	while(pLength <> StrLen(actionList )){
-	; tooltip,`% A_index . "# Line:" . A_LineNumber . " Name:" . A_ScriptName . " "
-	pLength := StrLen(actionList )
-	actionList := RegExReplace(actionList ,"(\\[^\\]+\\\.\.)+") ; works. removes all symbolic links 24.02.2018  cleanPath
-	}
+    while(pLength <> StrLen(actionList )){
+        ; tooltip,`% A_index . "# Line:" . A_LineNumber . " Name:" . A_ScriptName . " "
+        pLength := StrLen(actionList )
+        actionList := RegExReplace(actionList ,"(\\[^\\]+\\\.\.)+") ; works. removes all symbolic links 24.02.2018  cleanPath
+    }
 	actionList := RegExReplace(actionList,"\\\.\\")  ; works. removes all symbolic link 24.02.2018 cleanPath
 	actionList := RegExReplace(actionList,"^\.\\")  ; works. removes all symbolic link 24.02.2018  cleanPath
 	 return actionList
@@ -1693,6 +1697,7 @@ ProcessExist(Name){
 
 
 ; too too
+;
 
 ;/¯¯¯¯ json ¯¯ 181122225021 ¯¯ 22.11.2018 22:50:21 ¯¯\
 ; from: https://stackoverflow.com/questions/33989042/json-parsing-generating-and-beautifiying-formatting-with-autohotkey
@@ -1773,54 +1778,16 @@ str_repeat(vText, vNum){
 
 
 
-;/¯¯¯¯ UrlEncode ¯¯ 190121070409 ¯¯ 21.01.2019 07:04:09 ¯¯\
-UrlEncode(Uri){
-	; Uniform Resource Identifier
-	; https://www.rosettacode.org/wiki/URL_decoding#AutoHotkey
-	VarSetCapacity(Var, StrPut(Uri, "UTF-8"), 0)
-	StrPut(Uri, &Var, "UTF-8")
-	f := A_FormatInteger
-	SetFormat, IntegerFast, H
-	While Code := NumGet(Var, A_Index - 1, "UChar")
-		If (Code >= 0x30 && Code <= 0x39 ; 0-9
-			|| Code >= 0x41 && Code <= 0x5A ; A-Z
-			|| Code >= 0x61 && Code <= 0x7A) ; a-z
-			Res .= Chr(Code)
-	Else
-		Res .= "%" . SubStr(Code + 0x100, -1)
-	SetFormat, IntegerFast, %f%
-	Return, Res
-}
-;\____ UrlEncode __ 190121070415 __ 21.01.2019 07:04:15 __/
-
-
-;/¯¯¯¯ UrlDecode ¯¯ 190121070309 ¯¯ 21.01.2019 07:03:09 ¯¯\
-UrlDecode(encURL){
-; from: https://www.rosettacode.org/wiki/URL_decoding#AutoHotkey
-; encURL := "http%3A%2F%2Ffoo%20bar%2F"
-	SetFormat, Integer, hex
-	Loop Parse, encURL
-		If A_LoopField = `%
-			reading := 2, read := ""
-	else if reading
-	{
-		read .= A_LoopField, --reading
-		if not reading
-			out .= Chr("0x" . read)
-	}
-	else out .= A_LoopField
-		;tooltip % out ; http://foo bar/
-	Return, out
-}
-;\____ UrlDecode __ 190121070314 __ 21.01.2019 07:03:14 __/
 
 
 
 ; lll(A_LineNumber, "inc_ahk\functions_global.inc.ahk")
 #Include *i %A_ScriptDir%\inc_ahk\ToolTipSec.inc.ahk
 ; lll(A_LineNumber, "inc_ahk\functions_global.inc.ahk")
-#Include *i %A_ScriptDir%\inc_ahk\UPDATEDSCRIPT_global.inc.ahk
+; #Include *i %A_ScriptDir%\inc_ahk\UPDATEDSCRIPT_global.inc.ahk
 ; lll(A_LineNumber, "inc_ahk\functions_global.inc.ahk")
 
+; toolTipGui("(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")" ,,,"|_",A_LineNumber,"Purple")  ; x will be offset if y is symbolic
+; pause
 
 

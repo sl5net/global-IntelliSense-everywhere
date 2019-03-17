@@ -2,6 +2,19 @@
 ; # ErrorStdOut
 
 
+
+if(0){
+; global actionListDirBase
+; actionListDirBase := A_ScriptDir "\..\actionLists"
+; actionListDirBase := "..\actionLists"
+; actionListDirBase := ""
+
+if(!FileExist( actionListDirBase ))
+    msgbox,!actionListDirBase `n(%A_LineFile%~%A_LineNumber%)
+if(substr(actionListDirBase,1,1)=="\")
+    msgbox,substr(actionListDirBase,1,1)=="\" `n(%A_LineFile%~%A_LineNumber%)
+}
+
 ; feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), "test  6", 1, 1, 6 )
 RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, aScriptDir, %A_ScriptDir% ; RegWrite , RegSave
 ;/¯¯¯¯ CreatedDir ¯¯ 190131114631 ¯¯ 31.01.2019 11:46:31 ¯¯\
@@ -133,6 +146,8 @@ global g_actionList_UsedByUser_since_midnight := {} ; [g_actionListID]
 
 g_config := {}
 #Include *i %A_ScriptDir%\inc_ahk\minify\config.minify.inc.ahk ; update_configMinify_incAhkFile()
+
+
 SetTimer,check_configFile_Changed,2500
 
 ;/¯¯¯¯ check_configFile_values ¯¯ 190124152939 ¯¯ 24.01.2019 15:29:39 ¯¯\
@@ -157,6 +172,7 @@ for lang,is_codeRunner_exist in g_config.codeRunner_fileExist
     if(!is_codeRunner_exist){
         infoText .= "not exist:    " lang "`n"
     }
+if(!InStr(A_ComputerName,"SL5"))
 if(infoText){
     ToolTip3sec( "Information (not a Error): `n`nNot all of your CodeRunner exist: `n`n`n" infoText "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")",1,100,14 )
 }
@@ -179,7 +195,8 @@ global g_doSaveLogFiles := false
 global g_doRunLogFiles := false
 
 
-
+; msgbox, % g_config.sql.template.dir "`n ==??== `n" g_config.sql.template["dir"] "`n ==??== `n" g_config["sql"]["template"]["dir"]
+; ^- interesting all above is the same value 19-02-23_18-39
 ;\____ global __ 190113082444 __ 13.01.2019 08:24:44 __/
 ;\____ global __ 190113082444 __ 13.01.2019 08:24:44 __/
 ;\____ global __ 190113082444 __ 13.01.2019 08:24:44 __/
@@ -187,6 +204,9 @@ global g_doRunLogFiles := false
 
 if(1 && InStr(A_ComputerName,"SL5"))
 	Speak("sound check sucessful. you could config it with: g_doSound ","PROD")
+
+
+
 
 ; SoundbeepString2Sound("zzz")
 ; SoundbeepString2Sound("aaa")
@@ -259,7 +279,6 @@ if(!WinExist(title)){
 
 
 
-
 temp := "___________________________________`n"
 
 
@@ -292,6 +311,22 @@ if(!fileExist(actionList)){
 
 
 maxLinesOfCode4length1 := 900 ;
+
+
+
+
+;/¯¯¯¯ config_readonly ¯¯ 190224171802 ¯¯ 24.02.2019 17:18:02 ¯¯\
+if(false){
+; Gui -DPIScale
+; testobj := {one: [1,2,3], two: {foo: 1, bar: 2, baz: 3}}
+; tlv := new TreeListViewTest(TestNode(g_config), "w600 h400", "Name|Value")
+; tlv.MinEditColumn := 1
+; tlv.MaxEditColumn := 3
+; Gui Show, , config readonly
+; winwaitactive, config readonly
+}
+;\____ config_readonly __ 190224171805 __ 24.02.2019 17:18:05 __/
+
 
 
 
@@ -663,7 +698,18 @@ gosub, checkInRegistryChangedActionListAddress ; At the moment I have the proble
 ; gosub lbl_open_config_file
 ;\____ test open config
 
+
+; run,tools\DebugVars\DebugVars.ahk
+
+
+
 setTrayIcon()
+
+return_from_LineNumber := create_al_Address(actionList
+,activeTitle,activeClass,controlName
+,stop_list_change
+,actionListDirBase )
+
 MainLoop()
 
 ; too too too tool
@@ -1972,31 +2018,6 @@ ObjRegisterActive(Object, CLSID, Flags:=0) {
     cookieJar[Object] := cookie
 }
 ;
-setActionListFileUpdatedTime:
-    ;msgbox, setActionListFileUpdatedTime 18-03-02_11-49
-    return
-; lets do this only first time for initializing 29.04.2017 13:40
-   actionListFileName = actionList.ahk
-   actionList = %A_ScriptDir%\%actionListFileName%
-
-
-
-    actionList := actionList ; todo: very ugly. no time 02.03.2018 12:54 18-03-02_12-54
-
-
-
-   actionListOLD := actionList
-
-
-
-   if( !FileExist(actionList) || InStr(FileExist(actionList), "D") ){
-        Msgbox,:(  '%actionList%' = actionList  `n actionList is not a file  (%A_LineFile%~%A_LineNumber%)
-        return
-    }
-    FileGetTime, actionListModiTime, %actionList%, M
-    actionListModiTime_OLD:=actionListModiTime
-return
-;
 
 
 
@@ -2024,8 +2045,6 @@ recreateListBox_IfFontSizeChangedAndTimeIdle(g_ListBoxFontSize, newListBoxFontSi
 }
 ;\____ recreateListBox_IfFontSizeChangedAndTimeIdle __ 181107232303 __ 07.11.2018 23:23:03 __/
 
-
-
 ; drag drop ? not importand
 if(false){
       if(GetKeyState("LButton")
@@ -2033,9 +2052,7 @@ if(false){
         && (abs(g_ListBoxX - mouseX)>200 || abs(g_ListBoxY - mouseY) > 200 )){
             tooltip, % "probably drag drop detected `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")", %g_ListBoxX%, 1, 5
       }
-
 }
-
 
 ;/¯¯¯¯ doListBoxFollowMouse ¯¯ 181107183540 ¯¯ 07.11.2018 18:35:40 ¯¯\
 doListBoxFollowMouse:
@@ -2061,11 +2078,7 @@ doListBoxFollowMouse:
         g_ListBoxFontSize := newFontSize
         listBoxFontSizeOLD := g_ListBoxFontSize
 
-
-
         g_ListBoxCharacterWidthComputed := getListBoxCharacterWidth( g_ListBoxFontSize, g_ListBoxCharacterWidthComputed )
-
-
 
        }else
           ShowListBox(g_ListBoxX,g_ListBoxY)
@@ -2437,6 +2450,23 @@ return
 
 
 
+lblCheckTrayIconStatus:
+showTempTrayIf_isNearTrayMenue(iconAdress)
+DetectHiddenWindows,Off
+IfWinExist,%A_ScriptName%_icon,ExitApp %A_ScriptName% ; message from child DynaRun() script
+{
+	WinClose,%A_ScriptName%_icon
+	ExitApp
+}
+return
+
+
+
 #Include,RegWrite181031.ahk
 
 #Include %A_ScriptDir%\inc_ahk\gi\ReadActionList.inc.ahk
+
+
+; #Include *i tools\DebugVars\VarTreeGui.ahk
+; #Include *i tools\DebugVars\dbgp.ahk
+; #Include *i tools\DebugVars\TreeListView_test.ahk

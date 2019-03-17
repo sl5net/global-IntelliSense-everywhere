@@ -1,6 +1,6 @@
 ﻿; Indentation_style: https://de.wikipedia.org/wiki/Einrückungsstil#SL5small-Stil
 SendKey(Key){
-; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 	
 	IfEqual, Key, $^Enter
 	{
@@ -138,7 +138,7 @@ getWordIndex(word) {
 	
 	global g_actionListID
 	
-; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
   ;actionListFileName = actionList.txt
 	actionListFileName := actionList
 	if(!FileExist(actionListFileName))
@@ -216,7 +216,7 @@ getLineOfWord(word) {
 	
 	global actionListFileName
 	global actionList
-; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
   ;actionListFileName = actionList.txt
 	actionListFileName := actionList
 	if(!FileExist(actionListFileName))
@@ -387,7 +387,7 @@ SendWord(WordIndex, ByRef g_Word){
 	global g_actionList_UsedByUser_since_midnight
 
 
-; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 	
 	if(!actionList){
 	    if(1 && InStr(A_ComputerName,"SL5")){
@@ -712,7 +712,7 @@ SendWord(WordIndex, ByRef g_Word){
 
             ;/¯¯¯¯ is_codeRunner_exist ¯¯ 190123202446 ¯¯ 23.01.2019 20:24:46 ¯¯\
             ; example:
-            e := g_config.codeRunner_fileExist["code_AutoHotkey_Community"]
+            ; e := g_config.codeRunner_fileExist["code_AutoHotkey_Community"]
             msg =
             (
                 %lang%
@@ -1166,10 +1166,10 @@ SendWord(WordIndex, ByRef g_Word){
 		IfMsgBox yes
 			if(fExist)
             ; run, %sending%
-				openInEditor("..\actionLists\" ActiveClass, true, "run," sending, true, true, true)
+				openInEditor("..\actionLists\" activeClass, true, "run," sending, true, true, true)
 		else
              ; run, %absActionListAddress%
-			openInEditor("..\actionLists\" ActiveClass, true, "run," absActionListAddress, true, true, true)
+			openInEditor("..\actionLists\" activeClass, true, "run," absActionListAddress, true, true, true)
                  ;Msgbox,%absActionListAddress% `n (from: %A_LineFile%~%A_LineNumber%)
 		
 	}
@@ -1301,7 +1301,7 @@ SendFull(SendValue,ForceBackspace:= false){
 	
 	global g_doUseSendPlay
 	
-; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 	SwitchOffListBoxIfActive()
 	
 	if(g_config["Send"]["RealisticDelayDynamic"]){
@@ -1504,7 +1504,7 @@ SendFull(SendValue,ForceBackspace:= false){
 					SendLevel 9 ; with this additions lines it works also in globalIntelisense nearliy 99% of time 18-04-01_12-24
 					Clipboard := ""
 					Clipboard := sending ; " ln=" A_LineNumber "`n`n"
-				    ; AHKcode := "Critical, On`n"
+				    ; AHKcode := ";19-02-12_20-00;;;Critical, On`n"
 					AHKcode := "Send,^v"
 
         
@@ -1762,7 +1762,7 @@ SendCompatible(SendValue,ForceSendForInput) {
 	
 	global g_sending_is_buggy
 	
-; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 	if( g_sending_is_buggy )
 		lll( A_ThisFunc ":" A_LineNumber , A_LineFile ," Send, %SendValue% `n Send, %" . SendValue . "% `n 17-07-29_12-10")
 ; regeregregreg
@@ -1826,8 +1826,16 @@ SendCompatible(SendValue,ForceSendForInput) {
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 getTypicalKeyLatency( key, factor = 1 ) {
-; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
-	
+INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+
+	/*
+	talked about that (19-02-21_09-18):
+	21:15 I thing its like a fingerprit of everyone. means, that may actually you would have to measure that for yourself.
+    yes key is pressed at different speeds so the milliseconds are different.
+    I did that with me for fun for some letters: ["fu"] := 140 [".h"] := 374 [" a"] := 109 means for the switch from space to a takes about 109 milliseconds. you useing a fixed delay of 375 .
+    https://www.youtube.com/watch?v=CCK056qVmKQ
+	*/
+
 ; recordet at 10.04.2017 17:45 from sl5net
 	time2keyPressLog := {}
 	time2keyPressLog[" ,"] := 390
@@ -2283,7 +2291,7 @@ getTypicalKeyLatency( key, factor = 1 ) {
 
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 convertSendCode2SendPlayCode(AHKcode){
-; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 	
 	AHKcode1 := AHKcode
 ; thats pseudo sendPlay . alternative ; However, SendPlay may have no effect at all on Windows Vista or later if User Account Control is enabled, even if the script is running as an administrator. mySendPlay
@@ -2313,7 +2321,7 @@ convertSendCode2SendPlayCode(AHKcode){
 
 ;/¯¯¯¯ getRealisticDelayDynamicSendAHKcode ¯¯ 181014005212 ¯¯ 14.10.2018 00:52:12 ¯¯\
 getRealisticDelayDynamicSendAHKcode( g_Word , AHKcode ){
-; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 	
 	
 	
@@ -2466,7 +2474,7 @@ getRealisticDelayDynamicSendAHKcode( g_Word , AHKcode ){
 
 
 getCorrectedStringUAOSS( sending  ) {
-; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 	
 	
 ; If Unicode is supported, Number is a Unicode character code between 0 and 0x10FFFF (or 0xFFFF prior to [v1.1.21]); otherwise it is an ANSI character code between 0 and 255.
@@ -2587,7 +2595,7 @@ getCorrectedStringUAOSS( sending  ) {
 
 JEE_StrUtf8BytesToText(ByRef vUtf8Bytes)
 {
-; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 	
 	if A_IsUnicode
 	{
@@ -2605,7 +2613,7 @@ JEE_StrUtf8BytesToText(ByRef vUtf8Bytes)
 
 JEE_StrTextToUtf8Bytes(ByRef vText)
 {
-; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 	
 	VarSetCapacity(vTemp, StrPut(vText, "UTF-8"))
 	StrPut(vText, &vTemp, "UTF-8")

@@ -5,7 +5,7 @@ MaybeOpenOrCloseHelperWindow(ActiveProcess,activeTitle,ActiveId)
 
    ; This is called when switching the active window
    global g_HelperManual
-; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 
    IfNotEqual, g_HelperManual,
    {
@@ -50,7 +50,7 @@ CheckHelperWindowAuto(ActiveProcess,activeTitle)
    global prefs_HelperWindowProgramExecutables
    global prefs_HelperWindowProgramTitles
 
-; INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
    quotechar := """"
    
    Loop, Parse, prefs_HelperWindowProgramExecutables, |

@@ -8,15 +8,9 @@
 
 CoordMode, ToolTip,Screen
 
-
-
 StringCaseSense, On ; Determines whether string comparisons are case sensitive (default is "not case sensitive").
 
-
-
 Menu, Tray, Tip , % Chr(8203) ; i dont want text there. The tray icon's tooltip is displayed when the mouse hovers over it.
-
-
 
 ;/¯¯¯¯ g_ignReg ¯¯ 181124115548 ¯¯ 24.11.2018 11:55:48 ¯¯\
 ;/¯¯¯¯ g_ignReg ¯¯ 181124115548 ¯¯ 24.11.2018 11:55:48 ¯¯\

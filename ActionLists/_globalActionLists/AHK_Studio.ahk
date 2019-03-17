@@ -1,4 +1,4 @@
-﻿#Include _global.ahk
+﻿#Include *i _global.ahk
 ; #Include ..\_globalActionListsGenerated\_ahk_global.ahk
 
 

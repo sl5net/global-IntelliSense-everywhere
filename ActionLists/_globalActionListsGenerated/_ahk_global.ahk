@@ -1,4 +1,4 @@
-﻿#Include _global.ahk
+﻿#Include *i _global.ahk
 ; #Include _globalActionListsGenerated\_global.ahk
 ____open ahk_global|rr||ahk|openInEditor,_ahk_global.ahk
 open ahk_global|rr||ahk|openInEditor,_ahk_global.ahk

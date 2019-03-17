@@ -695,7 +695,7 @@ if(0){ ; diesabled 24.12.2018 13:36 ... so its not possible to update lists with
 		KeyWait, ctrl
 	if(GetKeyState("Alt", "P"))
 		KeyWait, Alt
-	
+
 	IfWinNotExist,temp.ahk
 	{
 		if(0 && InStr(A_ComputerName,"SL5") && inStr(actionListNEW, "playground" ))

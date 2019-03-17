@@ -15,6 +15,8 @@ Speak(,"PROD")
 Speak( A_ThisFunc,"PROD")
 Speak(" found","PROD")
 
+
+
 rTrim(clipboard," `t`r`n")
 
 RegExReplace(A_LineFile,".*\\")
@@ -124,6 +126,11 @@ timestamp yy:MM:dd HH:mm:ss|r|FormatTime, timestampyyMMddHHmmss, %A_now%,yy:MM:d
 timestamp dd.MM.yy HH:mm Uhr|r|FormatTime, ddMMyyHHmm, %A_now%,dd.MM.yy HH:mm Uhr; MsgBox,%ddMMyyHHmm% `n = ddMMyyHHmm (%A_LineFile%~%A_LineNumber%)
 timestampyyMMddHHmmss|r|FormatTime, timestampyyMMddHHmmss, %A_now%,yyMMddHHmmss
 timestampHHmmss|r|FormatTime, timestampHHmmss, %A_now%,HH:mm:ss
+
+IfWinExist
+IfWinNotExist
+
+IfWinExist
 
 #IfWinActive
 #IfWinExist
@@ -630,7 +637,7 @@ clickImg(i, textInfo, mm, offset = 20)
 
 
 
-Schlaf, Schlafen, Meditation , Schï¿½ne Natur, Ber
+Schlaf, Schlafen, Meditation , Schöne Natur, Ber
 
 |r|
 Ein neuer
@@ -646,7 +653,7 @@ title
 |r|
 Moinsen ?? congratulations on your new job.
 I'll apply for your 20 hours administrator job.
-Aber ich glaube das passt nicht nur so zum Spaï¿½. Grï¿½ï¿½le aus Wannweil
+Aber ich glaube das passt nicht nur so zum Spaß. Grüßle aus Wannweil
 
 deprecated
 

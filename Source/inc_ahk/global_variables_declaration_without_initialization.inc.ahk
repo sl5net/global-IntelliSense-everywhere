@@ -9,6 +9,11 @@ global g_FLAGmsgbox
 global g_actionListID
 global g_actionListDBfileAdress
 
+
+global g_activeTitleOLD
+global g_activeClassOLD
+
+
 global g_fontColor
 
 global g_ListBoxFontSize

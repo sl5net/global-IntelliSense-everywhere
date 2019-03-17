@@ -17,13 +17,11 @@ checkInRegistryChangedActionListAddress:
         return
     }
     if(g_itsProbablyArecentUpdate){
-        if(1 && InStr(A_ComputerName,"SL5"))
+        if(0 && InStr(A_ComputerName,"SL5"))
             ToolTip9sec( "g_itsProbablyArecentUpdate`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")",1,1,20 )
         ; soundBeep,4000
         return
     }
-
-
 
     if( milliesTried_getNewListFromRegistry >= 5000){
         milliesTried_getNewListFromRegistry := 0
@@ -161,9 +159,9 @@ checkInRegistryChangedActionListAddress:
     ; if(!isRegListChanged || !actionListNewTemp_withoutExt || A_TimeIdle < 1333){
     if(!isRegListChanged || !actionListNewTemp_withoutExt ){
         ; happens if already correct loadet
-            Speak("Return in " A_LineNumber " probably correct loadet")
         if(1 && InStr(A_ComputerName,"SL5"))
-            Speak("Return in " A_LineNumber " probably correct loadet", "PROD" )
+            Speak("Return in " A_LineNumber ": probably correct loadet. wahrscheinlich richtig geladen.")
+            ; Speak("Return in " A_LineNumber " probably correct loadet", "PROD" )
         return
     }
 
@@ -191,18 +189,56 @@ checkInRegistryChangedActionListAddress:
 ; GitKraken ahk_class Chrome_WidgetWin_1 ; mouseWindowTitle=0x236113c  ;
 ;  WinMove,GitKraken ahk_class Chrome_WidgetWin_1 ,, 2264,218, 1900,925
 
+; actionListNEW := "..\
+; \..\actionLists\actionList_db
+;  (WinChanged checkInRegistryChangedActionListAddress.inc.ahk:224)
+; \..\actionLists\checkInRegistryChangedActionListAddress_inc (WinChanged checkInRegistryChangedActionListAddress.inc.ahk:224)
 
+/*
+checkInRegistryChangedActionListAddress_inc
+( checkInRegistryChangedActionListAddress.inc.ahk:213)
+checkInRegistryChangedActionListAddress_inc
+( checkInRegistryChangedActionListAddress.inc.ahk:213)
+*/
+; actionListNewTemp_withoutExt
 
+    ; global actionListDirBase
+    if(false && !actionListDirBase){
+         Msgbox,% ":( ERROR: !actionListDirBase"  "`n (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+         exitApp
+    }
+    ; actionListNewTemp_withoutExt := actionListDirBase "\" actionListNewTemp_withoutExt
+    actionListNewTemp_withoutExt := actionListNewTemp_withoutExt
+    if(1 && InStr(A_ComputerName,"SL5")){
+        ; clipboard := actionListNewTemp_withoutExt " (" RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+        ToolTip4sec( "clipboard := actionList`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+    }
+    ;/¯¯¯¯ !fileExist ¯¯ 190211093902 ¯¯ 11.02.2019 09:39:02 ¯¯\
     if(!fileExist(actionListNewTemp_withoutExt ".ahk")){ ; addet 01.11.2018 10:48
         m := "not exist."
         if(0 && InStr(A_ComputerName,"SL5")){
             Speak(m "Return in " A_LineNumber " Registry is empty", "PROD")
-            sleep,1000
-            clipboard := actionListNewTemp_withoutExt  "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
-            msgbox,%actionListNewTemp_withoutExt% `n(%A_LineFile%~%A_LineNumber%)
+            c =
+            (
+            /*
+            actionListNewTemp_RAW = %actionListNewTemp_RAW%
+            actionListDirBase = %actionListDirBase%
+            actionListNewTemp_withoutExt = %actionListNewTemp_withoutExt%
+            )
+            c .= "`n`n" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+            c .= "`n*/"
+            toolTip9sec(c)
+            clipboard := c
+            pause
+            sleep,3000
+            /*
+            checkInRegistryChangedActionListAddress_inc
+            ( checkInRegistryChangedActionListAddress.inc.ahk:224)
+            */
+            ; msgbox,%actionListNewTemp_withoutExt% `n(%A_LineFile%~%A_LineNumber%)
         }
         if(actionListNewTemp_RAW){
-            if(0 && InStr(A_ComputerName,"SL5"))
+            if(1 && InStr(A_ComputerName,"SL5"))
                 Speak(m "Return in " A_LineNumber ". " actionListNewTemp_RAW, "PROD")
             ;toolTip2sec(actionListNewTemp_RAW "`n`n" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") )
             ;clipboard := actionListNewTemp_withoutExt
@@ -215,7 +251,8 @@ checkInRegistryChangedActionListAddress:
             Speak(m "Return in " A_LineNumber " Registry is empty", "PROD")
             sleep,1000
         }
-    }
+    } ;\____ !fileExist __ 190211093916 __ 11.02.2019 09:39:16 __/
+
     if(!fileExist(actionListNewTemp_withoutExt ".ahk")){ ; addet 26.4.2018 12:58 becouse of mistourios things
         m =
         (
@@ -258,6 +295,44 @@ global-IntelliSense-everywhere-Nightly-Build [G:\fre\git\github\global-IntelliSe
         return
         ; ToolTip2sec(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") " " Last_A_This)
     }
+
+
+;/¯¯¯¯ plausibility ¯¯ 190210175751 ¯¯ 10.02.2019 17:57:51 ¯¯\
+/*
+actionListNewTemp_RAW = Gmail_Label_in_fax_sl5net_Google_Chrome
+actionListNEW =
+activeClass =
+SunAwtDialog = WinGetClass, activeClass, A
+
+:318 checkInRegistryChangedActionListAddress.inc.ahk
+*/
+;plausibility tests
+if(!instr(actionListNewTemp_RAW,"\")){
+; g_doSound := TRUE
+Speak(" " A_LineNumber, "PROD" )
+WinGetClass, nowWinGetClass, A
+feedback =
+(
+/*
+actionListNewTemp_RAW = %actionListNewTemp_RAW%
+actionListNEW = %actionListNEW%
+activeClass = %activeClass%
+%nowWinGetClass% = WinGetClass, activeClass, A
+)
+feedback .= "`n`n" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+feedback .= "`n*/"
+toolTip9sec(feedback)
+; clipboard := feedback
+; toolTipGui(feedback  ,,-250,"|_",A_LineNumber,"Red")  ; x will be offset if y is symbolic
+
+Sleep,3000
+;pause
+
+
+}
+;\____ plausibility __ 190210175755 __ 10.02.2019 17:57:55 __/
+
+
 
     RegRead, stop_list_change, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, stop_list_change ; todo: 02.03.2018 12:55 18-03-02_12-55
     if(stop_list_change){
@@ -357,8 +432,8 @@ global-IntelliSense-everywhere-Nightly-Build [G:\fre\git\github\global-IntelliSe
         actionList := actionListNewTemp_withoutExt ".ahk"
 
 
-
-        if(1 && InStr(actionList,"._Generated.ahk._Generated.ahk")){
+if(0 && InStr(A_ComputerName,"SL5")
+&& InStr(actionList,"._Generated.ahk._Generated.ahk")){
              ToolTip5sec(";] Oopsfound ._Generated.ahk._Generated.ahk => ._Generated.ahk `n`n" actionList "`n" A_LineNumber RegExReplace(A_LineFile,".*\\"), 1,1 )
 
 
@@ -476,12 +551,8 @@ global-IntelliSense-everywhere-Nightly-Build [G:\fre\git\github\global-IntelliSe
     ;ToolTip4sec(tip)
     ;msgbox,%actionList%  (%A_LineFile%~%A_LineNumber%)
 
-
-
     ;/Â¯Â¯Â¯Â¯ very_happy Â¯Â¯ 181024144052 Â¯Â¯ 24.10.2018 14:40:52 Â¯Â¯\
 InactivateAll_Suspend_ListBox_WinHook() ; addet 24.10.2018 14:16
-
-
 
     ; This is to blank all vars related to matches, ListBox and (optionally) word
    ; ClearAllVars(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),True) ; 24.10.2018 14:16 may help listBoxGUI NEVER HANGS TODO:check it
@@ -489,64 +560,41 @@ InactivateAll_Suspend_ListBox_WinHook() ; addet 24.10.2018 14:16
     ;\____ very_happy __ 181024144106 __ 24.10.2018 14:41:06 __/
 
 
+; tool
 
 if(0 && InStr(A_ComputerName,"SL5")) ; prob no error. whey not
 	Speak("Now Read actionList: " actionList, "PROD" )  ;  (DEV, TEST, STAGING, PROD),
 ParseWordsCount := ReadActionList(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
 
-
-
         ;if(g_FLAGmsgbox == 0)
 RecomputeMatches(A_ThisFunc A_ThisLabel ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")) ; in checkInRegistryChangedActionListAddress
 
-
-
     ; gosub onLink2actionListChangedInRegistry ; ToolTip3sec(A_LineNumber . " " . RegExReplace(A_LineFile,".*\\")  . " " . Last_A_This)
-
-
 
     ; SetTimer,checkInRegistryChangedActionListAddress,off ; will set on again inside WinChanged( 31.10.2018 18:52
     ; SetTimer,checkInRegistryChangedActionListAddress,off ; will set on again inside WinChanged( 31.10.2018 18:52
     ; SoundbeepString2Sound("zzz")
     ;Speak(actionListFileName " in " ceil(milliesTried_getNewListFromRegistry / 1000) " Sekunden gefunden.")
 
-
-
     ; Speak(actionListFileName " updated for " milliSinceLastRegistryUpdate_sec " Sekunden.") ; <====== interesting for developwers
-
-
 
 EnableKeyboardHotKeys() ; seems needet 01.11.2018 19:04
 InitializeHotKeys()
 RecomputeMatches(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
 
-
-
 m =
             (
-
-
-
             g_itsProbablyArecentUpdate = %g_itsProbablyArecentUpdate%
             g_is_correct_list_found = %g_is_correct_list_found%
-
-
 
             milliSinceLastRegistryUpdate = %milliSinceLastRegistryUpdate%
             milliesTried_getNewListFromRegistry = %milliesTried_getNewListFromRegistry%
 
-
-
             timeFirstTry_getNewListFromRegistry = %timeFirstTry_getNewListFromRegistry%
-
-
 
             %actionList%
             )
         ; toolTip9sec(m "`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
         ; toolTip, % m "`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
-
-
-
 return
 ;\____ checkInRegistryChangedActionListAddress __ 181025104318 __ 25.10.2018 10:43:18 __/

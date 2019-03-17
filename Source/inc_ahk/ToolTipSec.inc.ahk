@@ -1,5 +1,8 @@
-﻿; Indentation_style: https://de.wikipedia.org/wiki/EinrÃ¼ckungsstil#SL5small-Stil
-#Include *i init_global.init.inc.ahk
+﻿;msgbox, could deleted 19-02-17_17-32 ????????????????
+;exitapp
+
+; Indentation_style: https://de.wikipedia.org/wiki/EinrÃ¼ckungsstil#SL5small-Stil
+; #Include *i init_global.init.inc.ahk
 
 ;~ GLOBAL_lllog_only_this_scriptName=ToolTipSec.inc.ahk
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -7,7 +10,7 @@
 ;~ ToolTip5sec("wwwww`nwwwww`nwwww`n", A_ScreenWidth - 100, A_ScreenHeight - 100)
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 ; lll(A_LineNumber, "ToolTipSec.inc.ahk","test")
-#Include *i %A_ScriptDir%\inc_ahk\functions_global.inc.ahk
+; #Include *i %A_ScriptDir%\inc_ahk\functions_global.inc.ahk
 ; lll(A_LineNumber, "ToolTipSec.inc.ahk","line behind #Include *i %A_ScriptDir%\inc_ahk\functions_global.inc.ahk")
 
 
@@ -117,7 +120,12 @@ ToolTipSec(t,x=123,y=321,sec=1000,layer1to20:=1)  {
   ;~ if(isFunc("RemoveToolTip") )
   ;~ RemoveToolTip%blank%( sec )
   ; SetTimer,RemoveToolTip%layer1to20%,%sec%
-  SetTimer,RemoveToolTip_level%layer1to20%,%sec%
+
+  ; SetTimer,RemoveToolTip_level%layer1to20%,%sec%
+  	RemoveToolTip_level1Obj := Func("RemoveToolTip_level" layer1to20)
+  	; pause
+  	SetTimer, % RemoveToolTip_level1Obj, ,Off
+
   ;~ kkk
   ;~ RemoveToolTip( sec )
   ;~ ; jj

@@ -22,6 +22,7 @@ g_config.listBoxGui := {
 }
 
 g_config.ScriptDir := A_ScriptDir
+g_config.actionListDirBase := "..\actionLists" ; down from source upt to actionLists
 
 ; it takes the first existing editor, from the follwoing list.
 ; very first time it uses the smallest, most simpliest editor (notepad.exe not to be confused with notepad++.exe)
@@ -104,7 +105,7 @@ g_config.codeRunner := {
 	html: "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe",
 	java: "cd $dir && javac $fileName && java $fileNameWithoutExt",
 	c: "cd $dir && gcc $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
-	kotlinc: A_ScriptDir "\..\ActionLists\_kts\kotlinc\bin\kotlinc"
+	kotlinc: A_ScriptDir "\..\actionLists\_kts\kotlinc\bin\kotlinc"
 }
 
 
