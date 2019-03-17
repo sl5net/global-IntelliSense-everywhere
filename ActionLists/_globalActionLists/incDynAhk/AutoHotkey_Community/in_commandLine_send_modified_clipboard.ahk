@@ -1,5 +1,22 @@
 ﻿#SingleInstance,Force
 
+#MaxHotkeysPerInterval 99000000
+#HotkeyInterval 99000000
+; Process, Priority,, Normal
+; SetBatchLines, 20ms ; addet 03.11.2018 18:51
+; SetBatchLines, 10
+SetKeyDelay, -1, -1
+SetWinDelay, -1 ; Sets the delay that will occur after each windowing command, such as WinActivate.
+; SetWinDelay, 10
+SetControlDelay, -1 ; A short delay (sleep) is done automatically after every Control command that changes a control, namely Control, ControlMove, ControlClick, ControlFocus, and ControlSetText (ControlSend uses SetKeyDelay).
+; SetControlDelay, 10
+; https://autohotkey.com/docs/commands/Process.htm#Priority
+; L (or Low), B (or BelowNormal), N (or Normal), A (or AboveNormal), H (or High), R (or Realtime)
+Process, Priority,, H ; <=== only use this if its not in a critical development 05.11.2018 13:20
+; Process, Priority,, R ; <=== it acts on me as if the script was working more UNstable
+; Thread, NoTimers ; https://autohotkey.com/docs/commands/Thread.htm
+
+
 example =
 (
 config.inc.ahk:
