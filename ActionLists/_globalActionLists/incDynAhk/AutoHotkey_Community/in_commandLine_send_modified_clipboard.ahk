@@ -56,11 +56,13 @@ if(!code)
 		Sleep,5
 	}
 c := (code) ? code : clipboard
-c := RegExReplace(c,"im)\[code\]","[CODE]") 
-c := RegExReplace(c,"im)\[/code\]","[/C0DE]") 
-shortName := SubStr(c,1,20)
-shortName := RegExReplace(shortName,"m)\s+"," ")
-ahkCode = 
+c := Trim(c," `t`r`n")
+if( RegExMatch(c, "\n" )){
+	c := RegExReplace(c,"im)\[code\]","[CODE]") 
+	c := RegExReplace(c,"im)\[/code\]","[/C0DE]") 
+	shortName := SubStr(c,1,20)
+	shortName := RegExReplace(shortName,"m)\s+"," ")
+	ahkCode = 
 (
 [spoiler2=%shortName%]
 [code]
@@ -70,9 +72,14 @@ ahkCode =
 ]%thisFileName%[/url][/size]
 [/spoiler2]
 )
+}else{
+	c := RegExReplace(c,"im)\[c\]","[C]") 
+	c := RegExReplace(c,"im)\[/c\]","[/C]")
+	ahkCode := "[c]" c "[/c]"
+}
 Clipboard := ahkCode
 send, ^v
-
+; MsgBox,262208,% ":)`n" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ,% ahkCode "`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 
 
 Sleep,6000
