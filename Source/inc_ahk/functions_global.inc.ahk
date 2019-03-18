@@ -1632,8 +1632,8 @@ DynaRun(TempScript, pipename=""){
           fileAdress = %A_AhkPath% "\\.\pipe\%name%"
             if(0)
             while(!FileExist(fileAdress)){
-                Sleep,100
-                if(A_Index > 10)
+                Sleep,50
+                if(A_Index > 20)
                     return 0
             }
             Run, %fileAdress%,,UseErrorLevel HIDE, PID
