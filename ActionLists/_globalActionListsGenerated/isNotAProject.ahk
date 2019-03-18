@@ -28,15 +28,17 @@ eight
 nine
 ten
 )
-actionListDir := RegExReplace(isNotYet_actionList, "\\[^\\]*")
-if(!FileExist(actionListDir))
+actionListDir := RegExReplace(isNotYet_actionList, "\\[^\\]*$")
+; msgbox,% actionListDir
+if(!FileExist(actionListDir)){
     FileCreateDir, % actionListDir
+    sleep,90
+}
 FileAppend, % content, % isNotYet_actionList ".ahk"
 
-if(!FileExist("..\actionLists\al-route-header.inc.ahk")){
+if(!FileExist(actionListDir "\..\actionLists\al-route-header.inc.ahk")){
     content := "#" "Include ..\actionLists\al-route-header.inc.ahk"
-    ActionListFilterPath = .\..\ChromeWidgetWin1\AutoHotkeyGUI\al-route.inc.ahk
-    FileAppend, % content, % "..\actionLists\al-route-header.inc.ahk"
+    FileAppend, % content, % actionListDir "\..\actionLists\al-route-header.inc.ahk"
 }
 
 
