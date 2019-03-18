@@ -1584,6 +1584,10 @@ checkActionListAHKfile_sizeAndModiTime:
         actionList := RegExReplace(actionList, "isNotAProject\._Generated\.ahk", "isNotAProject.ahk._Generated.ahk" ) ; todo: dirty Bugfix 18-12-24_22-16
     }
     if(!FileExist(actionList)){
+        if(FileExist(actionList ".ahk")){
+            actionList .= ".ahk" ; what a mess. sometime must be cleaned up here ;) 19-03-18_16-01
+            return
+        }else{
         if(1 && InStr(A_ComputerName,"SL5")){ ; 23.10.2018 10:08 was used
             msg := ">" actionList "<  `n `n is this deadlink? never used? (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
             ;feedbackMsgBox(msg,msg,1,1)
@@ -1595,6 +1599,7 @@ checkActionListAHKfile_sizeAndModiTime:
        }
         ; actionList := removesSymbolicLinksFromFileAdress( A_ScriptDir "\..\actionLists\_globalActionListsGenerated\_global.ahk" )
         actionList := removesSymbolicLinksFromFileAdress( A_ScriptDir "\..\actionLists\_globalActionListsGenerated\isNotAProject.ahk" )
+        }
     }
     if(!FileExist(actionList)){
         msg =

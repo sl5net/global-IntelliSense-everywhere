@@ -1,4 +1,6 @@
-﻿#Include %A_ScriptDir%\inc_ahk\init_global.init.inc.ahk
+﻿exitApp
+
+#Include %A_ScriptDir%\inc_ahk\init_global.init.inc.ahk
 
 #SingleInstance,Force
 ; https://stackoverflow.com/questions/4675202/notepad-setting-for-disabling-auto-open-previous-files

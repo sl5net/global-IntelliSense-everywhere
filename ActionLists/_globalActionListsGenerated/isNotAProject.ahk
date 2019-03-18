@@ -28,7 +28,11 @@ nine
 ten
 )
 actionListDir := RegExReplace(isNotYet_actionList, "\\[^\\]*$")
-; msgbox,% actionListDir
+temp =
+(
+%actionListDir%
+%isNotYet_actionList%
+)
 if(!FileExist(actionListDir)){
     FileCreateDir, % actionListDir
     sleep,90
