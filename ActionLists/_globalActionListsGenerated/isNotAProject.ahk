@@ -15,7 +15,20 @@ ___create actionList|rr||ahk|
 RegRead, isNotYet_actionList, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, isNotYet_actionList
 ; msgbox,% isNotYet_actionList
 RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList, % isNotYet_actionList
-FileAppend, % "morning`nhello world", % isNotYet_actionList ".ahk"
+content =
+(
+one
+two
+three
+four
+five
+six
+seven
+eight
+nine
+ten
+)
+FileAppend, % content, % isNotYet_actionList ".ahk"
 
 
 
