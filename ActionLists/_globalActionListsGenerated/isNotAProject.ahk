@@ -33,5 +33,12 @@ if(!FileExist(actionListDir))
     FileCreateDir, % actionListDir
 FileAppend, % content, % isNotYet_actionList ".ahk"
 
+if(!FileExist("..\actionLists\al-route-header.inc.ahk")){
+    content := "#" "Include ..\actionLists\al-route-header.inc.ahk"
+    ActionListFilterPath = .\..\ChromeWidgetWin1\AutoHotkeyGUI\al-route.inc.ahk
+    FileAppend, % content, % "..\actionLists\al-route-header.inc.ahk"
+}
+
+
 
 
