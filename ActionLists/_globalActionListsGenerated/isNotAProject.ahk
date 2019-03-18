@@ -28,6 +28,9 @@ eight
 nine
 ten
 )
+actionListDir := RegExReplace(isNotYet_actionList, "\\[^\\]*")
+if(!FileExist(actionListDir))
+    FileCreateDir, % actionListDir
 FileAppend, % content, % isNotYet_actionList ".ahk"
 
 
