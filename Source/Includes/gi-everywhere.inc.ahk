@@ -370,6 +370,8 @@ RecomputeMatches( calledFromStr, is_Recursion := false ){
 
 INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\") , A_ThisFunc , A_LineNumber)
 
+    sql_template_dir := g_config.sql.template.dir
+
     ;if( g_listSELECT_FROM_WinTitle && WinActive(g_listSELECT_FROM_WinTitle))
     ; do_SELECT_actionList_FROM_actionLists_NotLike_isNotAProject := true
 
@@ -416,8 +418,16 @@ INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\") 
 ; msg sm msgbox test msgb msgbox MsgBox
 	
 	SetTimer, show_ListBox_Id, 600 ; setinterval ; 28.10.2018 02:39: fallback bugfix workaround help todo:
-	if(!Sql_Temp.valueObj)
+	if(!Sql_Temp.valueObj){
+	    Sql_Temp.file2sqLite(sql_template_dir)
+        Sql_Temp.sqLite2obj()
+	}
+	if(!Sql_Temp.valueObj){
 		tooltip,% " ERROR !Sql_Temp.valueObj `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" , 50,50
+		if(!sql_template_dir)
+		    Msgbox,% " ERROR !sql_template_dir `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+		Msgbox,% " ERROR !Sql_Temp.valueObj `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+    }
 	valueObj := Sql_Temp.valueObj ; Sql_Temp
 	
     ; t
@@ -474,6 +484,10 @@ SELECT actionList FROM actionLists WHERE actionList Like 'g_Word' AND actionList
 			break
 		
 		o := valueObj[A_Index]
+		;run,tools\DebugVars\DebugVars.ahk
+		;pause
+        ; valueObj := get_valueObj
+		; o := valueObj[A_Index]
 
 		if(!o){
 			; Msgbox,:( Oops >%A_Index%<(%A_LineFile%~%A_LineNumber%)
@@ -586,9 +600,9 @@ SELECT actionList FROM actionLists WHERE actionList Like 'g_Word' AND actionList
 			if(0 && InStr(A_ComputerName,"SL5"))
 				tooltip,% ":-) row[1]=" row[1] ", row[2]=" row[2] " , g_Word=" g_Word  " , g_MatchTotal=" g_MatchTotal " , Normalize=" Normalize "`n" SELECT  "`nRecomputeMatches(calledFromStr):(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),1,1
 			
-            ;/¯¯¯¯ topseudoDistinct ¯¯ 181209155652 ¯¯ 09.12.2018 15:56:52 ¯¯\
-            ; pseudoDistinct experimental ? todo: without any effect ??? yes it works: 18-12-09_16-22
-			if( A_index == 1 ){ ; first result from this new select
+            ;/¯¯¯¯ topPseudoDistinct ¯¯ 181209155652 ¯¯ 09.12.2018 15:56:52 ¯¯\
+            ; pseudoDistinct experimental ? todo: without any effect ??? yes it works: 18-12-09_16-22: recomandet for testing: usa list with two entries (more then one)
+			; if( A_index == 1 ){ ; first result from this new select. for performance reasons. in most casese the new first is the double
                 ; do distinct proof
                 ; ceck if last result of last select has the same reult
 				if( g_SingleMatch[g_MatchTotal] == g_SingleMatch[g_MatchTotal-1]
@@ -603,7 +617,7 @@ SELECT actionList FROM actionLists WHERE actionList Like 'g_Word' AND actionList
         			; feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), tip )
 					continue
 				}
-			}
+			; }
 ; to seba test msgbox box tt
             ;\____ pseudoDistinct __ 181209155658 __ 09.12.2018 15:56:58 __/
 			
