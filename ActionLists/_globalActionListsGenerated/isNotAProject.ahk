@@ -14,7 +14,6 @@
 ___create actionList|rr||ahk|
 RegRead, isNotYet_actionList, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, isNotYet_actionList
 ; msgbox,% isNotYet_actionList
-RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList, % isNotYet_actionList
 content =
 (
 one
@@ -35,11 +34,11 @@ if(!FileExist(actionListDir)){
     sleep,90
 }
 FileAppend, % content, % isNotYet_actionList ".ahk"
-
-if(!FileExist(actionListDir "\..\actionLists\al-route-header.inc.ahk")){
+if(!FileExist(actionListDir "\al-route.inc.ahk")){
     content := "#" "Include ..\actionLists\al-route-header.inc.ahk"
-    FileAppend, % content, % actionListDir "\..\actionLists\al-route-header.inc.ahk"
+    FileAppend, % content, % actionListDir "\al-route.inc.ahk"
 }
+RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList, % isNotYet_actionList
 
 
 

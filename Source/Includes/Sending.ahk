@@ -1513,8 +1513,8 @@ INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\")
 					AHKcode := "Send,^v"
 
         
-		if(0 && InStr(A_ComputerName,"SL5") )
-            ToolTip9sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+                    if(0 && InStr(A_ComputerName,"SL5") )
+                        ToolTip9sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 
 					DynaRun(AHKcode) ; <= uese old clipboard. or simple give it more time
 
