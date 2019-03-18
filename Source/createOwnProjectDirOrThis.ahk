@@ -97,10 +97,8 @@ RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, CreatedDir, % d1 ; RegW
 
 Speak("CreatedDir with d1")
 
-run,Typing_Aid_everywhere_multi_clone.ahk
+; run,Typing_Aid_everywhere_multi_clone.ahk
 ; run,gi-everywhere.ahk
-
-
 
 FileAppend,"temporary empty file. if exist next view dont use the super _global.ahk", %d1%\_create_own_project.flag
 IfNotExist,%d1%\_global.ahk

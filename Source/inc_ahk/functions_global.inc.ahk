@@ -1597,9 +1597,9 @@ DynaRun(TempScript, pipename=""){
     	; TempScriptPre .= "#" . "include " A_ScriptDir "\inc_ahk\functions_global.inc.ahk `n"
     	; TempScriptPre .= "#" . "include " A_ScriptDir "\inc_ahk\ToolTipSec_RemoveToolTip.inc.ahk `n"
     	; TempScriptPre .= "#" . "include " A_ScriptDir "\inc_ahk\ToolTipSec.inc.ahk `n"
-    }else
-        msgbox,% TempScript
-
+    }else{
+        ; msgbox,% TempScript " `n`n(token:19-03-18_00-03)"
+    }
 	if(!InStr(TempScript,"aScriptDir :="  ))
         TempScriptPre .= "aScriptDir := """ A_ScriptDir """ `n"
 

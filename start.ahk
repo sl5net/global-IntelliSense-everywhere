@@ -14,23 +14,21 @@ while(WinExist(name) && A_Index < 9)
 
 DetectHiddenWindows,on
 SetTitleMatchMode,2
-name=Typing_Aid_everywhere_multi_clone.ahk ahk_class AutoHotkey
+;name=Typing_Aid_everywhere_multi_clone.ahk ahk_class AutoHotkey
 ;name := "Typing_Aid_everywhere_multi_clone" ; .ahk ; ahk_class AutoHotkey
 ;name=gi-everywhere ahk_class AutoHotkey
-while(WinExist(name) && A_Index < 999){
+;while(WinExist(name) && A_Index < 999){
 	; ToolTip, %A_Index%: WinClose `n (%A_LineFile%~%A_LineNumber%)
-	WinClose,% name
-}
+;	WinClose,% name
+;}
 ;run,gi.ahk ; ,%A_ScriptDir%\Source
 ; run,%A_ScriptDir%\gi.ahk ; ,%A_ScriptDir%\Source
 ;MsgBox, ExitApp
 ; ExitApp
 
-while(WinExist(name) && A_Index < 9)
-	WinKill,% name
+;while(WinExist(name) && A_Index < 9)
+;	WinKill,% name
 
-
-	
 ;DetectHiddenWindows,Off ; <== never do this again. all in taskbar was not closed !! 02.10.2018 12:33
 
 ; 1: A window's title must start with the specified WinTitle to be a match.

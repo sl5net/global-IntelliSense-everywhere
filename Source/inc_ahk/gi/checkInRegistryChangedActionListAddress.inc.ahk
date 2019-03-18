@@ -123,7 +123,7 @@ checkInRegistryChangedActionListAddress:
         ; dirty bugFix
         actionListNewTemp_withoutExt := SubStr( actionListNewTemp_withoutExt,1 , -4 )
         setRegistry_actionList( actionListNewTemp_withoutExt )
-        if(1 && InStr(A_ComputerName,"SL5")){
+        if(0 && InStr(A_ComputerName,"SL5")){
             m := "dirty bugfix. It is more common to specify the list without extension "
             Speak(m " in " A_LineNumber , "PROD")
             ToolTip9sec(m "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
@@ -209,7 +209,7 @@ checkInRegistryChangedActionListAddress_inc
     }
     ; actionListNewTemp_withoutExt := actionListDirBase "\" actionListNewTemp_withoutExt
     actionListNewTemp_withoutExt := actionListNewTemp_withoutExt
-    if(1 && InStr(A_ComputerName,"SL5")){
+    if(0 && InStr(A_ComputerName,"SL5")){
         ; clipboard := actionListNewTemp_withoutExt " (" RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
         ToolTip4sec( "clipboard := actionList`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
     }
@@ -245,6 +245,14 @@ checkInRegistryChangedActionListAddress_inc
             ;Sleep,1000
         }else
             Speak(m "Return in " A_LineNumber " Registry is empty", "PROD")
+
+        if(substr(actionListNewTemp_withoutExt,-strlen("isNotAProject")) <> "\isNotAProject" ){
+            isNotYet_actionList := actionListNewTemp_withoutExt
+            setRegistry_actionList( isNotYet_actionList, "isNotYet_actionList250" )   ; RegWrite , RegSave , Registry
+            setRegistry_actionList( isNotYet_actionList, "isNotYet_actionList" )   ; RegWrite , RegSave , Registry
+        }
+
+
         actionListNewTemp_withoutExt := actionList_isNotAProject_withoutExt ; as long as nothing else would be found
         ; msgbox,%actionListNewTemp_withoutExt% `n(%A_LineFile%~%A_LineNumber%)
         if(0 && InStr(A_ComputerName,"SL5")){

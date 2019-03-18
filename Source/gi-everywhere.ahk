@@ -1588,7 +1588,7 @@ checkActionListAHKfile_sizeAndModiTime:
             msg := ">" actionList "<  `n `n is this deadlink? never used? (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
             ;feedbackMsgBox(msg,msg,1,1)
             tooltip,% msg,1,1
-            clipboard := actionList  "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+            ; clipboard := actionList  "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
             ; ..\actionLists\_globalActionListsGenerated\isNotAProject._Generated.ahk
             ; pause
             sleep,3000
@@ -1601,8 +1601,6 @@ checkActionListAHKfile_sizeAndModiTime:
         (
         !FileExist(actionList)
         >>%actionList%<<
-
-
 
         %A_ThisLabel% = A_ThisLabel
         )
@@ -1792,6 +1790,9 @@ get_Action_Lists_without_Extension_and_send_warning(actionListNewTemp,log := "")
                         clilpboard := actionListNewTemp_withoutExt
                         msg = :( list read by RegRead NOT exist: `n`n actionListNewTemp_withoutExt = `n >>%actionListNewTemp_withoutExt%<< `n = clilpboard = `n
                         msg .= " (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+
+                        isNotYet_actionList := actionListNewTemp_withoutExt
+                        RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, isNotYet_actionList1795,% isNotYet_actionList
                         actionList := actionList_isNotAProject
                         if(0 && InStr(A_ComputerName,"SL5")) {
                             Speak(A_LineNumber ":  isNotAProject","PROD")

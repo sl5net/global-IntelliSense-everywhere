@@ -210,7 +210,7 @@ INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\")
 	FileGetTime, FileGet_actionListModified, %actionList%, M
 	FormatTime, FileGet_actionListModified, %FileGet_actionListModified%, yyyy-MM-dd HH:mm:ss
 	if(!FileGet_actionListModified){
-		if(1 && InStr(A_ComputerName,"SL5") && activeTitle == "isNotAProject")
+		if(0 && InStr(A_ComputerName,"SL5") && activeTitle == "isNotAProject")
 			ToolTip4sec(" Oops  !FileGet_actionListModified (" A_LineNumber . " " . RegExReplace(A_LineFile, ".*\\", "")  )
 ; SELECT distinct replace(actionList, rtrim(actionList, replace(actionList, '\', '')), '') || '|rr|' || '|ahk|RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList, ' || substr(actionList, 1, length(actionList)-4) || ' `nRegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, g_permanentSELECT, `nMsgBox, , OK  :-) actionList was set, to a permanent list. valid as long as this window exists , 2' FROM actionLists WHERE actionList Like '%g_Word%' Limit 10  ; 		return
 	}

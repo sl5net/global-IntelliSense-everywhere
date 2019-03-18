@@ -3,15 +3,13 @@
 
 
 ;/¯¯¯¯ setRegistry_actionList ¯¯ 181121115201 ¯¯ 21.11.2018 11:52:01 ¯¯\
-setRegistry_actionList( actionListNewTemp_withoutExt ){   ; RegWrite , RegSave , Registry
+setRegistry_actionList( actionListNewTemp_withoutExt, actionListKey := "actionList" ){   ; RegWrite , RegSave , Registry
 
 
 
     if(InStr(actionListNewTemp_withoutExt,"._Generated.ahk._Generated")){
          msg := "Oops. found : ._Generated.ahk._Generated.ahk => ._Generated.ahk `n`n" actionListNewTemp_withoutExt
          ToolTip5sec(msg "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")12" , 1,1 )
-
-
 
         actionListNewTemp_withoutExt := StrReplace(actionListNewTemp_withoutExt, ".ahk._Generated.ahk._Generated", ".ahk._Generated") ; clean strange wordlists 25.10.2018 20:03
     }
@@ -21,12 +19,14 @@ setRegistry_actionList( actionListNewTemp_withoutExt ){   ; RegWrite , RegSave ,
     if( SubStr( actionListNewTemp_withoutExt , -3 ) == ".ahk" )
         actionListNewTemp_withoutExt := SubStr( actionListNewTemp_withoutExt, 1, -4 )
 
-
+    if( SubStr( actionListNewTemp_withoutExt , -0 ) == "\" ){
+        if(1 && InStr(A_ComputerName,"SL5"))
+            ToolTip9sec( "UPS actionList`n is FOLDER (" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+        return false
+    }
 
     ; toolTip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
     ; msggb
-
-
 
     if(!actionListNewTemp_withoutExt){
         if(1 && InStr(A_ComputerName,"SL5"))
@@ -34,14 +34,10 @@ setRegistry_actionList( actionListNewTemp_withoutExt ){   ; RegWrite , RegSave ,
         return false
     }
 
-
-
     ; fallback if somebody gives addresses like ..\....\G:\\... then take the second absolut path 18-12-29_21-13
     actionListNewTemp_withoutExt := regexreplace(actionListNewTemp_withoutExt , "i).*(\b[a-z]\:\\)", "$1" )
 
-
-
-	RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList, % actionListNewTemp_withoutExt  ; RegWrite , RegSave , Registry
+	RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, % actionListKey, % actionListNewTemp_withoutExt  ; RegWrite , RegSave , Registry
 
 
 

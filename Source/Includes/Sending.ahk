@@ -997,7 +997,9 @@ INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\")
 
         ;/¯¯¯¯ Environment ¯¯ 190107124606 ¯¯ 07.01.2019 12:46:06 ¯¯\
         ; Environment variables (de: umgebungsvariablen)
-		
+        ; rootAbs := RegExReplace(actionListDirAbs,"\\actionLists\\.*", "")
+        rootAbs := RegExReplace(A_ScriptDir,"\\Source", "")
+
 		AHKcode2 .= "key := """ rX["key"] """ `n "
 		AHKcode2 .= "Sending := """ escaped_Sending """ `n " ; or use Sending rX["send"]
 		AHKcode2 .= "sendingStrLen := " StrLen(Sending) " `n "
@@ -1005,9 +1007,12 @@ INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\")
 		AHKcode2 .= "lineStrLen := " StrLen(g_Word) " `n "
 		AHKcode2 .= "AHKcodeLen := " StrLen(AHKcode) " `n "
 		AHKcode2 .= "actionList := """ actionList """ `n "
-		AHKcode2 .= "SetWorkingDir, " . aScriptDir2actionListFolder . "`n" ; doesent work has no effect ScriptDir|rr||ahk|send, % A_ScriptDir ; \\.\pipe 03.04.2017 11:17 17-04-03_11-17
+		AHKcode2 .= "aScriptDir := """ A_ScriptDir """ `n "
+		AHKcode2 .= "rootAbs := """ rootAbs """ `n "
+		; AHKcode2 .= "SetWorkingDir, " aScriptDir2actionListFolder "`n" ; doesent work has no effect ScriptDir|rr||ahk|send, % A_ScriptDir ; \\.\pipe 03.04.2017 11:17 17-04-03_11-17
 		; pause ; toCloseAll tToolTip5sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 		;\____ Environment __ 190107124616 __ 07.01.2019 12:46:16 __/
+
 
 		; toolTip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 		; tooltip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
