@@ -1267,11 +1267,20 @@ Clipboard = selfPerformanceTest2
 		}
 
    ;gosub,couldIfindMyself
-		if(FileExist(sayHelloFunctionInc))
-			run, % sayHelloFunctionInc
-;   MsgBox, '%sayHelloFunctionInc%' = sayHelloFunctionInc  `n (line:%A_LineNumber%) `n
+		if(FileExist(sayHelloFunctionInc)){
+   try{
+        run, % sayHelloFunctionInc
+    ;   MsgBox, '%sayHelloFunctionInc%' = sayHelloFunctionInc  `n (line:%A_LineNumber%) `n
 		return isFileExist
-	}
+   }
+   catch e
+   {
+            tooltip,
+            ; https://g-intellisense.myjetbrains.com/youtrack/issue/GIS-142
+            sleep,1800 ; <== maybe a good idea 19-03-20_08-20
+   }
+   }
+   }
 	;\____ FileWriteAndRun __ 190209054144 __ 09.02.2019 05:41:44 __/
 
 
