@@ -96,6 +96,9 @@ if( RegExMatch(c, "\n" )){
 }
 Clipboard := ahkCode
 send, ^v
+suspend,on
+send,+{tab} ; lets focus subject
+suspend,off
 ; MsgBox,262208,% ":)`n" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ,% ahkCode "`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 
 

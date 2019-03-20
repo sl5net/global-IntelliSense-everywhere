@@ -125,7 +125,7 @@ ReadActionList( calledFromStr ){
 		; already reported heere: https://autohotkey.com/board/topic/89401-ahk-syntax-for-function-call-drives-me-crazy/
 		if(fileEx){
 			actionList .= postFixGenerated ; quick fix 14.11.2018 11:14
-            if(1 && InStr(A_ComputerName,"SL5") && !InStr(actionList,"isNotAProject")){
+            if(0 && InStr(A_ComputerName,"SL5") && !InStr(actionList,"isNotAProject")){
                 Speak(A_LineNumber ": Not a Generated List but Generated List exist" ,"PROD") ; bug entecekt actionList 12.11.2018 11:02 todo:
 			    ; clipboard := actionList " `n fileEx= " fileEx "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 			    msg =

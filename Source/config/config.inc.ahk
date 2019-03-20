@@ -89,6 +89,8 @@ g_config.sql.template := {
 
 ; you do not need these runners. these are just examples:
 ; C:\php731NTS>php.exe helloWorld.php
+; usage example in your actionScrip: helloCommandLine keyword|rr||helloCommandLine|hello value
+; https://g-intellisense.myjetbrains.com/youtrack/issue/GIS-134
 g_config.codeRunner := {
 	code_AutoHotkey_Community: 
 	A_ScriptDir "\..\actionLists\_globalActionLists\incDynAhk\AutoHotkey_Community\in_commandLine_send_modified_clipboard.ahk",
