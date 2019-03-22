@@ -436,13 +436,16 @@ if(0 && InStr(A_ComputerName,"SL5"))
 
  		if(!FileExist(g_actionListDBfileAdress) ){
             ToolTip2sec(" no database found. probably the first time. if the error occurs more often it is a problem. please report this then `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+ 		}else{
             FileGetTime, modifiedTime_configMinify, % g_actionListDBfileAdress
             FileGetTime, creationTime_configMinify, % g_actionListDBfileAdress, C ; = Creation time
             if(abs(modifiedTime_configMinify-creationTime_configMinify)>500)
- 		        Msgbox,% " ERROR !Sql_Temp.valueObj `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+                Msgbox,% " ERROR !Sql_Temp.valueObj `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
 
- 		    tip := modifiedTime_configMinify "-" creationTime_configMinify
-            Msgbox,% tip "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+            if(0 && InStr(A_ComputerName,"SL5")){
+                tip := modifiedTime_configMinify "-" creationTime_configMinify
+                Msgbox,% tip "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+            }
  		}
     }
 	valueObj := Sql_Temp.valueObj ; Sql_Temp

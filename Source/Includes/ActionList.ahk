@@ -2326,7 +2326,8 @@ RebuildDatabase(sql_template_dir)
 		if( instr(sqlLastError, "no such table") ){
             ;if(A_TickCount < 1000){
 			tip := "`n Now do RebuildDatabase(sql_template_dir) because of " sqlLastError "`n g_actionListDB=" g_actionListDB
-			ToolTip5sec(tip "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+			 if(1 && InStr(A_ComputerName,"SL5"))
+			    ToolTip5sec(tip "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 			RebuildDatabase(sql_template_dir) ; works ? 22.10.2018 05:23 todo:
 			; Reported by Terka 18-11-05: https://www.autohotkey.com/boards/viewtopic.php?f=6&t=45684&p=254473#p254473
 			sleep,10
