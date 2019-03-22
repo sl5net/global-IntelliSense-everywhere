@@ -1583,7 +1583,7 @@ DynaRunFROMAhkSudio190322(Script,Wait:=true,name:="Untitled"){
        } catch e{
         ToolTip2sec( "Try again `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")",300,100,8 )
         sleep,1500
-       return DynaRunFROMAhkSudio190322(Script,Wait,name)
+       return ; maybe this producing problems. i tested and it feels like so 19-03-22_09-39:  DynaRunFROMAhkSudio190322(Script,Wait,name)
        }
 	v.Running[Name]:=exec
 	SetTimer,CheckForError190322,120
