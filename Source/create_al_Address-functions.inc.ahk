@@ -1225,6 +1225,8 @@ Clipboard = selfPerformanceTest2
 
 	;/¯¯¯¯ FileWriteAndRun ¯¯ 190209054130 ¯¯ 09.02.2019 05:41:30 ¯¯\
 	FileWriteAndRun(sayHelloCode, sayHelloFunctionInc){
+		return DynaRunFROMAhkSudio190322(sayHelloCode,Wait:=false,name:="Untitled")
+
 		global g_lineNumberFeedback
 		g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 		DetectHiddenWindows,On

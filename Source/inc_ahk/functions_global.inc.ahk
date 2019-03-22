@@ -1566,8 +1566,55 @@ DynaRunFROMAhkSudio(Script,Wait:=true,name:="Untitled"){
 	return
 }
 
+
+;/¯¯¯¯ DynaRunFROMAhkSudio190322 ¯¯ 190322083526 ¯¯ 22.03.2019 08:35:26 ¯¯\
+DynaRunFROMAhkSudio190322(Script,Wait:=true,name:="Untitled"){
+	static exec,started,filename
+	if(!IsObject(v.Running))
+		v.Running:=[]
+	filename:=name,MainWin.Size(),exec.Terminate()
+	if(Script~="i)m(.*)\{"=0)
+		Script.="`n" "m(x*){`nfor a,b in x`nlist.=b Chr(10)`nMsgBox,,AHK Studio,% list`n}"
+	if(Script~="i)t(.*)\{"=0)
+		Script.="`n" "t(x*){`nfor a,b in x`nlist.=b Chr(10)`nToolTip,% list`n}"
+
+		try{
+	shell:=ComObjCreate("WScript.Shell"),exec:=shell.Exec("AutoHotkey.exe /ErrorStdOut *"),exec.StdIn.Write(Script),exec.StdIn.Close(),started:=A_Now
+       } catch e{
+        ToolTip2sec( "Try again `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")",300,100,8 )
+        sleep,1500
+       return DynaRunFROMAhkSudio190322(Script,Wait,name)
+       }
+	v.Running[Name]:=exec
+	SetTimer,CheckForError190322,120
+	return
+	CheckForError190322:
+	Process,Exist,% exec.ProcessID
+	if(!ErrorLevel){
+		if(text:=exec.StdERR.ReadAll()){
+			if(!v.debug.sc)
+				MainWin.DebugWindow()
+			v.debug.2003(v.debug.2006,"`nScript Exited, ExitCode: " exec.ExitCode "`n" text)
+		}
+		;else
+		;	SetStatus("Script Exited, ExitCode: " exec.ExitCode,3)
+		SetTimer,CheckForError190322,Off
+		return 1
+	}
+	; SetStatus(filename " running. Run-Time: " A_Now-started " Seconds",3)
+	return
+}
+;\____ DynaRunFROMAhkSudio190322 __ 190322083531 __ 22.03.2019 08:35:31 __/
+
+
+
 ;/¯¯¯¯ DynaRun ¯¯ 181029190515 ¯¯ 29.10.2018 19:05:15 ¯¯\
 DynaRun(TempScript, pipename=""){
+
+		return DynaRunFROMAhkSudio190322(TempScript,Wait:=false,name:="Untitled")
+
+ MsgBox,262208,% ":)`n" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ,% ":)`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+
     if(false && InStr(A_ComputerName,"SL5") )
         ToolTip9sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ") tokden:19-01-16_18-40" ) ; token becouse somtimes lineNumber is wrong
 
