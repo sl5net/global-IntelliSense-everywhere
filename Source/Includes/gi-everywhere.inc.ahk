@@ -433,7 +433,17 @@ if(0 && InStr(A_ComputerName,"SL5"))
 		tooltip,% " ERROR !Sql_Temp.valueObj `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" , 50,50
 		if(!sql_template_dir)
 		    Msgbox,% " ERROR !sql_template_dir `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
-		Msgbox,% " ERROR !Sql_Temp.valueObj `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+
+ 		if(!FileExist(g_actionListDBfileAdress) ){
+            ToolTip2sec(" no database found. probably the first time. if the error occurs more often it is a problem. please report this then `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+            FileGetTime, modifiedTime_configMinify, % g_actionListDBfileAdress
+            FileGetTime, creationTime_configMinify, % g_actionListDBfileAdress, C ; = Creation time
+            if(abs(modifiedTime_configMinify-creationTime_configMinify)>500)
+ 		        Msgbox,% " ERROR !Sql_Temp.valueObj `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+
+ 		    tip := modifiedTime_configMinify "-" creationTime_configMinify
+            Msgbox,% tip "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+ 		}
     }
 	valueObj := Sql_Temp.valueObj ; Sql_Temp
 	
@@ -561,6 +571,84 @@ SELECT actionList FROM actionLists WHERE actionList Like 'g_Word' AND actionList
         }
 
 		;SELECT := regExReplace(SELECT,"(``|`%)","``$1")
+
+
+
+
+        ;/¯¯¯¯ doUseNewMethodStartOfImplementing22march2019 ¯¯ 190322182935 ¯¯ 22.03.2019 18:29:35 ¯¯\
+        ;doUseNewMethodStartOfImplementing22march2019 := true
+		if(doUseNewMethodStartOfImplementing22march2019){
+            Matches := []
+        If !DB
+           MsgBox, 16, % " sqlLastError=" sqlLastError "`n sql=" SELECT " `n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
+
+        if(0){
+            sql_template_dir := g_config.sql.template.dir
+            fileNamePrefix := "select0"
+            fileName := fileNamePrefix (1-1) ".sql"
+            fileAdress := sql_template_dir "\" fileName
+            FileRead, SELECT , % fileAdress
+        }
+
+        ; SELECT = select * from Words limit 5
+        ;If !DB.GetTable(SELECT, Table){
+        If !DB.GetTable(SELECT, Matches){
+            while(!DB.GetTable(SELECT, Matches)){
+                tooltip, % " SQLite Error: GetTable, " "Msg:`t" . DB.ErrorMsg . "`nCode:`t" . DB.ErrorCode "`n`n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
+                sleep,3000
+            }
+            clipboard := SELECT
+           MsgBox, 16, SQLite Error: GetTable, % "Msg:`t" . DB.ErrorMsg . "`nCode:`t" . DB.ErrorCode "`n`n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
+           /*
+           SELECT distinct ltrim(word), ltrim(worddescription), ltrim(wordreplacement)
+                FROM Words
+                WHERE word LIKE '%'  ESCAPE '~'
+                and ActionListID = 7
+                 order by ActionListID, word
+                LIMIT 2;
+           -- seLECT * FROM ActionLists l where l.ActionList like %isNotAProject%;
+           -- An underscore (_) in the LIKE pattern matches any single character in the string.
+           -- you need to reload the script after each change. be careful by changing the ware statment. its will later parsed by script.
+           -- prp probab ür probab pro proba qahk s changin pro probab pro probab p proba
+           */
+        }
+        if(0){
+        sumStr := ""
+        If (Table.HasNames) {
+          ; Loop, % Table.ColumnCount
+          If (Table.HasRows) {
+             Loop, % Table.RowCount {
+                ; RowCount := LV_Add("", "")
+                RowID := A_Index
+                Table.Next(Row)
+                sumStr .= RowID - 1 ": "
+                Loop, % Table.ColumnCount
+                {
+                    sumStr .= Row[A_Index] ; "" Table.ColumnNames[A_Index] " "
+                    ; Matches[RowID][A_Index] := Row[A_Index]
+                }
+              ; LV_Modify(RowCount, "Col" . A_Index, Row[A_Index])
+                sumStr .= "`r`n"
+             }
+          }
+        }
+        Table.Free()
+        }
+        Matches.Free()
+        ; tooltip,% sumStr
+        ; msgbox,% sumStr
+        ; return
+    }
+    ;\____ doUseNewMethodStartOfImplementing22march2019 __ 190322182946 __ 22.03.2019 18:29:46 __/
+
+
+
+
+
+
+    else{ ;  && "method before 19-03-22_13-19"
+
+
 		try{
 			Matches := g_actionListDB.Query(SELECT)
 		} catch e{
@@ -574,6 +662,7 @@ SELECT actionList FROM actionLists WHERE actionList Like 'g_Word' AND actionList
 			msgbox, % tip
 		}
 
+}
 		
 		for each, row in Matches.Rows
 		{

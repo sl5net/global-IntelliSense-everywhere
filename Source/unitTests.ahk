@@ -414,7 +414,7 @@ global g_actionListDBfileAdress
 global g_config
 
 
-if(!g_actionListDB)
+if(!doUseNewMethodStartOfImplementing22march2019 && !g_actionListDB)
     g_actionListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", g_actionListDBfileAdress ) ;
 
 if(!g_actionListID := getActionListID(g_config["sql"]["template"]["dir"], actionList)){ ; 24.03.2018 23:02

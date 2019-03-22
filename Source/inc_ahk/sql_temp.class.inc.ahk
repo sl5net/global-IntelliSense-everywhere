@@ -61,14 +61,32 @@ class Sql_Temp { ; search help: sqltemp tempsql
 
         global g_actionListDB
 
-        if(!g_actionListDB)
+        if(!doUseNewMethodStartOfImplementing22march2019 && !g_actionListDB)
             g_actionListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", g_actionListDBfileAdress ) ;
          escaped_string := RegExReplace(jsonStr, "'", "''")
         sql := "REPLACE INTO temp (fileModiTime, key, value) VALUES ('" fileModiTime "', '" fileNamePrefix "','" escaped_string "');"
         ; clipboard := sql
 
+        ; msgbox,% doUseNewMethodStartOfImplementing22march2019
+        /*
+        SELECT id, lastUsedByUser_since_midnight FROM actionLists WHERE
+            actionList = '..\actionLists\Notepad\new_1_Notepad_Administrator.ahk._Generated.ahk' ;
+
+
+
+
+            SELECT id, lastUsedByUser_since_midnight FROM actionLists WHERE
+                actionList = '..\actionLists\Notepad\new_1_Notepad_Administrator.ahk._Generated.ahk' ;
+        */
         try{
-            g_actionListDB.Query(sql)
+            if(!doUseNewMethodStartOfImplementing22march2019)
+                g_actionListDB.Query(sql)
+            else{
+                If !DB.Exec(sql){
+                    clipboard := sql
+                   MsgBox, 16, SQLite Error, % "Msg:`t" . DB.ErrorMsg . "`nCode:`t" . DB.ErrorCode "`n`n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
+               }
+            }
         } catch e{
             tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
             sqlLastError := SQLite_LastError()
@@ -105,7 +123,15 @@ class Sql_Temp { ; search help: sqltemp tempsql
         sql := "select value from temp where key = '" key "';"
         ; clipboard := sql
         try{
-            Matches  := g_actionListDB.Query(sql)
+            if(!doUseNewMethodStartOfImplementing22march2019)
+                Matches  := g_actionListDB.Query(sql)
+            else{
+                    If !DB.GetTable(sql, Matches){
+                        clipboard := sql
+                       MsgBox, 16, SQLite Error: GetTable, % "Msg:`t" . DB.ErrorMsg . "`nCode:`t" . DB.ErrorCode "`n`n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
+                    }
+           }
+
         } catch e{
             tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
             sqlLastError := SQLite_LastError()

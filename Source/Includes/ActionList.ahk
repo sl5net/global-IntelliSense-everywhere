@@ -2165,17 +2165,98 @@ INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\")
 
 ;/¯¯¯¯ getActionListID ¯¯ 181106194141 ¯¯ 06.11.2018 19:41:41 ¯¯\
 getActionListID(sql_template_dir, actionList){
-	
+
 	global g_actionListDB
 	global g_actionListDBfileAdress
 	global g_actionList_UsedByUser_since_midnight
-INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
-	if(!g_actionListDB)
+    INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+
+
+
+;/¯¯¯¯ doUseNewMethodStartOfImplementing22march2019 ¯¯ 190322183522 ¯¯ 22.03.2019 18:35:22 ¯¯\
+    ;doUseNewMethodStartOfImplementing22march2019 := true
+    if(doUseNewMethodStartOfImplementing22march2019){
+        SELECT =
+        (
+    SELECT id, lastUsedByUser_since_midnight FROM actionLists WHERE
+    actionList = '%actionList%' ;
+        )
+
+If (!DB) {
+   MsgBox, 16, SQLite Error, % "Msg:`t" . DB.ErrorMsg . "`nCode:`t" . DB.ErrorCode "`n`n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
+   ExitApp
+}
+
+   ; MsgBox, 16, % DB.Version "`n`n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
+
+
+/*
+SELECT id, lastUsedByUser_since_midnight FROM actionLists WHERE
+    actionList = '..\actionLists\_globalActionListsGenerated\_ahk_global.ahk._Generated.ahk' ;
+
+    SELECT distinct ltrim(word), ltrim(worddescription), ltrim(wordreplacement)
+         FROM Words
+         WHERE word LIKE '%'  ESCAPE '~'
+         and ActionListID = 7
+          order by ActionListID, word
+         LIMIT 2;
+    -- seLECT * FROM ActionLists l where l.ActionList like %isNotAProject%;
+    -- An underscore (_) in the LIKE pattern matches any single character in the string.
+    -- you need to reload the script after each change. be careful by changing the ware statment. its will later parsed by script.
+    -- prp probab ür probab pro proba qahk s changin pro probab pro probab p proba
+*/
+
+        If !DB.GetTable(SELECT, Table){
+If !DB.OpenDB(g_actionListDBfileAdress) {
+   MsgBox, 16, SQLite Error, % g_actionListDBfileAdress  "`n`nMsg:`t" . DB.ErrorMsg " " " `nCode:`t" . DB.ErrorCode "`n`n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
+   ExitApp
+}
+            clipboard := SELECT
+           ;MsgBox, 16, SQLite Error: GetTable, % "Msg:`t" . DB.ErrorMsg . "`nCode:`t" . DB.ErrorCode "`n`n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
+           tooltip,% "SQLite Error: GetTable: " "Msg:`t" . DB.ErrorMsg . "`nCode:`t" . DB.ErrorCode "`n`n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
+            Table.Free()
+            sleep 1000
+            return false
+            return getActionListID(sql_template_dir, actionList)
+
+           /*
+           SELECT id, lastUsedByUser_since_midnight FROM actionLists WHERE
+               actionList = '..\actionLists\_globalActionListsGenerated\_ahk_global.ahk._Generated.ahk' ;
+           */
+
+        }
+        sumStr := ""
+        If (Table.HasNames) {
+          ; Loop, % Table.ColumnCount
+          If (Table.HasRows) {
+             Loop, % Table.RowCount {
+                ; RowCount := LV_Add("", "")
+                RowID := A_Index
+                Table.Next(Row)
+                sumStr .= RowID - 1 ": "
+                Loop, % Table.ColumnCount
+                {
+                    actionListID := Row[A_Index]
+                    break
+                }
+                if(actionListID)
+                    break
+             }
+          }
+        }
+        Table.Free()
+        ;tooltip,% actionListID
+        ;msgbox,% actionListID "`n`n" SELECT
+        return actionListID
+    }
+;\____ doUseNewMethodStartOfImplementing22march2019 __ 190322183533 __ 22.03.2019 18:35:33 __/
+
+	if(!doUseNewMethodStartOfImplementing22march2019 && !g_actionListDB)
 		g_actionListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", g_actionListDBfileAdress ) ;
 	if(!sql_template_dir){
         msgbox,% "!sql_template_dir`n `n (" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
 	}
-	if(!g_actionListDB){
+	if(!doUseNewMethodStartOfImplementing22march2019 && !g_actionListDB){
         msgbox,% "!g_actionListDB`n `n (" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
 	}
 	sqlGetWLid =
@@ -2297,7 +2378,7 @@ INSERT_INTO_actionLists_ifNotExist(sql_template_dir,actionList, actionListModifi
 	
 	global g_actionListDB
 	global g_actionListDBfileAdress
-	if(!g_actionListDB)
+	if(!doUseNewMethodStartOfImplementing22march2019 && !g_actionListDB)
 		g_actionListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", g_actionListDBfileAdress ) ;
 	actionListID := getActionListID(sql_template_dir, actionList) ; 24.03.2018 23:02
 	if(actionListID){
@@ -2320,7 +2401,7 @@ INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\")
 	sql := "INSERT INTO actionLists "
 	sql .= " (id, actionList, actionListmodified, actionListsize) VALUES "
 	sql .= " (null, '" actionList "', '" actionListModified "', '" actionListSize "' );"
-	if(!g_actionListDB)
+	if(!doUseNewMethodStartOfImplementing22march2019 && !g_actionListDB)
 		g_actionListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", g_actionListDBfileAdress ) ;
 	try{
 		g_actionListDB.Query(sql)

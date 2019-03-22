@@ -485,7 +485,7 @@ CreateWordsTable(WordsTableName:="Words"){
 		lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"lin1 at CREATE_TABLE_wordS")
 		global g_actionListDB
 		global g_actionListDBfileAdress
-		if(!g_actionListDB)
+		if(!doUseNewMethodStartOfImplementing22march2019 && !g_actionListDB)
 			g_actionListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", g_actionListDBfileAdress ) ;
 ;
 		sql =
@@ -540,7 +540,7 @@ actionListID INTEGER NOT NULL
 		lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"lin1 at CREATE_TABLE_actionLists")
 		global g_actionListDB
 		global g_actionListDBfileAdress
-		if(!g_actionListDB)
+		if(!doUseNewMethodStartOfImplementing22march2019 && !g_actionListDB)
 			g_actionListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", g_actionListDBfileAdress ) ;
 		
 		sql := "CREATE TABLE IF NOT EXISTS actionLists (id INTEGER PRIMARY KEY AUTOINCREMENT, actionList TEXT, actionListmodified DATETIME, actionListsize INTEGER, lastusedByUser_since_midnight INTEGER)"

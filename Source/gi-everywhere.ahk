@@ -197,6 +197,98 @@ global g_doRunLogFiles := false
 
 ; msgbox, % g_config.sql.template.dir "`n ==??== `n" g_config.sql.template["dir"] "`n ==??== `n" g_config["sql"]["template"]["dir"]
 ; ^- interesting all above is the same value 19-02-23_18-39
+
+
+; DB := new SQLiteDB
+#Include %A_ScriptDir%\Lib\Class_SQLiteDB.ahk
+if(0){
+DB := new SQLiteDB
+If (!g_actionListDBfileAdress)
+   MsgBox, 16, 19-03-22_12-24
+If !DB.OpenDB(g_actionListDBfileAdress) {
+   MsgBox, 16, SQLite Error, % "Msg:`t" . DB.ErrorMsg . "`nCode:`t" . DB.ErrorCode "`n`n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
+   ExitApp
+}
+sql_template_dir := g_config.sql.template.dir
+fileNamePrefix := "select0"
+fileName := fileNamePrefix (1-1) ".sql"
+fileAdress := sql_template_dir "\" fileName
+FileRead, SELECT , % fileAdress
+If !DB.GetTable(SELECT, Table)
+   MsgBox, 16, SQLite Error: GetTable, % "Msg:`t" . DB.ErrorMsg . "`nCode:`t" . DB.ErrorCode
+sumStr := ""
+If (Table.HasNames) {
+  ; Loop, % Table.ColumnCount
+  If (Table.HasRows) {
+     Loop, % Table.RowCount {
+        ; RowCount := LV_Add("", "")
+        RowID := A_Index
+        Table.Next(Row)
+        sumStr .= A_Index - 1 ": "
+        Loop, % Table.ColumnCount
+        {
+            sumStr .= Row[A_Index] "< = " RowID "," Table.ColumnNames[A_Index]
+        }
+          ; LV_Modify(RowCount, "Col" . A_Index, Row[A_Index])
+        sumStr .= "`r`n"
+     }
+  }
+}
+Table.Free()
+RecordSet.Free()
+; DB.CloseDB()
+tooltip,% sumStr
+msgbox,% fileName ": `n" sumStr
+}
+
+; Tooltip
+; Tool
+
+    ; global doUseNewMethodStartOfImplementing22march2019 := true
+    global doUseNewMethodStartOfImplementing22march2019 := false
+    global DB
+    if(doUseNewMethodStartOfImplementing22march2019){
+global DB := new SQLiteDB
+If (!g_actionListDBfileAdress)
+   MsgBox, 16, 19-03-22_12-24
+If !DB.OpenDB(g_actionListDBfileAdress) {
+   MsgBox, 16, SQLite Error, % "Msg:`t" . DB.ErrorMsg . "`nCode:`t" . DB.ErrorCode "`n`n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
+   ExitApp
+}
+actionList := "..\actionLists\ChromeWidgetWin1\GitHub_Desktop.ahk"
+g_actionListID := getActionListID(g_config["sql"]["template"]["dir"], actionList)
+
+        SELECT = select * from Words limit 5
+        If !DB.GetTable(SELECT, Table){
+            clipboard := SELECT
+           MsgBox, 16, SQLite Error: GetTable, % "Msg:`t" . DB.ErrorMsg . "`nCode:`t" . DB.ErrorCode "`n`n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
+        }
+        sumStr := ""
+        If (Table.HasNames) {
+          ; Loop, % Table.ColumnCount
+          If (Table.HasRows) {
+             Loop, % Table.RowCount {
+                ; RowCount := LV_Add("", "")
+                RowID := A_Index
+                Table.Next(Row)
+                sumStr .= RowID - 1 ": "
+                Loop, % Table.ColumnCount
+                {
+                    sumStr .= Row[A_Index] ; "" Table.ColumnNames[A_Index] " "
+                    ; Matches[RowID][A_Index] := Row[A_Index]
+                }
+              ; LV_Modify(RowCount, "Col" . A_Index, Row[A_Index])
+                sumStr .= "`r`n"
+             }
+          }
+        }
+        Table.Free()
+        ; tooltip,% sumStr
+        ; msgbox,% sumStr
+
+
+}
+
 ;\____ global __ 190113082444 __ 13.01.2019 08:24:44 __/
 ;\____ global __ 190113082444 __ 13.01.2019 08:24:44 __/
 ;\____ global __ 190113082444 __ 13.01.2019 08:24:44 __/
