@@ -42,6 +42,8 @@ g_config.FuzzySearch := { 	enable: true, 	MAXlines : 87654,  	keysMAXperEntry : 
 g_config.sql.template := { 	dir: A_ScriptDir "\sql\template" } 
 ; you do not need these runners. these are just examples: 
 ; C:\php731NTS>php.exe helloWorld.php 
+; usage example in your actionScrip: helloCommandLine keyword|rr||helloCommandLine|hello value 
+; https://g-intellisense.myjetbrains.com/youtrack/issue/GIS-134 
 g_config.codeRunner := { 	code_AutoHotkey_Community:  	A_ScriptDir "\..\actionLists\_globalActionLists\incDynAhk\AutoHotkey_Community\in_commandLine_send_modified_clipboard.ahk", 	helloCommandLine: A_ScriptDir "\plugins\ahk\helloCommandLine.ahk", 	everything: A_ProgramFiles "\_\Everything\Everything.exe", 	everythingEs: A_ProgramFiles "\_\Everything\ES\es.exe", 	javascript: "node", 	php731NTS: "C:\php731NTS\php.exe",  	php: "C:\php\php.exe", 	python: "python", 	perl: "perl", 	ruby: "C:\Ruby23-x64\bin\ruby.exe", 	go: "go run", 	html: "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe", 	java: "cd $dir && javac $fileName && java $fileNameWithoutExt", 	c: "cd $dir && gcc $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt", 	kotlinc: A_ScriptDir "\..\actionLists\_kts\kotlinc\bin\kotlinc" } 
 ; difficult to implement symlink copy for not rr lines doValueCopy. todo: issue . doValueCopy : false  is not fully implemented 
 ; g_config["sql"["select"]["ignIfWhereIsWithoutListID"] 

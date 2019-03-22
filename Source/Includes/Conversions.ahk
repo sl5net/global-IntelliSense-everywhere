@@ -291,6 +291,8 @@ RunConversionSeven(){
 	g_actionListDB.EndTransaction()
 }
 
+
+;/¯¯¯¯ CreateLastStateTable ¯¯ 190322053009 ¯¯ 22.03.2019 05:30:09 ¯¯\
 CreateLastStateTable(){
 	global g_actionListDB
 
@@ -302,9 +304,12 @@ CreateLastStateTable(){
 		ExitApp
 	}
 }
+;\____ CreateLastStateTable __ 190322053013 __ 22.03.2019 05:30:13 __/
 
 
 
+
+;/¯¯¯¯ INSERT_function_call_time_millis_since_midnight ¯¯ 190322052959 ¯¯ 22.03.2019 05:29:59 ¯¯\
 INSERT_function_call_time_millis_since_midnight( aLineFile , aThisFunc , aLineNumber){
 
 if(0 && InStr(A_ComputerName,"SL5")){
@@ -312,7 +317,6 @@ if(0 && InStr(A_ComputerName,"SL5")){
 }else
     return
 
-; Comp
 
     ; select ROWID,p.small_LineFile,p.A_ThisFunc,p.actionList,p.actionListsize,p.millisec_dif_to_next_function_call from performance p order by p.millisec_dif_to_next_function_call desc limit 3;
 	global g_actionListDB
@@ -427,9 +431,14 @@ sql .= temp ")"
     ;clipboard := sql
     ;msgbox, % sql  "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 }
+;\____ INSERT_function_call_time_millis_since_midnight __ 190322053039 __ 22.03.2019 05:30:39 __/
 
 
 
+
+
+
+;/¯¯¯¯ Create_PerformanceMeasurementOf_Functions_Table ¯¯ 190322053049 ¯¯ 22.03.2019 05:30:49 ¯¯\
 ; sqlite  auto-incrementing :
 ; You get one for free, called ROWID. This is in every SQLite table whether you ask for it or not.
 ; If you include a column of type INTEGER PRIMARY KEY, that column points at (is an alias for) the automatic ROWID column.
@@ -465,6 +474,8 @@ small_LineFile TEXT NOT NULL
 		ExitApp
 	}
 } ; endOfFunction
+;\____ Create_PerformanceMeasurementOf_Functions_Table __ 190322053059 __ 22.03.2019 05:30:59 __/
+
 
 
 

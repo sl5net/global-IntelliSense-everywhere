@@ -208,7 +208,6 @@ checkInRegistryChangedActionListAddress_inc
          exitApp
     }
     ; actionListNewTemp_withoutExt := actionListDirBase "\" actionListNewTemp_withoutExt
-    actionListNewTemp_withoutExt := actionListNewTemp_withoutExt
     if(0 && InStr(A_ComputerName,"SL5")){
         ; clipboard := actionListNewTemp_withoutExt " (" RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
         ToolTip4sec( "clipboard := actionList`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
@@ -434,9 +433,10 @@ Sleep,3000
 
 
 ; returns the position of an occurrence of the string Needle in the string Haystack. Position 1 is the first character; this is because 0 is synonymous with "false",
-   if( FileExist(actionListNewTemp_withoutExt ".ahk._Generated.ahk") && !InStr(actionListNewTemp_withoutExt, "._Generated.ahk") )
+   if( FileExist(actionListNewTemp_withoutExt ".ahk._Generated.ahk") && !InStr(actionListNewTemp_withoutExt, "._Generated.ahk") ){
+
         actionList := actionListNewTemp_withoutExt ".ahk._Generated.ahk" ; that's probably did wrong place. But is a working bugfix. fallback. 25.10.2018 19:48
-    else
+    }else
         actionList := actionListNewTemp_withoutExt ".ahk"
 
 

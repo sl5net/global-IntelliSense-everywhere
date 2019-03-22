@@ -116,7 +116,6 @@ ReadActionList( calledFromStr ){
 	actionListPostFix  := SubStr(rtrim(actionList), - StrLen(postFixGenerated) + 1 ) ; That works I've tested it 01.11.2018 14:59
 	itsAGeneratedList := ( postFixGenerated == actionListPostFix )
 
-; 
 
 	if(itsAGeneratedList){ ; 19-03-22_05-10 ; ToDo: 19-03-22_05-10
         ; tooltip,% "5555" actionList, 200, 100,5
@@ -126,6 +125,10 @@ ReadActionList( calledFromStr ){
         if(itsAGeneratedList_DIRTY_BUGFIX){
             actionList := substr( actionList, 1 , strlen(actionList) -StrLen(postFixGenerated_DIRTY_BUGFIX) )
             actionList .= ".ahk._Generated.ahk"
+            if(1 && InStr(A_ComputerName,"SL5")){
+                ToolTip2sec( "Oops : " postFixGenerated_DIRTY_BUGFIX "`n`n" actionList "`n`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+                sleep,9000
+            }
             ; msgbox, % actionList " 19-03-22_05-07"
         }
 

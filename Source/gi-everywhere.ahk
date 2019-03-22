@@ -710,6 +710,53 @@ return_from_LineNumber := create_al_Address(actionList
 ,stop_list_change
 ,actionListDirBase )
 
+
+
+
+
+
+
+;/¯¯¯¯ playGround ¯¯ 190322063403 ¯¯ 22.03.2019 06:34:03 ¯¯\
+if(false){ ; sqLite playGround
+; the following returns nothing from the database (no errors) if i use ahk, gives results if i using sqlitebrowser:
+select =
+(
+SELECT rowid FROM ( SELECT rowid FROM Words LIMIT 1 ) t1
+UNION ALL
+SELECT rowid FROM ( SELECT rowid FROM Words ORDER by rowid DESC LIMIT 1 ) t2
+)
+; the following returns a number from the database:
+select =
+(
+SELECT rowid FROM Words LIMIT 1
+)
+
+	try{
+		results := g_actionListDB.Query(select)
+		for each, row in results.Rows
+		{
+			msgbox,% row[1] = "`n>" row[1] "<`n(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+		}
+        msgbox,% select "`n" row[1] "`n(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+	} catch e{
+		tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
+		sqlLastError := SQLite_LastError()
+		tip .= "`n sqlLastError=" sqlLastError "`n sql=" select " `n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
+		lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,tip)
+		tooltip, `% tip
+		feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), tip )
+		Clipboard := tip
+		msgbox, % tip
+	}
+reload
+}
+;\____ playGround __ 190322063417 __ 22.03.2019 06:34:17 __/
+
+
+
+
+
+
 MainLoop()
 
 ; too too too tool
@@ -1209,9 +1256,6 @@ RecomputeMatchesTimer:
         ; actionList := RegReadActionList_DebugInfo ; todo: not pretty 18-12-28_08-27 quck and dirty
         gosub,checkInRegistryChangedActionListAddress
     }
-
-
-
    if(0 && InStr(A_ComputerName,"SL5")){
        isInIn := (instr(actionList,short_RegReadActionList_DebugInfo) || instr(RegReadActionList_DebugInfo,short_actionList) )
         tooltip,% "RecomputeMatchesTimer: " g_Word "(" StrLen(g_Word) ") (" A_ThisFunc "~" A_LineNumber "~" RegExReplace(A_LineFile,".*\\") ")" ((!isInIn) ? "Oops: al=" RegExReplace(actionList,".*\\") "<> reg=" RegExReplace(RegReadActionList_DebugInfo,".*\\") : RegExReplace(actionList,".*\\") ) ,1,-20
@@ -1221,14 +1265,6 @@ RecomputeMatchesTimer:
         if( 0 && instr(at, ".ahk") && instr(actionList, "isNotAProject" ))
             tooltip,% "ERROR: wrong list: " actionList "(" A_ThisFunc "~" A_LineNumber "~" RegExReplace(A_LineFile,".*\\"),1,20,9
 }
-
-
-
-; tool too to too  too too tool to
-; tool tool too tool to too tool
-
-
-
     ;/¯¯¯¯ Temporary ¯¯ 181107201243 ¯¯ 07.11.2018 20:12:43 ¯¯\
     ; Temporary switched off
     ; g_min_searchWord_length := getMinLength_Needetthat_ListBecomesVisible(ParseWordsCount, maxLinesOfCode4length1)
@@ -1241,9 +1277,6 @@ RecomputeMatchesTimer:
         g_reloadIf_ListBox_Id_notExist := true
         ; msgbox,% "g_reloadIf_ListBox_Id_notExist:= true(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
     }
-
-
-
    RecomputeMatches(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")) ; RecomputeMatchesTimer:
 Return
 

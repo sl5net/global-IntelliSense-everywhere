@@ -395,10 +395,17 @@ INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\") 
 		Return
 	}
 	SavePriorMatchPosition()
-	
-	; tooo tooo tool t to  toolTip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
-	; t kada  4 test  sdasdf tset tool tool too
-	
+
+if(0 && InStr(A_ComputerName,"SL5"))
+{
+   AHKcode =
+   (
+   loop,2
+       SoundBeep, 1200
+    )
+	DynaRun(AHKcode)
+}
+
    ;Match part-word with command
 	g_MatchTotal = 0
 
@@ -796,8 +803,7 @@ LIMIT 9
         ;\____ if StrLen_g_Word >
 	}
 
-; tooltest hall test
-	
+
     ;/¯¯¯¯ nothingFound ¯¯ 181209180913 ¯¯ 09.12.2018 18:09:13 ¯¯\
     if(g_MatchTotal == 0 && !do_SELECT_actionList_FROM_actionLists_NotLike_isNotAProject ) ; 	IfEqual, g_MatchTotal, 0
 	{
@@ -858,6 +864,8 @@ global g_ListBoxActualSizeH_maxFound ; this variable is empty after a fres start
 ; remember: ListBoxPosY := CaretYorMouseYfallback() - ListBoxActualSizeH
     tooltipPosY += (g_ListBoxActualSizeH_maxFound) ? g_ListBoxActualSizeH_maxFound : 164 ; found: 164. is maybe a good value. nearly correct 04.01.2019 11:16
     tooltipPosY += 29 ; of some reasons seems to be necasary Oops ??? 04.01.2019 11:29
+							 if(1 && InStr(A_ComputerName,"SL5"))
+    tooltipPosY += 129 ; of some reasons . may helps 19-03-22_04-22
     ; tool tool toool tool tool tool tool toolt toolt toolt toolt toolt toolt toolt toolt tool toolt toolt
     ;  toolt toolt too tool
             tip := ""
