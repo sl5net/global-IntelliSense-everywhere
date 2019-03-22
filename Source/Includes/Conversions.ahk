@@ -307,6 +307,13 @@ CreateLastStateTable(){
 
 INSERT_function_call_time_millis_since_midnight( aLineFile , aThisFunc , aLineNumber){
 
+if(0 && InStr(A_ComputerName,"SL5")){
+    ; nix
+}else
+    return
+
+; Comp
+
     ; select ROWID,p.small_LineFile,p.A_ThisFunc,p.actionList,p.actionListsize,p.millisec_dif_to_next_function_call from performance p order by p.millisec_dif_to_next_function_call desc limit 3;
 	global g_actionListDB
 	global actionList
