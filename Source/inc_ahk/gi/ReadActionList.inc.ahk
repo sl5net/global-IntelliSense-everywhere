@@ -269,7 +269,8 @@ INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\")
             %SELECT%
             )
 			if(1 && InStr(A_ComputerName,"SL5")){
-				Msgbox,% ":-( Oops `n " m " !g_actionListID ==> return false `n (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+                toolTip2sec( "ups !g_actionListID `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+				; Msgbox,% ":-( Oops `n " m " !g_actionListID ==> return false `n (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
             }
 			Sleep, 1000
 			return false
@@ -298,16 +299,23 @@ INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\")
 
 ;msgbox,actionList = %actionList% `n (%A_LineFile%~%A_LineNumber%)
 
+INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 
-	if (!g_actionListDB )
+if(!doUseNewMethodStartOfImplementing22march2019 && !g_actionListDB ){
+
+INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+
 		g_actionListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", g_actionListDBfileAdress ) ; https://autohotkey.com/board/topic/86457-dba-16-easy-database-access-mysql-sqlite-ado-ms-sql-access/
-; END of: Section wait for unsolved error messages. to close them unsolved :D 02.04.2017 14:36 17-04-02_14-36 todo: dirty bugfix
 
+INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+
+; END of: Section wait for unsolved error messages. to close them unsolved :D 02.04.2017 14:36 17-04-02_14-36 todo: dirty bugfix
+}
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-	if (!g_actionListDB )
-	{
+if(!doUseNewMethodStartOfImplementing22march2019 && !g_actionListDB ){
 		tooltip, Problem opening database '%A_ScriptDir%\actionListLearned.db' - fatal error...
 		lll(A_LineNumber, A_LineFile,Last_A_This . " sleep,15000 ")
+INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 		sleep,15000
       ; exitapp
 		lll(A_LineNumber, A_LineFile,Last_A_This . " reload ")
@@ -330,11 +338,12 @@ OK
 ; How to test if file is_writable and not locked by another program ??
 ; FileGetAttrib, OutputVar, g_actionListDBfileAdress
 ; clipboard := g_actionListDB
-	if(g_actionListDB)
-		g_actionListDB.Query("PRAGMA journal_mode = TRUNCATE;")
-	else
-		msgbox,Oops i am triggered :D 17-04-02_13-47 !g_actionListDB
-
+	if(!doUseNewMethodStartOfImplementing22march2019)
+        if(g_actionListDB )
+            g_actionListDB.Query("PRAGMA journal_mode = TRUNCATE;")
+        else
+            msgbox,Oops i am triggered :D 17-04-02_13-47 !g_actionListDB
+INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 	DatabaseRebuilt := MaybeConvertDatabase()
 
 
@@ -406,14 +415,34 @@ from: actionList.ahk~%A_LineNumber%
 
 ;
 
+INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 		SELECT := "SELECT actionListmodified, actionListsize FROM actionLists WHERE actionList = '" actionList "';"
 		if(1 && InStr(A_ComputerName,"SL5") && activeTitle == "isNotAProject")
 			ToolTip4sec(msg "`n`n" SELECT "`n" A_LineNumber . " " . RegExReplace(A_LineFile, ".*\\", ""),1,1  )
             ;ifwinactive,ahk_class SunAwtFrame
-		LearnedWordsTable := g_actionListDB.Query(SELECT)
+INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+
+
+
+
+        if(doUseNewMethodStartOfImplementing22march2019){
+            If !DB.GetTable(SELECT, LearnedWordsTable ){
+                if(!DB.HasKey("SQL")){
+                    tip := "ups !DB.HasKey(""SQL"") `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+                    toolTip2sec( tip  )
+                    return false
+                    MsgBox, 16, % tip , % tip
+                }else
+                    MsgBox, 16, % A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ,% tip "`n" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+            }
+        }else{
+    		LearnedWordsTable := g_actionListDB.Query(SELECT)
+        }
+
 
 		LoadActionList := "Insert"
 
+INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 		For each, row in LearnedWordsTable.Rows
 		{ ; For each, row in LearnedWordsTable.Rows
 			actionListLastModified := row[1]
@@ -524,6 +553,8 @@ if(0 && InStr(actionList, "Turek") && InStr(A_ComputerName,"SL5"))
 				; msgbox, %tip% `n(%A_LineFile%~%A_LineNumber%)
 				closeInSeconds := 5
 				ToolTip5sec( tip "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+
+
 				feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), tip, 1,1, closeInSeconds )
 			}
 			if(!actionList)

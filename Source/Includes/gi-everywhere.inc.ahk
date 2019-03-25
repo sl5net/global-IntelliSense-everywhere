@@ -370,6 +370,12 @@ RecomputeMatches( calledFromStr, is_Recursion := false ){
 
 INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\") , A_ThisFunc , A_LineNumber)
 
+
+if(!g_actionListID){
+    toolTip2sec( "ups !g_actionListID `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+    return false
+    }
+
     sql_template_dir := g_config.sql.template.dir
 
     ;if( g_listSELECT_FROM_WinTitle && WinActive(g_listSELECT_FROM_WinTitle))
@@ -468,7 +474,9 @@ SELECT actionList FROM actionLists WHERE actionList Like 'g_Word' AND actionList
 
     ; ToolTip2sec(g_min_searchWord_length_2 "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 	StrLen_g_Word := StrLen(g_Word)
-	loop,7
+
+	loopCount := (doUseNewMethodStartOfImplementing22march2019) ? 1 : 7
+	loop,% loopCount
 	{
 	    ;/¯¯¯¯ special ¯¯ 190109101246 ¯¯ 09.01.2019 10:12:46 ¯¯\
         ; special cases:
@@ -580,7 +588,8 @@ SELECT actionList FROM actionLists WHERE actionList Like 'g_Word' AND actionList
 
         ;/¯¯¯¯ doUseNewMethodStartOfImplementing22march2019 ¯¯ 190322182935 ¯¯ 22.03.2019 18:29:35 ¯¯\
         ;doUseNewMethodStartOfImplementing22march2019 := true
-		if(doUseNewMethodStartOfImplementing22march2019){
+        if(doUseNewMethodStartOfImplementing22march2019){
+            ; DB.GetTable(SELECT, Matches)
             Matches := []
         If !DB
            MsgBox, 16, % " sqlLastError=" sqlLastError "`n sql=" SELECT " `n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
@@ -597,7 +606,20 @@ SELECT actionList FROM actionLists WHERE actionList Like 'g_Word' AND actionList
         ;If !DB.GetTable(SELECT, Table){
         If !DB.GetTable(SELECT, Matches){
             while(!DB.GetTable(SELECT, Matches)){
-                tooltip, % " SQLite Error: GetTable, " "Msg:`t" . DB.ErrorMsg . "`nCode:`t" . DB.ErrorCode "`n`n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
+
+                if(!DB.HasKey("SQL")){
+                    clipboard  := "DB.HasKey(""SQL"")=" DB.HasKey("SQL") "`n`n" get_obj_ToString(DB)
+                    MsgBox,16,% A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ,% clipboard "`n" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+
+                }
+
+
+
+            if(DB.ErrorCode){
+                tip := % SELECT "`n`nDB.HasKey(""SQL"")=" DB.HasKey("SQL") "`n" " SQLite Error: GetTable, " "Msg:`t" . DB.ErrorMsg . "`nCode:`t" . DB.ErrorCode "`n`n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
+                MsgBox,16,% A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ,% tip "`n" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+            }
+                countLoopTemp++
                 sleep,3000
             }
             clipboard := SELECT
@@ -643,17 +665,21 @@ SELECT actionList FROM actionLists WHERE actionList Like 'g_Word' AND actionList
         ; return
     }
     ;\____ doUseNewMethodStartOfImplementing22march2019 __ 190322182946 __ 22.03.2019 18:29:46 __/
-
-
-
-
-
-
     else{ ;  && "method before 19-03-22_13-19"
-
-
 		try{
-			Matches := g_actionListDB.Query(SELECT)
+ 			; Matches := g_actionListDB.Query(SELECT)
+                    if(!doUseNewMethodStartOfImplementing22march2019)
+                        Matches  := g_actionListDB.Query(SELECT)
+                        ; DB.GetTable(SELECT, Matches)
+                    else{
+                        If !DB.GetTable(SELECTsql, Matches){
+                            if(!DB.HasKey("SQL")){
+                                MsgBox, 16, % "ups !DB.HasKey(""SQL"") `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+                            }
+                            clipboard := SELECT
+                           MsgBox, 16, SQLite Error: GetTable, % "Msg:`t" . DB.ErrorMsg . "`nCode:`t" . DB.ErrorCode "`n`n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
+                        }
+                   }
 		} catch e{
 			tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
 			sqlLastError := SQLite_LastError()
@@ -666,9 +692,24 @@ SELECT actionList FROM actionLists WHERE actionList Like 'g_Word' AND actionList
 		}
 
 }
-		
+
+
+
+
+		; for key, value
 		for each, row in Matches.Rows
 		{
+
+if(0){
+		                ObjSToStrTrim(s:="",Matches)
+                        MsgBox,16,% A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), % s
+}
+if(doUseNewMethodStartOfImplementing22march2019)
+    Matches.Next(row)
+if(0){
+		                ObjSToStrTrim(s:="",row)
+                        MsgBox,16,% A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), % s
+}
             manipulate_Matches_ByRef(row,sqlFilePrefix)
 
 		    ; tooltip msgb box box tooltip msgbox tooltip msg box line Line Too
@@ -678,6 +719,7 @@ SELECT actionList FROM actionLists WHERE actionList Like 'g_Word' AND actionList
 
 			if( InStr(A_ComputerName,"SL5") && doSetSelectFirstValue2registry )
 				ToolTip, % doSetSelectFirstValue2registry "`n = doSetSelectFirstValue2registry `n`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")", 500,1,5
+
 
 			if(doSetSelectFirstValue2registry){ ; !row[2] &&
 			    msgbox,% "(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")"
@@ -748,7 +790,7 @@ SELECT actionList FROM actionLists WHERE actionList Like 'g_Word' AND actionList
 		if(g_MatchTotal == 10)
 			break
 	}
-	
+	;\____ doUseNewMethodStartOfImplementing22march2019 __ 190324160209 __ 24.03.2019 16:02:09 __/
 	
         ; STMM MB ess box mess
         ; RM RM RM
@@ -786,7 +828,21 @@ SELECT actionList FROM actionLists WHERE actionList Like 'g_Word' AND actionList
 
 
 			try{
-				Matches := g_actionListDB.Query(SELECT)
+
+				                    if(!doUseNewMethodStartOfImplementing22march2019)
+                                        Matches  := g_actionListDB.Query(SELECT)
+                                    else{
+                                        If !DB.GetTable(SELECTsql, Matches){
+                                            if(!DB.HasKey("SQL")){
+                                                MsgBox, 16, % "ups !DB.HasKey(""SQL"") `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+                                            }
+                                            clipboard := SELECT
+                                           MsgBox, 16, SQLite Error: GetTable, % "Msg:`t" . DB.ErrorMsg . "`nCode:`t" . DB.ErrorCode "`n`n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
+                                        }
+                                   }
+
+
+				;Matches := g_actionListDB.Query(SELECT)
 			} catch e{
 				tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
 				sqlLastError := SQLite_LastError()
@@ -797,6 +853,12 @@ SELECT actionList FROM actionLists WHERE actionList Like 'g_Word' AND actionList
 				Clipboard := tip
 				msgbox, % tip
 			}
+
+if(doUseNewMethodStartOfImplementing22march2019){
+            ObjSToStrTrim(s:="",Matches)
+            MsgBox,16,% A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), % s
+}
+
 			for each, row in Matches.Rows
 			{
 				manipulate_Matches_ByRef(row,sqlFilePrefix)
@@ -862,7 +924,21 @@ LIMIT 9
                 ; clipboard := SELECT
                 ; winp
 				try{
-					Matches := g_actionListDB.Query(SELECT)
+					; r := g_actionListDB.Query(SELECT)
+					;Matches := r.Rows
+                    if(!doUseNewMethodStartOfImplementing22march2019)
+                        Matches  := g_actionListDB.Query(SELECT)
+                    else{
+                        If !DB.GetTable(SELECTsql, Matches){
+                            if(!DB.HasKey("SQL")){
+                                MsgBox, 16, % "ups !DB.HasKey(""SQL"") `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+                            }
+                            clipboard := SELECT
+                           MsgBox, 16, SQLite Error: GetTable, % "Msg:`t" . DB.ErrorMsg . "`nCode:`t" . DB.ErrorCode "`n`n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
+                        }
+                   }
+
+
 				} catch e{
 					tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
 					sqlLastError := SQLite_LastError()
@@ -873,8 +949,21 @@ LIMIT 9
 					Clipboard := tip
 					msgbox, % tip
 				}
-				for each, row in Matches.Rows
+
+            if(doUseNewMethodStartOfImplementing22march2019){
+                ObjSToStrTrim(s:="",Matches)
+                MsgBox,16,% A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), % s
+            }
+
+
+				for each, row in Matches ; .Rows
 				{
+
+            if(doUseNewMethodStartOfImplementing22march2019){
+
+        			msgbox,% " row[1]=" row[1] ", row[2]=" row[2] " , g_Word=" g_Word  " , g_MatchTotal=" g_MatchTotal " , Normalize=" Normalize "`n" actionList "`n" SELECT  "`nRecomputeMatches(calledFromStr):(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+}
+
                     manipulate_Matches_ByRef(row,sqlFilePrefix)
 
                     ; tooltip msgb box box tooltip msgbox tooltip msg box line Line Too
@@ -2276,7 +2365,7 @@ doReloadIfScriptDontMoveThisLine(sec := 5){
 				run,log\%A_LineFile%.log.txt
 			}
         ;if(1 && InStr(A_ComputerName,"SL5") )
-            ;msgbox,,reload (%A_LineNumber%), % "(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")",,1
+            ;MsgBox,16,reload (%A_LineNumber%), % "(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")",,1
             ; ^--- goood for debugging maybe
 			RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, Reload , % A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
 			Reload  ; [^;\n]*[ ]*\breload\b\n <= cactive reloads 18-10-28_11-47

@@ -93,7 +93,7 @@ RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, lastImportant_LineFileS
 RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, CreatedDir, % d1 ; RegWrite , RegSave , Registry
 ;\____ try_faster_reload_if_created __ 181025152609 __ 25.10.2018 15:26:09 __/
 
-; msgbox,,% " Created  (" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")",1
+; MsgBox,16,% " Created  (" A_LineNumber " " RegExReplace(A_LineFile, ".*\\", "") ")",1
 
 Speak("CreatedDir with d1")
 

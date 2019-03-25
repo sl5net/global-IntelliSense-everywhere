@@ -840,7 +840,7 @@ actionListActive = %actionListActive%
 			{
 				g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 
-        ;   MsgBox,,gi-everywhere  is running, :( `n are you sure gi-everywhere  is running? `n  IfWinNotExist gi-everywhere  `n (line:%A_LineNumber%) `n   lets try start it   automatically, 2
+        ;   MsgBox,16,gi-everywhere  is running, :( `n are you sure gi-everywhere  is running? `n  IfWinNotExist gi-everywhere  `n (line:%A_LineNumber%) `n   lets try start it   automatically, 2
         ; lets wait and try again. maybe its reload its self and needs only a second
 				Sleep, 2000 ; 1 Sekunde
 				IfWinNotExist,gi-everywhere
@@ -890,7 +890,7 @@ actionListActive = %actionListActive%
 			{
 				g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 
-;   MsgBox,,gi-everywhere  is running, :( `n are you sure gi-everywhere  is running? `n  IfWinNotExist gi-everywhere  `n (line:%A_LineNumber%) `n lets try start it automatically, 2
+;   MsgBox,16,gi-everywhere  is running, :( `n are you sure gi-everywhere  is running? `n  IfWinNotExist gi-everywhere  `n (line:%A_LineNumber%) `n lets try start it automatically, 2
 ; lets wait and try again. maybe its reload its self and needs only a second
 				Sleep, 2000 ; 1 Sekunde
 				IfWinNotExist,gi-everywhere
@@ -929,7 +929,7 @@ actionListActive = %actionListActive%
 			global g_lineNumberFeedback
 			g_lineNumberFeedback=%A_LineNumber%~%A_LineFile%~%A_ThisFunc%
 
-			MsgBox,,NotExist?, :( IfWinNotExist '%gi_everywhereAHK%' = gi_everywhereAHK  `n (line:%A_LineNumber%) `n , 2
+			MsgBox,16,NotExist?, :( IfWinNotExist '%gi_everywhereAHK%' = gi_everywhereAHK  `n (line:%A_LineNumber%) `n , 2
 		}
 
 		if(! FileExist(actionListDir) )

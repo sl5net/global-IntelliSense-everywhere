@@ -244,25 +244,44 @@ msgbox,% fileName ": `n" sumStr
 ; Tooltip
 ; Tool
 
-    ; global doUseNewMethodStartOfImplementing22march2019 := true
+
+;/¯¯¯¯ doUseNewMethodStartOfImplementing22march2019 ¯¯ 190324044131 ¯¯ 24.03.2019 04:41:31 ¯¯\
+    global doUseNewMethodStartOfImplementing22march2019 := true
     global doUseNewMethodStartOfImplementing22march2019 := false
     global DB
     if(doUseNewMethodStartOfImplementing22march2019){
-global DB := new SQLiteDB
+        global DB := new SQLiteDB
+        ;run,tools\DebugVars\DebugVars.ahk
+
+; clipboard  := "DB.HasKey(""SQL"")=" DB.HasKey("SQL") "`n" get_obj_ToString(DB)
+; MsgBox,262208,% ":)`n" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ,% clipboard
+
+
+;MsgBox,262208,% ":)`n" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ,% DB
+
 If (!g_actionListDBfileAdress)
    MsgBox, 16, 19-03-22_12-24
 If !DB.OpenDB(g_actionListDBfileAdress) {
    MsgBox, 16, SQLite Error, % "Msg:`t" . DB.ErrorMsg . "`nCode:`t" . DB.ErrorCode "`n`n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
    ExitApp
 }
+
 actionList := "..\actionLists\ChromeWidgetWin1\GitHub_Desktop.ahk"
 g_actionListID := getActionListID(g_config["sql"]["template"]["dir"], actionList)
+
+SQL = DELETE FROM performance
+If !DB.Exec(SQL)
+   MsgBox, 16, SQLite Error: GetTable, % "Msg:`t" . DB.ErrorMsg . "`nCode:`t" . DB.ErrorCode "`n`n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
+
 
         SELECT = select * from Words limit 5
         If !DB.GetTable(SELECT, Table){
             clipboard := SELECT
            MsgBox, 16, SQLite Error: GetTable, % "Msg:`t" . DB.ErrorMsg . "`nCode:`t" . DB.ErrorCode "`n`n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
         }
+
+
+
         sumStr := ""
         If (Table.HasNames) {
           ; Loop, % Table.ColumnCount
@@ -285,9 +304,8 @@ g_actionListID := getActionListID(g_config["sql"]["template"]["dir"], actionList
         Table.Free()
         ; tooltip,% sumStr
         ; msgbox,% sumStr
-
-
 }
+;\____ doUseNewMethodStartOfImplementing22march2019 __ 190324044151 __ 24.03.2019 04:41:51 __/
 
 ;\____ global __ 190113082444 __ 13.01.2019 08:24:44 __/
 ;\____ global __ 190113082444 __ 13.01.2019 08:24:44 __/
@@ -1856,6 +1874,14 @@ checkActionListAHKfile_sizeAndModiTime:
             tooltip, % tip
             SuspendOn()
             ;msgbox,% tip
+                        if(doUseNewMethodStartOfImplementing22march2019){
+
+        if(!DB.HasKey("SQL")){
+            toolTip2sec( "ups !DB.HasKey(""SQL"") `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+            MsgBox, 16, % "ups !DB.HasKey(""SQL"") `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+            ;MsgBox, 16, % A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ,% tip "`n" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+        }
+}
             RebuildDatabase(g_config["sql"]["template"]["dir"])
             SuspendOff()
             sleep,3000

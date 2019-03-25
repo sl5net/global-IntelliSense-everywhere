@@ -439,7 +439,7 @@ StrLen_source:=StrLen(source)
 if(StrLen_source < 100 )
 {
 	errormsg=ERROR StrLen(source of %f%) < 100 `n source=%source% `n f=%f% `n
-	;~ MsgBox,,,errormsg=%errormsg% `n , 2
+	;~ MsgBox,16,,errormsg=%errormsg% `n , 2
 	; ToolTip,errormsg=%errormsg% `n
 	ToolTip4sec( errormsg " = errormsg `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ") 19-01-16_18-41" )
 	;~ Reload
@@ -461,7 +461,7 @@ if(exist_newFileAdress){
  FileGetTime, targetCreatedTime, %newFileAdress%, C  ; Retrieves the creation time.
  ToolTip,sourceModifiedTime=%sourceModifiedTime%  > %targetCreatedTime% `n
 
- ;~ MsgBox,,,exist_newFileAdress = %exist_newFileAdress% `n`n newFileAdress=%newFileAdress% `nsourceModifiedTime=%sourceModifiedTime% `n targetCreatedTime=%targetCreatedTime% `n,20
+ ;~ MsgBox,16,,exist_newFileAdress = %exist_newFileAdress% `n`n newFileAdress=%newFileAdress% `nsourceModifiedTime=%sourceModifiedTime% `n targetCreatedTime=%targetCreatedTime% `n,20
 
 
 

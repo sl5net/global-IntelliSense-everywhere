@@ -364,7 +364,7 @@ moveFilesAndFolders(SourcePattern, DestinationFolder, DoOverwrite := false)
 		DoOverwrite = 2  ; See FileMoveDir for description of mode 2 vs. 1.
 	; First move all the files (but not the folders):
     if( !SourcePattern || !DestinationFolder){
-	MsgBox,, :( , source or destination could not be empty `n `n  '%SourcePattern%' -> '%DestinationFolder%', 4
+	MsgBox,16, :( , source or destination could not be empty `n `n  '%SourcePattern%' -> '%DestinationFolder%', 4
       return false
  }
 	FileMove, %SourcePattern%, %DestinationFolder%, %DoOverwrite%
@@ -441,8 +441,8 @@ errorCount_files := ErrorCount . " files/folders could not be moved. `n `n  (lin
    Sleep,10
    if(!clickImg(downloadPNG,"downloadPNG",mm))
    {
-      MsgBox,,:( no download, download image was was not searches suggessful `n  (line:%A_LineNumber%) `n  , 4
-      ;~ MsgBox,,
+      MsgBox,16,:( no download, download image was was not searches suggessful `n  (line:%A_LineNumber%) `n  , 4
+      ;~ MsgBox,16,
    ; reload view completly. thats deselects all. we dont need search up/down pages
    webFtpPNG =
    clickImg(webFtpPNG,"webFtpPNG",mm)

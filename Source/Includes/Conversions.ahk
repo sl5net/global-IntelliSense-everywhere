@@ -312,8 +312,9 @@ CreateLastStateTable(){
 ;/¯¯¯¯ INSERT_function_call_time_millis_since_midnight ¯¯ 190322052959 ¯¯ 22.03.2019 05:29:59 ¯¯\
 INSERT_function_call_time_millis_since_midnight( aLineFile , aThisFunc , aLineNumber){
 
-if(0 && InStr(A_ComputerName,"SL5")){
+if(doUseNewMethodStartOfImplementing22march2019 && InStr(A_ComputerName,"SL5")){
     ; nix
+    ; msgbox,doUseNewMethodStartOfImplementing22march2019 19-03-24_04-43
 }else
     return
 
@@ -336,6 +337,20 @@ sizeHere := (actionListsize)? actionListsize: 0
         sql := "select seq from sqlite_sequence where name=""performance"""
         sql := "select ROWID from performance order by ROWID desc limit 1"
         sql := "select ROWID, millis_since_midnight from performance order by ROWID desc limit 1"
+
+        if(doUseNewMethodStartOfImplementing22march2019){
+            IF !DB.Exec(sql){
+                 if(!DB.HasKey("SQL")){
+                    tip := "ups !DB.HasKey(""SQL"") `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+                    toolTip2sec( tip  )
+                    ;run,tools\DebugVars\DebugVars.ahk
+                    MsgBox, 16, % tip , % tip
+                    return false
+                }
+                MsgBox, 16, % "ups !DB.HasKey(""SQL"") `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+            }
+        }
+    else{
 		IF not g_actionListDB.Query(sql)
 		{
 			ErrMsg := g_actionListDB.ErrMsg() . "`n" . sql . "`n"
@@ -351,24 +366,49 @@ sizeHere := (actionListsize)? actionListsize: 0
                return
             }
 
-
 			return
 			; clipboard := sql
 			; msgbox Cannot select performance Table - fatal error: %ErrCode% - %ErrMsg%
 			, ExitApp
 		}
-        res := g_actionListDB.Query(sql)
-        For each, id in res.Rows
+    }
+
+if(false){
+        if(doUseNewMethodStartOfImplementing22march2019){
+            IF !DB.Exec(sql){
+             if(!DB.HasKey("SQL")){
+                toolTip2sec( "ups !DB.HasKey(""SQL"") `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+                ; return false
+                MsgBox, 16, % "ups !DB.HasKey(""SQL"") `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+                ;MsgBox, 16, % A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ,% tip "`n" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+            }
+            MsgBox, 16, % "ups !DB.HasKey(""SQL"") `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+            }
+
+            If !DB.GetTable(sql, Matches)
+                if(!DB.HasKey("SQL")){
+                    tip := "ups !DB.HasKey(""SQL"") `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+                    toolTip2sec( tip  )
+                    return false
+                    MsgBox, 16, % tip , % tip
+                    ;MsgBox, 16, % A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ,% tip "`n" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+                }
+
+        }else{
+            res := g_actionListDB.Query(sql)
+            Matches := res.Rows
+        }
+        For each, id in Matches
         {
             last_insert_rowid := id[1]
             last_millis_since_midnight := id[2]
-            ; msgbox,% last_millis_since_midnight  " = last_millis_since_midnight(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+            msgbox,% last_millis_since_midnight  " = last_millis_since_midnight(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
         }
         ; msgbox,% res  "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+}
 
-                sql := "select ROWID, millis_since_midnight from performance order by ROWID desc limit 1"
+        sql := "select ROWID, millis_since_midnight from performance order by ROWID desc limit 1"
 
-;
 millis_since_midnight := JEE_millis_since_midnight(vOpt:="")
 if(false && last_millis_since_midnight && millis_since_midnight){
     if(millis_since_midnight < last_millis_since_midnight){
@@ -417,16 +457,27 @@ temp =
 , %millis_since_midnight%
 )
 sql .= temp ")"
-    IF not g_actionListDB.Query(sql)
-    {
-        ErrMsg := g_actionListDB.ErrMsg() . "`n" . sql . "`n"
-        ErrCode := g_actionListDB.ErrCode()
-        ; clipboard := sql
-        msg := "Cannot insert performance Table - fatal error: " ErrCode " - " ErrMsg "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
-        ; msgbox, % "Cannot insert performance Table - fatal error: " ErrCode " - " ErrMsg "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
-        ToolTip4sec(msg " (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") " " Last_A_This)
-        return
-        ;ExitApp
+    if(doUseNewMethodStartOfImplementing22march2019){
+                IF !DB.Exec(sql){
+                    tip := "ups !DB.HasKey(""SQL"") `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+                    toolTip2sec( tip  )
+                    return false
+                    MsgBox, 16, % tip , % tip
+                }
+                    ;MsgBox, 16, % "ups `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+    }
+    else{
+        IF not g_actionListDB.Query(sql)
+        {
+            ErrMsg := g_actionListDB.ErrMsg() . "`n" . sql . "`n"
+            ErrCode := g_actionListDB.ErrCode()
+            ; clipboard := sql
+            msg := "Cannot insert performance Table - fatal error: " ErrCode " - " ErrMsg "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+            ; msgbox, % "Cannot insert performance Table - fatal error: " ErrCode " - " ErrMsg "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+            ToolTip4sec(msg " (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") " " Last_A_This)
+            return
+            ;ExitApp
+        }
     }
     ;clipboard := sql
     ;msgbox, % sql  "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"

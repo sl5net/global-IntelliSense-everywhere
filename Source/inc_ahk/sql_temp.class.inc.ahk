@@ -83,6 +83,18 @@ class Sql_Temp { ; search help: sqltemp tempsql
                 g_actionListDB.Query(sql)
             else{
                 If !DB.Exec(sql){
+                    if(!DB.HasKey("SQL")){
+                        toolTip2sec( "ups !DB.HasKey(""SQL"") `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+                        return false
+                        MsgBox, 16, % "ups !DB.HasKey(""SQL"") `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+                        ;MsgBox, 16, % A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ,% tip "`n" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+                    }
+                    tip := ObjSToStrTrim(s:="",DB) s
+                    ;if(DB.ErrorCode){
+                        tip .= sql "`n`nDB.HasKey(""SQL"")=" DB.HasKey("SQL") "`n" " SQLite Error: " "Msg:`t" . DB.ErrorMsg . "`nCode:`t" . DB.ErrorCode "`n`n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
+                        clipboard := tip
+                        MsgBox, 16, % A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ,% tip "`n" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+                    ;}
                     clipboard := sql
                    MsgBox, 16, SQLite Error, % "Msg:`t" . DB.ErrorMsg . "`nCode:`t" . DB.ErrorCode "`n`n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
                }
@@ -127,6 +139,11 @@ class Sql_Temp { ; search help: sqltemp tempsql
                 Matches  := g_actionListDB.Query(sql)
             else{
                     If !DB.GetTable(sql, Matches){
+                        if(!DB.HasKey("SQL")){
+                            toolTip2sec( "ups !DB.HasKey(""SQL"") `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+                            MsgBox, 16, % "ups !DB.HasKey(""SQL"") `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+                            ;MsgBox, 16, % A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ,% tip "`n" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+                        }
                         clipboard := sql
                        MsgBox, 16, SQLite Error: GetTable, % "Msg:`t" . DB.ErrorMsg . "`nCode:`t" . DB.ErrorCode "`n`n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
                     }

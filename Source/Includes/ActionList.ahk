@@ -46,7 +46,7 @@ setTrayIcon(status := "loaded" ){
 ;/¯¯¯¯ ObjToStrTrim ¯¯ 181111193648 ¯¯ 11.11.2018 19:36:48 ¯¯\
 ObjToStrTrim(o, showEmpty := false){
 	ret := ((s:=Trim(ObjToStr(o, showEmpty)," `t`r`n")) ? ">" s "<`n" : "")
-    ; msgbox,,% ret,,1
+    ; MsgBox,16,% ret,,1
 	return ret
 }
 ;\____ ObjToStrTrim __ 181111193651 __ 11.11.2018 19:36:51 __/
@@ -2182,7 +2182,11 @@ getActionListID(sql_template_dir, actionList){
     actionList = '%actionList%' ;
         )
 
-If (!DB) {
+If (!DB.HasKey("SQL")) {
+                tip := "ups !DB.HasKey(""SQL"") `n`n" SELECT "`n`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+                toolTip2sec( tip  )
+                MsgBox, 16, % tip , % tip
+                return false
    MsgBox, 16, SQLite Error, % "Msg:`t" . DB.ErrorMsg . "`nCode:`t" . DB.ErrorCode "`n`n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
    ExitApp
 }
@@ -2206,12 +2210,15 @@ SELECT id, lastUsedByUser_since_midnight FROM actionLists WHERE
     -- prp probab ür probab pro proba qahk s changin pro probab pro probab p proba
 */
 
+
         If !DB.GetTable(SELECT, Table){
-If !DB.OpenDB(g_actionListDBfileAdress) {
-   MsgBox, 16, SQLite Error, % g_actionListDBfileAdress  "`n`nMsg:`t" . DB.ErrorMsg " " " `nCode:`t" . DB.ErrorCode "`n`n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
-   ExitApp
-}
-            clipboard := SELECT
+
+            clipboard  := "DB.HasKey(""SQL"")=" DB.HasKey("SQL") "`n" SELECT "`n" "`n" "`n" get_obj_ToString(DB)
+            MsgBox,262208,% ":)`n" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ,% clipboard
+
+
+                tip := % SELECT "`n`nDB.HasKey(""SQL"")=" DB.HasKey("SQL") "`n" " SQLite Error: GetTable, " "Msg:`t" . DB.ErrorMsg . "`nCode:`t" . DB.ErrorCode "`n`n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
+                MsgBox,16,% A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ,% tip "`n" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
            ;MsgBox, 16, SQLite Error: GetTable, % "Msg:`t" . DB.ErrorMsg . "`nCode:`t" . DB.ErrorCode "`n`n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
            tooltip,% "SQLite Error: GetTable: " "Msg:`t" . DB.ErrorMsg . "`nCode:`t" . DB.ErrorCode "`n`n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
             Table.Free()
@@ -2225,6 +2232,10 @@ If !DB.OpenDB(g_actionListDBfileAdress) {
            */
 
         }
+
+
+
+
         sumStr := ""
         If (Table.HasNames) {
           ; Loop, % Table.ColumnCount
@@ -2244,7 +2255,12 @@ If !DB.OpenDB(g_actionListDBfileAdress) {
              }
           }
         }
-        Table.Free()
+
+
+        ;Table.Free()
+        INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+
+
         ;tooltip,% actionListID
         ;msgbox,% actionListID "`n`n" SELECT
         return actionListID
@@ -2264,15 +2280,32 @@ If !DB.OpenDB(g_actionListDBfileAdress) {
 SELECT id, lastUsedByUser_since_midnight FROM actionLists WHERE
 actionList = '%actionList%' ;
     )
-	try{
-		result := g_actionListDB.Query(sqlGetWLid)
-		For each, row in result.Rows
+	; try{
+
+		if(!doUseNewMethodStartOfImplementing22march2019){
+		    result := g_actionListDB.Query(sqlGetWLid)
+		    Matches := result.Rows
+        }else{
+            If !DB.GetTable(sql, Matches){
+                if(!DB.HasKey("SQL")){
+                   toolTip2sec( "ups !DB.HasKey(""SQL"") `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+                    MsgBox, 16, % "ups !DB.HasKey(""SQL"") `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+                }
+                MsgBox, 16, % A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ,% tip "`n" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+            }
+        }
+
+		For each, row in Matches
 		{
 			g_actionListID := row[1]
 			g_actionList_UsedByUser_since_midnight[g_actionListID] := row[2]
 			return g_actionListID
 		}
-	} catch e{
+
+  ;  INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+
+if(false){
+	; } catch e{
 		tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
 		lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,tip)
 		tooltip, `% tip
@@ -2287,9 +2320,9 @@ RebuildDatabase(sql_template_dir)
 			sleep,2000
 			reload
 		}
-		
-	}
-	
+	; }
+}
+
 	size := 1 ; FIRST TIME EVER schuuld be done by reading the actionList in other function
 	modified := "1111-11-11" ; FIRST TIME EVER  ; schuuld be done by reading the actionList in other function
         ; FileGetSize, actionListSize, % actionList
@@ -2298,7 +2331,25 @@ RebuildDatabase(sql_template_dir)
 	
         ;INSERT_INTO_actionLists_ifNotExist(actionList, modified, size )
 	try{
-		result := g_actionListDB.Query(sqlGetWLid)
+
+  ;  INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+
+        if(doUseNewMethodStartOfImplementing22march2019){
+            If !DB.GetTable(sql, Matches){
+                if(!DB.HasKey("SQL")){
+                    tip := "ups !DB.HasKey(""SQL"") `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+                    toolTip2sec( tip  )
+                    run,tools\DebugVars\DebugVars.ahk
+                    MsgBox, 16, % tip , % tip
+                    return false
+                }
+                MsgBox, 16, % "ups !DB.HasKey(""SQL"") `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+            }
+        }
+        else{
+		    result := g_actionListDB.Query(sqlGetWLid)
+		    Matches := result.Rows
+        }
 	} catch e{
 		tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
 		sqlLastError := SQLite_LastError()
@@ -2308,7 +2359,7 @@ RebuildDatabase(sql_template_dir)
 		feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), tip )
 		Clipboard := tip
 	}
-	For each, row in result.Rows
+	For each, row in Matches
 	{
 		g_actionListID := row[1]
 		g_actionList_UsedByUser_since_midnight[g_actionListID] := row[2]
@@ -2321,7 +2372,7 @@ RebuildDatabase(sql_template_dir)
           ; lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,msg)
           ; clipboard := msg
           ; feedbackMsgBox("clipboard:=sql", msg)
-          ; msgbox,% msg
+          msgbox,% msg " (19-03-24_05-50)"
           ; 
 		if( instr(sqlLastError, "no such table") ){
             ;if(A_TickCount < 1000){
@@ -2348,7 +2399,9 @@ RebuildDatabase(sql_template_dir)
 		}
 		exitapp
 	}
-	
+
+  ;  INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
+
 	if(A_TickCount - g_StartTime_TickCountMilli > 900 ){ ; its ok if happens at the very beginning
 		m =
     (
