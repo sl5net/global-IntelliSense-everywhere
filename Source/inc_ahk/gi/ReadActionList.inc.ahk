@@ -540,6 +540,7 @@ if(0 && InStr(actionList, "Turek") && InStr(A_ComputerName,"SL5"))
         ; actionListLastModified := row[1]
         ; actionListLastSize := row[2]
 		if( !actionListLastModified || !actionListLastSize ){
+			if(!actionList)
 			tip =
             (
             Oops from ReadActionList( %calledFromStr% = calledFromStr )
@@ -548,6 +549,14 @@ if(0 && InStr(actionList, "Turek") && InStr(A_ComputerName,"SL5"))
          actionListLastSize = %actionListLastSize% = row[2]
 
             i found this message after restarting my laptop 08.01.2019 07:30, 19-01-08_07-30
+            )
+			if(!actionList)
+			tip =
+            (
+            Oops from ReadActionList( %calledFromStr% = calledFromStr )
+actionList = >>>>>%actionList%<<<<
+g_ScriptTitle = %g_ScriptTitle%
+g_actionListID = %g_actionListID%
             )
 			if(1 && InStr(A_ComputerName,"SL5") ){
 				; msgbox, %tip% `n(%A_LineFile%~%A_LineNumber%)

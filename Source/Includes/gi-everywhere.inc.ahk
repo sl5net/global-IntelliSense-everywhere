@@ -476,6 +476,7 @@ SELECT actionList FROM actionLists WHERE actionList Like 'g_Word' AND actionList
 	StrLen_g_Word := StrLen(g_Word)
 
 	loopCount := (doUseNewMethodStartOfImplementing22march2019) ? 1 : 7
+	loopCount := 7
 	loop,% loopCount
 	{
 	    ;/¯¯¯¯ special ¯¯ 190109101246 ¯¯ 09.01.2019 10:12:46 ¯¯\
@@ -861,6 +862,8 @@ if(doUseNewMethodStartOfImplementing22march2019){
 
 			for each, row in Matches.Rows
 			{
+if(doUseNewMethodStartOfImplementing22march2019)
+    Matches.Next(row)
 				manipulate_Matches_ByRef(row,sqlFilePrefix)
 
                 ; tooltip msgb box box tooltip msgbox tooltip msg box line Line Too
@@ -958,6 +961,8 @@ LIMIT 9
 
 				for each, row in Matches ; .Rows
 				{
+if(doUseNewMethodStartOfImplementing22march2019)
+    Matches.Next(row)
 
             if(doUseNewMethodStartOfImplementing22march2019){
 
