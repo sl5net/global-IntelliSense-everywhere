@@ -73,6 +73,10 @@ if(!code)
 		Sleep,5
 	}
 c := (code) ? code : clipboard
+if(!code){
+    MsgBox,262160,% ":(`n" ,% " Oops !code is empty. please try again `n`n`n:(`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+    exitApp
+}
 c := Trim(c," `t`r`n")
 if( RegExMatch(c, "\n" )){
 	c := RegExReplace(c,"im)\[code\]","[CODE]") 
