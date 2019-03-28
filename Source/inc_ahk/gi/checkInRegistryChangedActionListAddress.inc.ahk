@@ -381,7 +381,8 @@ Sleep,3000
             sleep,60
             send,^f actionListChangedInRegistry
         }
-        Speak("Return in " A_LineNumber)
+        if IsFunc("Speak")
+            Speak("Return in " A_LineNumber)
         return
         exitApp
         )
@@ -533,7 +534,7 @@ if(0 && InStr(A_ComputerName,"SL5")
 
 ; tool toolTip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 
-
+        if IsFunc("Speak")
             Speak("ShowListBox", "PROD" )  ;  (DEV, TEST, STAGING, PROD),
 
 

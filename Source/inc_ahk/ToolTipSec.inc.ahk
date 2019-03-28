@@ -1,7 +1,4 @@
-﻿;msgbox, could deleted 19-02-17_17-32 ????????????????
-;exitapp
-
-; Indentation_style: https://de.wikipedia.org/wiki/EinrÃ¼ckungsstil#SL5small-Stil
+﻿; Indentation_style: https://de.wikipedia.org/wiki/EinrÃ¼ckungsstil#SL5small-Stil
 ; #Include *i init_global.init.inc.ahk
 
 ;~ GLOBAL_lllog_only_this_scriptName=ToolTipSec.inc.ahk
@@ -19,7 +16,7 @@
 ;~ jumperVariable6573546378345:=true
 ;~ LabeljumperVariable6573546378345:
 
-ToolTip1sec(t,x=123,y=321, layer1to20:=1){
+ToolTip1sec(t,x=123,y=321, layer1to20:=0){
   Last_A_This:=A_ThisFunc . A_ThisLabel
   ;~ lll(A_LineNumber, "ToolTipSec.inc.ahk",Last_A_This)
   ToolTipSec(t,x,y,1000, layer1to20)
@@ -27,14 +24,14 @@ ToolTip1sec(t,x=123,y=321, layer1to20:=1){
 }
 
 
-ToolTip2sec(t,x=123,y=321, layer1to20:=1){
+ToolTip2sec(t,x=123,y=321, layer1to20:=0){
 Last_A_This:=A_ThisFunc . A_ThisLabel
   ;~ lll(A_LineNumber, "ToolTipSec.inc.ahk",Last_A_This)
   ToolTipSec(t,x,y,2000, layer1to20)
   return
 }
 
-ToolTip3sec(t,x=123,y=321, layer1to20:=1){
+ToolTip3sec(t,x=123,y=321, layer1to20:=0){
 Last_A_This:=A_ThisFunc . A_ThisLabel
   ;lll(A_LineNumber, "ToolTipSec.inc.ahk",Last_A_This)
 
@@ -42,7 +39,7 @@ Last_A_This:=A_ThisFunc . A_ThisLabel
   return
 }
 
-ToolTip4sec(t,x=123,y=321, layer1to20:=1){
+ToolTip4sec(t,x=123,y=321, layer1to20:=0){
 Last_A_This:=A_ThisFunc . A_ThisLabel
   ;lll(A_LineNumber, "ToolTipSec.inc.ahk",Last_A_This)
 
@@ -50,28 +47,28 @@ Last_A_This:=A_ThisFunc . A_ThisLabel
   return
 }
 
-ToolTip5sec(t,x=123,y=321, layer1to20:=1){
+ToolTip5sec(t,x=123,y=321, layer1to20:=0){
   ToolTipSec(t,x,y,5000, layer1to20)
   Last_A_This:=A_ThisFunc . A_ThisLabel
   lll(A_LineNumber, "ToolTipSec.inc.ahk",Last_A_This)
   return
 }
 
-ToolTip6sec(t,x=123,y=321, layer1to20:=1){
+ToolTip6sec(t,x=123,y=321, layer1to20:=0){
   ToolTipSec(t,x,y,6000, layer1to20)
   Last_A_This:=A_ThisFunc . A_ThisLabel
   lll(A_LineNumber, "ToolTipSec.inc.ahk",Last_A_This)
   return
 }
 
-ToolTip7sec(t,x=123,y=321, layer1to20:=1){
+ToolTip7sec(t,x=123,y=321, layer1to20:=0){
   ToolTipSec(t,x,y,7000, layer1to20)
   Last_A_This:=A_ThisFunc . A_ThisLabel
   lll(A_LineNumber, "ToolTipSec.inc.ahk",Last_A_This)
   return
 }
 
-ToolTip8sec(t,x=123,y=321, layer1to20:=1){
+ToolTip8sec(t,x=123,y=321, layer1to20:=0){
   ToolTipSec(t,x,y,8000, layer1to20)
   Last_A_This:=A_ThisFunc . A_ThisLabel
   lll(A_LineNumber, "ToolTipSec.inc.ahk",Last_A_This)
@@ -79,7 +76,7 @@ ToolTip8sec(t,x=123,y=321, layer1to20:=1){
 }
 
 ;/¯¯¯¯ ToolTip9sec ¯¯ 190110154202 ¯¯ 10.01.2019 15:42:02 ¯¯\
-ToolTip9sec(t,x=123,y=321, layer1to20:=1){
+ToolTip9sec(t,x=123,y=321, layer1to20:=0){
   ToolTipSec(t,x,y,9000, layer1to20)
   Last_A_This:=A_ThisFunc . A_ThisLabel
   lll(A_LineNumber, "ToolTipSec.inc.ahk",Last_A_This)
@@ -89,7 +86,17 @@ ToolTip9sec(t,x=123,y=321, layer1to20:=1){
 
 
 ;/¯¯¯¯ ToolTipSec ¯¯ 190110154314 ¯¯ 10.01.2019 15:43:14 ¯¯\
-ToolTipSec(t,x=123,y=321,sec=1000,layer1to20:=1)  {
+ToolTipSec(t,x=123,y=321,sec=1000,layer1to20:=0)  {
+    global layer1to20_lastUsed
+    if(!layer1to20_lastUsed)
+        layer1to20_lastUsed := 0
+    if(!layer1to20){
+        if(layer1to20_lastUsed < 20)
+            layer1to20 := layer1to20_lastUsed + 1
+        else
+            layer1to20 := 1
+    }
+    layer1to20_lastUsed := layer1to20
     Last_A_This:=A_ThisFunc . A_ThisLabel
    ; lll(A_LineNumber, "ToolTipSec.inc.ahk",Last_A_This)
 
@@ -121,7 +128,7 @@ ToolTipSec(t,x=123,y=321,sec=1000,layer1to20:=1)  {
   ;~ RemoveToolTip%blank%( sec )
   ; SetTimer,RemoveToolTip%layer1to20%,%sec%
 
-  ; SetTimer,RemoveToolTip_level%layer1to20%,%sec%
+     SetTimer,RemoveToolTip_level%layer1to20%,%sec%
   	RemoveToolTip_level1Obj := Func("RemoveToolTip_level" layer1to20)
   	; pause
   	SetTimer, % RemoveToolTip_level1Obj, ,Off
@@ -134,6 +141,7 @@ ToolTipSec(t,x=123,y=321,sec=1000,layer1to20:=1)  {
   ;~ Set%empty%,
   return
 }
+;\____ ToolTipSec __ 190328093749 __ 28.03.2019 09:37:49 __/
 
 ; lll(A_LineNumber, "ToolTipSec.inc.ahk", "line before #Include,inc_ahk\ToolTipSec_RemoveToolTip.inc.ahk")
 #Include *i %A_ScriptDir%\inc_ahk\ToolTipSec_RemoveToolTip.inc.ahk
