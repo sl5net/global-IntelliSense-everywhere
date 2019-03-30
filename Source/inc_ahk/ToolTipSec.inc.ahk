@@ -1,4 +1,6 @@
-﻿; Indentation_style: https://de.wikipedia.org/wiki/Einrückungsstil#SL5small-Stil
+﻿; https://www.autohotkey.com/boards/viewtopic.php?f=6&t=63211
+
+; Indentation_style: https://de.wikipedia.org/wiki/Einrückungsstil#SL5small-Stil
 ; #Include *i init_global.init.inc.ahk
 
 ;~ GLOBAL_lllog_only_this_scriptName=ToolTipSec.inc.ahk
@@ -155,10 +157,10 @@ ToolTipSec(t, x := 123, y := 0, sec := 1000, layer1to20 := 0)  {
   ;~ RemoveToolTip%blank%( sec )
   ; SetTimer,RemoveToolTip%layer1to20%,%sec%
 	
-     SetTimer,RemoveToolTip_level%layer1to20%,%sec%
+    SetTimer,RemoveToolTip_level%layer1to20%,%sec%
   	RemoveToolTip_level1Obj := Func("RemoveToolTip_level" layer1to20)
   	; pause
-  	SetTimer, % RemoveToolTip_level1Obj, ,Off
+  	; dont need: this happens inside the romove tooltip call: SetTimer, % RemoveToolTip_level1Obj, ,Off
 	
   ;~ kkk
   ;~ RemoveToolTip( sec )
