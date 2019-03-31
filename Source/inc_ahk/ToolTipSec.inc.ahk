@@ -157,8 +157,10 @@ ToolTipSec(t, x := 123, y := 0, sec := 1000, layer1to20 := 0)  {
   ;~ RemoveToolTip%blank%( sec )
   ; SetTimer,RemoveToolTip%layer1to20%,%sec%
 	
-    SetTimer,RemoveToolTip_level%layer1to20%,%sec%
-  	RemoveToolTip_level1Obj := Func("RemoveToolTip_level" layer1to20)
+		; [v1.0.46.16+]: If Period is negative, the timer will run only once. For example, specifying -100 would run the timer 100 ms from now then disable the timer as though SetTimer, Label, Off had been used.
+		; https://www.autohotkey.com/boards/viewtopic.php?f=6&t=63211&p=270560#p270560
+	SetTimer,RemoveToolTip_level%layer1to20%,-%sec%
+	; RemoveToolTip_level1Obj := Func("RemoveToolTip_level" layer1to20)
   	; pause
   	; dont need: this happens inside the romove tooltip call: SetTimer, % RemoveToolTip_level1Obj, ,Off
 	
@@ -171,7 +173,7 @@ ToolTipSec(t, x := 123, y := 0, sec := 1000, layer1to20 := 0)  {
 	return
 }
 ;\____ ToolTipSec __ 190328093749 __ 28.03.2019 09:37:49 __/
-
+		
 ; lll(A_LineNumber, "ToolTipSec.inc.ahk", "line before #Include,inc_ahk\ToolTipSec_RemoveToolTip.inc.ahk")
 #Include *i %A_ScriptDir%\inc_ahk\ToolTipSec_RemoveToolTip.inc.ahk
 ; lll(A_LineNumber, "ToolTipSec.inc.ahk" , -"line behind #Include,inc_ahk\ToolTipSec_RemoveToolTip.inc.ahk")
