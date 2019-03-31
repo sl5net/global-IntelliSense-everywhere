@@ -16,6 +16,7 @@ if(FileExist(inc17032207130)){
 	incModiTime_OLD:=incModiTime
 }
 ModiTime_OLD:=ModiTime
+
 UPDATEDSCRIPT:
 DetectHiddenWindows,on
 SetTitleMatchMode,2

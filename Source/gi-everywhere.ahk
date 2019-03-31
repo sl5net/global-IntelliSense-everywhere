@@ -37,8 +37,13 @@ ListLines Off ; history of lines most recently executed is shown
 ;\____ Performance __ 190217075115 __ 17.02.2019 07:51:15 __/
 
 
-
-
+; Check if this script is already running (from a different location) and, if so, close the older process
+CheckProcess(){ ; https://www.autohotkey.com/boards/viewtopic.php?p=270490&sid=c32390254b53fb40d729b4d989b6769c#p270490
+  PID := DllCall("GetCurrentProcessId")
+  Process, Exist, %A_ScriptName%
+  If (ErrorLevel != PID)
+    Process, Close, %ErrorLevel%
+}
 FileEncoding,UTF-8
 
 #Include %A_ScriptDir%\inc_ahk\init_global.init.inc.ahk

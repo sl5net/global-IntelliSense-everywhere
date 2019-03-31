@@ -1,9 +1,7 @@
 ﻿; Problem with include: https://autohotkey.com/boards/viewtopic.php?f=5&t=46608&p=210142#p210142
 
-
 ; Indentation_style: https://de.wikipedia.org/wiki/EinrÃ¼ckungsstil#SL5small-Stil
 #SingleInstance force
-
 
 
 CoordMode, ToolTip,Screen
