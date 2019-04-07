@@ -183,6 +183,9 @@ getCaretPos(activedoProtectOutOfWindowPos:=true){
 }
 
 
+
+
+
 varExist(ByRef v) {
 	; Requires 1.0.46+
 	; 0 indicates that the variable does not exist

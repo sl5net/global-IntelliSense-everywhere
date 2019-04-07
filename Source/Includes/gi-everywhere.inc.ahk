@@ -1161,8 +1161,8 @@ LIMIT 9
                         pause
                    }
 			}
-			; Tool Tooltip too Tool
-			; Tool TooltipTool
+			;
+			;
 			
 			nr := ( Mod(round(A_Sec/20), 2) == 0) ; toggles every 20 seconds beetween 0 1
 			if(nr && actionList && !instr(actionList, "isNotAProject" ))

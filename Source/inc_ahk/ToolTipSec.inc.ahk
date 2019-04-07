@@ -41,6 +41,7 @@ ToolTip3sec(t,x=123, y := 0, layer1to20:=0){
 	return
 }
 
+;/¯¯¯¯ ToolTip4sec ¯¯ 190407154500 ¯¯ 07.04.2019 15:45:00 ¯¯\
 ToolTip4sec(t,x=123, y := 0, layer1to20:=0){
 	Last_A_This:=A_ThisFunc . A_ThisLabel
   ;lll(A_LineNumber, "ToolTipSec.inc.ahk",Last_A_This)
@@ -49,6 +50,7 @@ ToolTip4sec(t,x=123, y := 0, layer1to20:=0){
 	return
 }
 
+;/¯¯¯¯ ToolTip5sec ¯¯ 190407154506 ¯¯ 07.04.2019 15:45:06 ¯¯\
 ToolTip5sec(t,x=123, y := 0, layer1to20:=0){
 	ToolTipSec(t,x,y,5000, layer1to20)
 	Last_A_This:=A_ThisFunc . A_ThisLabel
@@ -56,6 +58,7 @@ ToolTip5sec(t,x=123, y := 0, layer1to20:=0){
 	return
 }
 
+;/¯¯¯¯ ToolTip6sec ¯¯ 190407154511 ¯¯ 07.04.2019 15:45:11 ¯¯\
 ToolTip6sec(t,x=123, y := 0, layer1to20:=0){
 	ToolTipSec(t,x,y,6000, layer1to20)
 	Last_A_This:=A_ThisFunc . A_ThisLabel
@@ -63,6 +66,7 @@ ToolTip6sec(t,x=123, y := 0, layer1to20:=0){
 	return
 }
 
+;/¯¯¯¯ ToolTip7sec ¯¯ 190407154516 ¯¯ 07.04.2019 15:45:16 ¯¯\
 ToolTip7sec(t,x=123, y := 0, layer1to20:=0){
 	ToolTipSec(t,x,y,7000, layer1to20)
 	Last_A_This:=A_ThisFunc . A_ThisLabel
@@ -77,7 +81,7 @@ ToolTip8sec(t,x=123, y := 0, layer1to20:=0){
 	return
 }
 
-;/���� ToolTip9sec �� 190110154202 �� 10.01.2019 15:42:02 ��\
+;/¯¯¯¯ ToolTip9sec ¯¯ 190407154527 ¯¯ 07.04.2019 15:45:27 ¯¯\
 ToolTip9sec(t,x=123, y := 0, layer1to20:=0){
 	ToolTipSec(t,x,y,9000, layer1to20)
 	Last_A_This:=A_ThisFunc . A_ThisLabel

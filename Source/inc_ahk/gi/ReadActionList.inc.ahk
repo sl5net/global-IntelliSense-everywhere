@@ -470,6 +470,8 @@ FileGetTime, %FileGet_actionListModified%, %actionList%, M
 %FileGet_actionListModified% ## %actionListLastModified%
 %FileGet_actionListModified% ## %actionListLastModified%
 )
+
+if(g_config.ToolTip[1])
 			ToolTip9sec( FileGet_actionListModified " ## " actionListLastModified "`n" actionList "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 			
 			
