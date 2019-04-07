@@ -1,17 +1,4 @@
 ﻿# global-IntelliSense-everywhere 
-
-
-
-# update: this script has errors (19-03-31_07-18)
-
-
-
-
-
-
-
-
-
  
 English: Automates context-sensitive writing and action.
 Is an unobtrusive IntelliSense for all programs, all websites, all apps, all windows, just everything that runs in Windows.
