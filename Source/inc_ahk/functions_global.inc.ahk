@@ -54,7 +54,6 @@ if(... := update_configMinify_incAhkFile()){
 ; Changes always become active on the next next call. becouse include is a preparser command. 19-01-11_18-33
 ; discussion here: https://stackoverflow.com/questions/54149980/remove-all-unnecessary-whitespaces-from-json-string-with-regex-in-autohotkey
 
-
     doUpdate := false
     FileGetTime, modifiedTime_configMinify, % configMinifyIncAhkAddress
     if(!modifiedTime_configMinify){
@@ -67,9 +66,9 @@ if(... := update_configMinify_incAhkFile()){
         toOldMilliSec := modifiedTime - modifiedTime_configMinify
         if(modifiedTime
         && modifiedTime_configMinify
-        && toOldMilliSec > 0  ) ; + 900 becouse humans are not so fast 19-01-14_13-56
+        && toOldMilliSec > 0  ){ ; + 900 becouse humans are not so fast 19-01-14_13-56
             doUpdate := true
-         else{
+         }else{
             FileGetTime, creationTime_configMinify, %modifiedTime_configMinify%, C  ; Retrieves the creation time.
             if( true
                 && toOldMilliSec < -2000
@@ -96,13 +95,34 @@ if(... := update_configMinify_incAhkFile()){
     ToolTip9sec( msg, 1, 200, 9 )
 
 	FileRead, configContent , % configIncAhkAddress
+
+    s := "ï¿½"
+    s2 := "�|"
+    r := "¯"
+    if(s == r){ ; that hopfully not happens
+    	msg = ERROR fileFormat is corrupted ! You need a programmer or install it new (%scriptName%~%ln%) >`n (%A_LineFile%~%A_LineNumber%)
+    	msgbox,%msg% (%scriptName%~%ln%) >`n (%A_LineFile%~%A_LineNumber%)
+        feedbackMsgBox( msg, msg )
+    	exitApp
+    }
+    if( instr( configContent, s ) || instr( configContent, s2 )	){
+        configContent := StrReplace(configContent, s , r) ; todo: dirty bugFix . of some reasons the fileFormat of config is wrong 19-04-04_10-01
+        configContent := StrReplace(configContent, s2 , r) ; todo: dirty bugFix . of some reasons the fileFormat of config is wrong 19-04-04_10-01
+        ; thats not realy a prerfomance problem
+        tempFileAddress := A_ScriptDir "\" A_TickCount ".temp." A_ThisFunc "_" A_LineNumber ".txt"
+        FileAppend, % configContent, % tempFileAddress
+        FileCopy,% tempFileAddress, % configIncAhkAddress, 1
+        Sleep,200
+        FileDelete,% tempFileAddress
+    }
+
 	; configContentminify := ""
 	; configContentminify := "configContent =`n(`n" ; configContentminify .= "`n)`n"
 	; ((?!\bg_config\b).)*$
 	; configContentminify .= RegExReplace( configContent , "i)[\s\t ]*[\n\r]+([^\n\r]+)(?!\[a-z][_\d]\b)[\s\t ]*", "`n$1" )
 
 	; dont work 19-01-13_11-00: configContentminify := RegExReplace( configContent , "m)[\n\r]+(?!(/\*|\*/|[a-z]+[_\d]*))", " " )
-	configContentminify := RegExReplace( configContent , "m)[\n\r]+(?!(\*|/|`;|[a-z]+[_\d]*))", " " )
+	configContentminify := RegExReplace( configContent , "m)[\n\r]+(?!(\*|/|`;|[a-z]+[_\d]*))", " " ) ; negative lookahead: the part within (?!...) must not match.
 	; configContentminify := RegExReplace( configContent , "m)[\n\r]+(?!([a-z]+[_\d]*))", " " )
 	tempFileAddress := A_ScriptDir "\" A_TickCount ".temp." A_ThisFunc ".txt"
 	FileAppend, % configContentminify, % tempFileAddress
@@ -176,7 +196,7 @@ varExist(ByRef v) {
 
 
 
-;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+;/¯¯¯¯ lll ¯¯ 190405082709 ¯¯ 05.04.2019 08:27:09 ¯¯\
 lll(ByRef ln, scriptName, text := "") {
     global g_ignReg
 
@@ -256,7 +276,7 @@ if(!Instr(logFileName,scriptName)){ ; plausibillity check . hopefully never happ
 		if(!logFileKbytes){
 			; msgbox,Oops  %A_LineNumber%
 			if(!fileexist(logFileName))
-    			msgbox,Oops  %A_LineNumber%
+    			msgbox,Oops ( %A_LineNumber% 1904051225 %A_ThisFunc% )
         }
 		if(logFileKbytes > 100){
 			FileDelete,%logFileName%
@@ -799,7 +819,7 @@ runCopyQ_Ctrl_Shift_v(){
     Last_A_This:=A_ThisFunc . A_ThisLabel . " p"
     lll(A_LineNumber, A_LineFile,Last_A_This)
 	
-    ToolTip1sec(A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\")  . " " . Last_A_This)
+    ToolTip1sec(A_LineNumber " " RegExReplace(A_LineFile,".*\\") " " Last_A_This)
 ; 
 SetKeyDelay,80,80
 		

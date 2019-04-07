@@ -161,6 +161,8 @@ if(0 && InStr(A_ComputerName,"SL5")){
 check_permanentSELECT_changedInRegistry(ByRef g_permanentSELECT
                                       , ByRef g_permanentSELECT_OLD
                                       , ByRef ParseWordsCount){
+
+
     RegRead, g_permanentSELECT, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, g_permanentSELECT
     if(g_permanentSELECT_OLD == g_permanentSELECT)
         return false
@@ -190,13 +192,7 @@ check_permanentSELECT_changedInRegistry(ByRef g_permanentSELECT
 ;/¯¯¯¯ DisableWinHook ¯¯ 181024141107 ¯¯ 24.10.2018 14:11:07 ¯¯\
 DisableWinHook(){
    global g_WinChangedEventHook
-
-
-
     ; SoundbeepString2Sound(A_ThisFunc)
-
-
-
    if (g_WinChangedEventHook)
    {
       if (DllCall("UnhookWinEvent", "Uint", g_WinChangedEventHook))
@@ -425,7 +421,7 @@ setTrayIcon()
 ;/¯¯¯¯ SwitchOffListBoxIfActive ¯¯ 181022212325 ¯¯ 22.10.2018 21:23:25 ¯¯\
 ; this function is triggerd early every key pressed 01.11.2018 13:02
 SwitchOffListBoxIfActive(){
-   global g_Active_Id
+   global g_active_Id
    global g_ListBox_Id
    global g_ManualActivate
 
@@ -435,13 +431,13 @@ SwitchOffListBoxIfActive(){
 
 
 
-   if (g_Active_Id && g_ListBox_Id) {
+   if (g_active_Id && g_ListBox_Id) {
       WinGet, Temp_id, ID, A   
       IfEqual, Temp_id, %g_ListBox_Id%
       {
          ;set so we don't process this activation
          g_ManualActivate := true
-         WinActivate, ahk_id %g_Active_Id%
+         WinActivate, ahk_id %g_active_Id%
 
 
 
@@ -458,8 +454,8 @@ SwitchOffListBoxIfActive(){
 ; Wrapper function to ensure we always enable the WinEventHook after waiting for an active window
 ; Returns true if the current window is included
 GetIncludedActiveWindow() {
-   global g_Active_Pid
-   global g_Active_Process
+   global g_active_Pid
+   global g_active_Process
    global g_DpiAware
    global g_OSVersion
    global g_Process_DPI_Unaware
@@ -477,13 +473,13 @@ GetIncludedActiveWindow() {
 
 
 
-   if (g_Active_Pid) {
+   if (g_active_Pid) {
       ; we'll first assume the software is system DPI aware
       DpiAware := g_Process_System_DPI_Aware
       ; if Win 8.1 or higher, we can actually check if it's system DPI aware
       if (g_OSVersion >= 6.3)
       {
-         ProcessHandle := DllCall("OpenProcess", "int", g_PROCESS_QUERY_INFORMATION | g_PROCESS_QUERY_LIMITED_INFORMATION, "int", 0, "UInt", g_Active_Pid)
+         ProcessHandle := DllCall("OpenProcess", "int", g_PROCESS_QUERY_INFORMATION | g_PROCESS_QUERY_LIMITED_INFORMATION, "int", 0, "UInt", g_active_Pid)
          DllCall("GetProcessDpiAwareness", "Ptr", ProcessHandle, "Uint*", DpiAware)
          DllCall("CloseHandle", "Ptr", ProcessHandle)
       }
@@ -494,7 +490,7 @@ GetIncludedActiveWindow() {
       if (DpiAware != g_Process_DPI_Unaware) {  
          Loop, Parse, prefs_ListBoxNotDPIAwareProgramExecutables, |
          {
-            IfEqual, g_Active_Process, %A_LoopField%
+            IfEqual, g_active_Process, %A_LoopField%
             {
                DpiAware := g_Process_DPI_Unaware
                break
@@ -534,10 +530,10 @@ GetIncludedActiveWindow() {
 
 ;/¯¯¯¯ GetIncludedActiveWindowGuts ¯¯ 181022212430 ¯¯ 22.10.2018 21:24:30 ¯¯\
 GetIncludedActiveWindowGuts() {
-   global g_Active_Id
-   global g_Active_Pid
-   global g_Active_Process
-   global g_Active_Title
+   global g_active_Id
+   global g_active_Pid
+   global g_active_Process
+   global g_active_Title
    global g_Helper_Id
    global g_LastActiveIdBeforeHelper
    global g_ListBox_Id
@@ -564,7 +560,7 @@ GetIncludedActiveWindowGuts() {
          {
             IfEqual, g_MouseWin_Id, %g_ListBox_Id% 
             {
-               WinActivate, ahk_id %g_Active_Id%
+               WinActivate, ahk_id %g_active_Id%
                Return, CurrentWindowIsActive
             }
          }
@@ -596,10 +592,10 @@ GetIncludedActiveWindowGuts() {
 ;
    IfEqual, ActiveId, %g_ListBox_Id%
    {
-      g_Active_Id :=  ActiveId
-      g_Active_Pid := ActivePid
-      g_Active_Process := ActiveProcess
-      g_Active_Title := activeTitle
+      g_active_Id :=  ActiveId
+      g_active_Pid := ActivePid
+      g_active_Process := ActiveProcess
+      g_active_Title := activeTitle
       Return, CurrentWindowIsActive
    }
 
@@ -618,8 +614,8 @@ GetIncludedActiveWindowGuts() {
 
 
    } else {
-      IfNotEqual, g_Active_Id, %g_Helper_Id%
-         g_LastActiveIdBeforeHelper = %g_Active_Id%               
+      IfNotEqual, g_active_Id, %g_Helper_Id%
+         g_LastActiveIdBeforeHelper = %g_active_Id%
    }
 
 
@@ -636,10 +632,10 @@ GetIncludedActiveWindowGuts() {
      CloseListBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
      ; ^--- stays much mor stable without this !! seeems no need for this !  :-) 17.01.2019 13:42
    }
-   g_Active_Id :=  ActiveId
-   g_Active_Pid := ActivePid
-   g_Active_Process := ActiveProcess
-   g_Active_Title := activeTitle
+   g_active_Id :=  ActiveId
+   g_active_Pid := ActivePid
+   g_active_Process := ActiveProcess
+   g_active_Title := activeTitle
 
 ; tool ToolTip5sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 
@@ -768,8 +764,8 @@ if(1 && InStr(A_ComputerName,"SL5")){
 
 ;/¯¯¯¯ ReturnWinActive ¯¯ 181022212502 ¯¯ 22.10.2018 21:25:02 ¯¯\
 ReturnWinActive(){
-   global g_Active_Id
-   global g_Active_Title
+   global g_active_Id
+   global g_active_Title
    global g_InSettings
 
 
@@ -792,7 +788,7 @@ ReturnWinActive(){
 
    WinGet, Temp_id, ID, A
    WinGetTitle, Temp_Title, ahk_id %Temp_id%
-   Last_Title := g_Active_Title
+   Last_Title := g_active_Title
    ; remove all asterisks, dashes, and spaces from title in case saved value changes
    StringReplace, Last_Title, Last_Title,*,,All
    StringReplace, Temp_Title, Temp_Title,*,,All
@@ -800,6 +796,6 @@ ReturnWinActive(){
    StringReplace, Temp_Title, Temp_Title,%A_Space%,,All
    StringReplace, Last_Title, Last_Title,-,,All
    StringReplace, Temp_Title, Temp_Title,-,,All
-   Return, (( g_Active_Id == Temp_id ) && ( Last_Title == Temp_Title ))
+   Return, (( g_active_Id == Temp_id ) && ( Last_Title == Temp_Title ))
 }
 ;\____ ReturnWinActive __ 181022212545 __ 22.10.2018 21:25:45 __/

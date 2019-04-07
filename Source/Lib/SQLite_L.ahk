@@ -845,7 +845,8 @@ SQLite_LastError(Error = "") {
 ; Parameter(s):     Optional Path - Path for sqlite3.dll
 ; Return Value:     Path to SQLite DLL
 ;=======================================================================================================================
-SQLite_DLLPath(forcedPath = "") {
+
+SQLite_DLLPath_STOOOOP(forcedPath = "") {
    static DLLPath := ""
    static dllname := "SQLite3.dll"
 

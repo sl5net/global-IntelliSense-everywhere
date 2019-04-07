@@ -45,7 +45,6 @@ CheckProcess(){ ; https://www.autohotkey.com/boards/viewtopic.php?p=270490&sid=c
     Process, Close, %ErrorLevel%
 }
 FileEncoding,UTF-8
-
 #Include %A_ScriptDir%\inc_ahk\init_global.init.inc.ahk
 
 #Include %A_ScriptDir%\inc_ahk\soundBeep.inc.ahk
@@ -152,12 +151,33 @@ global g_actionList_UsedByUser_since_midnight := {} ; [g_actionListID]
 g_config := {}
 #Include *i %A_ScriptDir%\inc_ahk\minify\config.minify.inc.ahk ; update_configMinify_incAhkFile()
 
+if(g_config.infoBox[1]["showName"]){
+    ; use a virtal line and then all your toolTipGui are moveble by mousedrag and drop
+    toolTipGui("^_^", x:=0, y:=10, "v)_" ,A_LineNumber,"Purple")
+}
+
 
 SetTimer,check_configFile_Changed,2500
 
 ;/¯¯¯¯ check_configFile_values ¯¯ 190124152939 ¯¯ 24.01.2019 15:29:39 ¯¯\
 if(!g_config["FuzzySearch"]["MAXlines"] || !g_config["FuzzySearch"]["keysMAXperEntry"]){
-    Msgbox,% "Oops :( enable=" g_config["FuzzySearch"]["enable"] "`n`n" "MAXlines=" g_config["FuzzySearch"]["MAXlines"] "`n`n" configContentminify "`n`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+msg =
+(
+fast No/Cancel-Button or ===>
+auto >>reload<< in seconds for selfconfig
+
+reasons maybe:
+your first install
+or Problem with g_config["FuzzySearch"]["enable"]
+or g_config["FuzzySearch"]["MAXlines"]
+)
+msg .= "or " configIncAhkAddress "`n"
+msg .= "or " configMinifyIncAhkAddress "`n"
+msg .= "`n`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+MsgBox, 4,reload in seconds, % msg,2
+IfMsgBox Yes
+    reload
+IfMsgBox Timeout
     reload
 }
 
@@ -190,6 +210,7 @@ if(infoText){
 
 
 
+
 g_ListBoxX := 0 ; if g_ListBoxX (not false > 0) it never usses CaretXorMouseXfallback . if you want go back to default, reload the
 g_ListBoxY := 0 ; if g_ListBoxX (not false > 0) it never usses CaretXorMouseXfallback . if you want go back to default, reload the
 
@@ -203,6 +224,7 @@ global g_doRunLogFiles := false
 ; msgbox, % g_config.sql.template.dir "`n ==??== `n" g_config.sql.template["dir"] "`n ==??== `n" g_config["sql"]["template"]["dir"]
 ; ^- interesting all above is the same value 19-02-23_18-39
 
+#Include %A_ScriptDir%\Lib\SQLite_DLLPath.inc.ahk
 
 ; DB := new SQLiteDB
 #Include %A_ScriptDir%\Lib\Class_SQLiteDB.ahk
@@ -256,7 +278,8 @@ msgbox,% fileName ": `n" sumStr
     global DB
     if(doUseNewMethodStartOfImplementing22march2019){
         global DB := new SQLiteDB
-        ;run,tools\DebugVars\DebugVars.ahk
+
+        ;msgbox,% ObjToStrTrim(DB) "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
 
 ; clipboard  := "DB.HasKey(""SQL"")=" DB.HasKey("SQL") "`n" get_obj_ToString(DB)
 ; MsgBox,262208,% ":)`n" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ,% clipboard
@@ -541,10 +564,20 @@ if(1 && InStr(A_ComputerName,"SL5"))
 
 
 ; tool t tool  too too
+; Tooltip
+tipLast := a_hour ":" a_min ":" a_sec
+toolTipGui(tipLast " (" RegExReplace(A_LineFile,".*\\") ">" A_LineNumber ")", x:=0, y:=0, "¯" ,A_LineNumber,"Yellow")
+if(0){
+feedbackMsgBox(RegExReplace(A_LineFile,".*\\") ">" A_LineNumber, " oldKeywords=" oldKeywords "`n`n" ObjSToStrTrim(DBstr:="", DB) DBstr )
+run,tools\DebugVars\DebugVars.ahk
+        pause
+}
 
+; Tooltip
 
 
 #IfWinActive,
+
 
 
 
@@ -855,7 +888,13 @@ SELECT rowid FROM Words LIMIT 1
         msgbox,% select "`n" row[1] "`n(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 	} catch e{
 		tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
-		sqlLastError := SQLite_LastError()
+
+		if oFunc := Func("SQLite_LastError") ; https://www.autohotkey.com/boards/viewtopic.php?f=76&t=63186&p=270178#p270178
+            sqlLastError := %oFunc%()
+        else
+            toolTip2sec( SQLite_LastError " :( not found`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+		; sqlLastError := SQLite_LastError()
+
 		tip .= "`n sqlLastError=" sqlLastError "`n sql=" select " `n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
 		lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,tip)
 		tooltip, `% tip
@@ -1245,12 +1284,76 @@ return
 ;/¯¯¯¯ Ctrl+Shift+F5 ¯¯ 181201095247 ¯¯ 01.12.2018 09:52:47 ¯¯\
 ; Ctrl+Shift+F5
 ^+f5:: ; exit-all-scripts and restart
-    ;if(1 && InStr(A_ComputerName,"SL5")){
-    if(1){
-        setRegistry_toDefault()
-        ; exit_all_scripts()
-        run,..\start.ahk
+;if(1 && InStr(A_ComputerName,"SL5")){
+if(1){
+    setRegistry_toDefault()
+    msg := "" "`n"
+    msg .= "`n`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+    MsgBox, 4,^+f5 > reload in seconds, % msg,2
+    doReload := false
+    IfMsgBox Yes
+        doReload := true
+    IfMsgBox Timeout
+        doReload := true
+    if(doReload){
+        ToolTip,% "FileDelete, " g_actionListDBfileAdress "`n`n" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+    /* its not working:
+        DetectHiddenWindows,On
+        settitlematchmode,2
+        ToolTip,`% "winwaitclose %A_LineNumber% %A_ScriptName%"
+        winwaitclose,%A_ScriptName%
+        winwaitclose,%A_ScriptName%
+    */
+    settitlematchmode,2
+    needle=DB Browser for SQLite ; ahk_class Qt5QWindowIcon
+    ifwinExist, % needle
+        winclose, % needle
+
+    ; FileRemoveDir, % A_ScriptDir "\log" , 1
+    FileDelete, % A_ScriptDir "\log\*.*"
+
+    AHKcode =
+(
+    soundbeep,3532,400
+    ToolTip,`% "FileDelete, %g_actionListDBfileAdress% " (%A_LineNumber%+A_LineNumber+1) " %A_ScriptName%"
+    while(A_Index < 100 && FileExist( "%g_actionListDBfileAdress%" )){
+    sleep,180
+    FileDelete,%g_actionListDBfileAdress%
     }
+    if(FileExist( "%g_actionListDBfileAdress%" )){
+        ToolTip,`% "FAILED !!! FileDelete, %g_actionListDBfileAdress% " (%A_LineNumber%+A_LineNumber+1) " %A_ScriptName%"
+        soundbeep,4000,100
+        soundbeep,1500,100
+        soundbeep,4000,100
+        soundbeep,1500,100
+    }
+    ToolTip,
+    ToolTip,`% "run " (%A_LineNumber%+A_LineNumber+1) " %A_ScriptName%"
+    run,%A_ScriptFullPath%
+settitlematchmode,2
+    ToolTip,`% "activate " (%A_LineNumber%+A_LineNumber+1) " %A_ScriptName%"
+    loop,20
+    {
+    winactivate,ahk_class SunAwtFrame ; mouseWindowTitle=0x180c64  ;
+    soundbeep,`% (4555+A_Index*20),700
+    sleep,100
+    }
+    ToolTip,`% "goodbye sound " (%A_LineNumber%+A_LineNumber+1) " %A_ScriptName%"
+    while(A_Index < 100){
+        soundbeep,`% (3555-A_Index),50
+        sleep,50
+    }
+)
+    clipboard := AHKcode
+    DynaRun(AHKcode)
+    exitApp
+    ToolTip,% "FileDelete, " g_actionListDBfileAdress "`n`n" A_ThisFunc ":" A_LineNumber " " A_ScriptName
+    if(FileExist( g_actionListDBfileAdress ))
+        pause
+    exitApp
+    ; reload
+}
+}
 return
 ;\____ Ctrl+Shift+F5 __ 181201095253 __ 01.12.2018 09:52:53 __/
 
@@ -1870,7 +1973,15 @@ checkActionListAHKfile_sizeAndModiTime:
 
         RecomputeMatches(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")) ; doReload:
         tip := "doReadActionListTXTfile=" doReadActionListTXTfile " ReadInTheActionList  actionList=" actionList " 4567984654888888 "
-        sqlLastError := SQLite_LastError()
+
+					; sqlLastError := SQLite_LastError()
+        			if oFunc := Func("SQLite_LastError") ; https://www.autohotkey.com/boards/viewtopic.php?f=76&t=63186&p=270178#p270178
+                        sqlLastError := %oFunc%()
+                    else
+                        toolTip2sec( SQLite_LastError " :( not found`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+
+
+
         tip .= "`n sqlLastError=" sqlLastError " `n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
         if( instr(sqlLastError, "no such table") ){
 

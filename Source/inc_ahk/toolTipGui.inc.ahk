@@ -90,22 +90,22 @@ seepMili4debugSlowMotion  := 0
 	; if(!y)
 		; y := 1
 
-SysGet, Mon_, Monitor,0 ; MsgBox, Left: %Mon_Left% -- Top: %Mon_Top% -- Right: %Mon_Right% -- Bottom %Mon_Bottom%.
-if(crosshair){
-	if(substr(crosshair,1,2)=="v)"){
-		itsVerticalText := true
-		crosshair := substr(crosshair,3)
+    SysGet, Mon_, Monitor,0 ; MsgBox, Left: %Mon_Left% -- Top: %Mon_Top% -- Right: %Mon_Right% -- Bottom %Mon_Bottom%.
+	if(crosshair){
+		if(substr(crosshair,1,2)=="v)"){
+			itsVerticalText := true
+			crosshair := substr(crosshair,3)
 			;msgbox,itsVerticalText
-	}
-	
+		}
+
 		; yBackup := y
-	yTemp := crosshair
-	y1 := substr(yTemp,1,1)
-	if(y1 == "|"){
-		x := (x) ? x : 1
-		yTemp := substr(yTemp,2)
-	}
-	else if(y1 == "/" || y1 == "\"){
+		yTemp := crosshair
+		y1 := substr(yTemp,1,1)
+		if(y1 == "|"){
+			x := (x) ? x : 1
+			yTemp := substr(yTemp,2)
+		}
+		else if(y1 == "/" || y1 == "\"){
 			; SysGet, Mon_, Monitor,0 ; MsgBox, Left: %Mon_Left% -- Top: %Mon_Top% -- Right: %Mon_Right% -- Bottom %Mon_Bottom%.
 		if(itsVerticalText)
 			x := Mon_Left + Ceil(( Mon_Right - Mon_Left ) / 4)
@@ -249,10 +249,14 @@ Gui, Color, %bgColor%
 	Teal
 	Aqua
 */
-if(bgColor == "Yellow" || bgColor == "Fuchsia" || bgColor == "White")
+StringLower,bgColor,bgColor
+; if(bgColor == "Yellow" || bgColor == "Fuchsia" || bgColor == "White")
+if(bgColor == "yellow" || bgColor == "fuchsia" || bgColor == "white")
 	fontColor:="Black"
 else
 	fontColor:="White"
+
+;  To
 
 if(itsVerticalText){
 	global wb

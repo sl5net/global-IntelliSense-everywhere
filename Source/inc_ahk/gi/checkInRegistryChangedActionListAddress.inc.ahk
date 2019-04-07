@@ -9,6 +9,16 @@ checkInRegistryChangedActionListAddress:
         Speak(A_ThisLabel, "PROD" )  ;  (DEV, TEST, STAGING, PROD),
     ; return ; it seems we need this function ????? 18-12-27_20-50
 
+if(g_config.actionList.onlyThisList){
+    actionList := g_config.actionList.onlyThisList
+    toolTipGui(actionList " (" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" , x:=0, y:=0, "_" ,A_LineNumber,"Yellow")
+
+
+    gosub actionListOLD_actionList
+    return
+}
+
+
     ;toolTip2sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
     if(g_doListBoxFollowMouse){
         if(0 && InStr(A_ComputerName,"SL5"))
@@ -118,6 +128,7 @@ checkInRegistryChangedActionListAddress:
 
 
     RegRead, actionListNewTemp_RAW, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, actionList
+
     actionListNewTemp_withoutExt := actionListNewTemp_RAW
     if( SubStr( actionListNewTemp_withoutExt , -3 ) == ".ahk" ){
         ; dirty bugFix
@@ -545,6 +556,9 @@ if(0 && InStr(A_ComputerName,"SL5")
 
 
     }
+
+actionListOLD_actionList:
+
     actionListOLD := actionList
     ; g_actionListID := getActionListID(sql_template_dir, actionList) ; 24.03.2018 23:02
 
@@ -569,7 +583,43 @@ InactivateAll_Suspend_ListBox_WinHook() ; addet 24.10.2018 14:16
     ;\____ very_happy __ 181024144106 __ 24.10.2018 14:41:06 __/
 
 
-; tool
+; To Tooltip Tooltip
+
+; ..\actionLists\
+if(g_config.infoBox[1]["showName"]){
+
+; Tooo too
+
+    ; DetectHiddenWindows,On
+    ; settitlematchmode,1
+    title := A_LineNumber
+    title2 := A_LineNumber
+    needle := title " ahk_class AutoHotkeyGUI" ; mouseWindowTitle=0x7d1d2c  ;
+    tip := ""
+    tip .= "SQLs:>" g_config.sql.template.maxNnumberUsedTemplates "<`n"
+    tip .= "al:>" substr(actionList,16) "< `n"
+    tip .= "db:>" g_actionListDBfileAdress "< `n"
+    tip .= "t:>" g_Active_Title "<" ; some title use spaces inside ; no space to prevent lineBreaks
+    tipLast := a_hour ":" a_min ":" a_sec str_repeat(".", 150)
+    ; tipLast := str_repeat(".", 5) " " A_DDD A_DD "." A_MM " " a_hour ":" a_min ":" a_sec str_repeat(".", 150)
+    IfWinNotExist,% needle
+    {
+        tip := "(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")`n`" tip "`n"
+        tip .= tipLast " drag+drop "
+        toolTipGui(tip, x:=-strlen(actionList)*8, y:=0, g_config.infoBox[1]["showName"] ,title,"Green")
+    } else{
+    	winGetPos,x,y,,,% needle
+    	; winmove,% needle,% x, % y
+    	x += 80
+    	y += 15
+        tip := "(" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")`n`" tip "`n"
+        tip .= tipLast
+        tip := RegExReplace(tip, "[\n\r]+","`n")
+        toolTipGui(tip, x, y, ,title2,"Black")
+    }
+}
+
+; Tooltip Tooltip
 
 if(0 && InStr(A_ComputerName,"SL5")) ; prob no error. whey not
 	Speak("Now Read actionList: " actionList, "PROD" )  ;  (DEV, TEST, STAGING, PROD),

@@ -52,7 +52,7 @@ lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"hey from ini ")
 
 setTitleMatchMode,2
 if(!winExist("actionList.ahk.log.txt") && FileExist("log\actionList.ahk.log.txt") )
-    run,log\actionList.ahk.log.txt
+	run,log\actionList.ahk.log.txt
 
 ; to ms ms Spe to Ms mes mes too t mu 
 
@@ -87,27 +87,27 @@ while(WinExist(name) && A_Index < 9){
 
 name=gi.ahk ahk_class AutoHotkey
 if(1){
-    while(WinExist(name) && A_Index < 9){
-        WinClose,% name
-        sleep,20
-    }
-    while(WinExist(name) && A_Index < 9){
-        WinKill,% name
-        sleep,20
-    }
+	while(WinExist(name) && A_Index < 9){
+		WinClose,% name
+		sleep,20
+	}
+	while(WinExist(name) && A_Index < 9){
+		WinKill,% name
+		sleep,20
+	}
 }
 ToolTip,% "winWaitClose `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
 winwaitclose,% name
 ifwinexist,gi
-    msgbox,Oops `n(%A_LineFile%~%A_LineNumber%)
+	msgbox,Oops `n(%A_LineFile%~%A_LineNumber%)
 
 g_config := {}
 #Include *i %A_ScriptDir%\inc_ahk\minify\config.minify.inc.ahk ; update_configMinify_incAhkFile()
 ; msgbox,% g_config.sql.template["dir"] g_config.sql.template.dir ; <= both is possible
 
 if(!g_config["sql"]["template"]["dir"]){
-    msgbox,% "ERROR !g_config[sql][template][dir] `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
-    exitapp
+	msgbox,% "ERROR !g_config[sql][template][dir] `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+	exitapp
 }
 
 g_actionListDB.BeginTransaction()
@@ -115,10 +115,10 @@ g_actionListDB.BeginTransaction()
 fromLine := "`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
 g_actionListDB.Query("delete from Words where actionListID = " g_actionListID ";")
 if(sqlLastError := trim(SQLite_LastError()))
-    msgbox,:( g_actionListID = %g_actionListID%,sqlLastError = %sqlLastError% %fromLine%
+	msgbox,:( g_actionListID = %g_actionListID%,sqlLastError = %sqlLastError% %fromLine%
 CreateWordsTable()
 if(sqlLastError := trim(SQLite_LastError()))
-    msgbox,:( g_actionListID = %g_actionListID%,sqlLastError = %sqlLastError% %fromLine%
+	msgbox,:( g_actionListID = %g_actionListID%,sqlLastError = %sqlLastError% %fromLine%
 
 
 
@@ -136,12 +136,14 @@ g_do_only_this_testCase  := "err_indexFollowingLines4search"
 g_do_only_this_testCase  := "err_problemNow"
 g_do_only_this_testCase  := "err_multi_rr_stop_by_is_r"
 g_do_only_this_testCase  := "err_string_ahk_line"
-g_do_only_this_testCase  := "err_is_r_without_keywords"
-g_do_only_this_testCase  := "test_getAutoKeywords"
 g_do_only_this_testCase  := "err_is_without_keywords"
 g_do_only_this_testCase  := "test_synonym"
 g_do_only_this_testCase  := "err_without_includes_update"
+g_do_only_this_testCase  := "err_is_r_without_keywords"
 g_do_only_this_testCase  := "" ; then all test will be run 24.11.2018 20:33
+g_do_only_this_testCase  := "test_getAutoKeywords"
+g_do_only_this_testCase  := "err_setCommandTypeS"
+g_do_only_this_testCase  := "err_Loop_Parse_ParseWords"
 ;\____ g_do_only_this_testCase __ 181118111650 __ 18.11.2018 11:16:50 __/
 ;\____ g_do_only_this_testCase __ 181118111650 __ 18.11.2018 11:16:50 __/
 ;\____ g_do_only_this_testCase __ 181118111650 __ 18.11.2018 11:16:50 __/
@@ -161,52 +163,22 @@ WinGetActiveTitle,activeTitle
 ;                  if( row[1] )
 ;                      isFound  := true
 
+err_Loop_Parse_ParseWords(){
+	global strDebugByRef
+	ParseWords := "hust a string" ; dont work becouse of no newline, thats an error !
+	ParseWords = 
+	( 
+    huhu|rr||hihi
+	old1|r|new1
+	old2|r|new2
+	just a string
+	)
+	; ParseWords := "someNew2secTooltip|rr|tata|workMaybe"
+	r := Loop_Parse_ParseWords(ByRef ParseWords)
+	; msgbox, % r " n19-04-06_10-2" ;
 
-;/¯¯¯¯ err_without_includes_update ¯¯ 181224102746 ¯¯ 24.12.2018 10:27:46 ¯¯\
-err_without_includes_update(){
-    ToolTip5sec( "thats only a stup :) ====> return `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
-    return
-    actionList := "..\actionLists\ChromeWidgetWin1\playground_Piratenpad_Google_Chrome.ahk"
-    if(!FileExist(actionList)){
-        msgbox,% "ERROR `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
-    }
-content =
-(
-; #Include ..\_globalActionLists\_global.ahk
-; #Include ..\ChromeWidgetWin1\_global.ahk
-; #Include ..\_globalActionLists\examplesForBeginners.ahk
-___open window library |rr||ahk|openInEditor,playground_Piratenpad_Google_Chrome.ahk
-heyho12345
-)
-
-FileAppend, % content, % actionList "_temp"
-sleep,20
-fileCopy, % actionList "_temp", % actionList,1
-filedelete, % actionList "_temp"
-
-}
-;\____ err_without_includes_update __ 181224102748 __ 24.12.2018 10:27:48 __/
-
-
-
-
-;/¯¯¯¯ err_string_ahk_line ¯¯ 181204152914 ¯¯ 04.12.2018 15:29:14 ¯¯\
-err_string_ahk_line(){
-    f=log\actionList.ahk.log.txt
-    fileDelete,% f
-    while(0 && fileExist(f))
-        sleep,150
-    in := "searchkeys|rr|stringReplacement|ahk|ahkSource"
-	expected := in
-	if(errStr := getAssertEqual_ErrorStr( in, expected,A_ThisFunc ":" A_LineNumber))
-		Return errStr " °" A_LineNumber ":" A_ThisFunc "°" 
-
-    in := "url|rr|[url=]title[/url]|ahk|send,{left 12}{text}%clipboard% ``n send,{CtrlDown}{ShiftDown}{Left}{ShiftUp}{CtrlUp}"
-	expected := in
-	if(errStr := getAssertEqual_ErrorStr( in, expected,A_ThisFunc ":" A_LineNumber))
-		Return errStr " °" A_LineNumber ":" A_ThisFunc "°" 
-
-    SELECT := "SELECT word FROM Words Where word like '" in "' "
+	if(0){
+    SELECT := "SELECT word FROM Words Where word like 'huhu|rr||hihi' "
     SELECT .= " LIMIT 1 " ";"
     Matches := g_actionListDB.Query(SELECT)
     isFound  := false
@@ -215,7 +187,90 @@ err_string_ahk_line(){
             isFound  := true
     if(!isFound)
         Return in " NOT in DB °" A_LineNumber ":" A_ThisFunc "°"
+    }
 
+	needle=DB Browser for SQLite ahk_class Qt5QWindowIcon
+	If(winexist(needle)) {
+		ToolTip1sec(A_LineNumber " " RegExReplace(A_LineFile,".*\\"))
+		WinClose,% needle
+	}
+    openDB_Browser_for_SQLite(ByRef d:="",t:="Words",doClickIntoSearch:=true,search:="huhu|rr||hihi")
+	;WinActivate
+    WinWaitActive
+    sleep,2000
+	msg =
+	(
+	open G:\downloads\DebugVar19-03-30\DebugVars.ahk-master\DebugVars.ahk
+	check the global strDebugByRef =
+	>>%strDebugByRef%<<
+	)
+	msgbox,% r "`n" msg "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+	reload
+}
+
+err_Loop_Parse_ParseWords_LoopField(){
+	
+}
+
+;/¯¯¯¯ err_without_includes_update ¯¯ 181224102746 ¯¯ 24.12.2018 10:27:46 ¯¯\
+err_without_includes_update(){
+	ToolTip5sec( "thats only a stup :) ====> return `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+	return
+	actionList := "..\actionLists\ChromeWidgetWin1\playground_Piratenpad_Google_Chrome.ahk"
+	if(!FileExist(actionList)){
+		msgbox,% "ERROR `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
+	}
+	content =
+(
+; #Include ..\_globalActionLists\_global.ahk
+; #Include ..\ChromeWidgetWin1\_global.ahk
+; #Include ..\_globalActionLists\examplesForBeginners.ahk
+___open window library |rr||ahk|openInEditor,playground_Piratenpad_Google_Chrome.ahk
+heyho12345
+)
+	
+	FileAppend, % content, % actionList "_temp"
+	sleep,20
+	fileCopy, % actionList "_temp", % actionList,1
+	filedelete, % actionList "_temp"
+	
+}
+;\____ err_without_includes_update __ 181224102748 __ 24.12.2018 10:27:48 __/
+
+
+
+
+;/¯¯¯¯ err_string_ahk_line ¯¯ 181204152914 ¯¯ 04.12.2018 15:29:14 ¯¯\
+err_string_ahk_line(){
+	
+	if(g_do_only_this_testCase && !InStr(" " A_ThisFunc,g_do_only_this_testCase))
+		return false
+	
+	
+	f=log\actionList.ahk.log.txt
+	fileDelete,% f
+	while(0 && fileExist(f))
+		sleep,150
+	in := "searchkeys|rr|stringReplacement|ahk|ahkSource"
+	expected := in
+	if(errStr := getAssertEqual_ErrorStr( in, expected,A_ThisFunc ":" A_LineNumber))
+		Return errStr " °" A_LineNumber ":" A_ThisFunc "°" 
+	
+	in := "url|rr|[url=]title[/url]|ahk|send,{left 12}{text}%clipboard% ``n send,{CtrlDown}{ShiftDown}{Left}{ShiftUp}{CtrlUp}"
+	expected := in
+	if(errStr := getAssertEqual_ErrorStr( in, expected,A_ThisFunc ":" A_LineNumber))
+		Return errStr " °" A_LineNumber ":" A_ThisFunc "°" 
+	
+	SELECT := "SELECT word FROM Words Where word like '" in "' "
+	SELECT .= " LIMIT 1 " ";"
+	Matches := g_actionListDB.Query(SELECT)
+	isFound  := false
+	for each, row in Matches.Rows
+		if( row[1] )
+			isFound  := true
+	if(!isFound)
+		Return in " NOT in DB °" A_LineNumber ":" A_ThisFunc "°"
+	
 }
 ;\____ err_string_ahk_line __ 181204152918 __ 04.12.2018 15:29:18 __/
 
@@ -227,14 +282,14 @@ err_string_ahk_line(){
 err_read_actionList_from_file_and_preParse(){
     ; maybe you need to set 	g_actionListDone  to 0 19.11.2018 21:45
     ; if( g_actionListDone == "0"){ ;if this is read from the actionList ; 1 ||
-
-
-
-    fileAddress := "..\actionLists\_globalActionLists\.....................ahk"
-    FileRead, in , % fileAddress
-    result := Loop_Parse_ParseWords( in )
-    clipboard  := result
-    msgbox , clipboard  := result
+	
+	
+	
+	fileAddress := "..\actionLists\_globalActionLists\.....................ahk"
+	FileRead, in , % fileAddress
+	result := Loop_Parse_ParseWords( in )
+	clipboard  := result
+	msgbox , clipboard  := result
 }
 ;\____ err_bewe __ 181119210958 __ 19.11.2018 21:09:58 __/
 
@@ -252,64 +307,68 @@ if(1 && errStr:=test_getAutoKeywords())
 	countErrors++ ; Msgbox,% A_LineNumber  ;
 ;\____ AutoKeywords __ 181118181814 __ 18.11.2018 18:18:14 __/
 if(false){
-noop=1
+	noop=1
 }
+else if(1 && errStr:=err_Loop_Parse_ParseWords())
+	countErrors++ ; Msgbox,% A_LineNumber  ;
+else if(1 && errStr:=err_setCommandTypeS())
+	countErrors++ ; Msgbox,% A_LineNumber  ;
 else if(1 && errStr:=err_without_includes_update())
- 		countErrors++ ; Msgbox,% A_LineNumber  ;
+	countErrors++ ; Msgbox,% A_LineNumber  ;
 else if(1 && errStr:=err_is_r())
- 		countErrors++ ; Msgbox,% A_LineNumber  ;
+	countErrors++ ; Msgbox,% A_LineNumber  ;
 else if(1 && errStr:=err_is_r_without_keywords())
- 		countErrors++ ; Msgbox,% A_LineNumber  ;
+	countErrors++ ; Msgbox,% A_LineNumber  ;
 else if(0 && errStr:=err_indexFollowingLines4search())
- 		countErrors++ ; Msgbox,% A_LineNumber  ;
+	countErrors++ ; Msgbox,% A_LineNumber  ;
 else if(1 && errStr:=err_doAsimpleCopyOfLine())
-		countErrors++ ; Msgbox,% A_LineNumber  ;
+	countErrors++ ; Msgbox,% A_LineNumber  ;
 ;ToolTip4sec( "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
 else if(1 && errStr:=err_CheckValid())
-		countErrors++ ; Msgbox,% A_LineNumber  ;
+	countErrors++ ; Msgbox,% A_LineNumber  ;
 
 
 else if(1 && InStr(A_ComputerName,"SL5") && errStr:=err_string_ahk_line())
- 		countErrors++ ; Msgbox,% A_LineNumber  ;
+	countErrors++ ; Msgbox,% A_LineNumber  ;
 
 
 else if(1 && errStr:=err_is_without_keywords())
-		countErrors++ ; Msgbox,% A_LineNumber  ;
+	countErrors++ ; Msgbox,% A_LineNumber  ;
 else if(1 && errStr:=err_problemNow())
 	countErrors++ ; Msgbox,% A_LineNumber  ;
 
 else if(1 && errStr:=err_multi_r_content())
-    countErrors++ ; Msgbox,% A_LineNumber  ;
+	countErrors++ ; Msgbox,% A_LineNumber  ;
 else if(1 && err_multi_rr_stop_by_is_r())
 	countErrors++ ; Msgbox,% A_LineNumber  ;
 
 else if(1 && InStr(A_ComputerName,"SL5") && errStr:=err_multi_r_content())
-    countErrors++ ; Msgbox,% A_LineNumber  ;
+	countErrors++ ; Msgbox,% A_LineNumber  ;
 ;^---- its using selecs without inserts before. so its only works if inserts are finsished before 18-12-25_15-14
 
 else if(1 && errStr:=test_short_keywords())
 	countErrors++ ; Msgbox,% A_LineNumber  ;
 else if(1 && test_do_indexFollowingLines4search())
-    countErrors++ ; Msgbox,% A_LineNumber  ;
+	countErrors++ ; Msgbox,% A_LineNumber  ;
 else if(false && errStr:=test_dontDeleteComments())
-    countErrors++ ; Msgbox,% A_LineNumber  ;
+	countErrors++ ; Msgbox,% A_LineNumber  ;
 
 else if(1 && InStr(A_ComputerName,"SL5") && errStr:=test_synonym())
-		countErrors++ ; Msgbox,% A_LineNumber  ;
+	countErrors++ ; Msgbox,% A_LineNumber  ;
 ;^---- its using selecs without inserts before. so its only works if inserts are finsished before 18-12-25_15-14
 
 else if(errStr:=err_tests_easy_0())
-    countErrors++ ; Msgbox,% A_LineNumber  ;
+	countErrors++ ; Msgbox,% A_LineNumber  ;
 else if(errStr:=err_unitTest1())
-    countErrors++ ; Msgbox,% A_LineNumber  ;
+	countErrors++ ; Msgbox,% A_LineNumber  ;
 else if(errStr:=err_tests_preparser())
-    countErrors++ ; Msgbox,% A_LineNumber  ;
+	countErrors++ ; Msgbox,% A_LineNumber  ;
 else if(1 && errStr:=err_multi_rr())
-		countErrors++ ; Msgbox,% A_LineNumber  ;
+	countErrors++ ; Msgbox,% A_LineNumber  ;
 else if(1 && errStr:=err_difficult_do_it_later())
-    countErrors++ ; Msgbox,% A_LineNumber  ;
+	countErrors++ ; Msgbox,% A_LineNumber  ;
 else if(1 && errStr:=err_open_issues())
-    countErrors++ ; Msgbox,% A_LineNumber  ;
+	countErrors++ ; Msgbox,% A_LineNumber  ;
 
 
 
@@ -323,8 +382,8 @@ if(countErrors>0){
 	Speak( countErrors " Error found. " ALineNumber, "PROD" )
 	tooltip,% errStr,1,1
 	MsgBox,16,% errStr ,,2
-    feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), errStr )
-    clipboard := errStr
+	feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), errStr )
+	clipboard := errStr
 	sleep,2000
 }
 
@@ -352,8 +411,8 @@ WinWaitActive,WinMerge [result,,1
 needetMilli := 111
 loop,4
 {
-waitUserDoSometingMilli(needetMilli,100)
-waitUserDoNothingMilli(needetMilli,200)
+	waitUserDoSometingMilli(needetMilli,100)
+	waitUserDoNothingMilli(needetMilli,200)
 }
 needetMilli := 111
 waitUserDoNothingMilli(needetMilli,500)
@@ -361,7 +420,7 @@ Critical, Off
 
 KeyWait, s, D
 If GetKeyState("Ctrl", "P"){
-    sleep,111
+	sleep,111
 	reload
 }
 return
@@ -384,8 +443,8 @@ return
 
 ;/¯¯¯¯ err_ReadActionList ¯¯ 181028133202 ¯¯ 28.10.2018 13:32:02 ¯¯\
 err_ReadActionList(){
-
-info =
+	
+	info =
 (
 	global g_LegacyLearnedWords
 	global g_ScriptTitle
@@ -396,60 +455,60 @@ info =
 	global g_actionListDBfileAdress
 	global g_config
 )
-
-
-global g_actionListDB
-g_actionListDBfileAdress := "G:\fre\private\sql\sqlite\actionList.db"
-g_actionListDBfileAdress  =  G:\fre\private\sql\sqlite\actionList.db
-if(!fileexist(g_actionListDBfileAdress))
-    g_actionListDBfileAdress := A_ScriptDir "\actionListLearned.db"
-g_actionListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", g_actionListDBfileAdress ) ;
-
-global g_LegacyLearnedWords =
-global g_ScriptTitle = gi-everywhere
-global actionList
-actionList = ..\actionLists\ChromeWidgetWin1\lubuntu18-11-19_16-05_Piratenpad_Google_Chrome.ahk._Generated.ahk
-global g_actionListID
-global g_actionListDBfileAdress
-global g_config
-
-
-if(!doUseNewMethodStartOfImplementing22march2019 && !g_actionListDB)
-    g_actionListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", g_actionListDBfileAdress ) ;
-
-if(!g_actionListID := getActionListID(g_config["sql"]["template"]["dir"], actionList)){ ; 24.03.2018 23:02
-	sql := "INSERT INTO actionLists "
-	sql .= " (id, actionList, actionListmodified, actionListsize) VALUES "
-	sql .= " (null, '" actionList "', '" actionListModified "', '" actionListSize "' );"
-    g_actionListDB.Query(sql)
-    sql_template_dir := g_config.sql.template.dir
+	
+	
+	global g_actionListDB
+	g_actionListDBfileAdress := "G:\fre\private\sql\sqlite\actionList.db"
+	g_actionListDBfileAdress  =  G:\fre\private\sql\sqlite\actionList.db
+	if(!fileexist(g_actionListDBfileAdress))
+		g_actionListDBfileAdress := A_ScriptDir "\actionListLearned.db"
+	g_actionListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", g_actionListDBfileAdress ) ;
+	
+	global g_LegacyLearnedWords =
+	global g_ScriptTitle = gi-everywhere
+	global actionList
+	actionList = ..\actionLists\ChromeWidgetWin1\lubuntu18-11-19_16-05_Piratenpad_Google_Chrome.ahk._Generated.ahk
+	global g_actionListID
+	global g_actionListDBfileAdress
+	global g_config
+	
+	
+	if(!doUseNewMethodStartOfImplementing22march2019 && !g_actionListDB)
+		g_actionListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", g_actionListDBfileAdress ) ;
+	
+	if(!g_actionListID := getActionListID(g_config["sql"]["template"]["dir"], actionList)){ ; 24.03.2018 23:02
+		sql := "INSERT INTO actionLists "
+		sql .= " (id, actionList, actionListmodified, actionListsize) VALUES "
+		sql .= " (null, '" actionList "', '" actionListModified "', '" actionListSize "' );"
+		g_actionListDB.Query(sql)
+		sql_template_dir := g_config.sql.template.dir
     ; msgbox,% sql_template_dir "= sql_template_dir`n `n (" . A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\") ")"
-    fromLine := "`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
-    	if(!sql_template_dir ){
-    		msgbox,% "!sql_template_dir`n `n (" . A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\") ")"
-    	}
-if(!g_actionListID := getActionListID(g_config["sql"]["template"]["dir"], actionList))
-        if(sqlLastError := trim(SQLite_LastError()))
-            msgbox,:( g_actionListID = %g_actionListID%,sqlLastError = %sqlLastError% %fromLine%
-}
-fromLine := "`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
-if(sqlLastError := trim(SQLite_LastError()))
-    msgbox,:( g_actionListID = %g_actionListID%,sqlLastError = %sqlLastError% %fromLine%
-
-fromLine := "`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
-
+		fromLine := "`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+		if(!sql_template_dir ){
+			msgbox,% "!sql_template_dir`n `n (" . A_LineNumber . " " .  RegExReplace(A_LineFile,".*\\") ")"
+		}
+		if(!g_actionListID := getActionListID(g_config["sql"]["template"]["dir"], actionList))
+			if(sqlLastError := trim(SQLite_LastError()))
+				msgbox,:( g_actionListID = %g_actionListID%,sqlLastError = %sqlLastError% %fromLine%
+	}
+	fromLine := "`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+	if(sqlLastError := trim(SQLite_LastError()))
+		msgbox,:( g_actionListID = %g_actionListID%,sqlLastError = %sqlLastError% %fromLine%
+	
+	fromLine := "`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+	
 ; VALUES ('" AddWordIndexTransformed "', '" AddWordTransformed "', " LearnedWordsCount++ ", " g_actionListID ", " lineNr ");"
-
-VALUES = VALUES ('%fromLine% %A_TickCount%' , '%fromLine%', 0, '%fromLine% %A_TickCount%', %g_actionListID% , 555);
-INSERT_INTO_words := "INSERT INTO words (wordindexed, word, count, wordreplacement, actionListID, lineNr) "
-INSERT_INTO_words .= VALUES
-g_actionListDB.Query(INSERT_INTO_words)
-
-fromLine := "`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
-if(sqlLastError := trim(SQLite_LastError()))
-    msgbox,g_actionListID = %g_actionListID%,:(  sqlLastError = `n`n>%sqlLastError%< `n`n%fromLine%
+	
+	VALUES = VALUES ('%fromLine% %A_TickCount%' , '%fromLine%', 0, '%fromLine% %A_TickCount%', %g_actionListID% , 555);
+	INSERT_INTO_words := "INSERT INTO words (wordindexed, word, count, wordreplacement, actionListID, lineNr) "
+	INSERT_INTO_words .= VALUES
+	g_actionListDB.Query(INSERT_INTO_words)
+	
+	fromLine := "`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+	if(sqlLastError := trim(SQLite_LastError()))
+		msgbox,g_actionListID = %g_actionListID%,:(  sqlLastError = `n`n>%sqlLastError%< `n`n%fromLine%
     ; MsgBox,16, :-) g_actionListID = %g_actionListID%,%sqlLastError% %fromLine%,2
-
+	
 }
     ; ParseWordsCount := ReadActionList(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"))
 ;\____ err_ReadActionList __ 181119181923 __ 19.11.2018 18:19:23 __/
@@ -462,12 +521,12 @@ if(sqlLastError := trim(SQLite_LastError()))
 
 ;/¯¯¯¯ err_CheckValid() ¯¯ 181119174125 ¯¯ 19.11.2018 17:41:25 ¯¯\
 err_CheckValid(){
-    if(!CheckValid("Word",ForceLearn:= false, is_IndexedAhkBlock := false))
-        return " °" A_ThisFunc "° <" A_LineNumber
-    if(CheckValid("",ForceLearn:= false, is_IndexedAhkBlock := false))
-        return " °" A_ThisFunc "° <" A_LineNumber
-    if(CheckValid("; käsewurst ",ForceLearn:= false, is_IndexedAhkBlock := false))
-        return " °" A_ThisFunc "° <" A_LineNumber
+	if(!CheckValid("Word",ForceLearn:= false, is_IndexedAhkBlock := false))
+		return " °" A_ThisFunc "° <" A_LineNumber
+	if(CheckValid("",ForceLearn:= false, is_IndexedAhkBlock := false))
+		return " °" A_ThisFunc "° <" A_LineNumber
+	if(CheckValid("; käsewurst ",ForceLearn:= false, is_IndexedAhkBlock := false))
+		return " °" A_ThisFunc "° <" A_LineNumber
 }
 ;\____ err_CheckValid() __ 181119174128 __ 19.11.2018 17:41:28 __/
 
@@ -480,8 +539,14 @@ err_CheckValid(){
 ;/¯¯¯¯ test_getAutoKeywords ¯¯ 181116202412 ¯¯ 16.11.2018 20:24:12 ¯¯\
 ; IMPORTEND becouse used by other functions !!!
 test_getAutoKeywords(){
-
-
+	
+	in := "ToolTip2sec"
+	expected := "ToolTip2sec Tip2sec ToolTip Tool"
+	
+	expectedInFutureRelaise := "nothingSpecial nothing Special textlang"
+	if(errStr := getAssertEqual_ErrorStr(      in,      expected,A_ThisFunc ":" A_LineNumber,"getAutoKeywords"))
+		Return errStr " °" A_LineNumber ":" A_ThisFunc "°"
+	
 	in =
 (
 al color
@@ -491,8 +556,7 @@ no colors
 	expectedInFutureRelaise := "nothingSpecial nothing Special textlang"
 	if(errStr := getAssertEqual_ErrorStr(      in,      expected,A_ThisFunc ":" A_LineNumber,"getAutoKeywords"))
 		Return errStr " °" A_LineNumber ":" A_ThisFunc "°" 
-
-
+	
 	in =
 (
 weeks   and
@@ -502,99 +566,99 @@ years   and   ears
 	expectedInFutureRelaise := "nothingSpecial nothing Special textlang"
 	if(errStr := getAssertEqual_ErrorStr(      in,      expected,A_ThisFunc ":" A_LineNumber,"getAutoKeywords"))
 		Return errStr " °" A_LineNumber ":" A_ThisFunc "°" 
-
+	
 	in := "weeks weeks years"
 	expected := "weeks years"
 	expectedInFutureRelaise := "nothingSpecial nothing Special textlang"
 	if(errStr := getAssertEqual_ErrorStr(      in,      expected,A_ThisFunc ":" A_LineNumber,"getAutoKeywords"))
 		Return errStr " °" A_LineNumber ":" A_ThisFunc "°" 
-
-
-if(1){ ;
-	in := "setTitleMatchMode"
-    e := getAutoKeywords(in)
-	expected := "setTitleMatchMode setTitleMatch Mode setTitle MatchMode TitleMatchMode"
-	expected := "setTitleMatchMode Mode setTitleMatch Match setTitle Title"
-	if(errStr := getAssertEqual_ErrorStr(      in,      expected,A_ThisFunc ":" A_LineNumber,"getAutoKeywords"))
-		Return errStr " °" A_LineNumber ":" A_ThisFunc "°" 
-}
-
-if(1){ ;
-	in := "SetTitleMatchMode"
-    e := getAutoKeywords(in)
-	expected := "SetTitleMatchMode SetTitleMatch Mode SetTitle MatchMode TitleMatchMode"
-	expected := "SetTitleMatchMode Mode SetTitleMatch Match SetTitle Title"
-	if(errStr := getAssertEqual_ErrorStr(      in,      expected,A_ThisFunc ":" A_LineNumber,"getAutoKeywords"))
-		Return errStr " °" A_LineNumber ":" A_ThisFunc "°" 
-}
-
-
-if(false){ ; playground
-    in =
+	
+	
+	if(1){ ;
+		in := "setTitleMatchMode"
+		e := getAutoKeywords(in)
+		expected := "setTitleMatchMode setTitleMatch Mode setTitle MatchMode TitleMatchMode"
+		expected := "setTitleMatchMode Mode setTitleMatch Match setTitle Title"
+		if(errStr := getAssertEqual_ErrorStr(      in,      expected,A_ThisFunc ":" A_LineNumber,"getAutoKeywords"))
+			Return errStr " °" A_LineNumber ":" A_ThisFunc "°" 
+	}
+	
+	if(1){ ;
+		in := "SetTitleMatchMode"
+		e := getAutoKeywords(in)
+		expected := "SetTitleMatchMode SetTitleMatch Mode SetTitle MatchMode TitleMatchMode"
+		expected := "SetTitleMatchMode Mode SetTitleMatch Match SetTitle Title"
+		if(errStr := getAssertEqual_ErrorStr(      in,      expected,A_ThisFunc ":" A_LineNumber,"getAutoKeywords"))
+			Return errStr " °" A_LineNumber ":" A_ThisFunc "°" 
+	}
+	
+	
+	if(false){ ; playground
+		in =
     (
      oma opa
      klaus mark
      neandertaler
     )
-    in := "  weeks   and  years   and   ears"
-	in := " weeks weeks years "
-
-    loop,
-    {
-    e := getAutoKeywords(in)
-    tooltip,% e  "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),1 ,1
-    sleep,1000
-    if(winExist(A_ScriptName " ahk_class #32770")) ; be careful with loop
-        pause
-    reload
-    }
-}
-
+		in := "  weeks   and  years   and   ears"
+		in := " weeks weeks years "
+		
+		loop,
+		{
+			e := getAutoKeywords(in)
+			tooltip,% e  "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),1 ,1
+			sleep,1000
+			if(winExist(A_ScriptName " ahk_class #32770")) ; be careful with loop
+				pause
+			reload
+		}
+	}
+	
 	in := "abc"
 	expected := "abc"
 	expectedInFutureRelaise := "nothingSpecial nothing Special textlang"
 	if(errStr := getAssertEqual_ErrorStr(      in,      expected,A_ThisFunc ":" A_LineNumber,"getAutoKeywords"))
 		Return errStr " °" A_LineNumber ":" A_ThisFunc "°" 
-
-
-
+	
+	
+	
 	in := "abcdef"
 	expected := "abcdef"
 	expectedInFutureRelaise := "nothingSpecial nothing Special textlang"
 	if(errStr := getAssertEqual_ErrorStr(      in,      expected,A_ThisFunc ":" A_LineNumber,"getAutoKeywords"))
 		Return errStr " °" A_LineNumber ":" A_ThisFunc "°" 
-
-
+	
+	
 	in := "al color"
 	expected := "al color"
 	expectedInFutureRelaise := "nothingSpecial nothing Special textlang"
 	if(errStr := getAssertEqual_ErrorStr(      in,      expected,A_ThisFunc ":" A_LineNumber,"getAutoKeywords"))
 		Return errStr " °" A_LineNumber ":" A_ThisFunc "°" 
-
-
+	
+	
 	in := "A bit of a longer text"
 	expected := "A longer text"
 	if(errStr := getAssertEqual_ErrorStr(in,expected,A_ThisFunc ":" A_LineNumber,"getAutoKeywords"))
 		Return errStr " °" A_LineNumber ":" A_ThisFunc "°" 
-
-if(1){ ; playground
-    line := "|rr|"
-    newKeyWords := "thanks message"
-    expected := "thanks message|rr|"
-    loop,
-    {
-    result :=  setInNewKeywordsIntoLine( newKeyWords , line )
-    if(result == expected)
-        break
-    tooltip,% ">" result "<`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),1,1
-    sleep,1000
-    if(winExist(A_ScriptName " ahk_class #32770")) ; be careful with loop
-        pause
-    reload
-    }
-}
-
-
+	
+	if(1){ ; playground
+		line := "|rr|"
+		newKeyWords := "thanks message"
+		expected := "thanks message|rr|"
+		loop,
+		{
+			result :=  setInNewKeywordsIntoLine( newKeyWords , line )
+			if(result == expected)
+				break
+			tooltip,% ">" result "<`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),1,1
+			sleep,1000
+			if(winExist(A_ScriptName " ahk_class #32770")) ; be careful with loop
+				pause
+			reload
+		}
+	}
+	
+	
 }
 ;\____ test_getAutoKeywords __ 181116202416 __ 16.11.2018 20:24:16 __/
 
@@ -602,29 +666,33 @@ if(1){ ; playground
 
 ;/¯¯¯¯ test_synonym
 test_synonym(){
-    f=log\actionList.ahk.log.txt
-    fileDelete,% f
-    while(a_index < 5 && fileExist(f))
-        sleep,150
-
+	
+	if(g_do_only_this_testCase && !InStr(" " A_ThisFunc,g_do_only_this_testCase))
+		return false
+	
+	f=log\actionList.ahk.log.txt
+	fileDelete,% f
+	while(a_index < 5 && fileExist(f))
+		sleep,150
+	
 	in :=       "test1 baum testsynonym1|rr||ahk|q"
 	expected := in
 	if(errStr := getAssertEqual_ErrorStr(in,expected,A_ThisFunc ":" A_LineNumber, "Loop_Parse_ParseWords")) ; line 727 = Loop_Parse_ParseWords
 		Return errStr " °" A_LineNumber ":" A_ThisFunc "°" 
-
-	    SELECT := "SELECT word FROM Words Where word like '" in "' "
-        SELECT .= " LIMIT 1 " ";"
-        Matches := g_actionListDB.Query(SELECT)
-        isFound  := false
-        for each, row in Matches.Rows
-            if( row[1] )
-                isFound  := true
-        if(!isFound)
-            Return in " NOT in DB °" A_LineNumber ":" A_ThisFunc "°"
-
-
-
-
+	
+	SELECT := "SELECT word FROM Words Where word like '" in "' "
+	SELECT .= " LIMIT 1 " ";"
+	Matches := g_actionListDB.Query(SELECT)
+	isFound  := false
+	for each, row in Matches.Rows
+		if( row[1] )
+			isFound  := true
+	if(!isFound)
+		Return in " NOT in DB °" A_LineNumber ":" A_ThisFunc "°"
+	
+	
+	
+	
 	in := "A bit of a longer text"
 	expected := "A longer text"
 	if(errStr := getAssertEqual_ErrorStr(in,expected,A_ThisFunc ":" A_LineNumber,"getAutoKeywords"))
@@ -721,7 +789,7 @@ dont Delete Comments comment|r|
 
 ;/¯¯¯¯ test_multi_rr_stop_by_is_r ¯¯ 181117224250 ¯¯ 17.11.2018 22:42:50 ¯¯\
 err_multi_rr_stop_by_is_r(){
-in =
+	in =
 (
 Skills|r|Skills.pdf
 Skills2|r|Skills2.pdf
@@ -735,8 +803,8 @@ Skills3|r|Skills3.pdf
 )
 	if(errStr := getAssertEqual_ErrorStr(in,expected,A_ThisFunc ":" A_LineNumber))
 		Return errStr " °" A_LineNumber ":" A_ThisFunc "°" 
-
-in =
+	
+	in =
 (
 thanks for the message|r|
 hiHo
@@ -752,8 +820,8 @@ Skills2|r|Skills2.pdf
 )
 	if(errStr := getAssertEqual_ErrorStr(in,expected,A_ThisFunc ":" A_LineNumber))
 		Return errStr " °" A_LineNumber ":" A_ThisFunc "°" 
-
-in =
+	
+	in =
 (
 thanks for the message|rr||ahk|
 send,hiHo
@@ -769,7 +837,7 @@ Skills2|r|Skills2.pdf
 )
 	if(errStr := getAssertEqual_ErrorStr(in,expected,A_ThisFunc ":" A_LineNumber))
 		Return errStr " °" A_LineNumber ":" A_ThisFunc "°" 
-
+	
 	in =
 (
 thanks for the message|rr||ahk|
@@ -834,11 +902,11 @@ ahkScripte
 PhpScripte
 )
 	
-f=log\actionList.ahk.log.txt
-fileDelete,log\actionList.ahk.log.txt
-while(fileExist(f))
-    sleep,150
-
+	f=log\actionList.ahk.log.txt
+	fileDelete,log\actionList.ahk.log.txt
+	while(fileExist(f))
+		sleep,150
+	
 	if(errStr := getAssertEqual_ErrorStr(in,expected,A_ThisFunc ":" A_LineNumber))
 		Return errStr " °" A_LineNumber ":" A_ThisFunc "°" 
 	
@@ -874,30 +942,30 @@ textlang
 		in .= lines
 		expected := in
 		if(errStr := getAssertEqual_ErrorStr(in,expected,A_ThisFunc ":" A_LineNumber))
-            Return errStr " °" A_LineNumber ":" A_ThisFunc "°" 
-    }
-
-			in =
+			Return errStr " °" A_LineNumber ":" A_ThisFunc "°" 
+	}
+	
+	in =
 (
 special|r|weeks
 )
-			expected =
+	expected =
 (
 special|r|weeks
 )
-			if(errStr := getAssertEqual_ErrorStr(in,expected,A_ThisFunc ":" A_LineNumber))
-				Return errStr " °" A_LineNumber ":" A_ThisFunc "°" 
-			
-			in =
+	if(errStr := getAssertEqual_ErrorStr(in,expected,A_ThisFunc ":" A_LineNumber))
+		Return errStr " °" A_LineNumber ":" A_ThisFunc "°" 
+	
+	in =
 (
 nothing special 1|r|weeks and forest 1
 )
-			expected =
+	expected =
 (
 nothing special 1|r|weeks and forest 1
 )
-			if(errStr := getAssertEqual_ErrorStr(in,expected,A_ThisFunc ":" A_LineNumber))
-				Return errStr " °" A_LineNumber ":" A_ThisFunc "°" 
+	if(errStr := getAssertEqual_ErrorStr(in,expected,A_ThisFunc ":" A_LineNumber))
+		Return errStr " °" A_LineNumber ":" A_ThisFunc "°" 
 }
 ;\____ err_multi_r_content __ 181119113151 __ 19.11.2018 11:31:51 __/
 
@@ -950,17 +1018,65 @@ Computer is better2
 ;\____ err_open_issues __ 181114094059 __ 14.11.2018 09:40:59 __/
 
 
+;/¯¯¯¯ err_setCommandTypeS ¯¯ 190405141149 ¯¯ 05.04.2019 14:11:49 ¯¯\
+err_setCommandTypeS(){
+	
+	in := "Bool1Tip|rr|MsgBox,1|ahk|x=1"
+	expected := true
+	
+	rootLineObj := { value:in, Aindex: 1 }
+	
+	rootLineObj := { value:in, Aindex: 1 }
+	rootCmdTypeObj :=  { is_str: false , is_r: false , is_rr: false, is_multiline_r: false, is_multiline_rr: false }
+	isCommandType := setCommandTypeS(rootLineObj, rootCmdTypeObj, rootCollectObj, rootDoObj )
+	
+	if(1){
+		result := ""
+		result .= " pos_value:" rootCmdTypeObj.pos_value
+		result .= " codePrefixChar:" rootCmdTypeObj.codePrefixChar
+		result .= " is_ended:" rootCmdTypeObj.is_ended
+		result .= " is_IndexedAhkBlock:" rootCmdTypeObj.is_IndexedAhkBlock
+		result .= " is_multiline_r:" rootCmdTypeObj.is_multiline_r
+		result .= " is_multiline_rr:" rootCmdTypeObj.is_multiline_rr
+		result .= " is_r:" rootCmdTypeObj.is_r
+		result .= " is_rr:" rootCmdTypeObj.is_rr
+		result .= " is_str:" rootCmdTypeObj.is_str
+		result .= " is_synonym:" rootCmdTypeObj.is_synonym
+		result .= " is_without_keywords:" rootCmdTypeObj.is_without_keywords
+	}else{
+		result := ""
+		result .= rootCmdTypeObj.pos_value
+		result .= rootCmdTypeObj.codePrefixChar
+		result .= rootCmdTypeObj.is_ended
+		result .= rootCmdTypeObj.is_IndexedAhkBlock
+		result .= rootCmdTypeObj.is_multiline_r
+		result .= rootCmdTypeObj.is_multiline_rr
+		result .= rootCmdTypeObj.is_r
+		result .= rootCmdTypeObj.is_rr
+		result .= rootCmdTypeObj.is_str
+		result .= rootCmdTypeObj.is_synonym
+		result .= rootCmdTypeObj.is_without_keywords
+	}
+	clipboard := result " 19-04-05_14-18"
+	msgbox, % clipboard
+	if(result <> expected){
+		feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), A_This )
+		Return errStr " °" A_LineNumber ":" A_ThisFunc "°"
+	}
+}
+;\____ err_setCommandTypeS __ 190405141151 __ 05.04.2019 14:11:51 __/
+
 ;/¯¯¯¯ err_doAsimpleCopyOfLine ¯¯ 181124201212 ¯¯ 24.11.2018 20:12:12 ¯¯\
 err_doAsimpleCopyOfLine(){
-in := "a|r|A"
-expected := true
-rootLineObj := { value:in, Aindex: 1 }
-isCommandType := setCommandTypeS(rootLineObj, rootCmdTypeObj, rootCollectObj, rootDoObj )
-result := doAsimpleCopyOfLine(ByRef rootCmdTypeObj,infoBox := "")
-if(result <> expected){
-    feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), A_This )
-    Return errStr " °" A_LineNumber ":" A_ThisFunc "°" 
-}
+	in := "a|r|A"
+	expected := true
+	rootLineObj := { value:in, Aindex: 1 }
+	isCommandType := setCommandTypeS(rootLineObj, rootCmdTypeObj, rootCollectObj, rootDoObj )
+	result := doAsimpleCopyOfLine(ByRef rootCmdTypeObj,infoBox := "")
+	if(result <> expected){
+		feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), A_This )
+		Return errStr " °" A_LineNumber ":" A_ThisFunc "°" 
+	}
 }
 ;\____ err_doAsimpleCopyOfLine __ 181124201215 __ 24.11.2018 20:12:15 __/
 
@@ -969,21 +1085,21 @@ if(result <> expected){
 ;/¯¯¯¯ err_is_r ¯¯ 181128135906 ¯¯ 28.11.2018 13:59:06 ¯¯\
 err_is_r(){
 ; automatically create keywords. by using: |r|value value value ...
-    f=log\actionList.ahk.log.txt
-    fileDelete,log\actionList.ahk.log.txt
-    while(fileExist(f))
-        sleep,100
-
+	f=log\actionList.ahk.log.txt
+	fileDelete,log\actionList.ahk.log.txt
+	while(fileExist(f))
+		sleep,100
+	
 	in =
 (
 five|r|5
 baum|r|huhu all
 )
 	expected := in
-if(errStr := getAssertEqual_ErrorStr(in,expected,A_ThisFunc ":" A_LineNumber))
-    Return errStr " °" A_LineNumber ":" A_ThisFunc "°" 
-
-    in =
+	if(errStr := getAssertEqual_ErrorStr(in,expected,A_ThisFunc ":" A_LineNumber))
+		Return errStr " °" A_LineNumber ":" A_ThisFunc "°" 
+	
+	in =
     (
     baum|r|huhu all
     )
@@ -991,8 +1107,8 @@ if(errStr := getAssertEqual_ErrorStr(in,expected,A_ThisFunc ":" A_LineNumber))
 	Critical, Off
 	if(errStr := getAssertEqual_ErrorStr( in, expected,A_ThisFunc ":" A_LineNumber))
 		Return errStr " °" A_LineNumber ":" A_ThisFunc "°" 
-
-
+	
+	
 }
 ;\____ err_is __ 181128135910 __ 28.11.2018 13:59:10 __/
 
@@ -1000,10 +1116,10 @@ if(errStr := getAssertEqual_ErrorStr(in,expected,A_ThisFunc ":" A_LineNumber))
 ;/¯¯¯¯ err_is_r_without_keywords ¯¯ 181128135906 ¯¯ 28.11.2018 13:59:06 ¯¯\
 err_is_r_without_keywords(){
 ; automatically create keywords. by using: |r|value value value ...
-    f=log\actionList.ahk.log.txt
-    fileDelete, % f
-    while(fileExist(f))
-        sleep,100
+	f=log\actionList.ahk.log.txt
+	fileDelete, % f
+	while(fileExist(f))
+		sleep,100
 	in =
 (
 |r|setTitleMatchMode
@@ -1016,13 +1132,13 @@ setTitleMatchMode setTitleMatch Mode setTitle MatchMode TitleMatchMode|r|setTitl
 (
 setTitleMatchMode Mode setTitleMatch Match setTitle Title|r|setTitleMatchMode
 )
-if(errStr := getAssertEqual_ErrorStr(in,expected,A_ThisFunc ":" A_LineNumber))
-    Return errStr " °" A_LineNumber ":" A_ThisFunc "°" 
-
-    f=log\actionList.ahk.log.txt
-    fileDelete, % f
-    while(fileExist(f))
-        sleep,100
+	if(errStr := getAssertEqual_ErrorStr(in,expected,A_ThisFunc ":" A_LineNumber))
+		Return errStr " °" A_LineNumber ":" A_ThisFunc "°" 
+	
+	f=log\actionList.ahk.log.txt
+	fileDelete, % f
+	while(fileExist(f))
+		sleep,100
 	in =
 (
 |r|om is a color
@@ -1031,9 +1147,9 @@ if(errStr := getAssertEqual_ErrorStr(in,expected,A_ThisFunc ":" A_LineNumber))
 (
 om color|r|om is a color
 )
-if(errStr := getAssertEqual_ErrorStr(in,expected,A_ThisFunc ":" A_LineNumber))
-    Return errStr " °" A_LineNumber ":" A_ThisFunc "°" 
-
+	if(errStr := getAssertEqual_ErrorStr(in,expected,A_ThisFunc ":" A_LineNumber))
+		Return errStr " °" A_LineNumber ":" A_ThisFunc "°" 
+	
 }
 ;\____ err_is_r_without_keywords __ 181128135910 __ 28.11.2018 13:59:10 __/
 
@@ -1041,13 +1157,13 @@ if(errStr := getAssertEqual_ErrorStr(in,expected,A_ThisFunc ":" A_LineNumber))
 
 ;/¯¯¯¯ err_is_without_keywords ¯¯ 181114072044 ¯¯ 14.11.2018 07:20:44 ¯¯\
 err_is_without_keywords(){
-
-
-f=log\actionList.ahk.log.txt
-fileDelete,log\actionList.ahk.log.txt
-while(fileExist(f))
-    sleep,100
-
+	
+	
+	f=log\actionList.ahk.log.txt
+	fileDelete,log\actionList.ahk.log.txt
+	while(fileExist(f))
+		sleep,100
+	
 	in =
 (
 java and javascript
@@ -1095,9 +1211,9 @@ java and javascript
 )
 	if(errStr := getAssertEqual_ErrorStr(in,expected,A_ThisFunc ":" A_LineNumber))
 		Return errStr " °" A_LineNumber ":" A_ThisFunc "°" 
-
-
-
+	
+	
+	
 	in =
 (
 |r|
@@ -1116,7 +1232,7 @@ weeks and forest52
 	
 	if(errStr := getAssertEqual_ErrorStr(in,expected,A_ThisFunc ":" A_LineNumber))
 		Return errStr " °" A_LineNumber ":" A_ThisFunc "°" 
-
+	
 	
 	
 	in =
@@ -1221,7 +1337,7 @@ a color kindergarten
 a weeks years|r|
 a weeks years
 )
-
+	
 	if(errStr := getAssertEqual_ErrorStr(in,expected,A_ThisFunc ":" A_LineNumber))
 		Return errStr " °" A_LineNumber ":" A_ThisFunc "°" 
 	
@@ -1526,8 +1642,8 @@ abca
 (
 abca
 )
-if(errStr := getAssertEqual_ErrorStr(in,Trim(expected," `t`r`n"),A_ThisFunc ":" A_LineNumber))
-    Return errStr " °" A_LineNumber ":" A_ThisFunc "°" 
+	if(errStr := getAssertEqual_ErrorStr(in,Trim(expected," `t`r`n"),A_ThisFunc ":" A_LineNumber))
+		Return errStr " °" A_LineNumber ":" A_ThisFunc "°" 
 	
 	in =
 (
@@ -1537,10 +1653,10 @@ abc|r|With a bit of content
 (
 abc|r|With a bit of content
 )
-if(errStr := getAssertEqual_ErrorStr(in,Trim(expected," `t`r`n"),A_ThisFunc ":" A_LineNumber))
-    Return errStr " °" A_LineNumber ":" A_ThisFunc "°" 
-
-
+	if(errStr := getAssertEqual_ErrorStr(in,Trim(expected," `t`r`n"),A_ThisFunc ":" A_LineNumber))
+		Return errStr " °" A_LineNumber ":" A_ThisFunc "°" 
+	
+	
 	in =
 (
 abc def|r|With a bit of content
@@ -1549,9 +1665,9 @@ abc def|r|With a bit of content
 (
 abc def|r|With a bit of content
 )
-if(errStr := getAssertEqual_ErrorStr(in,Trim(expected," `t`r`n"),A_ThisFunc ":" A_LineNumber))
-    Return errStr " °" A_LineNumber ":" A_ThisFunc "°" 
-
+	if(errStr := getAssertEqual_ErrorStr(in,Trim(expected," `t`r`n"),A_ThisFunc ":" A_LineNumber))
+		Return errStr " °" A_LineNumber ":" A_ThisFunc "°" 
+	
 	in =
 (
 Abca|r|With a bit of content
@@ -1560,12 +1676,12 @@ Abca|r|With a bit of content
 (
 Abca|r|With a bit of content
 )
-if(errStr := getAssertEqual_ErrorStr(in,Trim(expected," `t`r`n"),A_ThisFunc ":" A_LineNumber))
-    Return errStr " °" A_LineNumber ":" A_ThisFunc "°" 
-
-
-
-
+	if(errStr := getAssertEqual_ErrorStr(in,Trim(expected," `t`r`n"),A_ThisFunc ":" A_LineNumber))
+		Return errStr " °" A_LineNumber ":" A_ThisFunc "°" 
+	
+	
+	
+	
 	in =
 (
 abcdef|r|
@@ -1576,10 +1692,10 @@ With a bit of content
 abcdef|r|
 With a bit of content
 )
-if(errStr := getAssertEqual_ErrorStr(in,Trim(expected," `t`r`n"),A_ThisFunc ":" A_LineNumber))
-    Return errStr " °" A_LineNumber ":" A_ThisFunc "°" 
-
-
+	if(errStr := getAssertEqual_ErrorStr(in,Trim(expected," `t`r`n"),A_ThisFunc ":" A_LineNumber))
+		Return errStr " °" A_LineNumber ":" A_ThisFunc "°" 
+	
+	
 	in =
 (
 abcd|r|
@@ -1590,10 +1706,10 @@ With a bit of content
 abcd|r|
 With a bit of content
 )
-if(errStr := getAssertEqual_ErrorStr(in,Trim(expected," `t`r`n"),A_ThisFunc ":" A_LineNumber))
-    Return errStr " °" A_LineNumber ":" A_ThisFunc "°" 
-
-
+	if(errStr := getAssertEqual_ErrorStr(in,Trim(expected," `t`r`n"),A_ThisFunc ":" A_LineNumber))
+		Return errStr " °" A_LineNumber ":" A_ThisFunc "°" 
+	
+	
 	in =
 (
 Abc def[a|r|
@@ -1604,10 +1720,10 @@ With a bit of content
 Abc def[a|r|
 With a bit of content
 )
-if(errStr := getAssertEqual_ErrorStr(in,Trim(expected," `t`r`n"),A_ThisFunc ":" A_LineNumber))
-    Return errStr " °" A_LineNumber ":" A_ThisFunc "°" 
-
-
+	if(errStr := getAssertEqual_ErrorStr(in,Trim(expected," `t`r`n"),A_ThisFunc ":" A_LineNumber))
+		Return errStr " °" A_LineNumber ":" A_ThisFunc "°" 
+	
+	
 	in =
 (
 Abc def[a|rr||ahk|
@@ -1618,10 +1734,10 @@ With a bit of content
 Abc def[a|rr||ahk|
 With a bit of content
 )
-if(errStr := getAssertEqual_ErrorStr(in,Trim(expected," `t`r`n"),A_ThisFunc ":" A_LineNumber))
-    Return errStr " °" A_LineNumber ":" A_ThisFunc "°" 
-
-
+	if(errStr := getAssertEqual_ErrorStr(in,Trim(expected," `t`r`n"),A_ThisFunc ":" A_LineNumber))
+		Return errStr " °" A_LineNumber ":" A_ThisFunc "°" 
+	
+	
 	in =
 (
 Abc def[a|rr||ahk|[
@@ -1639,8 +1755,8 @@ Send,`% it
 	)
 	if(errStr := getAssertEqual_ErrorStr(in,Trim(expected," `t`r`n"),A_ThisFunc ":" A_LineNumber))
 		Return errStr " °" A_LineNumber ":" A_ThisFunc "°" 
-
-
+	
+	
 	in =
 (
 A[a|rr||ahk|[
@@ -1758,7 +1874,7 @@ almMountain
 almMountain Mountain|r|
 almMountain
 )
-
+		
 		if(errStr := getAssertEqual_ErrorStr(in,expected,A_ThisFunc ":" A_LineNumber))
 			Return errStr " °" A_LineNumber ":" A_ThisFunc "°" 
 	}
@@ -1777,7 +1893,7 @@ beutiful Brain
 	if(errStr := getAssertEqual_ErrorStr(in,expected,A_ThisFunc ":" A_LineNumber))
 		Return errStr " °" A_LineNumber ":" A_ThisFunc "°" 
 	
-
+	
 	
 } ; endOf test
 
@@ -1854,9 +1970,9 @@ getAssertEqual_ErrorStr(ByRef in,ByRef expected,ALineNumber,myFuncName := "Loop_
 	if(g_do_only_this_testCase && !InStr(ALineNumber,g_do_only_this_testCase)){
 		return false
 		MsgBox,% "`n`n`n`n"  "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
-    }
-
-
+	}
+	
+	
 	fileNameResult := "result18-11-13_18-03.txt"
 	fileNameExpected := "expected18-11-13_18-03.txt"
 	if(myFuncName == "getAutoKeywords"){
@@ -1866,43 +1982,43 @@ getAssertEqual_ErrorStr(ByRef in,ByRef expected,ALineNumber,myFuncName := "Loop_
 		result := Loop_Parse_ParseWords( in )
 		; ^==== ca line Loop_Parse_ParseWords:1064 > Loop_Parse_ParseWords_LoopField:726 > AddWordToList:1703
 		;MsgBox,% ALineNumber " wants func:" myFuncName "`n`n`n`n"  "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
-
-
-
-    }
-
-        timeStampMini = %A_DD%%A_Min%%A_Sec%
-
-		fromLine := ALineNumber ">`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
-        sqlLastError := SQLite_LastError()
-        if(trim(sqlLastError)){
-            tooltip,% ":( g_actionListID = " g_actionListID ",sqlLastError = " sqlLastError ", fromLine= " fromLine
-            sleep,3000
-        }
-        if(1){
-            VALUES = VALUES ('%A_ScriptName%_%A_ThisFunc%' , '%fromLine%', 0, '%timeStampMini%', %g_actionListID% , 555);
-            INSERT_INTO_words := "INSERT INTO words (wordindexed, word, count,     wordreplacement   , actionListID, lineNr) "
-            INSERT_INTO_words .= VALUES
-            g_actionListDB.Query(INSERT_INTO_words)
-
+		
+		
+		
+	}
+	
+	timeStampMini = %A_DD%%A_Min%%A_Sec%
+	
+	fromLine := ALineNumber ">`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+	sqlLastError := SQLite_LastError()
+	if(trim(sqlLastError)){
+		tooltip,% ":( g_actionListID = " g_actionListID ",sqlLastError = " sqlLastError ", fromLine= " fromLine
+		sleep,3000
+	}
+	if(1){
+		VALUES = VALUES ('%A_ScriptName%_%A_ThisFunc%' , '%fromLine%', 0, '%timeStampMini%', %g_actionListID% , 555);
+		INSERT_INTO_words := "INSERT INTO words (wordindexed, word, count,     wordreplacement   , actionListID, lineNr) "
+		INSERT_INTO_words .= VALUES
+		g_actionListDB.Query(INSERT_INTO_words)
+		
             ; check if its really in db:
-            SELECT := "SELECT wordreplacement FROM Words Where wordreplacement like '"
-            SELECT .= timeStampMini "' LIMIT 1 " ";"
-            Matches := g_actionListDB.Query(SELECT)
-            isFound  := false
-            for each, row in Matches.Rows
-                if( row[1] )
-                    isFound  := true
-
-    		fromLine := ALineNumber ">`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
-            sqlLastError := SQLite_LastError()
-            if(!isFound)
-                msgbox,:( g_actionListID = %g_actionListID%,sqlLastError = %sqlLastError% %fromLine% `n`n %SELECT%
-
-
-        }
-
-
+		SELECT := "SELECT wordreplacement FROM Words Where wordreplacement like '"
+		SELECT .= timeStampMini "' LIMIT 1 " ";"
+		Matches := g_actionListDB.Query(SELECT)
+		isFound  := false
+		for each, row in Matches.Rows
+			if( row[1] )
+				isFound  := true
+		
+		fromLine := ALineNumber ">`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\")
+		sqlLastError := SQLite_LastError()
+		if(!isFound)
+			msgbox,:( g_actionListID = %g_actionListID%,sqlLastError = %sqlLastError% %fromLine% `n`n %SELECT%
+		
+		
+	}
+	
+	
 	expected := Trim(expected," `t`r`n")
 	result := Trim(result," `t`r`n")
 	if(result == expected){
@@ -1940,7 +2056,7 @@ getAssertEqual_ErrorStr(ByRef in,ByRef expected,ALineNumber,myFuncName := "Loop_
 		result := regExReplace(result,"([\n\r][ ]*)\)","$1``)")
 		
 		; If(!WinExist(fileNameResult) && result)
-			run,E:\____\_Portable\HTTP_gif_html_php_sql\WinMerge\WinMerge.exe "%fileNameResult%" "%fileNameExpected%"
+		run,E:\____\_Portable\HTTP_gif_html_php_sql\WinMerge\WinMerge.exe "%fileNameResult%" "%fileNameExpected%"
 		
 		strCompareBoth4clipboard :=  ":( result<>expected" r1 result r2 "<>" e1 expected e2
 		; clipboard .= "`n`n" strCompareBoth4clipboard
@@ -1977,8 +2093,8 @@ prepareGi(){
 	Hotkey, WheelUp, off
 	Hotkey, WheelDown, off
 	;BuildTrayMenu()
-
-    Menu, Tray, Standard
+	
+	Menu, Tray, Standard
 }
 waitUserDoSometingMilli(needetMilli,sleepi:=111){
 	tooltip, % "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"),1,1
@@ -2031,9 +2147,42 @@ RenoveToolTip:
 tooltip,
 return
 
+;/¯¯¯¯ openDB_Browser_for_SQLite ¯¯ 190406221659 ¯¯ 06.04.2019 22:16:59 ¯¯\
+; openDB_Browser_for_SQLite()
+openDB_Browser_for_SQLite(ByRef d:="",t:="Words",doClickIntoSearch:=true,search:="someNew2secTooltip"){
+	ToolTip1sec(A_LineNumber " " RegExReplace(A_LineFile,".*\\"))
+	if(!d)
+		d := (InStr(A_ComputerName,"540P-SL5NET"))
+	? "G:\fre\private\sql\sqlite\actionList.db"
+	: A_ScriptDir "\actionListLearned.db"
+
+	settitlematchmode,1
+	needle=DB Browser for SQLite ; ahk_class Qt5QWindowIcon
+	ifwinnotexist, % needle
+	{
+            ; https://github.com/sqlitebrowser/sqlitebrowser/wiki/Command-Line-Interface
+		para := " -t " t " " d " --t " t
+		commandline = "C:\Program Files\DB Browser for SQLite\DB Browser for SQLite.exe" %para%
+		;clipboard := commandline
+		clipboard := search
+		run,% commandline ,"C:\Program Files\DB Browser for SQLite\"
+		ToolTip2sec(commandline "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")",100,100 )
+		winwait, % needle,,9
+		WinActivate, % needle
+		WinWaitActive, % needle,,9
+		send,!tw ; w like words ; send,{tab 4}w ; w like words
+		CoordMode , Mouse, Relative
+		MouseClick,left,331,230,1,1
+		CoordMode , Mouse , Screen
+		Send,^v
+	}
+	RETURN
+}
+;\____ openDB_Browser_for_SQLite __ 190406221702 __ 06.04.2019 22:17:02 __/
 
 
 
+#Include %A_ScriptDir%\Lib\SQLite_DLLPath.inc.ahk
 
 #Include %A_ScriptDir%\inc_ahk\gi\ReadActionList.inc.ahk
 #Include %A_ScriptDir%\Includes\gi-everywhere.inc.ahk

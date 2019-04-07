@@ -80,8 +80,16 @@ lll( A_ThisFunc ":" A_LineNumber , A_LineFile)
         return false
     }
 
+    if(1 && InStr(A_ComputerName,"SL5") && SubStr( "test.ahk" , -3 ) <> ".ahk")
+           Msgbox,plausibilty damage `n %m1CorrectedAhkFileAddress% `n `n (%A_LineFile%~%A_LineNumber%)
 	if( SubStr( m1CorrectedAhkFileAddress , -3 ) <> ".ahk" ) ; https://g-intellisense.myjetbrains.com/youtrack/issue/GIS-66
 		m1CorrectedAhkFileAddress .= ".ahk"
+    else{
+        if(SubStr( m1CorrectedAhkFileAddress , -7 ) <> ".ahk.ahk") ; was happend 19-04-04_15-01
+           Msgbox,plausibilty damage `n %m1CorrectedAhkFileAddress% `n `n (%A_LineFile%~%A_LineNumber%)
+    }
+
+; Tooltip Tool Too Tooltip Tool
 
     ; SaveLast5_to_BackupSL5.ahk "..\actionLists\_globalActionListsGenerated\_ahk_global.ahk" "..\..\gi-actionLists-Bakcups"
     ; actionList := removesSymbolicLinksFromFileAdress(actionList)

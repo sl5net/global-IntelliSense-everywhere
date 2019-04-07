@@ -39,7 +39,8 @@ Class SQLiteDB Extends SQLiteDB.BaseClass {
    Class BaseClass {
       Static Version := ""
 
-      Static _SQLiteDLL := SQLite_DLLPath() "\SQLite3.dll" ; <====== 19-03-22_12-04 addet
+      ; Static _SQLiteDLL := SQLite_DLLPath() "\SQLite3.dll" ; <====== 19-03-22_12-04 addet
+      Static _SQLiteDLL := SQLite_DLLPath()  ; <====== 19-04-02_14-34 addet
 
       Static _RefCount := 0
       Static _MinVersion := "3.6"
@@ -277,13 +278,14 @@ Class SQLiteDB Extends SQLiteDB.BaseClass {
       This._Queries := {}               ; Valid queries                                 (Object)
       If (This.Base._RefCount = 0) {
          SQLiteDLL := This.Base._SQLiteDLL
-         If !FileExist(SQLiteDLL)
+         If(false && !FileExist(SQLiteDLL) )
             If FileExist(A_ScriptDir . "\SQLiteDB.ini") {
                IniRead, SQLiteDLL, %A_ScriptDir%\SQLiteDB.ini, Main, DllPath, %SQLiteDLL%
                This.Base._SQLiteDLL := SQLiteDLL
          }
          If !(DLL := DllCall("LoadLibrary", "Str", This.Base._SQLiteDLL, "UPtr")) {
-            MsgBox, 16, SQLiteDB Error, % "DLL " . SQLiteDLL . " does not exist!"
+            MsgBox, 16, % "SQLiteDB Error", % "DLL " . SQLiteDLL . " does not exist!`n A_ScriptDir = >>" A_ScriptDir  "<<`n(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+            ; MsgBox, 16, SQLiteDB Error, % "DLL " . SQLiteDLL . " does not exist!"
             ExitApp
          }
          This.Base.Version := StrGet(DllCall("SQlite3.dll\sqlite3_libversion", "Cdecl UPtr"), "UTF-8")

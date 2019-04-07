@@ -1,6 +1,8 @@
 ﻿; Indentation_style: https://de.wikipedia.org/wiki/EinrÃ¼ckungsstil#SL5small-Stil
 #SingleInstance, force
 
+
+
 if(!address){
 	; take address frome command line 02.08.2017 10:21 17-08-02_10-21
 	address = %1%
@@ -11,11 +13,16 @@ if(!address){
 	ExitApp
 }
 
+
+
 ; address=9 
 ; #incDynAhk\netsh_interface_ip_set_address.ahk
 
+
+
 doTryWithCmdAdmin := true
 doTryWithCmdAdmin := false
+
 
 
 if(doTryWithCmdAdmin){
@@ -31,10 +38,14 @@ if(doTryWithCmdAdmin){
 	}
 	Wingetactivetitle, activeTitle
 
+
+
 	WinActivate, % tc 
 	Tooltip,WinWaitActive %tc% `n (from: %A_LineFile%~%A_LineNumber%) 
 	WinWaitActive,% tc ,,1
 	;sleep,100
+
+
 
 	;ControlSend, , test, % tc 
 	;sendplay,17-07-28_00-03
@@ -46,6 +57,7 @@ if(doTryWithCmdAdmin){
 		ExitApp 
 	}
 }
+
 
 
 if(address=="dhcp"){
@@ -71,7 +83,11 @@ if(address=="dhcp"){
 }
 ; send , :-( address ????? 17-07-27_16-52
 
+
+
 Sleep, 1000 ; 1 Sekunde
+
+
 
 if(doTryWithCmdAdmin)
 {
@@ -81,7 +97,11 @@ if(doTryWithCmdAdmin)
 	Sleep, 2000 
 }
 
+
+
 return
+
+
 
 ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 isAdministratorAndMsg(netshCommand){
@@ -92,10 +112,14 @@ if(A_UserName != "Administrator"){
     (
     you have admin rights (A_IsAdmin contains 1).
 
+
+
     To have the script restart itself as admin (or show a prompt to the user requesting admin), use Run *RunAs.
     running the script as admin causes all programs launched by the script to also run as admin.
     30.07.2017 11:55
     )
+
+
 
         Clipboard := netshCommand
 		tc := "cmd.exe (Admin)" 

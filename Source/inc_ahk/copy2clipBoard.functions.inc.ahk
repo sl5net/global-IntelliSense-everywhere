@@ -140,6 +140,7 @@ copyLineOrWordFROMclipBoard(doSelectLine){
 copyLineOrWord2clipBoard(doSelectLine){
    Suspend,on
    if(doSelectLine){
+
       Send,{Home}{ShiftDown}
       Send,{ShiftDown}{End}
    }else  {

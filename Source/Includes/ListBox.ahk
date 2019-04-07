@@ -222,7 +222,7 @@ INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\")
             RegWrite, REG_SZ, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, g_ListBoxY, %g_ListBoxY%
       }else{
             tip=START follow listbox mouse `n (from: %A_LineFile%~%A_LineNumber%)
-            ToolTip,,,,,2 ; 19-03-22_09-00: delets: ToolTipSec(tip,ListBoxPosX, tooltipPosY, g_config["listBoxGui"]["tipps"]["durationMilliseconds"] , 2 )
+            ToolTip,,,,,2 ; 19-03-22_09-00: delets: ToolTipSec(tip,ListBoxPosX, tooltipPosY,  g_config.listBoxGui.tipps.durationMilliseconds , 2 )
             ToolTip1sec(tip)
             g_doListBoxFollowMouse := true ; toggle it.
             ; SetTimer,doListBoxFollowMouse,200

@@ -92,6 +92,7 @@ main(listAddress:="",para1:="",config:="",dirName:=""){
 	;  only save if the newest need set to the top of the list (if its not already there).
 	
 	if(!para1){
+		tooltip, % " error `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
 		return
 		Msgbox, % " error `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
 	}

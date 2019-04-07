@@ -101,10 +101,16 @@ class Sql_Temp { ; search help: sqltemp tempsql
             }
         } catch e{
             tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
-            sqlLastError := SQLite_LastError()
+            if(!doUseNewMethodStartOfImplementing22march2019)
+                if oFunc := Func("SQLite_LastError") ; https://www.autohotkey.com/boards/viewtopic.php?f=76&t=63186&p=270178#p270178
+                    sqlLastError := %oFunc%()
+                else
+                    toolTip2sec( SQLite_LastError " :( not found`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+
             tip .= "`n sqlLastError=" sqlLastError "`n " sql " `n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
             lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,tip)
             tooltip, `% tip
+
             feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), tip )
             ; Clipboard := tip
             ; msgbox, % tip
@@ -112,8 +118,6 @@ class Sql_Temp { ; search help: sqltemp tempsql
    }
     ;\____ file2sqLite __ 181123030130 __ 23.11.2018 03:01:30 __/
 
-
-; toot
 
 
 
@@ -151,7 +155,12 @@ class Sql_Temp { ; search help: sqltemp tempsql
 
         } catch e{
             tip:="Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
-            sqlLastError := SQLite_LastError()
+            ; sqlLastError := SQLite_LastError()
+            if oFunc := Func("SQLite_LastError") ; https://www.autohotkey.com/boards/viewtopic.php?f=76&t=63186&p=270178#p270178
+                sqlLastError := %oFunc%()
+            else
+                toolTip2sec( SQLite_LastError " :( not found`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+
             tip .= "`n sqlLastError=" sqlLastError "`n " sql " `n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
             lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,tip)
             tooltip, `% tip
