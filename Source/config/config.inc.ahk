@@ -14,13 +14,13 @@ g_actionListDBfileAdress := (InStr(A_ComputerName,"540P-SL5NET"))
 g_min_searchWord_length := 0
 
 ; false or "" no extra info will showed below the listBoxGui (may you first need typing something to see it. 19-04-04_15-23)
+; you could use this kind of commends: /* show: true, */
 g_config.listBoxGui := { 
  	tipps: { 
- 		show: true,
+ 		/* show: true, */
  		durationMilliseconds: 3500
  	}
 }
-
 g_config.ScriptDir := A_ScriptDir
 g_config.actionListDirBase := "..\actionLists" ; down from source upt to actionLists
 ; Hack: if onlyThisList is set and not false it will only this list used for everything. not recomandet! 19-04-04_22-59
@@ -34,7 +34,12 @@ g_config.actionList := {
 
 ; if g_config.infoBox[1] false or "" no extra info about actionListFileAddress is will showed. Thats may mor useful for gi-developer not user of it.
 g_config.infoBox[1] := { 
-	showName: "¯|"
+	showName: "",
+	backup: "¯|"
+}
+g_config.infoBox[2] := { 
+	crosshair: "",
+	backup: "¯|"
 }
 
 

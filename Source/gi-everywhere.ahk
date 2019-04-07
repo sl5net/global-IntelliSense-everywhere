@@ -565,8 +565,10 @@ if(1 && InStr(A_ComputerName,"SL5"))
 
 ; tool t tool  too too
 ; Tooltip
+if(g_config.infoBox[2]["crosshair"]){
 tipLast := a_hour ":" a_min ":" a_sec
 toolTipGui(tipLast " (" RegExReplace(A_LineFile,".*\\") ">" A_LineNumber ")", x:=0, y:=0, "¯" ,A_LineNumber,"Yellow")
+}
 if(0){
 feedbackMsgBox(RegExReplace(A_LineFile,".*\\") ">" A_LineNumber, " oldKeywords=" oldKeywords "`n`n" ObjSToStrTrim(DBstr:="", DB) DBstr )
 run,tools\DebugVars\DebugVars.ahk

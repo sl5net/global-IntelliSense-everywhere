@@ -1,4 +1,5 @@
-﻿toolTipGui(text		; 1
+﻿;/¯¯¯¯ toolTipGui ¯¯ 190407092148 ¯¯ 07.04.2019 09:21:48 ¯¯\
+toolTipGui(text		; 1
 , x := 1 			; 2
 , y := 1 			; 3
 , crosshair := "" 	; 4
