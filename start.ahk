@@ -1,5 +1,11 @@
 ﻿; Indentation_style: https://de.wikipedia.org/wiki/EinrÃ¼ckungsstil#SL5small-Stil
 #NoTrayIcon
+; Critical , On
+SetWorkingDir %A_ScriptDir%\Source
+run,gi-everywhere.ahk,%A_ScriptDir%\Source
+exitApp
+
+
 
 Critical , On
 
