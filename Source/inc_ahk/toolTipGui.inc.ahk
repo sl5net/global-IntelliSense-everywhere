@@ -252,7 +252,7 @@ Gui, Color, %bgColor%
 */
 StringLower,bgColor,bgColor
 ; if(bgColor == "Yellow" || bgColor == "Fuchsia" || bgColor == "White")
-if(bgColor == "yellow" || bgColor == "fuchsia" || bgColor == "white")
+if(bgColor == "yellow" || bgColor == "fuchsia" || bgColor == "white" || bgColor == "aqua")
 	fontColor:="Black"
 else
 	fontColor:="White"

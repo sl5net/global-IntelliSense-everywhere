@@ -136,6 +136,29 @@ if(... := update_configMinify_incAhkFile()){
     ; configMinifyIncAhkAddress := configMinify["Address"]
     msg := configMinify["Address"] " = Address (" A_ThisFunc ": " A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
 ; feedbackMsgBox(A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\"), msg, 1, 1, 6 )
+
+; wait for an erro:
+    AHKcode =
+    (
+    needle=gi-everywhere.ahk ahk_class #32770 ; mouseWindowTitle=0x9b2fce  ;
+    WinWaitActive,`% needle,config.minify.inc.ahk,9
+    IfWinActive,`% needle,config.minify.inc.ahk
+    {
+        try{
+            run,%configMinifyDIR%
+        }
+            ; msgbox,delete minfies and repair config?
+            sleep,1000 ; that you see whats going on
+            FileDelete,%configMinifyDIR%\config.minify.inc.ahk
+            FileDelete,%configMinifyDIR%\config.minify.inc.ahkSTATIC.ahk
+            winactivate,config.inc.ahk
+    }
+    exitApp
+    )
+    clipboard := AHKcode
+    DynaRun(AHKcode)
+
+
   	Return configMinify
 }
 ;\____ update_configMinify_incAhkFile __ 190111201850 __ 11.01.2019 20:18:50 __/

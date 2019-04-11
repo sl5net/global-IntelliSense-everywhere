@@ -2147,39 +2147,6 @@ RenoveToolTip:
 tooltip,
 return
 
-;/¯¯¯¯ openDB_Browser_for_SQLite ¯¯ 190406221659 ¯¯ 06.04.2019 22:16:59 ¯¯\
-; openDB_Browser_for_SQLite()
-openDB_Browser_for_SQLite(ByRef d:="",t:="Words",doClickIntoSearch:=true,search:="someNew2secTooltip"){
-	ToolTip1sec(A_LineNumber " " RegExReplace(A_LineFile,".*\\"))
-	if(!d)
-		d := (InStr(A_ComputerName,"540P-SL5NET"))
-	? "G:\fre\private\sql\sqlite\actionList.db"
-	: A_ScriptDir "\actionListLearned.db"
-
-	settitlematchmode,1
-	needle=DB Browser for SQLite ; ahk_class Qt5QWindowIcon
-	ifwinnotexist, % needle
-	{
-            ; https://github.com/sqlitebrowser/sqlitebrowser/wiki/Command-Line-Interface
-		para := " -t " t " " d " --t " t
-		commandline = "C:\Program Files\DB Browser for SQLite\DB Browser for SQLite.exe" %para%
-		;clipboard := commandline
-		clipboard := search
-		run,% commandline ,"C:\Program Files\DB Browser for SQLite\"
-		ToolTip2sec(commandline "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")",100,100 )
-		winwait, % needle,,9
-		WinActivate, % needle
-		WinWaitActive, % needle,,9
-		send,!tw ; w like words ; send,{tab 4}w ; w like words
-		CoordMode , Mouse, Relative
-		MouseClick,left,331,230,1,1
-		CoordMode , Mouse , Screen
-		Send,^v
-	}
-	RETURN
-}
-;\____ openDB_Browser_for_SQLite __ 190406221702 __ 06.04.2019 22:17:02 __/
-
 
 
 #Include %A_ScriptDir%\Lib\SQLite_DLLPath.inc.ahk

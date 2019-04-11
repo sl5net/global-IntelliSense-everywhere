@@ -92,6 +92,13 @@ CoordMode, ToolTip, Screen
 }
 
 
+
+
+
+
+
+
+
 ;/¯¯¯¯ RebuildDatabase ¯¯ 181027180644 ¯¯ 27.10.2018 18:06:44 ¯¯\
 ; Rebuilds the Database from scratch as we have to redo the actionList anyway.
 RebuildDatabase(sql_template_dir){
@@ -209,6 +216,83 @@ RebuildDatabase(sql_template_dir){
     	g_actionListDB.EndTransaction()
 }
 ;\____ RebuildDatabase __ 181123064751 __ 23.11.2018 06:47:51 __/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+;/¯¯¯¯ Rebuild_performance_table ¯¯ 190410220637 ¯¯ 10.04.2019 22:06:37 ¯¯\
+Rebuild_performance_table(){
+    global g_actionListDB
+    global g_actionListDBfileAdress
+    if(!g_actionListDB)
+        g_actionListDB := DBA.DataBaseFactory.OpenDataBase("SQLite", g_actionListDBfileAdress ) ;
+
+    sql := "delete from performance;"
+    sql := "DROP TABLE IF EXISTS  performance;"
+
+	tip := "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+	toolTipGui(tip ,,-50,"\_",A_LineNumber,"Red")  ; x will be offset if y is symbolic
+    ; if(!g_actionListDB.Query("DROP TABLE IF EXISTS  performance;")){
+
+    if(!g_actionListDB.Query(sql)){
+        tip := "Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
+        if oFunc := Func("SQLite_LastError") ; https://www.autohotkey.com/boards/viewtopic.php?f=76&t=63186&p=270178#p270178
+            sqlLastError := %oFunc%()
+        else
+            toolTip2sec( SQLite_LastError " :( not found`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+        tip .= "`n sqlLastError=" sqlLastError
+        msgbox, % tip "`n `n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
+    }
+    g_actionListDB.BeginTransaction()
+    if(!g_actionListDB.Query(sql)){
+        tip := "Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
+        if oFunc := Func("SQLite_LastError") ; https://www.autohotkey.com/boards/viewtopic.php?f=76&t=63186&p=270178#p270178
+            sqlLastError := %oFunc%()
+        else
+            toolTip2sec( SQLite_LastError " :( not found`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+        tip .= "`n sqlLastError=" sqlLastError
+        msgbox, % tip "`n `n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
+    }
+    g_actionListDB.EndTransaction()
+    if(!g_actionListDB.Query(sql)){
+        tip := "Exception:`n" e.What "`n" e.Message "`n" e.File "@" e.Line
+        if oFunc := Func("SQLite_LastError") ; https://www.autohotkey.com/boards/viewtopic.php?f=76&t=63186&p=270178#p270178
+            sqlLastError := %oFunc%()
+        else
+            toolTip2sec( SQLite_LastError " :( not found`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+        tip .= "`n sqlLastError=" sqlLastError
+        msgbox, % tip "`n `n( " RegExReplace(A_LineFile,".*\\") "~" A_LineNumber ")"
+    }
+
+    ; Create_PerformanceMeasurementOf_Functions_Table()
+}
+;\____ RebuildDatabase __ 181123064751 __ 23.11.2018 06:47:51 __/
+
+
+
+
+
+
+
+
+
 
 
 ; to tool tool tooltip toolipt toolip msgbox msgbox ms msgbox msg msg
@@ -360,7 +444,17 @@ CreateLastStateTable(){
 ;/¯¯¯¯ INSERT_function_call_time_millis_since_midnight ¯¯ 190322052959 ¯¯ 22.03.2019 05:29:59 ¯¯\
 INSERT_function_call_time_millis_since_midnight( aLineFile , aThisFunc , aLineNumber){
 
-if(doUseNewMethodStartOfImplementing22march2019 && InStr(A_ComputerName,"SL5")){
+; doUseNewMethodStartOfImplementing22march2019
+    onChange := g_config.debug.actionList.onChange
+    if(0 && onChange.infoBox && g_config.debug.INSERT_function_call_time2db){
+        msgbox,test 19-04-10_19-57
+    }
+
+
+
+if((g_config.debug.DB.table.performance.INSERT_function_call_time2db
+    || doUseNewMethodStartOfImplementing22march2019)
+        && InStr(A_ComputerName,"SL5")){
     ; nix
     ; msgbox,doUseNewMethodStartOfImplementing22march2019 19-03-24_04-43
 }else
@@ -424,7 +518,8 @@ sizeHere := (actionListsize)? actionListsize: 0
 
             if( instr(sqlLastError, "no such table") ){
     			Create_PerformanceMeasurementOf_Functions_Table()
-    			MsgBox,% ErrMsg " (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+                  toolTip2sec( ErrMsg  " :( `n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")" )
+    			; MsgBox,% ErrMsg " (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
                return
             }
 

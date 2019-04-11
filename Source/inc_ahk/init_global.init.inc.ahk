@@ -12,6 +12,10 @@ Menu, Tray, Tip , % Chr(8203) ; i dont want text there. The tray icon's tooltip 
 ;/¯¯¯¯ g_ignReg ¯¯ 181124115548 ¯¯ 24.11.2018 11:55:48 ¯¯\
 ;/¯¯¯¯ g_ignReg ¯¯ 181124115548 ¯¯ 24.11.2018 11:55:48 ¯¯\
 ;/¯¯¯¯ g_ignReg ¯¯ 181124115548 ¯¯ 24.11.2018 11:55:48 ¯¯\
+global g_ignReg
+/*
+depracated. its all in  config file
+
 if(InStr(A_ComputerName,"xxxxxxxxx SL5")) ; do ignore nothing. development computer
 global g_ignReg := { feedbackMsgBox:{tit:".^", text:".^"} ,          saveLogFiles: {ln:".^", scriptName:"\b(Window|ListBox)\.ahk", text:"(WordIndex|CloseListBox|HotKeys|g_ListBox_Id)\b"},                    sqlQuery: {ln:".^", scriptName:".^", text:".^"},                    hotKeyStuff: {ln:".^", scriptName:".^", text:".^"},                    runLogFile: {ln:".^", scriptName:".^", text:".^"} } ;;;; regEx ignoreConfigList ;;;;
 ; please use it like this:     if( 1<RegExMatch(0 . A_ScriptName, g_ignReg["saveLogFiles"]["scriptName"])	|| ......
@@ -35,7 +39,7 @@ lll( A_ThisFunc ":" A_LineNumber , A_LineFile ,"hey from ini ")
 
 g_ignReg["saveLogFiles"]["scriptName"] := "\b(gi\-|Typing|ListBox)" ;
 
-
+*/
 
 ;\____ g_ignReg __ 181124115556 __ 24.11.2018 11:55:56 __/
 ;\____ g_ignReg __ 181124115556 __ 24.11.2018 11:55:56 __/

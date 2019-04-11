@@ -282,10 +282,10 @@ filterFileName := "al-route.inc.ahk"
 return
 
 
-#include create_al_Address.inc.ahk
+#include *i create_al_Address.inc.ahk
+#Include *i %A_ScriptDir%\inc_ahk\create_al_Address.inc.ahk
 #include stopIfWinTitleExist_giListSELECT.inc.ahk
 #Include ..\actionLists\activeClassManipulation.inc.ahk
-#Include %A_ScriptDir%\inc_ahk\create_al_Address.inc.ahk
 
 ;/¯¯¯¯ WinChanged ¯¯ 181022212344 ¯¯ 22.10.2018 21:23:44 ¯¯\
 ; Hook function to detect change of focus (and remove ListBox when changing active window)

@@ -1158,7 +1158,8 @@ LIMIT 9
                     if(!actionList){
                         tipLast := a_hour ":" a_min ":" a_sec str_repeat(".", 150)
                         toolTipGui("Oops!! !actionList => this should never happens." tip2 tipLast, x:=0, y:=0, "¯" ,A_LineNumber,"Black")
-                        pause
+                        sleep,6000
+                        return
                    }
 			}
 			;
@@ -1199,8 +1200,26 @@ LIMIT 9
 	setTrayIcon()
 }
 ;\____ RecomputeMatches __ 181025110000 __ 25.10.2018 11:00:00 __/
+;\____ RecomputeMatches __ 181025110000 __ 25.10.2018 11:00:00 __/
+;\____ RecomputeMatches __ 181025110000 __ 25.10.2018 11:00:00 __/
+;\____ RecomputeMatches __ 181025110000 __ 25.10.2018 11:00:00 __/
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ;
+
+
 
 ; SELECT word, worddescription, wordreplacement FROM Words WHERE wordindexed GLOB 'TOO*'  AND actionListID = '2' ORDER BY CASE WHEN count IS NULL then ROWID else 'z' end, CASE WHEN count IS NOT NULL then ( (count - 0) * ( 1 - ( '0.75' / (LENGTH(word) - 3)))) end DESC, Word LIMIT 10;
 
@@ -2424,7 +2443,94 @@ MaybeCoUninitialize(){
 ;\____ MaybeCoUninitialize __ 181024135059 __ 24.10.2018 13:50:59 __/
 
 
-; too too  t
+
+
+
+;/¯¯¯¯ debug ¯¯ 190410193233 ¯¯ 10.04.2019 19:32:33 ¯¯\
+; debug(g_config.debug, actionList)
+debug(debug, actionList){
+    if(!debug)
+        return
+    short_actionList := RegExReplace(actionList,".*\\")
+    onChange := debug.actionList.onChange
+    if(1 && onChange.infoBox){
+        toolTipGui(short_actionList "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")" ,,,"¯"
+            ,"onChange.tooltip"
+            ,debug.actionList.onChange.color)
+        ; SoundbeepString2Sound( A_LineFile, "DEBUG" ) ;   ;  (DEV, TEST, STAGING, PROD),
+    }
+
+    if(1 && onChange.feedbackMsgBox){
+        feedbackMsgBox(short_actionList " (" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")", short_actionList,,,25)
+        ; SoundbeepString2Sound( A_LineFile, "DEBUG" ) ;   ;  (DEV, TEST, STAGING, PROD),
+    }
+
+    if(1 && onChange.tooltip){
+        ToolTip9sec(short_actionList " (" RegExReplace(A_LineFile,".*\\") ":" A_LineNumber ")" )
+    }
+    SoundbeepString2Sound( A_LineFile, "DEBUG" ) ;   ;  (DEV, TEST, STAGING, PROD),
+
+	needle=DB Browser for SQLite ahk_class Qt5QWindowIcon
+	If(winexist(needle)) {
+		ToolTip1sec(A_LineNumber " " RegExReplace(A_LineFile,".*\\"))
+		WinClose,% needle
+	}else
+        openDB_Browser_for_SQLite(ByRef d:="",t:="performance",doClickIntoSearch:=true," ") ; ,search:="huhu|rr||hihi")
+
+ControlClick, x313 y128 ,% needle
+WinActivate,% needle
+IfWinActive,% needle
+	Send,SELECT DISTINCT p.A_ThisFunc,p.small_LineFile FROM performance p
+IfWinActive,% needle
+	Send,{f5}
+
+
+}
+;\____ debug __ 190410193240 __ 10.04.2019 19:32:40 __/
+
+
+
+
+
+;/¯¯¯¯ openDB_Browser_for_SQLite ¯¯ 190406221659 ¯¯ 06.04.2019 22:16:59 ¯¯\
+; openDB_Browser_for_SQLite()
+openDB_Browser_for_SQLite(ByRef d:="",t:="Words",doClickIntoSearch:=true,search:="someNew2secTooltip"){
+	ToolTip1sec(A_LineNumber " " RegExReplace(A_LineFile,".*\\"))
+	if(!d)
+		d := (InStr(A_ComputerName,"540P-SL5NET"))
+	? "G:\fre\private\sql\sqlite\actionList.db"
+	: A_ScriptDir "\actionListLearned.db"
+
+	settitlematchmode,1
+	needle=DB Browser for SQLite ; ahk_class Qt5QWindowIcon
+	ifwinnotexist, % needle
+	{
+            ; https://github.com/sqlitebrowser/sqlitebrowser/wiki/Command-Line-Interface
+		para := " -t " t " " d " --t " t
+		commandline = "C:\Program Files\DB Browser for SQLite\DB Browser for SQLite.exe" %para%
+		;clipboard := commandline
+		clipboard := search
+		run,% commandline ,"C:\Program Files\DB Browser for SQLite\"
+		ToolTip2sec(commandline "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")",100,100 )
+		winwait, % needle,,9
+		WinActivate, % needle
+		WinWaitActive, % needle,,9
+		firstLetterOfTable := substr(t,1,1)
+		;msgbox,% firstLetterOfTable
+		sleep,250
+		send,!t ; w like words ; send,{tab 4}w ; w like words
+		sleep,100
+		send,% firstLetterOfTable ; w like words ; send,{tab 4}w ; w like words
+		CoordMode , Mouse, Relative
+		MouseClick,left,331,230,1,1
+		CoordMode , Mouse , Screen
+		Send,^v
+	}
+	RETURN
+}
+;\____ openDB_Browser_for_SQLite __ 190406221702 __ 06.04.2019 22:17:02 __/
+
+
 
 ;/¯¯¯¯ getMinLength_Needetthat_ListBecomesVisible( ¯¯ 181028024531 ¯¯ 28.10.2018 02:45:31 ¯¯\
 getMinLength_Needetthat_ListBecomesVisible(ParseWordsCount, maxLinesOfCode4length1) {

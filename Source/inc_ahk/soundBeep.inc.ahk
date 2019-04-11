@@ -57,10 +57,13 @@ Speak2(text, mode := "DEV" ){
 
 
 ;/¯¯¯¯ SoundbeepString2Sound ¯¯ 181031173251 ¯¯ 31.10.2018 17:32:51 ¯¯\
+; SoundbeepString2Sound( s, "DEBUG" ) ;   ;  (DEV, TEST, STAGING, PROD),
+; SoundbeepString2Sound( s, "PROD" ) ;   ;  (DEV, TEST, STAGING, PROD),
 SoundbeepString2Sound( s, mode := "DEV" ){ ;   ;  (DEV, TEST, STAGING, PROD),
     global g_doSound
     if(!g_doSound && mode != "PROD")
-        return
+        if !(mode == "DEBUG" && InStr(A_ComputerName,"SL5"))
+           return
     minPitch := 500
     AHKcode := "#" . "NoTrayIcon `n "
     Loop, % StrLen(s)

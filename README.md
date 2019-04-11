@@ -1,5 +1,11 @@
 ﻿# global-IntelliSense-everywhere 
  
+# this is buggy
+# this is buggy
+# this is buggy
+# this is buggy
+# this is buggy
+ 
 English: Automates context-sensitive writing and action.
 Is an unobtrusive IntelliSense for all programs, all websites, all apps, all windows, just everything that runs in Windows.
 

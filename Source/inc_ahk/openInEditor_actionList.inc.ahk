@@ -51,7 +51,8 @@ openInEditor(actionListFolderOfThisActionList
     ;msgbox,% isAbsPath  "`n" m1 "`n(" A_ThisFunc " " RegExReplace(A_LineFile,".*\\") ":"  A_LineNumber ")"
 
 
-    m1CorrectedAhkFileAddress := actionListFolderOfThisActionList "\" m1
+    itsAbsolutePath := (RegExMatch(m1, "^\w+\:\\"))
+    m1CorrectedAhkFileAddress := (itsAbsolutePath) ? m1 : actionListFolderOfThisActionList "\" m1
     ;Msgbox,% m1CorrectedAhkFileAddress "=m1CorrectedAhkFileAddress `n (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
     m1ListFileName := RegExReplace(m1,"i)([\w\d_-\.]+\.ahk)\b\s*$","$1")
     ;Msgbox,% m1 "=m1 `n (" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
@@ -68,7 +69,8 @@ lll( A_ThisFunc ":" A_LineNumber , A_LineFile)
       if(!FileExist(m1CorrectedAhkFileAddress)){
 lll( A_ThisFunc ":" A_LineNumber , A_LineFile)
             msg := ":( action list is not exist. `n"
-            msg .= "al: " m1CorrectedAhkFileAddress "`n"
+            msg .= "al1: >>" m1CorrectedAhkFileAddress "<<`n`n"
+            msg .= "al2: >>" actionListFolderOfThisActionList "<<`n`n"
             msg .= A_WorkingDir " = A_WorkingDir `n"
             Msgbox,% msg "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
             return false
@@ -85,7 +87,7 @@ lll( A_ThisFunc ":" A_LineNumber , A_LineFile)
 	if( SubStr( m1CorrectedAhkFileAddress , -3 ) <> ".ahk" ) ; https://g-intellisense.myjetbrains.com/youtrack/issue/GIS-66
 		m1CorrectedAhkFileAddress .= ".ahk"
     else{
-        if(SubStr( m1CorrectedAhkFileAddress , -7 ) <> ".ahk.ahk") ; was happend 19-04-04_15-01
+        if(SubStr( m1CorrectedAhkFileAddress , -7 ) == ".ahk.ahk")  ; was happend 19-04-04_15-01
            Msgbox,plausibilty damage `n %m1CorrectedAhkFileAddress% `n `n (%A_LineFile%~%A_LineNumber%)
     }
 
@@ -133,13 +135,13 @@ openInEditorFromIntern(m1CorrectedAhkFileAddress){
         itsAbsolutePath := true
 
     if(!itsAbsolutePath){
-    if(g_config.ScriptDir)
-        m1CorrectedAhkFileAddress := g_config.ScriptDir "\" m1CorrectedAhkFileAddress
-    else{
-        ; is needet by very new list. becouse is includet from elsware. from actionNameFilter 19-01-14_01-52
-        RegRead, aScriptDir, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, aScriptDir
-        m1CorrectedAhkFileAddress := aScriptDir "\" m1CorrectedAhkFileAddress
-    }
+        if(g_config.ScriptDir)
+            m1CorrectedAhkFileAddress := g_config.ScriptDir "\" m1CorrectedAhkFileAddress
+        else{
+            ; is needet by very new list. becouse is includet from elsware. from actionNameFilter 19-01-14_01-52
+            RegRead, aScriptDir, HKEY_CURRENT_USER, SOFTWARE\sl5net\gi, aScriptDir
+            m1CorrectedAhkFileAddress := aScriptDir "\" m1CorrectedAhkFileAddress
+        }
     }
 
 
