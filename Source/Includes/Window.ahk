@@ -322,6 +322,11 @@ global g_activeClassOLD
     }
 
 
+; debug(g_config.debug.window.onChange, actionList)
+debug(g_config,["debug","window","onChange"], actionList)
+
+
+
 INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\") , A_ThisFunc , A_LineNumber)
 
 

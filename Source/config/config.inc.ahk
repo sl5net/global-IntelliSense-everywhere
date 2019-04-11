@@ -37,6 +37,15 @@ g_config.actionList := {
 ;/¯¯¯¯ debug ¯¯ 190410200413 ¯¯ 10.04.2019 20:04:13 ¯¯\
 doUseNewMethodStartOfImplementing22march2019 := false
 g_config.debug := {
+	active: true,
+	window: {
+		onChange: {
+			tooltip: true,
+			feedbackMsgBox: false,
+			infoBox: true,
+			color: "Teal"
+		}
+	},
 	actionList: {
 		onChange: {
 			tooltip: true,

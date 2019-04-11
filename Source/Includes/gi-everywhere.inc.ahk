@@ -2448,41 +2448,73 @@ MaybeCoUninitialize(){
 
 ;/¯¯¯¯ debug ¯¯ 190410193233 ¯¯ 10.04.2019 19:32:33 ¯¯\
 ; debug(g_config.debug, actionList)
-debug(debug, actionList){
-    if(!debug)
+; onChange := g_config.debug.actionList.onChange
+debug(g_config,arr, actionList){
+    if(!g_config || !arr)
         return
-    short_actionList := RegExReplace(actionList,".*\\")
-    onChange := debug.actionList.onChange
+
+    onChange := g_config[arr[1]][arr[2]][arr[3]]
+
+    ; msgbox,% g_config[arr[1]][arr[2]][arr[3]].color
+    ; msgbox,% onChange.color
+    ;msgbox,% "0=" arr[1] " " arr[2] "?=DB " arr[3]
+    ;reload
+
+
+    if(arr[2] == "window"){
+       ; global activeTitle
+        infoStr := activeTitle " (activeTitle)"
+    }else{
+        short_actionList := RegExReplace(actionList,".*\\")
+        infoStr := short_actionList " (al)"
+    }
+
+    tipLast := a_hour ":" a_min ":" a_sec str_repeat(".", 150)
+    infoStr .= "`n" tipLast
+
     if(1 && onChange.infoBox){
-        toolTipGui(short_actionList "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")" ,,,"¯"
-            ,"onChange.tooltip"
-            ,debug.actionList.onChange.color)
+            xOffset := 0, yOffset := 0, crosshair:= "¯"
+
+        if(arr[2] == "window"){
+            xOffset := -200
+            yOffset := 22
+            crosshair:= "/¯"
+        }
+        toolTipGui(infoStr "(" A_ThisFunc ":" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")"
+            ,xOffset
+            ,yOffset
+            ,crosshair
+            ,"debug" arr[2]
+            ,onChange.color)
         ; SoundbeepString2Sound( A_LineFile, "DEBUG" ) ;   ;  (DEV, TEST, STAGING, PROD),
     }
 
     if(1 && onChange.feedbackMsgBox){
-        feedbackMsgBox(short_actionList " (" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")", short_actionList,,,25)
+        feedbackMsgBox(infoStr " (" A_LineNumber " " RegExReplace(A_LineFile, ".*\\") ")", infoStr,,,25)
         ; SoundbeepString2Sound( A_LineFile, "DEBUG" ) ;   ;  (DEV, TEST, STAGING, PROD),
     }
 
     if(1 && onChange.tooltip){
-        ToolTip9sec(short_actionList " (" RegExReplace(A_LineFile,".*\\") ":" A_LineNumber ")" )
+        ToolTip9sec(infoStr " (" RegExReplace(A_LineFile,".*\\") ":" A_LineNumber ")" )
     }
     SoundbeepString2Sound( A_LineFile, "DEBUG" ) ;   ;  (DEV, TEST, STAGING, PROD),
 
-	needle=DB Browser for SQLite ahk_class Qt5QWindowIcon
-	If(winexist(needle)) {
-		ToolTip1sec(A_LineNumber " " RegExReplace(A_LineFile,".*\\"))
-		WinClose,% needle
-	}else
-        openDB_Browser_for_SQLite(ByRef d:="",t:="performance",doClickIntoSearch:=true," ") ; ,search:="huhu|rr||hihi")
 
-ControlClick, x313 y128 ,% needle
-WinActivate,% needle
-IfWinActive,% needle
-	Send,SELECT DISTINCT p.A_ThisFunc,p.small_LineFile FROM performance p
-IfWinActive,% needle
-	Send,{f5}
+    if(arr[2] == "DB" && arr[3] <> "table"){
+        needle=DB Browser for SQLite ahk_class Qt5QWindowIcon
+        If(winexist(needle)) {
+            ToolTip1sec(A_LineNumber " " RegExReplace(A_LineFile,".*\\"))
+            WinClose,% needle
+        }else
+            openDB_Browser_for_SQLite(ByRef d:="",t:="performance",doClickIntoSearch:=true," ") ; ,search:="huhu|rr||hihi")
+
+        ControlClick, x313 y128 ,% needle
+        WinActivate,% needle
+        IfWinActive,% needle
+            Send,SELECT DISTINCT p.A_ThisFunc,p.small_LineFile FROM performance p
+        IfWinActive,% needle
+            Send,{f5}
+    }
 
 
 }

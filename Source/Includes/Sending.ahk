@@ -1569,9 +1569,58 @@ INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\")
 					ClipboardBackup := Clipboard
 					SendLevel 9 ; with this additions lines it works also in globalIntelisense nearliy 99% of time 18-04-01_12-24
 					Clipboard := ""
-					Clipboard := sending ; " ln=" A_LineNumber "`n`n"
+					sec := a_sec
+                    ; token := "#token" ((sec<10) ? "0" sec : sec) "#"
+                    token := "#token" "" sec "#"
+					Clipboard := sending token ; " ln=" A_LineNumber "`n`n"
 				    ; AHKcode := ";19-02-12_20-00;;;Critical, On`n"
-					AHKcode := "Send,^v"
+				    sleep,1 ; works NOT. is using old clipboard !! 19-04-11_11-27
+				    ; sleep,10 ; works 19-04-11_11-26
+				    ; sleep,1000 ; works 19-04-11_11-26
+
+                    if(0){
+                        c := Clipboard
+    					msgbox,% substr(c,-8)
+    					msgbox,% substr(c,1,-9)
+    					reload
+					}
+
+					AHKcode =
+                 (
+                    c := Clipboard
+                    tokenExpected := "%token%"
+                    token := substr(c,-8)
+                    if(tokenExpected <> token){
+                        ; tokenExpectedNext := "#token" ((%sec%<10) ? "0" %sec%+1 : %sec%) "#"
+                        tokenExpectedNext := "#token" ((%sec%<10) ? "0" (%sec%+1) : %sec%) "#"
+                        msgbox,`% tokenExpectedNext " tokenExpectedNext"
+					    while(A_Index<200){
+                            c := Clipboard
+                            token := substr(c,-8)
+
+                            if(tokenExpected == "%token%"
+                             || tokenExpectedNext == "%token%"){
+                                isFound := true
+                                break
+                            }
+                            sleep,`% A_Index
+					    }
+					    if(!isFound){
+                           soundBeep,3000,1000
+					        msgbox,error 19-04-11_11-48
+					        exitApp
+					    }
+                    }
+                    cStrlen := c
+                    while(A_Index < 150){
+                        Clipboard := substr(c,1,-9)
+                        sleep,`% A_Index
+                        if(strlen(Clipboard)<>cStrlen)
+                            break
+                    }
+
+					 Send,^v
+                 )
 
         
                     if(0 && InStr(A_ComputerName,"SL5") )

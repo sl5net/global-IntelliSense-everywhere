@@ -153,12 +153,7 @@ g_config := {}
 
 
 
-
-
-
-
-
-if(g_config.infoBox[1]["showName"]){
+if(g_config.debug.active || g_config.infoBox[1]["showName"]){
     ; use a virtal line and then all your toolTipGui are moveble by mousedrag and drop
     toolTipGui("^_^", x:=0, y:=10, "v)_" ,A_LineNumber,"Purple")
 }
@@ -366,7 +361,8 @@ if(1 && InStr(A_ComputerName,"SL5"))
 
 
 
-
+debug(g_config,["debug","actionList","onChange"], actionList)
+; msgbox,% g_config["debug"]["window"]["onChange"].color
 
 
 
@@ -950,7 +946,7 @@ SoundbeepString2Sound( "test" A_LineFile, "DEBUG" ) ;   ;  (DEV, TEST, STAGING, 
 
 
 
-debug(g_config.debug, actionList)
+debug(g_config,["debug","actionList","onChange"], actionList)
 
 if(g_config.debug.DB.table.performance.onLoad == "empty")
     Rebuild_performance_table()

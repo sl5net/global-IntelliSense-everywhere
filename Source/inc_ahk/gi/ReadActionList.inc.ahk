@@ -4,7 +4,9 @@ reloadActionList:
 ; SoundbeepString2Sound(A_ThisFunc)
 
 
-debug(g_config.debug, actionList)
+; debug(g_config.debug.actionList.onChange, actionList)
+debug(g_config,["debug","actionList","onChange"], actionList)
+
 
 
 Critical, On
