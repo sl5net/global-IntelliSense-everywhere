@@ -1594,7 +1594,7 @@ INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\")
                         ; tokenExpectedNext := "#token" ((%sec%<10) ? "0" %sec%+1 : %sec%) "#"
                         tokenExpectedNext := "#token" ((%sec%<10) ? "0" (%sec%+1) : %sec%) "#"
                         msgbox,`% tokenExpectedNext " tokenExpectedNext"
-					    while(A_Index<200){
+					    while(A_Index < 21){
                             c := Clipboard
                             token := substr(c,-8)
 
@@ -1612,13 +1612,12 @@ INSERT_function_call_time_millis_since_midnight( RegExReplace(A_LineFile,".*\\")
 					    }
                     }
                     cStrlen := c
-                    while(A_Index < 150){
+                    while(A_Index < 22){
                         Clipboard := substr(c,1,-9)
                         sleep,`% A_Index
                         if(strlen(Clipboard)<>cStrlen)
                             break
                     }
-
 					 Send,^v
                  )
 

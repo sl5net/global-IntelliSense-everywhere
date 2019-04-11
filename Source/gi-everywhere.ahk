@@ -1024,6 +1024,7 @@ If (A_TimeSincePriorHotkey < 500 && A_TimeSincePriorHotkey > 80 ){ ; 50 was to s
     ; g_fontColor := (g_isListBoxDisabled) ? "cRed" : "cGreen"
     if(1 && !g_isListBoxDisabled){ ; doent need this anymore
         ; MsgBox , Options, Title, Text, Timeout / countdown
+
         MsgBox, 4,doubleCtrl detected: Hide ListBox ? (%A_TimeSincePriorHotkey%ms = TimeSincePriorHotkey),  `nYES? or ESC/NO?   (timeout 2sec), 2
 		IfMsgBox yes
 		{
@@ -1190,9 +1191,17 @@ s =
 %s%
 `)
 if(true){
+    WinGetActiveTitle, at
     inputBox, s, add to actionLists?, add to ``n%sActionListFileName%  ? ``n``n timeoutSec = %timeoutSec% , , 350, 180,,,,%timeoutSec%,`% s
      if ErrorLevel
+     {
+        while(A_Index < 10 && !winactive(at)){
+            tooltip, while(!winactive(`%at`%))
+            sleep,`% A_Index
+            WinActivate,`% at
+        }
         return
+    }
     s =
 (
 
