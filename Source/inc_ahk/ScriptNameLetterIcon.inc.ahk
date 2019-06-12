@@ -88,7 +88,9 @@ realAScriptName = %A_ScriptName%
 ifExist,%iconAdress%
 	Menu, Tray, Icon, %iconAdress%
 else
+else{
   ToolTip,http://www.branchenbuch-weltweit.dk/img/abc/a.png
+}
 Menu, Tray, Tip , `% Chr(8203) ; i dont want text there. The tray icon's tooltip is displayed when the mouse hovers over it.
 Menu, Tray, add
 Menu, Tray, add, Reload Script (parent), lbl_reload
