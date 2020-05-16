@@ -1,6 +1,13 @@
 ﻿# global-IntelliSense-everywhere 
  
 # this is buggy
+
+Maybe use:
+
+alpha of version gi-1.0.012 of global-IntelliSense-everywhere. Because bugfixing of other versions takes to long at the moment (sorry)
+https://github.com/sl5net/global-IntelliSense-everywhere-1.0.012/
+uploadet time: 20201516 , 16.05.2020
+
 # this is buggy
 # this is buggy
 # this is buggy
