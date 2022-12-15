@@ -9,7 +9,7 @@ fileExtension=php,ahk,js,csv,htm,html,txt,mdb,bas
 ; optonallli you could use a second parameter:
 ; example:
 ; RunWait, SaveLast5_to_BackupSL5.ahk "%A_ScriptFullPath%" "c:/backup", %A_ScriptDir%
-; Run, SaveLast5_to_BackupSL5.ahk "%A_ScriptFullPath%" "c:/backup", %A_ScriptDir%
+; Run, SaveLast5_to_BackupSL5.ahk "c:a_file.txt" "c:/backup", %A_ScriptDir%
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 ; Msgbox,%A_ScriptFullPath% = `n%A_ScriptFullPath%  `n fullfile=%fullfile% `n `n (from: %A_LineFile%~%A_LineNumber%) 
